@@ -1,0 +1,20 @@
+{
+    "dependencies": [
+        {
+            "folder": "../visitor.git/Business Solutions/visitor",
+            "elo": "/Business Solutions/visitor"
+        },
+        {
+            "folder": "../visitor.git/Business Solutions/visitor [demo de]",
+            "elo": "/Business Solutions/visitor [demo de]"
+        },
+        {
+            "folder": "../visitor.git/Business Solutions Custom/visitor [de]",
+            "elo": "/Business Solutions Custom/visitor"
+        },
+        {
+            "folder": "../visitor.git/Business Solutions/Unit Tests",
+            "elo": "/Business Solutions/visitor [unit tests]"
+        }
+    ]
+}

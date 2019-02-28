@@ -1,0 +1,13 @@
+{
+  "commonServiceConfig": {
+    "templates": [
+      { "desc": "{{translate 'sol.common.form.unittest.field1'}}", "value": "{{UNITTEST.objKeys.UNITTEST_FIELD1}}" },
+      { "desc": "{{translate 'sol.common.form.unittest.field2'}}", "value": "{{UNITTEST.objKeys.UNITTEST_FIELD2}}" }
+    ],
+    "render": {
+      "searchAdditionalData": [
+        { "targetProp": "UNITTEST", "doubleAsSord": true, "criteria": [{ "key": "UNITTEST_FIELD1", "value": "Unittest" }] }
+      ]
+    }
+  }
+}

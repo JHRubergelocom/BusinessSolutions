@@ -1,0 +1,34 @@
+{
+  "ribbon": {
+    "extraTabNo": 91,
+    "bandBaseNo": 10
+  },
+
+  "packageTemplateFolderId": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/development/Configuration/Solution generator/Package",
+  "solutionFolderPath": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions",
+  "customSolutionFolderPath": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions Custom",
+
+  "workflows": {
+    "createPackage": {
+      "workflowTemplateName": "sol.dev.generator.CreatePackage",
+      "workflowNameTemplate": "{{wfPrefix}}: {{packageType}}",
+      "workflowPrefixKey": "sol.dev.action.createPackage.wfPrefix"
+    },
+    "Deploy": {
+      "workflowTemplateName": "sol.dev.deploy",
+      "workflowNameTemplate": "{{wfPrefix}}: {{mode}}",
+      "workflowPrefixKey": "sol.dev.action.deploy.wfPrefix"
+    },
+    "Undeploy": {
+      "workflowTemplateName": "sol.dev.undeploy",
+      "workflowNameTemplate": "{{wfPrefix}}: {{mode}}",
+      "workflowPrefixKey": "sol.dev.action.undeploy.wfPrefix"
+    }
+  },
+
+  "officeDocuments" : ["docx", "xlsx", "doc", "xls", "fo", "png"],
+
+  "installPackages": {
+    "packagesFolderPath" : "c:\\eloinst"
+  }
+}

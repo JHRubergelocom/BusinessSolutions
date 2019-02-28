@@ -1,0 +1,8 @@
+{
+  "setupName": "{{sord.mapKeys.FULLNAMESPACE}}",
+  "fileNamePrefix": "",
+  "workflowTemplates": [
+  ],
+  "sordTypes": [
+  ]
+}

@@ -1,0 +1,244 @@
+{
+    "dependencies": [
+        {
+            "folder": "./Business Solutions/common",
+            "elo": "/Business Solutions/common"
+        },
+        {
+            "folder": "./Business Solutions/common_document",
+            "elo": "/Business Solutions/common_document"
+        },
+        {
+            "folder": "./Business Solutions/common_fx",
+            "elo": "/Business Solutions/common_fx"
+        },
+        {
+            "folder": "./Business Solutions/common_monitoring",
+            "elo": "/Business Solutions/common_monitoring"
+        },
+        {
+            "folder": "./Business Solutions/common_signature",
+            "elo": "/Business Solutions/common_signature"
+        },
+        {
+            "folder": "./Business Solutions/connector_xml",
+            "elo": "/Business Solutions/connector_xml"
+        },
+        {
+            "folder": "./Business Solutions/dev_internal",
+            "elo": "/Business Solutions/dev_internal"
+        },
+        {
+            "folder": "./Business Solutions/development",
+            "elo": "/Business Solutions/development"
+        },
+        {
+            "folder": "./Business Solutions/Unit Tests",
+            "elo": "/Business Solutions/common [unit tests]"
+        },
+        {
+            "folder": "./Business Solutions Custom/common",
+            "elo": "/Business Solutions Custom/common"
+        },
+        {
+            "folder": "./Business Solutions Custom/common_signature",
+            "elo": "/Business Solutions Custom/common_signature"
+        },
+        {
+            "folder": "./Business Solutions Custom/dev_internal",
+            "elo": "/Business Solutions Custom/dev_internal"
+        },
+        {
+            "folder": "../demo.git/Business Solutions/common",
+            "elo": "/Business Solutions/demo"
+        },
+        {
+            "folder": "../productivity.git/Business Solutions/account",
+            "elo": "/Business Solutions/account"
+        },
+        {
+            "folder": "../productivity.git/Business Solutions Custom/account",
+            "elo": "/Business Solutions Custom/account"
+        },
+        {
+            "folder": "../productivity.git/Business Solutions/checklist",
+            "elo": "/Business Solutions/checklist"
+        },
+        {
+            "folder": "../productivity.git/Business Solutions Custom/checklist",
+            "elo": "/Business Solutions Custom/checklist"
+        },
+        {
+            "folder": "../productivity.git/Business Solutions/contact",
+            "elo": "/Business Solutions/contact"
+        },
+        {
+            "folder": "../productivity.git/Business Solutions Custom/contact",
+            "elo": "/Business Solutions Custom/contact"
+        },
+        {
+            "folder": "../productivity.git/Business Solutions/launchpad",
+            "elo": "/Business Solutions/launchpad"
+        },
+        {
+            "folder": "../productivity.git/Business Solutions Custom/launchpad",
+            "elo": "/Business Solutions Custom/launchpad"
+        },
+        {
+            "folder": "../productivity.git/Business Solutions/notify",
+            "elo": "/Business Solutions/notify"
+        },
+        {
+            "folder": "../productivity.git/Business Solutions Custom/notify",
+            "elo": "/Business Solutions Custom/notify"
+        },
+        {
+            "folder": "../productivity.git/Business Solutions/Unit Tests",
+            "elo": "/Business Solutions/common [unit tests]"
+        },
+        {
+            "folder": "../contract.git/Business Solutions/contract",
+            "elo": "/Business Solutions/contract"
+        },
+        {
+            "folder": "../contract.git/Business Solutions Custom/contract [de]",
+            "elo": "/Business Solutions Custom/contract"
+        },
+        {
+            "folder": "../contract.git/Business Solutions/Unit Tests",
+            "elo": "/Business Solutions/contract [unit tests]"
+        },
+        {
+            "folder": "../demo.git/Business Solutions/contract_de",
+            "elo": "/Business Solutions/contract [demo de]"
+        },        
+        {
+            "folder": "../hr.git/Business Solutions/hr",
+            "elo": "/Business Solutions/hr"
+        },
+        {
+            "folder": "../hr.git/Business Solutions Custom/hr [de]",
+            "elo": "/Business Solutions Custom/hr"
+        },
+        {
+            "folder": "../hr.git/Business Solutions/hr_orgchart",
+            "elo": "/Business Solutions/hr_orgchart"
+        },
+        {
+            "folder": "../hr.git/Business Solutions Custom/hr_orgchart [de]",
+            "elo": "/Business Solutions Custom/hr_orgchart"
+        },
+        {
+            "folder": "../demo.git/Business Solutions/hr_de",
+            "elo": "/Business Solutions/hr [demo de]"
+        },
+        {
+            "folder": "../hr.git/Business Solutions/Unit Tests",
+            "elo": "/Business Solutions/hr [unit tests]"
+        },
+        {
+            "folder": "../hr_recruiting.git/Business Solutions/recruiting",
+            "elo": "/Business Solutions/recruiting"
+        },
+        {
+            "folder": "../hr_recruiting.git/Business Solutions Custom/recruiting [de]",
+            "elo": "/Business Solutions Custom/recruiting"
+        },
+        {
+            "folder": "../hr_recruiting.git/Business Solutions/recruiting_jobportal",
+            "elo": "/Business Solutions/recruiting_jobportal"
+        },
+        {
+            "folder": "../demo.git/Business Solutions/recruiting_de",
+            "elo": "/Business Solutions/recruiting [demo de]"
+        },
+        {
+            "folder": "../hr_recruiting.git/Business Solutions Custom/recruiting_jobportal [de]",
+            "elo": "/Business Solutions Custom/recruiting_jobportal"
+        },
+        {
+            "folder": "../hr_recruiting.git/Business Solutions/Unit Tests",
+            "elo": "/Business Solutions/recruiting [unit tests]"
+        },
+        {
+            "folder": "../invoice.git/Business Solutions/invoice",
+            "elo": "/Business Solutions/invoice"
+        },
+        {
+            "folder": "../invoice.git/Business Solutions Custom/invoice",
+            "elo": "/Business Solutions Custom/invoice"
+        },
+        {
+            "folder": "../invoice.git/Business Solutions/invoice_zugferd",
+            "elo": "/Business Solutions/invoice_zugferd"
+        },
+        {
+            "folder": "../invoice.git/Business Solutions Custom/invoice_zugferd",
+            "elo": "/Business Solutions Custom/invoice_zugferd"
+        },
+        {
+            "folder": "../invoice.git/Business Solutions/invoice_datev",
+            "elo": "/Business Solutions/invoice_datev"
+        },
+        {
+            "folder": "../invoice.git/Business Solutions/Unit Tests",
+            "elo": "/Business Solutions/invoice [unit tests]"
+        },
+        {
+            "folder": "../demo.git/Business Solutions/invoice_de",
+            "elo": "/Business Solutions/invoice [demo de]"
+        },
+        {
+            "folder": "../knowledge.git/Business Solutions/knowledge",
+            "elo": "/Business Solutions/knowledge"
+        },
+        {
+            "folder": "../demo.git/Business Solutions/knowledge_de",
+            "elo": "/Business Solutions/knowledge [demo de]"
+        },
+        {
+            "folder": "../knowledge.git/Business Solutions Custom/knowledge",
+            "elo": "/Business Solutions Custom/knowledge"
+        },
+        {
+            "folder": "../knowledge.git/Business Solutions/Unit Tests",
+            "elo": "/Business Solutions/knowledge [unit tests]"
+        },
+        {
+            "folder": "../pubsec.git/Business Solutions/pubsec",
+            "elo": "/Business Solutions/pubsec"
+        },
+        {
+            "folder": "../pubsec.git/Business Solutions Custom/pubsec [de bmi]",
+            "elo": "/Business Solutions Custom/pubsec"
+        },
+        {
+            "folder": "../pubsec.git/Business Solutions/pubsec_process",
+            "elo": "/Business Solutions/pubsec_process"
+        },
+        {
+            "folder": "../pubsec.git/Business Solutions Custom/pubsec_process [de bmi]",
+            "elo": "/Business Solutions Custom/pubsec_process"
+        },
+        {
+            "folder": "../pubsec.git/Business Solutions/Unit Tests",
+            "elo": "/Business Solutions/pubsec [unit tests]"
+        },
+        {
+            "folder": "../visitor.git/Business Solutions/visitor",
+            "elo": "/Business Solutions/visitor"
+        },
+        {
+            "folder": "../demo.git/Business Solutions/visitor_de",
+            "elo": "/Business Solutions/visitor [demo de]"
+        },
+        {
+            "folder": "../visitor.git/Business Solutions Custom/visitor [de]",
+            "elo": "/Business Solutions Custom/visitor"
+        },
+        {
+            "folder": "../visitor.git/Business Solutions/Unit Tests",
+            "elo": "/Business Solutions/visitor [unit tests]"
+        }
+    ]
+}

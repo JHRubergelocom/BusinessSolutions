@@ -1,0 +1,30 @@
+{
+  "setupName": "learning [unit tests]",
+  "packageName": "learning [unit tests]",
+  "deleteSords": [
+    "{{packageFolderPath}}/Configuration/as.config"
+  ],
+  "previewForms": [],
+  "refChildren": [
+    {
+      "source": "{{packageFolderPath}}/ELOapps/ClientInfos",
+      "destinations": [
+        "{{appsBaseFolderPath}}/ClientInfos"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/Unit Tests",
+      "destinations": [
+        "{{bsFolderPath}}/_global/Unit Tests"
+      ]
+    }
+  ],
+  "ref": [],
+  "users": [
+    {
+      "id": "9522",
+      "name": "Unittest",
+      "type": "User"
+    }
+  ]
+}

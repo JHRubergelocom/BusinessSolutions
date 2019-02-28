@@ -1,0 +1,15 @@
+{
+  "jobs": 
+  [
+      {
+          "folder": "Business Solutions",
+          "type": "COPY",
+          "mode": "CHILDREN"
+      },
+      {
+          "folder": "Business Solutions Custom",
+          "type": "COPY",
+          "mode": "CHILDREN"
+      }
+  ]
+}

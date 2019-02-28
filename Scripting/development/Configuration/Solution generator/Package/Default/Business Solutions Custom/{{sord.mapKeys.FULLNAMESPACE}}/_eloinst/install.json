@@ -1,0 +1,132 @@
+{
+  "setupName": "{{sord.mapKeys.FULLNAMESPACE}}",
+  "packageName": "{{sord.mapKeys.FULLNAMESPACE}}",
+  "packageBaseFolderPath": "{{text '{{'}}administrationFolderPath{{text '}}'}}/Business Solutions Custom",
+  "deleteSords": [
+    "{{text '{{'}}packageFolderPath{{text '}}'}}/Configuration/as.config"
+  ],
+  "previewForms": [
+  ],
+  "refChildren": [
+    {
+      "source": "{{text '{{'}}packageFolderPath{{text '}}'}}/All Rhino",
+      "destinations": [
+        "{{text '{{'}}ixScriptingBaseFolderPath{{text '}}'}}/_ALL/business_solutions",
+        "{{text '{{'}}jcScriptingBaseFolderPath{{text '}}'}}/business_solutions",
+        "{{text '{{'}}asBaseFolderPath{{text '}}'}}/OptionalJsLibs"
+      ]
+    },
+    {
+      "source": "{{text '{{'}}packageFolderPath{{text '}}'}}/Java Client Scripting Base",
+      "destinations": [
+        "{{text '{{'}}jcScriptingBaseFolderPath{{text '}}'}}/business_solutions"
+      ]
+    },
+    {
+      "source": "{{text '{{'}}packageFolderPath{{text '}}'}}/ELOwf Base/Forms",
+      "destinations": [
+        "{{text '{{'}}wfBaseFolderPath{{text '}}'}}/Forms"
+      ],
+      "refFolders": true
+    },
+    {
+      "source": "{{text '{{'}}packageFolderPath{{text '}}'}}/ELOwf Base/Feed/Script Locales",
+      "destinations": [
+        "{{text '{{'}}wfBaseFolderPath{{text '}}'}}/Feed/Script Locales"
+      ]
+    },
+    {
+      "source": "{{text '{{'}}packageFolderPath{{text '}}'}}/ELOwf Base/Webapp",
+      "destinations": [
+        "{{text '{{'}}wfBaseFolderPath{{text '}}'}}/Webapp"
+      ]
+    },
+    {
+      "source": "{{text '{{'}}packageFolderPath{{text '}}'}}/IndexServer Scripting Base",
+      "destinations": [
+        "{{text '{{'}}ixScriptingBaseFolderPath{{text '}}'}}/_ALL/business_solutions"
+      ],
+      "ignoreSubfolders": true
+    },
+    {
+      "source": "{{text '{{'}}packageFolderPath{{text '}}'}}/Localization",
+      "destinations": [
+        "{{text '{{'}}localizationBaseFolderPath{{text '}}'}}/system",
+        "{{text '{{'}}jcScriptingBaseFolderPath{{text '}}'}}/business_solutions"
+      ]
+    },
+    {
+      "source": "{{text '{{'}}packageFolderPath{{text '}}'}}/ELOapps/ClientInfos",
+      "destinations": [
+        "{{text '{{'}}appsBaseFolderPath{{text '}}'}}/ClientInfos"
+      ]
+    },
+    {
+      "source": "{{text '{{'}}packageFolderPath{{text '}}'}}/ELOapps/Icons",
+      "destinations": [
+        "{{text '{{'}}appsBaseFolderPath{{text '}}'}}/Icons"
+      ]
+    },
+    {
+      "source": "{{text '{{'}}packageFolderPath{{text '}}'}}/ELOapps/Apps",
+      "destinations": [
+        "{{text '{{'}}appsBaseFolderPath{{text '}}'}}/Apps"
+      ],
+      "refFolders": true
+    },
+    {
+      "source": "{{text '{{'}}packageFolderPath{{text '}}'}}/ELOapps/Modules",
+      "destinations": [
+        "{{text '{{'}}appsBaseFolderPath{{text '}}'}}/Modules"
+      ],
+      "refFolders": true
+    },
+    {
+      "source": "{{text '{{'}}packageFolderPath{{text '}}'}}/ELOapps/Configuration",
+      "destinations": [
+        "{{text '{{'}}appsBaseFolderPath{{text '}}'}}/Configuration"
+      ]
+    },
+    {
+      "source": "{{text '{{'}}packageFolderPath{{text '}}'}}/Action definitions",
+      "destinations": [
+        "{{text '{{'}}bsFolderPath{{text '}}'}}/_global/Action definitions"
+      ],
+      "refFolders": true
+    },
+    {
+      "source": "{{text '{{'}}packageFolderPath{{text '}}'}}/ELOas Base/Rules",
+      "destinations": [
+        "{{text '{{'}}asBaseFolderPath{{text '}}'}}/Rules"
+      ]
+    },
+    {
+      "source": "{{text '{{'}}packageFolderPath{{text '}}'}}/ELOas Base/Direct",
+      "destinations": [
+        "{{text '{{'}}asBaseFolderPath{{text '}}'}}/Direct"
+      ]
+    },
+    {
+      "source": "{{text '{{'}}packageFolderPath{{text '}}'}}/ELOas Base/OptionalJsLibs",
+      "destinations": [
+        "{{text '{{'}}asBaseFolderPath{{text '}}'}}/OptionalJsLibs"
+      ]
+    },
+    {
+      "source": "{{text '{{'}}packageFolderPath{{text '}}'}}/Webclient Scripting Base",
+      "destinations": [
+        "{{text '{{'}}webClientScriptingBaseFolderPath{{text '}}'}}"
+      ]
+    },
+    {
+      "source": "{{text '{{'}}packageFolderPath{{text '}}'}}/ELOwf Base/Forms Custom",
+      "destinations": [
+        "{{text '{{'}}wfBaseFolderPath{{text '}}'}}/Forms Custom"
+      ],
+      "ignoreSubfolders": false,
+      "refFolders": true
+    }
+  ],
+  "ref": [
+  ]
+}

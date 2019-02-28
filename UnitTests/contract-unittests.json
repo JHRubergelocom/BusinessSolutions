@@ -1,0 +1,16 @@
+{
+    "dependencies": [
+        {
+            "folder": "../contract.git/Business Solutions/contract",
+            "elo": "/Business Solutions/contract"
+        },
+        {
+            "folder": "../contract.git/Business Solutions Custom/contract [de]",
+            "elo": "/Business Solutions Custom/contract"
+        },
+        {
+            "folder": "../contract.git/Business Solutions/Unit Tests",
+            "elo": "/Business Solutions/contract [unit tests]"
+        }
+    ]
+}

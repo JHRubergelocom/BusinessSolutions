@@ -1,0 +1,44 @@
+{
+  "roles": [
+    {
+      "name": "UserRolesToMap",
+      "users": [
+        {
+          "user": "Administrator",
+          "conditions": [{ "type": "SORD", "key": "name", "rel": "GE", "val": "UserRolesToMap"}],
+          "mandatory": true
+        },
+        {
+          "user": "Administrator",
+          "conditions": [],
+          "mandatory": true
+        },
+        {
+          "user": "Administrator",
+          "conditions": [],
+          "mandatory": true
+        }
+      ]
+    },
+    {
+      "name": "ROLE2",
+      "users": [
+        {
+          "user": "Administrator",
+          "conditions": [{ "type": "SORD", "key": "name", "rel": "GE", "val": "Unit Test"}],
+          "mandatory": true
+        },
+        {
+          "user": "Administrator",
+          "conditions": [],
+          "mandatory": true
+        },
+        {
+          "user": "Administrator",
+          "conditions": [],
+          "mandatory": true
+        }
+      ]
+    }
+  ]
+}

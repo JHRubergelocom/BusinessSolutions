@@ -1,0 +1,25 @@
+{
+  "setupName": "recruiting [unit tests]",
+  "packageName": "recruiting [unit tests]",
+  "deleteSords": [
+    "{{packageFolderPath}}/Configuration/as.config"
+  ],
+  "previewForms": [],
+  "refChildren": [
+    {
+      "source": "{{packageFolderPath}}/ELOapps/ClientInfos",
+      "destinations": [
+        "{{appsBaseFolderPath}}/ClientInfos"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/Unit Tests",
+      "destinations": [
+        "{{bsFolderPath}}/_global/Unit Tests"
+      ],
+      "ignoreSubfolders": false,
+      "refFolders": false
+    }
+  ],
+  "ref": []
+}
