@@ -1,0 +1,6 @@
+Hello {{person.salutation}} {{person.firstName}} {{person.lastName}}!<br/>
+<br/>
+<a href="elodms://{{sord.guid}}">{{sord.name}}</a><br/>
+<br/>
+<a href="elodms://wf/{{node.flowId}}/{{node.id}}">flowName={{node.flowName}} nodeName={{node.name}}</a><br/>
+
