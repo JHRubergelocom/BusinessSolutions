@@ -1,0 +1,154 @@
+
+importPackage(Packages.de.elo.ix.client);
+
+//@include lib_Class.js
+//@include lib_sol.common.Config.js
+//@include lib_sol.common.DateUtils.js
+//@include lib_sol.common.Template.js
+//@include lib_sol.common.AclUtils.js
+//@include lib_sol.common.RepoUtils.js
+//@include lib_sol.common.SordUtils.js
+//@include lib_sol.common.WfUtils.js
+//@include lib_sol.common.ObjectFormatter.js
+//@include lib_sol.common.ix.SubscriptionUtils.js
+//@include lib_sol.common.ix.ServiceBase.js
+//@include lib_sol.common_monitoring.ix.MonitorUtils.js
+//@include lib_sol.knowledge.ix.KnowledgeUtils.js
+
+var logger = sol.create("sol.Logger", { scope: "sol.knowledge.ix.services.MovePost" }); // eslint-disable-line one-var
+
+/**
+ * Moves a post
+ *
+ * # Move a post
+ *
+ *     result = sol.common.IxUtils.execute("RF_sol_knowledge_service_Post_Move", {
+ *       postGuid: "(7146D09A-3889-BE1F-EDC7-631166F86797)",
+ *       spaceGuid: "(7146D09A-3889-BE1F-EDC7-631178129823)"
+ *     });
+ *
+ * @author JHR, ELO Digital Office GmbH
+ * @version 1.0
+ *
+ * @eloix
+ *
+ * @requires sol.common.Config
+ * @requires sol.common.DateUtils
+ * @requires sol.common.Template
+ * @requires sol.common.AclUtils
+ * @requires sol.common.RepoUtils
+ * @requires sol.common.SordUtils
+ * @requires sol.common.WfUtils
+ * @requires sol.common.ix.RfUtils
+ * @requires sol.common.ObjectFormatter
+ * @requires sol.common.ix.SubscriptionUtils
+ * @requires sol.common.ix.ServiceBase
+ * @requires sol.common_monitoring.ix.MonitorUtils
+ * @requires sol.knowledge.ix.KnowledgeUtils
+ */
+sol.define("sol.knowledge.ix.services.MovePost", {
+  extend: "sol.common.ix.ServiceBase",
+
+  requiredConfig: ["postGuid", "spaceGuid"],
+
+  /**
+   * @cfg {String} postGuid (required)
+   * Source Post
+   */
+
+  /**
+   * @cfg {String} spaceGuid (required)
+   * Target Space
+   */
+
+  initialize: function (params) {
+    var me = this;
+    me.$super("sol.common.ix.ServiceBase", "initialize", [params]);
+
+    me.knowledgeConfig = sol.knowledge.ix.KnowledgeUtils.loadKnowledgeConfig();
+  },
+
+  /**
+   * Moves a post.
+   * @return {Object}
+   */
+  movePost: function () {
+    var me = this,
+        post, postId, flowName, flowNameData;
+
+    if (!me.knowledgeConfig.postLocales.defaultLocale) {
+      throw "PostLocales Default Locale not found";
+    }
+
+    if (!sol.common.AclUtils.hasEffectiveRights(me.postGuid, { rights: { d: true, w: true } })) {
+      throw "Current User has no delete/write right to current post";
+    }
+
+    if (!sol.common.AclUtils.hasEffectiveRights(me.spaceGuid, { rights: { w: true } })) {
+      throw "Current User has no write right to current space";
+    }
+
+    post = ixConnect.ix().checkoutSord(me.postGuid, SordC.mbAllIndex, LockC.NO);
+
+    if (me.containsClassName(me.knowledgeConfig.updateXDateServices)) {
+      post.XDateIso = sol.common.SordUtils.nowIsoForConnection();
+    }
+    postId = ixConnect.ix().checkinSord(post, SordC.mbAllIndex, LockC.NO);
+
+    flowNameData = { sordName: String(post.name) };
+    flowName = sol.create("sol.common.Template", { source: me.knowledgeConfig.workflows.movePost.workflowNameTemplate }).apply(flowNameData);
+    sol.common.WfUtils.startWorkflow(me.knowledgeConfig.workflows.movePost.workflowTemplate, flowName, post.id);
+
+    me.registerUpdates(post);
+
+    return { success: true, postId: postId };
+  },
+
+  /**
+   * @private
+   * Registers an update workflow for the post, and all replies.
+   * @param {de.elo.ix.client.Sord} post
+   */
+  registerUpdates: function (post) {
+    var me = this,
+        updatePostWfTemplate, updateReplyWfTemplate, replies;
+
+    updatePostWfTemplate = me.knowledgeConfig.workflows.updatePost.workflowTemplateName;
+    updateReplyWfTemplate = me.knowledgeConfig.workflows.updateReply.workflowTemplateName;
+
+    sol.common_monitoring.ix.MonitorUtils.registerUpdate(post.id, updatePostWfTemplate);
+
+    replies = sol.common.RepoUtils.findChildren(post.id, {
+      includeFolders: true,
+      includeDocuments: false,
+      maskId: me.knowledgeConfig.services.createReply.mask
+    });
+    if (replies && (replies.length > 0)) {
+      replies.forEach(function (reply) {
+        sol.common_monitoring.ix.MonitorUtils.registerUpdate(reply.id, updateReplyWfTemplate);
+      });
+    }
+  }
+
+});
+
+/**
+ * @member sol.knowledge.ix.services.Post
+ * @method RF_sol_knowledge_service_Post_Move
+ * @static
+ * @inheritdoc sol.common.ix.ServiceBase#RF_ServiceBaseName
+ */
+function RF_sol_knowledge_service_Post_Move(ec, args) {
+  var rfUtils = sol.common.ix.RfUtils,
+      params, service, result;
+
+  logger.enter("RF_sol_knowledge_service_Post_Move", args);
+
+  params = rfUtils.parseAndCheckParams(ec, arguments.callee.name, args, "postGuid");
+  service = sol.create("sol.knowledge.ix.services.MovePost", params);
+  result = rfUtils.stringify(service.movePost());
+
+  logger.exit("RF_sol_knowledge_service_Post_Move", result);
+
+  return result;
+}

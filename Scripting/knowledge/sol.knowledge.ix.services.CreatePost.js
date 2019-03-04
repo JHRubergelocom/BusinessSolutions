@@ -146,7 +146,7 @@ sol.define("sol.knowledge.ix.services.CreatePost", {
     sol.common.SordUtils.setObjKeyValue(post, me.knowledgeConfig.fields.knowledgeLanguage, language);
 
     post.type = postTemplate.type;
-    objId = ixConnect.ix().checkinSord(post, SordC.mbAll, LockC.NO);
+    objId = ixConnect.ix().checkinSord(post, SordC.mbAllIndex, LockC.NO);
 
     sol.common.RepoUtils.moveSords(me.createdFiles, objId);
 

@@ -3,14 +3,16 @@ importPackage(Packages.de.elo.ix.client);
 
 //@include lib_Class.js
 //@include lib_sol.common.Config.js
-//@include lib_sol.common.AclUtils.js
+//@include lib_sol.common.IxUtils.js
 //@include lib_sol.common.DateUtils.js
-//@include lib_sol.common.ixUtils.js
+//@include lib_sol.common.Template.js
+//@include lib_sol.common.AclUtils.js
 //@include lib_sol.common.RepoUtils.js
 //@include lib_sol.common.SordUtils.js
-//@include lib_sol.common.UserUtils.js
-//@include lib_sol.common.ix.ServiceBase.js
+//@include lib_sol.common.WfUtils.js
 //@include lib_sol.common.ObjectFormatter.js
+//@include lib_sol.common.ix.ServiceBase.js
+//@include lib_sol.common_monitoring.ix.MonitorUtils.js
 //@include lib_sol.common.ix.SubscriptionUtils.js
 //@include lib_sol.knowledge.ix.KnowledgeUtils.js
 
@@ -24,17 +26,20 @@ var logger = sol.create("sol.Logger", { scope: "sol.knowledge.ix.services.Commen
  * @version 1.01.002
  *
  * @eloix
- * @requires moment.js
+ *
  * @requires sol.common.Config
- * @requires sol.common.AclUtils
- * @requires sol.common.DateUtils
  * @requires sol.common.IxUtils
+ * @requires sol.common.DateUtils
+ * @requires sol.common.Template
+ * @requires sol.common.AclUtils
+ * @requires sol.common.RepoUtils
  * @requires sol.common.SordUtils
- * @requires sol.common.UserUtils
+ * @requires sol.common.WfUtils
  * @requires sol.common.ix.RfUtils
- * @requires sol.common.ix.ServiceBase
  * @requires sol.common.ObjectFormatter
- * @requires sol.knowledge.ix.SubscriptionUtils
+ * @requires sol.common.ix.ServiceBase
+ * @requires sol.common_monitoring.ix.MonitorUtils
+ * @requires sol.common.ix.SubscriptionUtils
  * @requires sol.knowledge.ix.KnowledgeUtils
  */
 sol.define("sol.knowledge.ix.services.Comment", {
@@ -193,7 +198,7 @@ sol.define("sol.knowledge.ix.services.Comment", {
       action.userId = userInfoReply.id;
       action.userGuid = userInfoReply.guid;
       action.userName = userInfoReply.name;
-      action.createDateIso = sordReply.IDateIso;
+      action.createDateIso = sordReply.XDateIso;
       action.updateDateIso = sol.common.SordUtils.nowIsoForConnection();
       feedActionId = ixConnectAdmin.feedService.checkinAction(action, ActionC.mbAll);
     }

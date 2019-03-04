@@ -77,7 +77,8 @@
     "sol.knowledge.ix.services.CreateReply",
     "sol.knowledge.ix.services.EditReply",
     "sol.knowledge.ix.services.Comment",
-    "sol.knowledge.ix.services.ChangePostType"
+    "sol.knowledge.ix.services.ChangePostType",
+    "sol.knowledge.ix.services.MovePost"
   ],
   "generators": {
     "templateFolderIds": {
@@ -223,6 +224,18 @@
     "postClosed": {
       "workflowTemplateName": "sol.knowledge.post.closed",
       "workflowNameTemplate": "{{translate 'sol.knowledge.wf.post.closed'}}: {{sordName}}"
+    },
+    "movePost": {
+      "workflowTemplate": "sol.knowledge.post.move",
+      "workflowNameTemplate": "{{translate 'sol.knowledge.wf.post.move'}}: {{sordName}}",
+      "nodes": {
+        "appendUser": {
+          "fieldName": "KNOWLEDGE_LAST_EDITED_BY"
+        },
+        "editedDate": {
+          "group": "KNOWLEDGE_LAST_EDITED_DATE"
+        }
+      }
     }
   },
   "boardView": {
