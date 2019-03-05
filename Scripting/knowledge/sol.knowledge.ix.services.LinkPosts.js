@@ -15,16 +15,16 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_sol.common_monitoring.ix.MonitorUtils.js
 //@include lib_sol.knowledge.ix.KnowledgeUtils.js
 
-var logger = sol.create("sol.Logger", { scope: "sol.knowledge.ix.services.MovePost" }); // eslint-disable-line one-var
+var logger = sol.create("sol.Logger", { scope: "sol.knowledge.ix.services.LinkPosts" }); // eslint-disable-line one-var
 
 /**
- * Moves a post
+ * Link posts
  *
- * # Move a post
+ * # Link posts
  *
- *     result = sol.common.IxUtils.execute("RF_sol_knowledge_service_Post_Move", {
- *       postGuid: "(7146D09A-3889-BE1F-EDC7-631166F86797)",
- *       spaceGuid: "(7146D09A-3889-BE1F-EDC7-631178129823)"
+ *     result = sol.common.IxUtils.execute("RF_sol_knowledge_service_Link_Posts", {
+ *       fromPostGuid: "(7146D09A-3889-BE1F-EDC7-631166F86797)",
+ *       toPostGuids: ["(7146D09A-3889-BE1F-EDC7-631178129823)", "(7146D09A-3889-BE1F-EDC7-631178129825)"]
  *     });
  *
  * @author JHR, ELO Digital Office GmbH
@@ -46,19 +46,19 @@ var logger = sol.create("sol.Logger", { scope: "sol.knowledge.ix.services.MovePo
  * @requires sol.common_monitoring.ix.MonitorUtils
  * @requires sol.knowledge.ix.KnowledgeUtils
  */
-sol.define("sol.knowledge.ix.services.MovePost", {
+sol.define("sol.knowledge.ix.services.LinkPosts", {
   extend: "sol.common.ix.ServiceBase",
 
-  requiredConfig: ["postGuid", "spaceGuid"],
+  requiredConfig: ["fromPostGuid", "toPostGuids"],
 
   /**
-   * @cfg {String} postGuid (required)
-   * Source Post
+   * @cfg {String} fromPostGuid (required)
+   * From Post
    */
 
   /**
-   * @cfg {String} spaceGuid (required)
-   * Target Space
+   * @cfg {String|String[]} toPostGuids (required)
+   * To Posts
    */
 
   initialize: function (params) {
@@ -69,27 +69,31 @@ sol.define("sol.knowledge.ix.services.MovePost", {
   },
 
   /**
-   * Moves a post.
+   * Link posts.
    * @return {Object}
    */
-  movePost: function () {
+  linkPosts: function () {
     var me = this,
-        space, post, postId, flowName, flowNameData;
+        space, post, postId, postsLinkTo, flowName, flowNameData;
 
-    if (!me.postGuid) {
-      throw "InitializationException: 'postGuid' has to be defined";
+    if (!me.fromPostGuid) {
+      throw "InitializationException: 'fromPostGuid' has to be defined";
     }
 
-    if (!me.spaceGuid) {
-      throw "InitializationException: 'spaceGuid' has to be defined";
+    if (!me.toPostGuids) {
+      throw "InitializationException: 'toPostGuids' has to be defined";
     }
 
-    post = sol.common.RepoUtils.getSord(me.postGuid);
+    postsLinkTo = (sol.common.ObjectUtils.isArray(me.toPostGuids)) ? me.toPostGuids : [me.toPostGuids];
+
+
+
+    post = sol.common.RepoUtils.getSord(me.fromPostGuid);
     if (!post || !"KNOWLEDGE_POST".equals(sol.common.SordUtils.getObjKeyValue(post, "SOL_TYPE"))) {
       throw "Reading post failed. Passed object with name '" + post.name + "' is not a post.";
     }
 
-    space = sol.common.RepoUtils.getSord(me.spaceGuid);
+    space = sol.common.RepoUtils.getSord(me.toPostGuids);
     if (!space || !"KNOWLEDGE_SPACE".equals(sol.common.SordUtils.getObjKeyValue(space, "SOL_TYPE"))) {
       throw "Reading space failed. Passed object with name '" + space.name + "' is not a space.";
     }
@@ -98,20 +102,15 @@ sol.define("sol.knowledge.ix.services.MovePost", {
       throw "PostLocales Default Locale not found";
     }
 
-    if (!sol.common.AclUtils.hasEffectiveRights(me.postGuid, { rights: { d: true, w: true } })) {
+    if (!sol.common.AclUtils.hasEffectiveRights(me.fromPostGuid, { rights: { d: true, w: true } })) {
       throw "Current User has no delete/write right to current post";
     }
 
-    if (!sol.common.AclUtils.hasEffectiveRights(me.spaceGuid, { rights: { w: true } })) {
+    if (!sol.common.AclUtils.hasEffectiveRights(me.toPostGuids, { rights: { w: true } })) {
       throw "Current User has no write right to current space";
     }
 
-    sol.common.IxUtils.execute("RF_sol_function_Move", {
-      objId: me.postGuid,
-      targetId: me.spaceGuid
-    });
-
-    post = ixConnect.ix().checkoutSord(me.postGuid, SordC.mbAllIndex, LockC.NO);
+    post = ixConnect.ix().checkoutSord(me.fromPostGuid, SordC.mbAllIndex, LockC.NO);
 
     if (me.containsClassName(me.knowledgeConfig.updateXDateServices)) {
       post.XDateIso = sol.common.SordUtils.nowIsoForConnection();
@@ -119,8 +118,8 @@ sol.define("sol.knowledge.ix.services.MovePost", {
     postId = ixConnect.ix().checkinSord(post, SordC.mbAllIndex, LockC.NO);
 
     flowNameData = { sordName: String(post.name) };
-    flowName = sol.create("sol.common.Template", { source: me.knowledgeConfig.workflows.movePost.workflowNameTemplate }).apply(flowNameData);
-    sol.common.WfUtils.startWorkflow(me.knowledgeConfig.workflows.movePost.workflowTemplate, flowName, post.id);
+    flowName = sol.create("sol.common.Template", { source: me.knowledgeConfig.workflows.linkPosts.workflowNameTemplate }).apply(flowNameData);
+    sol.common.WfUtils.startWorkflow(me.knowledgeConfig.workflows.linkPosts.workflowTemplate, flowName, post.id);
 
     me.registerUpdates(post);
 
@@ -156,22 +155,22 @@ sol.define("sol.knowledge.ix.services.MovePost", {
 });
 
 /**
- * @member sol.knowledge.ix.services.MovePost
- * @method RF_sol_knowledge_service_Post_Move
+ * @member sol.knowledge.ix.services.LinkPosts
+ * @method RF_sol_knowledge_service_Link_Posts
  * @static
  * @inheritdoc sol.common.ix.ServiceBase#RF_ServiceBaseName
  */
-function RF_sol_knowledge_service_Post_Move(ec, args) {
+function RF_sol_knowledge_service_Link_Posts(ec, args) {
   var rfUtils = sol.common.ix.RfUtils,
       params, service, result;
 
-  logger.enter("RF_sol_knowledge_service_Post_Move", args);
+  logger.enter("RF_sol_knowledge_service_Link_Posts", args);
 
-  params = rfUtils.parseAndCheckParams(ec, arguments.callee.name, args, "postGuid", "spaceGuid");
-  service = sol.create("sol.knowledge.ix.services.MovePost", params);
-  result = rfUtils.stringify(service.movePost());
+  params = rfUtils.parseAndCheckParams(ec, arguments.callee.name, args, "fromPostGuid", "toPostGuids");
+  service = sol.create("sol.knowledge.ix.services.LinkPosts", params);
+  result = rfUtils.stringify(service.linkPosts());
 
-  logger.exit("RF_sol_knowledge_service_Post_Move", result);
+  logger.exit("RF_sol_knowledge_service_Link_Posts", result);
 
   return result;
 }
