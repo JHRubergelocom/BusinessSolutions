@@ -143,11 +143,27 @@ describe("[service] sol.knowledge.ix.services.LinkPosts", function () {
             );
           }).not.toThrow();
         });
-        it("link posts with with 'toPostGuids'", function (done) {
+        it("should throw if executed without 'unlinkPostGuids'", function (done) {
           expect(function () {
             test.Utils.execute("RF_sol_knowledge_service_Link_Posts", {
               fromPostGuid: objPostId11,
               toPostGuids: [objPostId12, objPostId21, objPostId22]
+            }).then(function success(jsonResult) {
+              fail(jsonResult);
+              done();
+            }, function error(err) {
+              console.error(err);
+              done();
+            }
+            );
+          }).not.toThrow();
+        });
+        it("link posts with with 'unlinkPostGuids'", function (done) {
+          expect(function () {
+            test.Utils.execute("RF_sol_knowledge_service_Link_Posts", {
+              fromPostGuid: objPostId11,
+              toPostGuids: [objPostId12, objPostId21, objPostId22],
+              unlinkPostGuids: objPostId12
             }).then(function success(jsonResult) {
               done();
             }, function error(err) {
@@ -158,42 +174,12 @@ describe("[service] sol.knowledge.ix.services.LinkPosts", function () {
             );
           }).not.toThrow();
         });
-      });
-    });
-    describe("RF_sol_knowledge_service_UnLink_Posts", function () {
-      describe("unlink posts", function () {
-        it("should throw if executed without 'fromPostGuid'", function (done) {
+        it("link posts with empty 'toPostGuids', 'unlinkPostGuids'", function (done) {
           expect(function () {
-            test.Utils.execute("RF_sol_knowledge_service_UnLink_Posts", {
-            }).then(function success(jsonResult) {
-              fail(jsonResult);
-              done();
-            }, function error(err) {
-              console.error(err);
-              done();
-            }
-            );
-          }).not.toThrow();
-        });
-        it("should throw if executed without 'toPostGuids'", function (done) {
-          expect(function () {
-            test.Utils.execute("RF_sol_knowledge_service_UnLink_Posts", {
-              fromPostGuid: objPostId11
-            }).then(function success(jsonResult) {
-              fail(jsonResult);
-              done();
-            }, function error(err) {
-              console.error(err);
-              done();
-            }
-            );
-          }).not.toThrow();
-        });
-        it("unlink posts with with 'toPostGuids'", function (done) {
-          expect(function () {
-            test.Utils.execute("RF_sol_knowledge_service_UnLink_Posts", {
+            test.Utils.execute("RF_sol_knowledge_service_Link_Posts", {
               fromPostGuid: objPostId11,
-              toPostGuids: objPostId12
+              toPostGuids: [],
+              unlinkPostGuids: []
             }).then(function success(jsonResult) {
               done();
             }, function error(err) {
