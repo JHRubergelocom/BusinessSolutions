@@ -1,6 +1,6 @@
 
 describe("[function] sol.common_sig.as.functions.CreateDocumentToSign", function () {
-  var originalTimeout, objSignatureDocId,
+  var originalTimeout, objSignatureDocId, objId,
       flowId, succNodes, succNodesIds;
 
   beforeAll(function (done) {
@@ -78,7 +78,7 @@ describe("[function] sol.common_sig.as.functions.CreateDocumentToSign", function
       it("finish workflow 'Workflow Unittest CreateDocumentToSign' of SignatureDoc", function (done) {
         expect(function () {
           test.Utils.getWorkflow(flowId).then(function success1(workflow) {
-            objSignatureDocId = workflow.objId;
+            objId = workflow.objId;
             succNodes = test.Utils.getSuccessorNodes(workflow, "1", null, "node 2");
             succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
             test.Utils.forwardWorkflowTask(flowId, "1", succNodesIds, "Unittest finish input").then(function success2(forwardWorkflowTaskResult) {
@@ -106,7 +106,7 @@ describe("[function] sol.common_sig.as.functions.CreateDocumentToSign", function
         test.Utils.removeFinishedWorkflows(wfs).then(function success1(removeFinishedWorkflowsResult) {
           test.Utils.getTempfolder().then(function success2(tempfolder) {
             test.Utils.deleteSord(tempfolder).then(function success3(deleteResult) {
-              test.Utils.deleteSord(objSignatureDocId).then(function success4(deleteResult1) {
+              test.Utils.deleteSord(objId).then(function success4(deleteResult1) {
                 done();
               }, function error(err) {
                 fail(err);
