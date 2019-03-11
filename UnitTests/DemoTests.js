@@ -101,7 +101,7 @@ sol.define("test.Utils", {
    *     addRights(
    *       "4711",
    *       ["baum, renz"],
-   *       { r: true, w: true, d: false, e: false, l: false},
+   *       { r: true, w: true, d: false, e: false, l: false, p: false},
    *       true
    *     );
    *
@@ -226,6 +226,10 @@ sol.define("test.Utils", {
    */
   createAccessCode: function (rights) {
     var code = 0;
+    if (!rights) {
+      console.error("Rights are empty");
+      throw "Rights are empty";
+    }
 
     if ((rights.read === true) || (rights.r === true)) {
       code |= elo.CONST.ACCESS.LUR_READ;
@@ -241,6 +245,9 @@ sol.define("test.Utils", {
     }
     if ((rights.list === true) || (rights.l === true)) {
       code |= elo.CONST.ACCESS.LUR_LIST;
+    }
+    if ((elo.CONST.ACCESS.LUR_PERMISSION !== "undefined") && ((rights.perm === true) || (rights.p === true))) { // additional check is necessary if property does not exist (prior to ELO12)
+      code |= elo.CONST.ACCESS.LUR_PERMISSION;
     }
     return code;
   },
@@ -304,7 +311,7 @@ sol.define("test.Utils", {
    *     removeRights(
    *       "4711",
    *       [],
-   *       { read: false, write: true, del: true, edit: true, list: true},
+   *       { read: false, write: true, del: true, edit: true, list: true, perm: true},
    *       true
    *     );
    *
@@ -321,6 +328,10 @@ sol.define("test.Utils", {
         promisesRemoveSordRights, promiseRemoveSordRights;
 
     promise = new Promise (function (resolve, reject) {
+      // for backwards compatibility: remove p-right if nothing is specified
+      if (!rights.hasOwnProperty("perm") && !rights.hasOwnProperty("p")) {
+        rights.p = true;
+      }
       accessCode = me.createAccessCode(rights);
       promiseRetrieveUserAcl = me.retrieveUserAcl(users, accessCode);
       promiseRetrieveUserAcl.then(function success(userAcl) {
