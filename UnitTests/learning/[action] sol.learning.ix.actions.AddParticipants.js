@@ -1,5 +1,5 @@
 
-describe("[action] sol.learning.ix.actions.AddParticipant", function () {
+describe("[action] sol.learning.ix.actions.AddParticipants", function () {
   var originalTimeout, courseTypes, configTypes, objTempId,
       configAction, wfInfo, succNodes, succNodesIds, objIdCr,
       objIdPt1, objIdPt2;
@@ -8,7 +8,7 @@ describe("[action] sol.learning.ix.actions.AddParticipant", function () {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
-      test.Utils.createTempSord("Actions.AddParticipant", null, null).then(function success(objTempId1) {
+      test.Utils.createTempSord("Actions.AddParticipants", null, null).then(function success(objTempId1) {
         objTempId = objTempId1;
         done();
       }, function error(err) {
@@ -163,17 +163,17 @@ describe("[action] sol.learning.ix.actions.AddParticipant", function () {
         }).not.toThrow();
       });
     });
-    xdescribe("test finish addparticipant", function () {
+    xdescribe("test finish addparticipants", function () {
       it("start action create workflow", function (done) {
         expect(function () {
           configAction = {
             objId: objIdCr,
-            $name: "AddParticipant",
+            $name: "AddParticipants",
             $wf: {
               template: {
-                name: "sol.learning.course.addParticipant"
+                name: "sol.learning.course.addParticipants"
               },
-              name: "sol.learning.course.addParticipant.prefix-YYYYMMDDHHmmss"
+              name: "sol.learning.course.addParticipants.prefix-YYYYMMDDHHmmss"
             },
             $events: [
               {
@@ -275,17 +275,17 @@ describe("[action] sol.learning.ix.actions.AddParticipant", function () {
         }).not.toThrow();
       });
     });
-    xdescribe("test cancel addparticipant", function () {
+    xdescribe("test cancel addparticipants", function () {
       it("start action create workflow", function (done) {
         expect(function () {
           configAction = {
             objId: objIdCr,
-            $name: "AddParticipant",
+            $name: "AddParticipants",
             $wf: {
               template: {
-                name: "sol.learning.course.addParticipant"
+                name: "sol.learning.course.addParticipants"
               },
-              name: "sol.learning.course.addParticipant.prefix-YYYYMMDDHHmmss"
+              name: "sol.learning.course.addParticipants.prefix-YYYYMMDDHHmmss"
             },
             $events: [
               {
