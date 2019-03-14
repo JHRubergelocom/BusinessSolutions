@@ -105,7 +105,7 @@ describe("[action] sol.learning.ix.actions.AddParticipants", function () {
         expect(function () {
           test.Utils.getSord(wfInfo.objId).then(function success(sordCr) {
             objIdCr = wfInfo.objId;
-            test.Utils.updateKeywording(sordCr, { COURSE_NAME: "Unittest Kursname", COURSE_CATEGORY: "Kurs Kategorie", COURSE_TYPE: "Kurs Type" }, true).then(function success1(updateKeywordingResult) {
+            test.Utils.updateKeywording(sordCr, { COURSE_NAME: "Unittest Kursname" }, true).then(function success1(updateKeywordingResult) {
               done();
             }, function error(err) {
               fail(err);
@@ -215,7 +215,19 @@ describe("[action] sol.learning.ix.actions.AddParticipants", function () {
       });
       it("Prepare Enrollment", function (done) {
         expect(function () {
-          test.Utils.updateWfMapData(wfInfo.flowId, wfInfo.objId, { COURSE_ENROLLMENT_USER1: "Administrator", COURSE_ENROLLMENT_STATUS1: "ENROLLED" }).then(function success(updateMapDataResult) {
+          test.Utils.updateWfMapData(wfInfo.flowId, wfInfo.objId, { COURSE_ENROLLMENT_USER1: "Administrator" }).then(function success(updateMapDataResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("set enrollment folder", function (done) {
+        expect(function () {
+          test.Utils.updateMapData(wfInfo.objId, { COURSE_ENROLLMENTFOLDER: "Enrollments" }).then(function success(updateMapDataResult) {
             done();
           }, function error(err) {
             fail(err);
@@ -228,7 +240,7 @@ describe("[action] sol.learning.ix.actions.AddParticipants", function () {
       it("finish input forwarding workflow", function (done) {
         expect(function () {
           test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-            succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "ADD ENROLLMENTS: Participants");
+            succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.knowledge.wf.space.create");
             succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
             test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest finish input").then(function success1(forwardWorkflowTaskResult) {
               done();
