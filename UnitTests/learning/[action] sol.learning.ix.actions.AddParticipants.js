@@ -1,8 +1,7 @@
 
 describe("[action] sol.learning.ix.actions.AddParticipants", function () {
   var originalTimeout, courseTypes, configTypes, objTempId,
-      configAction, wfInfo, succNodes, succNodesIds, objIdCr,
-      objIdPt1, objIdPt2;
+      configAction, wfInfo, succNodes, succNodesIds, objIdCr;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -163,7 +162,7 @@ describe("[action] sol.learning.ix.actions.AddParticipants", function () {
         }).not.toThrow();
       });
     });
-    xdescribe("test finish addparticipants", function () {
+    describe("test finish addparticipants", function () {
       it("start action create workflow", function (done) {
         expect(function () {
           configAction = {
@@ -214,18 +213,10 @@ describe("[action] sol.learning.ix.actions.AddParticipants", function () {
       it("wfInfo.objId must be available", function () {
         expect(wfInfo.objId).toBeDefined();
       });
-      it("fill participant sord", function (done) {
+      it("Prepare Enrollment", function (done) {
         expect(function () {
-          test.Utils.getSord(wfInfo.objId).then(function success(sordPt) {
-            objIdPt1 = wfInfo.objId;
-            test.Utils.updateKeywording(sordPt, { PT_FIRSTNAME: "Max", PT_LASTNAME: "Mustermann" }, true).then(function success1(updateKeywordingResult) {
-              done();
-            }, function error(err) {
-              fail(err);
-              console.error(err);
-              done();
-            }
-            );
+          test.Utils.updateWfMapData(wfInfo.flowId, wfInfo.objId, { COURSE_ENROLLMENT_USER1: "Administrator", COURSE_ENROLLMENT_STATUS1: "ENROLLED" }).then(function success(updateMapDataResult) {
+            done();
           }, function error(err) {
             fail(err);
             console.error(err);
@@ -237,121 +228,9 @@ describe("[action] sol.learning.ix.actions.AddParticipants", function () {
       it("finish input forwarding workflow", function (done) {
         expect(function () {
           test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-            succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.common.wf.node.ok");
+            succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "ADD ENROLLMENTS: Participants");
             succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
             test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest finish input").then(function success1(forwardWorkflowTaskResult) {
-              done();
-            }, function error(err) {
-              fail(err);
-              console.error(err);
-              done();
-            }
-            );
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }).not.toThrow();
-      });
-      it("remove workflows", function (done) {
-        expect(function () {
-          test.Utils.getFinishedWorkflows(wfInfo.objId).then(function success(wfs) {
-            test.Utils.removeFinishedWorkflows(wfs).then(function success1(removeFinishedWorkflowsResult) {
-              done();
-            }, function error(err) {
-              fail(err);
-              console.error(err);
-              done();
-            }
-            );
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }).not.toThrow();
-      });
-    });
-    xdescribe("test cancel addparticipants", function () {
-      it("start action create workflow", function (done) {
-        expect(function () {
-          configAction = {
-            objId: objIdCr,
-            $name: "AddParticipants",
-            $wf: {
-              template: {
-                name: "sol.learning.course.addParticipants"
-              },
-              name: "sol.learning.course.addParticipants.prefix-YYYYMMDDHHmmss"
-            },
-            $events: [
-              {
-                id: "DIALOG",
-                onWfStatus: ""
-              },
-              {
-                id: "REFRESH",
-                onWfStatus: "CREATED"
-              }
-            ]
-          };
-          wfInfo = {};
-          test.Utils.executeIxActionHandler("RF_sol_common_action_Standard", configAction, []).then(function success(jsonResults) {
-            test.Utils.handleAllEvents(jsonResults).then(function success1(wfInfo1) {
-              wfInfo = wfInfo1;
-              done();
-            }, function error(err) {
-              fail(err);
-              console.error(err);
-              done();
-            }
-            );
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }).not.toThrow();
-      });
-      it("wfInfo.flowId must be available", function () {
-        expect(wfInfo.flowId).toBeDefined();
-      });
-      it("wfInfo.nodeId must be available", function () {
-        expect(wfInfo.nodeId).toBeDefined();
-      });
-      it("wfInfo.objId must be available", function () {
-        expect(wfInfo.objId).toBeDefined();
-      });
-      it("fill participant sord", function (done) {
-        expect(function () {
-          test.Utils.getSord(wfInfo.objId).then(function success(sordPt) {
-            objIdPt2 = wfInfo.objId;
-            test.Utils.updateKeywording(sordPt, { PT_FIRSTNAME: "Eva", PT_LASTNAME: "Musterfrau" }, true).then(function success1(updateKeywordingResult) {
-              done();
-            }, function error(err) {
-              fail(err);
-              console.error(err);
-              done();
-            }
-            );
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }).not.toThrow();
-      });
-      it("cancel input forwarding workflow", function (done) {
-        expect(function () {
-          test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-            succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.common.wf.node.cancel");
-            succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
-            test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest cancel input").then(function success1(forwardWorkflowTaskResult) {
               done();
             }, function error(err) {
               fail(err);
@@ -394,21 +273,7 @@ describe("[action] sol.learning.ix.actions.AddParticipants", function () {
       test.Utils.getTempfolder().then(function success(tempfolder) {
         test.Utils.deleteSord(tempfolder).then(function success1(deleteResult) {
           test.Utils.deleteSord(objIdCr).then(function success2(deleteResult1) {
-            test.Utils.deleteSord(objIdPt1).then(function success3(deleteResult2) {
-              test.Utils.deleteSord(objIdPt2).then(function success4(deleteResult3) {
-                done();
-              }, function error(err) {
-                fail(err);
-                console.error(err);
-                done();
-              }
-              );
-            }, function error(err) {
-              fail(err);
-              console.error(err);
-              done();
-            }
-            );
+            done();
           }, function error(err) {
             fail(err);
             console.error(err);
