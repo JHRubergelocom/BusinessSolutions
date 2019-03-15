@@ -1,13 +1,15 @@
 
 describe("[action] sol.learning.ix.actions.AddParticipants", function () {
   var originalTimeout, courseTypes, configTypes, objTempId,
-      configAction, wfInfo, succNodes, succNodesIds, objIdCr;
+      configAction, wfInfo, succNodes, succNodesIds, interval,
+      objIdCr;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
       test.Utils.createTempSord("Actions.AddParticipants", null, null).then(function success(objTempId1) {
+        interval = 4000;
         objTempId = objTempId1;
         done();
       }, function error(err) {
@@ -225,22 +227,10 @@ describe("[action] sol.learning.ix.actions.AddParticipants", function () {
           );
         }).not.toThrow();
       });
-      it("set enrollment folder", function (done) {
-        expect(function () {
-          test.Utils.updateMapData(wfInfo.objId, { COURSE_ENROLLMENTFOLDER: "Enrollments" }).then(function success(updateMapDataResult) {
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }).not.toThrow();
-      });
       it("finish input forwarding workflow", function (done) {
         expect(function () {
           test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-            succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.knowledge.wf.space.create");
+            succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.common.wf.node.ok");
             succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
             test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest finish input").then(function success1(forwardWorkflowTaskResult) {
               done();
@@ -258,17 +248,34 @@ describe("[action] sol.learning.ix.actions.AddParticipants", function () {
           );
         }).not.toThrow();
       });
-      it("remove workflows", function (done) {
+      it("setTimeout (wait for elo as)", function (done) {
         expect(function () {
-          test.Utils.getFinishedWorkflows(wfInfo.objId).then(function success(wfs) {
-            test.Utils.removeFinishedWorkflows(wfs).then(function success1(removeFinishedWorkflowsResult) {
-              done();
-            }, function error(err) {
-              fail(err);
-              console.error(err);
-              done();
-            }
-            );
+          test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("setTimeout (wait for elo as)", function (done) {
+        expect(function () {
+          test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("setTimeout (wait for elo as)", function (done) {
+        expect(function () {
+          test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+            done();
           }, function error(err) {
             fail(err);
             console.error(err);
@@ -285,7 +292,21 @@ describe("[action] sol.learning.ix.actions.AddParticipants", function () {
       test.Utils.getTempfolder().then(function success(tempfolder) {
         test.Utils.deleteSord(tempfolder).then(function success1(deleteResult) {
           test.Utils.deleteSord(objIdCr).then(function success2(deleteResult1) {
-            done();
+            test.Utils.getFinishedWorkflows().then(function success3(wfs) {
+              test.Utils.removeFinishedWorkflows(wfs).then(function success4(removeFinishedWorkflowsResult) {
+                done();
+              }, function error(err) {
+                fail(err);
+                console.error(err);
+                done();
+              }
+              );
+            }, function error(err) {
+              fail(err);
+              console.error(err);
+              done();
+            }
+            );
           }, function error(err) {
             fail(err);
             console.error(err);
