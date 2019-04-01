@@ -8,13 +8,14 @@ describe("[service] sol.knowledge.ix.services.Config", function () {
   });
   describe("Tests Registered Functions", function () {
     describe("RF_sol_knowledge_service_GetConfig", function () {
-      it("result should return postTypes, replyTypes, spaces, labels, postLocales", function (done) {
+      it("result should return postTypes, replyTypes, spaces, boards, labels, postLocales", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_knowledge_service_GetConfig", {
           }).then(function success(result) {
             expect(result.postTypes).toBeDefined();
             expect(result.replyTypes).toBeDefined();
             expect(result.spaces).toBeDefined();
+            expect(result.boards).toBeDefined();
             expect(result.labels).toBeDefined();
             expect(result.postLocales).toBeDefined();
             done();
@@ -36,6 +37,7 @@ describe("[service] sol.knowledge.ix.services.Config", function () {
             expect(result.postTypes).toBeDefined();
             expect(result.replyTypes).toBeDefined();
             expect(result.spaces).toBeDefined();
+            expect(result.boards).toBeDefined();
             expect(result.labels).toBeDefined();
             expect(result.postLocales).toBeDefined();
             expect(result.config.boardView).toBeDefined();
