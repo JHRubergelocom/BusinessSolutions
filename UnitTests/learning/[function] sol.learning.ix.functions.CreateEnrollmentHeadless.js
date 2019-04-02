@@ -1,6 +1,6 @@
 
 describe("[function] sol.learning.ix.functions.CreateEnrollmentHeadless", function () {
-  var objIdEnr1, objIdEnr2, originalTimeout,
+  var objIdEnr1, objIdEnr2, originalTimeout, interval,
       courseRef1, coursePath1, courseRef2, coursePath2;
 
   beforeAll(function (done) {
@@ -8,10 +8,11 @@ describe("[function] sol.learning.ix.functions.CreateEnrollmentHeadless", functi
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
       test.Utils.createTempSord("CreateEnrollmentHeadless").then(function success(objTempId) {
+        interval = 4000;
         coursePath1 = "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/learning [unit tests]/Test data/Business Logic Provider";
         test.Utils.getSord(coursePath1).then(function success1(sordCourse1) {
           courseRef1 = test.Utils.getObjKeyValue(sordCourse1, "COURSE_REFERENCE");
-          coursePath2 = "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/learning [unit tests]/Test data/Course";
+          coursePath2 = "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/learning [unit tests]/Test data/Course1";
           test.Utils.getSord(coursePath2).then(function success2(sordCourse2) {
             courseRef2 = test.Utils.getObjKeyValue(sordCourse2, "COURSE_REFERENCE");
             done();
@@ -58,7 +59,7 @@ describe("[function] sol.learning.ix.functions.CreateEnrollmentHeadless", functi
               objKeys: {
                 COURSE_REFERENCE: courseRef1,
                 COURSE_ENROLLMENT_DURATION: "4",
-                COURSE_ENROLLMENT_USER: "Mustermann"
+                COURSE_ENROLLMENT_USER: "Bodo Kraft"
               }
             }
           }).then(function success(jsonResult) {
@@ -74,9 +75,45 @@ describe("[function] sol.learning.ix.functions.CreateEnrollmentHeadless", functi
           );
         }).not.toThrow();
       });
+      it("setTimeout (wait for elo as)", function (done) {
+        expect(function () {
+          test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("setTimeout (wait for elo as)", function (done) {
+        expect(function () {
+          test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("setTimeout (wait for elo as)", function (done) {
+        expect(function () {
+          test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("remove workflow", function (done) {
         expect(function () {
-          test.Utils.getFinishedWorkflows(objIdEnr1).then(function success(wfs) {
+          test.Utils.getFinishedWorkflows().then(function success(wfs) {
             test.Utils.removeFinishedWorkflows(wfs).then(function success1(removeFinishedWorkflowsResult) {
               done();
             }, function error(err) {
@@ -85,6 +122,18 @@ describe("[function] sol.learning.ix.functions.CreateEnrollmentHeadless", functi
               done();
             }
             );
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("remove enrollment", function (done) {
+        expect(function () {
+          test.Utils.deleteSord(objIdEnr1).then(function success2(deleteResult) {
+            done();
           }, function error(err) {
             fail(err);
             console.error(err);
@@ -115,8 +164,7 @@ describe("[function] sol.learning.ix.functions.CreateEnrollmentHeadless", functi
             sordMetadata: {
               objKeys: {
                 COURSE_REFERENCE: courseRef2,
-                COURSE_ENROLLMENT_DURATION: "7",
-                COURSE_ENROLLMENT_USER: "Musterfrau"
+                COURSE_ENROLLMENT_DURATION: "7"
               }
             }
           }).then(function success(jsonResult) {
@@ -132,9 +180,45 @@ describe("[function] sol.learning.ix.functions.CreateEnrollmentHeadless", functi
           );
         }).not.toThrow();
       });
+      it("setTimeout (wait for elo as)", function (done) {
+        expect(function () {
+          test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("setTimeout (wait for elo as)", function (done) {
+        expect(function () {
+          test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("setTimeout (wait for elo as)", function (done) {
+        expect(function () {
+          test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("remove workflow", function (done) {
         expect(function () {
-          test.Utils.getFinishedWorkflows(objIdEnr2).then(function success(wfs) {
+          test.Utils.getFinishedWorkflows().then(function success(wfs) {
             test.Utils.removeFinishedWorkflows(wfs).then(function success1(removeFinishedWorkflowsResult) {
               done();
             }, function error(err) {
@@ -151,6 +235,18 @@ describe("[function] sol.learning.ix.functions.CreateEnrollmentHeadless", functi
           );
         }).not.toThrow();
       });
+      it("remove enrollment", function (done) {
+        expect(function () {
+          test.Utils.deleteSord(objIdEnr2).then(function success2(deleteResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
     });
   });
   afterAll(function (done) {
@@ -158,21 +254,7 @@ describe("[function] sol.learning.ix.functions.CreateEnrollmentHeadless", functi
     expect(function () {
       test.Utils.getTempfolder().then(function success(tempfolder) {
         test.Utils.deleteSord(tempfolder).then(function success1(deleteResult) {
-          test.Utils.deleteSord(objIdEnr1).then(function success2(deleteResult1) {
-            test.Utils.deleteSord(objIdEnr2).then(function success3(deleteResult2) {
-              done();
-            }, function error(err) {
-              fail(err);
-              console.error(err);
-              done();
-            }
-            );
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
+          done();
         }, function error(err) {
           fail(err);
           console.error(err);

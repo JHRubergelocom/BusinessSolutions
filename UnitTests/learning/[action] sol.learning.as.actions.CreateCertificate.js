@@ -3,7 +3,7 @@ describe("[action] sol.learning.as.actions.CreateCertificate", function () {
   var configTypes,
       wfInfo, objIdEnr, enrollmentPath,
       params, dvReport, certificateTypes,
-      objIdCr1, objIdCr2, originalTimeout;
+      originalTimeout;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -49,14 +49,13 @@ describe("[action] sol.learning.as.actions.CreateCertificate", function () {
     it("certificateTypes.length must greater than one", function () {
       expect(certificateTypes.length).toBeGreaterThan(1);
     });
-    describe("create PDF certificate", function () {
+    xdescribe("create PDF certificate", function () {
       it("start as action create certificate", function (done) {
         expect(function () {
           params = { templateId: certificateTypes[0].objId, targetId: objIdEnr };
           test.Utils.executeASActionHandler("learning", "sol.learning.as.actions.CreateCertificate", params, []).then(function success(jsonResults) {
             test.Utils.handleAllEvents(jsonResults).then(function success1(wfInfo1) {
               wfInfo = wfInfo1;
-              objIdCr1 = wfInfo.objId;
               done();
             }, function error(err) {
               fail(err);
@@ -112,6 +111,18 @@ describe("[action] sol.learning.as.actions.CreateCertificate", function () {
               done();
             }
             );
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("remove certificate", function (done) {
+        expect(function () {
+          test.Utils.deleteSord(wfInfo.objId).then(function success2(deleteResult) {
+            done();
           }, function error(err) {
             fail(err);
             console.error(err);
@@ -121,14 +132,13 @@ describe("[action] sol.learning.as.actions.CreateCertificate", function () {
         }).not.toThrow();
       });
     });
-    describe("create Office certificate", function () {
+    xdescribe("create Office certificate", function () {
       it("start as action create certificate", function (done) {
         expect(function () {
           params = { templateId: certificateTypes[1].objId, targetId: objIdEnr };
           test.Utils.executeASActionHandler("learning", "sol.learning.as.actions.CreateCertificate", params, []).then(function success(jsonResults) {
             test.Utils.handleAllEvents(jsonResults).then(function success1(wfInfo1) {
               wfInfo = wfInfo1;
-              objIdCr2 = wfInfo.objId;
               done();
             }, function error(err) {
               fail(err);
@@ -184,6 +194,18 @@ describe("[action] sol.learning.as.actions.CreateCertificate", function () {
               done();
             }
             );
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("remove certificate", function (done) {
+        expect(function () {
+          test.Utils.deleteSord(wfInfo.objId).then(function success2(deleteResult) {
+            done();
           }, function error(err) {
             fail(err);
             console.error(err);
@@ -199,21 +221,7 @@ describe("[action] sol.learning.as.actions.CreateCertificate", function () {
     expect(function () {
       test.Utils.getTempfolder().then(function success(tempfolder) {
         test.Utils.deleteSord(tempfolder).then(function success1(deleteResult) {
-          test.Utils.deleteSord(objIdCr1).then(function success2(deleteResult1) {
-            test.Utils.deleteSord(objIdCr2).then(function success3(deleteResult2) {
-              done();
-            }, function error(err) {
-              fail(err);
-              console.error(err);
-              done();
-            }
-            );
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
+          done();
         }, function error(err) {
           fail(err);
           console.error(err);
