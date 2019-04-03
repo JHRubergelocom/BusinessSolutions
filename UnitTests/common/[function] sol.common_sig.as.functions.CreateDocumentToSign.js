@@ -26,7 +26,7 @@ describe("[function] sol.common_sig.as.functions.CreateDocumentToSign", function
     }).not.toThrow();
   });
   describe("Tests AS Action", function () {
-    describe("sol.common_sig.as.functions.CreateDocumentToSign", function () {
+    xdescribe("sol.common_sig.as.functions.CreateDocumentToSign", function () {
       it("should not throw with empty config", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
@@ -97,23 +97,11 @@ describe("[function] sol.common_sig.as.functions.CreateDocumentToSign", function
           );
         }).not.toThrow();
       });
-    });
-  });
-  afterAll(function (done) {
-    jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
-    expect(function () {
-      test.Utils.getFinishedWorkflows().then(function success(wfs) {
-        test.Utils.removeFinishedWorkflows(wfs).then(function success1(removeFinishedWorkflowsResult) {
-          test.Utils.getTempfolder().then(function success2(tempfolder) {
-            test.Utils.deleteSord(tempfolder).then(function success3(deleteResult) {
-              test.Utils.deleteSord(objId).then(function success4(deleteResult1) {
-                done();
-              }, function error(err) {
-                fail(err);
-                console.error(err);
-                done();
-              }
-              );
+      it("remove workflow", function (done) {
+        expect(function () {
+          test.Utils.getFinishedWorkflows().then(function success(wfs) {
+            test.Utils.removeFinishedWorkflows(wfs).then(function success1(removeFinishedWorkflowsResult) {
+              done();
             }, function error(err) {
               fail(err);
               console.error(err);
@@ -126,6 +114,29 @@ describe("[function] sol.common_sig.as.functions.CreateDocumentToSign", function
             done();
           }
           );
+        }).not.toThrow();
+      });
+      it("remove document", function (done) {
+        expect(function () {
+          test.Utils.deleteSord(objId).then(function success(deleteResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+
+    });
+  });
+  afterAll(function (done) {
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
+    expect(function () {
+      test.Utils.getTempfolder().then(function success(tempfolder) {
+        test.Utils.deleteSord(tempfolder).then(function success1(deleteResult) {
+          done();
         }, function error(err) {
           fail(err);
           console.error(err);
