@@ -26,14 +26,8 @@ sol.define("sol.visitor.ix.functions.CreateVisitorBadge", {
   extend: "sol.common.ix.FunctionBase",
 
   /**
-   * @cfg {String} type
-   * Notification type. Default is "e-mail"
-   */
-
-  /**
    * @cfg {Object} config
-   * Configuration object for the notification
-   * see {@link sol.common.as.Mail}
+   * Configuration object passed to the elo as action sol.visitor.as.actions.CreateVisitorBadge
    */
 
   initialize: function (config) {
@@ -93,17 +87,17 @@ function onExitNode(ci, userId, wfDiagram, nodeId) {
 
 /**
  * @member sol.visitor.ix.functions.CreateVisitorBadge
- * @method RF_sol_function_CreateVisitorBadge
+ * @method RF_sol_visitor_function_CreateVisitorBadge
  * @static
  * @inheritdoc sol.common.ix.FunctionBase#RF_FunctionName
  */
-function RF_sol_function_CreateVisitorBadge(ec, configAny) {
-  logger.enter("RF_sol_function_CreateVisitorBadge", configAny);
+function RF_sol_visitor_function_CreateVisitorBadge(ec, configAny) {
+  logger.enter("RF_sol_visitor_function_CreateVisitorBadge", configAny);
   var rfUtils = sol.common.ix.RfUtils,
       config = rfUtils.parseAndCheckParams(ec, arguments.callee.name, configAny),
       module;
 
   module = sol.create("sol.visitor.ix.functions.CreateVisitorBadge", config);
-  logger.exit("RF_sol_function_CreateVisitorBadge");
+  logger.exit("RF_sol_visitor_function_CreateVisitorBadge");
   return module.process();
 }

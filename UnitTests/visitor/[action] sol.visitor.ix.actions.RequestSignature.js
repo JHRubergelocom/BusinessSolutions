@@ -4,7 +4,7 @@ describe("[action] sol.visitor.ix.actions.RequestSignature", function () {
       visitorTypes, config, objSignatureBase64Id, base64Content,
       visitorDocuments, objTemplateVisitorDocumentId, templateVisitorDocumentName,
       wfInfo, flowId, succNodes, succNodesIds, interval,
-      nowDateTime, keywording, originalTimeout;
+      nowDateTime, keywording, originalTimeout, i;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -306,10 +306,51 @@ describe("[action] sol.visitor.ix.actions.RequestSignature", function () {
           );
         }).not.toThrow();
       });
+      it("setTimeout (wait for elo as)", function (done) {
+        expect(function () {
+          test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("setTimeout (wait for elo as)", function (done) {
+        expect(function () {
+          test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("setTimeout (wait for elo as)", function (done) {
+        expect(function () {
+          test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("get signatureVisitorWF 'sol.visitor.visitor.signdocument'", function (done) {
         expect(function () {
+          flowId = "-1";
           test.Utils.getActiveWorkflows().then(function success(wfs) {
-            flowId = wfs[0].id;
+            for (i = 0; i < wfs.length; i++) {
+              if (wfs[i].templateName == "sol.visitor.visitor.signdocument") {
+                flowId = wfs[i].id;
+              }
+            }
             done();
           }, function error(err) {
             fail(err);
@@ -341,6 +382,30 @@ describe("[action] sol.visitor.ix.actions.RequestSignature", function () {
             flowId: flowId,
             base64Content: base64Content
           }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("setTimeout (wait for elo as)", function (done) {
+        expect(function () {
+          test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("setTimeout (wait for elo as)", function (done) {
+        expect(function () {
+          test.Utils.setTimeout(interval).then(function success(timeoutResult) {
             done();
           }, function error(err) {
             fail(err);
@@ -395,6 +460,30 @@ describe("[action] sol.visitor.ix.actions.RequestSignature", function () {
           );
         }).not.toThrow();
       });
+      it("setTimeout (wait for elo as)", function (done) {
+        expect(function () {
+          test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("setTimeout (wait for elo as)", function (done) {
+        expect(function () {
+          test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("remove workflows", function (done) {
         expect(function () {
           test.Utils.getFinishedWorkflows(objIdVs1).then(function success(wfs) {
@@ -422,13 +511,11 @@ describe("[action] sol.visitor.ix.actions.RequestSignature", function () {
             test.Utils.forwardWorkflowTask(flowId, "5", succNodesIds, "SIGN: Sign document").then(function success2(forwardWorkflowTaskResult) {
               done();
             }, function error(err) {
-              fail(err);
               console.error(err);
               done();
             }
             );
           }, function error(err) {
-            fail(err);
             console.error(err);
             done();
           }

@@ -3,7 +3,7 @@ describe("[function] sol.visitor.ix.functions.CreateDocumentToSign", function ()
   var objSingleVisitorId, objSignedDocId, flowId, succNodes, succNodesIds,
       interval, objSignatureBase64Id, base64Content, visitorDocuments,
       objTemplateVisitorDocumentId, templateVisitorDocumentName,
-      originalTimeout;
+      originalTimeout, i;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -124,11 +124,53 @@ describe("[function] sol.visitor.ix.functions.CreateDocumentToSign", function ()
           );
         }).not.toThrow();
       });
+      it("setTimeout (wait for elo as)", function (done) {
+        expect(function () {
+          test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("setTimeout (wait for elo as)", function (done) {
+        expect(function () {
+          test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("setTimeout (wait for elo as)", function (done) {
+        expect(function () {
+          test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("get signatureVisitorWF 'sol.visitor.visitor.signdocument'", function (done) {
         expect(function () {
+          flowId = "-1";
+          objSignedDocId = "-1";
           test.Utils.getActiveWorkflows().then(function success(wfs) {
-            flowId = wfs[0].id;
-            objSignedDocId = wfs[0].objId;
+            for (i = 0; i < wfs.length; i++) {
+              if (wfs[i].templateName == "sol.visitor.visitor.signdocument") {
+                flowId = wfs[i].id;
+                objSignedDocId = wfs[i].objId;
+              }
+            }
             done();
           }, function error(err) {
             fail(err);
@@ -160,6 +202,30 @@ describe("[function] sol.visitor.ix.functions.CreateDocumentToSign", function ()
             flowId: flowId,
             base64Content: base64Content
           }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("setTimeout (wait for elo as)", function (done) {
+        expect(function () {
+          test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("setTimeout (wait for elo as)", function (done) {
+        expect(function () {
+          test.Utils.setTimeout(interval).then(function success(timeoutResult) {
             done();
           }, function error(err) {
             fail(err);
@@ -214,6 +280,30 @@ describe("[function] sol.visitor.ix.functions.CreateDocumentToSign", function ()
           );
         }).not.toThrow();
       });
+      it("setTimeout (wait for elo as)", function (done) {
+        expect(function () {
+          test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("setTimeout (wait for elo as)", function (done) {
+        expect(function () {
+          test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("FEEDCOMMENT : attached signature", function (done) {
         expect(function () {
           test.Utils.getWorkflow(flowId).then(function success(workflow) {
@@ -222,13 +312,11 @@ describe("[function] sol.visitor.ix.functions.CreateDocumentToSign", function ()
             test.Utils.forwardWorkflowTask(flowId, "5", succNodesIds, "SIGN: Sign document").then(function success2(forwardWorkflowTaskResult) {
               done();
             }, function error(err) {
-              fail(err);
               console.error(err);
               done();
             }
             );
           }, function error(err) {
-            fail(err);
             console.error(err);
             done();
           }

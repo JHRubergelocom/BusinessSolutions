@@ -35,10 +35,10 @@ describe("[function] sol.visitor.ix.functions.CreateVisitorBadge", function () {
     }).not.toThrow();
   });
   describe("Tests Registered Functions", function () {
-    describe("RF_sol_function_CreateVisitorBadge", function () {
+    describe("RF_sol_visitor_function_CreateVisitorBadge", function () {
       it("should throw if executed without Parameter", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_function_CreateVisitorBadge", {
+          test.Utils.execute("RF_sol_visitor_function_CreateVisitorBadge", {
           }).then(function success(jsonResult) {
             fail(jsonResult);
             done();
@@ -51,7 +51,7 @@ describe("[function] sol.visitor.ix.functions.CreateVisitorBadge", function () {
       });
       it("create VisitorBadge ", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_function_CreateVisitorBadge", {
+          test.Utils.execute("RF_sol_visitor_function_CreateVisitorBadge", {
             objId: objSingleVisitorId,
             cmd: "get",
             param2Obj: { parentId: objSingleVisitorId, targetId: objCreateVisitorBadgeId, templateId: objVisitorBadgeId }
