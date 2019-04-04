@@ -356,7 +356,7 @@ sol.define("sol.knowledge.ix.services.GetConfig", {
             data: sord,
             config: {
               sordKeys: ["name", "id", "guid", "maskName", "desc"],
-              objKeys: ["KNOWLEDGE_SPACE_REFERENCE", "KNOWLEDGE_BOARD_REFERENCE", "KNOWLEDGE_CONTENT_TYPE"]
+              objKeys: ["KNOWLEDGE_SPACE_REFERENCE", "KNOWLEDGE_BOARD_REFERENCE", "KNOWLEDGE_CONTENT_TYPE", "KNOWLEDGE_DEFAULT_POSTTYPE", "KNOWLEDGE_PROVIDED_POSTTYPES"]
             }
           }
         });
