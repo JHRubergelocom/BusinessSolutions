@@ -3,7 +3,7 @@ describe("PerformanceTestInvoice", function () {
   var entryFolder, entryFolderId,
       containerMode, invoiceConfig, maskId, intrayDocumentSord,
       dstMaskId, addToFullTextDatabase,
-      sourceId, i, j, invoiceMask, originalTimeout,
+      sourceId, i, invoiceMask, originalTimeout,
       numInvoices, promise, promises,
       invoiceContainertIds, IncomingInvoiceSords,
       IncomingInvoiceIds, IncomingInvoiceId,
@@ -12,7 +12,7 @@ describe("PerformanceTestInvoice", function () {
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
-    numInvoices = 5;
+    numInvoices = 500;
     expect(function () {
       test.Utils.createTempSord("PerformanceTestInvoice", null, null).then(function success(objTempId) {
         done();
@@ -92,12 +92,14 @@ describe("PerformanceTestInvoice", function () {
         test.Utils.getDocMask(invoiceMask).then(function success(docMask) {
           maskId = docMask.id;
           if (containerMode) {
+            invoiceContainertIds = [];
             for (i = 0; i < numInvoices; i++) {
               promise = new Promise (function (resolve, reject) {
                 test.Utils.createSord(entryFolderId, invoiceMask, intrayDocumentSord.name + i, null, null, {
                   sortOrder: "MANUAL",
                   documentContainer: true
                 }).then(function success1(invoiceContainertId) {
+                  invoiceContainertIds.push(invoiceContainertId);
                   resolve();
                 }, function error(err) {
                   reject(err);
@@ -123,30 +125,6 @@ describe("PerformanceTestInvoice", function () {
           done();
         }
         );
-      }).not.toThrow();
-    });
-    it("get invoice container id", function (done) {
-      expect(function () {
-        invoiceContainertIds = [];
-        if (containerMode) {
-          test.Utils.findChildren("ARCPATH:" + entryFolder).then(function success(sords) {
-            for (i = 0; i < sords.length; i++) {
-              for (j = 0; j < numInvoices; j++) {
-                if ((sords[i].name == (intrayDocumentSord.name + j + "")) && (sords[i].mask == maskId)) {
-                  invoiceContainertIds.push(sords[i].id);
-                }
-              }
-            }
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        } else {
-          done();
-        }
       }).not.toThrow();
     });
     it("changeMask incoming invoice document", function (done) {
