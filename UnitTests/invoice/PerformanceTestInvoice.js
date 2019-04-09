@@ -5,7 +5,8 @@ describe("PerformanceTestInvoice", function () {
       dstMaskId, addToFullTextDatabase,
       sourceId, i, j, invoiceMask, originalTimeout,
       numInvoices, promise, promises,
-      invoiceContainertIds, IncomingInvoiceSord,
+      invoiceContainertIds, IncomingInvoiceSords,
+      IncomingInvoiceIds, IncomingInvoiceId,
       templFlowId, flowName;
 
   beforeAll(function (done) {
@@ -87,10 +88,6 @@ describe("PerformanceTestInvoice", function () {
       expect(function () {
         promises = [];
         containerMode = (invoiceConfig.config.useInvoiceContainer.value === true);
-// TODO Testen
-        containerMode = null;
-// TODO
-
         invoiceMask = invoiceConfig.config.invoiceMaskName.value;
         test.Utils.getDocMask(invoiceMask).then(function success(docMask) {
           maskId = docMask.id;
@@ -132,7 +129,7 @@ describe("PerformanceTestInvoice", function () {
       expect(function () {
         invoiceContainertIds = [];
         if (containerMode) {
-          test.Utils.findChildren("ARCPATH:" + entryFolder).then(function success3(sords) {
+          test.Utils.findChildren("ARCPATH:" + entryFolder).then(function success(sords) {
             for (i = 0; i < sords.length; i++) {
               for (j = 0; j < numInvoices; j++) {
                 if ((sords[i].name == (intrayDocumentSord.name + j + "")) && (sords[i].mask == maskId)) {
@@ -148,30 +145,18 @@ describe("PerformanceTestInvoice", function () {
           }
           );
         } else {
-          invoiceContainertIds.push(entryFolderId);
+          done();
         }
       }).not.toThrow();
     });
     it("changeMask incoming invoice document", function (done) {
       expect(function () {
-        promises = [];
-        for (i = 0; i < invoiceContainertIds.length; i++) {
-          promise = new Promise (function (resolve, reject) {
-            dstMaskId = containerMode ? 0 : maskId;
-            addToFullTextDatabase = (invoiceConfig.config.addToFullTextDatabase && invoiceConfig.config.addToFullTextDatabase.value) ? invoiceConfig.config.addToFullTextDatabase.value : false;
-            test.Utils.changeMask(intrayDocumentSord, dstMaskId).then(function success(intrayDocumentSord1) {
-              resolve();
-            }, function error(err) {
-              reject(err);
-            }
-            );
-          });
-          promises.push(promise);
-        }
-        Promise.all(promises).then(function success1(deleteResult) {
+        dstMaskId = containerMode ? 0 : maskId;
+        addToFullTextDatabase = (invoiceConfig.config.addToFullTextDatabase && invoiceConfig.config.addToFullTextDatabase.value) ? invoiceConfig.config.addToFullTextDatabase.value : false;
+        test.Utils.changeMask(intrayDocumentSord, dstMaskId).then(function success(intrayDocumentSord1) {
+          intrayDocumentSord = intrayDocumentSord1;
           done();
         }, function error(err) {
-          fail(err);
           console.error(err);
           done();
         }
@@ -180,23 +165,10 @@ describe("PerformanceTestInvoice", function () {
     });
     it("checkinsord incoming invoice document", function (done) {
       expect(function () {
-        promises = [];
-        for (i = 0; i < numInvoices; i++) {
-          promise = new Promise (function (resolve, reject) {
-            intrayDocumentSord.details.documentContainer = containerMode;
-            test.Utils.checkinSord(intrayDocumentSord).then(function success1(checkinSordResult) {
-              resolve();
-            }, function error(err) {
-              reject(err);
-            }
-            );
-          });
-          promises.push(promise);
-        }
-        Promise.all(promises).then(function success1(deleteResult) {
+        intrayDocumentSord.details.documentContainer = containerMode;
+        test.Utils.checkinSord(intrayDocumentSord).then(function success(checkinSordResult) {
           done();
         }, function error(err) {
-          fail(err);
           console.error(err);
           done();
         }
@@ -206,24 +178,46 @@ describe("PerformanceTestInvoice", function () {
     it("copy folder contents", function (done) {
       expect(function () {
         promises = [];
-        for (i = 0; i < invoiceContainertIds.length; i++) {
-          promise = new Promise (function (resolve, reject) {
-            sourceId = "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/invoice [unit tests]/Resources/ZugferdInvoiceUnittest";
-            test.Utils.execute("RF_sol_function_CopyFolderContents", {
-              objId: invoiceContainertIds[i],
-              source: sourceId,
-              copySourceAcl: false,
-              inheritDestinationAcl: true
-            }).then(function success2(jsonResult) {
-              resolve();
-            }, function error(err) {
-              reject(err);
-            }
-            );
-          });
-          promises.push(promise);
+        if (containerMode) {
+          for (i = 0; i < invoiceContainertIds.length; i++) {
+            promise = new Promise (function (resolve, reject) {
+              sourceId = "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/invoice [unit tests]/Resources/ZugferdInvoiceUnittest";
+              test.Utils.execute("RF_sol_function_CopyFolderContents", {
+                objId: invoiceContainertIds[i],
+                source: sourceId,
+                copySourceAcl: false,
+                inheritDestinationAcl: true
+              }).then(function success(jsonResult) {
+                resolve();
+              }, function error(err) {
+                reject(err);
+              }
+              );
+            });
+            promises.push(promise);
+          }
+        } else {
+          IncomingInvoiceIds = [];
+          for (i = 0; i < numInvoices; i++) {
+            promise = new Promise (function (resolve, reject) {
+              sourceId = "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/invoice [unit tests]/Resources/ZugferdInvoiceUnittest";
+              test.Utils.execute("RF_sol_function_CopyFolderContents", {
+                objId: entryFolderId,
+                source: sourceId,
+                copySourceAcl: false,
+                inheritDestinationAcl: true
+              }).then(function success(objId) {
+                IncomingInvoiceIds.push(objId);
+                resolve();
+              }, function error(err) {
+                reject(err);
+              }
+              );
+            });
+            promises.push(promise);
+          }
         }
-        Promise.all(promises).then(function success1(deleteResult) {
+        Promise.all(promises).then(function success(deleteResult) {
           done();
         }, function error(err) {
           fail(err);
@@ -236,21 +230,38 @@ describe("PerformanceTestInvoice", function () {
     it("get sord", function (done) {
       expect(function () {
         promises = [];
+        if (containerMode) {
+          IncomingInvoiceSords = [];
+          for (i = 0; i < invoiceContainertIds.length; i++) {
+            promise = new Promise (function (resolve, reject) {
+              test.Utils.getSord(invoiceContainertIds[i]).then(function success(IncomingInvoiceSord) {
+                IncomingInvoiceSords.push(IncomingInvoiceSord);
+                resolve();
+              }, function error(err) {
+                reject(err);
+              }
+              );
 
-        for (i = 0; i < invoiceContainertIds.length; i++) {
-          promise = new Promise (function (resolve, reject) {
-            test.Utils.getSord(invoiceContainertIds[i]).then(function success4(IncomingInvoiceSord1) {
-              IncomingInvoiceSord = IncomingInvoiceSord1;
-              resolve();
-            }, function error(err) {
-              reject(err);
-            }
-            );
+            });
+            promises.push(promise);
+          }
+        } else {
+          IncomingInvoiceSords = [];
+          for (i = 0; i < IncomingInvoiceIds.length; i++) {
+            promise = new Promise (function (resolve, reject) {
+              test.Utils.getSord(IncomingInvoiceIds[i]).then(function success(IncomingInvoiceSord) {
+                IncomingInvoiceSords.push(IncomingInvoiceSord);
+                resolve();
+              }, function error(err) {
+                reject(err);
+              }
+              );
 
-          });
-          promises.push(promise);
+            });
+            promises.push(promise);
+          }
         }
-        Promise.all(promises).then(function success1(deleteResult) {
+        Promise.all(promises).then(function success(deleteResult) {
           done();
         }, function error(err) {
           fail(err);
@@ -263,11 +274,10 @@ describe("PerformanceTestInvoice", function () {
     it("checkinsord", function (done) {
       expect(function () {
         promises = [];
-
-        for (i = 0; i < invoiceContainertIds.length; i++) {
+        for (i = 0; i < IncomingInvoiceSords.length; i++) {
           promise = new Promise (function (resolve, reject) {
-            IncomingInvoiceSord.details.fulltext = addToFullTextDatabase;
-            test.Utils.checkinSord(IncomingInvoiceSord).then(function success5(checkinSordResult1) {
+            IncomingInvoiceSords[i].details.fulltext = addToFullTextDatabase;
+            test.Utils.checkinSord(IncomingInvoiceSords[i]).then(function success(checkinSordResult1) {
               resolve();
             }, function error(err) {
               reject(err);
@@ -276,32 +286,7 @@ describe("PerformanceTestInvoice", function () {
           });
           promises.push(promise);
         }
-        Promise.all(promises).then(function success1(deleteResult) {
-          done();
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
-    it("get sord invoice", function (done) {
-      expect(function () {
-        promises = [];
-        for (i = 0; i < invoiceContainertIds.length; i++) {
-          promise = new Promise (function (resolve, reject) {
-            test.Utils.getSord(invoiceContainertIds[i]).then(function success(IncomingInvoiceSord1) {
-              IncomingInvoiceSord = IncomingInvoiceSord1;
-              resolve();
-            }, function error(err) {
-              reject(err);
-            }
-            );
-          });
-          promises.push(promise);
-        }
-        Promise.all(promises).then(function success1(deleteResult) {
+        Promise.all(promises).then(function success(deleteResult) {
           done();
         }, function error(err) {
           fail(err);
@@ -314,11 +299,12 @@ describe("PerformanceTestInvoice", function () {
     it("start workflow incoming invoice", function (done) {
       expect(function () {
         promises = [];
-        for (i = 0; i < invoiceContainertIds.length; i++) {
+        for (i = 0; i < IncomingInvoiceSords.length; i++) {
           promise = new Promise (function (resolve, reject) {
             templFlowId = "sol.invoice.Base";
-            flowName = IncomingInvoiceSord.name;
-            test.Utils.startWorkflow(templFlowId, flowName, invoiceContainertIds[i]).then(function success1(flowId) {
+            flowName = IncomingInvoiceSords[i].name;
+            IncomingInvoiceId = IncomingInvoiceSords[i].id;
+            test.Utils.startWorkflow(templFlowId, flowName, IncomingInvoiceId).then(function success(flowId) {
               resolve();
             }, function error(err) {
               reject(err);
@@ -327,7 +313,7 @@ describe("PerformanceTestInvoice", function () {
           });
           promises.push(promise);
         }
-        Promise.all(promises).then(function success1(deleteResult) {
+        Promise.all(promises).then(function success(deleteResult) {
           done();
         }, function error(err) {
           fail(err);
@@ -337,47 +323,60 @@ describe("PerformanceTestInvoice", function () {
         );
       }).not.toThrow();
     });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// TODO Create entry invoices
-
-
-
-
-
-
-
-
-
-
-
-
-
-// TODO Create Start invoice workflow
-
-
-// TODO Create entry invoice workflow
-
+    it("remove incoming invoice", function (done) {
+      expect(function () {
+        if (containerMode) {
+          test.Utils.deleteSords(invoiceContainertIds).then(function success(deleteResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        } else {
+          test.Utils.deleteSords(IncomingInvoiceIds).then(function success(deleteResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }
+      }).not.toThrow();
+    });
   });
   afterAll(function (done) {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
     expect(function () {
       test.Utils.getTempfolder().then(function success(tempfolder) {
         test.Utils.deleteSord(tempfolder).then(function success1(deleteResult) {
-          done();
+          test.Utils.getFinishedWorkflows().then(function success2(wfs) {
+            test.Utils.removeFinishedWorkflows(wfs).then(function success3(removeFinishedWorkflowsResult) {
+              test.Utils.getActiveWorkflows().then(function success4(wfs1) {
+                test.Utils.removeActiveWorkflows(wfs1).then(function success5(removeFinishedWorkflowsResult1) {
+                  done();
+                }, function error(err) {
+                  console.error(err);
+                  done();
+                }
+                );
+              }, function error(err) {
+                console.error(err);
+                done();
+              }
+              );
+            }, function error(err) {
+              console.error(err);
+              done();
+            }
+            );
+          }, function error(err) {
+            console.error(err);
+            done();
+          }
+          );
         }, function error(err) {
           fail(err);
           console.error(err);
