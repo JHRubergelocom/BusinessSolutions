@@ -1,7 +1,8 @@
 
 describe("[service] sol.knowledge.ix.services.SolType", function () {
-  var objTempId, objSpaceId, objPostId, objReplyId,
-      originalTimeout;
+  var objTempId, objBoardId, objSpaceId, objPostId, objReplyId,
+      spaceTypes, configTypes, configAction, originalTimeout,
+      wfInfo, succNodes, succNodesIds;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -18,12 +19,158 @@ describe("[service] sol.knowledge.ix.services.SolType", function () {
       );
     }).not.toThrow();
   });
-  describe("create knowledge space", function () {
-    it("create space", function (done) {
+  describe("create knowledge board", function () {
+    it("create board", function (done) {
       expect(function () {
-        test.Utils.createSord(objTempId, "knowledge Space", "TestSpace", { SOL_TYPE: "KNOWLEDGE_SPACE", KNOWLEDGE_SPACE_REFERENCE: "TSpace" }).then(function success(objSpaceId1) {
-          objSpaceId = objSpaceId1;
+        test.Utils.createSord(objTempId, "knowledge Board", "TestBoard", { SOL_TYPE: "KNOWLEDGE_BOARD", KNOWLEDGE_BOARD_REFERENCE: "TBoard" }).then(function success(objBoardId1) {
+          objBoardId = objBoardId1;
           done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("spaceTypes must be available", function (done) {
+      configTypes = {
+        $types: {
+          path: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/knowledge/Configuration/Space types"
+        }
+      };
+      test.Utils.execute("RF_sol_common_service_StandardTypes", configTypes).then(function success(spaceTypes1) {
+        spaceTypes = spaceTypes1;
+        expect(spaceTypes).toBeDefined();
+        done();
+      }, function error(err) {
+        fail(err);
+        console.error(err);
+        done();
+      }
+      );
+    });
+    it("start action create workflow", function (done) {
+      expect(function () {
+        configAction = {
+          objId: objBoardId,
+          $metadata: {
+            solType: "KNOWLEDGE_SPACE",
+            owner: {
+              fromConnection: true
+            }
+          },
+          $wf: {
+            template: {
+              name: "sol.knowledge.space.create"
+            },
+            name: "Create Space {{formatDate 'YYYY-MM-DD HH:mm:ss'}}"
+          },
+          $name: "CreateSpace",
+          $events: [
+            {
+              id: "DIALOG"
+            },
+            {
+              id: "GOTO",
+              onWfStatus: "CREATE"
+            }
+          ],
+          $new: {
+            target: {
+              mode: "SELECTED"
+            },
+            template: {
+              name: "Default",
+              base: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/knowledge/Configuration/Space types"
+            }
+          },
+          $permissions: {
+            mode: "SET",
+            copySource: false,
+            inherit: {
+              fromDirectParent: true
+            }
+          }
+        };
+        wfInfo = {};
+        test.Utils.executeIxActionHandler("RF_sol_common_action_Standard", configAction, []).then(function success(jsonResults) {
+          test.Utils.handleAllEvents(jsonResults).then(function success1(wfInfo1) {
+            wfInfo = wfInfo1;
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("fill space sord", function (done) {
+      expect(function () {
+        test.Utils.getSord(wfInfo.objId).then(function success(sordSpace) {
+          objSpaceId = wfInfo.objId;
+          test.Utils.updateSord(sordSpace, [{ key: "name", value: "Unittest Space" }, { key: "desc", value: "Unittest desc" }]).then(function success1(updateSordResult) {
+            test.Utils.updateKeywording(sordSpace, { KNOWLEDGE_SPACE_REFERENCE: "TSpace" }, true).then(function success2(updateKeywordingResult) {
+              done();
+            }, function error(err) {
+              fail(err);
+              console.error(err);
+              done();
+            }
+            );
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("finish forwarding workflow", function (done) {
+      expect(function () {
+        test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
+          succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "Create space");
+          succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
+          test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest finish input").then(function success1(forwardWorkflowTaskResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("remove workflows", function (done) {
+      expect(function () {
+        test.Utils.getFinishedWorkflows(wfInfo.objId).then(function success(wfs) {
+          test.Utils.removeFinishedWorkflows(wfs).then(function success1(removeFinishedWorkflowsResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
         }, function error(err) {
           fail(err);
           console.error(err);
@@ -49,6 +196,25 @@ describe("[service] sol.knowledge.ix.services.SolType", function () {
         );
       }).not.toThrow();
     });
+    it("update post reference", function (done) {
+      expect(function () {
+        test.Utils.getSord(objPostId).then(function success(sordPost) {
+          test.Utils.updateKeywording(sordPost, { KNOWLEDGE_POST_REFERENCE: "TPost" }, true).then(function success1(updateKeywordingResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
     it("create reply", function (done) {
       expect(function () {
         test.Utils.execute("RF_sol_knowledge_service_Reply_Create", {
@@ -58,6 +224,25 @@ describe("[service] sol.knowledge.ix.services.SolType", function () {
         }).then(function success(jsonResultReply) {
           objReplyId = jsonResultReply.objId;
           done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("update reply reference", function (done) {
+      expect(function () {
+        test.Utils.getSord(objReplyId).then(function success(sordPeply) {
+          test.Utils.updateKeywording(sordPeply, { KNOWLEDGE_REPLY_REFERENCE: "TReply" }, true).then(function success1(updateKeywordingResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
         }, function error(err) {
           fail(err);
           console.error(err);
@@ -93,6 +278,7 @@ describe("[service] sol.knowledge.ix.services.SolType", function () {
               expect(result.spaceId).toBeDefined();
               expect(result.boardId).toBeDefined();
               expect(result.knowledgeSpaceReference).toBeDefined();
+              expect(result.knowledgeBoardReference).toBeDefined();
               done();
             }, function error(err) {
               fail(err);
@@ -111,6 +297,7 @@ describe("[service] sol.knowledge.ix.services.SolType", function () {
               expect(result.spaceId).toBeDefined();
               expect(result.boardId).toBeDefined();
               expect(result.knowledgeSpaceReference).toBeDefined();
+              expect(result.knowledgeBoardReference).toBeDefined();
               done();
             }, function error(err) {
               fail(err);
@@ -127,7 +314,24 @@ describe("[service] sol.knowledge.ix.services.SolType", function () {
             }).then(function success(result) {
               expect(result.solType).toBeDefined();
               expect(result.boardId).toBeDefined();
+              expect(result.knowledgeBoardReference).toBeDefined();
               expect(result.knowledgeSpaceReference).toBeDefined();
+              done();
+            }, function error(err) {
+              fail(err);
+              console.error(err);
+              done();
+            }
+            );
+          }).not.toThrow();
+        });
+        it("get info board", function (done) {
+          expect(function () {
+            test.Utils.execute("RF_sol_knowledge_service_SolType_GetInfo", {
+              objId: objBoardId
+            }).then(function success(result) {
+              expect(result.solType).toBeDefined();
+              expect(result.knowledgeBoardReference).toBeDefined();
               done();
             }, function error(err) {
               fail(err);
