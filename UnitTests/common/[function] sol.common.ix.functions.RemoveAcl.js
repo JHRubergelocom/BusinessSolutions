@@ -1,10 +1,21 @@
 
 describe("[function] sol.common.ix.functions.RemoveAcl", function () {
-  var originalTimeout, obRemoveAclId1, obRemoveAclId2;
+  var originalTimeout, obRemoveAclId1, obRemoveAclId2, objTempId;
 
-  beforeAll(function () {
+  beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
+    expect(function () {
+      test.Utils.createTempSord("RemoveAcl", null, null, elo.CONST.EDIT_INFO.mbSordDoc).then(function success(objTempId1) {
+        objTempId = objTempId1;
+        done();
+      }, function error(err) {
+        fail(err);
+        console.error(err);
+        done();
+      }
+      );
+    }).not.toThrow();
   });
   it("should throw if executed without 'objId'", function (done) {
     expect(function () {
@@ -22,10 +33,10 @@ describe("[function] sol.common.ix.functions.RemoveAcl", function () {
   describe("test cases removeacl with store old ACL", function () {
     beforeAll(function (done) {
       expect(function () {
-        test.Utils.createSord().then(function success(obRemoveAclId11) {
+        test.Utils.createSord(objTempId).then(function success(obRemoveAclId11) {
           obRemoveAclId1 = obRemoveAclId11;
           test.Utils.removeRights(obRemoveAclId1, ["9999"], { r: true, w: true, d: true, e: true, l: true }, true).then(function success1(removeRightsResult) {
-            test.Utils.createSord().then(function success2(obRemoveAclId21) {
+            test.Utils.createSord(objTempId).then(function success2(obRemoveAclId21) {
               obRemoveAclId2 = obRemoveAclId21;
               test.Utils.removeRights(obRemoveAclId2, ["9999"], { r: true, w: true, d: true, e: true, l: true }, true).then(function success3(removeRightsResult1) {
                 done();
@@ -132,10 +143,10 @@ describe("[function] sol.common.ix.functions.RemoveAcl", function () {
   describe("test cases removeacl without store old ACL", function () {
     beforeAll(function (done) {
       expect(function () {
-        test.Utils.createSord().then(function success(obRemoveAclId11) {
+        test.Utils.createSord(objTempId).then(function success(obRemoveAclId11) {
           obRemoveAclId1 = obRemoveAclId11;
           test.Utils.removeRights(obRemoveAclId1, ["9999"], { r: true, w: true, d: true, e: true, l: true }, true).then(function success1(removeRightsResult) {
-            test.Utils.createSord().then(function success2(obRemoveAclId21) {
+            test.Utils.createSord(objTempId).then(function success2(obRemoveAclId21) {
               obRemoveAclId2 = obRemoveAclId21;
               test.Utils.removeRights(obRemoveAclId2, ["9999"], { r: true, w: true, d: true, e: true, l: true }, true).then(function success3(removeRightsResult1) {
                 test.Utils.addRights(obRemoveAclId2, ["Unittest"], { r: true }, true).then(function success4(addRightsResult) {
@@ -243,7 +254,38 @@ describe("[function] sol.common.ix.functions.RemoveAcl", function () {
       }).not.toThrow();
     });
   });
-  afterAll(function () {
+  afterAll(function (done) {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
+    expect(function () {
+      test.Utils.getTempfolder().then(function success(tempfolder) {
+        test.Utils.deleteSord(tempfolder).then(function success1(deleteResult) {
+          test.Utils.getFinishedWorkflows().then(function success2(wfs) {
+            test.Utils.removeFinishedWorkflows(wfs).then(function success3(removeFinishedWorkflowsResult) {
+              done();
+            }, function error(err) {
+              fail(err);
+              console.error(err);
+              done();
+            }
+            );
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }, function error(err) {
+        fail(err);
+        console.error(err);
+        done();
+      }
+      );
+    }).not.toThrow();
   });
 });
