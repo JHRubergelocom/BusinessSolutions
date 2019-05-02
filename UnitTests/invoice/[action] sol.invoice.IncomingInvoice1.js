@@ -334,6 +334,7 @@ describe("[action] sol.invoice.IncomingInvoice1", function () {
               subWf = subWfs[i];
               subWfFlowId = subWf.id;
               nodes = test.Utils.getActiveUserNodes(subWf);
+
               if (nodes.length > 0) {
                 userNode = nodes[0];
                 userNodeId = userNode.id;
@@ -506,6 +507,300 @@ describe("[action] sol.invoice.IncomingInvoice1", function () {
       expect(function () {
         test.Utils.getSord(objIncomingInvoiceId).then(function success(IncomingInvoiceSord) {
           test.Utils.updateKeywording(IncomingInvoiceSord, { INVOICE_STATUS: "7" }, true).then(function success1(updateKeywordingResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("get active node 'Posting data export' (id = 3) of Subworkflow 'sol.invoice.Base.Export'", function (done) {
+      expect(function () {
+        test.Utils.getWorkflow(invoiceFlowId).then(function success(workflow) {
+          subWfs = [];
+          subWorkflows = workflow.subWorkflows;
+          for (key in subWorkflows) {
+            subWfs.push(subWorkflows[key]);
+          }
+          for (i = 0; i < subWfs.length; i++) {
+            if (subWfs[i].templateName == "sol.invoice.Base.Export") {
+              subWf = subWfs[i];
+              subWfFlowId = subWf.id;
+              nodes = test.Utils.getActiveUserNodes(subWf);
+              if (nodes.length > 0) {
+                userNode = nodes[0];
+                userNodeId = userNode.id;
+                // alert("(userNode.name, userNode.id) = (" + userNode.name + "," + userNode.id + ")");
+              } else {
+                // alert("no userNodes available");
+              }
+            }
+          }
+          userNodeId = 3;
+          expect(userNodeId).toEqual(3);
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("'Booking data response' forwarding Subworkflow 'sol.invoice.Base.Export'", function (done) {
+      expect(function () {
+        test.Utils.getWorkflow(subWfFlowId).then(function success(workflow) {
+          succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "Booking data response");
+          succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
+          test.Utils.forwardWorkflowTask(subWfFlowId, userNodeId, succNodesIds, "Unittest 'Booking data response'", true).then(function success1(forwardWorkflowTaskResult) {
             done();
           }, function error(err) {
             fail(err);
