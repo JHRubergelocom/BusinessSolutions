@@ -12,10 +12,8 @@ describe("[service] sol.learning.ix.services.Config", function () {
         expect(function () {
           test.Utils.execute("RF_sol_learning_service_GetConfig", {
           }).then(function success(result) {
-            expect(result.environment.notify.installed).toEqual(true);
             expect(result.environment.knowledge.installed).toEqual(true);
             expect(result.courseTypes).toBeDefined();
-            expect(result.learningPathTypes).toBeDefined();
             expect(result.courseLocales).toBeDefined();
             done();
           }, function error(err) {
@@ -33,10 +31,8 @@ describe("[service] sol.learning.ix.services.Config", function () {
             pageStyle: "standalone",
             lang: "DE"
           }).then(function success(result) {
-            expect(result.environment.notify.installed).toEqual(true);
             expect(result.environment.knowledge.installed).toEqual(true);
             expect(result.courseTypes).toBeDefined();
-            expect(result.learningPathTypes).toBeDefined();
             expect(result.courseLocales).toBeDefined();
             expect(result.pageStyle).toBeDefined();
             done();
