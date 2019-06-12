@@ -1,5 +1,12 @@
 {
   "entities": {
+    "localizedkwls": {
+      "services": {
+        "getkeywordlists": {
+          "exportkeywordlists": ["durationunit"]
+        }
+      }
+    },
     "course": {
       "actions": {
         "createheadless": {
@@ -300,7 +307,7 @@
         "create": {
           "move": {
             "scriptProperties": {
-              "path": "ARCPATH:/Kursverwaltung/Kurse/{{{sord.objKeys.COURSE_NAME}}}"
+              "path": "ARCPATH:/Kursverwaltung/Kurse"
             }
           },
           "changerights": {
@@ -352,6 +359,19 @@
                 { "source": { "id": "COURSE_REFERENCE", "type": "GRP" }, "target": {"id": "COURSE_REFERENCE", "type": "GRP" } },
                 { "target": { "id": "COURSE_ENROLLMENT_STATUS", "type": "GRP", "valueFromWfMapTableRow": "COURSE_ENROLLMENT_STATUS" } },
                 { "target": { "id": "COURSE_ENROLLMENT_USER", "type": "GRP", "valueFromWfMapTableRow": "COURSE_ENROLLMENT_USER" } }
+              ]
+            }
+          }
+        },
+        "addsessions": {
+          "addsessions": {
+            "scriptProperties": {
+              "metadataMapping": [
+                { "source": { "id": "COURSE_REFERENCE", "type": "GRP" }, "target": {"id": "COURSE_REFERENCE", "type": "GRP" } },
+                { "source": { "id": "COURSE_NAME", "type": "GRP" }, "target": {"id": "COURSE_NAME", "type": "GRP" } },
+                { "target": { "id": "SESSION_NAME", "type": "GRP", "valueFromWfMapTableRow": "SESSION_NAME" } },
+                { "target": { "id": "SESSION_STARTTIME", "type": "GRP", "valueFromWfMapTableRow": "SESSION_STARTTIME" } },
+                { "target": { "id": "SESSION_TEMPLATE", "type": "MAP", "valueFromWfMapTableRow": "SESSION_TEMPLATE" } }
               ]
             }
           }
@@ -696,42 +716,48 @@
             "options": { "allowEmptyMask": true, "maxResults": 1 }
           },
           "const": {
+            "standardWorkflow": "sol.learning.session.createHeadless",
+            "workflowMessage": "{{translate 'sol.learning.workflow.session.createheadless.message'}}",
             "templateService": "RF_sol_common_service_StandardTypes",
-            "templateServiceArgs": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/learning/Configuration/Session types"
+            "templateServiceTargetPath": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/learning/Configuration/Session types"
           }
         }
       },
       "functions": {
         "movesessiontocourse": {
-          "candidate": {
-            "masks": [""],
-            "search": [
-              { "key": "SOL_TYPE", "value": "SESSION"}
-            ],
-            "output": [
-              { "source": { "type": "SORD" , "key": "id" }, "target": { "prop": "id" } },
-              { "source": { "type": "SORD" , "key": "parentId" }, "target": { "prop": "parentId" } },
-              { "source": { "type": "GRP" , "key": "COURSE_REFERENCE" }, "target": { "prop": "targetCourse" } }
-            ],
-            "options": {
-              "allowEmptyMask": true,
-              "maxResults": 1
+          "find": {
+            "session": {
+              "output": [
+                { "source": { "type": "GRP" , "key": "COURSE_REFERENCE" }, "target": { "prop": "course" } },
+                { "source": { "type": "GRP" , "key": "SESSION_STARTTIME" }, "target": { "prop": "sessionTime" } }
+              ]
             },
-            "sessionKey": "SESSION_REFERENCE"
+            "course": {
+              "masks": [""],
+              "search": [
+                { "key": "SOL_TYPE", "value": "COURSE"}
+              ],
+              "output": [
+                { "source": { "type": "SORD" , "key": "id" }, "target": { "prop": "objId" } },
+                { "source": { "type": "SORD" , "key": "guid" }, "target": { "prop": "guid" } },
+                { "source": { "type": "GRP" , "key": "COURSE_LANGUAGE" }, "target": { "prop": "language" } },
+                { "source": { "type": "MAP" , "key": "COURSE_SESSIONFOLDER" }, "target": { "prop": "sessionfolder" } }
+              ],
+              "options": {
+                "allowEmptyMask": true,
+                "maxResults": 1
+              }
+            },
+            "courseReferenceField": "COURSE_REFERENCE"
           },
-          "course": {
-            "masks": [""],
-            "search": [
-              { "key": "SOL_TYPE", "value": ["COURSE"] }
-            ],
-            "output": [
-              { "source": { "type": "SORD" , "key": "id" }, "target": { "prop": "id" } }
-            ],
-            "options": {
-              "allowEmptyMask": true,
-              "maxResults": 1
+          "sessionFolder": {
+            "fallbacks": {
+              "name": "sol.learning.session.defaultFolderName",
+              "language": "en",
+              "fixed": "Sessions",
+              "mask": "Course structure"
             },
-            "requisitionKey": "COURSE_REFERENCE"
+            "nameStorageField": { "type": "MAP" , "key": "COURSE_SESSIONFOLDER" }
           }
         },
         "generatesessionno": {
