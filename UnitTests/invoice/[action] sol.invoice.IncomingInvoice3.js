@@ -556,25 +556,6 @@ describe("[action] sol.invoice.IncomingInvoice3", function () {
         );
       }).not.toThrow();
     });
-    it("remove invoice workflow", function (done) {
-      expect(function () {
-        test.Utils.getFinishedWorkflows(objIncomingInvoiceId).then(function success(wfs) {
-          test.Utils.removeFinishedWorkflows(wfs).then(function success1(removeFinishedWorkflowsResult) {
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
     it("remove incoming invoice", function (done) {
       expect(function () {
         test.Utils.deleteSord(objIncomingInvoiceId).then(function success2(deleteResult) {

@@ -1,5 +1,5 @@
 
-describe("[action] sol.invoice.ExtractZugferdData", function () {
+describe("[action] sol.invoice.ExtractElectronicData", function () {
   var objIncomingInvoiceId, entryFolder, targetId,
       containerMode, invoiceConfig, maskId, intrayDocumentSord,
       dstMaskId, addToFullTextDatabase, archiveTargetId,
@@ -9,7 +9,7 @@ describe("[action] sol.invoice.ExtractZugferdData", function () {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
-      test.Utils.createTempSord("Actions.ExtractZugferdData", null, null).then(function success(objTempId) {
+      test.Utils.createTempSord("Actions.ExtractElectronicData", null, null).then(function success(objTempId) {
         done();
       }, function error(err) {
         fail(err);
@@ -173,14 +173,14 @@ describe("[action] sol.invoice.ExtractZugferdData", function () {
       }).not.toThrow();
     });
   });
-  describe("test extract zugferd data", function () {
-    it("Start Extract Zugferd Data", function (done) {
+  describe("test extract electronic data", function () {
+    it("Start Electronic Extract Data", function (done) {
       expect(function () {
         params = { objId: objIncomingInvoiceId,
                   statusFieldName: "INVOICE_DATACOLLECTION",
-                  statusFieldValue: "ZUGFeRD",
-                  timestampMapFieldName: "ZUGFERD_IMPORTED" };
-        test.Utils.executeASActionHandler("invoice", "sol.invoice_zugferd.extractZugferdData", params, []).then(function success(jsonResults) {
+                  statusFieldValue: "Electronic invoice",
+                  timestampMapFieldName: "ELECTRONIC_INVOICE_IMPORTED" };
+        test.Utils.executeASActionHandler("invoice", "sol.invoice_electronic.ExtractData", params, []).then(function success(jsonResults) {
           done();
         }, function error(err) {
           fail(err);
