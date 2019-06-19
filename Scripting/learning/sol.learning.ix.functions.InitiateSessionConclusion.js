@@ -12,11 +12,11 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_sol.common.Injection.js
 
 /**
- * Creates sessions based on a sord containing a MAPTABLE containing the data for the bulk mailing.
+ * Completes enrollments based on a sord containing a MAPTABLE containing the enrollments which should be completed.
  *
  * #### Returns
  *
- *     { code: "success", data: [{ objId: "12345", flowId: "33" }], info: "Bulk mailing initiated successfully" }
+ *     { code: "success", info: "Enrollments completed successfully" }
  *
  * @author ESt, ELO Digital Office GmbH
  * @version 1.0
@@ -32,31 +32,24 @@ importPackage(Packages.de.elo.ix.client);
  * @requires sol.learning.mixins.Configuration
  * @requires sol.common.Injection
  */
-sol.define("sol.learning.ix.functions.AddSessions", {
+sol.define("sol.learning.ix.functions.InitiateSessionConclusion", {
   extend: "sol.common.ix.FunctionBase",
 
-  requiredConfig: ["objId"],
+  requiredConfig: ["objId", "flowId"],
 
   mixins: ["sol.learning.mixins.Configuration", "sol.common.mixins.Inject"],
 
-  inject: {
-    sord: { sordIdFromProp: "objId", flowIdFromProp: "flowId" }
-  },
-
-  _optimize: {},
-
-  pilcrow: String.fromCharCode(182),
+  inject: { sord: { sordIdFromProp: "objId", flowIdFromProp: "flowId" } },
 
   extractColumnsFromConfig: function (mappings) {
-    return mappings
-      .reduce(function (acc, mapping) {
-        (mapping = mapping.target)
-          && (
-            (mapping.valueFromMapTableRow && acc.map.push(mapping.valueFromMapTableRow))
+    return mappings.reduce(function (acc, mapping) {
+      (mapping = mapping.target)
+        && (
+          (mapping.valueFromMapTableRow && acc.map.push(mapping.valueFromMapTableRow))
             || (mapping.valueFromWfMapTableRow && acc.wfMap.push(mapping.valueFromWfMapTableRow))
-          );
-        return acc;
-      }, { wfMap: [], map: [] });
+        );
+      return acc;
+    }, { wfMap: [], map: [] });
   },
 
   arrayOfInt: function (int) {
@@ -66,7 +59,7 @@ sol.define("sol.learning.ix.functions.AddSessions", {
   sizeOfLargestColumn: function (table) {
     return Object.keys(table)  // find size of largest column ...
       .reduce(function (max, col) {
-        return (table[col].length >= max) ? table[col].length : max;
+        return table[col].length >= max ? table[col].length : max;
       }, 0);
   },
 
@@ -87,11 +80,10 @@ sol.define("sol.learning.ix.functions.AddSessions", {
 
   addKeyToTable: function (table, columns, map, mapName, key) {
     var column;
-    columns[mapName]
-      .some(function (col) {
-        return (column = key.indexOf(col) === 0 && col);
-      })
-        && (table[column][+(key.slice(column.length)) - 1] = (map[key]));
+    columns[mapName].some(function (col) {
+      return (column = key.indexOf(col) === 0 && col);
+    })
+      && (table[column][+(key.slice(column.length)) - 1] = (map[key]));
   },
 
   addMapToTable: function (columns, sord, table, mapName) {
@@ -127,59 +119,33 @@ sol.define("sol.learning.ix.functions.AddSessions", {
       .filter(me.rowNotEmpty);
   },
 
-  createSession: function (config) {
-    var me = this;
-    try {
-      return sol.common.IxUtils.execute("RF_sol_learning_function_CreateSessionHeadless", config);
-    } catch (_e) {
-      me.logger.debug("AddSessions: Creating a session failed. Please review the logs (RF_sol_learning_function_CreateSessionHeadless) for further details.");
-    }
+  completeEnrollment: function (config) {
+    sol.common.IxUtils.execute("RF_sol_learning_function_ManageEnrollment", config);
   },
 
-  adjustConfigForRow: function (config, row) {
-    config.metadataMapping  // set values from maptables in mapping
-      .reduce(function (acc, mapping, col) {
-        (mapping = mapping.target)
-          && (col = (mapping.valueFromMapTableRow || mapping.valueFromWfMapTableRow))
-            && (mapping.value = (row[col] || ""));
-        return acc;
-      }, config);
-
-    config.template = { name: row["SESSION_TEMPLATE"] };
-    return config;
-  },
-
-  rowToSession: function (config, results, row) {
+  rowToCompletion: function (row) {
     var me = this;
-    results.push(
-      (me.createSession(me.adjustConfigForRow(JSON.parse(config), row), row) || {}).data
-    );
-    return results;
+    (row[me.attendedIndicatorColumn] === "1")
+      && me.completeEnrollment({
+        action: "completed",
+        course: me.sord.objKeys[me.courseNoColumn],
+        session: me.sord.objKeys[me.sessionNoColumn],
+        user: row[me.userColumn]
+      });
   },
 
   process: function () {
-    var me = this, createdSessions = [];
+    var me = this;
 
     me.convertTable(me.buildTable(me.extractColumnsFromConfig(me.metadataMapping), me.sord))
-      .reduce(
-        me.rowToSession.bind(
-          me,
-          sol.common.JsonUtils.stringifyQuick({ // stringify once...gets parsed in rowToSession
-            objId: me.objId,
-            flowId: me.flowId || "",
-            course: me.sord.objKeys.COURSE_REFERENCE,
-            metadataMapping: me.metadataMapping
-          })
-        ),
-        createdSessions
-      );
+      .forEach(me.rowToCompletion.bind(me));
 
-    return { code: "success", data: createdSessions, info: "Sessions added successfully" };
+    return { code: "success", info: "Enrollments completed successfully" };
   }
 });
 
 /**
- * @member sol.learning.ix.functions.AddSessions
+ * @member sol.learning.ix.functions.InitiateSessionConclusion
  * @static
  * @inheritdoc sol.common.ix.FunctionBase#onEnterNode
  */
@@ -191,13 +157,13 @@ function onEnterNode(_clInfo, _userId, wfDiagram, nodeId) {
 
   params.objId = wfDiagram.objId;
   params.flowId = wfDiagram.id;
-  fun = sol.create("sol.learning.ix.functions.AddSessions", params);
+  fun = sol.create("sol.learning.ix.functions.InitiateSessionConclusion", params);
 
   fun.process();
 }
 
 /**
- * @member sol.learning.ix.functions.AddSessions
+ * @member sol.learning.ix.functions.InitiateSessionConclusion
  * @static
  * @inheritdoc sol.common.ix.FunctionBase#onExitNode
  */
@@ -210,24 +176,24 @@ function onExitNode(_clInfo, _userId, wfDiagram, nodeId) {
   params.objId = wfDiagram.objId;
   params.flowId = wfDiagram.id;
 
-  fun = sol.create("sol.learning.ix.functions.AddSessions", params);
+  fun = sol.create("sol.learning.ix.functions.InitiateSessionConclusion", params);
 
   fun.process();
 }
 
 /**
- * @member sol.learning.ix.functions.AddSessions
- * @method RF_sol_learning_function_AddSessions
+ * @member sol.learning.ix.functions.InitiateSessionConclusion
+ * @method RF_sol_learning_function_InitiateSessionConclusion
  * @static
  * @inheritdoc sol.common.ix.FunctionBase#RF_FunctionName
  */
-function RF_sol_learning_function_AddSessions(iXSEContext, args) {
+function RF_sol_learning_function_InitiateSessionConclusion(iXSEContext, args) {
   var rfArgs, fun;
 
   rfArgs = sol.common.ix.RfUtils.parseAndCheckParams(iXSEContext, arguments.callee.name, args);
   sol.common.ix.RfUtils.checkMainAdminRights(iXSEContext.user, rfArgs);
 
-  fun = sol.create("sol.learning.ix.functions.AddSessions", rfArgs);
+  fun = sol.create("sol.learning.ix.functions.InitiateSessionConclusion", rfArgs);
 
   return JSON.stringify(fun.process());
 }
