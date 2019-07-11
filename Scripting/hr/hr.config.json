@@ -301,6 +301,47 @@
           "protectedFields": [],
           "mandatoryFields": []
         },
+        "changesuperiorfile": {
+          "sourceConfigs": {
+            "bySuperiorGuid": {
+              "masks": [""],
+              "search": [
+                { "key": "SOL_TYPE", "value": "PERSONNELFILE"},
+                { "key": "HR_PERSONNEL_SUPERIOR_GUID", "value": "XXXX" }
+              ],
+              "output": [
+                { "source": { "type": "SORD" , "key": "id" }, "target": { "prop": "id" } },
+                { "source": { "type": "SORD" , "key": "guid" }, "target": { "prop": "guid" } },
+                { "source": { "type": "SORD" , "key": "name" }, "target": { "prop": "name" } },
+                { "source": { "type": "GRP" , "key": "HR_PERSONNEL_FIRSTNAME" }, "target": { "prop": "firstname" } },
+                { "source": { "type": "GRP" , "key": "HR_PERSONNEL_LASTNAME" }, "target": { "prop": "lastname" } },
+                { "source": { "type": "GRP" , "key": "HR_PERSONNEL_SUPERIOR_GUID" }, "target": { "prop": "superiorguid" } },
+                { "source": { "type": "GRP" , "key": "HR_PERSONNEL_SUPERIOR" }, "target": { "prop": "superior" } },
+                { "source": { "type": "GRP" , "key": "HR_PERSONNEL_ELOUSERID" }, "target": { "prop": "elouserid" } },
+                { "source": { "type": "MAP" , "key": "HR_PERSONNEL_SUPERIORUSERID" }, "target": { "prop": "superioruserid" } }
+              ],
+              "options": {
+                "asAdmin": true
+              }
+            },
+            "byGuid": {
+              "output": [
+                { "source": { "type": "SORD" , "key": "id" }, "target": { "prop": "id" } },
+                { "source": { "type": "SORD" , "key": "guid" }, "target": { "prop": "guid" } },
+                { "source": { "type": "SORD" , "key": "name" }, "target": { "prop": "name" } },
+                { "source": { "type": "GRP" , "key": "HR_PERSONNEL_FIRSTNAME" }, "target": { "prop": "firstname" } },
+                { "source": { "type": "GRP" , "key": "HR_PERSONNEL_LASTNAME" }, "target": { "prop": "lastname" } },
+                { "source": { "type": "GRP" , "key": "HR_PERSONNEL_SUPERIOR_GUID" }, "target": { "prop": "superiorguid" } },
+                { "source": { "type": "GRP" , "key": "HR_PERSONNEL_SUPERIOR" }, "target": { "prop": "superior" } },
+                { "source": { "type": "GRP" , "key": "HR_PERSONNEL_ELOUSERID" }, "target": { "prop": "elouserid" } },
+                { "source": { "type": "MAP" , "key": "HR_PERSONNEL_SUPERIORUSERID" }, "target": { "prop": "superioruserid" } }
+              ],
+              "options": {
+                "asAdmin": true
+              }
+            }
+          }
+        },
         "generatepersonnelno": {
           "type": "generator",
           "generatorConfig": {
