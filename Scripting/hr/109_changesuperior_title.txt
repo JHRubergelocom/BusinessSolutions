@@ -1,0 +1,15 @@
+﻿<tbody id="eloedit" tableid="tb" bigtable="false" tablebreak="false" eloelems="">
+              
+              
+              
+              
+              
+              
+<tr><td class="mainheader functiontitle"><div elonodename="TEXT" style="left: 0px; top: 0px;" id=""><elowf:text>sol.hr.form.personnelfile.offboarding</elowf:text></div></td></tr>
+<tr><td class="functiondescr"><div elonodename="TEXT" id="" style="left: 0px; top: 0px;"><elowf:text>sol.hr.form.personnelfile.offboardingCaption</elowf:text></div></td></tr>
+</tbody>
+
+          
+
+ELO_END_OF_TEMPLATE
+{"ver":1,"elocompl":[],"eloswl":[]}

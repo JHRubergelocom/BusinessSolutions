@@ -116,6 +116,24 @@
             },
             "message": "{{translate 'sol.hr.personnelfile.workflow.file.terminate.message'}}"
           }
+        },
+        "changesuperior": {
+          "const": {
+            "temporaryAttributes": {
+              "shortDescription": "",
+              "targetDirectory": ""
+            }
+          },
+          "workflow": {
+            "maskStandardWorkflow": {
+              "start": false,
+              "field": "HR_FILE_WF"
+            },
+            "customWorkflow": {
+              "name": "sol.hr.personnel.ChangeSuperiorFile"
+            },
+            "message": "{{translate 'sol.hr.personnelfile.workflow.file.changesuperior.message'}}"
+          }
         }
       },
       "dynkwls": {
@@ -255,6 +273,44 @@
             "IX_MAP_HR_PERSONNEL_MENTORUSERID",
             "IX_MAP_HR_PERSONNEL_MENTOR_GUID",
             "IX_MAP_HR_PERSONNEL_MENTOR"
+          ],
+          "rowDataFields": [
+            "HR_PERSONNEL_FIRSTNAME",
+            "HR_PERSONNEL_LASTNAME",
+            "HR_PERSONNEL_COMPANY",
+            "HR_PERSONNEL_DIVISION",
+            "HR_PERSONNEL_DEPARTMENT",
+            "HR_PERSONNEL_TEAM",
+            "HR_PERSONNEL_ELOUSERID",
+            "guid",
+            "name"
+          ]
+        },
+        "superiornew": {
+          "solType": "PERSONNELFILE",
+          "displayNameTemplate": "{{sord.objKeys.HR_PERSONNEL_FIRSTNAME}} {{sord.objKeys.HR_PERSONNEL_LASTNAME}}",
+          "tableTitle": "{{translate 'sol.hr.dynkwl.personnelfiles.tableTitle'}}",
+          "tableHeaders": [
+            "{{translate 'sol.hr.mask.personnelfile.firstname'}}",
+            "{{translate 'sol.hr.mask.personnelfile.lastname'}}",
+            "{{translate 'sol.hr.mask.personnelfile.company'}}",
+            "{{translate 'sol.hr.mask.personnelfile.division'}}",
+            "{{translate 'sol.hr.mask.personnelfile.department'}}",
+            "{{translate 'sol.hr.mask.personnelfile.team'}}",
+            null,
+            null,
+            null
+          ],
+          "tableKeyNames": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "IX_MAP_HR_PERSONNEL_SUPERIORNEWUSERID",
+            "IX_MAP_HR_PERSONNEL_SUPERIORNEW_GUID",
+            "IX_MAP_HR_PERSONNEL_SUPERIORNEW"
           ],
           "rowDataFields": [
             "HR_PERSONNEL_FIRSTNAME",

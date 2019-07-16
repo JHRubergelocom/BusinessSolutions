@@ -132,6 +132,54 @@ sol.define("sol.hr.ix.functions.ChangeSuperiorFile", {
 
 /**
  * @member sol.hr.ix.functions.ChangeSuperiorFile
+ * @static
+ * @inheritdoc sol.common.ix.FunctionBase#onEnterNode
+ */
+function onEnterNode(clInfo, userId, wfDiagram, nodeId) {
+  var params, fun, sourceSord;
+
+  params = sol.common.WfUtils.parseAndCheckParams(wfDiagram, nodeId),
+
+  params.objId = wfDiagram.objId;
+  params.flowId = wfDiagram.id;
+
+  sourceSord = ixConnect.ix().checkoutSord(params.objId, SordC.mbAllIndex, LockC.NO);
+  params.sourceSuperior = String(sol.common.SordUtils.getValue(sourceSord, { key: "HR_PERSONNEL_SUPERIOR_GUID", type: "GRP" }));
+  params.targetSuperior = String(sol.common.SordUtils.getValue(sourceSord, { key: "HR_PERSONNEL_SUPERIORNEW_GUID", type: "MAP" }));
+
+  fun = sol.create("sol.hr.ix.functions.ChangeSuperiorFile", params);
+
+  fun.process();
+}
+
+/**
+ * @member sol.hr.ix.functions.ChangeSuperiorFile
+ * @static
+ * @inheritdoc sol.common.ix.FunctionBase#onExitNode
+ */
+function onExitNode(clInfo, userId, wfDiagram, nodeId) {
+  var params, fun, sourceSord;
+
+  params = sol.common.WfUtils.parseAndCheckParams(wfDiagram, nodeId);
+
+  params.objId = wfDiagram.objId;
+  params.flowId = wfDiagram.id;
+
+
+  sourceSord = ixConnect.ix().checkoutSord(params.objId, SordC.mbAllIndex, LockC.NO);
+  params.sourceSuperior = String(sol.common.SordUtils.getValue(sourceSord, { key: "HR_PERSONNEL_SUPERIOR_GUID", type: "GRP" }));
+  params.targetSuperior = String(sol.common.SordUtils.getValue(sourceSord, { key: "HR_PERSONNEL_SUPERIORNEW_GUID", type: "MAP" }));
+
+  fun = sol.create("sol.hr.ix.functions.ChangeSuperiorFile", params);
+
+  fun.process();
+}
+
+
+
+
+/**
+ * @member sol.hr.ix.functions.ChangeSuperiorFile
  * @method RF_sol_hr_function_ChangeSuperiorFile
  * @static
  * @return {Object}
