@@ -36,7 +36,7 @@ importPackage(Packages.de.elo.ix.client);
  *
  *     { code: "success" }
  *
- * @author ESt, ELO Digital Office GmbH
+ * @author JHR, ELO Digital Office GmbH
  * @version 1.0
  *
  * @eloix

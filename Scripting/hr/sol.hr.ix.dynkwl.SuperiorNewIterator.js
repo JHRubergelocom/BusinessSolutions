@@ -13,7 +13,7 @@ importPackage(Packages.de.elo.ix.scripting);
 /**
  * Dynamic keyword list that returns the sord content of authorities selected by solution object type.
  *
- * @author ESt, ELO Digital Office GmbH
+ * @author JHR, ELO Digital Office GmbH
  * @version 1.0
  *
  * @requires sol.common.Config

@@ -13,7 +13,7 @@ var logger = sol.create("sol.Logger", { scope: "sol.hr.ix.actions.sol.hr.ix.acti
 /**
  * Starts the workflow sol.hr.personnel.ChangeSuperiorFile on the selected personnel file.
  *
- * @author ESt, ELO Digital Office GmbH
+ * @author JHR, ELO Digital Office GmbH
  *
  * @requires sol.common.ix.ActionBase
  * @requires sol.hr.mixins.Configuration
