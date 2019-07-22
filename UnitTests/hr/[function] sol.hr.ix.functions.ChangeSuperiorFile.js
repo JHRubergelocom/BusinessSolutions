@@ -98,7 +98,7 @@ describe("[function] sol.hr.ix.functions.ChangeSuperiorFile", function () {
           test.Utils.getSord(s2ObjId).then(function success(sordS2) {
             s2Guid = sordS2.guid;
             s2Name = sordS2.name;
-            s2Superior = test.Utils.getObjKeyValue(sordS2, "HR_PERSONNEL_LASTNAME") + ", " + test.Utils.getObjKeyValue(sordS2, "HR_PERSONNEL_FIRSTNAME");
+            s2Superior = test.Utils.getObjKeyValue(sordS2, "HR_PERSONNEL_FIRSTNAME") + ", " + test.Utils.getObjKeyValue(sordS2, "HR_PERSONNEL_LASTNAME");
             s2EloUserId = test.Utils.getObjKeyValue(sordS2, "HR_PERSONNEL_ELOUSERID");
             done();
           }, function error(err) {
@@ -268,29 +268,6 @@ describe("[function] sol.hr.ix.functions.ChangeSuperiorFile", function () {
             expect(test.Utils.getObjKeyValue(sordHr2, "HR_PERSONNEL_SUPERIOR_GUID")).toEqual(s2Guid);
             expect(test.Utils.getObjKeyValue(sordHr2, "HR_PERSONNEL_SUPERIOR")).toEqual(s2Superior);
             test.Utils.getMapValue(objIdHr2, "HR_PERSONNEL_SUPERIORUSERID").then(function success2(mapValue) {
-              expect(mapValue).toEqual(s2EloUserId);
-              done();
-            }, function error(err) {
-              fail(err);
-              console.error(err);
-              done();
-            }
-            );
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }).not.toThrow();
-      });
-      it("Compare Values hr3", function (done) {
-        expect(function () {
-          test.Utils.getSord(objIdHr3).then(function success(sordHr3) {
-            expect(test.Utils.getObjKeyValue(sordHr3, "HR_PERSONNEL_SUPERIOR_GUID")).toEqual(s2Guid);
-            expect(test.Utils.getObjKeyValue(sordHr3, "HR_PERSONNEL_SUPERIOR")).toEqual(s2Superior);
-            test.Utils.getMapValue(objIdHr3, "HR_PERSONNEL_SUPERIORUSERID").then(function success2(mapValue) {
               expect(mapValue).toEqual(s2EloUserId);
               done();
             }, function error(err) {

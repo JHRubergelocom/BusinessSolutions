@@ -20,7 +20,7 @@ describe("[action] sol.pubsec.ix.actions.StartDirective", function () {
       );
     }).not.toThrow();
   });
-  describe("test startdirective", function () {
+  xdescribe("test startdirective", function () {
     describe("create filingplan", function () {
       it("create filingplan should not throw", function (done) {
         expect(function () {

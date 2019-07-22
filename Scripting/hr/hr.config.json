@@ -308,9 +308,9 @@
             null,
             null,
             null,
-            "IX_MAP_HR_PERSONNEL_SUPERIORNEWUSERID",
-            "IX_MAP_HR_PERSONNEL_SUPERIORNEW_GUID",
-            "IX_MAP_HR_PERSONNEL_SUPERIORNEW"
+            "WF_MAP_HR_PERSONNEL_SUPERIORNEWUSERID",
+            "WF_MAP_HR_PERSONNEL_SUPERIORNEW_GUID",
+            "WF_MAP_HR_PERSONNEL_SUPERIORNEW"
           ],
           "rowDataFields": [
             "HR_PERSONNEL_FIRSTNAME",

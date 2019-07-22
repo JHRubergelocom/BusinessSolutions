@@ -113,7 +113,7 @@ describe("[action] sol.hr.ix.actions.ChangeSuperiorFile", function () {
             test.Utils.getSord(s2ObjId).then(function success(sordS2) {
               s2Guid = sordS2.guid;
               s2Name = sordS2.name;
-              s2Superior = test.Utils.getObjKeyValue(sordS2, "HR_PERSONNEL_LASTNAME") + ", " + test.Utils.getObjKeyValue(sordS2, "HR_PERSONNEL_FIRSTNAME");
+              s2Superior = test.Utils.getObjKeyValue(sordS2, "HR_PERSONNEL_FIRSTNAME") + ", " + test.Utils.getObjKeyValue(sordS2, "HR_PERSONNEL_LASTNAME");
               s2EloUserId = test.Utils.getObjKeyValue(sordS2, "HR_PERSONNEL_ELOUSERID");
               done();
             }, function error(err) {
@@ -245,7 +245,7 @@ describe("[action] sol.hr.ix.actions.ChangeSuperiorFile", function () {
         });
         it("fill personnelfile sord", function (done) {
           expect(function () {
-            test.Utils.updateMapData(wfInfo.objId, { HR_PERSONNEL_SUPERIORNEWUSERID: s2EloUserId, HR_PERSONNEL_SUPERIORNEW_GUID: s2Guid, IX_MAP_HR_PERSONNEL_SUPERIORNEW: s2Name }).then(function success1(updateMapDataResult) {
+            test.Utils.updateWfMapData(wfInfo.flowId, wfInfo.objId, { HR_PERSONNEL_SUPERIORNEWUSERID: s2EloUserId, HR_PERSONNEL_SUPERIORNEW_GUID: s2Guid, IX_MAP_HR_PERSONNEL_SUPERIORNEW: s2Name }).then(function success1(updateMapDataResult) {
               done();
             }, function error(err) {
               fail(err);
@@ -305,29 +305,6 @@ describe("[action] sol.hr.ix.actions.ChangeSuperiorFile", function () {
               expect(test.Utils.getObjKeyValue(sordHr2, "HR_PERSONNEL_SUPERIOR_GUID")).toEqual(s2Guid);
               expect(test.Utils.getObjKeyValue(sordHr2, "HR_PERSONNEL_SUPERIOR")).toEqual(s2Superior);
               test.Utils.getMapValue(objIdHr2, "HR_PERSONNEL_SUPERIORUSERID").then(function success2(mapValue) {
-                expect(mapValue).toEqual(s2EloUserId);
-                done();
-              }, function error(err) {
-                fail(err);
-                console.error(err);
-                done();
-              }
-              );
-              done();
-            }, function error(err) {
-              fail(err);
-              console.error(err);
-              done();
-            }
-            );
-          }).not.toThrow();
-        });
-        it("Compare Values hr3", function (done) {
-          expect(function () {
-            test.Utils.getSord(objIdHr3).then(function success(sordHr3) {
-              expect(test.Utils.getObjKeyValue(sordHr3, "HR_PERSONNEL_SUPERIOR_GUID")).toEqual(s2Guid);
-              expect(test.Utils.getObjKeyValue(sordHr3, "HR_PERSONNEL_SUPERIOR")).toEqual(s2Superior);
-              test.Utils.getMapValue(objIdHr3, "HR_PERSONNEL_SUPERIORUSERID").then(function success2(mapValue) {
                 expect(mapValue).toEqual(s2EloUserId);
                 done();
               }, function error(err) {
@@ -550,7 +527,7 @@ describe("[action] sol.hr.ix.actions.ChangeSuperiorFile", function () {
             test.Utils.getSord(s2ObjId).then(function success(sordS2) {
               s2Guid = sordS2.guid;
               s2Name = sordS2.name;
-              s2Superior = test.Utils.getObjKeyValue(sordS2, "HR_PERSONNEL_LASTNAME") + ", " + test.Utils.getObjKeyValue(sordS2, "HR_PERSONNEL_FIRSTNAME");
+              s2Superior = test.Utils.getObjKeyValue(sordS2, "HR_PERSONNEL_FIRSTNAME") + ", " + test.Utils.getObjKeyValue(sordS2, "HR_PERSONNEL_LASTNAME");
               s2EloUserId = test.Utils.getObjKeyValue(sordS2, "HR_PERSONNEL_ELOUSERID");
               done();
             }, function error(err) {

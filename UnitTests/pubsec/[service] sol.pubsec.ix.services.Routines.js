@@ -34,6 +34,74 @@ describe("[service] sol.pubsec.ix.services.Routines", function () {
     }).not.toThrow();
   });
   describe("Tests Registered Functions", function () {
+    describe("RF_sol_pubsec_service_AddRoutine", function () {
+      it("should throw if executed without Parameter ", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_pubsec_service_AddRoutine", {
+          }).then(function success(jsonResult) {
+            fail(jsonResult);
+            done();
+          }, function error(err) {
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("should throw if executed without Parameter 'name' ", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_pubsec_service_AddRoutine", {
+            objId: objProcessId
+          }).then(function success(jsonResult) {
+            fail(jsonResult);
+            done();
+          }, function error(err) {
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("add routine if executed with Parameter {'objId': objProcessId, 'name': 'XYZ'}", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_pubsec_service_AddRoutine", {
+            objId: objProcessId,
+            name: "XYZ"
+          }).then(function success(jsonResult) {
+            expect(jsonResult.steps).toBeDefined();
+            expect(jsonResult.name).toBeDefined();
+            expect(jsonResult.name).toEqual("XYZ");
+            expect(jsonResult.id).toBeDefined();
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("add routine if executed with Parameter {'objId': objProcessId, 'name': 'XYZ', routine: {'templateName': 'Mustergeschäftsgang'}}", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_pubsec_service_AddRoutine", {
+            objId: objProcessId,
+            name: "XYZ",
+            templateName: "Mustergeschäftsgang"
+          }).then(function success(jsonResult) {
+            expect(jsonResult.steps).toBeDefined();
+            expect(jsonResult.name).toBeDefined();
+            expect(jsonResult.name).toEqual("XYZ");
+            expect(jsonResult.id).toBeDefined();
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+    });
     describe("RF_sol_pubsec_service_GetRoutine", function () {
       it("should throw if executed without Parameter ", function (done) {
         expect(function () {
@@ -48,33 +116,15 @@ describe("[service] sol.pubsec.ix.services.Routines", function () {
           );
         }).not.toThrow();
       });
-      it("get empty json result if executed with Parameter {'objId': 1}", function (done) {
-        expect(function () {
-          test.Utils.execute("RF_sol_pubsec_service_GetRoutine", {
-            objId: 1
-          }).then(function success(jsonResult) {
-            expect(jsonResult).toBeDefined();
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }).not.toThrow();
-      });
-      it("get routine if executed with Parameter {'objId': objRoutineId, 'isTemplate': true}", function (done) {
+      it("get routine if executed with Parameter {'objId': objRoutineId}", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_pubsec_service_GetRoutine", {
             objId: objRoutineId,
             isTemplate: true
           }).then(function success(jsonResult) {
-            jsonRoutine = jsonResult.routine;
-            expect(jsonResult.routine).toBeDefined();
-            expect(jsonResult.routine.name).toBeDefined();
-            expect(jsonResult.routine.name).toEqual("Routine");
-            expect(jsonResult.routine.steps).toBeDefined();
-            expect(jsonResult.routine.steps.length).toBeGreaterThan(0);
+            expect(jsonResult.routines).toBeDefined();
+            expect(jsonResult.routineTemplates).toBeDefined();
+            expect(jsonResult.options).toBeDefined();
             done();
           }, function error(err) {
             fail(err);
@@ -102,8 +152,7 @@ describe("[service] sol.pubsec.ix.services.Routines", function () {
       it("should throw if executed without Parameter 'routine'", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_pubsec_service_UpdateRoutine", {
-            objId: objRoutineId,
-            isTemplate: true
+            objId: objRoutineId
           }).then(function success(jsonResult) {
             fail(jsonResult);
             done();
@@ -114,12 +163,11 @@ describe("[service] sol.pubsec.ix.services.Routines", function () {
           );
         }).not.toThrow();
       });
-      it("update routine if executed with Parameter {'objId': objRoutineId, 'isTemplate': true, 'routine': jsonRoutine}", function (done) {
+      it("update routine if executed with Parameter {'objId': objRoutineId, 'routine': {}}", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_pubsec_service_UpdateRoutine", {
             objId: objRoutineId,
-            isTemplate: true,
-            routine: jsonRoutine
+            routine: {}
           }).then(function success(jsonResult) {
             expect(jsonResult);
             done();
@@ -132,7 +180,7 @@ describe("[service] sol.pubsec.ix.services.Routines", function () {
         }).not.toThrow();
       });
     });
-    describe("RF_sol_pubsec_service_StartRoutine", function () {
+    xdescribe("RF_sol_pubsec_service_StartRoutine", function () {
       it("should throw if executed without Parameter 'objId'", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_pubsec_service_StartRoutine", {
@@ -264,7 +312,7 @@ describe("[service] sol.pubsec.ix.services.Routines", function () {
         }).not.toThrow();
       });
     });
-    describe("RF_sol_pubsec_service_ForwardRoutine", function () {
+    xdescribe("RF_sol_pubsec_service_ForwardRoutine", function () {
       it("start routine if executed with Parameter {'objId': objProcessId}", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_pubsec_service_StartRoutine", {
