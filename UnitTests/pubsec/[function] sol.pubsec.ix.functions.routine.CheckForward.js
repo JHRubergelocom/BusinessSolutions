@@ -1,13 +1,29 @@
 
 describe("[function] sol.pubsec.ix.functions.routine.CheckForward", function () {
-  var originalTimeout;
+  var originalTimeout, objRoutineId, objProcessId;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
       test.Utils.createTempSord("CheckForward").then(function success(objTempId) {
-        done();
+        test.Utils.copySord("ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/pubsec [unit tests]/Test data/Routine").then(function success2(objRoutineId1) {
+          objRoutineId = objRoutineId1;
+          test.Utils.copySord("ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/pubsec [unit tests]/Test data/Process").then(function success3(objProcessId1) {
+            objProcessId = objProcessId1;
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
       }, function error(err) {
         fail(err);
         console.error(err);
@@ -16,7 +32,7 @@ describe("[function] sol.pubsec.ix.functions.routine.CheckForward", function () 
       );
     }).not.toThrow();
   });
-  xdescribe("Tests Registered Functions", function () {
+  describe("Tests Registered Functions", function () {
     describe("RF_sol_pubsec_function_routine_CheckForward", function () {
       it("should throw if executed without Parameter 'objId'", function (done) {
         expect(function () {
@@ -31,10 +47,25 @@ describe("[function] sol.pubsec.ix.functions.routine.CheckForward", function () 
           );
         }).not.toThrow();
       });
-      it("should receive result if executed with Parameter { objId: 1 }", function (done) {
+      it("should throw if executed without Parameter 'routineId'", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_pubsec_function_routine_CheckForward", {
-            objId: 1
+            objId: objProcessId
+          }).then(function success(jsonResult) {
+            fail(jsonResult);
+            done();
+          }, function error(err) {
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("should receive result ", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_pubsec_function_routine_CheckForward", {
+            objId: objProcessId,
+            routineId: objRoutineId
           }).then(function success(jsonResult) {
             expect(jsonResult).toBeDefined();
             expect(jsonResult.allowed).toBeDefined();

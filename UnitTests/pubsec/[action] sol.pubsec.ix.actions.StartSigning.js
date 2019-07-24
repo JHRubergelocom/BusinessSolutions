@@ -21,7 +21,7 @@ describe("[action] sol.pubsec.ix.actions.StartSigning", function () {
       );
     }).not.toThrow();
   });
-  xdescribe("test startsigning", function () {
+  describe("test startsigning", function () {
     describe("create filingplan", function () {
       it("create filingplan should not throw", function (done) {
         expect(function () {

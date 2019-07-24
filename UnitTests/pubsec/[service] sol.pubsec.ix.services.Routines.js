@@ -180,7 +180,7 @@ describe("[service] sol.pubsec.ix.services.Routines", function () {
         }).not.toThrow();
       });
     });
-    xdescribe("RF_sol_pubsec_service_StartRoutine", function () {
+    describe("RF_sol_pubsec_service_StartRoutine", function () {
       it("should throw if executed without Parameter 'objId'", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_pubsec_service_StartRoutine", {
@@ -312,7 +312,7 @@ describe("[service] sol.pubsec.ix.services.Routines", function () {
         }).not.toThrow();
       });
     });
-    xdescribe("RF_sol_pubsec_service_ForwardRoutine", function () {
+    describe("RF_sol_pubsec_service_ForwardRoutine", function () {
       it("start routine if executed with Parameter {'objId': objProcessId}", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_pubsec_service_StartRoutine", {
