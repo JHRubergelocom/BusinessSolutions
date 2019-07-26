@@ -32,10 +32,10 @@ var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.SolComm
 sol.define("sol.unittest.ix.services.SolCommonTemplate", {
   extend: "sol.common.ix.ServiceBase",
 
-  requiredConfig: ["method", "params"],
+  requiredConfig: ["source", "method", "params"],
 
   /**
-   * @cfg {String} source (optional) Template source as a string.
+   * @cfg {String} source Template source as a string | objId ELO Document with template string.
    */
 
   /**
@@ -44,10 +44,6 @@ sol.define("sol.unittest.ix.services.SolCommonTemplate", {
 
   /**
    * @cfg {Object} params Method parameters.
-   */
-
-  /**
-   * @cfg {String} objId (optional) objId ELO Document with template string.
    */
 
   initialize: function (config) {
@@ -63,7 +59,6 @@ sol.define("sol.unittest.ix.services.SolCommonTemplate", {
     var me = this,
         result, tpl;
 
-
     switch (me.method) {
       case "apply":
         tpl = sol.create("sol.common.Template", {
@@ -71,18 +66,37 @@ sol.define("sol.unittest.ix.services.SolCommonTemplate", {
         });
         result = tpl.apply(me.params);
         break;
+      case "applySord":
+        tpl = sol.create("sol.common.Template", {
+          source: me.source
+        });
+        result = tpl.applySord(me.params);
+        break;
       case "load":
         tpl = sol.create('sol.common.Template', {});
-        tpl.load(me.objId);
+        tpl.load(me.source);
+        result = tpl.apply(me.params);
+        break;
+      case "setSource":
+        tpl = sol.create("sol.common.Template", {
+          source: me.source
+        });
+        tpl.setSource(me.source, me.params);
+        result = tpl.apply();
+        break;
+      case "registerCustomHelper":
+        tpl = sol.create("sol.common.Template", {});
+        tpl.registerCustomHelper("hello", function (config) {
+          return "hello " + arguments[0];
+        });
+        tpl.setSource(me.source);
         result = tpl.apply(me.params);
         break;
       default:
         throw "IllegalMethodException: Method " + me.method + " not supported";
     }
-
     return result;
   }
-
 });
 
 /**
@@ -95,7 +109,7 @@ function RF_sol_unittest_service_SolCommonTemplate(ec, args) {
   var params, service, result;
   logger.enter("RF_sol_unittest_service_SolCommonTemplate", args);
 
-  params = sol.common.ix.RfUtils.parseAndCheckParams(ec, arguments.callee.name, args, "method", "params");
+  params = sol.common.ix.RfUtils.parseAndCheckParams(ec, arguments.callee.name, args, "source", "method", "params");
   service = sol.create("sol.unittest.ix.services.SolCommonTemplate", params);
   result = service.process();
   logger.exit("RF_sol_unittest_service_SolCommonTemplate", result);
