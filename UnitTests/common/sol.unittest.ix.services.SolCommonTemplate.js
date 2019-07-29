@@ -25,6 +25,7 @@ var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.SolComm
  * @version 1.0
  *
  * @eloix
+ * @requires  sol.common.as.BarcodeUtils
  * @requires  sol.common.ix.ServiceBase
  * @requires  sol.common.ix.RepoUtils
  * @requires  sol.common.ix.Template

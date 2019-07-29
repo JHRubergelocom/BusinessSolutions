@@ -1,6 +1,7 @@
 
 describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
-  var objTemplateId, templateSord, originalTimeout;
+  var objTemplateId, templateSord, objSmiley1Id, smiley1Sord,
+      userName, userInfo, originalTimeout;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -10,7 +11,25 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
         test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/Template").then(function success1(templateSord1) {
           templateSord = templateSord1;
           objTemplateId = templateSord.id;
-          done();
+          test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/Smiley1").then(function success2(smiley1Sord1) {
+            smiley1Sord = smiley1Sord1;
+            objSmiley1Id = smiley1Sord.id;
+            userName = test.Utils.getCurrentUserName();
+            test.Utils.getUserInfo(userName).then(function success3(userInfo1) {
+              userInfo = userInfo1;
+              done();
+            }, function error(err) {
+              fail(err);
+              console.error(err);
+              done();
+            }
+            );
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
         }, function error(err) {
           fail(err);
           console.error(err);
@@ -256,7 +275,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
             method: "apply",
             params: {}
           }).then(function success(jsonResult) {
-            expect(jsonResult).toEqual("Webcam-Bild erfassen");
+            expect(jsonResult).toEqual("Take webcam picture");
             done();
           }, function error(err) {
             fail(err);
@@ -300,32 +319,392 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
           );
         }).not.toThrow();
       });
+      it("base64Image", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
+            source: "{{base64Image objId='" + objSmiley1Id + "'}}",
+            method: "apply",
+            params: {}
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("ifContains", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
+            source: "{{#ifContains 'ABCDEF' 'BC'}}XXX{{/ifContains}}YYY",
+            method: "apply",
+            params: {}
+          }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("XXXYYY");
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("ifContains", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
+            source: "{{#ifContains 'ABCDEF' 'XYZ'}}XXX{{/ifContains}}YYY",
+            method: "apply",
+            params: {}
+          }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("YYY");
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("ifKey", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
+            source: "{{#ifKey 'ABCDEF' 'ABCDEF'}}XXX{{/ifKey}}YYY",
+            method: "apply",
+            params: {}
+          }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("XXXYYY");
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("ifKey", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
+            source: "{{#ifKey 'ABCDEF' 'XYZ'}}XXX{{/ifKey}}YYY",
+            method: "apply",
+            params: {}
+          }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("YYY");
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("ifNegative", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
+            source: "{{#ifNegative '-1000'}}XXX{{/ifNegative}}YYY",
+            method: "apply",
+            params: {}
+          }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("XXXYYY");
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("ifNegative", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
+            source: "{{#ifNegative '1000'}}XXX{{/ifNegative}}YYY",
+            method: "apply",
+            params: {}
+          }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("YYY");
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("doublecurly", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
+            source: "{{doublecurly open}}XXX{{doublecurly}}YYY",
+            method: "apply",
+            params: {}
+          }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("{{XXX}}YYY");
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("text", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
+            source: "{{text '{{XXX}}'}}",
+            method: "apply",
+            params: {}
+          }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("{{XXX}}");
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("currentUser name", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
+            source: "{{currentUser}}",
+            method: "apply",
+            params: {}
+          }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual(userName);
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("currentUser id", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
+            source: "{{currentUser 'id'}}",
+            method: "apply",
+            params: {}
+          }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual(String(userInfo.id));
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("currentUser guid", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
+            source: "{{currentUser 'guid'}}",
+            method: "apply",
+            params: {}
+          }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual(userInfo.guid);
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("currentUser desc", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
+            source: "{{currentUser 'desc'}}",
+            method: "apply",
+            params: {}
+          }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual(userInfo.desc);
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("userFolder name", function (done) {
+        expect(function () {
+          test.Utils.getSord("ARCPATH:/" + userInfo.name).then(function success(userFolder) {
+            test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
+              source: "{{userFolder}}",
+              method: "apply",
+              params: {}
+            }).then(function success1(jsonResult) {
+              expect(jsonResult).toEqual(userFolder.guid);
+              done();
+            }, function error(err) {
+              fail(err);
+              console.error(err);
+              done();
+            }
+            );
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("userFolder private", function (done) {
+        expect(function () {
+          test.Utils.getSord("OKEY:ELOINDEX=/users/private#" + userInfo.guid).then(function success(userFolder) {
+            test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
+              source: "{{userFolder 'private'}}",
+              method: "apply",
+              params: {}
+            }).then(function success1(jsonResult) {
+              expect(jsonResult).toEqual(userFolder.guid);
+              done();
+            }, function error(err) {
+              fail(err);
+              console.error(err);
+              done();
+            }
+            );
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("userFolder data", function (done) {
+        expect(function () {
+          test.Utils.getSord("OKEY:ELOINDEX=/users/data#" + userInfo.guid).then(function success(userFolder) {
+            test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
+              source: "{{userFolder 'data'}}",
+              method: "apply",
+              params: {}
+            }).then(function success1(jsonResult) {
+              expect(jsonResult).toEqual(userFolder.guid);
+              done();
+            }, function error(err) {
+              fail(err);
+              console.error(err);
+              done();
+            }
+            );
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("userFolder inbox", function (done) {
+        expect(function () {
+          test.Utils.getSord("OKEY:ELOINDEX=/users/inbox#" + userInfo.guid).then(function success(userFolder) {
+            test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
+              source: "{{userFolder 'inbox'}}",
+              method: "apply",
+              params: {}
+            }).then(function success1(jsonResult) {
+              expect(jsonResult).toEqual(userFolder.guid);
+              done();
+            }, function error(err) {
+              fail(err);
+              console.error(err);
+              done();
+            }
+            );
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("number", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
+            source: "{{number '10,99'}}",
+            method: "apply",
+            params: {}
+          }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("10.99");
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("abs", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
+            source: "{{abs '2000.11'}}",
+            method: "apply",
+            params: {}
+          }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("2000.11");
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("debitCreditIndicator", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
+            source: "{{debitCreditIndicator '-1099' 'S' 'H'}}",
+            method: "apply",
+            params: {}
+          }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("S");
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("debitCreditIndicator", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
+            source: "{{debitCreditIndicator '1099' 'S' 'H'}}",
+            method: "apply",
+            params: {}
+          }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("H");
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
 
 /*
-      base64Barcode
-
-      base64Image
-
-      ifContains
-
-      ifKey
-
-      ifNegative
-
-      doublecurly
-
-      text
-
-      currentUser
-
-      userFolder
-
-      number
-
-      abs
-
-      debitCreditIndicator
-
       minDate
 
       maxDate
