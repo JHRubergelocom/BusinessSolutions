@@ -1,0 +1,176 @@
+
+describe("[lib] sol.unittest.ix.services.TemplateUtils", function () {
+  var templateSord, originalTimeout;
+
+  beforeAll(function (done) {
+    originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
+    expect(function () {
+      test.Utils.createTempSord("TemplateUtils").then(function success(obTemplateUtilsId) {
+        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/Template").then(function success1(templateSord1) {
+          templateSord = templateSord1;
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }, function error(err) {
+        fail(err);
+        console.error(err);
+        done();
+      }
+      );
+    }).not.toThrow();
+  });
+  describe("Test Lib Functions", function () {
+    describe("sol.common.TemplateUtils", function () {
+      it("render", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_TemplateUtils", {
+            tpl: "{{formatDate 'DD.MM.YYYY HH:mm:ss' 20001015120030}}",
+            tplData: { name: "Hans" },
+            options: { emptyNonRendered: true, stringifyResults: true }
+          }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("15.10.2000 12:00:30");
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("render", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_TemplateUtils", {
+            tpl: {
+              sordId: "{{sord.id}}",
+              sordGuid: "{{sord.guid}}",
+              sordName: "{{sord.name}}",
+              sordDescription: "{{sord.desc}}",
+              sordMask: "{{sord.mask}}"
+            },
+            tplData: { sord: templateSord },
+            options: { emptyNonRendered: true, stringifyResults: true }
+          }).then(function success(jsonResult) {
+            expect(jsonResult.sordId).toBeDefined();
+            expect(jsonResult.sordGuid).toBeDefined();
+            expect(jsonResult.sordName).toBeDefined();
+            expect(jsonResult.sordDescription).toBeDefined();
+            expect(jsonResult.sordMask).toBeDefined();
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("render", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_TemplateUtils", {
+            tpl: {
+              sordId: "{{sord.id}}",
+              sordGuid: "{{sord.guid}}",
+              sordName: "{{sord.name}}",
+              sordDescription: "{{sord.desc}}",
+              sordMask: "{{sord.mask}}"
+            },
+            tplData: { sord: templateSord },
+            options: { emptyNonRendered: true }
+          }).then(function success(jsonResult) {
+            expect(jsonResult.sordId).toBeDefined();
+            expect(jsonResult.sordGuid).toBeDefined();
+            expect(jsonResult.sordName).toBeDefined();
+            expect(jsonResult.sordDescription).toBeDefined();
+            expect(jsonResult.sordMask).toBeDefined();
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("render", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_TemplateUtils", {
+            tpl: {
+              sordId: "{{sord.id}}",
+              sordGuid: "{{sord.guid}}",
+              sordName: "{{sord.name}}",
+              sordDescription: "{{sord.desc}}",
+              sordMask: "{{sord.mask}}"
+            },
+            tplData: { sord: templateSord },
+            options: { stringifyResults: true }
+          }).then(function success(jsonResult) {
+            expect(jsonResult.sordId).toBeDefined();
+            expect(jsonResult.sordGuid).toBeDefined();
+            expect(jsonResult.sordName).toBeDefined();
+            expect(jsonResult.sordDescription).toBeDefined();
+            expect(jsonResult.sordMask).toBeDefined();
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("render", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_TemplateUtils", {
+            tpl: {
+              sordId: "{{sord.id}}",
+              sordGuid: "{{sord.guid}}",
+              sordName: "{{sord.name}}",
+              sordDescription: "{{sord.desc}}",
+              sordMask: "{{sord.mask}}"
+            },
+            tplData: { sord: templateSord },
+            options: {}
+          }).then(function success(jsonResult) {
+            expect(jsonResult.sordId).toBeDefined();
+            expect(jsonResult.sordGuid).toBeDefined();
+            expect(jsonResult.sordName).toBeDefined();
+            expect(jsonResult.sordDescription).toBeDefined();
+            expect(jsonResult.sordMask).toBeDefined();
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+    });
+  });
+  afterAll(function (done) {
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
+    expect(function () {
+      test.Utils.getTempfolder().then(function success(tempfolder) {
+        test.Utils.deleteSord(tempfolder).then(function success1(deleteResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }, function error(err) {
+        fail(err);
+        console.error(err);
+        done();
+      }
+      );
+    }).not.toThrow();
+  });
+});
