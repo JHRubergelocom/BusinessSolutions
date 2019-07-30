@@ -132,8 +132,6 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
         }).not.toThrow();
       });
     });
-
-// TODO
     describe("Handlebars Helpers", function () {
       it("formatDate", function (done) {
         expect(function () {
@@ -703,24 +701,171 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
           );
         }).not.toThrow();
       });
-
-/*
-      minDate
-
-      maxDate
-
-      externalLink
-
-      math
-
-      monthName
-
-*/
-
-
+      it("minDate", function (done) {
+        expect(function () {
+          test.Utils.findChildren("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources").then(function success(sords) {
+            test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
+              source: "{{#minDate sords format='DD.MM.YYYY'}}{{XDateIso}}{{/minDate}}",
+              method: "apply",
+              params: { sords: sords }
+            }).then(function success1(jsonResult) {
+              done();
+            }, function error(err) {
+              fail(err);
+              console.error(err);
+              done();
+            }
+            );
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("maxDate", function (done) {
+        expect(function () {
+          test.Utils.findChildren("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources").then(function success(sords) {
+            test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
+              source: "{{#maxDate sords format='DD.MM.YYYY'}}{{XDateIso}}{{/maxDate}}",
+              method: "apply",
+              params: { sords: sords }
+            }).then(function success1(jsonResult) {
+              done();
+            }, function error(err) {
+              fail(err);
+              console.error(err);
+              done();
+            }
+            );
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("externalLink", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
+            source: "{{{externalLink objId='{{{sord.id}}}' limitTo=1 limitToUnit='y' times=5}}}",
+            method: "apply",
+            params: { sord: templateSord }
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("math '+'", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
+            source: "{{math '10.55' '+' '11.05'}}",
+            method: "apply",
+            params: {}
+          }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("21.6");
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("math '-'", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
+            source: "{{math '10.55' '-' '11.05'}}",
+            method: "apply",
+            params: {}
+          }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("-0.5");
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("math '*'", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
+            source: "{{math '10.5' '*' '2'}}",
+            method: "apply",
+            params: {}
+          }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("21");
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("math '/'", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
+            source: "{{math '10.50' '/' '2'}}",
+            method: "apply",
+            params: {}
+          }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("5.25");
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("math '%'", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
+            source: "{{math '5' '%' '2'}}",
+            method: "apply",
+            params: {}
+          }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("1");
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("mmonthName", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
+            source: "{{{monthName isoDate='20120523' textStyle='SHORT' locale='de'}}}",
+            method: "apply",
+            params: {}
+          }).then(function success(jsonResult) {
+            expect(jsonResult.string).toEqual("Mai");
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
     });
-
-// TODO
   });
   afterAll(function (done) {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
