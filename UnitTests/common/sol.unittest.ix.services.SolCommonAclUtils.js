@@ -82,7 +82,7 @@ sol.define("sol.unittest.ix.services.SolCommonAclUtils", {
         result = sol.common.AclUtils.retrieveSordAcl(me.params.sord, me.params.accessCode);
         break;
       case "retrieveElements":
-        result = sol.common.AclUtils.retrieveSordAcl(me.params.objId, me.params.recursive, me.params.asAdmin);
+        result = sol.common.AclUtils.retrieveElements(me.params.objId, me.params.recursive, me.params.asAdmin);
         break;
       case "addSordRights":
         result = sol.common.AclUtils.addSordRights(me.params.oldAclList, me.params.newAclList, me.params.asAdmin);
