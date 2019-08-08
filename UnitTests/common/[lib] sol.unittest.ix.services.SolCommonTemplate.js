@@ -1,7 +1,8 @@
 
 describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
   var objTemplateId, templateSord, objSmiley1Id, smiley1Sord,
-      userName, userInfo, originalTimeout;
+      userName, userInfo, originalTimeout,
+      source, isRepoPath, name, fct;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -48,10 +49,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
     describe("sol.common.Template", function () {
       it("apply", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: "Hello {{name}}.",
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "Hello {{name}}." },
             method: "apply",
-            params: { name: "Marcus" }
+            params: [{ name: "Marcus" }]
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual("Hello Marcus.");
             done();
@@ -63,12 +65,31 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
           );
         }).not.toThrow();
       });
+      it("apply with repopath", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/{{sord.mapKeys.FULLNAMESPACE}}/Configuration/{{sord.mapKeys.PACKAGE}}", isRepoPath: true },
+            method: "apply",
+            params: []
+          }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:¶Business Solutions¶¶Configuration¶");
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("applySord", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: "Name: {{sord.name}} Mapfield: {{sord.mapKeys.MAP_FIELD}}",
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "Name: {{sord.name}} Mapfield: {{sord.mapKeys.MAP_FIELD}}" },
             method: "applySord",
-            params: objTemplateId
+            params: [objTemplateId]
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual("Name: Template Mapfield: 123");
             done();
@@ -82,12 +103,12 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       });
       it("load", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: objTemplateId,
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: {},
             method: "load",
-            params: { name: "Marcus" }
+            params: [objTemplateId]
           }).then(function success(jsonResult) {
-            expect(jsonResult).toEqual("Hello Marcus.");
             done();
           }, function error(err) {
             fail(err);
@@ -99,12 +120,14 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       });
       it("setSource", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/{{sord.mapKeys.FULLNAMESPACE}}/Configuration/{{sord.mapKeys.PACKAGE}}",
+          source = "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/{{sord.mapKeys.FULLNAMESPACE}}/Configuration/{{sord.mapKeys.PACKAGE}}";
+          isRepoPath = true;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: {},
             method: "setSource",
-            params: true
+            params: [source, isRepoPath]
           }).then(function success(jsonResult) {
-            expect(jsonResult).toEqual("ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:¶Business Solutions¶¶Configuration¶");
             done();
           }, function error(err) {
             fail(err);
@@ -114,12 +137,30 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
           );
         }).not.toThrow();
       });
-      it("registerCustomHelper", function (done) {
+      it("registerCustomHelper 'hello'", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: "{{custom 'hello' name}}",
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: {},
             method: "registerCustomHelper",
-            params: { name: "Hans" }
+            params: []
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("apply 'hello'", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "{{custom 'hello' name}}" },
+            method: "apply",
+            params: [{ name: "Hans" }]
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual("hello Hans");
             done();
@@ -135,10 +176,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
     describe("Handlebars Helpers", function () {
       it("formatDate", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: "{{formatDate 'DD.MM.YYYY HH:mm:ss' 20001015120030}}",
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "{{formatDate 'DD.MM.YYYY HH:mm:ss' 20001015120030}}" },
             method: "apply",
-            params: {}
+            params: []
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual("15.10.2000 12:00:30");
             done();
@@ -152,10 +194,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       });
       it("count", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: "{{count 'MY_COUNTER' '0000'}}",
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "{{count 'MY_COUNTER' '0000'}}" },
             method: "apply",
-            params: {}
+            params: []
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
@@ -168,10 +211,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       });
       it("padLeft", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: "{{padLeft 1234 '0000000000'}}",
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "{{padLeft 1234 '0000000000'}}" },
             method: "apply",
-            params: {}
+            params: []
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual("0000001234");
             done();
@@ -185,10 +229,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       });
       it("eachObjKey", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: "{{#eachObjKey sord.objKeys}}{{key}}: {{value}}{{/eachObjKey}}",
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "{{#eachObjKey sord.objKeys}}{{key}}: {{value}}{{/eachObjKey}}" },
             method: "apply",
-            params: { sord: templateSord }
+            params: [{ sord: templateSord }]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
@@ -201,10 +246,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       });
       it("mapTable", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: "{{#mapTable sord.mapKeys indicatorKey='UNITTEST_POS_NO'}}{{UNITTEST_POS_NO}} {{UNITTEST_POS_DATA}}{{/mapTable}}",
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "{{#mapTable sord.mapKeys indicatorKey='UNITTEST_POS_NO'}}{{UNITTEST_POS_NO}} {{UNITTEST_POS_DATA}}{{/mapTable}}" },
             method: "applySord",
-            params: objTemplateId
+            params: [objTemplateId]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
@@ -217,10 +263,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       });
       it("mapFieldSum", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: "{{mapFieldSum sord.mapKeys field='UNITTEST_POS_DATA' decimals=2}}",
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "{{mapFieldSum sord.mapKeys field='UNITTEST_POS_DATA' decimals=2}}" },
             method: "applySord",
-            params: objTemplateId
+            params: [objTemplateId]
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual("30,00");
             done();
@@ -234,10 +281,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       });
       it("substring", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: "{{substring stringProperty 0 4}}",
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "{{substring stringProperty 0 4}}" },
             method: "apply",
-            params: { stringProperty: "LangerText" }
+            params: [{ stringProperty: "LangerText" }]
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual("Lang");
             done();
@@ -251,10 +299,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       });
       it("replace", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: "{{replace stringProperty 'Langer' 'Kurzer'}}",
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "{{replace stringProperty 'Langer' 'Kurzer'}}" },
             method: "apply",
-            params: { stringProperty: "LangerText" }
+            params: [{ stringProperty: "LangerText" }]
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual("KurzerText");
             done();
@@ -268,12 +317,12 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       });
       it("translate", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: "{{translate 'sol.common.client.jc.webcamUtils.dialog.webcamTitle'}}",
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "{{translate 'sol.common.client.jc.webcamUtils.dialog.webcamTitle'}}" },
             method: "apply",
-            params: {}
+            params: []
           }).then(function success(jsonResult) {
-            expect(jsonResult).toEqual("Take webcam picture");
             done();
           }, function error(err) {
             fail(err);
@@ -285,10 +334,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       });
       it("ifCond", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: "{{#ifCond 'ABC' '!=' 'DEF'}}XXX{{/ifCond}}YYY",
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "{{#ifCond 'ABC' '!=' 'DEF'}}XXX{{/ifCond}}YYY" },
             method: "apply",
-            params: {}
+            params: []
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual("XXXYYY");
             done();
@@ -302,10 +352,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       });
       it("ifCond", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: "{{#ifCond 'ABC' '==' 'DEF'}}XXX{{/ifCond}}YYY",
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "{{#ifCond 'ABC' '==' 'DEF'}}XXX{{/ifCond}}YYY" },
             method: "apply",
-            params: {}
+            params: []
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual("YYY");
             done();
@@ -319,10 +370,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       });
       it("base64Image", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: "{{base64Image objId='" + objSmiley1Id + "'}}",
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "{{base64Image objId='" + objSmiley1Id + "'}}" },
             method: "apply",
-            params: {}
+            params: []
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
@@ -335,10 +387,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       });
       it("ifContains", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: "{{#ifContains 'ABCDEF' 'BC'}}XXX{{/ifContains}}YYY",
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "{{#ifContains 'ABCDEF' 'BC'}}XXX{{/ifContains}}YYY" },
             method: "apply",
-            params: {}
+            params: []
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual("XXXYYY");
             done();
@@ -352,10 +405,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       });
       it("ifContains", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: "{{#ifContains 'ABCDEF' 'XYZ'}}XXX{{/ifContains}}YYY",
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "{{#ifContains 'ABCDEF' 'XYZ'}}XXX{{/ifContains}}YYY" },
             method: "apply",
-            params: {}
+            params: []
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual("YYY");
             done();
@@ -369,10 +423,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       });
       it("ifKey", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: "{{#ifKey 'ABCDEF' 'ABCDEF'}}XXX{{/ifKey}}YYY",
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "{{#ifKey 'ABCDEF' 'ABCDEF'}}XXX{{/ifKey}}YYY" },
             method: "apply",
-            params: {}
+            params: []
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual("XXXYYY");
             done();
@@ -386,10 +441,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       });
       it("ifKey", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: "{{#ifKey 'ABCDEF' 'XYZ'}}XXX{{/ifKey}}YYY",
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "{{#ifKey 'ABCDEF' 'XYZ'}}XXX{{/ifKey}}YYY" },
             method: "apply",
-            params: {}
+            params: []
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual("YYY");
             done();
@@ -403,10 +459,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       });
       it("ifNegative", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: "{{#ifNegative '-1000'}}XXX{{/ifNegative}}YYY",
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "{{#ifNegative '-1000'}}XXX{{/ifNegative}}YYY" },
             method: "apply",
-            params: {}
+            params: []
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual("XXXYYY");
             done();
@@ -420,10 +477,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       });
       it("ifNegative", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: "{{#ifNegative '1000'}}XXX{{/ifNegative}}YYY",
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "{{#ifNegative '1000'}}XXX{{/ifNegative}}YYY" },
             method: "apply",
-            params: {}
+            params: []
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual("YYY");
             done();
@@ -437,10 +495,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       });
       it("doublecurly", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: "{{doublecurly open}}XXX{{doublecurly}}YYY",
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "{{doublecurly open}}XXX{{doublecurly}}YYY" },
             method: "apply",
-            params: {}
+            params: []
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual("{{XXX}}YYY");
             done();
@@ -454,10 +513,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       });
       it("text", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: "{{text '{{XXX}}'}}",
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "{{text '{{XXX}}'}}" },
             method: "apply",
-            params: {}
+            params: []
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual("{{XXX}}");
             done();
@@ -471,10 +531,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       });
       it("currentUser name", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: "{{currentUser}}",
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "{{currentUser}}" },
             method: "apply",
-            params: {}
+            params: []
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual(userName);
             done();
@@ -488,10 +549,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       });
       it("currentUser id", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: "{{currentUser 'id'}}",
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "{{currentUser 'id'}}" },
             method: "apply",
-            params: {}
+            params: []
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual(String(userInfo.id));
             done();
@@ -505,10 +567,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       });
       it("currentUser guid", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: "{{currentUser 'guid'}}",
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "{{currentUser 'guid'}}" },
             method: "apply",
-            params: {}
+            params: []
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual(userInfo.guid);
             done();
@@ -522,10 +585,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       });
       it("currentUser desc", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: "{{currentUser 'desc'}}",
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "{{currentUser 'desc'}}" },
             method: "apply",
-            params: {}
+            params: []
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual(userInfo.desc);
             done();
@@ -540,10 +604,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       it("userFolder name", function (done) {
         expect(function () {
           test.Utils.getSord("ARCPATH:/" + userInfo.name).then(function success(userFolder) {
-            test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-              source: "{{userFolder}}",
+            test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+              className: "sol.common.Template",
+              classConfig: { source: "{{userFolder}}" },
               method: "apply",
-              params: {}
+              params: []
             }).then(function success1(jsonResult) {
               expect(jsonResult).toEqual(userFolder.guid);
               done();
@@ -564,10 +629,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       it("userFolder private", function (done) {
         expect(function () {
           test.Utils.getSord("OKEY:ELOINDEX=/users/private#" + userInfo.guid).then(function success(userFolder) {
-            test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-              source: "{{userFolder 'private'}}",
+            test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+              className: "sol.common.Template",
+              classConfig: { source: "{{userFolder 'private'}}" },
               method: "apply",
-              params: {}
+              params: []
             }).then(function success1(jsonResult) {
               expect(jsonResult).toEqual(userFolder.guid);
               done();
@@ -588,10 +654,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       it("userFolder data", function (done) {
         expect(function () {
           test.Utils.getSord("OKEY:ELOINDEX=/users/data#" + userInfo.guid).then(function success(userFolder) {
-            test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-              source: "{{userFolder 'data'}}",
+            test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+              className: "sol.common.Template",
+              classConfig: { source: "{{userFolder 'data'}}" },
               method: "apply",
-              params: {}
+              params: []
             }).then(function success1(jsonResult) {
               expect(jsonResult).toEqual(userFolder.guid);
               done();
@@ -612,10 +679,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       it("userFolder inbox", function (done) {
         expect(function () {
           test.Utils.getSord("OKEY:ELOINDEX=/users/inbox#" + userInfo.guid).then(function success(userFolder) {
-            test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-              source: "{{userFolder 'inbox'}}",
+            test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+              className: "sol.common.Template",
+              classConfig: { source: "{{userFolder 'inbox'}}" },
               method: "apply",
-              params: {}
+              params: []
             }).then(function success1(jsonResult) {
               expect(jsonResult).toEqual(userFolder.guid);
               done();
@@ -635,10 +703,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       });
       it("number", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: "{{number '10,99'}}",
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "{{number '10,99'}}" },
             method: "apply",
-            params: {}
+            params: []
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual("10.99");
             done();
@@ -652,10 +721,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       });
       it("abs", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: "{{abs '2000.11'}}",
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "{{abs '2000.11'}}" },
             method: "apply",
-            params: {}
+            params: []
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual("2000.11");
             done();
@@ -669,10 +739,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       });
       it("debitCreditIndicator", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: "{{debitCreditIndicator '-1099' 'S' 'H'}}",
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "{{debitCreditIndicator '-1099' 'S' 'H'}}" },
             method: "apply",
-            params: {}
+            params: []
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual("S");
             done();
@@ -686,10 +757,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       });
       it("debitCreditIndicator", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: "{{debitCreditIndicator '1099' 'S' 'H'}}",
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "{{debitCreditIndicator '1099' 'S' 'H'}}" },
             method: "apply",
-            params: {}
+            params: []
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual("H");
             done();
@@ -704,10 +776,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       it("minDate", function (done) {
         expect(function () {
           test.Utils.findChildren("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources").then(function success(sords) {
-            test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-              source: "{{#minDate sords format='DD.MM.YYYY'}}{{XDateIso}}{{/minDate}}",
+            test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+              className: "sol.common.Template",
+              classConfig: { source: "{{#minDate sords format='DD.MM.YYYY'}}{{XDateIso}}{{/minDate}}" },
               method: "apply",
-              params: { sords: sords }
+              params: [{ sords: sords }]
             }).then(function success1(jsonResult) {
               done();
             }, function error(err) {
@@ -727,10 +800,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       it("maxDate", function (done) {
         expect(function () {
           test.Utils.findChildren("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources").then(function success(sords) {
-            test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-              source: "{{#maxDate sords format='DD.MM.YYYY'}}{{XDateIso}}{{/maxDate}}",
+            test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+              className: "sol.common.Template",
+              classConfig: { source: "{{#maxDate sords format='DD.MM.YYYY'}}{{XDateIso}}{{/maxDate}}" },
               method: "apply",
-              params: { sords: sords }
+              params: [{ sords: sords }]
             }).then(function success1(jsonResult) {
               done();
             }, function error(err) {
@@ -749,10 +823,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       });
       it("externalLink", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: "{{{externalLink objId='{{{sord.id}}}' limitTo=1 limitToUnit='y' times=5}}}",
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "{{{externalLink objId='{{{sord.id}}}' limitTo=1 limitToUnit='y' times=5}}}" },
             method: "apply",
-            params: { sord: templateSord }
+            params: [{ sord: templateSord }]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
@@ -765,10 +840,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       });
       it("math '+'", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: "{{math '10.55' '+' '11.05'}}",
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "{{math '10.55' '+' '11.05'}}" },
             method: "apply",
-            params: {}
+            params: []
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual("21.6");
             done();
@@ -782,10 +858,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       });
       it("math '-'", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: "{{math '10.55' '-' '11.05'}}",
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "{{math '10.55' '-' '11.05'}}" },
             method: "apply",
-            params: {}
+            params: []
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual("-0.5");
             done();
@@ -799,10 +876,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       });
       it("math '*'", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: "{{math '10.5' '*' '2'}}",
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "{{math '10.5' '*' '2'}}" },
             method: "apply",
-            params: {}
+            params: []
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual("21");
             done();
@@ -816,10 +894,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       });
       it("math '/'", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: "{{math '10.50' '/' '2'}}",
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "{{math '10.50' '/' '2'}}" },
             method: "apply",
-            params: {}
+            params: []
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual("5.25");
             done();
@@ -833,10 +912,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       });
       it("math '%'", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: "{{math '5' '%' '2'}}",
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "{{math '5' '%' '2'}}" },
             method: "apply",
-            params: {}
+            params: []
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual("1");
             done();
@@ -850,10 +930,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
       });
       it("mmonthName", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_SolCommonTemplate", {
-            source: "{{{monthName isoDate='20120523' textStyle='SHORT' locale='de'}}}",
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "{{{monthName isoDate='20120523' textStyle='SHORT' locale='de'}}}" },
             method: "apply",
-            params: {}
+            params: []
           }).then(function success(jsonResult) {
             expect(jsonResult.string).toEqual("Mai");
             done();

@@ -89,6 +89,14 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
         cls = sol.create(me.className, me.classConfig),
         func = cls[me.method];
 
+    if ((me.method == "registerCustomHelper") && (me.className == "sol.common.Template")) {
+      cls = sol.create("sol.common.Template", {});
+      cls.registerCustomHelper("hello", function (config) {
+        return "hello " + arguments[0];
+      });
+      return result;
+    }
+
     if (sol.common.ObjectUtils.isFunction(func)) {
       result = func.apply(cls, me.params);
     } else {
