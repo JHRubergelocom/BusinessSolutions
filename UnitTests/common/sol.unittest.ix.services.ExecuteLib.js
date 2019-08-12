@@ -3,6 +3,8 @@ importPackage(Packages.java.io);
 importPackage(Packages.de.elo.ix.client);
 
 //@include lib_Class.js
+//@include lib_sol.common.ActionBase.js
+//@include lib_sol.common.UserProfile.js
 //@include lib_sol.common.ix.ServiceBase.js
 //@include lib_sol.common.ObjectUtils.js
 //@include lib_sol.common.SordUtils.js
@@ -46,6 +48,8 @@ var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.Execute
  * @version 1.0
  *
  * @eloix
+ * @requires  sol.common.ActionBase
+ * @requires  sol.common.UserProfile
  * @requires  sol.common.ix.ServiceBase
  * @requires  sol.common.ix.ObjectUtils
  * @requires  sol.common.ix.SordUtils
@@ -122,4 +126,21 @@ function RF_sol_unittest_service_ExecuteLib(ec, args) {
   logger.exit("RF_sol_unittest_service_ExecuteLib", result);
   return sol.common.JsonUtils.stringifyAll(result);
 }
+
+sol.define("sol.unittest.ActionBase", {
+  extend: "sol.common.ActionBase",
+
+  addActionEvent: function () {
+  },
+
+  createEvent: function () {
+  },
+
+  getName: function () {
+  },
+
+  process: function () {
+  }
+
+});
 

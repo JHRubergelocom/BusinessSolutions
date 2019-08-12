@@ -59,149 +59,6 @@ describe("[lib] sol.unittest.ix.services.SolCommonAclUtils", function () {
           );
         }).not.toThrow();
       });
-      it("removeRights", function (done) {
-        expect(function () {
-          objId = aclUtilsSord.id;
-          users = ["baum", "renz"];
-          rights = { r: true, w: true, d: false, e: false, l: false, p: true };
-          config = { recursive: true, storeAcl: { type: "MAP", key: "OLD_ACL" } };
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
-            className: "sol.common.AclUtils",
-            classConfig: {},
-            method: "removeRights",
-            params: [objId, users, rights, config]
-          }).then(function success(jsonResult) {
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }).not.toThrow();
-      });
-      it("restoreRights", function (done) {
-        objId = aclUtilsSord.id;
-        config = { recursive: true, storeAcl: { type: "MAP", key: "OLD_ACL" } };
-        expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
-            className: "sol.common.AclUtils",
-            classConfig: {},
-            method: "restoreRights",
-            params: [objId, config]
-          }).then(function success(jsonResult) {
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }).not.toThrow();
-      });
-      it("retrieveUserAcl", function (done) {
-        expect(function () {
-          users = ["baum", "renz"];
-          accessCode = elo.CONST.ACCESS.LUR_READ;
-          asAdmin = true;
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
-            className: "sol.common.AclUtils",
-            classConfig: {},
-            method: "retrieveUserAcl",
-            params: [users, accessCode, asAdmin]
-          }).then(function success(jsonResult) {
-            expect(jsonResult.length).toBeDefined();
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }).not.toThrow();
-      });
-      it("retrieveAndGroupAcl", function (done) {
-        andGroup = { groups: ["Administrators", "Buchhaltung"] };
-        defaultAccessCode = elo.CONST.ACCESS.LUR_READ;
-        asAdmin = true;
-        expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
-            className: "sol.common.AclUtils",
-            classConfig: {},
-            method: "retrieveAndGroupAcl",
-            params: [andGroup, defaultAccessCode, asAdmin]
-          }).then(function success(jsonResult) {
-            expect(jsonResult.length).toBeDefined();
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }).not.toThrow();
-      });
-      it("retrieveSordAcl", function (done) {
-        expect(function () {
-          sord = aclUtilsSord;
-          accessCode = elo.CONST.ACCESS.LUR_READ;
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
-            className: "sol.common.AclUtils",
-            classConfig: {},
-            method: "retrieveSordAcl",
-            params: [sord, accessCode]
-          }).then(function success(jsonResult) {
-            expect(jsonResult.length).toBeDefined();
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }).not.toThrow();
-      });
-      it("retrieveElements", function (done) {
-        expect(function () {
-          objId = aclUtilsSord.id;
-          recursive = true;
-          asAdmin = true;
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
-            className: "sol.common.AclUtils",
-            classConfig: {},
-            method: "retrieveElements",
-            params: [objId, recursive, asAdmin]
-          }).then(function success(jsonResult) {
-            expect(jsonResult.length).toBeDefined();
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }).not.toThrow();
-      });
-      it("createAclItemFromUserInfo", function (done) {
-        userInfo = userInfo;
-        accessCode = elo.CONST.ACCESS.LUR_READ;
-        expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
-            className: "sol.common.AclUtils",
-            classConfig: {},
-            method: "createAclItemFromUserInfo",
-            params: [userInfo, accessCode]
-          }).then(function success(jsonResult) {
-            expect(jsonResult.length).toBeDefined();
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }).not.toThrow();
-      });
       it("changeRightsInBackground", function (done) {
         expect(function () {
           objId = aclUtilsSord.id;
@@ -333,6 +190,114 @@ describe("[lib] sol.unittest.ix.services.SolCommonAclUtils", function () {
           );
         }).not.toThrow();
       });
+      it("containsRights", function (done) {
+        expect(function () {
+          accessCode = elo.CONST.ACCESS.LUR_READ;
+          rights = {
+            r: true,
+            w: true
+          };
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.AclUtils",
+            classConfig: {},
+            method: "containsRights",
+            params: [accessCode, rights]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("containsSessionUserAndhasEffectiveRights", function (done) {
+        expect(function () {
+          rightsConfig = {
+            rights: {
+              r: true,
+              w: true
+            },
+            users: ["baum", "renz"]
+          };
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.AclUtils",
+            classConfig: {},
+            method: "containsSessionUserAndhasEffectiveRights",
+            params: [rightsConfig]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("createAccessCode", function (done) {
+        expect(function () {
+          rights = { r: true, w: true, d: false, e: false, l: false, p: true };
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.AclUtils",
+            classConfig: {},
+            method: "createAccessCode",
+            params: [rights]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("createAclItemFromUserInfo", function (done) {
+        userInfo = userInfo;
+        accessCode = elo.CONST.ACCESS.LUR_READ;
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.AclUtils",
+            classConfig: {},
+            method: "createAclItemFromUserInfo",
+            params: [userInfo, accessCode]
+          }).then(function success(jsonResult) {
+            expect(jsonResult.length).toBeDefined();
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("hasEffectiveRights", function (done) {
+        expect(function () {
+          sord = aclUtilsSord;
+          params = {
+            rights: {
+              r: true,
+              w: true
+            }
+          };
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.AclUtils",
+            classConfig: {},
+            method: "hasEffectiveRights",
+            params: [sord, params]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("preprocessUsers", function (done) {
         expect(function () {
           objId = aclUtilsSord.id;
@@ -390,20 +355,17 @@ describe("[lib] sol.unittest.ix.services.SolCommonAclUtils", function () {
           );
         }).not.toThrow();
       });
-      it("containsSessionUserAndhasEffectiveRights", function (done) {
+      it("removeRights", function (done) {
         expect(function () {
-          rightsConfig = {
-            rights: {
-              r: true,
-              w: true
-            },
-            users: ["baum", "renz"]
-          };
+          objId = aclUtilsSord.id;
+          users = ["baum", "renz"];
+          rights = { r: true, w: true, d: false, e: false, l: false, p: true };
+          config = { recursive: true, storeAcl: { type: "MAP", key: "OLD_ACL" } };
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.AclUtils",
             classConfig: {},
-            method: "containsSessionUserAndhasEffectiveRights",
-            params: [rightsConfig]
+            method: "removeRights",
+            params: [objId, users, rights, config]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
@@ -414,21 +376,78 @@ describe("[lib] sol.unittest.ix.services.SolCommonAclUtils", function () {
           );
         }).not.toThrow();
       });
-      it("hasEffectiveRights", function (done) {
+      it("restoreRights", function (done) {
+        objId = aclUtilsSord.id;
+        config = { recursive: true, storeAcl: { type: "MAP", key: "OLD_ACL" } };
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.AclUtils",
+            classConfig: {},
+            method: "restoreRights",
+            params: [objId, config]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("retrieveAndGroupAcl", function (done) {
+        andGroup = { groups: ["Administrators", "Buchhaltung"] };
+        defaultAccessCode = elo.CONST.ACCESS.LUR_READ;
+        asAdmin = true;
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.AclUtils",
+            classConfig: {},
+            method: "retrieveAndGroupAcl",
+            params: [andGroup, defaultAccessCode, asAdmin]
+          }).then(function success(jsonResult) {
+            expect(jsonResult.length).toBeDefined();
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("retrieveElements", function (done) {
+        expect(function () {
+          objId = aclUtilsSord.id;
+          recursive = true;
+          asAdmin = true;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.AclUtils",
+            classConfig: {},
+            method: "retrieveElements",
+            params: [objId, recursive, asAdmin]
+          }).then(function success(jsonResult) {
+            expect(jsonResult.length).toBeDefined();
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("retrieveSordAcl", function (done) {
         expect(function () {
           sord = aclUtilsSord;
-          params = {
-            rights: {
-              r: true,
-              w: true
-            }
-          };
+          accessCode = elo.CONST.ACCESS.LUR_READ;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.AclUtils",
             classConfig: {},
-            method: "hasEffectiveRights",
-            params: [sord, params]
+            method: "retrieveSordAcl",
+            params: [sord, accessCode]
           }).then(function success(jsonResult) {
+            expect(jsonResult.length).toBeDefined();
             done();
           }, function error(err) {
             fail(err);
@@ -438,19 +457,18 @@ describe("[lib] sol.unittest.ix.services.SolCommonAclUtils", function () {
           );
         }).not.toThrow();
       });
-      it("containsRights", function (done) {
+      it("retrieveUserAcl", function (done) {
         expect(function () {
+          users = ["baum", "renz"];
           accessCode = elo.CONST.ACCESS.LUR_READ;
-          rights = {
-            r: true,
-            w: true
-          };
+          asAdmin = true;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.AclUtils",
             classConfig: {},
-            method: "containsRights",
-            params: [accessCode, rights]
+            method: "retrieveUserAcl",
+            params: [users, accessCode, asAdmin]
           }).then(function success(jsonResult) {
+            expect(jsonResult.length).toBeDefined();
             done();
           }, function error(err) {
             fail(err);

@@ -2,7 +2,7 @@
 describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
   var objTemplateId, templateSord, objSmiley1Id, smiley1Sord,
       userName, userInfo, originalTimeout,
-      source, isRepoPath, name, fct;
+      source, isRepoPath;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -92,6 +92,58 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
             params: [objTemplateId]
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual("Name: Template Mapfield: 123");
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("compile", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: { source: "Hello {{name}}." },
+            method: "compile",
+            params: []
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("getResult", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: {},
+            method: "getResult",
+            params: []
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("initialize", function (done) {
+        expect(function () {
+          config = {};
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Template",
+            classConfig: {},
+            method: "initialize",
+            params: [config]
+          }).then(function success(jsonResult) {
             done();
           }, function error(err) {
             fail(err);
