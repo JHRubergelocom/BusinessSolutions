@@ -10,6 +10,8 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_sol.common.SordUtils.js
 //@include lib_sol.common.RepoUtils.js
 //@include lib_sol.common.AclUtils.js
+//@include lib_sol.common.AsUtils.js
+//@include lib_sol.common.Config.js
 //@include lib_sol.common.Template.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.ExecuteLib" });
@@ -51,11 +53,13 @@ var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.Execute
  * @requires  sol.common.ActionBase
  * @requires  sol.common.UserProfile
  * @requires  sol.common.ix.ServiceBase
- * @requires  sol.common.ix.ObjectUtils
- * @requires  sol.common.ix.SordUtils
- * @requires  sol.common.ix.RepoUtils
- * @requires  sol.common.ix.AclUtils
- * @requires  sol.common.ix.Template
+ * @requires  sol.common.ObjectUtils
+ * @requires  sol.common.SordUtils
+ * @requires  sol.common.RepoUtils
+ * @requires  sol.common.AclUtils
+ * @requires  sol.common.AsUtils
+ * @requires  sol.common.Config
+ * @requires  sol.common.Template
  */
 sol.define("sol.unittest.ix.services.ExecuteLib", {
   extend: "sol.common.ix.ServiceBase",

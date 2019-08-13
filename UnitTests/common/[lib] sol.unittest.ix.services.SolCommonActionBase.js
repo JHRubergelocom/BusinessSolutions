@@ -557,50 +557,6 @@ describe("[lib] sol.unittest.ix.services.SolCommonActionBase", function () {
           );
         }).not.toThrow();
       });
-
-      it("finish Workflow Unittest", function (done) {
-        expect(function () {
-          test.Utils.getWorkflow(flowId).then(function success1(workflow) {
-            succNodes = test.Utils.getSuccessorNodes(workflow, "1", null, "node 2");
-            succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
-            test.Utils.forwardWorkflowTask(flowId, "1", succNodesIds, "Unittest finish input").then(function success2(forwardWorkflowTaskResult) {
-              done();
-            }, function error(err) {
-              fail(err);
-              console.error(err);
-              done();
-            }
-            );
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }).not.toThrow();
-      });
-
-      it("remove workflow", function (done) {
-        expect(function () {
-          test.Utils.getFinishedWorkflows().then(function success(wfs) {
-            test.Utils.removeFinishedWorkflows(wfs).then(function success1(removeFinishedWorkflowsResult) {
-              done();
-            }, function error(err) {
-              fail(err);
-              console.error(err);
-              done();
-            }
-            );
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }).not.toThrow();
-      });
-
-
       it("startWorkflow", function (done) {
         expect(function () {
           objId = ActionBaseSord.id;
@@ -622,7 +578,6 @@ describe("[lib] sol.unittest.ix.services.SolCommonActionBase", function () {
           );
         }).not.toThrow();
       });
-
       it("finish Workflow Unittest", function (done) {
         expect(function () {
           test.Utils.getWorkflow(flowId).then(function success1(workflow) {
@@ -644,7 +599,6 @@ describe("[lib] sol.unittest.ix.services.SolCommonActionBase", function () {
           );
         }).not.toThrow();
       });
-
       it("remove workflow", function (done) {
         expect(function () {
           test.Utils.getFinishedWorkflows().then(function success(wfs) {
@@ -664,7 +618,6 @@ describe("[lib] sol.unittest.ix.services.SolCommonActionBase", function () {
           );
         }).not.toThrow();
       });
-
       it("stringifyAll", function (done) {
         expect(function () {
           obj = {};
@@ -709,7 +662,21 @@ describe("[lib] sol.unittest.ix.services.SolCommonActionBase", function () {
     expect(function () {
       test.Utils.getTempfolder().then(function success(tempfolder) {
         test.Utils.deleteSord(tempfolder).then(function success1(deleteResult) {
-          done();
+          test.Utils.getFinishedWorkflows().then(function success2(wfs) {
+            test.Utils.removeFinishedWorkflows(wfs).then(function success3(removeFinishedWorkflowsResult) {
+              done();
+            }, function error(err) {
+              fail(err);
+              console.error(err);
+              done();
+            }
+            );
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
         }, function error(err) {
           fail(err);
           console.error(err);
