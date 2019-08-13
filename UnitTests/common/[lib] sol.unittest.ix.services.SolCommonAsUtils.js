@@ -1,21 +1,14 @@
 
 describe("[lib] sol.unittest.ix.services.SolCommonAsUtils", function () {
-  var AsUtilsSord, asConfig, originalTimeout, params, config, url, message, lines;
+  var asConfig, originalTimeout, params,
+      config, url, message, lines, asBaseUrl;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
       test.Utils.createTempSord("SolCommonAsUtils").then(function success(obSolCommonAsUtilsId) {
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/AsUtils").then(function success1(AsUtilsSord1) {
-          AsUtilsSord = AsUtilsSord1;
-          done();
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
+        done();
       }, function error(err) {
         fail(err);
         console.error(err);
@@ -50,7 +43,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonAsUtils", function () {
       it("buildAsUrl", function (done) {
         expect(function () {
           params = asConfig.config;
-          params.ruleName = "ruleName";
+          params.ruleName = "sol.common.as.SendMail";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.AsUtils",
             classConfig: {},
@@ -66,9 +59,16 @@ describe("[lib] sol.unittest.ix.services.SolCommonAsUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("callAs", function (done) {
+      it("callAs", function (done) {
         expect(function () {
-          config = PVALUE;
+          config = {
+            ruleName: "sol.common.as.SendMail",
+            cmd: "run",
+            from: "test-business-solutions@elo.local",
+            to: "test-business-solutions@elo.local",
+            subject: "Unittest",
+            body: "Unittest"
+          };
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.AsUtils",
             classConfig: {},
@@ -84,9 +84,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonAsUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("checkParams", function (done) {
+      it("checkParams", function (done) {
         expect(function () {
-          params = PVALUE;
+          params = asConfig.config;
+          params.ruleName = "sol.common.as.SendMail";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.AsUtils",
             classConfig: {},
@@ -102,15 +103,19 @@ describe("[lib] sol.unittest.ix.services.SolCommonAsUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("convertAsUrlToConfigObject", function (done) {
+      it("convertAsUrlToConfigObject", function (done) {
         expect(function () {
-          url = PVALUE;
+          url = "http://elosrv01:8080/as-archive";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.AsUtils",
             classConfig: {},
             method: "convertAsUrlToConfigObject",
             params: [url]
           }).then(function success(jsonResult) {
+            expect(jsonResult.protocol).toEqual("http");
+            expect(jsonResult.serverName).toEqual("elosrv01");
+            expect(jsonResult.port).toEqual("8080");
+            expect(jsonResult.serviceName).toEqual("as-archive");
             done();
           }, function error(err) {
             fail(err);
@@ -120,17 +125,18 @@ describe("[lib] sol.unittest.ix.services.SolCommonAsUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("formatErrorMessage", function (done) {
+      it("formatErrorMessage", function (done) {
         expect(function () {
-          message = PVALUE;
-          lines = PVALUE;
-          params = PVALUE;
+          message = "Nachricht";
+          lines = ["Zeile1", "Zeile2", "Zeile3"];
+          params = { format: "JC" };
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.AsUtils",
             classConfig: {},
             method: "formatErrorMessage",
             params: [message, lines, params]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("<h3>Nachricht</h3>Zeile1<br>Zeile2<br>Zeile3<br>");
             done();
           }, function error(err) {
             fail(err);
@@ -140,9 +146,9 @@ describe("[lib] sol.unittest.ix.services.SolCommonAsUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getAsUrl", function (done) {
+      it("getAsUrl", function (done) {
         expect(function () {
-          config = PVALUE;
+          config = { ruleName: "sol.common.as.SendMail" };
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.AsUtils",
             classConfig: {},
@@ -158,7 +164,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonAsUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("guessAsBaseUrl", function (done) {
+      it("guessAsBaseUrl", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.AsUtils",
@@ -166,6 +172,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonAsUtils", function () {
             method: "guessAsBaseUrl",
             params: []
           }).then(function success(jsonResult) {
+            asBaseUrl = jsonResult;
             done();
           }, function error(err) {
             fail(err);
@@ -175,9 +182,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonAsUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("obfuscateTicket", function (done) {
+      it("obfuscateTicket", function (done) {
         expect(function () {
-          config = PVALUE;
+          config = asConfig.config;
+          config.ruleName = "sol.common.as.SendMail";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.AsUtils",
             classConfig: {},
@@ -193,9 +201,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonAsUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("prepareParam2", function (done) {
+      it("prepareParam2", function (done) {
         expect(function () {
-          params = PVALUE;
+          params = asConfig.config;
+          params.ruleName = "sol.common.as.SendMail";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.AsUtils",
             classConfig: {},
@@ -211,9 +220,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonAsUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("prepareParameter", function (done) {
+      it("prepareParameter", function (done) {
         expect(function () {
-          params = PVALUE;
+          params = asConfig.config;
+          params.ruleName = "sol.common.as.SendMail";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.AsUtils",
             classConfig: {},
@@ -229,9 +239,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonAsUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("prepareUrlParams", function (done) {
+      it("prepareUrlParams", function (done) {
         expect(function () {
-          params = PVALUE;
+          params = asConfig.config;
+          params.ruleName = "sol.common.as.SendMail";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.AsUtils",
             classConfig: {},
@@ -247,9 +258,9 @@ describe("[lib] sol.unittest.ix.services.SolCommonAsUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("testAsBaseUrl", function (done) {
+      it("testAsBaseUrl", function (done) {
         expect(function () {
-          url = PVALUE;
+          url = asBaseUrl;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.AsUtils",
             classConfig: {},
