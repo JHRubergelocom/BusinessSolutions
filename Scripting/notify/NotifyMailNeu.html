@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=yes">
+    <title>{{translate "sol.notify.tpl.title"}}</title>
+		<style type="text/css">
+			a,img{outline:0;text-decoration:none}a img,img{border:0}table,td{border-collapse:collapse}.wrapper,body{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;font-family:Helvetica,Arial,Verdana,sans-serif;background:#fcfcfc;color:#333;font-size:14px;text-decoration:none;margin:0;padding:0}a{color:#388fd5;cursor:pointer}a:hover{color:#1479cc!important;text-decoration:underline!important}img{height:auto;line-height:100%;-ms-interpolation-mode:bicubic}table{mso-table-lspace:0;mso-table-rspace:0}.workflows .urgent .marker{background:#c00!important}.workflows .urgent .wf-date{font-weight:700;color:#c00}.feed-text .description{background-color:#ebfbfb;border:1px solid #40aab2;border-left-width:6px;padding:10px;margin-top:10px;display:block}.feed-text .red{background-color:#fbebec;border-color:#b24240}.feed-text .green{background-color:#f0fbeb;border-color:#5bb240}.feed-text .redpurple{background-color:#ecebfb;border-color:#4f40b2}.feed-text .yellow{background-color:#fffce7;border-color:#cfc623}.feed-text .orange{background-color:#fff3e7;border-color:#d6821c}.feed-text .pink{background-color:#fbebf9;border-color:#b2409d}.footer strong{color:#388fd5}.hide-full{display:none}@media screen and (max-width:720px){.hide-thin{display:none}}@media screen and (max-width:480px){.hide-mobile{display:none}.workflows .workflow{padding-top:15px!important;padding-bottom:15px!important}.workflows .workflow .node-name{display:block!important}.section table{table-layout:fixed}}
+		</style>
+		<!--[if gte mso 9]>
+			<style type="text/css">
+    		.feed-text .description{background-color:transparent;}
+    	</style>
+		<![endif]-->
+  </head>
+  <body bgcolor="#fcfcfc" style="background:#fcfcfc;padding:20px;">
+		<div class="wrapper" style="min-width:280px;max-width:1000px;margin:0 auto;padding:0;">
+
+			{{#if NotifyEmpty}}
+
+			<div class="header" style="margin:20px 0 10px;padding:0;text-align:center;word-wrap:break-word;">
+				<h1 style="margin:0;padding:0;font-size:1.8em;color:#333;">{{translate "sol.notify.tpl.header.title"}}</h1>
+				<p style="margin:10px 0 0;padding:0;font-size:1.1em;color:#888;">{{translate "sol.notify.tpl.empty.descr"}}</p>
+			</div>
+			<div class="section empty" style="margin:0;padding:50px 0;text-align:center;word-wrap:break-word;">
+				<img src="data:image/png;base64,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" border="0" width="96" height="96" style="width:96px;height:96px;margin:0; padding:0;">
+				<p style="margin:0;padding:0;font-size:1.4em;line-height:1.6em;">{{translate "sol.notify.tpl.empty.message"}}</p>
+			</div>
+
+			{{else}}
+
+			<div class="header" style="margin:20px 0 10px;padding:0;text-align:center;word-wrap:break-word;">
+				<h1 style="margin:0;padding:0;font-size:1.8em;color:#333;">{{translate "sol.notify.tpl.header.title"}}</h1>
+				<p style="margin:10px 0 0;padding:0;font-size:1.1em;color:#888;">{{translate "sol.notify.tpl.header.descr"}}</p>
+			</div>
+
+			{{#if NotifyTasks.length}}
+			<div class="section workflows" style="margin:20px 0 10px;padding:0;">
+				<h2 style="word-wrap:break-word;font-size:1.2em;color:#333;margin:10px;padding:0;">{{#ifCond NotifyTasks.length '==' 1}}{{translate "sol.notify.tpl.workflow.single"}}{{/ifCond}}{{#ifCond NotifyTasks.length '>' 1}}{{NotifyTasks.length}} {{translate "sol.notify.tpl.workflow.multiple"}}{{/ifCond}}</h2>
+				<table border="0" cellspacing="0" cellpadding="15" style="margin:0;width:100%;font-size:13px;border:1px solid #e8e8e8;color:#666;">
+					<tr class="hide-mobile">
+						<th class="marker" width="6" bgcolor="#fff" style="cursor:default;font-size:12px;padding:10px 0;width:6px;background:#fff;">&nbsp;</th>
+						<th class="workflow" align="left" valign="middle" bgcolor="#fff" style="cursor:default;font-weight:bold;font-size:12px;color:#333;padding:10px 15px;text-align:left;vertical-align:middle;background:#fff;word-wrap:break-word;">{{translate "sol.notify.tpl.workflow.name"}}</th>
+						<th class="node-name hide-mobile" align="left" valign="middle" bgcolor="#fff" style="cursor:default;font-weight:bold;font-size:12px;color:#333;padding:10px 15px 10px 0;text-align:left;vertical-align:middle;background:#fff;word-wrap:break-word;">{{translate "sol.notify.tpl.workflow.node"}}</th>
+						<th class="wf-onwer hide-thin" align="left" valign="middle" bgcolor="#fff" style="cursor:default;font-weight:bold;font-size:12px;color:#333;padding:10px 15px 10px 0;text-align:left;vertical-align:middle;background:#fff;word-wrap:break-word;">{{translate "sol.notify.tpl.workflow.owner"}}</th>
+						<th class="wf-date hide-mobile" align="left" valign="middle" bgcolor="#fff" style="cursor:default;font-weight:bold;font-size:12px;color:#333;padding:10px 15px 10px 0;text-align:left;vertical-align:middle;background:#fff;word-wrap:break-word;">{{translate "sol.notify.tpl.workflow.date"}}</th>
+					</tr>
+					{{#each NotifyTasks}}
+					<tr class="{{className}}">
+						<td class="marker" width="6" bgcolor="#fff" style="border-top:1px solid #e8e8e8;padding:20px 0;width:6px;background:#fff;">&nbsp;</td>
+						<td class="workflow" valign="middle" bgcolor="#fff" style="border-top:1px solid #e8e8e8;padding:20px 15px;vertical-align:middle;background:#fff;word-wrap:break-word;">
+							<span class="wf-name" style="font-weight:bold;color:#333;">{{taskInfo.task.flowName}}</span>
+							<a class="node-name" style="display:none;font-weight:bold;margin-top:0.3em;word-wrap:break-word;" href="elodms://{{taskInfo.sord.guid}}" target="_blank">{{taskInfo.task.nodeName}}</a></td>
+						<td class="node-name hide-mobile" bgcolor="#fff" style="border-top:1px solid #e8e8e8;padding:20px 15px 20px 0;vertical-align:middle;background:#fff;word-wrap:break-word;"><a style="font-weight:bold;" href="elodms://{{taskInfo.sord.guid}}" target="_blank">{{taskInfo.task.nodeName}}</a></td>
+						<td class="wf-owner hide-thin" valign="middle" bgcolor="#fff" style="border-top:1px solid #e8e8e8;padding:20px 15px 20px 0;vertical-align:middle;background:#fff;word-wrap:break-word;">{{taskInfo.task.userName}}</td>
+						<td class="wf-date hide-mobile" valign="middle" bgcolor="#fff" style="border-top:1px solid #e8e8e8;padding:20px 15px 20px 0;vertical-align:middle;background:#fff;word-wrap:break-word;">{{#if taskInfo.task.timeLimitIso}}{{translate "sol.notify.tpl.workflow.due"}} {{formatDate 'DD.MM.YYYY' taskInfo.task.timeLimitIso}}{{else}}{{formatDate 'DD.MM.YYYY' taskInfo.task.activateDateWorkflowIso}}{{/if}}</td>
+					</tr>
+					{{/each}}
+				</table>
+			</div>
+			{{/if}}
+
+			{{#if NotifyPosts.length}}
+			<div class="section feed" style="margin:20px 0 10px;padding:0;">
+				<h2 style="word-wrap:break-word;font-size:1.2em;color:#333;margin:10px;padding:0;">{{#ifCond NotifyPosts.length '==' 1}}{{translate "sol.notify.tpl.feed.single"}}{{/ifCond}}{{#ifCond NotifyPosts.length '>' 1}}{{NotifyPosts.length}} {{translate "sol.notify.tpl.feed.multiple"}}{{/ifCond}}</h2>
+				<table border="0" cellspacing="0" cellpadding="15" style="margin:0;width:100%;font-size:13px;border:1px solid #e8e8e8;color:#666;">
+					{{#each NotifyPosts}}
+					<tr>
+						<td class="user-thumbnail hide-mobile" valign="top" width="50" bgcolor="#fff" style="vertical-align:top;width:50px;border-top:1px solid #e8e8e8;padding:15px 0 15px 15px;background:#fff;">
+							<img src="{{picture}}" border="0" width="50" height="50" style="height:50px;width:50px;border-radius:3px;margin:0;padding:0;">
+						</td>
+						<td valign="top" bgcolor="#fff" style="vertical-align:top;border-top:1px solid #e8e8e8;padding:15px;background:#fff;">
+							<div class="feed-head" style="margin:0 0 0.5em;padding:0;word-wrap:break-word;">
+								<span class="username" style="color:#333;font-weight:bold;">{{username}}</span>
+								<span class="spacer" style="margin:0 0.3em;cursor:default;color:#888;">&#9658;</span>
+								<a class="sordname" style="font-weight:bold;" href="elodms://{{guid}}" target="_blank">{{sordname}}</a>
+							</div>
+							<div class="feed-text" style="word-wrap:break-word;font-size:1.1em;margin:0;padding:0;">{{#ifCond type '==' "UserComment"}}{{text1}}{{else}}{{{text1}}}{{/ifCond}}</div>
+							<div class="feed-date" style="color:#c0c0c0;margin:0.5em 0 0;padding:0;">{{formatDate 'DD.MM.YYYY, HH:mm' createDate}}</div>
+							{{#if comments.length}}
+							<div style="margin:10px 0 0;">
+								<table border="0" cellspacing="0" cellpadding="8" style="margin:0;width:100%;font-size:12px;color:#666;">
+									{{#each comments}}
+									<tr>
+										<td class="user-thumbnail hide-mobile" valign="top" width="32" bgcolor="#f5f5f5" width="50" style="vertical-align:top;width:32px;padding:8px 0 8px 8px;background:#f5f5f5;border-top:2px solid #fff;">
+											<img src="{{picture}}" border="0" width="32" height="32" style="height:32px;width:32px;border-radius:3px;margin:0;padding:0;">
+										</td>
+										<td valign="top" bgcolor="#f5f5f5" style="vertical-align:top;padding:8px;background:#f5f5f5;border-top:2px solid #fff;">
+											<div class="feed-head" style="margin:0 0 0.5em;padding:0;word-wrap:break-word;">
+												<span class="username" style="color:#333;font-weight:bold;">{{username}}</span>
+											</div>
+											<div class="feed-text" style="word-wrap:break-word;font-size:1.1em;margin:0;padding:0;">{{#ifCond type '==' "UserComment"}}{{text1}}{{else}}{{{text1}}}{{/ifCond}}</div>
+											<div class="feed-date" style="color:#c0c0c0;margin:0.5em 0 0;padding:0;">{{formatDate 'DD.MM.YYYY, HH:mm' createDate}}</div>
+										</td>
+									</tr>
+									{{/each}}
+								</table>
+							</div>
+							{{/if}}
+						</td>
+					</tr>
+					{{/each}}
+				</table>
+			</div>
+			{{/if}}
+
+			{{/if}}
+
+			<div class="footer" style="word-wrap:break-word;text-align:center;margin:20px 0;padding:0;">
+				<p style="margin:0 0 5px;padding:0;font-size:14px;color:#888;">{{translate "sol.notify.tpl.footer.title"}}</p>
+				<span style="color:#bbb;font-size:12px;">{{translate "sol.notify.tpl.footer.descr"}}</span>
+			</div>
+
+		</div>
+  </body>
+</html>

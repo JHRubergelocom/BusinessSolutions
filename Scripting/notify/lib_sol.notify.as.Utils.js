@@ -141,6 +141,21 @@ sol.define("sol.notify.as.Utils", {
   },
 
   /**
+   * Loads language for the specified user.
+   * @param {String} userId
+   * @return {string} Time zone
+   */
+  loadUserTimeZone: function (userId) {
+    var me = this,
+        userProfile, timeZone;
+
+    userProfile = sol.create("sol.common.UserProfile", { userId: userId });
+    timeZone = userProfile.getOption(me.cfgNotifyMail.timeZoneKey) || ixConnect.loginResult.clientInfo.timeZone;
+
+    return timeZone;
+  },
+
+  /**
    * Creates mail to the user.
    * @param {String} userId
    * @param {Object} configReport
@@ -154,7 +169,7 @@ sol.define("sol.notify.as.Utils", {
         sordInfo = {},
         withGroups, withDeputies, withIndex,
         tasksInfo, findResult, notifyTasks, index,
-        data, task, tasks, i, j, comments;
+        data, task, tasks, i, j, comments, timeZone, utcOffset, notifyPost, comment;
 
     withGroups = Boolean(me.cfgNotifyMail.withGroups & configReport.withGroups);
     withDeputies = Boolean(me.cfgNotifyMail.withDeputies & configReport.withDeputies);
@@ -171,7 +186,7 @@ sol.define("sol.notify.as.Utils", {
       me.logger.debug("Found: " + tasks.length);
       for (i = 0; i < tasks.length; i++) {
         task = tasks[i];
-        if (me.processTask(task, configReport)) {
+        if (me.processTask(task, userId, configReport)) {
           data = me.prepareTask(userId, task, configReport);
           notifyTasks.push(data);
         }
@@ -187,6 +202,10 @@ sol.define("sol.notify.as.Utils", {
     // feed aggregation posts
     if (configReport.newsMyElo) {
       feedAggregation = me.getFeedAggregation(userId);
+
+      timeZone = me.loadUserTimeZone(userId);
+      utcOffset = sol.common.SordUtils.getTimeZoneOffset(timeZone);
+
       notifyPosts = [];
       if (feedAggregation.posts) {
         notifyPosts = feedAggregation.posts;
@@ -201,17 +220,23 @@ sol.define("sol.notify.as.Utils", {
       }
 
       for (i = 0; i < notifyPosts.length; i++) {
+        notifyPost = notifyPosts[i];
         sordInfo = me.getSordInfo(notifyPosts[i].objGuid, sordMaps);
-        notifyPosts[i].text1 = me.getText(notifyPosts[i].text, notifyPosts[i].type, sordInfo);
-        notifyPosts[i].picture = me.getPictureUrl(notifyPosts[i].userId, userPictures);
-        notifyPosts[i].username = me.getPictureUserName(notifyPosts[i].userId, userPictures);
-        notifyPosts[i].sordname = sordInfo.Name;
-        notifyPosts[i].guid = sordInfo.Guid;
+        notifyPost.text1 = me.getText(notifyPost.text, notifyPost.type, sordInfo);
+        notifyPost.picture = me.getPictureUrl(notifyPost.userId, userPictures);
+        notifyPost.username = me.getPictureUserName(notifyPost.userId, userPictures);
+        notifyPost.sordname = sordInfo.Name;
+        notifyPost.guid = sordInfo.Guid;
+        notifyPost.createDate = sol.common.DateUtils.transformIsoDate(notifyPost.createDate, { asUtc: true, utcOffset: utcOffset });
+        notifyPost.updateDate = sol.common.DateUtils.transformIsoDate(notifyPost.updateDate, { asUtc: true, utcOffset: utcOffset });
         comments = notifyPosts[i].comments;
         for (j = 0; j < comments.length; j++) {
-          comments[j].text1 = me.getText(comments[j].text, comments[j].type);
-          comments[j].picture = me.getPictureUrl(comments[j].userId, userPictures);
-          comments[j].username = me.getPictureUserName(comments[j].userId, userPictures);
+          comment = comments[j];
+          comment.text1 = me.getText(comment.text, comment.type);
+          comment.picture = me.getPictureUrl(comment.userId, userPictures);
+          comment.username = me.getPictureUserName(comment.userId, userPictures);
+          comment.createDate = sol.common.DateUtils.transformIsoDate(comment.createDate, { asUtc: true, utcOffset: utcOffset });
+          comment.updateDate = sol.common.DateUtils.transformIsoDate(comment.updateDate, { asUtc: true, utcOffset: utcOffset });
         }
       }
     }
@@ -247,10 +272,11 @@ sol.define("sol.notify.as.Utils", {
   /**
    * Process task.
    * @param {Object} task
+   * @param {String} userId
    * @param {Object} configReport
    * @return {Boolean} flags if processing task successful
    */
-  processTask: function (task, configReport) {
+  processTask: function (task, userId, configReport) {
     var me = this,
         wfNode = task.wfNode,
         mapid, values, data, item;
@@ -258,7 +284,7 @@ sol.define("sol.notify.as.Utils", {
     me.logger.debug(wfNode.nodeName);
 
     if (configReport.onlyOnce) {
-      mapid = "NOTIFY_SENT_" + wfNode.nodeId;
+      mapid = "NOTIFY_SENT_" + wfNode.nodeId + "_" + userId;
       values = ixConnect.ix().checkoutMap(MapDomainC.DOMAIN_WORKFLOW_ACTIVE, wfNode.flowId, [mapid], LockC.NO);
       if (values && values.items.length > 0) {
         data = values.items[0].value;
@@ -348,8 +374,8 @@ sol.define("sol.notify.as.Utils", {
    */
   sendNotifyMail: function (userId, notifyTasks, notifyPosts, configReport) {
     var me = this,
-        htmlReport, mailAddress, sendMail, templateNotification, userName,
-        titleReport, tpl, notifyEmpty, emptyIcon, notifyConfig;
+        htmlReport, mailAddress, sendMail, templateNotification, userName, notificationCount, subjectTemplate,
+        titleReport, tpl, notifyEmpty, notifyConfig;
 
     me.logger.enter("sendNotifyMail");
 
@@ -361,22 +387,23 @@ sol.define("sol.notify.as.Utils", {
 
       mailAddress = me.getMailAddress(userId);
       userName = me.getUserName(userId);
+      notificationCount = notifyTasks.length + notifyPosts.length;
 
-      tpl = sol.create("sol.common.Template", { source: me.cfgNotifyMail.subject });
-      titleReport = tpl.apply({ userName: userName });
+      if (notificationCount > 0) {
+        subjectTemplate = me.cfgNotifyMail.subject;
+      } else {
+        subjectTemplate = me.cfgNotifyMail.subjectNoEntries;
+      }
+
+      tpl = sol.create("sol.common.Template", { source: subjectTemplate });
+      titleReport = tpl.apply({ userName: userName, notificationCount: notificationCount });
 
       me.logger.debug("Send to Address: " + mailAddress);
       templateNotification = notifyConfig.mailTemplates.tasks;
-      notifyEmpty = null;
-      emptyIcon = null;
-      if (notifyTasks.length == 0 && notifyPosts.length == 0) {
-        notifyEmpty = true;
-        emptyIcon = "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/notify/Configuration/Resources/empty";
-        emptyIcon = sol.common.RepoUtils.getDownloadUrl(emptyIcon, null);
-      }
+      notifyEmpty = (notifyTasks.length == 0 && notifyPosts.length == 0);
       if (mailAddress) {
         if (me.cfgNotifyMail.showMailBodyInDebugLog) {
-          htmlReport = me.createMailNotifyBody(templateNotification, titleReport, notifyTasks, notifyPosts, notifyEmpty, emptyIcon);
+          htmlReport = me.createMailNotifyBody(templateNotification, titleReport, notifyTasks, notifyPosts, notifyEmpty);
           me.logger.debug(htmlReport);
         }
         sendMail = sol.create("sol.common.as.functions.SendMail", {
@@ -388,7 +415,7 @@ sol.define("sol.notify.as.Utils", {
             type: "html",
             tplObjId: templateNotification
           },
-          data: { TitleReport: titleReport, NotifyTasks: notifyTasks, NotifyPosts: notifyPosts, NotifyEmpty: notifyEmpty, EmptyIcon: emptyIcon },
+          data: { TitleReport: titleReport, NotifyTasks: notifyTasks, NotifyPosts: notifyPosts, NotifyEmpty: notifyEmpty },
           debug: true
         });
         sendMail.execute();
@@ -472,11 +499,7 @@ sol.define("sol.notify.as.Utils", {
    */
   getFeedAggregation: function (userId) {
     var me = this,
-        responseObj,
-        ixConnectUser,
-        ticket,
-        userName,
-        today, isoDate, startUrl;
+        responseObj, ixConnectUser, ticket, userName, today, isoDate, startUrl;
 
     try {
 
@@ -499,7 +522,8 @@ sol.define("sol.notify.as.Utils", {
         trustAllHosts: true,
         trustAllCerts: true,
         params: {
-          ticket: ticket
+          ticket: ticket,
+          lang: ixConnect.loginResult.clientInfo.language + ""
         }
       });
 
@@ -539,16 +563,18 @@ sol.define("sol.notify.as.Utils", {
    * @return {String}
    */
   getPictureUrl: function (userId, userPictures) {
-    var pictureUrl = "No Picture found",
-        wfBaseUrl, i;
+    var me = this,
+        pictureUrl = "No Picture found",
+        wfBaseUrl, wfSocialUrl, i;
+
+    wfBaseUrl = me.cfgNotifyMail.wfBaseUrl || sol.common.WfUtils.getWfBaseUrl();
+    wfSocialUrl = wfBaseUrl + "/social";
 
     for (i = 0; i < userPictures.length; i++) {
       if (userPictures[i].id == userId) {
         pictureUrl = userPictures[i].picture;
         if (pictureUrl.indexOf("..") > -1) {
-          wfBaseUrl = sol.common.WfUtils.getWfBaseUrl();
-          wfBaseUrl += "/social";
-          pictureUrl = pictureUrl.replace("..", wfBaseUrl);
+          pictureUrl = pictureUrl.replace("..", wfSocialUrl);
         }
       }
     }

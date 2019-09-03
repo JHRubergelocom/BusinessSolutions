@@ -1,0 +1,8 @@
+{
+  "mailTemplates": {
+    "tasks": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions Custom/notify/Configuration/Mail templates/NotifyMailNeu"
+  },
+  "email": {
+    "subject": "Jans Benachrichtigung"
+  }
+}
