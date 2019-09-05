@@ -13,6 +13,8 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_sol.common.AsUtils.js
 //@include lib_sol.common.AsyncUtils.js
 //@include lib_sol.common.ExceptionUtils.js
+//@include lib_sol.common.ExecUtils.js
+//@include lib_sol.common.FileUtils.js
 //@include lib_sol.common.HttpUtils.js
 //@include lib_sol.common.Config.js
 //@include lib_sol.common.Template.js
@@ -63,6 +65,8 @@ var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.Execute
  * @requires  sol.common.AsUtils
  * @requires  sol.common.AsyncUtils
  * @requires  sol.common.ExceptionUtils
+ * @requires  sol.common.ExecUtils
+ * @requires  sol.common.FileUtils
  * @requires  sol.common.HttpUtils
  * @requires  sol.common.Config
  * @requires  sol.common.Template
