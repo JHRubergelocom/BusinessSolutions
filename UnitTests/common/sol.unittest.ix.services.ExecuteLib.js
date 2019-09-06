@@ -1,6 +1,7 @@
 
 importPackage(Packages.java.io);
 importPackage(Packages.de.elo.ix.client);
+importPackage(Packages.org.apache.commons.io);
 
 //@include lib_Class.js
 //@include lib_sol.common.ActionBase.js
@@ -107,12 +108,44 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
         cls = sol.create(me.className, me.classConfig),
         func = cls[me.method];
 
-    if ((me.method == "registerCustomHelper") && (me.className == "sol.common.Template")) {
-      cls = sol.create("sol.common.Template", {});
-      cls.registerCustomHelper("hello", function (config) {
-        return "hello " + arguments[0];
-      });
-      return result;
+    if (me.className == "sol.common.Template") {
+      if (me.method == "registerCustomHelper") {
+        cls.registerCustomHelper("hello", function (config) {
+          return "hello " + arguments[0];
+        });
+        return result;
+      }
+    }
+
+    if (me.className == "sol.common.FileUtils") {
+      if (me.method == "copyFile") {
+        new File(me.params[0]).createNewFile();
+        result = cls.copyFile(new File(me.params[0]), new File(me.params[1]));
+        return result;
+      }
+      if (me.method == "getExtension") {
+        result = cls.getExtension(new File(me.params[0]));
+        return result;
+      }
+      if (me.method == "getName") {
+        result = cls.getName(new File(me.params[0]));
+        return result;
+      }
+      if (me.method == "loadToFileData") {
+        new File(me.params[0]).createNewFile();
+      }
+      if (me.method == "makeDirectories") {
+        result = cls.makeDirectories(new File(me.params[0]));
+        return result;
+      }
+      if (me.method == "readConfig") {
+        new File(me.params[0]).createNewFile();
+        cls.writeConfigToFile(me.params[0], { aa: "aa", bb: "bb" });
+      }
+      if (me.method == "readFileToObject") {
+        new File(me.params[0]).createNewFile();
+        cls.writeConfigToFile(me.params[0], { aa: "aa", bb: "bb" });
+      }
     }
 
     if (sol.common.ObjectUtils.isFunction(func)) {
