@@ -106,7 +106,8 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
     var me = this,
         result = {},
         cls = sol.create(me.className, me.classConfig),
-        func = cls[me.method];
+        func = cls[me.method],
+        file, dir, path, fileData;
 
     if (me.className == "sol.common.Template") {
       if (me.method == "registerCustomHelper") {
@@ -133,6 +134,7 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
       }
       if (me.method == "loadToFileData") {
         new File(me.params[0]).createNewFile();
+        cls.writeConfigToFile(me.params[0], { aa: "aa", bb: "bb" });
       }
       if (me.method == "makeDirectories") {
         result = cls.makeDirectories(new File(me.params[0]));
@@ -145,6 +147,43 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
       if (me.method == "readFileToObject") {
         new File(me.params[0]).createNewFile();
         cls.writeConfigToFile(me.params[0], { aa: "aa", bb: "bb" });
+      }
+      if (me.method == "readFileToString") {
+        new File(me.params[0]).createNewFile();
+        cls.writeConfigToFile(me.params[0], { aa: "aa", bb: "bb" });
+      }
+      if (me.method == "readManifestFile") {
+        new File(me.params[0]).createNewFile();
+        cls.writeStringToFile(me.params[0], "Manifest-Version: 1.0");
+      }
+      if (me.method == "rename") {
+        path = me.params[0].split("/");
+        dir = path[0];
+        file = path[1];
+        cls.delete(dir, { quietly: true });
+        file = new File(me.params[0]);
+        dir = new File(dir);
+        if (dir.mkdir()) {
+          file.createNewFile();
+        }
+      }
+      if (me.method == "saveFileData") {
+        new File(me.params[1]).createNewFile();
+        cls.writeConfigToFile(me.params[1], { aa: "aa", bb: "bb" });
+        fileData = cls.loadToFileData(me.params[1]);
+        me.params[0] = fileData;
+      }
+      if (me.method == "writeConfigToFile") {
+        new File(me.params[0]).createNewFile();
+      }
+      if (me.method == "writeObjectToFile") {
+        new File(me.params[1]).createNewFile();
+      }
+      if (me.method == "writeStringArrayToFile") {
+        new File(me.params[0]).createNewFile();
+      }
+      if (me.method == "writeStringToFile") {
+        new File(me.params[0]).createNewFile();
       }
     }
 

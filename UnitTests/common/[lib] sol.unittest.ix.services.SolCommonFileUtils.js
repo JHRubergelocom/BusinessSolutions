@@ -1,6 +1,9 @@
 
 describe("[lib] sol.unittest.ix.services.SolCommonFileUtils", function () {
-  var FileUtilsSord, userName, path, originalTimeout, file, extension, pathPartsArr, replacement, srcFile, dstFile, params, config, objId, dstDirPath, filePath, pattern, contentType, dir, newName, fileName, fileData, stringArray;
+  var FileUtilsSord, path, originalTimeout, file, extension, pathPartsArr,
+      replacement, srcFile, dstFile, params, config, objId, dstDirPath, filePath,
+      pattern, contentType, dir, newName, fileName, fileData, stringArray, obj,
+      content;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -9,16 +12,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonFileUtils", function () {
       test.Utils.createTempSord("SolCommonFileUtils").then(function success(obSolCommonFileUtilsId) {
         test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/FileUtils").then(function success1(FileUtilsSord1) {
           FileUtilsSord = FileUtilsSord1;
-          userName = test.Utils.getCurrentUserName();
-          test.Utils.getUserInfo(userName).then(function success3(userInfo1) {
-            userInfo = userInfo1;
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
+          done();
         }, function error(err) {
           fail(err);
           console.error(err);
@@ -363,6 +357,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonFileUtils", function () {
             method: "loadToFileData",
             params: [filePath, contentType]
           }).then(function success(jsonResult) {
+            fileData = jsonResult;
             done();
           }, function error(err) {
             fail(err);
@@ -427,10 +422,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonFileUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("readFileToString", function (done) {
+      it("readFileToString", function (done) {
         expect(function () {
-          filePath = PVALUE;
-          params = PVALUE;
+          filePath = "File1.txt";
+          params = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.FileUtils",
             classConfig: {},
@@ -446,9 +441,9 @@ describe("[lib] sol.unittest.ix.services.SolCommonFileUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("readManifestFile", function (done) {
+      it("readManifestFile", function (done) {
         expect(function () {
-          filePath = PVALUE;
+          filePath = "File1.txt";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.FileUtils",
             classConfig: {},
@@ -464,15 +459,16 @@ describe("[lib] sol.unittest.ix.services.SolCommonFileUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("removeExtension", function (done) {
+      it("removeExtension", function (done) {
         expect(function () {
-          file = PVALUE;
+          file = "File1.txt";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.FileUtils",
             classConfig: {},
             method: "removeExtension",
             params: [file]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("File1");
             done();
           }, function error(err) {
             fail(err);
@@ -482,10 +478,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonFileUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("rename", function (done) {
+      it("rename", function (done) {
         expect(function () {
-          path = PVALUE;
-          newName = PVALUE;
+          path = "dir/File1.txt";
+          newName = "File2.txt";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.FileUtils",
             classConfig: {},
@@ -501,16 +497,17 @@ describe("[lib] sol.unittest.ix.services.SolCommonFileUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("sanitizeFilename", function (done) {
+      it("sanitizeFilename", function (done) {
         expect(function () {
-          fileName = PVALUE;
-          replacement = PVALUE;
+          fileName = "test1:txt";
+          replacement = ".";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.FileUtils",
             classConfig: {},
             method: "sanitizeFilename",
             params: [fileName, replacement]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("test1.txt");
             done();
           }, function error(err) {
             fail(err);
@@ -520,10 +517,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonFileUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("saveFileData", function (done) {
+      it("saveFileData", function (done) {
         expect(function () {
-          fileData = PVALUE;
-          filePath = PVALUE;
+          fileData = fileData;
+          filePath = "File1.txt";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.FileUtils",
             classConfig: {},
@@ -539,10 +536,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonFileUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("writeConfigToFile", function (done) {
+      it("writeConfigToFile", function (done) {
         expect(function () {
-          path = PVALUE;
-          config = PVALUE;
+          path = "File1.txt";
+          config = { aa: "aa", bb: "bb" };
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.FileUtils",
             classConfig: {},
@@ -558,10 +555,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonFileUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("writeObjectToFile", function (done) {
+      it("writeObjectToFile", function (done) {
         expect(function () {
-          obj = PVALUE;
-          filePath = PVALUE;
+          obj = { aa: "aa", bb: "bb" };
+          filePath = "File1.txt";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.FileUtils",
             classConfig: {},
@@ -577,10 +574,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonFileUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("writeStringArrayToFile", function (done) {
+      it("writeStringArrayToFile", function (done) {
         expect(function () {
-          path = PVALUE;
-          stringArray = PVALUE;
+          path = "File1.txt";
+          stringArray = ["Value1", "Value2", "Value3", "Value4"];
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.FileUtils",
             classConfig: {},
@@ -596,11 +593,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonFileUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("writeStringToFile", function (done) {
+      it("writeStringToFile", function (done) {
         expect(function () {
-          filePath = PVALUE;
-          content = PVALUE;
-          params = PVALUE;
+          filePath = "File1.txt";
+          content = "Value1";
+          params = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.FileUtils",
             classConfig: {},
