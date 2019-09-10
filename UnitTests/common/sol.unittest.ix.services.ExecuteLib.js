@@ -107,7 +107,8 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
         result = {},
         cls = sol.create(me.className, me.classConfig),
         func = cls[me.method],
-        file, dir, path, fileData;
+        file, dir, path, fileData,
+        i, bytes, byte, string, strings;
 
     if (me.className == "sol.common.Template") {
       if (me.method == "registerCustomHelper") {
@@ -184,6 +185,36 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
       }
       if (me.method == "writeStringToFile") {
         new File(me.params[0]).createNewFile();
+      }
+    }
+
+    if (me.className == "sol.common.HttpUtils") {
+      if (me.method == "convertByteArrayToString") {
+        bytes = [];
+        for (i = 0; i < me.params[0].length; i++) {
+          string = me.params[0][i];
+          byte = java.lang.Byte.parseByte(string);
+          bytes.push(byte);
+        }
+        result = cls.convertByteArrayToString(bytes);
+        return result;
+      }
+      if (me.method == "convertStringToByteArray") {
+        result = cls.convertStringToByteArray(me.params[0]);
+        strings = [];
+        for (i = 0; i < result.length; i++) {
+          string = String(result[i]);
+          strings.push(string);
+        }
+        result = strings;
+        return result;
+      }
+      if (me.method == "inputStreamToString") {
+        sol.common.FileUtils.writeStringToFile("File1.txt", me.params[0]);
+        me.params[0] = new FileInputStream("File1.txt");
+      }
+      if (me.method == "logRequestProperties") {
+        me.params[0] = cls.prepareRequest(me.params[0], {});
       }
     }
 
