@@ -1,0 +1,101 @@
+[INFO]
+VERSION=6
+EXTACL=1
+EXPDOCVERS=0
+EXPATTVERS=0
+DELIMCHAR=¶
+PATH=¶Solutions¶Administration¶Business Solutions
+CRYPTEDDOCS=0
+ENCRYPTIONSETS=
+[SUBITEMS]
+0=000007D1
+[MASKS]
+0=ELO Business Solution
+1=Basic Entry
+2=ELOScripts
+3=Folder
+4=ELO Business Solution Configuration
+5=Action definition
+[MASK0]
+MaskElms=29,75PYJA,0,0,0,4194304,"ELO Business Solution","","",-1,7A555H,"Basis||||",,2017.01.01.12.00.00,,,1-75PYJA,1-7A555H
+MaskGuid=(B10B1000-B100-B100-B100-10D10D10D10)
+MaskNameTK=
+MaskTextTK=||||
+dataOrganisation=0
+sordType=0
+MaskPosInfo0=A1,4,14,4,0,0,1,5,14,5,0,0,1,6,14,6,0,0,1,7,14,7,0,0
+MaskLine0=29,0,0,0,255,"Version","BS_VERSION_NO",576,75PYJA,"","","",0,"",1-75PYJA
+LineNameTK0=
+LineCommentTK0=
+serverScriptName0=
+MaskLine1=29,1,2,0,255,"Build","BS_BUILD_NO",576,75PYJA,"","","",0,"",1-75PYJA
+LineNameTK1=
+LineCommentTK1=
+serverScriptName1=
+MaskLine2=29,2,0,0,255,"Setup name suffix","BS_SETUP_NAME_SUFFIX",4096,75PYJA,"","","",0,"",1-75PYJA
+LineNameTK2=
+LineCommentTK2=
+serverScriptName2=
+MaskLine3=29,3,0,0,255,"Git reference","BS_GIT",4096,75PYJA,"","","",0,"",1-75PYJA
+LineNameTK3=
+LineCommentTK3=
+serverScriptName3=
+[MASK1]
+MaskElms=0,75PYJA,0,0,0,4194329,"Basic Entry","","",-1,7A555H,"",,2017.01.01.12.00.00,,,1-7+PYJA,1-7A555H
+MaskGuid=(E10E1000-E100-E100-E100-E10E10E10E30)
+MaskNameTK=
+MaskTextTK=
+dataOrganisation=0
+sordType=0
+[MASK2]
+MaskElms=4,75PYJA,2,0,0,4194313,"ELOScripts","","",-1,7A555H,"",,2017.01.01.12.00.00,,,1-7+PYJA,1-7A555H
+MaskGuid=(E10E1000-E100-E100-E100-E10E10E10E34)
+MaskNameTK=
+MaskTextTK=
+dataOrganisation=0
+sordType=0
+[MASK3]
+MaskElms=1,75PYJA,0,0,0,4194321,"Folder","","",-1,7A555H,"",,2017.01.01.12.00.00,,,1-7+PYJA,1-7A555H
+MaskGuid=(E10E1000-E100-E100-E100-E10E10E10E31)
+MaskNameTK=
+MaskTextTK=
+dataOrganisation=0
+sordType=0
+MaskLine0=1,0,0,0,255,"ELOINDEX","ELOINDEX",0,75PYJA,"","","",0,"",1-7+PYJA
+LineNameTK0=
+LineCommentTK0=
+serverScriptName0=
+[MASK4]
+MaskElms=28,75PYJA,0,0,0,71303177,"ELO Business Solution Configuration","","",-1,7A555H,"Basis||||",,2017.01.01.12.00.00,,,1-75PYJA,1-7A555H
+MaskGuid=(B10B1000-B100-B100-B100-10D10D10D11)
+MaskNameTK=
+MaskTextTK=||||
+dataOrganisation=0
+sordType=0
+MaskPosInfo0=A1,4,14,4,0,0,1,5,14,5,0,0,1,6,14,6,0,0
+MaskLine0=28,0,0,0,255,"Name","BS_CONFIG_NAME",4096,75PYJA,"","","",0,"",1-75PYJA
+LineNameTK0=
+LineCommentTK0=
+serverScriptName0=
+MaskLine1=28,1,0,0,255,"Version","BS_CONFIG_VERSION",4096,75PYJA,"","","",0,"",1-75PYJA
+LineNameTK1=
+LineCommentTK1=
+serverScriptName1=
+MaskLine2=28,2,0,0,255,"Type","BS_CONFIG_TYPE",4112,75PYJA,"RESERVED FIELD. Don't rely on its existance.","","",0,"",1-75PYJA
+LineNameTK2=
+LineCommentTK2=
+serverScriptName2=
+[MASK5]
+MaskElms=27,75AAAA,0,0,0,4194305,"Action definition","","",-1,7A555H,"Basis||||",,2017.01.01.12.00.00,,,1-75AAAA,1-7A555H
+MaskGuid=(CFC48A5A-9F38-E7A1-B02D-E5997F943164)
+MaskNameTK=
+MaskTextTK=||||
+dataOrganisation=0
+sordType=0
+
+[COLORS]
+[USERS]
+0=0,"Administrator",1
+1=9100,"Solutions",null
+2=9999,"Everyone",0
+

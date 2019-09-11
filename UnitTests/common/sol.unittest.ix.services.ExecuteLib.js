@@ -218,6 +218,14 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
       }
     }
 
+    if (me.className == "sol.common.IniFile") {
+      if (me.method == "parse") {
+        bytes = sol.common.RepoUtils.downloadToByteArray(me.params[0], null);
+        string = new java.lang.String(bytes, "UTF-8");
+        me.params[0] = string;
+      }
+    }
+
     if (sol.common.ObjectUtils.isFunction(func)) {
       result = func.apply(cls, me.params);
     } else {
