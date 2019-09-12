@@ -17,6 +17,7 @@ importPackage(Packages.org.apache.commons.io);
 //@include lib_sol.common.ExecUtils.js
 //@include lib_sol.common.FileUtils.js
 //@include lib_sol.common.HttpUtils.js
+//@include lib_sol.common.Injection.js
 //@include lib_sol.common.Config.js
 //@include lib_sol.common.Template.js
 
@@ -69,6 +70,7 @@ var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.Execute
  * @requires  sol.common.ExecUtils
  * @requires  sol.common.FileUtils
  * @requires  sol.common.HttpUtils
+ * @requires  sol.common.Injection
  * @requires  sol.common.Config
  * @requires  sol.common.Template
  */
