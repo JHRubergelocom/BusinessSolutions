@@ -110,7 +110,8 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
         cls = sol.create(me.className, me.classConfig),
         func = cls[me.method],
         file, dir, path, fileData,
-        i, bytes, byte, string, strings;
+        i, bytes, byte, string, strings,
+        service;
 
     if (me.className == "sol.common.Template") {
       if (me.method == "registerCustomHelper") {
@@ -228,6 +229,24 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
       }
     }
 
+    if (me.className == "sol.common.Injection") {
+      if (me.method == "inject") {
+        service = sol.create("sol.unittest.Injection", {});
+        result = service.process();
+        return result;
+      }
+      if (me.method == "injectJSON") {
+        service = sol.create("sol.unittest.InjectionJson", {});
+        result = service.process();
+        return result;
+      }
+      if (me.method == "injectSordById") {
+        service = sol.create("sol.unittest.InjectionSord", {});
+        result = service.process();
+        return result;
+      }
+    }
+
     if (sol.common.ObjectUtils.isFunction(func)) {
       result = func.apply(cls, me.params);
     } else {
@@ -271,3 +290,78 @@ sol.define("sol.unittest.ActionBase", {
 
 });
 
+sol.define("sol.unittest.mixins.Configuration", {
+  mixin: true,
+
+  $configRelation: {
+    as: "/common/Configuration/as.config",
+    myOtherConfig: "/common/Configuration/mail.config"
+  }
+});
+
+sol.define("sol.unittest.Injection", {
+  extend: "sol.common.ix.ServiceBase",
+
+  mixins: ["sol.unittest.mixins.Configuration", "sol.common.mixins.Inject"],
+
+  inject: {
+    myConfigValue: { config: "as", prop: "serverName" },
+    params: { prop: "params" }
+  },
+
+  initialize: function (params) {
+    var me = this;
+    this.$super("sol.common.ix.ActionBase", "initialize", [params]);
+    me.params = params;
+  },
+
+  process: function () {
+    var me = this;
+    return me.myConfigValue;
+  }
+});
+
+sol.define("sol.unittest.InjectionJson", {
+  extend: "sol.common.ix.ServiceBase",
+
+  mixins: ["sol.common.mixins.Inject"],
+
+  inject: {
+    myJsonValue: { json: '{ "myProp": 12345123 }' },
+    params: { prop: "params" }
+  },
+
+  initialize: function (params) {
+    var me = this;
+    this.$super("sol.common.ix.ActionBase", "initialize", [params]);
+    me.params = params;
+  },
+
+  process: function () {
+    var me = this;
+    return me.myJsonValue;
+  }
+});
+
+sol.define("sol.unittest.InjectionSord", {
+
+  extend: "sol.common.ix.ServiceBase",
+
+  mixins: ["sol.common.mixins.Inject"],
+
+  inject: {
+    mySordValue: { sordId: "1", flowId: "442381" },
+    params: { prop: "params" }
+  },
+
+  initialize: function (params) {
+    var me = this;
+    this.$super("sol.common.ix.ActionBase", "initialize", [params]);
+    me.params = params;
+  },
+
+  process: function () {
+    var me = this;
+    return me.mySordValue;
+  }
+});
