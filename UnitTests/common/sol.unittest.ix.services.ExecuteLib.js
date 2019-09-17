@@ -18,6 +18,7 @@ importPackage(Packages.org.apache.commons.io);
 //@include lib_sol.common.FileUtils.js
 //@include lib_sol.common.HttpUtils.js
 //@include lib_sol.common.Injection.js
+//@include lib_sol.common.Locale.js
 //@include lib_sol.common.Config.js
 //@include lib_sol.common.Template.js
 
@@ -71,6 +72,7 @@ var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.Execute
  * @requires  sol.common.FileUtils
  * @requires  sol.common.HttpUtils
  * @requires  sol.common.Injection
+ * @requires  sol.common.Locale
  * @requires  sol.common.Config
  * @requires  sol.common.Template
  */
@@ -247,6 +249,11 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
       }
     }
 
+    if (me.className == "sol.common.Locale") {
+      cls = sol.create('sol.common.Locale', { ec: me.ec });
+      cls.read();
+    }
+
     if (sol.common.ObjectUtils.isFunction(func)) {
       result = func.apply(cls, me.params);
     } else {
@@ -267,6 +274,7 @@ function RF_sol_unittest_service_ExecuteLib(ec, args) {
   logger.enter("RF_sol_unittest_service_ExecuteLib", args);
 
   params = sol.common.ix.RfUtils.parseAndCheckParams(ec, arguments.callee.name, args, "className", "classConfig", "method", "params");
+  params.ec = ec;
   service = sol.create("sol.unittest.ix.services.ExecuteLib", params);
   result = service.process();
   logger.exit("RF_sol_unittest_service_ExecuteLib", result);
