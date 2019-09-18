@@ -267,6 +267,14 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
       }
     }
     
+    if (me.className == "sol.common.SordMap") {
+      cls.read();
+      if (me.method == "forEachRow") {
+        cls.forEachRow(me.params[0], function (i) {}, me);
+        return result;
+      }
+    }
+    
     if (sol.common.ObjectUtils.isFunction(func)) {
       result = func.apply(cls, me.params);
     } else {

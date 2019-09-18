@@ -1,6 +1,7 @@
 
 describe("[lib] sol.unittest.ix.services.SolCommonSordMap", function () {
-  var SordMapSord, userName, userInfo, originalTimeout, config;
+  var SordMapSord, mapData, originalTimeout, config, endOfTableIndicatorColumnName,
+      key, separator, keynames, value, map;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -9,9 +10,18 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordMap", function () {
       test.Utils.createTempSord("SolCommonSordMap").then(function success(obSolCommonSordMapId) {
         test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/SordMap").then(function success1(SordMapSord1) {
           SordMapSord = SordMapSord1;
-          userName = test.Utils.getCurrentUserName();
-          test.Utils.getUserInfo(userName).then(function success3(userInfo1) {
-            userInfo = userInfo1;
+          mapData = {
+            UNITTEST_MAPFIELDA1: "A1",
+            UNITTEST_MAPFIELDB1: "B1",
+            UNITTEST_MAPFIELDC1: "C1",
+            UNITTEST_MAPFIELDA2: "A2",
+            UNITTEST_MAPFIELDB2: "B2",
+            UNITTEST_MAPFIELDC2: "C2",
+            UNITTEST_MAPFIELDA3: "A3",
+            UNITTEST_MAPFIELDB3: "B3",
+            UNITTEST_MAPFIELDC3: "C3"
+          };
+          test.Utils.updateMapData(SordMapSord.id, mapData).then(function success2(updateMapDataResult) {
             done();
           }, function error(err) {
             fail(err);
@@ -35,17 +45,14 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordMap", function () {
   });
   describe("Test Lib Functions", function () {
     describe("sol.common.SordMap", function () {
-
-      xit("forEachRow", function (done) {
+      it("forEachRow", function (done) {
         expect(function () {
-          endOfTableIndicatorColumnName = PVALUE;
-          func = PVALUE;
-          ctx = PVALUE;
+          endOfTableIndicatorColumnName = "UNITTEST_MAPFIELDA";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
-            className: "sol.common.Map",
-            classConfig: {},
+            className: "sol.common.SordMap",
+            classConfig: { objId: SordMapSord.id },
             method: "forEachRow",
-            params: [endOfTableIndicatorColumnName, func, ctx]
+            params: [endOfTableIndicatorColumnName]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
@@ -56,13 +63,13 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordMap", function () {
           );
         }).not.toThrow();
       });
-      xit("getKwlKey", function (done) {
+      it("getKwlKey", function (done) {
         expect(function () {
-          key = PVALUE;
-          separator = PVALUE;
+          key = "UNITTEST_MAPFIELDA1";
+          separator = "-";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
-            className: "sol.common.Map",
-            classConfig: {},
+            className: "sol.common.SordMap",
+            classConfig: { objId: SordMapSord.id },
             method: "getKwlKey",
             params: [key, separator]
           }).then(function success(jsonResult) {
@@ -75,12 +82,12 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordMap", function () {
           );
         }).not.toThrow();
       });
-      xit("getNumValue", function (done) {
+      it("getNumValue", function (done) {
         expect(function () {
-          key = PVALUE;
+          key = "UNITTEST_MAPFIELDA1";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
-            className: "sol.common.Map",
-            classConfig: {},
+            className: "sol.common.SordMap",
+            classConfig: { objId: SordMapSord.id },
             method: "getNumValue",
             params: [key]
           }).then(function success(jsonResult) {
@@ -93,12 +100,12 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordMap", function () {
           );
         }).not.toThrow();
       });
-      xit("getValue", function (done) {
+      it("getValue", function (done) {
         expect(function () {
-          key = PVALUE;
+          key = "UNITTEST_MAPFIELDA1";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
-            className: "sol.common.Map",
-            classConfig: {},
+            className: "sol.common.SordMap",
+            classConfig: { objId: SordMapSord.id },
             method: "getValue",
             params: [key]
           }).then(function success(jsonResult) {
@@ -111,12 +118,12 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordMap", function () {
           );
         }).not.toThrow();
       });
-      xit("initialize", function (done) {
+      it("initialize", function (done) {
         expect(function () {
-          config = PVALUE;
+          config = { objId: SordMapSord.id };
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
-            className: "sol.common.Map",
-            classConfig: {},
+            className: "sol.common.SordMap",
+            classConfig: { objId: SordMapSord.id },
             method: "initialize",
             params: [config]
           }).then(function success(jsonResult) {
@@ -129,12 +136,12 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordMap", function () {
           );
         }).not.toThrow();
       });
-      xit("keyAndValueExist", function (done) {
+      it("keyAndValueExist", function (done) {
         expect(function () {
-          key = PVALUE;
+          key = "UNITTEST_MAPFIELDA1";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
-            className: "sol.common.Map",
-            classConfig: {},
+            className: "sol.common.SordMap",
+            classConfig: { objId: SordMapSord.id },
             method: "keyAndValueExist",
             params: [key]
           }).then(function success(jsonResult) {
@@ -147,12 +154,12 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordMap", function () {
           );
         }).not.toThrow();
       });
-      xit("read", function (done) {
+      it("read", function (done) {
         expect(function () {
-          keynames = PVALUE;
+          keynames = ["UNITTEST_MAPFIELDA1", "UNITTEST_MAPFIELDC1"];
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
-            className: "sol.common.Map",
-            classConfig: {},
+            className: "sol.common.SordMap",
+            classConfig: { objId: SordMapSord.id },
             method: "read",
             params: [keynames]
           }).then(function success(jsonResult) {
@@ -165,13 +172,13 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordMap", function () {
           );
         }).not.toThrow();
       });
-      xit("setNumValue", function (done) {
+      it("setNumValue", function (done) {
         expect(function () {
-          key = PVALUE;
-          value = PVALUE;
+          key = ["UNITTEST_MAPFIELDA1"];
+          value = 100;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
-            className: "sol.common.Map",
-            classConfig: {},
+            className: "sol.common.SordMap",
+            classConfig: { objId: SordMapSord.id },
             method: "setNumValue",
             params: [key, value]
           }).then(function success(jsonResult) {
@@ -184,13 +191,13 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordMap", function () {
           );
         }).not.toThrow();
       });
-      xit("setValue", function (done) {
+      it("setValue", function (done) {
         expect(function () {
-          key = PVALUE;
-          value = PVALUE;
+          key = ["UNITTEST_MAPFIELDA1"];
+          value = "A1";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
-            className: "sol.common.Map",
-            classConfig: {},
+            className: "sol.common.SordMap",
+            classConfig: { objId: SordMapSord.id },
             method: "setValue",
             params: [key, value]
           }).then(function success(jsonResult) {
@@ -203,12 +210,12 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordMap", function () {
           );
         }).not.toThrow();
       });
-      xit("setValues", function (done) {
+      it("setValues", function (done) {
         expect(function () {
-          map = PVALUE;
+          map = { a: "a", b: "b" };
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
-            className: "sol.common.Map",
-            classConfig: {},
+            className: "sol.common.SordMap",
+            classConfig: { objId: SordMapSord.id },
             method: "setValues",
             params: [map]
           }).then(function success(jsonResult) {
@@ -221,11 +228,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordMap", function () {
           );
         }).not.toThrow();
       });
-      xit("write", function (done) {
+      it("write", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
-            className: "sol.common.Map",
-            classConfig: {},
+            className: "sol.common.SordMap",
+            classConfig: { objId: SordMapSord.id },
             method: "write",
             params: []
           }).then(function success(jsonResult) {
@@ -238,8 +245,6 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordMap", function () {
           );
         }).not.toThrow();
       });
-
-
     });
   });
   afterAll(function (done) {
