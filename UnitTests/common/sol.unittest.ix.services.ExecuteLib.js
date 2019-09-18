@@ -109,11 +109,18 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
   process: function () {
     var me = this,
         result = {},
-        cls = sol.create(me.className, me.classConfig),
-        func = cls[me.method],
-        file, dir, path, fileData,
+        file, dir, path, fileData, cls, func,
         i, bytes, byte, string, strings,
-        service;
+        service, sordMap;
+
+
+    if (me.className == "sol.common.MapTable") {
+      sordMap = sol.create("sol.common.SordMap", { objId: me.classConfig.objId });
+      me.classConfig.map = sordMap;
+    }
+
+    cls = sol.create(me.className, me.classConfig);
+    func = cls[me.method];
 
     if (me.className == "sol.common.Template") {
       if (me.method == "registerCustomHelper") {
@@ -250,10 +257,16 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
     }
 
     if (me.className == "sol.common.Locale") {
-      cls = sol.create('sol.common.Locale', { ec: me.ec });
+      cls = sol.create("sol.common.Locale", { ec: me.ec });
       cls.read();
     }
 
+    if (me.className == "sol.common.MapTable") {
+      if (cls.hasNextRow()) {
+    	  cls.nextRow();    	  
+      }
+    }
+    
     if (sol.common.ObjectUtils.isFunction(func)) {
       result = func.apply(cls, me.params);
     } else {
