@@ -263,18 +263,26 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
 
     if (me.className == "sol.common.MapTable") {
       if (cls.hasNextRow()) {
-    	  cls.nextRow();    	  
+        cls.nextRow();
       }
     }
-    
+
     if (me.className == "sol.common.SordMap") {
       cls.read();
       if (me.method == "forEachRow") {
-        cls.forEachRow(me.params[0], function (i) {}, me);
+        cls.forEachRow(me.params[0], function () {}, me);
         return result;
       }
     }
-    
+
+    if (me.className == "sol.common.WfMap") {
+      cls.read();
+      if (me.method == "forEachRow") {
+        cls.forEachRow(me.params[0], function () {}, me);
+        return result;
+      }
+    }
+
     if (sol.common.ObjectUtils.isFunction(func)) {
       result = func.apply(cls, me.params);
     } else {
