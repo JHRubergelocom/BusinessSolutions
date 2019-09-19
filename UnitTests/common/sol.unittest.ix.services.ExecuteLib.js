@@ -119,6 +119,10 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
       me.classConfig.map = sordMap;
     }
 
+    if (me.className == "sol.common.mixins.Inject") {
+      return result;
+    }
+
     cls = sol.create(me.className, me.classConfig);
     func = cls[me.method];
 
