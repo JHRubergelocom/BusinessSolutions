@@ -287,6 +287,12 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
       }
     }
 
+    if (me.className == "sol.common.ObjectFormatter.BaseSord") {
+      if (me.method == "applyObjKeys") {
+        cls.build(me.classConfig.sord);
+      }
+    }
+
     if (sol.common.ObjectUtils.isFunction(func)) {
       result = func.apply(cls, me.params);
     } else {
@@ -406,3 +412,11 @@ sol.define("sol.unittest.InjectionSord", {
     return me.mySordValue;
   }
 });
+
+sol.define("sol.unittest.ObjectFormatter", {
+
+  build: function () {
+    return {};
+  }
+});
+
