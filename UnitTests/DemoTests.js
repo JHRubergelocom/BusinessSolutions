@@ -2730,6 +2730,45 @@ sol.define("test.Utils", {
     return promise;
   },
 
+  /**
+   * Finds the usertask of first active Node of a specific object and workflow
+   * @param {String} objId Object ID
+   * @param {String} flowId Flow ID
+   * return {de.elo.ix.client.UserTask} userTask. Usertask of found active node.
+   * @return {Promise} promise
+   */
+  findFirstActiveNodeUserTask: function (objId, flowId) {
+    var me = this,
+        max = 100,
+        findTasksInfo,
+        promise, promiseFindFirstTasks, promiseFindClose;
+
+    promise = new Promise (function (resolve, reject) {
+      findTasksInfo = new de.elo.ix.client.FindTasksInfo();
+      findTasksInfo.inclWorkflows = true;
+      findTasksInfo.lowestPriority = elo.CONST.USER_TASK_PRIORITY.LOWEST;
+      findTasksInfo.highestPriority = elo.CONST.USER_TASK_PRIORITY.HIGHEST;
+      findTasksInfo.objId = objId;
+
+      promiseFindFirstTasks = me.findFirstTasks(findTasksInfo, max, flowId);
+      promiseFindFirstTasks.then(function success(result) {
+        promiseFindClose = me.findClose(result.findResult);
+        promiseFindClose.then(function success1(closeResult) {
+          try {
+            resolve(result.userTask);
+          } catch (ex) {
+            reject(ex);
+          }
+        }, function error(err) {
+          reject(err);
+        });
+      }, function error(err) {
+        reject(err);
+      });
+    });
+    return promise;
+  },
+
    /**
    * Find first tasks with a search request.
    * @param {de.elo.ix.client.FindTasksInfo} findTasksInfo Defines the search
@@ -2753,11 +2792,11 @@ sol.define("test.Utils", {
           for (i = 0; i < tasks.length; i++) {
             wfCollectNode = tasks[i].wfNode;
             if (wfCollectNode.flowId == flowId) {
-              result = { wfCollectNode: wfCollectNode, findResult: findResult };
+              result = { wfCollectNode: wfCollectNode, findResult: findResult, userTask: tasks[i] };
               resolve(result);
             }
           }
-          result = { wfCollectNode: "", findResult: findResult };
+          result = { wfCollectNode: "", findResult: findResult, userTask: "" };
           promiseFindNextTasks = me.findNextTasks(result, idx, max, flowId);
           promiseFindNextTasks.then(function success1(result1) {
             try {
@@ -2804,11 +2843,11 @@ sol.define("test.Utils", {
             for (i = 0; i < tasks.length; i++) {
               wfCollectNode = tasks[i].wfNode;
               if (wfCollectNode.flowId == flowId) {
-                result = { wfCollectNode: wfCollectNode, findResult: findResult };
+                result = { wfCollectNode: wfCollectNode, findResult: findResult, userTask: tasks[i] };
                 resolve(result);
               }
             }
-            result = { wfCollectNode: "", findResult: findResult };
+            result = { wfCollectNode: "", findResult: findResult, userTask: "" };
             promiseResult = me.findNextTasks(result, idx, max, flowId);
             promiseResult.then(function success1(result1) {
               try {
@@ -2829,11 +2868,11 @@ sol.define("test.Utils", {
         for (i = 0; i < tasks.length; i++) {
           wfCollectNode = tasks[i].wfNode;
           if (wfCollectNode.flowId == flowId) {
-            result = { wfCollectNode: wfCollectNode, findResult: result.findResult };
+            result = { wfCollectNode: wfCollectNode, findResult: result.findResult, userTask: tasks[i] };
             resolve(result);
           }
         }
-        result = { wfCollectNode: "", findResult: result.findResult };
+        result = { wfCollectNode: "", findResult: result.findResult, userTask: "" };
         result = me.findNextTasks(result, idx, max, flowId);
       } else {
         resolve(result);

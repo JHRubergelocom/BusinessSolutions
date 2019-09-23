@@ -1,8 +1,8 @@
 {
   "namespace": "sol.dev.apps",
   "id": "UnitTests",
-  "version": "53",
-  "build": 74,
+  "version": "54",
+  "build": 75,
   "defaultLanguage": "en",
   "jsLibs": [
     "UnitTests.module.js",

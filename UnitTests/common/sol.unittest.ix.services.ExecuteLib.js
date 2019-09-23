@@ -21,6 +21,7 @@ importPackage(Packages.org.apache.commons.io);
 //@include lib_sol.common.Locale.js
 //@include lib_sol.common.Config.js
 //@include lib_sol.common.Template.js
+//@include lib_sol.common.WfUtils.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.ExecuteLib" });
 
@@ -75,6 +76,7 @@ var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.Execute
  * @requires  sol.common.Locale
  * @requires  sol.common.Config
  * @requires  sol.common.Template
+ * @requires  sol.common.WfUtils
  */
 sol.define("sol.unittest.ix.services.ExecuteLib", {
   extend: "sol.common.ix.ServiceBase",
@@ -291,6 +293,81 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
       if (me.method == "applyObjKeys") {
         cls.build(me.classConfig.sord);
       }
+    }
+
+    if (me.className == "sol.common.ObjectFormatter.BaseTask") {
+      if (me.method == "getValues") {
+        cls.build(me.classConfig.task);
+      }
+    }
+
+    if (me.className == "sol.common.ObjectFormatter.StatisticSord") {
+      result = sol.common.ObjectFormatter.format({
+        sord: {
+          formatter: "sol.common.ObjectFormatter.StatisticSord",
+          // instance of de.elo.ix.client.Sord
+          data: me.params[0],
+          config: {
+            sordKeys: ["id", "maskName", "name", "IDateIso", "XDateIso"],
+            objKeys: ["UNITTEST_FIELD1", "UNITTEST_FIELD2", "UNITTEST_FIELD3"]
+          }
+        }
+      });
+      return result;
+    }
+
+    if (me.className == "sol.common.ObjectFormatter.TemplateSord") {
+      result = sol.common.ObjectFormatter.format({
+        sord: {
+          formatter: "sol.common.ObjectFormatter.TemplateSord",
+          // instance of de.elo.ix.client.Sord
+          data: me.params[0]
+        }
+      });
+      return result;
+    }
+
+    if (me.className == "sol.common.ObjectFormatter.WfMap") {
+      result = sol.common.ObjectFormatter.format({
+        sord: {
+          formatter: "sol.common.ObjectFormatter.WfMap",
+          // instance of de.elo.ix.client.Sord
+          data: me.params[0],
+          config: {
+            sordKeys: ["id", "guid", "maskName", "name", "desc", "IDateIso", "XDateIso", "ownerName"],
+            allMapFields: true,
+            allFormBlobFields: true,
+            flowId: me.params[1],
+            asAdmin: false
+          }
+        }
+      });
+      return result;
+    }
+
+    if (me.className == "sol.common.ObjectFormatter.StatisticTask") {
+      result = sol.common.ObjectFormatter.format({
+        sord: {
+          formatter: "sol.common.ObjectFormatter.StatisticTask",
+          // instance of de.elo.ix.client.UserTask
+          data: me.params[0],
+          config: {
+            wfKeys: ["activateDateWorkflowIso", "flowId", "flowName", "flowStatus", "nodeId", "nodeName", "objName", "timeLimitIso", "userId", "userName"]
+          }
+        }
+      });
+      return result;
+    }
+
+    if (me.className == "sol.common.ObjectFormatter.TemplateTask") {
+      result = sol.common.ObjectFormatter.format({
+        sord: {
+          formatter: "sol.common.ObjectFormatter.TemplateTask",
+          // instance of de.elo.ix.client.UserTask
+          data: me.params[0]
+        }
+      });
+      return result;
     }
 
     if (sol.common.ObjectUtils.isFunction(func)) {
