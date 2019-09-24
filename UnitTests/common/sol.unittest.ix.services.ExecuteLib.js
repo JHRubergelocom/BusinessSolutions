@@ -370,6 +370,24 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
       return result;
     }
 
+    if (me.className == "sol.common.RepoUtils") {
+      if (me.method == "downloadToByteArray") {
+        bytes = sol.common.RepoUtils.downloadToByteArray(me.params[0], me.params[1]);
+        strings = [];
+        for (i = 0; i < bytes.length; i++) {
+          string = String(bytes[i]);
+          strings.push(string);
+        }
+        result = strings;
+        return result;
+      }
+      if (me.method == "exportRepoData") {
+    	file = new File(me.params[0]);
+    	file.delete();
+        me.params[0] = new File(me.params[0]);
+      }
+    }
+
     if (sol.common.ObjectUtils.isFunction(func)) {
       result = func.apply(cls, me.params);
     } else {

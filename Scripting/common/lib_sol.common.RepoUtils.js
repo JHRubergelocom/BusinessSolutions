@@ -163,7 +163,7 @@ sol.define("sol.common.RepoUtils", {
    * @param {Boolean} [config.recursive=false] (optional) If true, subfolders will be included (use carefully)
    * @param {Number} [config.level=3] (optional) If subfolders are included, this restricts the search depth (`-1` for max. depth)
    * @param {String} [config.maskId] (optional) If set, find objects related to this mask ID or name
-   * @param {String} [config.maskIds] (optional) If set, find objects related to these mask IDs or names
+   * @param {String[]} [config.maskIds] (optional) If set, find objects related to these mask IDs or names
    * @param {de.elo.ix.client.FindOptions} config.findOptions (optional) If set, this `FindOptions` will be applied the the search
    * @param {Object} config.objKeysObj (optional) Find by values
    * @param {String} config.name (optional) Filters the result by the sord name (all elements containing `name`, for exact matches see `exactName`)
@@ -268,6 +268,8 @@ sol.define("sol.common.RepoUtils", {
    * Finds sords
    * @param {Object} params Parameters
    * @param {Object} params.objKeysObj Map that contains key-value pairs
+   * @param {String} params.maskId (optional) If set, find objects related to this mask ID or name
+   * @param {String[]} params.maskIds (optional) If set, find objects related to these mask IDs or names
    * @param {de.elo.ix.client.SordZ} [params.sordZ=SordC.mbAll] (optional) `SordC.mbOnlyId` and `SordC.mbOnlyGuid` are not working
    * @param {de.elo.ix.client.IXConnection} params.ixConn (optional) This will be used instead of `ìxConnect` (usfull when the search should run in a different user context)
    * @returns {de.elo.ix.client.Sord[]}
@@ -288,14 +290,25 @@ sol.define("sol.common.RepoUtils", {
 
     findInfo = new FindInfo();
 
-    if (params.objKeysObj) {
+    if (params.objKeysObj || params.maskId || params.maskIds) {
       findInfo.findByIndex = new FindByIndex();
-      for (key in params.objKeysObj) {
-        if (params.objKeysObj.hasOwnProperty(key)) {
-          objKeys.push(me.createObjKey("", key, params.objKeysObj[key]));
+
+      if (params.objKeysObj) {
+        for (key in params.objKeysObj) {
+          if (params.objKeysObj.hasOwnProperty(key)) {
+            objKeys.push(me.createObjKey("", key, params.objKeysObj[key]));
+          }
         }
+        findInfo.findByIndex.objKeys = objKeys;
       }
-      findInfo.findByIndex.objKeys = objKeys;
+
+      if (params.maskId != undefined) {
+        findInfo.findByIndex.maskId = params.maskId;
+      }
+
+      if (params.maskIds != undefined) {
+        findInfo.findByIndex.maskIds = params.maskIds;
+      }
     }
 
     try {
