@@ -112,286 +112,225 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
     var me = this,
         result = {},
         file, dir, path, fileData, cls, func,
-        i, bytes, byte, string, strings,
-        service, sordMap;
+        i, bytes, byte, string, strings, sordMap;
 
 
-    if (me.className == "sol.common.MapTable") {
-      sordMap = sol.create("sol.common.SordMap", { objId: me.classConfig.objId });
-      me.classConfig.map = sordMap;
-    }
-
-    if (me.className == "sol.common.mixins.Inject") {
-      return result;
+    switch (me.className) {
+      case "sol.common.MapTable":
+        sordMap = sol.create("sol.common.SordMap", { objId: me.classConfig.objId });
+        me.classConfig.map = sordMap;
+        break;
+      case "sol.common.mixins.Inject":
+        return result;
+      default:
     }
 
     cls = sol.create(me.className, me.classConfig);
     func = cls[me.method];
 
-    if (me.className == "sol.common.Template") {
-      if (me.method == "registerCustomHelper") {
-        cls.registerCustomHelper("hello", function (config) {
-          return "hello " + arguments[0];
-        });
-        return result;
-      }
-    }
-
-    if (me.className == "sol.common.FileUtils") {
-      if (me.method == "copyFile") {
-        new File(me.params[0]).createNewFile();
-        result = cls.copyFile(new File(me.params[0]), new File(me.params[1]));
-        return result;
-      }
-      if (me.method == "getExtension") {
-        result = cls.getExtension(new File(me.params[0]));
-        return result;
-      }
-      if (me.method == "getName") {
-        result = cls.getName(new File(me.params[0]));
-        return result;
-      }
-      if (me.method == "loadToFileData") {
-        new File(me.params[0]).createNewFile();
-        cls.writeConfigToFile(me.params[0], { aa: "aa", bb: "bb" });
-      }
-      if (me.method == "makeDirectories") {
-        result = cls.makeDirectories(new File(me.params[0]));
-        return result;
-      }
-      if (me.method == "readConfig") {
-        new File(me.params[0]).createNewFile();
-        cls.writeConfigToFile(me.params[0], { aa: "aa", bb: "bb" });
-      }
-      if (me.method == "readFileToObject") {
-        new File(me.params[0]).createNewFile();
-        cls.writeConfigToFile(me.params[0], { aa: "aa", bb: "bb" });
-      }
-      if (me.method == "readFileToString") {
-        new File(me.params[0]).createNewFile();
-        cls.writeConfigToFile(me.params[0], { aa: "aa", bb: "bb" });
-      }
-      if (me.method == "readManifestFile") {
-        new File(me.params[0]).createNewFile();
-        cls.writeStringToFile(me.params[0], "Manifest-Version: 1.0");
-      }
-      if (me.method == "rename") {
-        path = me.params[0].split("/");
-        dir = path[0];
-        file = path[1];
-        cls.delete(dir, { quietly: true });
-        file = new File(me.params[0]);
-        dir = new File(dir);
-        if (dir.mkdir()) {
-          file.createNewFile();
+    switch (me.className) {
+      case "sol.common.Template":
+        switch (me.method) {
+          case "registerCustomHelper":
+            me.params = [];
+            me.params.push("hello");
+            me.params.push(function (config) {
+              return "hello " + arguments[0];
+            });
+          default:
         }
-      }
-      if (me.method == "saveFileData") {
-        new File(me.params[1]).createNewFile();
-        cls.writeConfigToFile(me.params[1], { aa: "aa", bb: "bb" });
-        fileData = cls.loadToFileData(me.params[1]);
-        me.params[0] = fileData;
-      }
-      if (me.method == "writeConfigToFile") {
-        new File(me.params[0]).createNewFile();
-      }
-      if (me.method == "writeObjectToFile") {
-        new File(me.params[1]).createNewFile();
-      }
-      if (me.method == "writeStringArrayToFile") {
-        new File(me.params[0]).createNewFile();
-      }
-      if (me.method == "writeStringToFile") {
-        new File(me.params[0]).createNewFile();
-      }
-    }
-
-    if (me.className == "sol.common.HttpUtils") {
-      if (me.method == "convertByteArrayToString") {
-        bytes = [];
-        for (i = 0; i < me.params[0].length; i++) {
-          string = me.params[0][i];
-          byte = java.lang.Byte.parseByte(string);
-          bytes.push(byte);
+        break;
+      case "sol.common.FileUtils":
+        switch (me.method) {
+          case "copyFile":
+            new File(me.params[0]).createNewFile();
+            me.params[0] = new File(me.params[0]);
+            me.params[1] = new File(me.params[1]);
+            break;
+          case "getExtension":
+          case "getName":
+          case "makeDirectories":
+            me.params[0] = new File(me.params[0]);
+            break;
+          case "loadToFileData":
+          case "readConfig":
+          case "readFileToObject":
+          case "readFileToString":
+            new File(me.params[0]).createNewFile();
+            cls.writeConfigToFile(me.params[0], { aa: "aa", bb: "bb" });
+            break;
+          case "readManifestFile":
+            new File(me.params[0]).createNewFile();
+            cls.writeStringToFile(me.params[0], "Manifest-Version: 1.0");
+            break;
+          case "rename":
+            path = me.params[0].split("/");
+            dir = path[0];
+            file = path[1];
+            cls.delete(dir, { quietly: true });
+            file = new File(me.params[0]);
+            dir = new File(dir);
+            if (dir.mkdir()) {
+              file.createNewFile();
+            }
+            break;
+          case "saveFileData":
+            new File(me.params[1]).createNewFile();
+            cls.writeConfigToFile(me.params[1], { aa: "aa", bb: "bb" });
+            fileData = cls.loadToFileData(me.params[1]);
+            me.params[0] = fileData;
+            break;
+          case "writeConfigToFile":
+          case "writeStringArrayToFile":
+          case "writeStringToFile":
+            new File(me.params[0]).createNewFile();
+            break;
+          case "writeObjectToFile":
+            new File(me.params[1]).createNewFile();
+            break;
+          default:
         }
-        result = cls.convertByteArrayToString(bytes);
-        return result;
-      }
-      if (me.method == "convertStringToByteArray") {
-        result = cls.convertStringToByteArray(me.params[0]);
-        strings = [];
-        for (i = 0; i < result.length; i++) {
-          string = String(result[i]);
-          strings.push(string);
+        break;
+      case "sol.common.HttpUtils":
+        switch (me.method) {
+          case "convertByteArrayToString":
+            bytes = [];
+            for (i = 0; i < me.params[0].length; i++) {
+              string = me.params[0][i];
+              byte = java.lang.Byte.parseByte(string);
+              bytes.push(byte);
+            }
+            me.params[0] = bytes;
+            break;
+          case "inputStreamToString":
+            sol.common.FileUtils.writeStringToFile("File1.txt", me.params[0]);
+            me.params[0] = new FileInputStream("File1.txt");
+            break;
+          case "logRequestProperties":
+            me.params[0] = cls.prepareRequest(me.params[0], {});
+            break;
+          default:
         }
-        result = strings;
-        return result;
-      }
-      if (me.method == "inputStreamToString") {
-        sol.common.FileUtils.writeStringToFile("File1.txt", me.params[0]);
-        me.params[0] = new FileInputStream("File1.txt");
-      }
-      if (me.method == "logRequestProperties") {
-        me.params[0] = cls.prepareRequest(me.params[0], {});
-      }
-    }
-
-    if (me.className == "sol.common.IniFile") {
-      if (me.method == "parse") {
-        bytes = sol.common.RepoUtils.downloadToByteArray(me.params[0], null);
-        string = new java.lang.String(bytes, "UTF-8");
-        me.params[0] = string;
-      }
-    }
-
-    if (me.className == "sol.common.Injection") {
-      if (me.method == "inject") {
-        service = sol.create("sol.unittest.Injection", {});
-        result = service.process();
-        return result;
-      }
-      if (me.method == "injectJSON") {
-        service = sol.create("sol.unittest.InjectionJson", {});
-        result = service.process();
-        return result;
-      }
-      if (me.method == "injectSordById") {
-        service = sol.create("sol.unittest.InjectionSord", {});
-        result = service.process();
-        return result;
-      }
-    }
-
-    if (me.className == "sol.common.Locale") {
-      cls = sol.create("sol.common.Locale", { ec: me.ec });
-      cls.read();
-    }
-
-    if (me.className == "sol.common.MapTable") {
-      if (cls.hasNextRow()) {
-        cls.nextRow();
-      }
-    }
-
-    if (me.className == "sol.common.SordMap") {
-      cls.read();
-      if (me.method == "forEachRow") {
-        cls.forEachRow(me.params[0], function () {}, me);
-        return result;
-      }
-    }
-
-    if (me.className == "sol.common.WfMap") {
-      cls.read();
-      if (me.method == "forEachRow") {
-        cls.forEachRow(me.params[0], function () {}, me);
-        return result;
-      }
-    }
-
-    if (me.className == "sol.common.ObjectFormatter.BaseSord") {
-      if (me.method == "applyObjKeys") {
-        cls.build(me.classConfig.sord);
-      }
-    }
-
-    if (me.className == "sol.common.ObjectFormatter.BaseTask") {
-      if (me.method == "getValues") {
-        cls.build(me.classConfig.task);
-      }
-    }
-
-    if (me.className == "sol.common.ObjectFormatter.StatisticSord") {
-      result = sol.common.ObjectFormatter.format({
-        sord: {
-          formatter: "sol.common.ObjectFormatter.StatisticSord",
-          // instance of de.elo.ix.client.Sord
-          data: me.params[0],
-          config: {
-            sordKeys: ["id", "maskName", "name", "IDateIso", "XDateIso"],
-            objKeys: ["UNITTEST_FIELD1", "UNITTEST_FIELD2", "UNITTEST_FIELD3"]
-          }
+        break;
+      case "sol.common.IniFile":
+        switch (me.method) {
+          case "parse":
+            bytes = sol.common.RepoUtils.downloadToByteArray(me.params[0], null);
+            string = new java.lang.String(bytes, "UTF-8");
+            me.params[0] = string;
+            break;
+          default:
         }
-      });
-      return result;
-    }
-
-    if (me.className == "sol.common.ObjectFormatter.TemplateSord") {
-      result = sol.common.ObjectFormatter.format({
-        sord: {
-          formatter: "sol.common.ObjectFormatter.TemplateSord",
-          // instance of de.elo.ix.client.Sord
-          data: me.params[0]
+        break;
+      case "sol.common.Injection":
+        switch (me.method) {
+          case "inject":
+            cls = sol.create("sol.unittest.Injection", {});
+            func = cls["process"];
+            break;
+          case "injectJSON":
+            cls = sol.create("sol.unittest.InjectionJson", {});
+            func = cls["process"];
+            break;
+          case "injectSordById":
+            cls = sol.create("sol.unittest.InjectionSord", {});
+            func = cls["process"];
+            break;
+          default:
         }
-      });
-      return result;
-    }
-
-    if (me.className == "sol.common.ObjectFormatter.WfMap") {
-      result = sol.common.ObjectFormatter.format({
-        sord: {
-          formatter: "sol.common.ObjectFormatter.WfMap",
-          // instance of de.elo.ix.client.Sord
-          data: me.params[0],
-          config: {
-            sordKeys: ["id", "guid", "maskName", "name", "desc", "IDateIso", "XDateIso", "ownerName"],
-            allMapFields: true,
-            allFormBlobFields: true,
-            flowId: me.params[1],
-            asAdmin: false
-          }
+        break;
+      case "sol.common.Locale":
+        cls = sol.create("sol.common.Locale", { ec: me.ec });
+        cls.read();
+        break;
+      case "sol.common.MapTable":
+        if (cls.hasNextRow()) {
+          cls.nextRow();
         }
-      });
-      return result;
-    }
-
-    if (me.className == "sol.common.ObjectFormatter.StatisticTask") {
-      result = sol.common.ObjectFormatter.format({
-        sord: {
-          formatter: "sol.common.ObjectFormatter.StatisticTask",
-          // instance of de.elo.ix.client.UserTask
-          data: me.params[0],
-          config: {
-            wfKeys: ["activateDateWorkflowIso", "flowId", "flowName", "flowStatus", "nodeId", "nodeName", "objName", "timeLimitIso", "userId", "userName"]
-          }
+        break;
+      case "sol.common.SordMap":
+        cls.read();
+        switch (me.method) {
+          case "forEachRow":
+            me.params.push(function () {});
+            me.params.push(me);
+            break;
+          default:
         }
-      });
-      return result;
-    }
-
-    if (me.className == "sol.common.ObjectFormatter.TemplateTask") {
-      result = sol.common.ObjectFormatter.format({
-        sord: {
-          formatter: "sol.common.ObjectFormatter.TemplateTask",
-          // instance of de.elo.ix.client.UserTask
-          data: me.params[0]
+        break;
+      case "sol.common.WfMap":
+        cls.read();
+        switch (me.method) {
+          case "forEachRow":
+            me.params.push(function () {});
+            me.params.push(me);
+            break;
+          default:
         }
-      });
-      return result;
-    }
-
-    if (me.className == "sol.common.RepoUtils") {
-      if (me.method == "downloadToByteArray") {
-        bytes = sol.common.RepoUtils.downloadToByteArray(me.params[0], me.params[1]);
-        strings = [];
-        for (i = 0; i < bytes.length; i++) {
-          string = String(bytes[i]);
-          strings.push(string);
+        break;
+      case "sol.common.ObjectFormatter.BaseSord":
+        switch (me.method) {
+          case "applyObjKeys":
+            cls.build(me.classConfig.sord);
+            break;
+          default:
         }
-        result = strings;
-        return result;
-      }
-      if (me.method == "exportRepoData") {
-    	file = new File(me.params[0]);
-    	file.delete();
-        me.params[0] = new File(me.params[0]);
-      }
+        break;
+      case "sol.common.ObjectFormatter.BaseTask":
+        switch (me.method) {
+          case "getValues":
+            cls.build(me.classConfig.task);
+            break;
+          default:
+        }
+        break;
+      case "sol.common.RepoUtils":
+        switch (me.method) {
+          case "exportRepoData":
+            file = new File(me.params[0]);
+            file.delete();
+            me.params[0] = new File(me.params[0]);
+            break;
+          default:
+        }
+        break;
+      default:
     }
 
     if (sol.common.ObjectUtils.isFunction(func)) {
       result = func.apply(cls, me.params);
     } else {
       throw "IllegalMethodException: Method '" + me.method + "' not supported in Class '" + me.className + "'";
+    }
+
+    switch (me.className) {
+      case "sol.common.HttpUtils":
+        switch (me.method) {
+          case "convertStringToByteArray":
+            strings = [];
+            for (i = 0; i < result.length; i++) {
+              string = String(result[i]);
+              strings.push(string);
+            }
+            result = strings;
+            break;
+          default:
+        }
+        break;
+      case "sol.common.RepoUtils":
+        switch (me.method) {
+          case "downloadToByteArray":
+            strings = [];
+            for (i = 0; i < result.length; i++) {
+              string = String(result[i]);
+              strings.push(string);
+            }
+            result = strings;
+            break;
+          default:
+        }
+        break;
+      default:
     }
     return result;
   }

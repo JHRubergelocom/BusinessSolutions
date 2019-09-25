@@ -467,10 +467,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("downloadToFile", function (done) {
+      it("downloadToFile", function (done) {
         expect(function () {
           objId = RepoUtilsSord.id;
-          config = { fileName: "unittest", createUniqueFileName: true };
+          config = { dstDirPath: "C:\Temp", createDirs: true, createUniqueFileName: true };
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
@@ -486,7 +486,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("downloadToFileData", function (done) {
+      it("downloadToFileData", function (done) {
         expect(function () {
           objId = RepoUtilsSord.id;
           docId = null;
@@ -506,7 +506,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("downloadToStream", function (done) {
+      it("downloadToStream", function (done) {
         expect(function () {
           objId = RepoUtilsSord.id;
           docId = null;
@@ -525,7 +525,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("downloadToString", function (done) {
+      it("downloadToString", function (done) {
         expect(function () {
           objId = RepoUtilsSord.id;
           docId = null;
@@ -545,7 +545,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("exists", function (done) {
+      it("exists", function (done) {
         expect(function () {
           repoPath = "ARCPATH:/Administration/Business Solutions/common [unit tests]//Resources/RepoUtils";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {

@@ -4,8 +4,7 @@ describe("[lib] sol.unittest.ix.services.solcommonObjectFormatter", function () 
       config, partName, configPart, result, params, originalSord, toObj, sord,
       maskName, objKeys, prefix, key, value, flowId, objId, sordObjKey, mask,
       formattedSord, addedObjKeys, objKeyPrefix, objKey, guid, feedActionTypes,
-      cfg, originalTask, succNodes, succNodesIds, userTask, nodeId, wfDiagram,
-      task;
+      cfg, originalTask, succNodes, succNodesIds, userTask, nodeId, wfDiagram;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -475,12 +474,22 @@ describe("[lib] sol.unittest.ix.services.solcommonObjectFormatter", function () 
     describe("sol.common.ObjectFormatter.StatisticSord", function () {
       it("format", function (done) {
         expect(function () {
-          sord = ObjectFormatterSord;
+          config = {
+            sord: {
+              formatter: "sol.common.ObjectFormatter.StatisticSord",
+              // instance of de.elo.ix.client.Sord
+              data: ObjectFormatterSord,
+              config: {
+                sordKeys: ["id", "maskName", "name", "IDateIso", "XDateIso"],
+                objKeys: ["UNITTEST_FIELD1", "UNITTEST_FIELD2", "UNITTEST_FIELD3"]
+              }
+            }
+          };
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
-            className: "sol.common.ObjectFormatter.StatisticSord",
+            className: "sol.common.ObjectFormatter",
             classConfig: {},
             method: "format",
-            params: [sord]
+            params: [config]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
@@ -495,12 +504,18 @@ describe("[lib] sol.unittest.ix.services.solcommonObjectFormatter", function () 
     describe("sol.common.ObjectFormatter.TemplateSord", function () {
       it("format", function (done) {
         expect(function () {
-          sord = ObjectFormatterSord;
+          config = {
+            sord: {
+              formatter: "sol.common.ObjectFormatter.TemplateSord",
+              // instance of de.elo.ix.client.Sord
+              data: ObjectFormatterSord
+            }
+          };
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
-            className: "sol.common.ObjectFormatter.TemplateSord",
+            className: "sol.common.ObjectFormatter",
             classConfig: {},
             method: "format",
-            params: [sord]
+            params: [config]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
@@ -528,13 +543,25 @@ describe("[lib] sol.unittest.ix.services.solcommonObjectFormatter", function () 
       });
       it("format", function (done) {
         expect(function () {
-          sord = ObjectFormatterSord;
-          flowId = flowId;
+          config = {
+            sord: {
+              formatter: "sol.common.ObjectFormatter.WfMap",
+              // instance of de.elo.ix.client.Sord
+              data: ObjectFormatterSord,
+              config: {
+                sordKeys: ["id", "guid", "maskName", "name", "desc", "IDateIso", "XDateIso", "ownerName"],
+                allMapFields: true,
+                allFormBlobFields: true,
+                flowId: flowId,
+                asAdmin: false
+              }
+            }
+          };
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
-            className: "sol.common.ObjectFormatter.WfMap",
+            className: "sol.common.ObjectFormatter",
             classConfig: {},
             method: "format",
-            params: [sord, flowId]
+            params: [config]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
@@ -715,12 +742,21 @@ describe("[lib] sol.unittest.ix.services.solcommonObjectFormatter", function () 
       });
       it("format", function (done) {
         expect(function () {
-          task = userTask;
+          config = {
+            sord: {
+              formatter: "sol.common.ObjectFormatter.StatisticTask",
+              // instance of de.elo.ix.client.UserTask
+              data: userTask,
+              config: {
+                wfKeys: ["activateDateWorkflowIso", "flowId", "flowName", "flowStatus", "nodeId", "nodeName", "objName", "timeLimitIso", "userId", "userName"]
+              }
+            }
+          };
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
-            className: "sol.common.ObjectFormatter.StatisticTask",
+            className: "sol.common.ObjectFormatter",
             classConfig: {},
             method: "format",
-            params: [task]
+            params: [config]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
@@ -782,12 +818,18 @@ describe("[lib] sol.unittest.ix.services.solcommonObjectFormatter", function () 
       });
       it("format", function (done) {
         expect(function () {
-          task = userTask;
+          config = {
+            sord: {
+              formatter: "sol.common.ObjectFormatter.TemplateTask",
+              // instance of de.elo.ix.client.UserTask
+              data: userTask
+            }
+          };
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
-            className: "sol.common.ObjectFormatter.TemplateTask",
+            className: "sol.common.ObjectFormatter",
             classConfig: {},
             method: "format",
-            params: [task]
+            params: [config]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
@@ -900,6 +942,83 @@ describe("[lib] sol.unittest.ix.services.solcommonObjectFormatter", function () 
       });
     });
     describe("sol.common.ObjectFormatter.TemplateWfDiagramNode", function () {
+      it("start Workflow Unittest", function (done) {
+        expect(function () {
+          test.Utils.startWorkflow("Unittest", "Workflow Unittest", ObjectFormatterSord.id).then(function success(flowId1) {
+            flowId = flowId1;
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("get workflow", function (done) {
+        expect(function () {
+          test.Utils.getWorkflow(flowId).then(function success(workflow) {
+            wfDiagram = workflow;
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("get first active node", function (done) {
+        expect(function () {
+          test.Utils.findFirstActiveNode(ObjectFormatterSord.id, flowId).then(function success1(firstActiveNode) {
+            nodeId = firstActiveNode.nodeId;
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("build", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.ObjectFormatter.TemplateWfDiagramNode",
+            classConfig: { data: wfDiagram, config: { nodeId: nodeId } },
+            method: "build",
+            params: []
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("finish Workflow Unittest", function (done) {
+        expect(function () {
+          test.Utils.getWorkflow(flowId).then(function success1(workflow) {
+            succNodes = test.Utils.getSuccessorNodes(workflow, "1", null, "node 2");
+            succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
+            test.Utils.forwardWorkflowTask(flowId, "1", succNodesIds, "Unittest finish input").then(function success2(forwardWorkflowTaskResult) {
+              done();
+            }, function error(err) {
+              fail(err);
+              console.error(err);
+              done();
+            }
+            );
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
     });
   });
   afterAll(function (done) {
