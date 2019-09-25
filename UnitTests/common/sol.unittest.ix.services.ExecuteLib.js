@@ -112,7 +112,8 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
     var me = this,
         result = {},
         file, dir, path, fileData, cls, func,
-        i, bytes, byte, string, strings, sordMap;
+        i, bytes, byte, string, strings, sordMap,
+        findInfo, findChildren, findByType;
 
 
     switch (me.className) {
@@ -290,6 +291,19 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
             file = new File(me.params[0]);
             file.delete();
             me.params[0] = new File(me.params[0]);
+            break;
+          case "findIds":
+            findInfo = new FindInfo();
+            findChildren = new FindChildren();
+            findByType = new FindByType();
+            findChildren.parentId = me.params[0];
+            findChildren.mainParent = false;
+            findChildren.endLevel = 1;
+            findByType.typeStructures = true;
+            findByType.typeDocuments = true;
+            findInfo.findChildren = findChildren;
+            findInfo.findByType = findByType;
+            me.params[0] = findInfo;
             break;
           default:
         }

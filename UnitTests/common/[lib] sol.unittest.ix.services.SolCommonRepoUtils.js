@@ -564,7 +564,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("exportRepoData", function (done) {
+      it("exportRepoData", function (done) {
         expect(function () {
           exportZipFile = "test.zip";
           exportOptions = { srcList: [RepoUtilsSord.id] };
@@ -583,11 +583,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("findChildren", function (done) {
+      it("findChildren", function (done) {
         expect(function () {
-          objId = PVALUE;
-          config = PVALUE;
-          ixConn = PVALUE;
+          objId = "2";
+          config = {};
+          ixConn = null;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
@@ -603,10 +603,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("findIds", function (done) {
+      it("findIds", function (done) {
         expect(function () {
-          findInfo = PVALUE;
-          params = PVALUE;
+          findInfo = "2";
+          params = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
@@ -622,10 +622,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("findInHierarchy", function (done) {
+      it("findInHierarchy", function (done) {
         expect(function () {
-          objId = PVALUE;
-          config = PVALUE;
+          objId = "2";
+          config = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
