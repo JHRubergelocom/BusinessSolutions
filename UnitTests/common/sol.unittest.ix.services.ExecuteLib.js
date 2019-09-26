@@ -9,6 +9,7 @@ importPackage(Packages.org.apache.commons.io);
 //@include lib_sol.common.ix.ServiceBase.js
 //@include lib_sol.common.ObjectUtils.js
 //@include lib_sol.common.SordUtils.js
+//@include lib_sol.common.SordTypeUtils.js
 //@include lib_sol.common.RepoUtils.js
 //@include lib_sol.common.AclUtils.js
 //@include lib_sol.common.AsUtils.js
@@ -64,6 +65,7 @@ var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.Execute
  * @requires  sol.common.ix.ServiceBase
  * @requires  sol.common.ObjectUtils
  * @requires  sol.common.SordUtils
+ * @requires  sol.common.SordTypeUtils
  * @requires  sol.common.RepoUtils
  * @requires  sol.common.AclUtils
  * @requires  sol.common.AsUtils

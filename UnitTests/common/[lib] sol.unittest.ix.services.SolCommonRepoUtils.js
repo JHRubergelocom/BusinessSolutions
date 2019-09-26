@@ -625,7 +625,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
       it("findInHierarchy", function (done) {
         expect(function () {
           objId = "2";
-          config = {};
+          config = { sordTypeNames: ["Filing cabinet"] };
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
@@ -641,11 +641,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("findObjectTypeInHierarchy", function (done) {
+      it("findObjectTypeInHierarchy", function (done) {
         expect(function () {
-          objId = PVALUE;
-          values = PVALUE;
-          config = PVALUE;
+          objId = RepoUtilsSord.id;
+          values = ["UNITTEST"];
+          config = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
