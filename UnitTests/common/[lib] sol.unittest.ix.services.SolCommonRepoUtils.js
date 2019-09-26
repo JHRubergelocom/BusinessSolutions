@@ -121,7 +121,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
       });
       it("checkRepoPath 'empty path'", function (done) {
         expect(function () {
-          repoPath = "ARCPATH:/Administration/Business Solutions/common [unit tests]//Resources/RepoUtils";
+          repoPath = "ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources//RepoUtils";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
@@ -547,7 +547,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
       });
       it("exists", function (done) {
         expect(function () {
-          repoPath = "ARCPATH:/Administration/Business Solutions/common [unit tests]//Resources/RepoUtils";
+          repoPath = "ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/RepoUtils";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
@@ -661,9 +661,9 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("findSords", function (done) {
+      it("findSords", function (done) {
         expect(function () {
-          params = PVALUE;
+          params = { maskId: "UnitTest" };
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
@@ -679,9 +679,9 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getColorId", function (done) {
+      it("getColorId", function (done) {
         expect(function () {
-          colorName = PVALUE;
+          colorName = "sol.solution.processed";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
@@ -697,10 +697,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getDownloadUrl", function (done) {
+      it("getDownloadUrl", function (done) {
         expect(function () {
-          objId = PVALUE;
-          docId = PVALUE;
+          objId = RepoUtilsSord.id;
+          docId = null;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
@@ -716,9 +716,9 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getGuid", function (done) {
+      it("getGuid", function (done) {
         expect(function () {
-          objId = PVALUE;
+          objId = RepoUtilsSord.id;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
@@ -734,7 +734,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getIxId", function (done) {
+      it("getIxId", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
@@ -751,9 +751,9 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getIxOption", function (done) {
+      it("getIxOption", function (done) {
         expect(function () {
-          key = PVALUE;
+          key = "debuggerPort";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
@@ -769,7 +769,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getIxOptions", function (done) {
+      it("getIxOptions", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
@@ -786,15 +786,16 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getNameFromPath", function (done) {
+      it("getNameFromPath", function (done) {
         expect(function () {
-          repoPath = PVALUE;
+          repoPath = "ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/RepoUtils";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
             method: "getNameFromPath",
             params: [repoPath]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("RepoUtils");
             done();
           }, function error(err) {
             fail(err);
@@ -804,9 +805,9 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getObjId", function (done) {
+      it("getObjId", function (done) {
         expect(function () {
-          path = PVALUE;
+          path = "ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/RepoUtils";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
@@ -822,9 +823,65 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getObjIdByIndex", function (done) {
+      it("copysord", function (done) {
         expect(function () {
-          filter = PVALUE;
+          test.Utils.copySord("ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common [unit tests]/Resources/RepoUtils").then(function success(objCopyRepoUtilsId1) {
+            objCopyRepoUtilsId = objCopyRepoUtilsId1;
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+
+        }).not.toThrow();
+      });
+      it("getsord", function (done) {
+        expect(function () {
+          test.Utils.getSord(objCopyRepoUtilsId).then(function success(copyRepoUtilsSord1) {
+            copyRepoUtilsSord = copyRepoUtilsSord1;
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+
+        }).not.toThrow();
+      });
+      it("set 'UNITTEST_FIELD3' to 'Value33'", function (done) {
+        expect(function () {
+          test.Utils.updateKeywording(copyRepoUtilsSord, {
+            UNITTEST_FIELD3: "Value33"
+          }, true).then(function success(updateKeywordingResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("getsord", function (done) {
+        expect(function () {
+          test.Utils.getSord(copyRepoUtilsSord.id).then(function success(copyRepoUtilsSord1) {
+            copyRepoUtilsSord = copyRepoUtilsSord1;
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+
+        }).not.toThrow();
+      });
+      it("getObjIdByIndex", function (done) {
+        expect(function () {
+          filter = { mask: "UnitTest", objKeyData: [{ key: "UNITTEST_FIELD3", value: "Value33" }] };
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
@@ -840,10 +897,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getObjIdFromRelativePath", function (done) {
+      it("getObjIdFromRelativePath", function (done) {
         expect(function () {
-          startFolderId = PVALUE;
-          relativePath = PVALUE;
+          startFolderId = "ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources";
+          relativePath = "/RepoUtils";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
@@ -859,15 +916,16 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getParentPath", function (done) {
+      it("getParentPath", function (done) {
         expect(function () {
-          repoPath = PVALUE;
+          repoPath = "ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/RepoUtils";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
             method: "getParentPath",
             params: [repoPath]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources");
             done();
           }, function error(err) {
             fail(err);
@@ -877,11 +935,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getPath", function (done) {
+      it("getPath", function (done) {
         expect(function () {
-          sord = PVALUE;
-          withPrefix = PVALUE;
-          config = PVALUE;
+          sord = RepoUtilsSord;
+          withPrefix = true;
+          config = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
@@ -897,16 +955,17 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getPathFromObjId", function (done) {
+      it("getPathFromObjId", function (done) {
         expect(function () {
-          objId = PVALUE;
-          config = PVALUE;
+          objId = RepoUtilsSord.id;
+          config = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
             method: "getPathFromObjId",
             params: [objId, config]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("/Administration/Business Solutions/common [unit tests]/Resources/RepoUtils");
             done();
           }, function error(err) {
             fail(err);
@@ -916,15 +975,16 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getPathSeparator", function (done) {
+      it("getPathSeparator", function (done) {
         expect(function () {
-          repoPath = PVALUE;
+          repoPath = "ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/RepoUtils";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
             method: "getPathSeparator",
             params: [repoPath]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("/");
             done();
           }, function error(err) {
             fail(err);
@@ -934,9 +994,9 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getRepoPathObjIds", function (done) {
+      it("getRepoPathObjIds", function (done) {
         expect(function () {
-          objId = PVALUE;
+          objId = RepoUtilsSord.id;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
@@ -952,7 +1012,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getSessionOptions", function (done) {
+      it("getSessionOptions", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
@@ -969,10 +1029,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getSord", function (done) {
+      it("getSord", function (done) {
         expect(function () {
-          objId = PVALUE;
-          params = PVALUE;
+          objId = RepoUtilsSord.id;
+          params = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
@@ -988,10 +1048,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getSords", function (done) {
+      it("getSords", function (done) {
         expect(function () {
-          objIds = PVALUE;
-          config = PVALUE;
+          objIds = [RepoUtilsSord.id, 2];
+          config = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
@@ -1007,11 +1067,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getValidParent", function (done) {
+      it("getValidParent", function (done) {
         expect(function () {
-          objId = PVALUE;
-          type = PVALUE;
-          values = PVALUE;
+          objId = RepoUtilsSord.id;
+          type = "SOL_TYPE";
+          values =  ["UNITTEST"];
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
@@ -1027,17 +1087,15 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("importRepoData", function (done) {
+      it("importRepoData", function (done) {
         expect(function () {
-          importZipFile = PVALUE;
-          dstRepoPath = PVALUE;
-          guidMethod = PVALUE;
-          options = PVALUE;
+          importZipFile = "test.zip";
+          dstRepoPath = test.Utils.TESTTEMPFOLDER + "/ZZZ";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
             method: "importRepoData",
-            params: [importZipFile, dstRepoPath, guidMethod, options]
+            params: [importZipFile, dstRepoPath]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
@@ -1048,15 +1106,16 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("isGuid", function (done) {
+      it("isGuid", function (done) {
         expect(function () {
-          str = PVALUE;
+          str = RepoUtilsSord.guid;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
             method: "isGuid",
             params: [str]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual(true);
             done();
           }, function error(err) {
             fail(err);
@@ -1066,15 +1125,16 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("isObjId", function (done) {
+      it("isObjId", function (done) {
         expect(function () {
-          str = PVALUE;
+          str = RepoUtilsSord.id;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
             method: "isObjId",
             params: [str]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual(true);
             done();
           }, function error(err) {
             fail(err);

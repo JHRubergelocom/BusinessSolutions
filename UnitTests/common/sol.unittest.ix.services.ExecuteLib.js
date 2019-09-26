@@ -294,6 +294,10 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
             file.delete();
             me.params[0] = new File(me.params[0]);
             break;
+          case "importRepoData":
+            new File(me.params[0]).createNewFile();
+            me.params[0] = new File(me.params[0]);
+            break;
           case "findIds":
             findInfo = new FindInfo();
             findChildren = new FindChildren();
