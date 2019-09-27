@@ -1428,11 +1428,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("uploadSmallContent", function (done) {
+      it("uploadSmallContent", function (done) {
         expect(function () {
-          objId = PVALUE;
-          content = PVALUE;
-          config = PVALUE;
+          objId = test.Utils.TESTTEMPFOLDER + "/ZZZ/Test.txt";
+          content = "Neuer Small Content Text";
+          config = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
@@ -1448,7 +1448,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("writeColors", function (done) {
+      it("writeColors", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
