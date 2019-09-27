@@ -1,12 +1,12 @@
 
 describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
-  var RepoUtilsSord, userName, userInfo, originalTimeout, newColors, values,
+  var RepoUtilsSord, originalTimeout, newColors, values,
       path, newSeparator, repoPath, currentVersionString, requiredVersionString,
       requiredMainVersionStrings, colorName, startIds, newParentId, params,
       connProps, sessOpts, overrideParams, name, objId, sord, config, docId,
       exportZipFile, exportOptions, ixConn, findInfo, key, filter, startFolderId,
-      relativePath, withPrefix, objIds, type, importZipFile, dstRepoPath, guidMethod,
-      options, str, dstFolderId, startObjId, dstStoragePathId, paramObj, id, value,
+      relativePath, withPrefix, objIds, type, importZipFile, dstRepoPath,
+      str, dstFolderId, startObjId, dstStoragePathId, paramObj, id, value,
       saveToRepoConfig, sessionOption, newOptions, sords, content, obSolCommonRepoUtilsId,
       objCopyRepoUtilsId, copyRepoUtilsSord, testTempFolderSord;
 
@@ -18,16 +18,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
         obSolCommonRepoUtilsId = obSolCommonRepoUtilsId1;
         test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/RepoUtils").then(function success1(RepoUtilsSord1) {
           RepoUtilsSord = RepoUtilsSord1;
-          userName = test.Utils.getCurrentUserName();
-          test.Utils.getUserInfo(userName).then(function success3(userInfo1) {
-            userInfo = userInfo1;
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
+          done();
         }, function error(err) {
           fail(err);
           console.error(err);
@@ -876,7 +867,6 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
             done();
           }
           );
-
         }).not.toThrow();
       });
       it("getObjIdByIndex", function (done) {
@@ -1155,7 +1145,6 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
             done();
           }
           );
-
         }).not.toThrow();
       });
       it("getsord", function (done) {
@@ -1169,7 +1158,6 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
             done();
           }
           );
-
         }).not.toThrow();
       });
       it("get dstFolderId", function (done) {
@@ -1183,7 +1171,6 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
             done();
           }
           );
-
         }).not.toThrow();
       });
       it("moveSords", function (done) {
@@ -1217,7 +1204,6 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
             done();
           }
           );
-
         }).not.toThrow();
       });
       it("moveToStoragePath", function (done) {

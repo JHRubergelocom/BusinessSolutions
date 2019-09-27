@@ -117,7 +117,6 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
         i, bytes, byte, string, strings, sordMap,
         findInfo, findChildren, findByType;
 
-
     switch (me.className) {
       case "sol.common.MapTable":
         sordMap = sol.create("sol.common.SordMap", { objId: me.classConfig.objId });
