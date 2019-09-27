@@ -8,7 +8,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
       relativePath, withPrefix, objIds, type, importZipFile, dstRepoPath, guidMethod,
       options, str, dstFolderId, startObjId, dstStoragePathId, paramObj, id, value,
       saveToRepoConfig, sessionOption, newOptions, sords, content, obSolCommonRepoUtilsId,
-      objCopyRepoUtilsId, copyRepoUtilsSord;
+      objCopyRepoUtilsId, copyRepoUtilsSord, testTempFolderSord;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -1071,7 +1071,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
         expect(function () {
           objId = RepoUtilsSord.id;
           type = "SOL_TYPE";
-          values =  ["UNITTEST"];
+          values = ["UNITTEST"];
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
@@ -1144,11 +1144,53 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("moveSords", function (done) {
+      it("copysord", function (done) {
         expect(function () {
-          objIds = PVALUE;
-          dstFolderId = PVALUE;
-          params = PVALUE;
+          test.Utils.copySord("ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common [unit tests]/Resources/RepoUtils").then(function success(objCopyRepoUtilsId1) {
+            objCopyRepoUtilsId = objCopyRepoUtilsId1;
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+
+        }).not.toThrow();
+      });
+      it("getsord", function (done) {
+        expect(function () {
+          test.Utils.getSord(objCopyRepoUtilsId).then(function success(copyRepoUtilsSord1) {
+            copyRepoUtilsSord = copyRepoUtilsSord1;
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+
+        }).not.toThrow();
+      });
+      it("get dstFolderId", function (done) {
+        expect(function () {
+          test.Utils.getSord(test.Utils.TESTTEMPFOLDER + "/ZZZ").then(function success(dstFolderSord) {
+            dstFolderId = dstFolderSord.id;
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+
+        }).not.toThrow();
+      });
+      it("moveSords", function (done) {
+        expect(function () {
+          objIds = [objCopyRepoUtilsId];
+          dstFolderId = dstFolderId;
+          params = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
@@ -1164,10 +1206,24 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("moveToStoragePath", function (done) {
+      it("get dstStoragePathId", function (done) {
         expect(function () {
-          startObjId = PVALUE;
-          dstStoragePathId = PVALUE;
+          test.Utils.getSord(test.Utils.TESTTEMPFOLDER).then(function success(dstStoragePathSord) {
+            dstStoragePathId = dstStoragePathSord.id;
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+
+        }).not.toThrow();
+      });
+      it("moveToStoragePath", function (done) {
+        expect(function () {
+          startObjId = objCopyRepoUtilsId;
+          dstStoragePathId = dstStoragePathId;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
@@ -1183,16 +1239,17 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("normalizePath", function (done) {
+      it("normalizePath", function (done) {
         expect(function () {
-          repoPath = PVALUE;
-          withPrefix = PVALUE;
+          repoPath = "/Administration/Business Solutions/common [unit tests]/Resources/RepoUtils";
+          withPrefix = true;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
             method: "normalizePath",
             params: [repoPath, withPrefix]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/RepoUtils");
             done();
           }, function error(err) {
             fail(err);
@@ -1202,10 +1259,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("preparePath", function (done) {
+      it("preparePath", function (done) {
         expect(function () {
-          repoPath = PVALUE;
-          params = PVALUE;
+          repoPath = test.Utils.TESTTEMPFOLDER + "/ZZZ";
+          params = { returnDetails: true };
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
@@ -1221,7 +1278,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("readColors", function (done) {
+      it("readColors", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
@@ -1238,10 +1295,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("resolveSpecialFolder", function (done) {
+      it("resolveSpecialFolder", function (done) {
         expect(function () {
-          path = PVALUE;
-          paramObj = PVALUE;
+          path = "{{administrationFolderPath}}/Ressources";
+          paramObj = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
@@ -1257,9 +1314,28 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("saveToRepo", function (done) {
+      it("preparePath", function (done) {
         expect(function () {
-          saveToRepoConfig = PVALUE;
+          repoPath = test.Utils.TESTTEMPFOLDER + "/ZZZ";
+          params = { returnDetails: true };
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.RepoUtils",
+            classConfig: {},
+            method: "preparePath",
+            params: [repoPath, params]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("saveToRepo", function (done) {
+        expect(function () {
+          saveToRepoConfig = { repoPath: test.Utils.TESTTEMPFOLDER + "/ZZZ/Test.txt", contentString: "Test text" };
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
@@ -1275,10 +1351,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("setSessionOption", function (done) {
+      it("setSessionOption", function (done) {
         expect(function () {
-          sessionOption = PVALUE;
-          value = PVALUE;
+          sessionOption = "x9999";
+          value = true;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
@@ -1294,9 +1370,9 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("setSessionOptions", function (done) {
+      it("setSessionOptions", function (done) {
         expect(function () {
-          newOptions = PVALUE;
+          newOptions = { x9998: false, x9999: true };
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
@@ -1312,16 +1388,37 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("sortSordsByObjIdArray", function (done) {
+      it("get testTempFolderSord", function (done) {
         expect(function () {
-          sords = PVALUE;
-          objIds = PVALUE;
+          test.Utils.getSord(test.Utils.TESTTEMPFOLDER).then(function success(testTempFolderSord1) {
+            testTempFolderSord = testTempFolderSord1;
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("sortSordsByObjIdArray", function (done) {
+        expect(function () {
+          sords = [];
+          sords.push(RepoUtilsSord);
+          sords.push(testTempFolderSord);
+          objIds = [];
+          objIds.push(testTempFolderSord.id);
+          objIds.push(RepoUtilsSord.id);
+          sords = sords;
+          objIds = objIds;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
             method: "sortSordsByObjIdArray",
             params: [sords, objIds]
           }).then(function success(jsonResult) {
+            expect(jsonResult[0].id).toEqual(testTempFolderSord.id);
+            expect(jsonResult[1].id).toEqual(RepoUtilsSord.id);
             done();
           }, function error(err) {
             fail(err);
