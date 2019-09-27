@@ -23,6 +23,7 @@ importPackage(Packages.org.apache.commons.io);
 //@include lib_sol.common.Config.js
 //@include lib_sol.common.Template.js
 //@include lib_sol.common.WfUtils.js
+//@include lib_sol.common.Roles.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.ExecuteLib" });
 
@@ -79,6 +80,7 @@ var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.Execute
  * @requires  sol.common.Config
  * @requires  sol.common.Template
  * @requires  sol.common.WfUtils
+ * @requires  sol.common.Roles
  */
 sol.define("sol.unittest.ix.services.ExecuteLib", {
   extend: "sol.common.ix.ServiceBase",
@@ -309,6 +311,19 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
             findInfo.findChildren = findChildren;
             findInfo.findByType = findByType;
             me.params[0] = findInfo;
+            break;
+          default:
+        }
+        break;
+      case "sol.common.Roles":
+        switch (me.method) {
+          case "EQUALS":
+          case "GT":
+          case "GE":
+          case "LT":
+          case "LE":
+          case "STARTSWITH":
+            func = cls.fct[me.method];
             break;
           default:
         }

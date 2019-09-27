@@ -35,16 +35,17 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
   });
   describe("Test Lib Functions", function () {
     describe("sol.common.Roles", function () {
-      xit("EQUALS", function (done) {
+      it("EQUALS (1000, 1000) => true", function (done) {
         expect(function () {
-          param1 = PVALUE;
-          param2 = PVALUE;
+          param1 = 1000;
+          param2 = 1000;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.Roles",
             classConfig: {},
             method: "EQUALS",
             params: [param1, param2]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual(true);
             done();
           }, function error(err) {
             fail(err);
@@ -54,16 +55,37 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
           );
         }).not.toThrow();
       });
-      xit("GE", function (done) {
+      it("EQUALS (1000, 1001) => false", function (done) {
         expect(function () {
-          param1 = PVALUE;
-          param2 = PVALUE;
+          param1 = 1000;
+          param2 = 1001;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Roles",
+            classConfig: {},
+            method: "EQUALS",
+            params: [param1, param2]
+          }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual(false);
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("GE (1000, 1000) => true", function (done) {
+        expect(function () {
+          param1 = 1000;
+          param2 = 1000;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.Roles",
             classConfig: {},
             method: "GE",
             params: [param1, param2]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual(true);
             done();
           }, function error(err) {
             fail(err);
@@ -73,16 +95,57 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
           );
         }).not.toThrow();
       });
-      xit("GT", function (done) {
+      it("GE (1001, 1000) => true", function (done) {
         expect(function () {
-          param1 = PVALUE;
-          param2 = PVALUE;
+          param1 = 1001;
+          param2 = 1000;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Roles",
+            classConfig: {},
+            method: "GE",
+            params: [param1, param2]
+          }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual(true);
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("GE (1000, 1001) => false", function (done) {
+        expect(function () {
+          param1 = 1000;
+          param2 = 1001;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Roles",
+            classConfig: {},
+            method: "GE",
+            params: [param1, param2]
+          }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual(false);
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("GT (1000, 1000) => false", function (done) {
+        expect(function () {
+          param1 = 1000;
+          param2 = 1000;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.Roles",
             classConfig: {},
             method: "GT",
             params: [param1, param2]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual(false);
             done();
           }, function error(err) {
             fail(err);
@@ -92,16 +155,57 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
           );
         }).not.toThrow();
       });
-      xit("LE", function (done) {
+      it("GT (1001, 1000) => true", function (done) {
         expect(function () {
-          param1 = PVALUE;
-          param2 = PVALUE;
+          param1 = 1001;
+          param2 = 1000;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Roles",
+            classConfig: {},
+            method: "GT",
+            params: [param1, param2]
+          }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual(true);
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("GT (1000, 1001) => false", function (done) {
+        expect(function () {
+          param1 = 1000;
+          param2 = 1001;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Roles",
+            classConfig: {},
+            method: "GT",
+            params: [param1, param2]
+          }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual(false);
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("LE (1000, 1000) => true", function (done) {
+        expect(function () {
+          param1 = 1000;
+          param2 = 1000;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.Roles",
             classConfig: {},
             method: "LE",
             params: [param1, param2]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual(true);
             done();
           }, function error(err) {
             fail(err);
@@ -111,16 +215,57 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
           );
         }).not.toThrow();
       });
-      xit("LT", function (done) {
+      it("LE (1001, 1000) => false", function (done) {
         expect(function () {
-          param1 = PVALUE;
-          param2 = PVALUE;
+          param1 = 1001;
+          param2 = 1000;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Roles",
+            classConfig: {},
+            method: "LE",
+            params: [param1, param2]
+          }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual(false);
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("LE (1000, 1001) => true", function (done) {
+        expect(function () {
+          param1 = 1000;
+          param2 = 1001;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Roles",
+            classConfig: {},
+            method: "LE",
+            params: [param1, param2]
+          }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual(true);
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("LT (1000, 1000) => false", function (done) {
+        expect(function () {
+          param1 = 1000;
+          param2 = 1000;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.Roles",
             classConfig: {},
             method: "LT",
             params: [param1, param2]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual(false);
             done();
           }, function error(err) {
             fail(err);
@@ -130,16 +275,57 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
           );
         }).not.toThrow();
       });
-      xit("STARTSWITH", function (done) {
+      it("LT (1001, 1000)  => false", function (done) {
         expect(function () {
-          param1 = PVALUE;
-          param2 = PVALUE;
+          param1 = 1001;
+          param2 = 1000;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Roles",
+            classConfig: {},
+            method: "LT",
+            params: [param1, param2]
+          }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual(false);
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("LT (1000, 1001) => true", function (done) {
+        expect(function () {
+          param1 = 1000;
+          param2 = 1001;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Roles",
+            classConfig: {},
+            method: "LT",
+            params: [param1, param2]
+          }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual(true);
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("STARTSWITH ('ABCDE', 'AB') => true", function (done) {
+        expect(function () {
+          param1 = "ABCDE";
+          param2 = "AB";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.Roles",
             classConfig: {},
             method: "STARTSWITH",
             params: [param1, param2]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual(true);
             done();
           }, function error(err) {
             fail(err);
@@ -149,6 +335,27 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
           );
         }).not.toThrow();
       });
+      it("STARTSWITH ('ABCDE', 'CD') => false", function (done) {
+        expect(function () {
+          param1 = "ABCDE";
+          param2 = "CD";
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Roles",
+            classConfig: {},
+            method: "STARTSWITH",
+            params: [param1, param2]
+          }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual(false);
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+
       xit("getSupervisor", function (done) {
         expect(function () {
           userDef = PVALUE;
