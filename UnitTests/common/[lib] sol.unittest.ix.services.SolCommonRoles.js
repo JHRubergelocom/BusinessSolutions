@@ -1,6 +1,6 @@
 
 describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
-  var RolesSord, userName, userInfo, originalTimeout, param1, param2, userDef, userName, sord, rule, role, config, originalConfig, sordMap, condition, rolesConfig;
+  var RolesSord, originalTimeout, param1, param2, userDef, userName, sord, rule, role, config, originalConfig, sordMap, condition, rolesConfig;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -9,16 +9,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
       test.Utils.createTempSord("SolCommonRoles").then(function success(obSolCommonRolesId) {
         test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/Roles").then(function success1(RolesSord1) {
           RolesSord = RolesSord1;
-          userName = test.Utils.getCurrentUserName();
-          test.Utils.getUserInfo(userName).then(function success3(userInfo1) {
-            userInfo = userInfo1;
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
+          done();
         }, function error(err) {
           fail(err);
           console.error(err);
@@ -355,11 +346,17 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
           );
         }).not.toThrow();
       });
-
-      xit("getSupervisor", function (done) {
+      it("getSupervisor", function (done) {
         expect(function () {
-          userDef = PVALUE;
-          userName = PVALUE;
+          userDef = {
+            name: "FORMAL_CHECKER",
+            users: [
+              {
+                user: "Administrator"
+              }
+            ]
+          };
+          userName = "Administrator";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.Roles",
             classConfig: {},
@@ -375,16 +372,19 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
           );
         }).not.toThrow();
       });
-      xit("getUserName", function (done) {
+      it("getUserName", function (done) {
         expect(function () {
-          sord = PVALUE;
-          rule = PVALUE;
+          sord = RolesSord;
+          rule = {
+            user: "Administrator"
+          };
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.Roles",
             classConfig: {},
             method: "getUserName",
             params: [sord, rule]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("Administrator");
             done();
           }, function error(err) {
             fail(err);
@@ -394,17 +394,68 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
           );
         }).not.toThrow();
       });
-      xit("getUsers", function (done) {
+      it("getUsers", function (done) {
         expect(function () {
-          role = PVALUE;
-          sord = PVALUE;
-          config = PVALUE;
+          role = "FORMAL_CHECKER";
+          sord = RolesSord;
+          config = [
+            {
+              name: "FORMAL_CHECKER",
+              users: [
+                {
+                  user: "sol.accounting"
+                }
+              ]
+            },
+            {
+              name: "APPROVAL",
+              users: [
+                {
+                  user: {
+                    type: "GRP",
+                    key: "PO_PURCHASE_USER"
+                  },
+                  mandatory: true
+                },
+                {
+                  user: "sol.management",
+                  conditions: [
+                    {
+                      type: "GRP",
+                      key: "INVOICE_NET_AMOUNT_LOCAL_CURR",
+                      rel: "GT",
+                      val: 100,
+                      dataType: "number"
+                    }
+                  ],
+                  mandatory: true
+                }
+              ]
+            },
+            {
+              name: "ACCOUNTING",
+              users: [
+                {
+                  user: "sol.accounting"
+                }
+              ]
+            },
+            {
+              name: "CLEARING",
+              users: [
+                {
+                  user: "sol.clearing"
+                }
+              ]
+            }
+          ];
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.Roles",
             classConfig: {},
             method: "getUsers",
             params: [role, sord, config]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual(["sol.accounting"]);
             done();
           }, function error(err) {
             fail(err);
@@ -414,17 +465,68 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
           );
         }).not.toThrow();
       });
-      xit("getUsers2", function (done) {
+      it("getUsers2", function (done) {
         expect(function () {
-          role = PVALUE;
-          sord = PVALUE;
-          originalConfig = PVALUE;
+          role = "FORMAL_CHECKER";
+          sord = RolesSord;
+          originalConfig = [
+            {
+              name: "FORMAL_CHECKER",
+              users: [
+                {
+                  user: "sol.accounting"
+                }
+              ]
+            },
+            {
+              name: "APPROVAL",
+              users: [
+                {
+                  user: {
+                    type: "GRP",
+                    key: "PO_PURCHASE_USER"
+                  },
+                  mandatory: true
+                },
+                {
+                  user: "sol.management",
+                  conditions: [
+                    {
+                      type: "GRP",
+                      key: "INVOICE_NET_AMOUNT_LOCAL_CURR",
+                      rel: "GT",
+                      val: 100,
+                      dataType: "number"
+                    }
+                  ],
+                  mandatory: true
+                }
+              ]
+            },
+            {
+              name: "ACCOUNTING",
+              users: [
+                {
+                  user: "sol.accounting"
+                }
+              ]
+            },
+            {
+              name: "CLEARING",
+              users: [
+                {
+                  user: "sol.clearing"
+                }
+              ]
+            }
+          ];
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.Roles",
             classConfig: {},
             method: "getUsers2",
             params: [role, sord, originalConfig]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual([{ name: "sol.accounting" }]);
             done();
           }, function error(err) {
             fail(err);
@@ -434,16 +536,67 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
           );
         }).not.toThrow();
       });
-      xit("getUsersByRole", function (done) {
+      it("getUsersByRole", function (done) {
         expect(function () {
-          role = PVALUE;
-          config = PVALUE;
+          role = "FORMAL_CHECKER";
+          config = [
+            {
+              name: "FORMAL_CHECKER",
+              users: [
+                {
+                  user: "sol.accounting"
+                }
+              ]
+            },
+            {
+              name: "APPROVAL",
+              users: [
+                {
+                  user: {
+                    type: "GRP",
+                    key: "PO_PURCHASE_USER"
+                  },
+                  mandatory: true
+                },
+                {
+                  user: "sol.management",
+                  conditions: [
+                    {
+                      type: "GRP",
+                      key: "INVOICE_NET_AMOUNT_LOCAL_CURR",
+                      rel: "GT",
+                      val: 100,
+                      dataType: "number"
+                    }
+                  ],
+                  mandatory: true
+                }
+              ]
+            },
+            {
+              name: "ACCOUNTING",
+              users: [
+                {
+                  user: "sol.accounting"
+                }
+              ]
+            },
+            {
+              name: "CLEARING",
+              users: [
+                {
+                  user: "sol.clearing"
+                }
+              ]
+            }
+          ];
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.Roles",
             classConfig: {},
             method: "getUsersByRole",
             params: [role, config]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual([{ user: "sol.accounting" }]);
             done();
           }, function error(err) {
             fail(err);
@@ -453,11 +606,29 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
           );
         }).not.toThrow();
       });
-      xit("getValue", function (done) {
+      it("get sordmap of RolesSord", function (done) {
         expect(function () {
-          sord = PVALUE;
-          sordMap = PVALUE;
-          condition = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordMap",
+            classConfig: { objId: RolesSord.id },
+            method: "read",
+            params: []
+          }).then(function success(jsonResult) {
+            sordMap = jsonResult;
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("getValue", function (done) {
+        expect(function () {
+          sord = RolesSord;
+          sordMap = sordMap;
+          condition = { type: "GRP", key: "UNITTEST_FIELD1", rel: "EQUALS", val: "Value1" };
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.Roles",
             classConfig: {},
@@ -473,17 +644,68 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
           );
         }).not.toThrow();
       });
-      xit("retrieveRole", function (done) {
+      it("retrieveRole", function (done) {
         expect(function () {
-          role = PVALUE;
-          rolesConfig = PVALUE;
-          sord = PVALUE;
+          role = "FORMAL_CHECKER";
+          rolesConfig = [
+            {
+              name: "FORMAL_CHECKER",
+              users: [
+                {
+                  user: "sol.accounting"
+                }
+              ]
+            },
+            {
+              name: "APPROVAL",
+              users: [
+                {
+                  user: {
+                    type: "GRP",
+                    key: "PO_PURCHASE_USER"
+                  },
+                  mandatory: true
+                },
+                {
+                  user: "sol.management",
+                  conditions: [
+                    {
+                      type: "GRP",
+                      key: "INVOICE_NET_AMOUNT_LOCAL_CURR",
+                      rel: "GT",
+                      val: 100,
+                      dataType: "number"
+                    }
+                  ],
+                  mandatory: true
+                }
+              ]
+            },
+            {
+              name: "ACCOUNTING",
+              users: [
+                {
+                  user: "sol.accounting"
+                }
+              ]
+            },
+            {
+              name: "CLEARING",
+              users: [
+                {
+                  user: "sol.clearing"
+                }
+              ]
+            }
+          ];
+          sord = RolesSord;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.Roles",
             classConfig: {},
             method: "retrieveRole",
             params: [role, rolesConfig, sord]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("FORMAL_CHECKER");
             done();
           }, function error(err) {
             fail(err);

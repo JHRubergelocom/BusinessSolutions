@@ -26,6 +26,7 @@ var logger = sol.create("sol.Logger", { scope: "sol.invoice.ix.functions.ChangeU
  *     {
  *       "defaultUser": "Administrator",
  *       "role": "ACCOUNTING"
+ *       "nodeEscalations": [{ "timeLimitMinutes": 1 }]
  *     }
  *
  * Please node that additional configuration is done using `sol.invoice.WorkflowUserRoles.config` regarding to the role (or node name as fallback).
@@ -73,6 +74,21 @@ sol.define("sol.invoice.ix.functions.ChangeUser", {
    */
   changeCurrentNode: false,
 
+  /**
+   * @cfg {Array} nodeEscalations
+   * Node escalations
+   *
+   * @cfg {Object} nodeEscalations[].user Node escalation user
+   * @cfg {String} nodeEscalations[].user.value Node escalation user name
+   * @cfg {Number} nodeEscalations[].timeLimitMinutes Node escalation minutes
+   *
+   * If no user has been set, the determinated node user is used.
+   *
+   * Example:
+   *     { "timeLimitMinutes": 1 }
+   */
+  nodeEscalations: undefined,
+
   initialize: function (config) {
     var me = this;
     me.$super("sol.common.ix.FunctionBase", "initialize", [config]);
@@ -104,6 +120,8 @@ sol.define("sol.invoice.ix.functions.ChangeUser", {
 
       oldUser = node.userName;
       wfUtils.changeNodeUser(node, user, { changeDesignDepartment: true });
+
+      sol.common.WfUtils.setNodeEscalations(node, me.nodeEscalations, user);
 
       text = me.logger.format(["Changed NodeUser from '{0}' to '{1}'", oldUser, user]);
 
