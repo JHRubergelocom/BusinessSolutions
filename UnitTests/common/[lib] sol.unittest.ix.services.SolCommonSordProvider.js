@@ -1,6 +1,6 @@
 
 describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
-  var SordProviderSord, userName, userInfo, originalTimeout, func, instanceScope, instructions, target, source, converterConfig, type, key, prop, maxGroups, supplementaryFindInfo, query, criterion, idContainer, allCollectedData, ofMask, ids, sords, filter, cacheName, mbs, index, length, multipleOptsDefined, outputInstruction, arr, wc, lonelyDef, masks, searchfields, searchCriteria, queryOpts, inputIds, values, tokenized, acc, result, config, searchId, name, resultArr, isValidTarget, custom, findInfo, maxResults, pageSize, sordZ, searchFields, options, fieldMapping, accessors, formatterConfig, configKeys, maskName, ignoreCase, optimization, groupingTerm, constantCriteriaFindInfo, store, fuzzy, objId, srdC, findResult, outputDefinition, initOptimizationCache, searchInfo, mapDomain, _accessors, pagingId, props, infos, desiredResults;
+  var SordProviderSord, userName, userInfo, originalTimeout, instanceScope, instructions, target, source, converterConfig, type, key, prop, maxGroups, supplementaryFindInfo, query, criterion, idContainer, allCollectedData, ofMask, ids, sords, filter, cacheName, mbs, index, length, multipleOptsDefined, outputInstruction, arr, wc, lonelyDef, masks, searchfields, searchCriteria, queryOpts, inputIds, values, tokenized, acc, result, config, searchId, name, resultArr, isValidTarget, custom, findInfo, maxResults, pageSize, sordZ, searchFields, options, fieldMapping, accessors, formatterConfig, configKeys, maskName, ignoreCase, optimization, groupingTerm, constantCriteriaFindInfo, store, fuzzy, objId, srdC, findResult, outputDefinition, initOptimizationCache, searchInfo, mapDomain, _accessors, pagingId, props, infos, desiredResults;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -35,29 +35,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
   });
   describe("Test Lib Functions", function () {
     describe("sol.common.SordProvider", function () {
-      xit("", function (done) {
+      it("addAsDirectValueInstruction", function (done) {
         expect(function () {
-          func = PVALUE;
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
-            className: "sol.common.SordProvider",
-            classConfig: {},
-            method: "",
-            params: [func]
-          }).then(function success(jsonResult) {
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }).not.toThrow();
-      });
-      xit("addAsDirectValueInstruction", function (done) {
-        expect(function () {
-          instanceScope = PVALUE;
-          instructions = PVALUE;
-          target = PVALUE;
+          instanceScope = {};
+          instructions = { directValues: {}, targetProps: [] };
+          target = { value: "value1", prop: "prop1" };
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordProvider",
             classConfig: {},
@@ -73,11 +55,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
           );
         }).not.toThrow();
       });
-      xit("addAsSourceTargetInstruction", function (done) {
+      it("addAsSourceTargetInstruction", function (done) {
         expect(function () {
-          instructions = PVALUE;
-          source = PVALUE;
-          target = PVALUE;
+          instructions = { mbs: [], converterConfig: { sordKeys: [] }, targetProps: [] };
+          source = { type: "SORD", key: "key1" };
+          target = { prop: "prop1" };
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordProvider",
             classConfig: {},
@@ -93,12 +75,12 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
           );
         }).not.toThrow();
       });
-      xit("addConverterKey", function (done) {
+      it("addConverterKey", function (done) {
         expect(function () {
-          converterConfig = PVALUE;
-          type = PVALUE;
-          key = PVALUE;
-          prop = PVALUE;
+          converterConfig = { sordKeys: [] };
+          type = "SORD";
+          key = "key1";
+          prop = { prop: "prop1" };
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordProvider",
             classConfig: {},
@@ -114,15 +96,15 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
           );
         }).not.toThrow();
       });
-      xit("addCriterionToQuery", function (done) {
+      it("addCriterionToQuery", function (done) {
         expect(function () {
-          maxGroups = PVALUE;
-          supplementaryFindInfo = PVALUE;
-          query = PVALUE;
-          criterion = PVALUE;
+          maxGroups = "maxGroups";
+          supplementaryFindInfo = "supplementaryFindInfo";
+          query = "query";
+          criterion = { value: "value1" };
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordProvider",
-            classConfig: {},
+            classConfig: { FIND_DIRECT: { FIELD_OBJ_KEY: "key1" } },
             method: "addCriterionToQuery",
             params: [maxGroups, supplementaryFindInfo, query, criterion]
           }).then(function success(jsonResult) {
@@ -135,12 +117,12 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
           );
         }).not.toThrow();
       });
-      xit("addDataCollectedFromIdContainer", function (done) {
+      it("addDataCollectedFromIdContainer", function (done) {
         expect(function () {
-          idContainer = PVALUE;
-          instructions = PVALUE;
-          allCollectedData = PVALUE;
-          ofMask = PVALUE;
+          idContainer = { ofMask: [0] };
+          instructions = "instructions";
+          allCollectedData = "allCollectedData";
+          ofMask = "ofMask";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordProvider",
             classConfig: {},
@@ -156,10 +138,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
           );
         }).not.toThrow();
       });
-      xit("addDirectValuesToIds", function (done) {
+      it("addDirectValuesToIds", function (done) {
         expect(function () {
-          ids = PVALUE;
-          instructions = PVALUE;
+          ids = [0, 1];
+          instructions = { fallbackIdProp: "fallbackIdProp1", dvKeys: ["key1", "key2"], directValues: { key1: "value1", key2: "value2" } };
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordProvider",
             classConfig: {},

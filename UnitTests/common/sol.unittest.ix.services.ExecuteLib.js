@@ -24,6 +24,7 @@ importPackage(Packages.org.apache.commons.io);
 //@include lib_sol.common.Template.js
 //@include lib_sol.common.WfUtils.js
 //@include lib_sol.common.Roles.js
+//@include lib_sol.common.SordProvider.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.ExecuteLib" });
 
@@ -81,6 +82,7 @@ var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.Execute
  * @requires  sol.common.Template
  * @requires  sol.common.WfUtils
  * @requires  sol.common.Roles
+ * @requires  sol.common.SordProvider
  */
 sol.define("sol.unittest.ix.services.ExecuteLib", {
   extend: "sol.common.ix.ServiceBase",
