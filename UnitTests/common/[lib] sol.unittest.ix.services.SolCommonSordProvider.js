@@ -1,0 +1,2043 @@
+
+describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
+  var SordProviderSord, userName, userInfo, originalTimeout, func, instanceScope, instructions, target, source, converterConfig, type, key, prop, maxGroups, supplementaryFindInfo, query, criterion, idContainer, allCollectedData, ofMask, ids, sords, filter, cacheName, mbs, index, length, multipleOptsDefined, outputInstruction, arr, wc, lonelyDef, masks, searchfields, searchCriteria, queryOpts, inputIds, values, tokenized, acc, result, config, searchId, name, resultArr, isValidTarget, custom, findInfo, maxResults, pageSize, sordZ, searchFields, options, fieldMapping, accessors, formatterConfig, configKeys, maskName, ignoreCase, optimization, groupingTerm, constantCriteriaFindInfo, store, fuzzy, objId, srdC, findResult, outputDefinition, initOptimizationCache, searchInfo, mapDomain, _accessors, pagingId, props, infos, desiredResults;
+
+  beforeAll(function (done) {
+    originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
+    expect(function () {
+      test.Utils.createTempSord("SolCommonSordProvider").then(function success(obSolCommonSordProviderId) {
+        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/SordProvider").then(function success1(SordProviderSord1) {
+          SordProviderSord = SordProviderSord1;
+          userName = test.Utils.getCurrentUserName();
+          test.Utils.getUserInfo(userName).then(function success3(userInfo1) {
+            userInfo = userInfo1;
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }, function error(err) {
+        fail(err);
+        console.error(err);
+        done();
+      }
+      );
+    }).not.toThrow();
+  });
+  describe("Test Lib Functions", function () {
+    describe("sol.common.SordProvider", function () {
+      xit("", function (done) {
+        expect(function () {
+          func = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "",
+            params: [func]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("addAsDirectValueInstruction", function (done) {
+        expect(function () {
+          instanceScope = PVALUE;
+          instructions = PVALUE;
+          target = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "addAsDirectValueInstruction",
+            params: [instanceScope, instructions, target]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("addAsSourceTargetInstruction", function (done) {
+        expect(function () {
+          instructions = PVALUE;
+          source = PVALUE;
+          target = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "addAsSourceTargetInstruction",
+            params: [instructions, source, target]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("addConverterKey", function (done) {
+        expect(function () {
+          converterConfig = PVALUE;
+          type = PVALUE;
+          key = PVALUE;
+          prop = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "addConverterKey",
+            params: [converterConfig, type, key, prop]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("addCriterionToQuery", function (done) {
+        expect(function () {
+          maxGroups = PVALUE;
+          supplementaryFindInfo = PVALUE;
+          query = PVALUE;
+          criterion = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "addCriterionToQuery",
+            params: [maxGroups, supplementaryFindInfo, query, criterion]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("addDataCollectedFromIdContainer", function (done) {
+        expect(function () {
+          idContainer = PVALUE;
+          instructions = PVALUE;
+          allCollectedData = PVALUE;
+          ofMask = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "addDataCollectedFromIdContainer",
+            params: [idContainer, instructions, allCollectedData, ofMask]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("addDirectValuesToIds", function (done) {
+        expect(function () {
+          ids = PVALUE;
+          instructions = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "addDirectValuesToIds",
+            params: [ids, instructions]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("addDirectValuesToSords", function (done) {
+        expect(function () {
+          sords = PVALUE;
+          instructions = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "addDirectValuesToSords",
+            params: [sords, instructions]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("addFilterDefinition", function (done) {
+        expect(function () {
+          instructions = PVALUE;
+          filter = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "addFilterDefinition",
+            params: [instructions, filter]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("addInstructionsToCache", function (done) {
+        expect(function () {
+          cacheName = PVALUE;
+          instructions = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "addInstructionsToCache",
+            params: [cacheName, instructions]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("addMb", function (done) {
+        expect(function () {
+          mbs = PVALUE;
+          type = PVALUE;
+          key = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "addMb",
+            params: [mbs, type, key]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("addOR", function (done) {
+        expect(function () {
+          query = PVALUE;
+          index = PVALUE;
+          length = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "addOR",
+            params: [query, index, length]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("addOutputInstruction", function (done) {
+        expect(function () {
+          multipleOptsDefined = PVALUE;
+          instructions = PVALUE;
+          outputInstruction = PVALUE;
+          i = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "addOutputInstruction",
+            params: [multipleOptsDefined, instructions, outputInstruction, i]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("addToOptimizationCache", function (done) {
+        expect(function () {
+          cache = PVALUE;
+          instructions = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "addToOptimizationCache",
+            params: [cache, instructions]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("arrayToRegExp", function (done) {
+        expect(function () {
+          arr = PVALUE;
+          wc = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "arrayToRegExp",
+            params: [arr, wc]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("assignFallbackIdProp", function (done) {
+        expect(function () {
+          instructions = PVALUE;
+          lonelyDef = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "assignFallbackIdProp",
+            params: [instructions, lonelyDef]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("buildFindByIndex", function (done) {
+        expect(function () {
+          masks = PVALUE;
+          searchfields = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "buildFindByIndex",
+            params: [masks, searchfields]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("buildFindDirect", function (done) {
+        expect(function () {
+          masks = PVALUE;
+          searchCriteria = PVALUE;
+          queryOpts = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "buildFindDirect",
+            params: [masks, searchCriteria, queryOpts]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("buildFindInfoForContextTerms", function (done) {
+        expect(function () {
+          masks = PVALUE;
+          searchCriteria = PVALUE;
+          queryOpts = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "buildFindInfoForContextTerms",
+            params: [masks, searchCriteria, queryOpts]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("buildFindInfoForFindByIndex", function (done) {
+        expect(function () {
+          masks = PVALUE;
+          searchfields = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "buildFindInfoForFindByIndex",
+            params: [masks, searchfields]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("buildFindInfoForFindDirect", function (done) {
+        expect(function () {
+          masks = PVALUE;
+          searchCriteria = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "buildFindInfoForFindDirect",
+            params: [masks, searchCriteria]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("buildIdContainer", function (done) {
+        expect(function () {
+          inputIds = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "buildIdContainer",
+            params: [inputIds]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("buildMasksQuery", function (done) {
+        expect(function () {
+          masks = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "buildMasksQuery",
+            params: [masks]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("buildQuery", function (done) {
+        expect(function () {
+          masks = PVALUE;
+          searchCriteria = PVALUE;
+          queryOpts = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "buildQuery",
+            params: [masks, searchCriteria, queryOpts]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("buildRegEx", function (done) {
+        expect(function () {
+          values = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "buildRegEx",
+            params: [values]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("buildValueQuery", function (done) {
+        expect(function () {
+          key = PVALUE;
+          value = PVALUE;
+          tokenized = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "buildValueQuery",
+            params: [key, value, tokenized]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("calcFlags", function (done) {
+        expect(function () {
+          instructions = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "calcFlags",
+            params: [instructions]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("castThenAddResults", function (done) {
+        expect(function () {
+          acc = PVALUE;
+          result = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "castThenAddResults",
+            params: [acc, result]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("cleanConfig", function (done) {
+        expect(function () {
+          config = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "cleanConfig",
+            params: [config]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("closeFind", function (done) {
+        expect(function () {
+          searchId = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "closeFind",
+            params: [searchId]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("collectDataFromId", function (done) {
+        expect(function () {
+          id = PVALUE;
+          instructions = PVALUE;
+          mask = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "collectDataFromId",
+            params: [id, instructions, mask]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("contains", function (done) {
+        expect(function () {
+          val = PVALUE;
+          s = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "contains",
+            params: [val, s]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("createObjKey", function (done) {
+        expect(function () {
+          name = PVALUE;
+          value = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "createObjKey",
+            params: [name, value]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("createObjKeys", function (done) {
+        expect(function () {
+          searchfields = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "createObjKeys",
+            params: [searchfields]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("createSordZ", function (done) {
+        expect(function () {
+          mbs = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "createSordZ",
+            params: [mbs]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("defaultDataCollection", function (done) {
+        expect(function () {
+          resultArr = PVALUE;
+          ids = PVALUE;
+          instructions = PVALUE;
+          mask = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "defaultDataCollection",
+            params: [resultArr, ids, instructions, mask]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("definesDirectValue", function (done) {
+        expect(function () {
+          isValidTarget = PVALUE;
+          target = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "definesDirectValue",
+            params: [isValidTarget, target]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("escapeOrRemoveInvalidCharacters", function (done) {
+        expect(function () {
+          val = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "escapeOrRemoveInvalidCharacters",
+            params: [val]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("extendQueryByCustomQuery", function (done) {
+        expect(function () {
+          query = PVALUE;
+          custom = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "extendQueryByCustomQuery",
+            params: [query, custom]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("extendQueryByWildCard", function (done) {
+        expect(function () {
+          query = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "extendQueryByWildCard",
+            params: [query]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("fastFilter", function (done) {
+        expect(function () {
+          sords = PVALUE;
+          filter = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "fastFilter",
+            params: [sords, filter]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("filterSords", function (done) {
+        expect(function () {
+          sords = PVALUE;
+          filter = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "filterSords",
+            params: [sords, filter]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("finalizeCollector", function (done) {
+        expect(function () {
+          instructions = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "finalizeCollector",
+            params: [instructions]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("find", function (done) {
+        expect(function () {
+          findInfo = PVALUE;
+          maxResults = PVALUE;
+          pageSize = PVALUE;
+          sordZ = PVALUE;
+          searchId = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "find",
+            params: [findInfo, maxResults, pageSize, sordZ, searchId]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("findAll", function (done) {
+        expect(function () {
+          findInfo = PVALUE;
+          maxResults = PVALUE;
+          sordZ = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "findAll",
+            params: [findInfo, maxResults, sordZ]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("findIds", function (done) {
+        expect(function () {
+          masks = PVALUE;
+          searchFields = PVALUE;
+          options = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "findIds",
+            params: [masks, searchFields, options]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("formBlobsExtractor", function (done) {
+        expect(function () {
+          result = PVALUE;
+          sord = PVALUE;
+          fieldMapping = PVALUE;
+          accessors = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "formBlobsExtractor",
+            params: [result, sord, fieldMapping, accessors]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("formatSord", function (done) {
+        expect(function () {
+          sord = PVALUE;
+          formatterConfig = PVALUE;
+          configKeys = PVALUE;
+          accessors = PVALUE;
+          mask = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "formatSord",
+            params: [sord, formatterConfig, configKeys, accessors, mask]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("formatSordAsTemplateSord", function (done) {
+        expect(function () {
+          sord = PVALUE;
+          formatterConfig = PVALUE;
+          configKeys = PVALUE;
+          accessors = PVALUE;
+          mask = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "formatSordAsTemplateSord",
+            params: [sord, formatterConfig, configKeys, accessors, mask]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("formatterIsRequired", function (done) {
+        expect(function () {
+          instructions = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "formatterIsRequired",
+            params: [instructions]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("generateInstructions", function (done) {
+        expect(function () {
+          output = PVALUE;
+          filter = PVALUE;
+          options = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "generateInstructions",
+            params: [output, filter, options]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("generateMbsFromOptions", function (done) {
+        expect(function () {
+          mbs = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "generateMbsFromOptions",
+            params: [mbs]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("generateObjKeyLineMapping", function (done) {
+        expect(function () {
+          maskName = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "generateObjKeyLineMapping",
+            params: [maskName]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("getAvailableTerms", function (done) {
+        expect(function () {
+          key = PVALUE;
+          value = PVALUE;
+          ignoreCase = PVALUE;
+          findInfo = PVALUE;
+          maxGroups = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "getAvailableTerms",
+            params: [key, value, ignoreCase, findInfo, maxGroups]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("getCachedInstructions", function (done) {
+        expect(function () {
+          cacheName = PVALUE;
+          optimization = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "getCachedInstructions",
+            params: [cacheName, optimization]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("getContextTerms", function (done) {
+        expect(function () {
+          findInfo = PVALUE;
+          groupingTerm = PVALUE;
+          maxGroups = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "getContextTerms",
+            params: [findInfo, groupingTerm, maxGroups]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("getCriterionQuery", function (done) {
+        expect(function () {
+          key = PVALUE;
+          value = PVALUE;
+          ignoreCase = PVALUE;
+          tokenized = PVALUE;
+          constantCriteriaFindInfo = PVALUE;
+          maxGroups = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "getCriterionQuery",
+            params: [key, value, ignoreCase, tokenized, constantCriteriaFindInfo, maxGroups]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("getFindInfoBuilder", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "getFindInfoBuilder",
+            params: []
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("getFindInfoForConstantSearchValues", function (done) {
+        expect(function () {
+          masks = PVALUE;
+          searchCriteria = PVALUE;
+          maxGroups = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "getFindInfoForConstantSearchValues",
+            params: [masks, searchCriteria, maxGroups]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("getFromOptimizationCache", function (done) {
+        expect(function () {
+          cache = PVALUE;
+          id = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "getFromOptimizationCache",
+            params: [cache, id]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("getFromSearchCache", function (done) {
+        expect(function () {
+          store = PVALUE;
+          searchId = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "getFromSearchCache",
+            params: [store, searchId]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("getGroupingTerm", function (done) {
+        expect(function () {
+          fuzzy = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "getGroupingTerm",
+            params: [fuzzy]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("getIdsOfIds", function (done) {
+        expect(function () {
+          resultArr = PVALUE;
+          ids = PVALUE;
+          instructions = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "getIdsOfIds",
+            params: [resultArr, ids, instructions]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("getInstructionsFromCache", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "getInstructionsFromCache",
+            params: []
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("getSearchCriteriaQuery", function (done) {
+        expect(function () {
+          searchCriteria = PVALUE;
+          maxGroups = PVALUE;
+          supplementaryFindInfo = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "getSearchCriteriaQuery",
+            params: [searchCriteria, maxGroups, supplementaryFindInfo]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("getSord", function (done) {
+        expect(function () {
+          objId = PVALUE;
+          srdC = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "getSord",
+            params: [objId, srdC]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("idsOf", function (done) {
+        expect(function () {
+          findResult = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "idsOf",
+            params: [findResult]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("impureConcat", function (done) {
+        expect(function () {
+          target = PVALUE;
+          source = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "impureConcat",
+            params: [target, source]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("initSearchAndProcessingInstructions", function (done) {
+        expect(function () {
+          outputDefinition = PVALUE;
+          filter = PVALUE;
+          options = PVALUE;
+          result = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "initSearchAndProcessingInstructions",
+            params: [outputDefinition, filter, options, result]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("initializeCaching", function (done) {
+        expect(function () {
+          initOptimizationCache = PVALUE;
+          instructions = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "initializeCaching",
+            params: [initOptimizationCache, instructions]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("isValidSourceDefinition", function (done) {
+        expect(function () {
+          sDef = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "isValidSourceDefinition",
+            params: [sDef]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("maintainSearchInfo", function (done) {
+        expect(function () {
+          searchInfo = PVALUE;
+          findResult = PVALUE;
+          maxResults = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "maintainSearchInfo",
+            params: [searchInfo, findResult, maxResults]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("mapExtractor", function (done) {
+        expect(function () {
+          sord = PVALUE;
+          mapDomain = PVALUE;
+          fields = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "mapExtractor",
+            params: [sord, mapDomain, fields]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("mapKeysExtractor", function (done) {
+        expect(function () {
+          result = PVALUE;
+          sord = PVALUE;
+          fieldMapping = PVALUE;
+          accessors = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "mapKeysExtractor",
+            params: [result, sord, fieldMapping, accessors]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("objKeysExtractor", function (done) {
+        expect(function () {
+          result = PVALUE;
+          sord = PVALUE;
+          fieldMapping = PVALUE;
+          _accessors = PVALUE;
+          mask = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "objKeysExtractor",
+            params: [result, sord, fieldMapping, _accessors, mask]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("optimizationIdDefined", function (done) {
+        expect(function () {
+          optimization = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "optimizationIdDefined",
+            params: [optimization]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("optimizeObjectAccessors", function (done) {
+        expect(function () {
+          instructions = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "optimizeObjectAccessors",
+            params: [instructions]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("pageFind", function (done) {
+        expect(function () {
+          findInfo = PVALUE;
+          maxResults = PVALUE;
+          pageSize = PVALUE;
+          sordZ = PVALUE;
+          searchId = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "pageFind",
+            params: [findInfo, maxResults, pageSize, sordZ, searchId]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("pagingIdDefined", function (done) {
+        expect(function () {
+          pagingId = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "pagingIdDefined",
+            params: [pagingId]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("parens", function (done) {
+        expect(function () {
+          s = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "parens",
+            params: [s]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("parseOutputDefinition", function (done) {
+        expect(function () {
+          outputDef = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "parseOutputDefinition",
+            params: [outputDef]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("parseSearchValue", function (done) {
+        expect(function () {
+          value = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "parseSearchValue",
+            params: [value]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("performSearch", function (done) {
+        expect(function () {
+          masks = PVALUE;
+          searchCriteria = PVALUE;
+          options = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "performSearch",
+            params: [masks, searchCriteria, options]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("prepareMask", function (done) {
+        expect(function () {
+          mask = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "prepareMask",
+            params: [mask]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("prepareSearchInfo", function (done) {
+        expect(function () {
+          searchInfo = PVALUE;
+          searchId = PVALUE;
+          maxResults = PVALUE;
+          pageSize = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "prepareSearchInfo",
+            params: [searchInfo, searchId, maxResults, pageSize]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("process", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "process",
+            params: []
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("processIdContainer", function (done) {
+        expect(function () {
+          idContainer = PVALUE;
+          instructions = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "processIdContainer",
+            params: [idContainer, instructions]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("processIds", function (done) {
+        expect(function () {
+          inputIds = PVALUE;
+          instructions = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "processIds",
+            params: [inputIds, instructions]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("processResult", function (done) {
+        expect(function () {
+          findResult = PVALUE;
+          ids = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "processResult",
+            params: [findResult, ids]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("propsToArrays", function (done) {
+        expect(function () {
+          sords = PVALUE;
+          props = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "propsToArrays",
+            params: [sords, props]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("reinitializeFormatterSettingsIfRequired", function (done) {
+        expect(function () {
+          instructions = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "reinitializeFormatterSettingsIfRequired",
+            params: [instructions]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("removeEmptyFields", function (done) {
+        expect(function () {
+          sords = PVALUE;
+          props = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "removeEmptyFields",
+            params: [sords, props]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("sanitizeQueryValue", function (done) {
+        expect(function () {
+          val = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "sanitizeQueryValue",
+            params: [val]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("searchFor", function (done) {
+        expect(function () {
+          infos = PVALUE;
+          searchCriteria = PVALUE;
+          options = PVALUE;
+          masks = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "searchFor",
+            params: [infos, searchCriteria, options, masks]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("searchViaContextTerms", function (done) {
+        expect(function () {
+          masks = PVALUE;
+          searchCriteria = PVALUE;
+          options = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "searchViaContextTerms",
+            params: [masks, searchCriteria, options]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("searchViaIndex", function (done) {
+        expect(function () {
+          masks = PVALUE;
+          searchCriteria = PVALUE;
+          options = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "searchViaIndex",
+            params: [masks, searchCriteria, options]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("setUnchangedIdsAsResult", function (done) {
+        expect(function () {
+          resultArr = PVALUE;
+          ids = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "setUnchangedIdsAsResult",
+            params: [resultArr, ids]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("sordKeysExtractor", function (done) {
+        expect(function () {
+          result = PVALUE;
+          sord = PVALUE;
+          fields = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "sordKeysExtractor",
+            params: [result, sord, fields]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("stringToRegExp", function (done) {
+        expect(function () {
+          str = PVALUE;
+          wc = PVALUE;
+          ignoreCase = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "stringToRegExp",
+            params: [str, wc, ignoreCase]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("templateSordFilter", function (done) {
+        expect(function () {
+          sords = PVALUE;
+          filter = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "templateSordFilter",
+            params: [sords, filter]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("updateSearchCache", function (done) {
+        expect(function () {
+          findResult = PVALUE;
+          desiredResults = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "updateSearchCache",
+            params: [findResult, desiredResults]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("valuesWithoutWildcard", function (done) {
+        expect(function () {
+          criterion = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "valuesWithoutWildcard",
+            params: [criterion]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+    });
+  });
+  afterAll(function (done) {
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
+    expect(function () {
+      test.Utils.getTempfolder().then(function success(tempfolder) {
+        test.Utils.deleteSord(tempfolder).then(function success1(deleteResult) {
+          test.Utils.getFinishedWorkflows().then(function success2(wfs) {
+            test.Utils.removeFinishedWorkflows(wfs).then(function success3(removeFinishedWorkflowsResult) {
+              done();
+            }, function error(err) {
+              fail(err);
+              console.error(err);
+              done();
+            }
+            );
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }, function error(err) {
+        fail(err);
+        console.error(err);
+        done();
+      }
+      );
+    }).not.toThrow();
+  });
+});

@@ -37,6 +37,15 @@ importPackage(Packages.de.elo.ix.client);
  *
  * You must also define an output definition. (see further below)
  *
+ * To search for a date field, use the standard ELO syntax (YYYYMMDDHHMM or YYYYMMDD), but also define the property "type: date".
+ *
+ *     "search": [
+ *       { "key": "INVOICE_DATE", "value": "197310160000...202309300000", "type": "date" }, // range
+ *       { "key": "RETRIEVAL_DATE", "value": "-0000-00-30...+0000-00-00", "type": "date" }  // range using offset (-30days to today)
+ *     ]
+ *
+ * Date searches are only implemented for FindByIndex searches. Fuzzy/FindDirect searches will not work!
+ *
  * #### Fuzzy Search (getContextTerms)
  *
  * Fuzzy search can be used if the results need to be grouped.
@@ -1007,9 +1016,13 @@ sol.define("sol.common.SordProvider", {
     me.logger.debug((instructions.formatterRequired ? "" : "No ") + "sord formatter will be used.");
 
     // determines which property will be read from sord when input>output is id>guid or guid>id
-    !instructions.formatterRequired
-      && (instructions.idName = idRequired || guidRequired || "id")
-      && me.logger.debug(["Using `{0}` as id property.", instructions.idName]);
+    if (instructions.formatterRequired) {
+      (instructions.converterConfig.mapKeys || instructions.converterConfig.formBlobs)
+        && me.addMb(instructions.mbs, "SORD", "id");
+    } else {
+      (instructions.idName = idRequired || guidRequired || "id")
+        && me.logger.debug(["Using `{0}` as id property.", instructions.idName]);
+    }
   },
 
   optimizeObjectAccessors: function (instructions) {
