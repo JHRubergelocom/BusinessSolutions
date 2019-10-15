@@ -366,6 +366,13 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
           default:
         }
         break;
+      case "sol.common.SordProvider":
+        switch (me.method) {
+          case "buildRegEx":
+            result = String(result);
+            break;
+          default:
+        }
       default:
     }
     return result;

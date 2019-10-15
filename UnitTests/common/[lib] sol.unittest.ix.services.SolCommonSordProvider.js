@@ -453,16 +453,17 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
           );
         }).not.toThrow();
       });
-      xit("buildFindInfoForFindDirect", function (done) {
+      it("buildFindInfoForFindDirect", function (done) {
         expect(function () {
-          masks = PVALUE;
-          searchCriteria = PVALUE;
+          masks = ["mask1", "mask2"];
+          searchCriteria = [{ key: "SOL_TYPE", value: "RECRUITING_CANDIDATE" }, { key: "DEPARTMENTS", value: ["Sales", "Purchasing"] }, { key: "ACTIVITYSTATUS", value: "A - *" }];
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordProvider",
             classConfig: {},
             method: "buildFindInfoForFindDirect",
             params: [masks, searchCriteria]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("[findDirect:[query= (*) ( ( (sord_maskName:\"mask1\") OR (sord_maskName:\"mask2\") ) (LINE_SOL_TYPE: \"RECRUITING_CANDIDATE\") ( (LINE_DEPARTMENTS: \"Sales\") OR (LINE_DEPARTMENTS: \"Purchasing\") ) (LINE_ACTIVITYSTATUS: \"A - \") ) ,searchIn=index]]");
             done();
           }, function error(err) {
             fail(err);
@@ -472,15 +473,16 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
           );
         }).not.toThrow();
       });
-      xit("buildIdContainer", function (done) {
+      it("buildIdContainer", function (done) {
         expect(function () {
-          inputIds = PVALUE;
+          inputIds = [0, 1];
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordProvider",
             classConfig: {},
             method: "buildIdContainer",
             params: [inputIds]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual({ __nomask: [0, 1] });
             done();
           }, function error(err) {
             fail(err);
@@ -490,15 +492,16 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
           );
         }).not.toThrow();
       });
-      xit("buildMasksQuery", function (done) {
+      it("buildMasksQuery", function (done) {
         expect(function () {
-          masks = PVALUE;
+          masks = ["mask1", "mask2"];
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordProvider",
-            classConfig: {},
+            classConfig: { FIND_DIRECT: { FIELD_MASKNAME: "maskname1" } },
             method: "buildMasksQuery",
             params: [masks]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual(" (undefined:\"mask1\")  OR  (undefined:\"mask2\") ");
             done();
           }, function error(err) {
             fail(err);
@@ -508,17 +511,18 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
           );
         }).not.toThrow();
       });
-      xit("buildQuery", function (done) {
+      it("buildQuery", function (done) {
         expect(function () {
-          masks = PVALUE;
-          searchCriteria = PVALUE;
-          queryOpts = PVALUE;
+          masks = ["mask1", "mask2"];
+          searchCriteria = [{ key: "SOL_TYPE", value: "RECRUITING_CANDIDATE" }, { key: "DEPARTMENTS", value: ["Sales", "Purchasing"] }, { key: "ACTIVITYSTATUS", value: "A - *" }];
+          queryOpts = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordProvider",
             classConfig: {},
             method: "buildQuery",
             params: [masks, searchCriteria, queryOpts]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual(" (*)  ( ( (sord_maskName:\"mask1\")  OR  (sord_maskName:\"mask2\") )  (LINE_SOL_TYPE: \"RECRUITING_CANDIDATE\")  ( (LINE_DEPARTMENTS: \"Sales\")  OR  (LINE_DEPARTMENTS: \"Purchasing\") )  (LINE_ACTIVITYSTATUS: \"A - \") ) ");
             done();
           }, function error(err) {
             fail(err);
@@ -528,15 +532,16 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
           );
         }).not.toThrow();
       });
-      xit("buildRegEx", function (done) {
+      it("buildRegEx", function (done) {
         expect(function () {
-          values = PVALUE;
+          values = ["Value1", "Value2"];
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordProvider",
             classConfig: {},
             method: "buildRegEx",
             params: [values]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("/Value1|Value2/gi");
             done();
           }, function error(err) {
             fail(err);
