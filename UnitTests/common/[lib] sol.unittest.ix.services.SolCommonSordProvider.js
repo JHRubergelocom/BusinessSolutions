@@ -766,12 +766,12 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
           );
         }).not.toThrow();
       });
-      xit("defaultDataCollection", function (done) {
+      it("defaultDataCollection", function (done) {
         expect(function () {
-          resultArr = PVALUE;
-          ids = PVALUE;
-          instructions = PVALUE;
-          mask = PVALUE;
+          resultArr = [];
+          ids = [0, 1];
+          instructions = { mbs: [], converterConfig: { sordKeys: ["ID", "GUID"] }, targetProps: [], formatterRequired: true, configKeys: ["sordKeys"] };
+          mask = "mask1";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordProvider",
             classConfig: {},
@@ -787,16 +787,17 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
           );
         }).not.toThrow();
       });
-      xit("definesDirectValue", function (done) {
+      it("definesDirectValue", function (done) {
         expect(function () {
-          isValidTarget = PVALUE;
-          target = PVALUE;
+          isValidTarget = true;
+          target = { value: "value1", prop: "prop1" };
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordProvider",
             classConfig: {},
             method: "definesDirectValue",
             params: [isValidTarget, target]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual(true);
             done();
           }, function error(err) {
             fail(err);
@@ -806,15 +807,16 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
           );
         }).not.toThrow();
       });
-      xit("escapeOrRemoveInvalidCharacters", function (done) {
+      it("escapeOrRemoveInvalidCharacters", function (done) {
         expect(function () {
-          val = PVALUE;
+          val = "mein   'Text'  :";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordProvider",
             classConfig: {},
             method: "escapeOrRemoveInvalidCharacters",
             params: [val]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("mein 'Text'");
             done();
           }, function error(err) {
             fail(err);
@@ -824,16 +826,17 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
           );
         }).not.toThrow();
       });
-      xit("extendQueryByCustomQuery", function (done) {
+      it("extendQueryByCustomQuery", function (done) {
         expect(function () {
-          query = PVALUE;
-          custom = PVALUE;
+          query = "query1";
+          custom = "custom1";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordProvider",
             classConfig: {},
             method: "extendQueryByCustomQuery",
             params: [query, custom]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual(" (custom1)  (query1) ");
             done();
           }, function error(err) {
             fail(err);
@@ -843,15 +846,16 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
           );
         }).not.toThrow();
       });
-      xit("extendQueryByWildCard", function (done) {
+      it("extendQueryByWildCard", function (done) {
         expect(function () {
-          query = PVALUE;
+          query = "query1";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordProvider",
             classConfig: {},
             method: "extendQueryByWildCard",
             params: [query]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual(" (*)  (query1) ");
             done();
           }, function error(err) {
             fail(err);
