@@ -9,7 +9,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
       maxResults, pageSize, sordZ, searchFields, options, fieldMapping, accessors, formatterConfig,
       configKeys, maskName, ignoreCase, optimization, groupingTerm, constantCriteriaFindInfo, store,
       fuzzy, objId, srdC, findResult, outputDefinition, initOptimizationCache, searchInfo, mapDomain,
-      _accessors, pagingId, props, infos, desiredResults, i, cache;
+      _accessors, pagingId, props, infos, desiredResults, i, cache, value, id, mask, val, s;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -551,17 +551,18 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
           );
         }).not.toThrow();
       });
-      xit("buildValueQuery", function (done) {
+      it("buildValueQuery", function (done) {
         expect(function () {
-          key = PVALUE;
-          value = PVALUE;
-          tokenized = PVALUE;
+          key = "key1";
+          value = "Value1";
+          tokenized = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordProvider",
-            classConfig: {},
+            classConfig: { FIND_DIRECT: { FIELD_OBJ_KEY_TOKENOZED: "key1" } },
             method: "buildValueQuery",
             params: [key, value, tokenized]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("undefinedkey1: \"Value1\"");
             done();
           }, function error(err) {
             fail(err);
@@ -571,9 +572,9 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
           );
         }).not.toThrow();
       });
-      xit("calcFlags", function (done) {
+      it("calcFlags", function (done) {
         expect(function () {
-          instructions = PVALUE;
+          instructions = { mbs: [], converterConfig: { sordKeys: [] }, targetProps: [] };
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordProvider",
             classConfig: {},
@@ -589,16 +590,17 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
           );
         }).not.toThrow();
       });
-      xit("castThenAddResults", function (done) {
+      it("castThenAddResults", function (done) {
         expect(function () {
-          acc = PVALUE;
-          result = PVALUE;
+          acc = {};
+          result = { docNum: 1, term: "term1" };
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordProvider",
             classConfig: {},
             method: "castThenAddResults",
             params: [acc, result]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual({ term1: 1 });
             done();
           }, function error(err) {
             fail(err);
@@ -608,15 +610,16 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
           );
         }).not.toThrow();
       });
-      xit("cleanConfig", function (done) {
+      it("cleanConfig", function (done) {
         expect(function () {
-          config = PVALUE;
+          config = { sordKeys: ["s1", "s2"], objKeys: ["o1", "o2"], mapKeys: { m1: "value1", m2: "value2" }, formBlobs: {} };
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordProvider",
             classConfig: {},
             method: "cleanConfig",
             params: [config]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual({ sordKeys: ["s1", "s2"], objKeys: ["o1", "o2"], mapKeys: { m1: "value1", m2: "value2" } });
             done();
           }, function error(err) {
             fail(err);
@@ -626,9 +629,9 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
           );
         }).not.toThrow();
       });
-      xit("closeFind", function (done) {
+      it("closeFind", function (done) {
         expect(function () {
-          searchId = PVALUE;
+          searchId = 1;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordProvider",
             classConfig: {},
@@ -644,17 +647,18 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
           );
         }).not.toThrow();
       });
-      xit("collectDataFromId", function (done) {
+      it("collectDataFromId", function (done) {
         expect(function () {
-          id = PVALUE;
-          instructions = PVALUE;
-          mask = PVALUE;
+          id = 1;
+          instructions = { mbs: [], converterConfig: { sordKeys: ["ID", "GUID"] }, targetProps: [], formatterRequired: true, configKeys: ["sordKeys"] };
+          mask = "mask1";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordProvider",
             classConfig: {},
             method: "collectDataFromId",
             params: [id, instructions, mask]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual({ undefined: "" });
             done();
           }, function error(err) {
             fail(err);
@@ -664,16 +668,17 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
           );
         }).not.toThrow();
       });
-      xit("contains", function (done) {
+      it("contains", function (done) {
         expect(function () {
-          val = PVALUE;
-          s = PVALUE;
+          val = ["s1", "s2", "s3"];
+          s = "s2";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordProvider",
             classConfig: {},
             method: "contains",
             params: [val, s]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual(true);
             done();
           }, function error(err) {
             fail(err);
@@ -683,16 +688,37 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
           );
         }).not.toThrow();
       });
-      xit("createObjKey", function (done) {
+      it("contains", function (done) {
         expect(function () {
-          name = PVALUE;
-          value = PVALUE;
+          val = ["s1", "s2", "s3"];
+          s = "x2";
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "contains",
+            params: [val, s]
+          }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual(false);
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("createObjKey", function (done) {
+        expect(function () {
+          name = "name1";
+          value = "value1";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordProvider",
             classConfig: {},
             method: "createObjKey",
             params: [name, value]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("[0,name1=value1]");
             done();
           }, function error(err) {
             fail(err);
@@ -702,15 +728,16 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
           );
         }).not.toThrow();
       });
-      xit("createObjKeys", function (done) {
+      it("createObjKeys", function (done) {
         expect(function () {
-          searchfields = PVALUE;
+          searchfields = [{ key: "key1", value: "value1" }, { key: "key2", value: "value2" }];
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordProvider",
             classConfig: {},
             method: "createObjKeys",
             params: [searchfields]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual(["[0,key1=value1]", "[0,key2=value2]"]);
             done();
           }, function error(err) {
             fail(err);
@@ -720,15 +747,16 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
           );
         }).not.toThrow();
       });
-      xit("createSordZ", function (done) {
+      it("createSordZ", function (done) {
         expect(function () {
-          mbs = PVALUE;
+          mbs = [3, 5];
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordProvider",
             classConfig: {},
             method: "createSordZ",
             params: [mbs]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("[0x7]");
             done();
           }, function error(err) {
             fail(err);

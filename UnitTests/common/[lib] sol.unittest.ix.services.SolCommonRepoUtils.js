@@ -249,13 +249,14 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
         expect(function () {
           id = 9999;
           name = "name1";
-          value = "value";
+          value = "value1";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
             method: "createObjKey",
             params: [id, name, value]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("[9999,name1=value1]");
             done();
           }, function error(err) {
             fail(err);
