@@ -330,6 +330,32 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
           default:
         }
         break;
+      case "sol.common.SordProvider":
+        findInfo = new FindInfo();
+        findChildren = new FindChildren();
+        findByType = new FindByType();
+        findChildren.parentId = 1;
+        findChildren.mainParent = false;
+        findChildren.endLevel = 1;
+        findByType.typeStructures = true;
+        findByType.typeDocuments = true;
+        findInfo.findChildren = findChildren;
+        findInfo.findByType = findByType;
+        switch (me.method) {
+          case "find":
+            me.params[0] = findInfo;
+            me.params[3] = new SordZ();
+            break;
+          case "findAll":
+            me.params[0] = findInfo;
+            me.params[2] = new SordZ();
+            break;
+          case "findIds":
+            me.params[0] = findInfo;
+            me.params[2] = { idSordZ: new SordZ() };
+            return result;
+          default:
+        }
       default:
     }
 
