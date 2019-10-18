@@ -119,7 +119,7 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
         result = {},
         file, dir, path, fileData, cls, func,
         i, bytes, byte, string, strings, sordMap,
-        findInfo, findChildren, findByType;
+        findInfo, findChildren, findByType, findDirect;
 
     switch (me.className) {
       case "sol.common.MapTable":
@@ -353,6 +353,22 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
           case "findIds":
             me.params[0] = findInfo;
             me.params[2] = { idSordZ: new SordZ() };
+            return result;
+          case "formBlobsExtractor":
+            return result;
+          case "getAvailableTerms":
+            me.params[3] = findInfo;
+            break;
+          case "getContextTerms":
+            findInfo = new FindInfo();
+            findDirect = new FindDirect();
+            findDirect.query = "[query= (*) ( ( (sord_maskName:\"mask1\") OR (sord_maskName:\"mask2\") ) (LINE_SOL_TYPE: \"RECRUITING_CANDIDATE\") ( (LINE_DEPARTMENTS: \"Sales\") OR (LINE_DEPARTMENTS: \"Purchasing\") ) (LINE_ACTIVITYSTATUS: \"A - \") ) ,searchIn=index]";
+            findDirect.searchInMemo = true;
+            findDirect.searchInFulltext = true;
+            findDirect.searchInIndex = true;
+            findDirect.searchInSordName = true;
+            findInfo.findDirect = findDirect;
+            me.params[0] = findInfo;
             return result;
           default:
         }
