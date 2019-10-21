@@ -343,6 +343,7 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
         findInfo.findByType = findByType;
         switch (me.method) {
           case "find":
+          case "pageFind":
             me.params[0] = findInfo;
             me.params[3] = new SordZ();
             break;
@@ -362,7 +363,7 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
           case "getContextTerms":
             findInfo = new FindInfo();
             findDirect = new FindDirect();
-            findDirect.query = "[query= (*) ( ( (sord_maskName:\"mask1\") OR (sord_maskName:\"mask2\") ) (LINE_SOL_TYPE: \"RECRUITING_CANDIDATE\") ( (LINE_DEPARTMENTS: \"Sales\") OR (LINE_DEPARTMENTS: \"Purchasing\") ) (LINE_ACTIVITYSTATUS: \"A - \") ) ,searchIn=index]";
+            findDirect.query = "query1";
             findDirect.searchInMemo = true;
             findDirect.searchInFulltext = true;
             findDirect.searchInIndex = true;
@@ -370,6 +371,23 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
             findInfo.findDirect = findDirect;
             me.params[0] = findInfo;
             return result;
+          case "getSearchCriteriaQuery":
+            findInfo = new FindInfo();
+            findDirect = new FindDirect();
+            findDirect.query = "query1";
+            findDirect.searchInMemo = true;
+            findDirect.searchInFulltext = true;
+            findDirect.searchInIndex = true;
+            findDirect.searchInSordName = true;
+            findInfo.findDirect = findDirect;
+            me.params[2] = findInfo;
+            break;
+          case "getSord":
+            me.params[1] = new SordZ();
+          case "performSearch":
+          case "searchViaIndex":
+            me.params[2] = { idSordZ: new SordZ() };
+            break;
           default:
         }
       default:
