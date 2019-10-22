@@ -363,7 +363,7 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
           case "getContextTerms":
             findInfo = new FindInfo();
             findDirect = new FindDirect();
-            findDirect.query = "query1";
+            findDirect.query = "(*) ( ( (sord_maskName:\"mask1\") OR (sord_maskName:\"mask2\") ) (LINE_SOL_TYPE: \"RECRUITING_CANDIDATE\") ( (LINE_DEPARTMENTS: \"Sales\") OR (LINE_DEPARTMENTS: \"Purchasing\") ) )";
             findDirect.searchInMemo = true;
             findDirect.searchInFulltext = true;
             findDirect.searchInIndex = true;
@@ -386,6 +386,7 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
             me.params[1] = new SordZ();
           case "performSearch":
           case "searchViaIndex":
+          case "searchFor":
             me.params[2] = { idSordZ: new SordZ() };
             break;
           default:
@@ -429,6 +430,7 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
       case "sol.common.SordProvider":
         switch (me.method) {
           case "buildRegEx":
+          case "stringToRegExp":
             result = String(result);
             break;
           default:
