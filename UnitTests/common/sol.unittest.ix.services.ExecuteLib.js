@@ -119,7 +119,8 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
         result = {},
         file, dir, path, fileData, cls, func,
         i, bytes, byte, string, strings, sordMap,
-        findInfo, findChildren, findByType, findDirect;
+        findInfo, findChildren, findByType, findDirect,
+        fileData1, fileData2, fileData3;
 
     switch (me.className) {
       case "sol.common.MapTable":
@@ -391,6 +392,25 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
             break;
           default:
         }
+      case "sol.common.SordTypeUtils":
+        switch (me.method) {
+          case "buildSordType":
+            fileData = sol.common.RepoUtils.downloadToFileData(me.classConfig.objId, null, me.classConfig.config);
+            me.params[2] = fileData;
+            me.params[3] = fileData;
+            me.params[4] = fileData;
+            break;
+          case "createSordType":
+            fileData1 = sol.common.RepoUtils.downloadToFileData(me.classConfig.objId, null, me.classConfig.config);
+            fileData2 = sol.common.RepoUtils.downloadToFileData(me.classConfig.objId, null, me.classConfig.config);
+            fileData3 = sol.common.RepoUtils.downloadToFileData(me.classConfig.objId, null, me.classConfig.config);
+            me.params[3] = [fileData1];
+            me.params[4] = [fileData2];
+            me.params[5] = [fileData3];
+            break;
+          default:
+        }
+        break;
       default:
     }
 

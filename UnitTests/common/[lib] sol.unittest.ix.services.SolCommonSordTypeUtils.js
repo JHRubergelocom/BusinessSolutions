@@ -1,24 +1,19 @@
 
 describe("[lib] sol.unittest.ix.services.SolCommonSordTypeUtils", function () {
-  var SordTypeUtilsSord, userName, userInfo, originalTimeout, id, name, iconFileData, disabledIconFileData, linkIconFileData, extensions, kind, iconFileDataArray, disabledIconFileDataArray, linkIconFileDataArray, force, iconExtension, baseDirPath, exportConfig, names, dirPath, objId, sordTypeName;
+  var SordTypeUtilsSord, originalTimeout, id, name, iconFileData,
+      disabledIconFileData, linkIconFileData, extensions, kind, iconFileDataArray,
+      disabledIconFileDataArray, linkIconFileDataArray, force, iconExtension, baseDirPath,
+      exportConfig, names, dirPath, objId, sordTypeName, obSolCommonSordTypeUtilsId;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
-      test.Utils.createTempSord("SolCommonSordTypeUtils").then(function success(obSolCommonSordTypeUtilsId) {
+      test.Utils.createTempSord("SolCommonSordTypeUtils").then(function success(obSolCommonSordTypeUtilsId1) {
+        obSolCommonSordTypeUtilsId = obSolCommonSordTypeUtilsId1;
         test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/SordTypeUtils").then(function success1(SordTypeUtilsSord1) {
           SordTypeUtilsSord = SordTypeUtilsSord1;
-          userName = test.Utils.getCurrentUserName();
-          test.Utils.getUserInfo(userName).then(function success3(userInfo1) {
-            userInfo = userInfo1;
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
+          done();
         }, function error(err) {
           fail(err);
           console.error(err);
@@ -35,17 +30,17 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordTypeUtils", function () {
   });
   describe("Test Lib Functions", function () {
     describe("sol.common.SordTypeUtils", function () {
-      xit("buildSordType", function (done) {
+      it("buildSordType", function (done) {
         expect(function () {
-          id = PVALUE;
-          name = PVALUE;
-          iconFileData = PVALUE;
-          disabledIconFileData = PVALUE;
-          linkIconFileData = PVALUE;
-          extensions = PVALUE;
+          id = "9999";
+          name = "UnittestSordType";
+          iconFileData = "fileData";
+          disabledIconFileData = "fileData";
+          linkIconFileData = "fileData";
+          extensions = [];
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordTypeUtils",
-            classConfig: {},
+            classConfig: { objId: SordTypeUtilsSord.id, config: { extension: "jpg" } },
             method: "buildSordType",
             params: [id, name, iconFileData, disabledIconFileData, linkIconFileData, extensions]
           }).then(function success(jsonResult) {
@@ -58,19 +53,19 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordTypeUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("createSordType", function (done) {
+      it("createSordType", function (done) {
         expect(function () {
-          id = PVALUE;
-          name = PVALUE;
-          kind = PVALUE;
-          iconFileDataArray = PVALUE;
-          disabledIconFileDataArray = PVALUE;
-          linkIconFileDataArray = PVALUE;
-          extensions = PVALUE;
-          force = PVALUE;
+          id = "9999";
+          name = "UnittestSordType";
+          kind = "DOCUMENT";
+          iconFileDataArray = "fileDataArray";
+          disabledIconFileDataArray = "fileDataArray";
+          linkIconFileDataArray = "fileDataArray";
+          extensions = [];
+          force = true;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordTypeUtils",
-            classConfig: {},
+            classConfig: { objId: SordTypeUtilsSord.id, config: { extension: "jpg" } },
             method: "createSordType",
             params: [id, name, kind, iconFileDataArray, disabledIconFileDataArray, linkIconFileDataArray, extensions, force]
           }).then(function success(jsonResult) {
@@ -83,15 +78,16 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordTypeUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("determinateSordTypeKind", function (done) {
+      it("determinateSordTypeKind", function (done) {
         expect(function () {
-          id = PVALUE;
+          id = 0;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordTypeUtils",
             classConfig: {},
             method: "determinateSordTypeKind",
             params: [id]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("FOLDER");
             done();
           }, function error(err) {
             fail(err);
@@ -101,12 +97,50 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordTypeUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("exportSordType", function (done) {
+      it("determinateSordTypeKind", function (done) {
         expect(function () {
-          name = PVALUE;
-          iconExtension = PVALUE;
-          baseDirPath = PVALUE;
-          exportConfig = PVALUE;
+          id = 255;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordTypeUtils",
+            classConfig: {},
+            method: "determinateSordTypeKind",
+            params: [id]
+          }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("DOCUMENT");
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("determinateSordTypeKind", function (done) {
+        expect(function () {
+          id = 9999;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordTypeUtils",
+            classConfig: {},
+            method: "determinateSordTypeKind",
+            params: [id]
+          }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("REPOSITORY");
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("exportSordType", function (done) {
+        expect(function () {
+          name = "UnittestSordType";
+          iconExtension = "jpg";
+          baseDirPath = "C:\\Temp";
+          exportConfig = true;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordTypeUtils",
             classConfig: {},
@@ -122,10 +156,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordTypeUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("exportSordTypes", function (done) {
+      it("exportSordTypes", function (done) {
         expect(function () {
-          names = PVALUE;
-          dirPath = PVALUE;
+          names = ["TXT", "BMP"];
+          dirPath = "C:\\Temp";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordTypeUtils",
             classConfig: {},
@@ -176,10 +210,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordTypeUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("insertSordTypeIntoCache", function (done) {
+      it("insertSordTypeIntoCache", function (done) {
         expect(function () {
-          id = PVALUE;
-          name = PVALUE;
+          id = "9999";
+          name = "UnittestSordType";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordTypeUtils",
             classConfig: {},
@@ -212,10 +246,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordTypeUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("setSordType", function (done) {
+      it("setSordType", function (done) {
         expect(function () {
-          objId = PVALUE;
-          sordTypeName = PVALUE;
+          objId = obSolCommonSordTypeUtilsId;
+          sordTypeName = "TXT";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordTypeUtils",
             classConfig: {},
@@ -231,15 +265,16 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordTypeUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("sordTypeExists", function (done) {
+      it("sordTypeExists", function (done) {
         expect(function () {
-          name = PVALUE;
+          name = "UnittestSordType";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordTypeUtils",
-            classConfig: {},
+            classConfig: { sordTypesObj: { UnittestSordType: {} } },
             method: "sordTypeExists",
             params: [name]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual(true);
             done();
           }, function error(err) {
             fail(err);
