@@ -411,6 +411,13 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
           default:
         }
         break;
+      case "sol.common.SordUtils":
+        switch (me.method) {
+          case "changeMask":
+            return result;
+          default:
+        }
+        break;
       default:
     }
 

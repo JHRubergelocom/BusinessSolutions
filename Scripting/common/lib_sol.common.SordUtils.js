@@ -5,9 +5,10 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_sol.common.Cache.js
 //@include lib_sol.common.StringUtils.js
 //@include lib_sol.common.AclUtils.js
+//@include lib_sol.common.JsonUtils.js
 //@include lib_sol.common.ObjectFormatter.js
 
-/*
+/**
  * Local definition of the class `sol.common.Cache` for backward compatibility of previous solution packages.
  */
 if (!sol.ClassManager.getClass("sol.common.Cache")) {
@@ -223,11 +224,18 @@ sol.define("sol.common.SordUtils", {
    */
   updateSord: function (sord, data, params) {
     var me = this,
-        mapEntries, _result;
+        mapEntries, result, dataString, paramsString;
 
     params = params || {};
 
-    me.logger.enter("updateSord", arguments);
+    me.logger.enter("updateSord");
+
+    if (me.logger.debugEnabled) {
+      dataString = sol.common.JsonUtils.stringifyAll(data);
+      paramsString = sol.common.JsonUtils.stringifyAll(params);
+      me.logger.debug(["updateSord: data={0}, params={1}", dataString, paramsString]);
+    }
+
     mapEntries = [];
     if (!me.isSord(sord) || !data) {
       me.logger.exit("updateSord");
@@ -256,9 +264,10 @@ sol.define("sol.common.SordUtils", {
           throw "unsupported type: " + entry.type;
       }
     });
-    _result = (mapEntries.length > 0) ? mapEntries : null;
-    me.logger.exit("updateSord", _result + "");
-    return _result;
+
+    result = (mapEntries.length > 0) ? mapEntries : null;
+    me.logger.exit("updateSord", "mapEntries.length=" + mapEntries.length);
+    return result;
   },
 
   /**
@@ -317,7 +326,7 @@ sol.define("sol.common.SordUtils", {
     if (!sord) {
       throw "Sord is empty";
     }
-    if (!params || !params.type || !params.key) {
+    if (!params || !params.type || !(params.key || params.value)) {
       fieldDefString = JSON.stringify(params);
       throw "Field definition is incomplete: fieldDef=" + fieldDefString;
     }
@@ -351,6 +360,11 @@ sol.define("sol.common.SordUtils", {
             values = [Packages.org.apache.commons.io.IOUtils.toString(fileData.stream, "UTF-8")];
             fileData.stream.close();
           }
+        }
+        break;
+      case "CONST":
+        if (params.value) {
+          values = [params.value];
         }
         break;
       default:
@@ -1170,7 +1184,7 @@ sol.define("sol.common.SordUtils", {
       for (i = 0; i < dstSord.objKeys.length; i++) {
         objKey = dstSord.objKeys[i];
         objKeyName = String(objKey.name);
-        if (params.objKeyNames && (params.objKeyNames.indexOf(objKeyName) < 0)) {
+        if (objKeyName == "" || (params.objKeyNames && (params.objKeyNames.indexOf(objKeyName) < 0))) {
           continue;
         }
         values = me.getObjKeyValues(srcSord, objKeyName);
