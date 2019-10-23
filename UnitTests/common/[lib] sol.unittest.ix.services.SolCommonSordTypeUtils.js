@@ -137,7 +137,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordTypeUtils", function () {
       });
       it("exportSordType", function (done) {
         expect(function () {
-          name = "UnittestSordType";
+          name = "TXT";
           iconExtension = "jpg";
           baseDirPath = "C:\\Temp";
           exportConfig = true;
