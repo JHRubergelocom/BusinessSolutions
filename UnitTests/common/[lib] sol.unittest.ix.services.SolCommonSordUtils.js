@@ -1,6 +1,6 @@
 
 describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
-  var SordUtilsSord, userName, userInfo, originalTimeout, sord, params, newMask,
+  var SordUtilsSord, objSordUtilsId, originalTimeout, sord, params, newMask, key,
       srcSord, keyName, maskName, conn, language, country, name, fieldName, objId,
       config, fieldDef, timeZoneString, numberString, value, values, indexData, data;
 
@@ -9,24 +9,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
       test.Utils.createTempSord("SolCommonSordUtils").then(function success(obSolCommonSordUtilsId) {
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/SordUtils").then(function success1(SordUtilsSord1) {
-          SordUtilsSord = SordUtilsSord1;
-          userName = test.Utils.getCurrentUserName();
-          test.Utils.getUserInfo(userName).then(function success3(userInfo1) {
-            userInfo = userInfo1;
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
+        done();
       }, function error(err) {
         fail(err);
         console.error(err);
@@ -37,12 +20,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
   });
   describe("Test Lib Functions", function () {
     describe("sol.common.SordUtils", function () {
-// TODO CopySord
-/*
       it("copysord", function (done) {
         expect(function () {
-          test.Utils.copySord("ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common [unit tests]/Resources/RepoUtils").then(function success(objCopyRepoUtilsId1) {
-            objCopyRepoUtilsId = objCopyRepoUtilsId1;
+          test.Utils.copySord("ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common [unit tests]/Resources/SordUtils").then(function success(objSordUtilsId1) {
+            objSordUtilsId = objSordUtilsId1;
             done();
           }, function error(err) {
             fail(err);
@@ -50,13 +31,12 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
             done();
           }
           );
-
         }).not.toThrow();
       });
       it("getsord", function (done) {
         expect(function () {
-          test.Utils.getSord(objCopyRepoUtilsId).then(function success(copyRepoUtilsSord1) {
-            copyRepoUtilsSord = copyRepoUtilsSord1;
+          test.Utils.getSord(objSordUtilsId).then(function success(SordUtilsSord1) {
+            SordUtilsSord = SordUtilsSord1;
             done();
           }, function error(err) {
             fail(err);
@@ -64,12 +44,22 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
             done();
           }
           );
-
         }).not.toThrow();
       });
-*/
-// TODO CopySord
-
+      it("set UNITTEST_FIELD1 to numeric value", function (done) {
+        expect(function () {
+          test.Utils.updateKeywording(SordUtilsSord, {
+            UNITTEST_FIELD1: 5
+          }, true).then(function success(updateKeywordingResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("addRights", function (done) {
         expect(function () {
           sord = SordUtilsSord;
@@ -145,11 +135,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-
-      xit("decObjKeyValue", function (done) {
+      it("decObjKeyValue", function (done) {
         expect(function () {
-          sord = PVALUE;
-          keyName = PVALUE;
+          sord = SordUtilsSord;
+          keyName = "UNITTEST_FIELD1";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
@@ -165,15 +154,16 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("docMaskExists", function (done) {
+      it("docMaskExists", function (done) {
         expect(function () {
-          maskName = PVALUE;
+          maskName = "UnitTest";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
             method: "docMaskExists",
             params: [maskName]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual(true);
             done();
           }, function error(err) {
             fail(err);
@@ -183,9 +173,9 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getDecimalSeparatorForIx", function (done) {
+      it("getDecimalSeparatorForIx", function (done) {
         expect(function () {
-          conn = PVALUE;
+          conn = "ixConnect";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
@@ -201,10 +191,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getDecimalSeparatorForLanguage", function (done) {
+      it("getDecimalSeparatorForLanguage", function (done) {
         expect(function () {
-          language = PVALUE;
-          country = PVALUE;
+          language = "en";
+          country = "";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
@@ -220,10 +210,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getDisplayRepoPath", function (done) {
+      it("getDisplayRepoPath", function (done) {
         expect(function () {
-          sord = PVALUE;
-          params = PVALUE;
+          sord = SordUtilsSord;
+          params = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
@@ -239,10 +229,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getDocMask", function (done) {
+      it("getDocMask", function (done) {
         expect(function () {
-          name = PVALUE;
-          language = PVALUE;
+          name = "UnitTest";
+          language = "de";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
@@ -258,9 +248,9 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getDocMaskGuid", function (done) {
+      it("getDocMaskGuid", function (done) {
         expect(function () {
-          name = PVALUE;
+          name = "UnitTest";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
@@ -276,16 +266,17 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getDocMaskLine", function (done) {
+      it("getDocMaskLine", function (done) {
         expect(function () {
-          maskName = PVALUE;
-          fieldName = PVALUE;
+          maskName = "UnitTest";
+          fieldName = "UNITTEST_FIELD1";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
             method: "getDocMaskLine",
             params: [maskName, fieldName]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("[UNITTEST_FIELD1, type=TYPE_TEXT]");
             done();
           }, function error(err) {
             fail(err);
@@ -295,9 +286,9 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getDocMaskNames", function (done) {
+      it("getDocMaskNames", function (done) {
         expect(function () {
-          params = PVALUE;
+          params = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
@@ -313,11 +304,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getDynamicKeywordlistValue", function (done) {
+      it("getDynamicKeywordlistValue", function (done) {
         expect(function () {
-          maskName = PVALUE;
-          key = PVALUE;
-          params = PVALUE;
+          maskName = "UnitTest";
+          key = "UNITTEST_STATUS3";
+          params = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
@@ -333,10 +324,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getEsw", function (done) {
+      it("getEsw", function (done) {
         expect(function () {
-          objId = PVALUE;
-          params = PVALUE;
+          objId = SordUtilsSord.id;
+          params = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
@@ -352,15 +343,16 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getFieldNameIndex", function (done) {
+      it("getFieldNameIndex", function (done) {
         expect(function () {
-          fieldName = PVALUE;
+          fieldName = "UNITTEST_FIELD1";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
             method: "getFieldNameIndex",
             params: [fieldName]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual(1);
             done();
           }, function error(err) {
             fail(err);
@@ -370,9 +362,9 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getLinks", function (done) {
+      it("getLinks", function (done) {
         expect(function () {
-          sord = PVALUE;
+          sord = SordUtilsSord;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
@@ -388,10 +380,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getLocalizedKwlEntry", function (done) {
+      it("getLocalizedKwlEntry", function (done) {
         expect(function () {
-          key = PVALUE;
-          config = PVALUE;
+          key = "UNITTEST_STATUS3";
+          config = { localizedKwlScript: "sol.dev.ix.dynkwl.FindUnitTestIterator" };
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
@@ -407,11 +399,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getLocalizedKwlKey", function (done) {
+      it("getLocalizedKwlKey", function (done) {
         expect(function () {
-          sord = PVALUE;
-          fieldDef = PVALUE;
-          config = PVALUE;
+          sord = SordUtilsSord;
+          fieldDef = { key: "UNITTEST_STATUS3", type: "GRP" };
+          config = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
@@ -427,10 +419,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getObjKey", function (done) {
+      it("getObjKey", function (done) {
         expect(function () {
-          sord = PVALUE;
-          keyName = PVALUE;
+          sord = SordUtilsSord;
+          keyName = "UNITTEST_FIELD1";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
@@ -446,10 +438,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getObjKeyValue", function (done) {
+      it("getObjKeyValue", function (done) {
         expect(function () {
-          sord = PVALUE;
-          keyName = PVALUE;
+          sord = SordUtilsSord;
+          keyName = "UNITTEST_FIELD1";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
@@ -465,11 +457,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getObjKeyValueAsNumber", function (done) {
+      it("getObjKeyValueAsNumber", function (done) {
         expect(function () {
-          sord = PVALUE;
-          keyName = PVALUE;
-          params = PVALUE;
+          sord = SordUtilsSord;
+          keyName = "UNITTEST_FIELD1";
+          params = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
@@ -485,10 +477,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getObjKeyValues", function (done) {
+      it("getObjKeyValues", function (done) {
         expect(function () {
-          sord = PVALUE;
-          keyName = PVALUE;
+          sord = SordUtilsSord;
+          keyName = "UNITTEST_FIELD1";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
@@ -504,9 +496,9 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getStatisticSord", function (done) {
+      it("getStatisticSord", function (done) {
         expect(function () {
-          sord = PVALUE;
+          sord = SordUtilsSord;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
@@ -522,9 +514,9 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getTemplateSord", function (done) {
+      it("getTemplateSord", function (done) {
         expect(function () {
-          sord = PVALUE;
+          sord = SordUtilsSord;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
@@ -540,9 +532,9 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getTimeZoneOffset", function (done) {
+      it("getTimeZoneOffset", function (done) {
         expect(function () {
-          timeZoneString = PVALUE;
+          timeZoneString = "Europe/Berlin";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
@@ -558,10 +550,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getValue", function (done) {
+      it("getValue", function (done) {
         expect(function () {
-          sord = PVALUE;
-          params = PVALUE;
+          sord = SordUtilsSord;
+          params = { key: "UNITTEST_FIELD1", type: "GRP" };
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
@@ -577,10 +569,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getValues", function (done) {
+      it("getValues", function (done) {
         expect(function () {
-          sord = PVALUE;
-          params = PVALUE;
+          sord = SordUtilsSord;
+          params = { key: "UNITTEST_FIELD1", type: "GRP" };
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
@@ -596,10 +588,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("hasDocMask", function (done) {
+      it("hasDocMask", function (done) {
         expect(function () {
-          sord = PVALUE;
-          maskName = PVALUE;
+          sord = SordUtilsSord;
+          maskName = "UnitTest";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
@@ -615,10 +607,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("incObjKeyValue", function (done) {
+      it("incObjKeyValue", function (done) {
         expect(function () {
-          sord = PVALUE;
-          keyName = PVALUE;
+          sord = SordUtilsSord;
+          keyName = "UNITTEST_FIELD1";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
@@ -634,9 +626,9 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("initialize", function (done) {
+      it("initialize", function (done) {
         expect(function () {
-          config = PVALUE;
+          config = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
@@ -652,9 +644,9 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("isDocument", function (done) {
+      it("isDocument", function (done) {
         expect(function () {
-          sord = PVALUE;
+          sord = SordUtilsSord;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
@@ -670,9 +662,9 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("isDynamicFolder", function (done) {
+      it("isDynamicFolder", function (done) {
         expect(function () {
-          sord = PVALUE;
+          sord = SordUtilsSord;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
@@ -688,9 +680,9 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("isFolder", function (done) {
+      it("isFolder", function (done) {
         expect(function () {
-          sord = PVALUE;
+          sord = SordUtilsSord;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
@@ -706,9 +698,9 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("isIndexdataLoaded", function (done) {
+      it("isIndexdataLoaded", function (done) {
         expect(function () {
-          sord = PVALUE;
+          sord = SordUtilsSord;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
@@ -724,9 +716,9 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("isSord", function (done) {
+      it("isSord", function (done) {
         expect(function () {
-          sord = PVALUE;
+          sord = SordUtilsSord;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
@@ -742,15 +734,16 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("isValidNumberFormat", function (done) {
+      it("isValidNumberFormat", function (done) {
         expect(function () {
-          numberString = PVALUE;
+          numberString = "12345";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
             method: "isValidNumberFormat",
             params: [numberString]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual(true);
             done();
           }, function error(err) {
             fail(err);
@@ -760,11 +753,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("normalizeNumber", function (done) {
+      it("normalizeNumber", function (done) {
         expect(function () {
-          value = PVALUE;
-          language = PVALUE;
-          conn = PVALUE;
+          value = "123,45";
+          language = "en";
+          conn = "ixConnect";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
@@ -780,10 +773,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("nowIsoForConnection", function (done) {
+      it("nowIsoForConnection", function (done) {
         expect(function () {
-          conn = PVALUE;
-          params = PVALUE;
+          conn = "ixConnect";
+          params = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
@@ -799,10 +792,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("objKeyExists", function (done) {
+      it("objKeyExists", function (done) {
         expect(function () {
-          sord = PVALUE;
-          keyName = PVALUE;
+          sord = SordUtilsSord;
+          keyName = "UNITTEST_FIELD1";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
@@ -818,12 +811,12 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("setObjKeyValue", function (done) {
+      it("setObjKeyValue", function (done) {
         expect(function () {
-          sord = PVALUE;
-          keyName = PVALUE;
-          value = PVALUE;
-          params = PVALUE;
+          sord = SordUtilsSord;
+          keyName = "UNITTEST_FIELD1";
+          value = 5;
+          params = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
@@ -839,12 +832,12 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("setObjKeyValueAsNumber", function (done) {
+      it("setObjKeyValueAsNumber", function (done) {
         expect(function () {
-          sord = PVALUE;
-          keyName = PVALUE;
-          value = PVALUE;
-          params = PVALUE;
+          sord = SordUtilsSord;
+          keyName = "UNITTEST_FIELD1";
+          value = 5;
+          params = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
@@ -860,12 +853,12 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("setObjKeyValues", function (done) {
+      it("setObjKeyValues", function (done) {
         expect(function () {
-          sord = PVALUE;
-          keyName = PVALUE;
-          values = PVALUE;
-          params = PVALUE;
+          sord = SordUtilsSord;
+          keyName = "UNITTEST_FIELD1";
+          values = [5, 6, 7];
+          params = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
@@ -881,10 +874,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("updateKeywording", function (done) {
+      it("updateKeywording", function (done) {
         expect(function () {
-          sord = PVALUE;
-          indexData = PVALUE;
+          sord = SordUtilsSord;
+          indexData = { UNITTEST_FIELD1: 5 };
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},
@@ -900,11 +893,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("updateSord", function (done) {
+      it("updateSord", function (done) {
         expect(function () {
-          sord = PVALUE;
-          data = PVALUE;
-          params = PVALUE;
+          sord = SordUtilsSord;
+          data = [{ key: "UNITTEST_FIELD1", type: "GRP", value: 5 }, { key: "name", type: "SORD", value: "SordUtilsName" }];
+          params = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.SordUtils",
             classConfig: {},

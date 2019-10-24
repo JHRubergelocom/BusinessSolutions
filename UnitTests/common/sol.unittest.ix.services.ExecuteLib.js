@@ -14,6 +14,7 @@ importPackage(Packages.org.apache.commons.io);
 //@include lib_sol.common.AclUtils.js
 //@include lib_sol.common.AsUtils.js
 //@include lib_sol.common.AsyncUtils.js
+//@include lib_sol.common.DateUtils.js
 //@include lib_sol.common.ExceptionUtils.js
 //@include lib_sol.common.ExecUtils.js
 //@include lib_sol.common.FileUtils.js
@@ -72,6 +73,7 @@ var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.Execute
  * @requires  sol.common.AclUtils
  * @requires  sol.common.AsUtils
  * @requires  sol.common.AsyncUtils
+ * @requires  sol.common.DateUtils
  * @requires  sol.common.ExceptionUtils
  * @requires  sol.common.ExecUtils
  * @requires  sol.common.FileUtils
@@ -415,6 +417,13 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
         switch (me.method) {
           case "changeMask":
             return result;
+          case "getDecimalSeparatorForIx":
+          case "nowIsoForConnection":
+            me.params[0] = ixConnect;
+            break;
+          case "normalizeNumber":
+            me.params[2] = ixConnect;
+            break;
           default:
         }
         break;
