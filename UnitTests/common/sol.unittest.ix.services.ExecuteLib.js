@@ -427,6 +427,18 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
           default:
         }
         break;
+      case "sol.common.UserUtils":
+        switch (me.method) {
+          case "getUserIdFromTicket":
+          case "getUserInfoFromTicket":
+            me.params[0] = ixConnectAdmin.loginResult.clientInfo.ticket;
+            return result;
+          case "isMainAdminTicket":
+            me.params[0] = ixConnectAdmin.loginResult.clientInfo.ticket;
+            break;
+          default:
+        }
+        break;
       default:
     }
 
