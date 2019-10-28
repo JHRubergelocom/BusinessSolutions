@@ -12,7 +12,7 @@ describe("[service] sol.notify.ix.services.User", function () {
         expect(function () {
           test.Utils.execute("RF_sol_notify_service_GetUsers", {
           }).then(function success(result) {
-            expect(result.length).toBeDefined();
+            expect(result.data.length).toBeDefined();
             done();
           }, function error(err) {
             fail(err);

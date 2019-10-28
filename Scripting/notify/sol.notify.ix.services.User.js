@@ -50,7 +50,7 @@ sol.define("sol.notify.ix.services.User", {
       });
     }
 
-    return result;
+    return { data: result };
   }
 
 });
