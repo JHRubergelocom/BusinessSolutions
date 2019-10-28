@@ -1119,6 +1119,53 @@ sol.define("sol.common.WfUtils", {
   },
 
   /**
+   * Sets node escalations
+   * @param {de.elo.ix.client.WFNode} node The node to be changed
+   * @param {Array} nodeEscalations Node escalations
+   * @param {Object} nodeEscalations[].user Node escalation user
+   * @param {String} nodeEscalations[].user.value Node escalation user name
+   * @param {Number} nodeEscalations[].timeLimitMinutes Node escalation minutes
+   * Example:
+   *     [
+   *       { "timeLimitMinutes": 1, "user": { "value": "User1" } }
+   *     ]
+   * @param {String} defaultUserName Default user name
+   *
+   */
+  setNodeEscalations: function (node, nodeEscalations, defaultUserName) {
+    var me = this,
+        i, nodeEscalation, userName;
+
+    nodeEscalations = nodeEscalations || [];
+
+    if (!node) {
+      throw "Node is empty";
+    }
+
+    if (!nodeEscalations || !nodeEscalations.length) {
+      return;
+    }
+
+    for (i = 0; i < 2; i++) {
+      nodeEscalation = nodeEscalations[i];
+      if (!nodeEscalation) {
+        continue;
+      }
+
+      userName = (typeof nodeEscalation.user != "undefined") ? nodeEscalation.user.value : defaultUserName;
+
+      node.timeLimitEscalations[i].userId = -1;
+      node.timeLimitEscalations[i].userName = userName;
+
+      if (typeof nodeEscalation.timeLimitMinutes != "undefined") {
+        node.timeLimitEscalations[i].timeLimit = nodeEscalation.timeLimitMinutes;
+      }
+
+      me.logger.debug(["Set escalation {0}: node.name={1}, userName={2}", i + "", node.name + "", nodeEscalation.userName + ""]);
+    }
+  },
+
+  /**
    * Changes the name of a node.
    * @param {de.elo.ix.client.WFNode} node The node to be changed
    * @param {String} name The new node name
