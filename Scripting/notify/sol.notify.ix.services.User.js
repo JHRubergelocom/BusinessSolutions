@@ -34,14 +34,23 @@ sol.define("sol.notify.ix.services.User", {
    * @return {de.elo.ix.client.UserName[]}
    */
   getUsers: function () {
-    var userNames, currentUser;
+    var userNames, currentUser, result;
 
     userNames = [];
     currentUser = sol.common.UserUtils.getCurrentUserInfo();
     if (sol.common.UserUtils.isMainAdmin(currentUser)) {
       userNames = sol.common.UserUtils.getUserNames();
     }
-    return userNames;
+    result = [];
+    if (userNames.length > 0) {
+      userNames.forEach(function (userName) {
+        if (userName.type == UserInfoC.TYPE_USER) {
+          result.push({ name: userName.name, id: userName.id, guid: userName.guid });
+        }
+      });
+    }
+
+    return result;
   }
 
 });
