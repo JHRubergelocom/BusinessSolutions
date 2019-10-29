@@ -122,7 +122,7 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
         file, dir, path, fileData, cls, func,
         i, bytes, byte, string, strings, sordMap,
         findInfo, findChildren, findByType, findDirect,
-        fileData1, fileData2, fileData3;
+        fileData1, fileData2, fileData3, wf1, wf2, wfNode;
 
     switch (me.className) {
       case "sol.common.MapTable":
@@ -439,6 +439,25 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
           default:
         }
         break;
+      case "sol.common.WfUtils":
+        switch (me.method) {
+          case "addWorkflowTemplateVersions":
+            wf1 = ixConnect.ix().createWorkFlow(me.params[0], WFTypeC.TEMPLATE);
+            wfNode = ixConnect.ix().createWFNode(0, WFNodeC.TYPE_BEGINNODE);
+            wfNode.name = "Start node";
+            wf1.nodes = [wfNode];
+            wf1.id = ixConnect.ix().checkinWorkFlow(wf1, WFDiagramC.mbAll, LockC.NO);
+            me.params[0] = wf1;
+            wf2 = ixConnect.ix().createWorkFlow(me.params[1], WFTypeC.TEMPLATE);
+            wfNode = ixConnect.ix().createWFNode(0, WFNodeC.TYPE_BEGINNODE);
+            wfNode.name = "Start node";
+            wf2.nodes = [wfNode];
+            wf2.id = ixConnect.ix().checkinWorkFlow(wf2, WFDiagramC.mbAll, LockC.NO);
+            me.params[1] = wf2;
+            break;
+          default:
+        }
+        break;
       default:
     }
 
@@ -483,6 +502,15 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
             break;
           default:
         }
+      case "sol.common.WfUtils":
+        switch (me.method) {
+          case "addWorkflowTemplateVersions":
+            ixConnect.ix().deleteWorkflowTemplate(wf1.id, 0, LockC.NO);
+            ixConnect.ix().deleteWorkflowTemplate(wf2.id, 0, LockC.NO);
+            break;
+          default:
+        }
+        break;
       default:
     }
     return result;

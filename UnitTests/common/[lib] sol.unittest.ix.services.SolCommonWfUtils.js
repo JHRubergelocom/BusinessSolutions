@@ -59,13 +59,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
           );
         }).not.toThrow();
       });
-// TODO get getWorkflow  "UnittestTemplate1WF", "UnittestTemplate2WF"
-
-// TODO get getWorkflow  "UnittestTemplate1WF", "UnittestTemplate2WF"
-      xit("addWorkflowTemplateVersions", function (done) {
+      it("addWorkflowTemplateVersions", function (done) {
         expect(function () {
-          mergeWorkflowTemplate = PVALUE;
-          originWorkflowTemplate = PVALUE;
+          mergeWorkflowTemplate = "UnittestTemplate1WF";
+          originWorkflowTemplate = "UnittestTemplate2WF";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.WfUtils",
             classConfig: {},
