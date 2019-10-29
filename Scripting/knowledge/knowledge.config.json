@@ -6,6 +6,8 @@
     "knowledgeEditedBy": "KNOWLEDGE_LAST_EDITED_BY",
     "knowledgeSpaceReferenceGen": "KNOWLEDGE_SPACE_REFERENCE_GEN",
     "knowledgeSpaceReference": "KNOWLEDGE_SPACE_REFERENCE",
+    "knowledgeBoardReferenceGen": "KNOWLEDGE_BOARD_REFERENCE_GEN",
+    "knowledgeBoardReference": "KNOWLEDGE_BOARD_REFERENCE",
     "knowledgePostReferenceGen": "KNOWLEDGE_POST_REFERENCE_GEN",
     "knowledgePostReference": "KNOWLEDGE_POST_REFERENCE",
     "knowledgePostSubject": "KNOWLEDGE_POST_SUBJECT",
@@ -69,7 +71,8 @@
         "KNOWLEDGE_SPACE_REFERENCE",
         "KNOWLEDGE_LANGUAGE",
         "KNOWLEDGE_POST_TYPE",
-        "KNOWLEDGE_CONTENT_TYPE"
+        "KNOWLEDGE_CONTENT_TYPE",
+        "KNOWLEDGE_BOARD_REFERENCE"
       ],
       "stopWordDefaultListRepoPath": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/knowledge/Configuration/Stop words/Stop words"
     }
@@ -87,7 +90,8 @@
     "templateFolderIds": {
       "postReference": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/knowledge/Configuration/Generators/Reference IDs/Post",
       "replyReference": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/knowledge/Configuration/Generators/Reference IDs/Reply",
-      "spaceReference": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/knowledge/Configuration/Generators/Reference IDs/Space"
+      "spaceReference": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/knowledge/Configuration/Generators/Reference IDs/Space",
+      "boardReference": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/knowledge/Configuration/Generators/Reference IDs/Board"
     }
   },
   "workflows": {
@@ -289,19 +293,5 @@
   },
   "cleanupImages": {
     "threshold": 5
-  },
-  "boards": [
-    {
-        "name": "ELO Community",
-        "reference": "KBDB001",
-        "boardDefaultPostType": "Question",
-        "postTypes": ["Question", "Idea", "Article"]
-    },
-    {
-        "name": "ELO Learning",
-        "reference": "KBDB002",
-        "boardDefaultPostType": "Question",
-        "postTypes": ["Question", "Article"]
-    }
-  ]
+  }
 }
