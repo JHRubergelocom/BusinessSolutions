@@ -6,13 +6,14 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
       config, workflowTemplateName, findWorkflowInfo, checkoutOptions, ixConn, currentNodeId,
       destinationNodeIds, filter, wfCollectNode, nodeId, filterConfig, filterType, sord, options,
       nodes, key, workflowJson, iconName, template, workflowName, oldName, newName, startDocMaskWorkflows,
-      values, status, templFlowId;
+      values, status, templFlowId, node, obSolCommonWfUtilsId, workflow, succNodes, succNodesIds;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
-      test.Utils.createTempSord("SolCommonWfUtils").then(function success(obSolCommonWfUtilsId) {
+      test.Utils.createTempSord("SolCommonWfUtils").then(function success(obSolCommonWfUtilsId1) {
+        obSolCommonWfUtilsId = obSolCommonWfUtilsId1;
         test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/WfUtils").then(function success1(WfUtilsSord1) {
           WfUtilsSord = WfUtilsSord1;
           userName = test.Utils.getCurrentUserName();
@@ -78,16 +79,17 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("appendCycleNumber", function (done) {
+      it("appendCycleNumber", function (done) {
         expect(function () {
-          nodeName = PVALUE;
-          cycleNo = PVALUE;
+          nodeName = "Node1";
+          cycleNo = 99;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.WfUtils",
             classConfig: {},
             method: "appendCycleNumber",
             params: [nodeName, cycleNo]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("Node1 [[99]]");
             done();
           }, function error(err) {
             fail(err);
@@ -97,11 +99,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("appendNodeComment", function (done) {
+      it("appendNodeComment", function (done) {
         expect(function () {
-          node = PVALUE;
-          comment = PVALUE;
-          override = PVALUE;
+          node = {};
+          comment = "Comment1";
+          override = true;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.WfUtils",
             classConfig: {},
@@ -117,10 +119,23 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("cancelWorkflow", function (done) {
+      it("start Workflow Unittest", function (done) {
         expect(function () {
-          flowId = PVALUE;
-          force = PVALUE;
+          test.Utils.startWorkflow("Unittest", "Workflow Unittest", obSolCommonWfUtilsId).then(function success(flowId1) {
+            flowId = flowId1;
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("cancelWorkflow", function (done) {
+        expect(function () {
+          flowId = flowId;
+          force = true;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.WfUtils",
             classConfig: {},
@@ -136,10 +151,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("changeNodeName", function (done) {
+      it("changeNodeName", function (done) {
         expect(function () {
-          node = PVALUE;
-          name = PVALUE;
+          node = {};
+          name = "Name1";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.WfUtils",
             classConfig: {},
@@ -155,11 +170,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("changeNodeUser", function (done) {
+      it("changeNodeUser", function (done) {
         expect(function () {
-          node = PVALUE;
-          user = PVALUE;
-          params = PVALUE;
+          node = {};
+          user = "Administrator";
+          params = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.WfUtils",
             classConfig: {},
@@ -175,10 +190,23 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("changeWorkflowPriority", function (done) {
+      it("start Workflow Unittest", function (done) {
         expect(function () {
-          flowId = PVALUE;
-          prio = PVALUE;
+          test.Utils.startWorkflow("Unittest", "Workflow Unittest", obSolCommonWfUtilsId).then(function success(flowId1) {
+            flowId = flowId1;
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("changeWorkflowPriority", function (done) {
+        expect(function () {
+          flowId = flowId;
+          prio = 0;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.WfUtils",
             classConfig: {},
@@ -194,9 +222,63 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("checkMainAdminWf", function (done) {
+      it("cancelWorkflow", function (done) {
         expect(function () {
-          wfDiagram = PVALUE;
+          flowId = flowId;
+          force = true;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.WfUtils",
+            classConfig: {},
+            method: "cancelWorkflow",
+            params: [flowId, force]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("start Workflow Unittest", function (done) {
+        expect(function () {
+          test.Utils.startWorkflow("Unittest", "Workflow Unittest", obSolCommonWfUtilsId).then(function success(flowId1) {
+            flowId = flowId1;
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("finish Workflow Unittest", function (done) {
+        expect(function () {
+          test.Utils.getWorkflow(flowId).then(function success1(workflow1) {
+            workflow = workflow1;
+            succNodes = test.Utils.getSuccessorNodes(workflow, "1", null, "node 2");
+            succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
+            test.Utils.forwardWorkflowTask(flowId, "1", succNodesIds, "Unittest finish input").then(function success2(forwardWorkflowTaskResult) {
+              done();
+            }, function error(err) {
+              fail(err);
+              console.error(err);
+              done();
+            }
+            );
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("checkMainAdminWf", function (done) {
+        expect(function () {
+          wfDiagram = workflow;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.WfUtils",
             classConfig: {},
@@ -212,7 +294,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("checkWfIsRunning", function (done) {
+      it("checkWfIsRunning", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.WfUtils",
@@ -229,10 +311,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("createReminder", function (done) {
+      it("createReminder", function (done) {
         expect(function () {
-          objId = PVALUE;
-          params = PVALUE;
+          objId = obSolCommonWfUtilsId;
+          params = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.WfUtils",
             classConfig: {},
@@ -248,9 +330,9 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("createServiceWfName", function (done) {
+      it("createServiceWfName", function (done) {
         expect(function () {
-          wfName = PVALUE;
+          wfName = "Workflow Unittest";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.WfUtils",
             classConfig: {},
@@ -266,9 +348,9 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("deleteWorkflowTemplate", function (done) {
+      it("deleteWorkflowTemplate", function (done) {
         expect(function () {
-          workflowTemplateId = PVALUE;
+          workflowTemplateId = "UnittestTemplateWF";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.WfUtils",
             classConfig: {},
@@ -284,11 +366,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("exportWorkflow", function (done) {
+      it("exportWorkflow", function (done) {
         expect(function () {
-          workflowId = PVALUE;
-          file = PVALUE;
-          config = PVALUE;
+          workflowId = "Unittest";
+          file = "File1";
+          config = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.WfUtils",
             classConfig: {},
@@ -304,11 +386,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("exportWorkflowTemplate", function (done) {
+      it("exportWorkflowTemplate", function (done) {
         expect(function () {
-          workflowTemplateName = PVALUE;
-          file = PVALUE;
-          config = PVALUE;
+          workflowTemplateName = "Unittest";
+          file = "File1";
+          config = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.WfUtils",
             classConfig: {},
@@ -326,7 +408,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
       });
       xit("findFirstActiveNode", function (done) {
         expect(function () {
-          objId = PVALUE;
+          objId = obSolCommonWfUtilsId;
           flowId = PVALUE;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.WfUtils",
@@ -345,7 +427,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
       });
       xit("findFirstActiveNodeWithUrl", function (done) {
         expect(function () {
-          objId = PVALUE;
+          objId = obSolCommonWfUtilsId;
           flowId = PVALUE;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.WfUtils",
@@ -440,7 +522,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
       });
       xit("getActiveWorkflows", function (done) {
         expect(function () {
-          objId = PVALUE;
+          objId = obSolCommonWfUtilsId;
           filter = PVALUE;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.WfUtils",
@@ -477,7 +559,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
       });
       xit("getFormName", function (done) {
         expect(function () {
-          wfCollectNode = PVALUE;
+          wfCollectnode = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.WfUtils",
             classConfig: {},
@@ -495,7 +577,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
       });
       xit("getFormUrl", function (done) {
         expect(function () {
-          wfCollectNode = PVALUE;
+          wfCollectnode = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.WfUtils",
             classConfig: {},
@@ -513,7 +595,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
       });
       xit("getLastActiveWorkflow", function (done) {
         expect(function () {
-          objId = PVALUE;
+          objId = obSolCommonWfUtilsId;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.WfUtils",
             classConfig: {},
@@ -626,9 +708,9 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
       });
       xit("getNodeUser", function (done) {
         expect(function () {
-          wfDiagram = PVALUE;
+          wfDiagram = workflow;
           nodeId = PVALUE;
-          config = PVALUE;
+          config = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.WfUtils",
             classConfig: {},
@@ -665,7 +747,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
         expect(function () {
           workflow = PVALUE;
           nodeId = PVALUE;
-          filterConfig = PVALUE;
+          filterconfig = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.WfUtils",
             classConfig: {},
@@ -705,7 +787,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
         expect(function () {
           workflow = PVALUE;
           nodeId = PVALUE;
-          filterConfig = PVALUE;
+          filterconfig = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.WfUtils",
             classConfig: {},
@@ -761,7 +843,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
       });
       xit("getTemplateWfDiagramNode", function (done) {
         expect(function () {
-          wfDiagram = PVALUE;
+          wfDiagram = workflow;
           nodeId = PVALUE;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.WfUtils",
@@ -780,7 +862,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
       });
       xit("getTemplates", function (done) {
         expect(function () {
-          params = PVALUE;
+          params = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.WfUtils",
             classConfig: {},
@@ -871,7 +953,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
       xit("getWorkflow", function (done) {
         expect(function () {
           flowId = PVALUE;
-          params = PVALUE;
+          params = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.WfUtils",
             classConfig: {},
@@ -890,7 +972,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
       xit("getWorkflowAsJson", function (done) {
         expect(function () {
           flowId = PVALUE;
-          config = PVALUE;
+          config = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.WfUtils",
             classConfig: {},
@@ -998,7 +1080,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
       });
       xit("hasActiveWorkflow", function (done) {
         expect(function () {
-          objId = PVALUE;
+          objId = obSolCommonWfUtilsId;
           template = PVALUE;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.WfUtils",
@@ -1019,7 +1101,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
         expect(function () {
           workflowName = PVALUE;
           file = PVALUE;
-          params = PVALUE;
+          params = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.WfUtils",
             classConfig: {},
@@ -1037,7 +1119,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
       });
       xit("isServiceWf", function (done) {
         expect(function () {
-          wfDiagram = PVALUE;
+          wfDiagram = workflow;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.WfUtils",
             classConfig: {},
@@ -1073,7 +1155,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
       xit("mergeWorkflowTemplate", function (done) {
         expect(function () {
           workflowTemplateName = PVALUE;
-          params = PVALUE;
+          params = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.WfUtils",
             classConfig: {},
@@ -1182,7 +1264,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
       });
       xit("setWfMapValue", function (done) {
         expect(function () {
-          objId = PVALUE;
+          objId = obSolCommonWfUtilsId;
           flowId = PVALUE;
           key = PVALUE;
           values = PVALUE;
@@ -1203,7 +1285,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
       });
       xit("setWorkflowStatus", function (done) {
         expect(function () {
-          wfDiagram = PVALUE;
+          wfDiagram = workflow;
           status = PVALUE;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.WfUtils",
@@ -1222,8 +1304,8 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
       });
       xit("startMaskStandardWorkflow", function (done) {
         expect(function () {
-          objId = PVALUE;
-          params = PVALUE;
+          objId = obSolCommonWfUtilsId;
+          params = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.WfUtils",
             classConfig: {},
@@ -1243,7 +1325,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
         expect(function () {
           templFlowId = PVALUE;
           flowName = PVALUE;
-          objId = PVALUE;
+          objId = obSolCommonWfUtilsId;
           prio = PVALUE;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.WfUtils",

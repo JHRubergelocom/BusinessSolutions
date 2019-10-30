@@ -113,6 +113,22 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
   },
 
   /**
+   * Create workflow template
+   * @param {String} wfName
+   * @return {de.elo.ix.client.WFDiagram} workflow template
+   */
+  createWorkflowTemplate: function (wfName) {
+    var wfTemplate, wfNode;
+
+    wfTemplate = ixConnect.ix().createWorkFlow(wfName, WFTypeC.TEMPLATE);
+    wfNode = ixConnect.ix().createWFNode(0, WFNodeC.TYPE_BEGINNODE);
+    wfNode.name = "Start node";
+    wfTemplate.nodes = [wfNode];
+    wfTemplate.id = ixConnect.ix().checkinWorkFlow(wfTemplate, WFDiagramC.mbAll, LockC.NO);
+    return wfTemplate;
+  },
+
+  /**
    * Call the method and returns the result
    * @return {String|Object} result of method
    */
@@ -122,7 +138,7 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
         file, dir, path, fileData, cls, func,
         i, bytes, byte, string, strings, sordMap,
         findInfo, findChildren, findByType, findDirect,
-        fileData1, fileData2, fileData3, wf1, wf2, wfNode;
+        fileData1, fileData2, fileData3, wf1, wf2;
 
     switch (me.className) {
       case "sol.common.MapTable":
@@ -442,18 +458,19 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
       case "sol.common.WfUtils":
         switch (me.method) {
           case "addWorkflowTemplateVersions":
-            wf1 = ixConnect.ix().createWorkFlow(me.params[0], WFTypeC.TEMPLATE);
-            wfNode = ixConnect.ix().createWFNode(0, WFNodeC.TYPE_BEGINNODE);
-            wfNode.name = "Start node";
-            wf1.nodes = [wfNode];
-            wf1.id = ixConnect.ix().checkinWorkFlow(wf1, WFDiagramC.mbAll, LockC.NO);
+            wf1 = me.createWorkflowTemplate(me.params[0]);
             me.params[0] = wf1;
-            wf2 = ixConnect.ix().createWorkFlow(me.params[1], WFTypeC.TEMPLATE);
-            wfNode = ixConnect.ix().createWFNode(0, WFNodeC.TYPE_BEGINNODE);
-            wfNode.name = "Start node";
-            wf2.nodes = [wfNode];
-            wf2.id = ixConnect.ix().checkinWorkFlow(wf2, WFDiagramC.mbAll, LockC.NO);
+            wf2 = me.createWorkflowTemplate(me.params[1]);
             me.params[1] = wf2;
+            break;
+          case "deleteWorkflowTemplate":
+            wf1 = me.createWorkflowTemplate(me.params[0]);
+            me.params[0] = wf1.id;
+            break;
+          case "exportWorkflow":
+          case "exportWorkflowTemplate":
+            new File(me.params[1]).createNewFile();
+            me.params[1] = new File(me.params[1]);
             break;
           default:
         }
@@ -507,6 +524,14 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
           case "addWorkflowTemplateVersions":
             ixConnect.ix().deleteWorkflowTemplate(wf1.id, 0, LockC.NO);
             ixConnect.ix().deleteWorkflowTemplate(wf2.id, 0, LockC.NO);
+            break;
+          case "createReminder":
+            strings = [];
+            for (i = 0; i < result.length; i++) {
+              string = String(result[i]);
+              strings.push(string);
+            }
+            result = strings;
             break;
           default:
         }
