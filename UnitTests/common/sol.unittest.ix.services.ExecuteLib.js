@@ -138,7 +138,8 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
         file, dir, path, fileData, cls, func,
         i, bytes, byte, string, strings, sordMap,
         findInfo, findChildren, findByType, findDirect,
-        fileData1, fileData2, fileData3, wf1, wf2;
+        fileData1, fileData2, fileData3, wf1, wf2,
+        wfFindInfo;
 
     switch (me.className) {
       case "sol.common.MapTable":
@@ -472,6 +473,19 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
             new File(me.params[1]).createNewFile();
             me.params[1] = new File(me.params[1]);
             break;
+          case "findWorkflows":
+            wfFindInfo = new FindWorkflowInfo();
+            wfFindInfo.type = WFTypeC.TEMPLATE;
+            me.params[0] = wfFindInfo;
+            break;
+          case "getFormName":
+          case "getFormUrl":
+            me.params[0] = cls.findFirstActiveNode(me.classConfig.objId, me.classConfig.flowId);
+            break;
+          case "getNextWorkflowVersionNo":
+            wf1 = me.createWorkflowTemplate(me.params[0]);
+            me.params[0] = wf1;
+            break;
           default:
         }
         break;
@@ -530,8 +544,12 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
             for (i = 0; i < result.length; i++) {
               string = String(result[i]);
               strings.push(string);
+              ixConnect.ix().deleteReminders([result[i]], LockC.YES);
             }
             result = strings;
+            break;
+          case "getNextWorkflowVersionNo":
+            ixConnect.ix().deleteWorkflowTemplate(wf1.id, 0, LockC.NO);
             break;
           default:
         }
