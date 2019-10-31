@@ -486,6 +486,11 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
             wf1 = me.createWorkflowTemplate(me.params[0]);
             me.params[0] = wf1;
             break;
+          case "importWorkflow":
+            new File(me.params[1]).createNewFile();
+            me.params[1] = new File(me.params[1]);
+            cls.exportWorkflow(me.classConfig.workflowId, me.params[1]);
+            break;
           default:
         }
         break;
@@ -550,6 +555,9 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
             break;
           case "getNextWorkflowVersionNo":
             ixConnect.ix().deleteWorkflowTemplate(wf1.id, 0, LockC.NO);
+            break;
+          case "importWorkflow":
+            ixConnect.ix().deleteWorkflowTemplate(result, 0, LockC.NO);
             break;
           default:
         }
