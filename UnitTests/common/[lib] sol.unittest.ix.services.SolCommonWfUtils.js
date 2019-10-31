@@ -1,6 +1,6 @@
 
 describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
-  var WfUtilsSord, userName, userInfo, originalTimeout, assocs, mergeWorkflowTemplate,
+  var WfUtilsSord, originalTimeout, assocs, mergeWorkflowTemplate,
       originWorkflowTemplate, nodeName, cycleNo, comment, override, flowId, force, name,
       user, params, prio, wfDiagram, objId, wfName, workflowTemplateId, workflowId, file,
       config, workflowTemplateName, findWorkflowInfo, checkoutOptions, ixConn, currentNodeId,
@@ -17,16 +17,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
         obSolCommonWfUtilsId = obSolCommonWfUtilsId1;
         test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/WfUtils").then(function success1(WfUtilsSord1) {
           WfUtilsSord = WfUtilsSord1;
-          userName = test.Utils.getCurrentUserName();
-          test.Utils.getUserInfo(userName).then(function success3(userInfo1) {
-            userInfo = userInfo1;
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
+          done();
         }, function error(err) {
           fail(err);
           console.error(err);
@@ -608,7 +599,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
           wfCollectNode = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.WfUtils",
-            classConfig: {objId: obSolCommonWfUtilsId, flowId: flowId },
+            classConfig: { objId: obSolCommonWfUtilsId, flowId: flowId },
             method: "getFormUrl",
             params: [wfCollectNode]
           }).then(function success(jsonResult) {
