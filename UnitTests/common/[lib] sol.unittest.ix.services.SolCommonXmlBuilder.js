@@ -36,12 +36,12 @@ describe("[lib] sol.unittest.ix.services.SolCommonXmlBuilder", function () {
   });
   describe("Test Lib Functions", function () {
     describe("sol.common.XmlBuilder", function () {
-      xit("addElement", function (done) {
+      it("addElement", function (done) {
         expect(function () {
-          parentElement = PVALUE;
-          tagName = PVALUE;
-          content = PVALUE;
-          attribObj = PVALUE;
+          parentElement = "xmlDoc";
+          tagName = "tagName1";
+          content = null;
+          attribObj = null;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.XmlBuilder",
             classConfig: {},
@@ -57,10 +57,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonXmlBuilder", function () {
           );
         }).not.toThrow();
       });
-      xit("buildFromJson", function (done) {
+      it("buildFromJson", function (done) {
         expect(function () {
-          data = PVALUE;
-          dataDefintion = PVALUE;
+          data = { tag: "tag1"};
+          dataDefintion = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.XmlBuilder",
             classConfig: {},
