@@ -1,31 +1,15 @@
 
 describe("[lib] sol.unittest.ix.services.SolCommonXmlBuilder", function () {
-  var XmlBuilderSord, userName, userInfo, originalTimeout, parentElement, tagName,
-      content, attribObj, data, dataDefintion, rootTagName, obj, node, config;
+  var originalTimeout, parentElement, tagName,
+      content, attribObj, data, dataDefintion,
+      rootTagName, obj, node, config;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
       test.Utils.createTempSord("SolCommonXmlBuilder").then(function success(obSolCommonXmlBuilderId) {
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/XmlBuilder").then(function success1(XmlBuilderSord1) {
-          XmlBuilderSord = XmlBuilderSord1;
-          userName = test.Utils.getCurrentUserName();
-          test.Utils.getUserInfo(userName).then(function success3(userInfo1) {
-            userInfo = userInfo1;
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
+        done();
       }, function error(err) {
         fail(err);
         console.error(err);
@@ -59,7 +43,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonXmlBuilder", function () {
       });
       it("buildFromJson", function (done) {
         expect(function () {
-          data = { tag: "tag1"};
+          data = { tag: "tag1" };
           dataDefintion = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.XmlBuilder",
@@ -76,10 +60,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonXmlBuilder", function () {
           );
         }).not.toThrow();
       });
-      xit("createXml", function (done) {
+      it("createXml", function (done) {
         expect(function () {
-          rootTagName = PVALUE;
-          attribObj = PVALUE;
+          rootTagName = "rootTagName1";
+          attribObj = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.XmlBuilder",
             classConfig: {},
@@ -95,9 +79,9 @@ describe("[lib] sol.unittest.ix.services.SolCommonXmlBuilder", function () {
           );
         }).not.toThrow();
       });
-      xit("getFirstPropName", function (done) {
+      it("getFirstPropName", function (done) {
         expect(function () {
-          obj = PVALUE;
+          obj = { tag: "tag1" };
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.XmlBuilder",
             classConfig: {},
@@ -113,9 +97,9 @@ describe("[lib] sol.unittest.ix.services.SolCommonXmlBuilder", function () {
           );
         }).not.toThrow();
       });
-      xit("getNamespaceUri", function (done) {
+      it("getNamespaceUri", function (done) {
         expect(function () {
-          node = PVALUE;
+          node = null;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.XmlBuilder",
             classConfig: {},
@@ -131,7 +115,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonXmlBuilder", function () {
           );
         }).not.toThrow();
       });
-      xit("getXmlDoc", function (done) {
+      it("getXmlDoc", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.XmlBuilder",
@@ -148,9 +132,9 @@ describe("[lib] sol.unittest.ix.services.SolCommonXmlBuilder", function () {
           );
         }).not.toThrow();
       });
-      xit("initialize", function (done) {
+      it("initialize", function (done) {
         expect(function () {
-          config = PVALUE;
+          config = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.XmlBuilder",
             classConfig: {},
@@ -166,10 +150,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonXmlBuilder", function () {
           );
         }).not.toThrow();
       });
-      xit("processObj", function (done) {
+      it("processObj", function (done) {
         expect(function () {
-          obj = PVALUE;
-          parentElement = PVALUE;
+          obj = { tag: "tag1" };
+          parentElement = "xmlDoc";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.XmlBuilder",
             classConfig: {},
@@ -185,7 +169,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonXmlBuilder", function () {
           );
         }).not.toThrow();
       });
-      xit("toString", function (done) {
+      it("toString", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.XmlBuilder",
