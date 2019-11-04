@@ -496,6 +496,13 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
           default:
         }
         break;
+      case "sol.common.XmlBuilder":
+        switch (me.method) {
+          case "addElement":
+            return result;
+          default:
+        }
+        break;
       default:
     }
 
