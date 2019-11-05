@@ -1,0 +1,173 @@
+
+describe("[lib] sol.unittest.ix.services.SolCommonZipUtils", function () {
+  var ZipUtilsSord, userName, userInfo, originalTimeout, folder, zipOutputStream,
+      prefixLength, zipFilePath, pathInZipFile, params, dstDir;
+
+  beforeAll(function (done) {
+    originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
+    expect(function () {
+      test.Utils.createTempSord("SolCommonZipUtils").then(function success(obSolCommonZipUtilsId) {
+        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/ZipUtils").then(function success1(ZipUtilsSord1) {
+          ZipUtilsSord = ZipUtilsSord1;
+          userName = test.Utils.getCurrentUserName();
+          test.Utils.getUserInfo(userName).then(function success3(userInfo1) {
+            userInfo = userInfo1;
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }, function error(err) {
+        fail(err);
+        console.error(err);
+        done();
+      }
+      );
+    }).not.toThrow();
+  });
+  describe("Test Lib Functions", function () {
+    describe("sol.common.ZipUtils", function () {
+      it("compressFolder", function (done) {
+        expect(function () {
+          folder = "folder1";
+          zipOutputStream = "zipOutputStream1";
+          prefixLength = 3;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.ZipUtils",
+            classConfig: {},
+            method: "compressFolder",
+            params: [folder, zipOutputStream, prefixLength]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("readFileInZipToByteArray", function (done) {
+        expect(function () {
+          zipFilePath = PVALUE;
+          pathInZipFile = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.ZipUtils",
+            classConfig: {},
+            method: "readFileInZipToByteArray",
+            params: [zipFilePath, pathInZipFile]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("readFileInZipToString", function (done) {
+        expect(function () {
+          zipFilePath = PVALUE;
+          pathInZipFile = PVALUE;
+          params = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.ZipUtils",
+            classConfig: {},
+            method: "readFileInZipToString",
+            params: [zipFilePath, pathInZipFile, params]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("unzip", function (done) {
+        expect(function () {
+          zipFile = PVALUE;
+          dstDir = PVALUE;
+          params = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.ZipUtils",
+            classConfig: {},
+            method: "unzip",
+            params: [zipFile, dstDir, params]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("zipFolder", function (done) {
+        expect(function () {
+          folder = PVALUE;
+          zipFile = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.ZipUtils",
+            classConfig: {},
+            method: "zipFolder",
+            params: [folder, zipFile]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+    });
+  });
+  afterAll(function (done) {
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
+    expect(function () {
+      test.Utils.getTempfolder().then(function success(tempfolder) {
+        test.Utils.deleteSord(tempfolder).then(function success1(deleteResult) {
+          test.Utils.getFinishedWorkflows().then(function success2(wfs) {
+            test.Utils.removeFinishedWorkflows(wfs).then(function success3(removeFinishedWorkflowsResult) {
+              done();
+            }, function error(err) {
+              fail(err);
+              console.error(err);
+              done();
+            }
+            );
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }, function error(err) {
+        fail(err);
+        console.error(err);
+        done();
+      }
+      );
+    }).not.toThrow();
+  });
+});

@@ -27,6 +27,7 @@ importPackage(Packages.org.apache.commons.io);
 //@include lib_sol.common.Roles.js
 //@include lib_sol.common.SordProvider.js
 //@include lib_sol.common.XmlUtils.js
+//@include lib_sol.common.ZipUtils.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.ExecuteLib" });
 
@@ -87,6 +88,7 @@ var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.Execute
  * @requires  sol.common.Roles
  * @requires  sol.common.SordProvider
  * @requires  sol.common.XmlUtils
+ * @requires  sol.common.ZipUtils
  */
 sol.define("sol.unittest.ix.services.ExecuteLib", {
   extend: "sol.common.ix.ServiceBase",
@@ -499,6 +501,21 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
       case "sol.common.XmlBuilder":
       case "sol.common.XmlUtils":
         return result;
+      case "sol.common.ZipUtils":
+        switch (me.method) {
+          case "compressFolder":
+            dir = new File(me.params[0]);
+            if (dir.exists()) {
+              dir.delete();
+            }
+            dir.mkdir();
+            me.params[0] = dir;
+            break;
+          case "readFileInZipToByteArray":
+            new File(me.params[0]).createNewFile();
+            break;
+          default:
+        }
       default:
     }
 
