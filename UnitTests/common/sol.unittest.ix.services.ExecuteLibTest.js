@@ -4,6 +4,7 @@ importPackage(Packages.de.elo.ix.client);
 
 //@include lib_Class.js
 //@include lib_sol.common.ix.ServiceBase.js
+//@include lib_sol.common.FileUtils.js
 //@include lib_sol.common.ZipUtils.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.ExecuteLibTest" });
@@ -75,11 +76,8 @@ sol.define("sol.unittest.ix.services.ExecuteLibTest", {
   process: function () {
     var me = this,
         result = {},
-        file, dir, path, fileData, cls, func,
-        i, bytes, byte, string, strings, sordMap,
-        findInfo, findChildren, findByType, findDirect,
-        fileData1, fileData2, fileData3, wf1, wf2,
-        wfFindInfo;
+        file, dir, cls, func,
+        i, string, strings, dirPath, fileName, filePath, folder;
 
     cls = sol.create(me.className, me.classConfig);
     func = cls[me.method];
@@ -96,13 +94,7 @@ sol.define("sol.unittest.ix.services.ExecuteLibTest", {
             me.params[0] = dir;
             break;
           case "readFileInZipToByteArray":
-            dir = new File(me.params[0]);
-            if (dir.exists()) {
-              dir.delete();
-            }
-            dir.mkdir();
-            new File(me.params[1]).createNewFile();
-            break;
+        	return result;
           default:
         }
       default:
@@ -114,22 +106,6 @@ sol.define("sol.unittest.ix.services.ExecuteLibTest", {
       throw "IllegalMethodException: Method '" + me.method + "' not supported in Class '" + me.className + "'";
     }
 
-    switch (me.className) {
-      case "sol.common.ZipUtils":
-        switch (me.method) {
-          case "readFileInZipToByteArray":
-            strings = [];
-            for (i = 0; i < result.length; i++) {
-              string = String(result[i]);
-              strings.push(string);
-            }
-            result = strings;
-            break;
-          default:
-        }
-        break;
-      default:
-    }
     return result;
   }
 });

@@ -512,8 +512,10 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
             me.params[0] = dir;
             break;
           case "readFileInZipToByteArray":
-            new File(me.params[0]).createNewFile();
-            break;
+          case "readFileInZipToString":
+          case "unzip":
+          case "zipFolder":
+            return result;
           default:
         }
       default:

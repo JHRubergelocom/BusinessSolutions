@@ -1,31 +1,14 @@
 
 describe("[lib] sol.unittest.ix.services.SolCommonZipUtils", function () {
-  var ZipUtilsSord, userName, userInfo, originalTimeout, folder, zipOutputStream,
-      prefixLength, zipFilePath, pathInZipFile, params, dstDir;
+  var originalTimeout, folder, zipOutputStream,
+      prefixLength, zipFilePath, pathInZipFile, params, dstDir, zipFile;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
       test.Utils.createTempSord("SolCommonZipUtils").then(function success(obSolCommonZipUtilsId) {
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/ZipUtils").then(function success1(ZipUtilsSord1) {
-          ZipUtilsSord = ZipUtilsSord1;
-          userName = test.Utils.getCurrentUserName();
-          test.Utils.getUserInfo(userName).then(function success3(userInfo1) {
-            userInfo = userInfo1;
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
+        done();
       }, function error(err) {
         fail(err);
         console.error(err);
@@ -56,10 +39,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonZipUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("readFileInZipToByteArray", function (done) {
+      it("readFileInZipToByteArray", function (done) {
         expect(function () {
-          zipFilePath = PVALUE;
-          pathInZipFile = PVALUE;
+          zipFilePath = "zipFilePath";
+          pathInZipFile = "pathInZipFile";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.ZipUtils",
             classConfig: {},
@@ -75,11 +58,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonZipUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("readFileInZipToString", function (done) {
+      it("readFileInZipToString", function (done) {
         expect(function () {
-          zipFilePath = PVALUE;
-          pathInZipFile = PVALUE;
-          params = PVALUE;
+          zipFilePath = "zipFilePath";
+          pathInZipFile = "pathInZipFile";
+          params = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.ZipUtils",
             classConfig: {},
@@ -95,11 +78,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonZipUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("unzip", function (done) {
+      it("unzip", function (done) {
         expect(function () {
-          zipFile = PVALUE;
-          dstDir = PVALUE;
-          params = PVALUE;
+          zipFile = "zipFile";
+          dstDir = dstDir;
+          params = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.ZipUtils",
             classConfig: {},
@@ -115,10 +98,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonZipUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("zipFolder", function (done) {
+      it("zipFolder", function (done) {
         expect(function () {
-          folder = PVALUE;
-          zipFile = PVALUE;
+          folder = "folder";
+          zipFile = "zipFile";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.ZipUtils",
             classConfig: {},
