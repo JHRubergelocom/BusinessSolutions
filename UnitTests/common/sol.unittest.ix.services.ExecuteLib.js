@@ -518,6 +518,18 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
             return result;
           default:
         }
+      case "sol.common.DateUtils":
+        switch (me.method) {
+          case "diff":
+          case "endOf":
+          case "format":
+          case "isBetween":
+          case "momentToIso":
+          case "shift":
+          case "momentToIso":
+            return result;
+          default:
+        }
       default:
     }
 

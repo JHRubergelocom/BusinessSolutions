@@ -4,8 +4,7 @@ importPackage(Packages.de.elo.ix.client);
 
 //@include lib_Class.js
 //@include lib_sol.common.ix.ServiceBase.js
-//@include lib_sol.common.FileUtils.js
-//@include lib_sol.common.ZipUtils.js
+//@include lib_sol.common.DateUtils.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.ExecuteLibTest" });
 
@@ -76,25 +75,22 @@ sol.define("sol.unittest.ix.services.ExecuteLibTest", {
   process: function () {
     var me = this,
         result = {},
-        file, dir, cls, func,
-        i, string, strings, dirPath, fileName, filePath, folder;
+        cls, func;
 
     cls = sol.create(me.className, me.classConfig);
     func = cls[me.method];
 
     switch (me.className) {
-      case "sol.common.ZipUtils":
+      case "sol.common.DateUtils":
         switch (me.method) {
-          case "compressFolder":
-            dir = new File(me.params[0]);
-            if (dir.exists()) {
-              dir.delete();
-            }
-            dir.mkdir();
-            me.params[0] = dir;
-            break;
-          case "readFileInZipToByteArray":
-        	return result;
+          case "diff":
+          case "endOf":
+          case "format":
+          case "isBetween":
+          case "momentToIso":
+          case "shift":
+          case "momentToIso":
+            return result;
           default:
         }
       default:
