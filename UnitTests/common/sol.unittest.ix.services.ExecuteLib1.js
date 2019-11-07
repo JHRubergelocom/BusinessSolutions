@@ -7,7 +7,7 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_sol.common.ix.ServiceBase.js
 //@include lib_sol.common.DecimalUtils.js
 
-var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.ExecuteLibTest" });
+var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.ExecuteLib1" });
 
 /**
  * Unittests of Methods in className.
@@ -15,35 +15,20 @@ var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.Execute
  * Examples
  *
  *
- *     sol.common.IxUtils.execute('RF_sol_unittest_service_ExecuteLibTest', {
- *       className: 'sol.common.AclUtils',
+ *     sol.common.IxUtils.execute('RF_sol_unittest_service_ExecuteLib1', {
+ *       className: 'sol.common.DecimalUtils',
  *       classConfig: {}
- *       method: 'retrieveElements',
- *       params: ["4027", true, true]
- *     });
- *
- *
- *     sol.common.IxUtils.execute('RF_sol_unittest_service_ExecuteLibTest', {
- *       className: 'sol.common.Template',
- *       classConfig: {source: "{{padLeft 1234 '0000000000'}}"}
- *       method: 'apply',
+ *       method: 'configureDecimals',
  *       params: []
  *     });
  *
- *
- *     sol.common.IxUtils.execute('RF_sol_unittest_service_ExecuteLibTest', {
- *       className: 'sol.common.TemplateUtils',
- *       classConfig: {}
- *       method: 'render',
- *       params: ["{{formatDate 'DD.MM.YYYY HH:mm:ss' 20001015120030}}", {" name": "Hans" }, { "emptyNonRendered": true, "stringifyResults": true }]
- *     });
- *
+ * *
  *
  * @author JHR, ELO Digital Office GmbH
  * @version 1.0
  *
  */
-sol.define("sol.unittest.ix.services.ExecuteLibTest", {
+sol.define("sol.unittest.ix.services.ExecuteLib1", {
   extend: "sol.common.ix.ServiceBase",
 
   requiredConfig: ["className", "classConfig", "method", "params"],
@@ -82,18 +67,32 @@ sol.define("sol.unittest.ix.services.ExecuteLibTest", {
     func = cls[me.method];
 
     switch (me.className) {
-      case "sol.common.DateUtils":
+      case "sol.common.ObjectUtils":
         switch (me.method) {
-          case "diff":
-          case "endOf":
-          case "format":
-          case "isBetween":
-          case "momentToIso":
-          case "shift":
-          case "momentToIso":
-            return result;
+          case "arrayFind":
+          case "forEach":
+          case "map":
+            me.params[1] = function () {
+              return true;
+            };
+            break;
+          case "isDate":
+            me.params[0] = new Date();
+            break;
+          case "isFunction":
+            me.params[0] = function () {
+              return true;
+            };
+            break;
+          case "isJavaObject":
+            me.params[0] = new File("File1");
+            break;
+          case "isRegExp":
+            me.params[0] = new RegExp("ab+c", "i");
+            break;
           default:
         }
+        break;
       default:
     }
 
@@ -103,24 +102,36 @@ sol.define("sol.unittest.ix.services.ExecuteLibTest", {
       throw "IllegalMethodException: Method '" + me.method + "' not supported in Class '" + me.className + "'";
     }
 
+    switch (me.className) {
+      case "sol.common.ObjectUtils":
+        switch (me.method) {
+          case "toJavaArray":
+            result = String(result);
+            break;
+          default:
+        }
+        break;
+      default:
+    }
+
     return result;
   }
 });
 
 /**
- * @member sol.unittest.ix.services.ExecuteLibTest
- * @method RF_sol_unittest_service_ExecuteLibTest
+ * @member sol.unittest.ix.services.ExecuteLib1
+ * @method RF_sol_unittest_service_ExecuteLib1
  * @static
  * @inheritdoc sol.unittest.ix.ServiceBase#RF_ServiceBaseName
  */
-function RF_sol_unittest_service_ExecuteLibTest(ec, args) {
+function RF_sol_unittest_service_ExecuteLib1(ec, args) {
   var params, service, result;
-  logger.enter("RF_sol_unittest_service_ExecuteLibTest", args);
+  logger.enter("RF_sol_unittest_service_ExecuteLib1", args);
 
   params = sol.common.ix.RfUtils.parseAndCheckParams(ec, arguments.callee.name, args, "className", "classConfig", "method", "params");
   params.ec = ec;
-  service = sol.create("sol.unittest.ix.services.ExecuteLibTest", params);
+  service = sol.create("sol.unittest.ix.services.ExecuteLib1", params);
   result = service.process();
-  logger.exit("RF_sol_unittest_service_ExecuteLibTest", result);
+  logger.exit("RF_sol_unittest_service_ExecuteLib1", result);
   return sol.common.JsonUtils.stringifyAll(result);
 }
