@@ -7,6 +7,7 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_sol.common.ix.ServiceBase.js
 //@include lib_sol.common.DecimalUtils.js
 //@include lib_sol.common.IxUtils.js
+//@include lib_sol.common_document.BatchImportData.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.ExecuteLib1" });
 
