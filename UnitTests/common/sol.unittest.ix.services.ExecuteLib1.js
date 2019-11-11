@@ -65,6 +65,13 @@ sol.define("sol.unittest.ix.services.ExecuteLib1", {
         result = {},
         cls, func;
 
+    switch (me.className) {
+      case "sol.common_document.BatchImportData":
+        me.classConfig.parser = sol.create("sol.unittest.Parser");
+        break;
+      default:
+    }
+
     cls = sol.create(me.className, me.classConfig);
     func = cls[me.method];
 
@@ -92,6 +99,16 @@ sol.define("sol.unittest.ix.services.ExecuteLib1", {
           case "isRegExp":
             me.params[0] = new RegExp("ab+c", "i");
             break;
+          default:
+        }
+        break;
+      case "sol.common_document.BatchImportStatus":
+        switch (me.method) {
+          case "proceed":
+            cls.start(0);
+            break;
+          case "start":
+            cls.stop();
           default:
         }
         break;
@@ -137,3 +154,16 @@ function RF_sol_unittest_service_ExecuteLib1(ec, args) {
   logger.exit("RF_sol_unittest_service_ExecuteLib1", result);
   return sol.common.JsonUtils.stringifyAll(result);
 }
+
+sol.define("sol.unittest.Parser", {
+
+  supportsFileType: function (extension) {
+    return true;
+  },
+
+  parse: function (objId) {
+    return [];
+  }
+
+});
+
