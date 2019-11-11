@@ -8,6 +8,7 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_sol.common.DecimalUtils.js
 //@include lib_sol.common.IxUtils.js
 //@include lib_sol.common_document.BatchImportData.js
+//@include lib_sol.connector_xml.Converter.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.ExecuteLib1" });
 
@@ -69,6 +70,8 @@ sol.define("sol.unittest.ix.services.ExecuteLib1", {
       case "sol.common_document.BatchImportData":
         me.classConfig.parser = sol.create("sol.unittest.Parser");
         break;
+      case "sol.connector_xml.Converter.DateConverter":
+        return result;
       default:
     }
 
@@ -112,6 +115,14 @@ sol.define("sol.unittest.ix.services.ExecuteLib1", {
           default:
         }
         break;
+      case "sol.connector_xml.Converter":
+        switch (me.method) {
+          case "register":
+            me.params[0] = "UnittestConverter";
+            me.params[1] = sol.unittest.Converter.DefaultConverter;
+            break;
+          default:
+        }
       default:
     }
 
@@ -165,5 +176,13 @@ sol.define("sol.unittest.Parser", {
     return [];
   }
 
+});
+
+sol.define("sol.unittest.Converter.DefaultConverter", {
+  singleton: true,
+
+  convert: function (value) {
+    return value;
+  }
 });
 
