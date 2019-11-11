@@ -1,0 +1,48 @@
+﻿<ruleset>
+  <base>
+    <name>sol.invoice.InvoiceXmlImporter</name>
+    <search>
+      <name>"DIRECT"</name>
+      <value>"1"</value>
+      <mask>(E10E1000-E100-E100-E100-E10E10E10E30)</mask>
+      <max>200</max>
+    </search>
+    <interval>1H</interval>
+    <includes>
+      <name>lib_Class</name>
+      <name>lib_handlebars</name>
+      <name>lib_moment</name>
+      <name>lib_sol.common.Cache</name>
+      <name>lib_sol.common.Config</name>
+      <name>lib_sol.common.IxUtils</name>
+      <name>lib_sol.common.Template</name>
+      <name>lib_sol.common.SordUtils</name>
+      <name>lib_sol.common.RepoUtils</name>
+      <name>lib_sol.common.FileUtils</name>
+      <name>lib_sol.common.StringUtils</name>
+      <name>lib_sol.common.UserUtils</name>
+      <name>lib_sol.common.WfUtils</name>
+      <name>lib_sol.common.ObjectUtils</name>
+      <name>lib_sol.common.ExceptionUtils</name>
+      <name>lib_sol.common.ObjectFormatter</name>
+      <name>lib_sol.common.Template</name>
+      <name>lib_sol.connector_xml.Utils</name>
+      <name>lib_sol.connector_xml.Converter</name>
+      <name>lib_sol.connector_xml.DocumentImporter</name>
+      <name>lib_sol.invoice.as.InvoiceXmlImporter</name>
+    </includes>
+  </base>
+<rule>
+  <name>Regel1</name>
+  <condition></condition>
+  <script>
+    sol.invoice.as.InvoiceXmlImporter.run();
+  </script>
+</rule>
+<rule>
+  <name>Global Error Rule</name>
+  <condition>OnError</condition>
+  <script>sol.common.ExceptionUtils.logAsException(EM_ERROR);
+</script>
+</rule>
+</ruleset>

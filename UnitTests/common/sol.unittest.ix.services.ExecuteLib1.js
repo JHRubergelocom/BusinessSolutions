@@ -9,6 +9,8 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_sol.common.IxUtils.js
 //@include lib_sol.common_document.BatchImportData.js
 //@include lib_sol.connector_xml.Converter.js
+//@include lib_sol.connector_xml.DocumentImporter.js
+//@include lib_sol.connector_xml.Utils.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.ExecuteLib1" });
 
@@ -72,6 +74,9 @@ sol.define("sol.unittest.ix.services.ExecuteLib1", {
         break;
       case "sol.connector_xml.Converter.DateConverter":
         return result;
+      case "sol.connector_xml.DocumentImporter":
+        me.classConfig.importer = sol.connector_xml.Utils.getDocumentBuilder();
+        break;
       default:
     }
 
@@ -123,6 +128,14 @@ sol.define("sol.unittest.ix.services.ExecuteLib1", {
             break;
           default:
         }
+      case "sol.connector_xml.DocumentImporter":
+        switch (me.method) {
+          case "getInstance":
+            func = cls.impl[me.method];
+            break;
+          default:
+        }
+        break;
       default:
     }
 
