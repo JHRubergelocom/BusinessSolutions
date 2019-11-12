@@ -1,11 +1,13 @@
 
 importPackage(Packages.java.io);
+importPackage(Packages.java.util);
 importPackage(Packages.de.elo.ix.client);
 
 //@include lib_Class.js
 //@include lib_decimal-light.js
 //@include lib_sol.common.ix.ServiceBase.js
 //@include lib_sol.common.DecimalUtils.js
+//@include lib_sol.common.FileUtils.js
 //@include lib_sol.common.IxUtils.js
 //@include lib_sol.common_document.BatchImportData.js
 //@include lib_sol.connector_xml.Converter.js
@@ -66,7 +68,7 @@ sol.define("sol.unittest.ix.services.ExecuteLib1", {
   process: function () {
     var me = this,
         result = {},
-        cls, func;
+        cls, func, xml;
 
     switch (me.className) {
       case "sol.common_document.BatchImportData":
@@ -74,9 +76,6 @@ sol.define("sol.unittest.ix.services.ExecuteLib1", {
         break;
       case "sol.connector_xml.Converter.DateConverter":
         return result;
-      case "sol.connector_xml.DocumentImporter":
-        me.classConfig.importer = sol.connector_xml.Utils.getDocumentBuilder();
-        break;
       default:
     }
 
@@ -132,6 +131,15 @@ sol.define("sol.unittest.ix.services.ExecuteLib1", {
         switch (me.method) {
           case "getInstance":
             func = cls.impl[me.method];
+            break;
+          case "process":
+          case "validate":
+          case "writeMetadata":
+            me.params[0] = sol.common.FileUtils.downloadDocument(me.params[0], "");
+            break;
+          case "readXmlData":
+            xml = "<?xml version='1.0\'?><import></import>";
+            cls.doc = cls.utils.getDocument(cls.documentBuilder, xml);
             break;
           default:
         }

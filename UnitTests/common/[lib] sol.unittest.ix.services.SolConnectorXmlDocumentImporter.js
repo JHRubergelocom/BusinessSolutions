@@ -1,24 +1,18 @@
 
 describe("[lib] sol.unittest.ix.services.SolConnectorXmlDocumentImporter", function () {
-  var DocumentImporterSord, userName, userInfo, originalTimeout, config, xmlFile, fileData, parentId, successAction, errorAction, timestamp, mask, params;
+  var XmlDocumentImporterSord, originalTimeout, config,
+      xmlFile, fileData, parentId,
+      params, xml, obSolConnectorXmlDocumentImporterId, xmlImportConfig;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
-      test.Utils.createTempSord("SolConnectorXmlDocumentImporter").then(function success(obSolConnectorXmlDocumentImporterId) {
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/DocumentImporter").then(function success1(DocumentImporterSord1) {
-          DocumentImporterSord = DocumentImporterSord1;
-          userName = test.Utils.getCurrentUserName();
-          test.Utils.getUserInfo(userName).then(function success3(userInfo1) {
-            userInfo = userInfo1;
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
+      test.Utils.createTempSord("SolConnectorXmlDocumentImporter").then(function success(obSolConnectorXmlDocumentImporterId1) {
+        obSolConnectorXmlDocumentImporterId = obSolConnectorXmlDocumentImporterId1;
+        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/XmlDocumentImporter").then(function success1(XmlDocumentImporterSord1) {
+          XmlDocumentImporterSord = XmlDocumentImporterSord1;
+          done();
         }, function error(err) {
           fail(err);
           console.error(err);
@@ -37,10 +31,59 @@ describe("[lib] sol.unittest.ix.services.SolConnectorXmlDocumentImporter", funct
     describe("sol.connector_xml.DocumentImporter", function () {
       it("getInstance", function (done) {
         expect(function () {
+          xmlImportConfig = {
+            sord: {
+              mask: "UnitTest"
+            },
+            importSuccessAction: "move:imported",
+            importErrorAction: "move:error",
+            files: {
+              xpath: "/import/file",
+              importSuccessAction: "move:imported",
+              importErrorAction: "move:error",
+              values: {
+                FILE_PATH: {
+                  xpath: "path"
+                },
+                FILE_MASK: {
+                  xpath: "mask",
+                  converter: "defaultMask"
+                },
+                FILE_NAME: {
+                  xpath: "name"
+                },
+                FILE_COMMENT: {
+                  xpath: "comment",
+                  converter: "defaultComment"
+                },
+                FILE_VERSION: {
+                  xpath: "version",
+                  converter: "defaultVersion"
+                }
+              }
+            },
+            converter: [
+              {
+                name: "defaultMask",
+                type: "DefaultConverter",
+                defaultValue: "UnitTest"
+              },
+              {
+                name: "defaultComment",
+                type: "DefaultConverter",
+                defaultValue: "standard import"
+              },
+              {
+                name: "defaultVersion",
+                type: "DefaultConverter",
+                defaultValue: "1.0"
+              }
+            ]
+          };
           config = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib1", {
             className: "sol.connector_xml.DocumentImporter",
-            classConfig: {},
+            classConfig: xmlImportConfig,
             method: "getInstance",
             params: [config]
           }).then(function success(jsonResult) {
@@ -53,12 +96,12 @@ describe("[lib] sol.unittest.ix.services.SolConnectorXmlDocumentImporter", funct
           );
         }).not.toThrow();
       });
-      xit("initialize", function (done) {
+      it("initialize", function (done) {
         expect(function () {
-          config = PVALUE;
+          config = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib1", {
             className: "sol.connector_xml.DocumentImporter",
-            classConfig: {},
+            classConfig: xmlImportConfig,
             method: "initialize",
             params: [config]
           }).then(function success(jsonResult) {
@@ -71,13 +114,13 @@ describe("[lib] sol.unittest.ix.services.SolConnectorXmlDocumentImporter", funct
           );
         }).not.toThrow();
       });
-      xit("preprocessFilePaths", function (done) {
+      it("preprocessFilePaths", function (done) {
         expect(function () {
-          xmlFile = PVALUE;
-          fileData = PVALUE;
+          xmlFile = "xmlFile1";
+          fileData = "fileData1";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib1", {
             className: "sol.connector_xml.DocumentImporter",
-            classConfig: {},
+            classConfig: { files: {} },
             method: "preprocessFilePaths",
             params: [xmlFile, fileData]
           }).then(function success(jsonResult) {
@@ -90,19 +133,15 @@ describe("[lib] sol.unittest.ix.services.SolConnectorXmlDocumentImporter", funct
           );
         }).not.toThrow();
       });
-      xit("process", function (done) {
+      it("process", function (done) {
         expect(function () {
-          parentId = PVALUE;
-          fileData = PVALUE;
-          successAction = PVALUE;
-          errorAction = PVALUE;
-          timestamp = PVALUE;
-          mask = PVALUE;
+          xml = XmlDocumentImporterSord.id;
+          parentId = obSolConnectorXmlDocumentImporterId;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib1", {
             className: "sol.connector_xml.DocumentImporter",
-            classConfig: {},
+            classConfig: xmlImportConfig,
             method: "process",
-            params: [parentId, fileData, successAction, errorAction, timestamp, mask]
+            params: [xml, parentId]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
@@ -113,11 +152,11 @@ describe("[lib] sol.unittest.ix.services.SolConnectorXmlDocumentImporter", funct
           );
         }).not.toThrow();
       });
-      xit("readXmlData", function (done) {
+      it("readXmlData", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib1", {
             className: "sol.connector_xml.DocumentImporter",
-            classConfig: {},
+            classConfig: xmlImportConfig,
             method: "readXmlData",
             params: []
           }).then(function success(jsonResult) {
@@ -130,12 +169,12 @@ describe("[lib] sol.unittest.ix.services.SolConnectorXmlDocumentImporter", funct
           );
         }).not.toThrow();
       });
-      xit("validate", function (done) {
+      it("validate", function (done) {
         expect(function () {
-          xml = PVALUE;
+          xml = XmlDocumentImporterSord.id;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib1", {
             className: "sol.connector_xml.DocumentImporter",
-            classConfig: {},
+            classConfig: xmlImportConfig,
             method: "validate",
             params: [xml]
           }).then(function success(jsonResult) {
@@ -148,13 +187,13 @@ describe("[lib] sol.unittest.ix.services.SolConnectorXmlDocumentImporter", funct
           );
         }).not.toThrow();
       });
-      xit("writeMetadata", function (done) {
+      it("writeMetadata", function (done) {
         expect(function () {
-          xml = PVALUE;
-          params = PVALUE;
+          xml = XmlDocumentImporterSord.id;
+          params = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib1", {
             className: "sol.connector_xml.DocumentImporter",
-            classConfig: {},
+            classConfig: xmlImportConfig,
             method: "writeMetadata",
             params: [xml, params]
           }).then(function success(jsonResult) {
