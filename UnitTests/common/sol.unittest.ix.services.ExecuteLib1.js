@@ -161,6 +161,19 @@ sol.define("sol.unittest.ix.services.ExecuteLib1", {
           default:
         }
         break;
+      case "sol.connector_xml.Utils":
+        switch (me.method) {
+          case "getDocument":
+            me.params[0] = cls.getDocumentBuilder();
+            break;
+          case "getElementString":
+            xml = "<?xml version='1.0\'?><import>import1</import>";
+            me.params[0] = cls.getDocumentBuilder();
+            me.params[0] = cls.getDocument(me.params[0], xml);
+            break;
+          default:
+        }
+        break;
       default:
     }
 
