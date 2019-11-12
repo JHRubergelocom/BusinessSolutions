@@ -12,6 +12,7 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_sol.common_document.BatchImportData.js
 //@include lib_sol.connector_xml.Converter.js
 //@include lib_sol.connector_xml.DocumentImporter.js
+//@include lib_sol.connector_xml.Importer.js
 //@include lib_sol.connector_xml.Utils.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.ExecuteLib1" });
@@ -127,6 +128,7 @@ sol.define("sol.unittest.ix.services.ExecuteLib1", {
             break;
           default:
         }
+        break;
       case "sol.connector_xml.DocumentImporter":
         switch (me.method) {
           case "getInstance":
@@ -140,6 +142,21 @@ sol.define("sol.unittest.ix.services.ExecuteLib1", {
           case "readXmlData":
             xml = "<?xml version='1.0\'?><import></import>";
             cls.doc = cls.utils.getDocument(cls.documentBuilder, xml);
+            break;
+          default:
+        }
+        break;
+      case "sol.connector_xml.Importer":
+        switch (me.method) {
+          case "process":
+            me.params[0] = sol.common.FileUtils.downloadDocument(me.params[0], "");
+            break;
+          case "processTable":
+            xml = "<?xml version='1.0\'?><import></import>";
+            cls.doc = cls.utils.getDocument(cls.documentBuilder, xml);
+            break;
+          case "validate":
+            me.params[0] = sol.common.FileUtils.downloadDocument(me.params[0], "");
             break;
           default:
         }
