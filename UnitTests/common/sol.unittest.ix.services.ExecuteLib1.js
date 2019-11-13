@@ -14,6 +14,7 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_sol.connector_xml.DocumentImporter.js
 //@include lib_sol.connector_xml.Importer.js
 //@include lib_sol.connector_xml.Utils.js
+//@include lib_sol.dev.BuildPackages.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.ExecuteLib1" });
 
@@ -69,7 +70,7 @@ sol.define("sol.unittest.ix.services.ExecuteLib1", {
   process: function () {
     var me = this,
         result = {},
-        cls, func, xml;
+        cls, func, xml, dir;
 
     switch (me.className) {
       case "sol.common_document.BatchImportData":
@@ -77,6 +78,23 @@ sol.define("sol.unittest.ix.services.ExecuteLib1", {
         break;
       case "sol.connector_xml.Converter.DateConverter":
         return result;
+      case "sol.dev.BuildPackage":
+        switch (me.method) {
+          case "downloadIxPlugin":
+          case "downloadIxPlugins":
+            dir = new File("pluginDirUnittest");
+            if (dir.exists()) {
+              dir.delete();
+            }
+            me.classConfig.buildConfig.ixPluginsDir = dir;
+            me.classConfig.buildConfig.ixPluginsDirPath = "pluginDirUnittest";
+            break;
+          case "getBuildConfig":
+            me.classConfig.packageSord = ixConnect.ix().checkoutSord("ARCPATH:/Administration/Business Solutions/dev_internal", new SordZ(SordC.mbAll), LockC.NO);
+            break;
+          default:
+        }
+        break;
       default:
     }
 
