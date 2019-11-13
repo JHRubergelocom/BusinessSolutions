@@ -137,6 +137,7 @@ sol.define("sol.unittest.ix.services.ExecuteLib1", {
           case "process":
           case "validate":
           case "writeMetadata":
+          case "getStreamSource":
             me.params[0] = sol.common.FileUtils.downloadDocument(me.params[0], "");
             break;
           case "readXmlData":
@@ -167,9 +168,19 @@ sol.define("sol.unittest.ix.services.ExecuteLib1", {
             me.params[0] = cls.getDocumentBuilder();
             break;
           case "getElementString":
+          case "getElements":
+          case "getValue":
+          case "xmlToString":
             xml = "<?xml version='1.0\'?><import>import1</import>";
             me.params[0] = cls.getDocumentBuilder();
             me.params[0] = cls.getDocument(me.params[0], xml);
+            break;
+          case "handleImportAction":
+          case "importDocument":
+          case "importNewDocument":
+          case "importNewVersion":
+          case "writeErrorLog":
+            me.params[0] = sol.common.FileUtils.downloadDocument(me.params[0], "");
             break;
           default:
         }

@@ -1,28 +1,21 @@
 
 describe("[lib] sol.unittest.ix.services.SolConnectorXmlUtils", function () {
-  var XmlUtilsSord, userName, userInfo, originalTimeout, pattern,
+  var XmlUtilsSord, originalTimeout, pattern,
       prefix, field, number, key, value, xsdObjects, config, name,
       documentBuilder, xml, xmlDoc, xPath, mapObj, converterConfig,
       fieldMap, file, actionString, timestamp, filePath, objId,
-      maskId, comment, version, newVersion, parentId, errors;
+      maskId, comment, version, newVersion, parentId, errors,
+      obSolConnectorXmlUtilsId;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
-      test.Utils.createTempSord("SolConnectorXmlUtils").then(function success(obSolConnectorXmlUtilsId) {
+      test.Utils.createTempSord("SolConnectorXmlUtils").then(function success(obSolConnectorXmlUtilsId1) {
+        obSolConnectorXmlUtilsId = obSolConnectorXmlUtilsId1;
         test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/XmlUtils").then(function success1(XmlUtilsSord1) {
           XmlUtilsSord = XmlUtilsSord1;
-          userName = test.Utils.getCurrentUserName();
-          test.Utils.getUserInfo(userName).then(function success3(userInfo1) {
-            userInfo = userInfo1;
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
+          done();
         }, function error(err) {
           fail(err);
           console.error(err);
@@ -121,7 +114,7 @@ describe("[lib] sol.unittest.ix.services.SolConnectorXmlUtils", function () {
       it("getDocument", function (done) {
         expect(function () {
           documentBuilder = "documentBuilder1";
-          xml = "<?xml version='1.0'?><import></import>";
+          xml = "<?xml version='1.0'?><import>import1</import>";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib1", {
             className: "sol.connector_xml.Utils",
             classConfig: {},
@@ -173,10 +166,10 @@ describe("[lib] sol.unittest.ix.services.SolConnectorXmlUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getElements", function (done) {
+      it("getElements", function (done) {
         expect(function () {
-          xmlDoc = PVALUE;
-          xPath = PVALUE;
+          xmlDoc = "xmlDoc1";
+          xPath = "/";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib1", {
             className: "sol.connector_xml.Utils",
             classConfig: {},
@@ -192,9 +185,9 @@ describe("[lib] sol.unittest.ix.services.SolConnectorXmlUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getStreamSource", function (done) {
+      it("getStreamSource", function (done) {
         expect(function () {
-          xml = PVALUE;
+          xml = XmlUtilsSord.id;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib1", {
             className: "sol.connector_xml.Utils",
             classConfig: {},
@@ -210,12 +203,12 @@ describe("[lib] sol.unittest.ix.services.SolConnectorXmlUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("getValue", function (done) {
+      it("getValue", function (done) {
         expect(function () {
-          xmlDoc = PVALUE;
-          mapObj = PVALUE;
-          converterConfig = PVALUE;
-          fieldMap = PVALUE;
+          xmlDoc = "xmlDoc1";
+          mapObj = { xpath: "/" };
+          converterConfig = { type: "DefaultConverter", defaultValue: "defaultValue1" };
+          fieldMap = null;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib1", {
             className: "sol.connector_xml.Utils",
             classConfig: {},
@@ -231,11 +224,11 @@ describe("[lib] sol.unittest.ix.services.SolConnectorXmlUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("handleImportAction", function (done) {
+      it("handleImportAction", function (done) {
         expect(function () {
-          file = PVALUE;
-          actionString = PVALUE;
-          timestamp = PVALUE;
+          file = XmlUtilsSord.id;
+          actionString = null;
+          timestamp = null;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib1", {
             className: "sol.connector_xml.Utils",
             classConfig: {},
@@ -251,15 +244,15 @@ describe("[lib] sol.unittest.ix.services.SolConnectorXmlUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("importDocument", function (done) {
+      it("importDocument", function (done) {
         expect(function () {
-          filePath = PVALUE;
-          objId = PVALUE;
-          maskId = PVALUE;
-          name = PVALUE;
-          comment = PVALUE;
-          version = PVALUE;
-          newVersion = PVALUE;
+          filePath = XmlUtilsSord.id;
+          objId = obSolConnectorXmlUtilsId;
+          maskId = "UnitTest";
+          name = "name1";
+          comment = "comment1";
+          version = "1";
+          newVersion = true;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib1", {
             className: "sol.connector_xml.Utils",
             classConfig: {},
@@ -275,14 +268,14 @@ describe("[lib] sol.unittest.ix.services.SolConnectorXmlUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("importNewDocument", function (done) {
+      it("importNewDocument", function (done) {
         expect(function () {
-          file = PVALUE;
-          parentId = PVALUE;
-          maskId = PVALUE;
-          name = PVALUE;
-          comment = PVALUE;
-          version = PVALUE;
+          file = XmlUtilsSord.id;
+          parentId = obSolConnectorXmlUtilsId;
+          maskId = "UnitTest";
+          name = "name1";
+          comment = "comment1";
+          version = "1";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib1", {
             className: "sol.connector_xml.Utils",
             classConfig: {},
@@ -298,12 +291,12 @@ describe("[lib] sol.unittest.ix.services.SolConnectorXmlUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("importNewVersion", function (done) {
+      it("importNewVersion", function (done) {
         expect(function () {
-          file = PVALUE;
-          objId = PVALUE;
-          comment = PVALUE;
-          version = PVALUE;
+          file = XmlUtilsSord.id;
+          objId = obSolConnectorXmlUtilsId;
+          comment = "comment2";
+          version = "2";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib1", {
             className: "sol.connector_xml.Utils",
             classConfig: {},
@@ -319,10 +312,10 @@ describe("[lib] sol.unittest.ix.services.SolConnectorXmlUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("writeErrorLog", function (done) {
+      it("writeErrorLog", function (done) {
         expect(function () {
-          file = PVALUE;
-          errors = PVALUE;
+          file = XmlUtilsSord.id;
+          errors = ["error1", "error2"];
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib1", {
             className: "sol.connector_xml.Utils",
             classConfig: {},
@@ -338,9 +331,9 @@ describe("[lib] sol.unittest.ix.services.SolConnectorXmlUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("xmlToString", function (done) {
+      it("xmlToString", function (done) {
         expect(function () {
-          xmlDoc = PVALUE;
+          xmlDoc = "xmlDoc1";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib1", {
             className: "sol.connector_xml.Utils",
             classConfig: {},
