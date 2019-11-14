@@ -409,7 +409,7 @@ sol.define("sol.common.as.WordDocument", {
   fillContentControls: function (data) {
     var me = this,
         value = "",
-        controlIterator, control, tag, paragraph, run;
+        controlIterator, control, tag, paragraph, run, font;
 
     controlIterator = me.document.getChildNodes(Packages.com.aspose.words.NodeType.STRUCTURED_DOCUMENT_TAG, true).iterator();
 
@@ -418,7 +418,7 @@ sol.define("sol.common.as.WordDocument", {
 
     while (controlIterator.hasNext()) {
       control = controlIterator.next();
-      if (control.sdtType != Packages.com.aspose.words.SdtType.PLAIN_TEXT) {
+      if ((control.sdtType != Packages.com.aspose.words.SdtType.PLAIN_TEXT) && (control.sdtType != Packages.com.aspose.words.SdtType.RICH_TEXT)) {
         me.logger.debug("Word content control not supported: title=" + control.title + ", sdtType=" + control.sdtType + ", tag=" + control.tag + ", value=" + value);
         continue;
       }
@@ -431,7 +431,16 @@ sol.define("sol.common.as.WordDocument", {
       me.logger.debug("Fill word content control: title=" + control.title + ", sdtType=" + control.sdtType + ", level=" + control.level + ", tag=" + control.tag + ", value=" + value);
 
       run = new Packages.com.aspose.words.Run(me.document, value);
-      me.copyProperties(control.parentNode.paragraphBreakFont, run.font);
+
+      if (control.parentNode.paragraphBreakFont) {
+        font = control.parentNode.paragraphBreakFont;
+      } else if (control && control.firstChild && control.firstChild.runs && (control.firstChild.runs.count > 0)) {
+        font = control.firstChild.runs.get(0).font;
+      }
+
+      if (font) {
+        me.copyProperties(font, run.font);
+      }
 
       switch (control.level) {
         case Packages.com.aspose.words.MarkupLevel.INLINE:
@@ -648,6 +657,70 @@ sol.define("sol.common.as.ExcelDocument", {
    */
   getSaveParamsXLSX: function () {
     return Packages.com.aspose.cells.SaveFormat.XLSX;
+  },
+
+  /**
+   * Returns the excel cells
+   * @param {} sheetIndex
+   * @return {com.aspose.cells.Cells} Cells
+   */
+  getCells: function (sheetIndex) {
+    var me = this,
+        workSheet, cells;
+
+    sheetIndex = sheetIndex || 0;
+
+    workSheet = me.workbook.worksheets.get(sheetIndex);
+    cells = workSheet.cells;
+
+    return cells;
+  },
+
+  /**
+   * Returns table data
+   * @param {Object} params Parameters
+   * @param {Number} [params.sheetIndex=0]
+   * @param {String} [params.startRowIndex=0] Start row index
+   * @param {String} [params.startColumnIndex=0] Start row index
+   * @param {Array} columnNames Column names
+   * @param {Object} Table data
+   */
+  getTableData: function (params) {
+    var me = this,
+        columnName, cells, rowIndex, value, rowData, rowEmpty, cell, result, i;
+
+    params = params || {};
+    params.sheetIndex = params.sheetIndex || 0;
+    params.startColumnIndex = params.startColumnIndex || 0;
+    params.columnNames = params.columnNames || [];
+
+    rowIndex = params.startRowIndex || 0;
+
+    result = { data: [] };
+
+    cells = me.getCells(params.sheetIndex);
+
+    do {
+      rowData = {};
+      rowEmpty = true;
+      for (i = 0; i < params.columnNames.length; i++) {
+        columnName = params.columnNames[i];
+        cell = cells.getCell(rowIndex, params.startColumnIndex + i);
+        value = cell.stringValueWithoutFormat + "";
+        if (value) {
+          rowData[columnName] = value;
+          rowEmpty = false;
+        } else {
+          rowData[columnName] = "";
+        }
+      }
+      if (!rowEmpty) {
+        result.data.push(rowData);
+      }
+      rowIndex++;
+    } while (!rowEmpty);
+
+    return result;
   },
 
   /**
