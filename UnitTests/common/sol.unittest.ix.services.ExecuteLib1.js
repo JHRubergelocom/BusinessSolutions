@@ -6,6 +6,7 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_Class.js
 //@include lib_decimal-light.js
 //@include lib_sol.common.ix.ServiceBase.js
+//@include lib_sol.common.DateUtils.js
 //@include lib_sol.common.DecimalUtils.js
 //@include lib_sol.common.FileUtils.js
 //@include lib_sol.common.IxUtils.js
@@ -15,6 +16,7 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_sol.connector_xml.Importer.js
 //@include lib_sol.connector_xml.Utils.js
 //@include lib_sol.dev.BuildPackages.js
+//@include lib_sol.dev.DateShiftUtils.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.ExecuteLib1" });
 
