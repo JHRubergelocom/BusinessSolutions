@@ -18,12 +18,6 @@
         "{{ixScriptingBaseFolderPath}}/_ALL/business_solutions"
       ],
       "ignoreSubfolders": true
-    },
-    {
-      "source": "{{packageFolderPath}}/ELOapps/ClientInfos",
-      "destinations": [
-        "{{appsBaseFolderPath}}/ClientInfos"
-      ]
     }
   ],
   "ref": [],
