@@ -523,13 +523,26 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
       case "sol.common.DateUtils":
         switch (me.method) {
           case "diff":
+            me.params[0] = new Date(2008, 5, 23);
+            me.params[1] = new Date(2010, 6, 13);
+            break;
           case "endOf":
+            me.params[0] = cls.isoToMoment(me.params[0]);
+            break;
           case "format":
+            me.params[0] = new Date(2008, 5, 23);
+            break;
           case "isBetween":
+            me.params[0] = new Date(2008, 5, 23);
+            me.params[1] = new Date(2010, 6, 13);
+            me.params[2] = new Date(2009, 6, 13);
+            break;
           case "momentToIso":
+            me.params[0] = cls.isoToMoment(me.params[0]);
+            break;
           case "shift":
-          case "momentToIso":
-            return result;
+            me.params[0] = new Date(2008, 5, 23);
+            break;
           default:
         }
       default:

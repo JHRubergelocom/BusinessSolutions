@@ -42,8 +42,8 @@ describe("[lib] sol.unittest.ix.services.SolCommonDateUtils", function () {
       });
       it("diff", function (done) {
         expect(function () {
-          startDate = "startDate";
-          endDate = "endDate";
+          startDate = new Date(2008, 5, 23);
+          endDate = new Date(2010, 6, 13);
           unit = "D";
           config = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
@@ -63,7 +63,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonDateUtils", function () {
       });
       it("endOf", function (done) {
         expect(function () {
-          moment = "moment";
+          moment = "20190305";
           unit = "M";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.DateUtils",
@@ -159,7 +159,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonDateUtils", function () {
       });
       it("momentToIso", function (done) {
         expect(function () {
-          mo = "mo";
+          mo = "20100211";
           params = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.DateUtils",
