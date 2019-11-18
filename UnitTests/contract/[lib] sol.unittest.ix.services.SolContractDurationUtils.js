@@ -1,6 +1,6 @@
 
 describe("[lib] sol.unittest.ix.services.SolContractDurationUtils", function () {
-  var DurationUtilsSord, userName, userInfo, originalTimeout, tplSord, updates,
+  var originalTimeout, tplSord, updates,
       mom, endOf, additionalShiftCounter, startDateIso, endDateIso, unit, amount,
       exchangeRate, singleAmount, str, separator, unitStrings, isoDate, update,
       date;
@@ -10,24 +10,7 @@ describe("[lib] sol.unittest.ix.services.SolContractDurationUtils", function () 
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
       test.Utils.createTempSord("SolContractDurationUtils").then(function success(obSolContractDurationUtilsId) {
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/contract [unit tests]/Resources/DurationUtils").then(function success1(DurationUtilsSord1) {
-          DurationUtilsSord = DurationUtilsSord1;
-          userName = test.Utils.getCurrentUserName();
-          test.Utils.getUserInfo(userName).then(function success3(userInfo1) {
-            userInfo = userInfo1;
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
+        done();
       }, function error(err) {
         fail(err);
         console.error(err);
