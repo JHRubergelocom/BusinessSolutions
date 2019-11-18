@@ -22,10 +22,10 @@ describe("[action] sol.hr.ix.actions.ChangeSuperiorFile", function () {
       );
     }).not.toThrow();
   });
-  describe("test start offboarding", function () {
-    it("should not throw if executed without 'objId'", function (done) {
+  describe("test start change superior file", function () {
+    it("should not throw if executed without parameter", function (done) {
       expect(function () {
-        test.Utils.execute("RF_sol_hr_personnel_action_ChangeSuperiorFile", {
+        test.Utils.execute("RF_sol_common_action_Standard", {
         }).then(function success(jsonResult) {
           done();
         }, function error(err) {
@@ -213,10 +213,35 @@ describe("[action] sol.hr.ix.actions.ChangeSuperiorFile", function () {
         it("start action changesuperiorfile workflow", function (done) {
           expect(function () {
             configAction = {
-              selectedObjId: objIdHr1
+              objId: objIdHr1,
+              $name: "ChangeSuperiorFile",
+              $wf: {
+                name: "{{translate 'sol.hr.personnelfile.workflow.file.changesuperior.message'}}",
+                template: {
+                  name: "sol.hr.personnel.ChangeSuperiorFile"
+                }
+              },
+              $new: {
+                target: {
+                  mode: "DEFAULT"
+                },
+                mask: "Personnel File",
+                type: "sol.Personnel File",
+                name: "temp"
+              },
+              $events: [
+                {
+                  id: "DIALOG",
+                  onWfStatus: ""
+                },
+                {
+                  id: "GOTO",
+                  onWfStatus: "CREATED"
+                }
+              ]
             };
             wfInfo = {};
-            test.Utils.executeIxActionHandler("RF_sol_hr_personnel_action_ChangeSuperiorFile", configAction, []).then(function success(jsonResults) {
+            test.Utils.executeIxActionHandler("RF_sol_common_action_Standard", configAction, []).then(function success(jsonResults) {
               test.Utils.handleAllEvents(jsonResults).then(function success1(wfInfo1) {
                 wfInfo = wfInfo1;
                 done();
@@ -268,52 +293,6 @@ describe("[action] sol.hr.ix.actions.ChangeSuperiorFile", function () {
                 done();
               }
               );
-            }, function error(err) {
-              fail(err);
-              console.error(err);
-              done();
-            }
-            );
-          }).not.toThrow();
-        });
-        it("Compare Values hr1", function (done) {
-          expect(function () {
-            test.Utils.getSord(objIdHr1).then(function success(sordHr1) {
-              expect(test.Utils.getObjKeyValue(sordHr1, "HR_PERSONNEL_SUPERIOR_GUID")).toEqual(s2Guid);
-              expect(test.Utils.getObjKeyValue(sordHr1, "HR_PERSONNEL_SUPERIOR")).toEqual(s2Superior);
-              test.Utils.getMapValue(objIdHr1, "HR_PERSONNEL_SUPERIORUSERID").then(function success2(mapValue) {
-                expect(mapValue).toEqual(s2EloUserId);
-                done();
-              }, function error(err) {
-                fail(err);
-                console.error(err);
-                done();
-              }
-              );
-              done();
-            }, function error(err) {
-              fail(err);
-              console.error(err);
-              done();
-            }
-            );
-          }).not.toThrow();
-        });
-        it("Compare Values hr2", function (done) {
-          expect(function () {
-            test.Utils.getSord(objIdHr2).then(function success(sordHr2) {
-              expect(test.Utils.getObjKeyValue(sordHr2, "HR_PERSONNEL_SUPERIOR_GUID")).toEqual(s2Guid);
-              expect(test.Utils.getObjKeyValue(sordHr2, "HR_PERSONNEL_SUPERIOR")).toEqual(s2Superior);
-              test.Utils.getMapValue(objIdHr2, "HR_PERSONNEL_SUPERIORUSERID").then(function success2(mapValue) {
-                expect(mapValue).toEqual(s2EloUserId);
-                done();
-              }, function error(err) {
-                fail(err);
-                console.error(err);
-                done();
-              }
-              );
-              done();
             }, function error(err) {
               fail(err);
               console.error(err);
@@ -627,10 +606,35 @@ describe("[action] sol.hr.ix.actions.ChangeSuperiorFile", function () {
         it("start action changesuperiorfile workflow", function (done) {
           expect(function () {
             configAction = {
-              selectedObjId: objIdHr1
+              objId: objIdHr1,
+              $name: "ChangeSuperiorFile",
+              $wf: {
+                name: "{{translate 'sol.hr.personnelfile.workflow.file.changesuperior.message'}}",
+                template: {
+                  name: "sol.hr.personnel.ChangeSuperiorFile"
+                }
+              },
+              $new: {
+                target: {
+                  mode: "DEFAULT"
+                },
+                mask: "Personnel File",
+                type: "sol.Personnel File",
+                name: "temp"
+              },
+              $events: [
+                {
+                  id: "DIALOG",
+                  onWfStatus: ""
+                },
+                {
+                  id: "GOTO",
+                  onWfStatus: "CREATED"
+                }
+              ]
             };
             wfInfo = {};
-            test.Utils.executeIxActionHandler("RF_sol_hr_personnel_action_ChangeSuperiorFile", configAction, []).then(function success(jsonResults) {
+            test.Utils.executeIxActionHandler("RF_sol_common_action_Standard", configAction, []).then(function success(jsonResults) {
               test.Utils.handleAllEvents(jsonResults).then(function success1(wfInfo1) {
                 wfInfo = wfInfo1;
                 done();
@@ -812,7 +816,21 @@ describe("[action] sol.hr.ix.actions.ChangeSuperiorFile", function () {
     expect(function () {
       test.Utils.getTempfolder().then(function success(tempfolder) {
         test.Utils.deleteSord(tempfolder).then(function success1(deleteResult) {
-          done();
+          test.Utils.getFinishedWorkflows().then(function success2(wfs) {
+            test.Utils.removeFinishedWorkflows(wfs).then(function success3(removeFinishedWorkflowsResult) {
+              done();
+            }, function error(err) {
+              fail(err);
+              console.error(err);
+              done();
+            }
+            );
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
         }, function error(err) {
           fail(err);
           console.error(err);
