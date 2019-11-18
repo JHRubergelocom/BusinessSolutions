@@ -72,7 +72,11 @@ sol.define("sol.unittest.contract.ix.services.ExecuteLib", {
       case "sol.contract.DurationUtils":
         switch (me.method) {
           case "adjustToRealMonthEnd":
+          case "momentToIso":
             me.params[0] = cls.isoToMoment(me.params[0]);
+            break;
+          case "getEndOfDate":
+            me.params[0] = new Date();
             break;
           default:
         }

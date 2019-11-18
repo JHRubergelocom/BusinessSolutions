@@ -2,7 +2,8 @@
 describe("[lib] sol.unittest.ix.services.SolContractDurationUtils", function () {
   var DurationUtilsSord, userName, userInfo, originalTimeout, tplSord, updates,
       mom, endOf, additionalShiftCounter, startDateIso, endDateIso, unit, amount,
-      exchangeRate, singleAmount, str, separator, unitStrings, isoDate, update;
+      exchangeRate, singleAmount, str, separator, unitStrings, isoDate, update,
+      date;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -220,7 +221,7 @@ describe("[lib] sol.unittest.ix.services.SolContractDurationUtils", function () 
       });
       it("calcTerminationDateFixed", function (done) {
         expect(function () {
-          tplSord = { objKeys:{ CONTRACT_END: "20210101" }, mapKeys: { NOTICE_PERIOD: 5, NOTICE_PERIOD_UNIT: "y" } };
+          tplSord = { objKeys: { CONTRACT_END: "20210101" }, mapKeys: { NOTICE_PERIOD: 5, NOTICE_PERIOD_UNIT: "y" } };
           updates = { objKeys: {}, mapKeys: {} };
           test.Utils.execute("RF_sol_unittest_contract_service_ExecuteLib", {
             className: "sol.contract.DurationUtils",
@@ -293,9 +294,9 @@ describe("[lib] sol.unittest.ix.services.SolContractDurationUtils", function () 
           );
         }).not.toThrow();
       });
-      xit("extendFixedTermContract", function (done) {
+      it("extendFixedTermContract", function (done) {
         expect(function () {
-          tplSord = PVALUE;
+          tplSord = { objKeys: { CONTRACT_END: "20210101", CONTRACT_STATUS: "S" }, mapKeys: { EXTENSION_FLAG: "1", EXTENSION_INTERVAL: 5, EXTENSION_INTERVAL_UNIT: "y", NOTICE_PERIOD: 3, NOTICE_PERIOD_UNIT: "M", CONTRACT_DURATION: 7 } };
           updates = { objKeys: {}, mapKeys: {} };
           test.Utils.execute("RF_sol_unittest_contract_service_ExecuteLib", {
             className: "sol.contract.DurationUtils",
@@ -312,7 +313,7 @@ describe("[lib] sol.unittest.ix.services.SolContractDurationUtils", function () 
           );
         }).not.toThrow();
       });
-      xit("getBaseCurrency", function (done) {
+      it("getBaseCurrency", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_unittest_contract_service_ExecuteLib", {
             className: "sol.contract.DurationUtils",
@@ -320,6 +321,7 @@ describe("[lib] sol.unittest.ix.services.SolContractDurationUtils", function () 
             method: "getBaseCurrency",
             params: []
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("EUR");
             done();
           }, function error(err) {
             fail(err);
@@ -329,10 +331,10 @@ describe("[lib] sol.unittest.ix.services.SolContractDurationUtils", function () 
           );
         }).not.toThrow();
       });
-      xit("getEndOfDate", function (done) {
+      it("getEndOfDate", function (done) {
         expect(function () {
-          date = PVALUE;
-          unit = PVALUE;
+          date = new Date();
+          unit = "d";
           test.Utils.execute("RF_sol_unittest_contract_service_ExecuteLib", {
             className: "sol.contract.DurationUtils",
             classConfig: {},
@@ -348,16 +350,17 @@ describe("[lib] sol.unittest.ix.services.SolContractDurationUtils", function () 
           );
         }).not.toThrow();
       });
-      xit("getKwlKey", function (done) {
+      it("getKwlKey", function (done) {
         expect(function () {
-          str = PVALUE;
-          separator = PVALUE;
+          str = "2019#0203";
+          separator = "#";
           test.Utils.execute("RF_sol_unittest_contract_service_ExecuteLib", {
             className: "sol.contract.DurationUtils",
             classConfig: {},
             method: "getKwlKey",
             params: [str, separator]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("2019");
             done();
           }, function error(err) {
             fail(err);
@@ -367,15 +370,16 @@ describe("[lib] sol.unittest.ix.services.SolContractDurationUtils", function () 
           );
         }).not.toThrow();
       });
-      xit("getSmallestUnitString", function (done) {
+      it("getSmallestUnitString", function (done) {
         expect(function () {
-          unitStrings = PVALUE;
+          unitStrings = ["y-2019", "M-05"];
           test.Utils.execute("RF_sol_unittest_contract_service_ExecuteLib", {
             className: "sol.contract.DurationUtils",
             classConfig: {},
             method: "getSmallestUnitString",
             params: [unitStrings]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("M-05");
             done();
           }, function error(err) {
             fail(err);
@@ -385,15 +389,16 @@ describe("[lib] sol.unittest.ix.services.SolContractDurationUtils", function () 
           );
         }).not.toThrow();
       });
-      xit("isoToMoment", function (done) {
+      it("isoToMoment", function (done) {
         expect(function () {
-          isoDate = PVALUE;
+          isoDate = "20190306";
           test.Utils.execute("RF_sol_unittest_contract_service_ExecuteLib", {
             className: "sol.contract.DurationUtils",
             classConfig: {},
             method: "isoToMoment",
             params: [isoDate]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("2019-03-06T00:00:00.000Z");
             done();
           }, function error(err) {
             fail(err);
@@ -403,15 +408,16 @@ describe("[lib] sol.unittest.ix.services.SolContractDurationUtils", function () 
           );
         }).not.toThrow();
       });
-      xit("momentToIso", function (done) {
+      it("momentToIso", function (done) {
         expect(function () {
-          mom = PVALUE;
+          mom = "20190306";
           test.Utils.execute("RF_sol_unittest_contract_service_ExecuteLib", {
             className: "sol.contract.DurationUtils",
             classConfig: {},
             method: "momentToIso",
             params: [mom]
           }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual("20190306000000");
             done();
           }, function error(err) {
             fail(err);
