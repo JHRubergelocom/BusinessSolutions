@@ -7,6 +7,7 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_sol.common.ix.ServiceBase.js
 //@include lib_sol.common.WfUtils.js
 //@include lib_sol.hr.shared.Utils.js
+//@include lib_sol.hr.Utils.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.hr.ix.services.ExecuteLib" });
 
@@ -17,10 +18,10 @@ var logger = sol.create("sol.Logger", { scope: "sol.unittest.hr.ix.services.Exec
  *
  *
  *     sol.common.IxUtils.execute('RF_sol_unittest_hr_service_ExecuteLib', {
- *       className: 'sol.hr.DurationUtils',
+ *       className: 'sol.hr.Utils',
  *       classConfig: {}
- *       method: 'getSmallestUnitString',
- *       params: [["unit1", "unit2"]]
+ *       method: 'getPathOfUsersPersonnelFile',
+ *       params: [["Administrator", {}]]
  *     });
  *
  *
