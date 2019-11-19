@@ -3,6 +3,7 @@ importPackage(Packages.java.io);
 importPackage(Packages.de.elo.ix.client);
 
 //@include lib_Class.js
+//@include lib_sol.common.ix.ActionBase.js
 //@include lib_sol.common.ix.ServiceBase.js
 //@include lib_sol.common.WfUtils.js
 //@include lib_sol.hr.shared.Utils.js
@@ -66,6 +67,18 @@ sol.define("sol.unittest.hr.ix.services.ExecuteLib", {
     cls = sol.create(me.className, me.classConfig);
     func = cls[me.method];
 
+    switch (me.className) {
+      case "sol.hr.shared.Utils":
+        switch (me.method) {
+          case "startWorkflowAndEvents":
+            me.params[0] = sol.create("sol.unittest.hr.ActionBase", {});
+            break;
+          default:
+        }
+        break;
+      default:
+    }
+
     if (sol.common.ObjectUtils.isFunction(func)) {
       result = func.apply(cls, me.params);
     } else {
@@ -93,3 +106,8 @@ function RF_sol_unittest_hr_service_ExecuteLib(ec, args) {
   logger.exit("RF_sol_unittest_hr_service_ExecuteLib", result);
   return sol.common.JsonUtils.stringifyAll(result);
 }
+
+sol.define("sol.unittest.hr.ActionBase", {
+  extend: "sol.common.ix.ActionBase"
+
+});

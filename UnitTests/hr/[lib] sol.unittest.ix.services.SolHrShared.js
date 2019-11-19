@@ -3,7 +3,7 @@ describe("[lib] sol.unittest.ix.services.SolHrShared", function () {
   var SharedSord, userName, userInfo, originalTimeout, objId, flowId, asAdmin,
       templateFolders, contextSoltype, opts, workflowOpts, dataSourceAsAdm,
       targetId, targetMask, shortDescription, typeName, classContext, folders, term, lang,
-      obSolHrSharedId, workflow, succNodes, succNodesIds;
+      obSolHrSharedId, workflow, succNodes, succNodesIds, contextTypes;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -13,16 +13,7 @@ describe("[lib] sol.unittest.ix.services.SolHrShared", function () {
         obSolHrSharedId = obSolHrSharedId1;
         test.Utils.getSord("ARCPATH:/Administration/Business Solutions/hr [unit tests]/Resources/Shared").then(function success1(SharedSord1) {
           SharedSord = SharedSord1;
-          userName = test.Utils.getCurrentUserName();
-          test.Utils.getUserInfo(userName).then(function success3(userInfo1) {
-            userInfo = userInfo1;
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
+          done();
         }, function error(err) {
           fail(err);
           console.error(err);
@@ -90,10 +81,25 @@ describe("[lib] sol.unittest.ix.services.SolHrShared", function () {
           );
         }).not.toThrow();
       });
-      xit("getTypesByContext", function (done) {
+      it("get contextTypes from hr.orgchart.config", function (done) {
         expect(function () {
-          contextSoltype = PVALUE;
-          opts = PVALUE;
+          test.Utils.execute("RF_sol_common_service_GetConfig", {
+            objId: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/hr_orgchart/Configuration/hr.orgchart.config"
+          }).then(function success(configResult) {
+            contextTypes = configResult.config.entities.chartelement.services.chartroottypes.contextTypes;
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("getTypesByContext", function (done) {
+        expect(function () {
+          contextSoltype = "ORGCHART_COMPANY";
+          opts = contextTypes;
           test.Utils.execute("RF_sol_unittest_hr_service_ExecuteLib", {
             className: "sol.hr.shared.Utils",
             classConfig: {},
@@ -109,11 +115,11 @@ describe("[lib] sol.unittest.ix.services.SolHrShared", function () {
           );
         }).not.toThrow();
       });
-      xit("inheritData", function (done) {
+      it("inheritData", function (done) {
         expect(function () {
-          opts = PVALUE;
-          workflowOpts = PVALUE;
-          dataSourceAsAdm = PVALUE;
+          opts = {};
+          workflowOpts = {};
+          dataSourceAsAdm = {};
           test.Utils.execute("RF_sol_unittest_hr_service_ExecuteLib", {
             className: "sol.hr.shared.Utils",
             classConfig: {},
@@ -129,12 +135,12 @@ describe("[lib] sol.unittest.ix.services.SolHrShared", function () {
           );
         }).not.toThrow();
       });
-      xit("prepareFolder", function (done) {
+      it("prepareFolder", function (done) {
         expect(function () {
-          targetId = PVALUE;
-          targetMask = PVALUE;
-          shortDescription = PVALUE;
-          typeName = PVALUE;
+          targetId = obSolHrSharedId;
+          targetMask = "UnitTest";
+          shortDescription = "shortDescription";
+          typeName = "Folder";
           test.Utils.execute("RF_sol_unittest_hr_service_ExecuteLib", {
             className: "sol.hr.shared.Utils",
             classConfig: {},
@@ -150,9 +156,9 @@ describe("[lib] sol.unittest.ix.services.SolHrShared", function () {
           );
         }).not.toThrow();
       });
-      xit("prepareFolderViaTemplate", function (done) {
+      it("prepareFolderViaTemplate", function (done) {
         expect(function () {
-          opts = PVALUE;
+          opts = { target: obSolHrSharedId };
           test.Utils.execute("RF_sol_unittest_hr_service_ExecuteLib", {
             className: "sol.hr.shared.Utils",
             classConfig: {},
@@ -168,11 +174,11 @@ describe("[lib] sol.unittest.ix.services.SolHrShared", function () {
           );
         }).not.toThrow();
       });
-      xit("startWorkflowAndEvents", function (done) {
+      it("startWorkflowAndEvents", function (done) {
         expect(function () {
-          classContext = PVALUE;
-          objId = PVALUE;
-          opts = PVALUE;
+          classContext = "classContext";
+          objId = obSolHrSharedId;
+          opts = {};
           test.Utils.execute("RF_sol_unittest_hr_service_ExecuteLib", {
             className: "sol.hr.shared.Utils",
             classConfig: {},
@@ -188,9 +194,9 @@ describe("[lib] sol.unittest.ix.services.SolHrShared", function () {
           );
         }).not.toThrow();
       });
-      xit("templateFoldersToTypes", function (done) {
+      it("templateFoldersToTypes", function (done) {
         expect(function () {
-          folders = PVALUE;
+          folders = [String(SharedSord.id)];
           test.Utils.execute("RF_sol_unittest_hr_service_ExecuteLib", {
             className: "sol.hr.shared.Utils",
             classConfig: {},
@@ -206,10 +212,10 @@ describe("[lib] sol.unittest.ix.services.SolHrShared", function () {
           );
         }).not.toThrow();
       });
-      xit("translate", function (done) {
+      it("translate", function (done) {
         expect(function () {
-          term = PVALUE;
-          lang = PVALUE;
+          term = "sol.hr.client.solution.name";
+          lang = "de";
           test.Utils.execute("RF_sol_unittest_hr_service_ExecuteLib", {
             className: "sol.hr.shared.Utils",
             classConfig: {},
@@ -225,7 +231,6 @@ describe("[lib] sol.unittest.ix.services.SolHrShared", function () {
           );
         }).not.toThrow();
       });
-
       it("finish Workflow Unittest", function (done) {
         expect(function () {
           test.Utils.getWorkflow(flowId).then(function success1(workflow1) {
