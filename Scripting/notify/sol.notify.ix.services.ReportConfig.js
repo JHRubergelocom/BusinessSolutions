@@ -12,10 +12,10 @@ importPackage(Packages.de.elo.ix.client);
 var logger = sol.create("sol.Logger", { scope: "sol.notify.ix.services.ReportConfig" });
 
 /**
- * Reads and writes the report configuration 
- *     
+ * Reads and writes the report configuration
+ *
  * # Get and set user options notify mail
- * 
+ *
  *     sol.common.IxUtils.execute("RF_sol_notify_service_ReportConfig_Write", {
  *       enableMail: true,
  *       sendAlways: true,
@@ -25,15 +25,15 @@ var logger = sol.create("sol.Logger", { scope: "sol.notify.ix.services.ReportCon
  *       onlyOnce: true,
  *       newsMyElo: true
  *     });
- *     
+ *
  *     var userNotifyCfg = sol.common.IxUtils.execute("RF_sol_notify_service_ReportConfig_Read", {});
- * 
+ *
  * # Get and set user options notify mail for another user
- * 
+ *
  * In addition the userId can be given if the current user has administrative rights.
- *     
+ *
  *     sol.common.IxUtils.execute("RF_sol_notify_service_ReportConfig_Write", {
- *       userId: "3" 
+ *       userId: "3"
  *     });
  *
  * @author JHR, ELO Digital Office GmbH
@@ -65,10 +65,10 @@ sol.define("sol.notify.ix.services.ReportConfig", {
 
     currentUser = sol.common.UserUtils.getCurrentUserInfo().id;
 
-    if (me.userId && !sol.common.UserUtils.isMainAdmin(currentUser)) {
-      throw "IllegalAccess: user unauthorized";    
-    } 
-    
+    if (me.userId && !sol.common.UserUtils.isMainAdmin(currentUser) && (me.userId != currentUser)) {
+      throw "IllegalAccess: user unauthorized";
+    }
+
     me.userId = me.userId || currentUser;
   },
 
@@ -113,7 +113,7 @@ function RF_sol_notify_service_ReportConfig_Read(ec, args) {
   logger.enter("RF_sol_notify_service_ReportConfig_Read", args);
 
   params = sol.common.ix.RfUtils.parseAndCheckParams(ec, arguments.callee.name, args);
-  
+
   service = sol.create("sol.notify.ix.services.ReportConfig", params);
   result = sol.common.ix.RfUtils.stringify(service.read());
 
@@ -129,11 +129,11 @@ function RF_sol_notify_service_ReportConfig_Read(ec, args) {
  */
 function RF_sol_notify_service_ReportConfig_Write(ec, args) {
   var params, service, result;
-  
+
   logger.enter("RF_sol_notify_service_ReportConfig_Write", args);
 
   params = sol.common.ix.RfUtils.parseAndCheckParams(ec, arguments.callee.name, args, "reportConfig");
-  
+
   service = sol.create("sol.notify.ix.services.ReportConfig", params);
   result = sol.common.ix.RfUtils.stringify(service.write());
 
