@@ -1,16 +1,15 @@
 
-describe("[action] sol.privacy.ix.actions.Approve", function () {
+describe("[action] sol.privacy.ix.actions.Delegate", function () {
   var objTempId, processingActivityTypes,
       configTypes, configAction, wfInfo, objIdP,
       succNodes, succNodesIds, originalTimeout,
-      userNodes, nodeIdUserProcessing, interval;
+      userNodes, nodeIdUserProcessing;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
-      test.Utils.createTempSord("Actions.Approve", null, null).then(function success(objTempId1) {
-        interval = 4000;
+      test.Utils.createTempSord("Actions.Delegate", null, null).then(function success(objTempId1) {
         objTempId = objTempId1;
         done();
       }, function error(err) {
@@ -21,7 +20,7 @@ describe("[action] sol.privacy.ix.actions.Approve", function () {
       );
     }).not.toThrow();
   });
-  describe("test start approve", function () {
+  describe("test start delegate", function () {
     it("should not throw if executed without parameter", function (done) {
       expect(function () {
         test.Utils.execute("RF_sol_common_action_Standard", {
@@ -154,9 +153,9 @@ describe("[action] sol.privacy.ix.actions.Approve", function () {
           }).not.toThrow();
         });
       });
-      describe("test finish approve", function () {
+      describe("test finish delegate", function () {
         it("check preconditions", function (done) {
-          test.Utils.execute("RF_sol_privacy_service_ApproveProcessingActivityPreconditions", { targetId: objIdP }).then(function success(result) {
+          test.Utils.execute("RF_sol_privacy_service_DelegateProcessingActivityPreconditions", { targetId: objIdP }).then(function success(result) {
             expect(result.valid).toBeDefined();
             expect(result.valid).toEqual(true);
             done();
@@ -167,26 +166,27 @@ describe("[action] sol.privacy.ix.actions.Approve", function () {
           }
           );
         });
-        it("start action approve workflow", function (done) {
+        it("start action delegate workflow", function (done) {
           expect(function () {
             configAction = {
               objId: objIdP,
-              $name: "sol.privacy.gdpr.processingactivity.approve",
+              $name: "sol.privacy.gdpr.processingactivity.delegate",
               $wf: {
-                name: "{{translate 'sol.gdpr.processingactivity.approve.workflow.name'}}",
+                name: "{{translate 'sol.gdpr.processingactivity.delegate.workflow.name'}}",
                 template: {
-                  name: "sol.privacy.gdpr.processingactivity.approve"
+                  name: "sol.privacy.gdpr.processingactivity.delegate"
                 }
               },
               $events: [
                 {
-                  id: "FEEDBACK",
+                  id: "DIALOG",
                   onWfStatus: "",
-                  message: "{{translate 'sol.gdpr.client.processingactivity.approve.msg'}}"
+                  message: ""
                 },
                 {
-                  id: "DIALOG",
-                  onWfStatus: ""
+                  id: "FEEDBACK",
+                  onWfStatus: "DELEGATE",
+                  message: "{{translate 'sol.gdpr.client.processingactivity.delegate.msg'}}"
                 },
                 {
                   id: "GOTO",
@@ -222,10 +222,22 @@ describe("[action] sol.privacy.ix.actions.Approve", function () {
         it("wfInfo.objId must be available", function () {
           expect(wfInfo.objId).toBeDefined();
         });
+        it("fill processing activity sord", function (done) {
+          expect(function () {
+            test.Utils.updateWfMapData(wfInfo.flowId, wfInfo.objId, { DELEGATE_USER: "Administrator" }).then(function success1(updateMapDataResult) {
+              done();
+            }, function error(err) {
+              fail(err);
+              console.error(err);
+              done();
+            }
+            );
+          }).not.toThrow();
+        });
         it("finish input forwarding workflow", function (done) {
           expect(function () {
             test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-              succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.gdpr.wf.node.approve");
+              succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.gdpr.processingactivity.wf.node.delegate");
               succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
               test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest finish input").then(function success1(forwardWorkflowTaskResult) {
                 done();
@@ -243,159 +255,15 @@ describe("[action] sol.privacy.ix.actions.Approve", function () {
             );
           }).not.toThrow();
         });
-        it("setTimeout (wait for elo as)", function (done) {
-          expect(function () {
-            test.Utils.setTimeout(interval).then(function success(timeoutResult) {
-              done();
-            }, function error(err) {
-              fail(err);
-              console.error(err);
-              done();
-            }
-            );
-          }).not.toThrow();
-        });
-        it("setTimeout (wait for elo as)", function (done) {
-          expect(function () {
-            test.Utils.setTimeout(interval).then(function success(timeoutResult) {
-              done();
-            }, function error(err) {
-              fail(err);
-              console.error(err);
-              done();
-            }
-            );
-          }).not.toThrow();
-        });
-        it("setTimeout (wait for elo as)", function (done) {
-          expect(function () {
-            test.Utils.setTimeout(interval).then(function success(timeoutResult) {
-              done();
-            }, function error(err) {
-              fail(err);
-              console.error(err);
-              done();
-            }
-            );
-          }).not.toThrow();
-        });
-        it("setTimeout (wait for elo as)", function (done) {
-          expect(function () {
-            test.Utils.setTimeout(interval).then(function success(timeoutResult) {
-              done();
-            }, function error(err) {
-              fail(err);
-              console.error(err);
-              done();
-            }
-            );
-          }).not.toThrow();
-        });
-        it("setTimeout (wait for elo as)", function (done) {
-          expect(function () {
-            test.Utils.setTimeout(interval).then(function success(timeoutResult) {
-              done();
-            }, function error(err) {
-              fail(err);
-              console.error(err);
-              done();
-            }
-            );
-          }).not.toThrow();
-        });
-        it("setTimeout (wait for elo as)", function (done) {
-          expect(function () {
-            test.Utils.setTimeout(interval).then(function success(timeoutResult) {
-              done();
-            }, function error(err) {
-              fail(err);
-              console.error(err);
-              done();
-            }
-            );
-          }).not.toThrow();
-        });
-        it("setTimeout (wait for elo as)", function (done) {
-          expect(function () {
-            test.Utils.setTimeout(interval).then(function success(timeoutResult) {
-              done();
-            }, function error(err) {
-              fail(err);
-              console.error(err);
-              done();
-            }
-            );
-          }).not.toThrow();
-        });
-        it("setTimeout (wait for elo as)", function (done) {
-          expect(function () {
-            test.Utils.setTimeout(interval).then(function success(timeoutResult) {
-              done();
-            }, function error(err) {
-              fail(err);
-              console.error(err);
-              done();
-            }
-            );
-          }).not.toThrow();
-        });
-        it("setTimeout (wait for elo as)", function (done) {
-          expect(function () {
-            test.Utils.setTimeout(interval).then(function success(timeoutResult) {
-              done();
-            }, function error(err) {
-              fail(err);
-              console.error(err);
-              done();
-            }
-            );
-          }).not.toThrow();
-        });
-        it("setTimeout (wait for elo as)", function (done) {
-          expect(function () {
-            test.Utils.setTimeout(interval).then(function success(timeoutResult) {
-              done();
-            }, function error(err) {
-              fail(err);
-              console.error(err);
-              done();
-            }
-            );
-          }).not.toThrow();
-        });
-        it("setTimeout (wait for elo as)", function (done) {
-          expect(function () {
-            test.Utils.setTimeout(interval).then(function success(timeoutResult) {
-              done();
-            }, function error(err) {
-              fail(err);
-              console.error(err);
-              done();
-            }
-            );
-          }).not.toThrow();
-        });
-        it("setTimeout (wait for elo as)", function (done) {
-          expect(function () {
-            test.Utils.setTimeout(interval).then(function success(timeoutResult) {
-              done();
-            }, function error(err) {
-              fail(err);
-              console.error(err);
-              done();
-            }
-            );
-          }).not.toThrow();
-        });
-        it("processing activity approved workflow", function (done) {
+        it("data entry delegated workflow", function (done) {
           expect(function () {
             test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
               userNodes = test.Utils.getActiveUserNodes(workflow);
               if (userNodes.length > 0) {
                 nodeIdUserProcessing = userNodes[0].id;
-                succNodes = test.Utils.getSuccessorNodes(workflow, nodeIdUserProcessing, null, "sol.gdpr.processingactivity.wf.node.confirm");
+                succNodes = test.Utils.getSuccessorNodes(workflow, nodeIdUserProcessing, null, "sol.gdpr.processingactivity.wf.node.handback");
                 succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
-                test.Utils.forwardWorkflowTask(wfInfo.flowId, nodeIdUserProcessing, succNodesIds, "Unittest approve").then(function success3(forwardWorkflowTaskResult1) {
+                test.Utils.forwardWorkflowTask(wfInfo.flowId, nodeIdUserProcessing, succNodesIds, "Unittest delegate handback").then(function success3(forwardWorkflowTaskResult1) {
                   done();
                 }, function error(err) {
                   fail(err);
@@ -405,6 +273,46 @@ describe("[action] sol.privacy.ix.actions.Approve", function () {
                 );
               }
               done();
+            }, function error(err) {
+              fail(err);
+              console.error(err);
+              done();
+            }
+            );
+          }).not.toThrow();
+        });
+        it("delegate finished delegated workflow", function (done) {
+          expect(function () {
+            test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
+              succNodes = test.Utils.getSuccessorNodes(workflow, 10, null, "sol.gdpr.processingactivity.wf.node.confirm");
+              succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
+              test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest delegate confirm").then(function success1(forwardWorkflowTaskResult) {
+                done();
+              }, function error(err) {
+                // fail(err);
+                console.error(err);
+                done();
+              }
+              );
+            }, function error(err) {
+              fail(err);
+              console.error(err);
+              done();
+            }
+            );
+          }).not.toThrow();
+        });
+        it("remove active workflows", function (done) {
+          expect(function () {
+            test.Utils.getActiveWorkflows().then(function success(wfs) {
+              test.Utils.removeActiveWorkflows(wfs).then(function success1(removeActiveWorkflowsResult) {
+                done();
+              }, function error(err) {
+                fail(err);
+                console.error(err);
+                done();
+              }
+              );
             }, function error(err) {
               fail(err);
               console.error(err);
@@ -546,9 +454,9 @@ describe("[action] sol.privacy.ix.actions.Approve", function () {
           }).not.toThrow();
         });
       });
-      describe("test cancel approve", function () {
+      describe("test cancel delegate", function () {
         it("check preconditions", function (done) {
-          test.Utils.execute("RF_sol_privacy_service_ApproveProcessingActivityPreconditions", { targetId: objIdP }).then(function success(result) {
+          test.Utils.execute("RF_sol_privacy_service_DelegateProcessingActivityPreconditions", { targetId: objIdP }).then(function success(result) {
             expect(result.valid).toBeDefined();
             expect(result.valid).toEqual(true);
             done();
@@ -559,26 +467,27 @@ describe("[action] sol.privacy.ix.actions.Approve", function () {
           }
           );
         });
-        it("start action approve workflow", function (done) {
+        it("start action delegate workflow", function (done) {
           expect(function () {
             configAction = {
               objId: objIdP,
-              $name: "sol.privacy.gdpr.processingactivity.approve",
+              $name: "sol.privacy.gdpr.processingactivity.delegate",
               $wf: {
-                name: "{{translate 'sol.gdpr.processingactivity.approve.workflow.name'}}",
+                name: "{{translate 'sol.gdpr.processingactivity.delegate.workflow.name'}}",
                 template: {
-                  name: "sol.privacy.gdpr.processingactivity.approve"
+                  name: "sol.privacy.gdpr.processingactivity.delegate"
                 }
               },
               $events: [
                 {
-                  id: "FEEDBACK",
+                  id: "DIALOG",
                   onWfStatus: "",
-                  message: "{{translate 'sol.gdpr.client.processingactivity.approve.msg'}}"
+                  message: ""
                 },
                 {
-                  id: "DIALOG",
-                  onWfStatus: ""
+                  id: "FEEDBACK",
+                  onWfStatus: "DELEGATE",
+                  message: "{{translate 'sol.gdpr.client.processingactivity.delegate.msg'}}"
                 },
                 {
                   id: "GOTO",
@@ -617,7 +526,7 @@ describe("[action] sol.privacy.ix.actions.Approve", function () {
         it("cancel input forwarding workflow", function (done) {
           expect(function () {
             test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-              succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.gdpr.wf.node.reject");
+              succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.common.wf.node.cancel");
               succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
               test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest cancel input").then(function success1(forwardWorkflowTaskResult) {
                 done();
@@ -627,32 +536,6 @@ describe("[action] sol.privacy.ix.actions.Approve", function () {
                 done();
               }
               );
-            }, function error(err) {
-              fail(err);
-              console.error(err);
-              done();
-            }
-            );
-          }).not.toThrow();
-        });
-        it("processing activity rejected workflow", function (done) {
-          expect(function () {
-            test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-              userNodes = test.Utils.getActiveUserNodes(workflow);
-              if (userNodes.length > 0) {
-                nodeIdUserProcessing = userNodes[0].id;
-                succNodes = test.Utils.getSuccessorNodes(workflow, nodeIdUserProcessing, null, "sol.gdpr.processingactivity.wf.node.confirm");
-                succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
-                test.Utils.forwardWorkflowTask(wfInfo.flowId, nodeIdUserProcessing, succNodesIds, "Unittest reject").then(function success3(forwardWorkflowTaskResult1) {
-                  done();
-                }, function error(err) {
-                  fail(err);
-                  console.error(err);
-                  done();
-                }
-                );
-              }
-              done();
             }, function error(err) {
               fail(err);
               console.error(err);
