@@ -5,10 +5,12 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_Class.js
 //@include lib_sol.common.Config.js
 //@include lib_sol.common.Template.js
+//@include lib_sol.common.UserProfile.js
 //@include lib_sol.common.WfUtils.js
 //@include lib_sol.common.ix.ServiceBase.js
 //@include lib_sol.checklist.Utils.js
 //@include lib_sol.contact.Utils.js
+//@include lib_sol.notify.Utils.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.productivity.ix.services.ExecuteLib" });
 
