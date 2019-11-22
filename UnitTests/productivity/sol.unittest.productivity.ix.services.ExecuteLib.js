@@ -4,8 +4,11 @@ importPackage(Packages.de.elo.ix.client);
 
 //@include lib_Class.js
 //@include lib_sol.common.Config.js
+//@include lib_sol.common.Template.js
+//@include lib_sol.common.WfUtils.js
 //@include lib_sol.common.ix.ServiceBase.js
 //@include lib_sol.checklist.Utils.js
+//@include lib_sol.contact.Utils.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.productivity.ix.services.ExecuteLib" });
 
@@ -65,6 +68,25 @@ sol.define("sol.unittest.productivity.ix.services.ExecuteLib", {
 
     cls = sol.create(me.className, me.classConfig);
     func = cls[me.method];
+
+    switch (me.className) {
+      case "sol.contact.Utils":
+        switch (me.method) {
+          case "getConfigPart":
+            me.params[1] = ixConnect.ix().checkoutSord(me.params[1], SordC.mbAllIndex, LockC.NO);
+            break;
+          case "getSolType":
+          case "isCompany":
+          case "isContact":
+          case "isContactList":
+          case "isContactManagementObject":
+            me.params[0] = ixConnect.ix().checkoutSord(me.params[0], SordC.mbAllIndex, LockC.NO);
+            break;
+          default:
+        }
+        break;
+      default:
+    }
 
     if (sol.common.ObjectUtils.isFunction(func)) {
       result = func.apply(cls, me.params);
