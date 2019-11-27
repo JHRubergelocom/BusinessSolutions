@@ -3,7 +3,7 @@ describe("[action] sol.visitor.ix.actions.RegisterVisitorBadge", function () {
   var objTempId, objIdVs1a, objIdVs2a, objIdGr1a, objIdGr2a,
       objIdVs1b, objIdVs2b, objIdGr1b, objIdGr2b,
       visitorTypes, config,
-      wfInfo,
+      wfInfo, originalTimeout,
       succNodes, succNodesIds,
       keywording, mapdata, nowDateTime;
 
@@ -132,7 +132,7 @@ describe("[action] sol.visitor.ix.actions.RegisterVisitorBadge", function () {
         it("finish workflow", function (done) {
           expect(function () {
             test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-              succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "Create visitor");
+              succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.visitor.wf.node.preregisterVisitor");
               succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
               test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest finish input").then(function success1(forwardWorkflowTaskResult) {
                 done();
@@ -317,7 +317,7 @@ describe("[action] sol.visitor.ix.actions.RegisterVisitorBadge", function () {
         it("finish workflow", function (done) {
           expect(function () {
             test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-              succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "Create visitor");
+              succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.visitor.wf.node.preregisterVisitor");
               succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
               test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest finish input").then(function success1(forwardWorkflowTaskResult) {
                 done();
