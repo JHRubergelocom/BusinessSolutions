@@ -26,6 +26,13 @@ sol.define("sol.visitor.forms.Utils", {
     checkoutGroup: "109_group_checkout_title"
   },
 
+  securityClearanceStatus: {
+    not_checked: { key: "NC", class: "notchecked" },
+    check_in_progress: { key: "IP", class: "notchecked" },
+    checked: { key: "CD", class: "checked" },
+    rejected: { key: "RE", class: "rejected" }
+  },
+
   /**
    * Registers an update using the new IX .
    */
@@ -46,6 +53,8 @@ sol.define("sol.visitor.forms.Utils", {
     $hide("IX_MAP_VISITOR_TOTALVISITORS");
     $hide("TXT_GUID");
     $hide("IX_GRP_VISITOR_PHOTO_GUID");
+
+    me.highlightHeader();
 
     if (me.checkif(me.identifier.createGroupAdhoc)) {
       me.setDate("IX_GRP_VISITOR_ARRIVALDATE");
@@ -206,6 +215,24 @@ sol.define("sol.visitor.forms.Utils", {
       me.showElements(["IX_MAP_VISITOR_PICKUEMPLOYEE", "TXT_PICKUEMPLOYEE"], true);
     } else {
       me.showElements(["IX_MAP_VISITOR_PICKUEMPLOYEE", "TXT_PICKUEMPLOYEE"], false);
+    }
+  },
+
+  /**
+   * highlightHeader
+   */
+  highlightHeader: function () {
+    var me = this,
+        clearance = $val("IX_GRP_VISITOR_SECURITY_CLEARANCE");
+
+    if (clearance.startsWith(me.securityClearanceStatus.not_checked.key)) {
+      document.body.className += " " + me.securityClearanceStatus.not_checked.class;
+    } else if (clearance.startsWith(me.securityClearanceStatus.check_in_progress.key)) {
+      document.body.className += " " + me.securityClearanceStatus.check_in_progress.class;
+    } else if (clearance.startsWith(me.securityClearanceStatus.checked.key)) {
+      document.body.className += " " + me.securityClearanceStatus.checked.class;
+    } else if (clearance.startsWith(me.securityClearanceStatus.rejected.key)) {
+      document.body.className += " " + me.securityClearanceStatus.rejected.class;
     }
   },
 
@@ -684,7 +711,7 @@ sol.define("sol.visitor.forms.Utils", {
   loadVisitorGroupMembers: function () {
     var me = this;
 
-    if (ELO_PARAMS.IX_GRP_SOL_TYPE != "VISITOR_GROUP") {
+    if ((ELO_PARAMS.IX_GRP_SOL_TYPE != "VISITOR_GROUP") && (ELO_PARAMS.IX_GRP_SOL_TYPE != "VISITOR_COMPANY")) {
       return;
     }
 
@@ -740,6 +767,7 @@ sol.define("sol.visitor.forms.Utils", {
    * @param {String} config.objIdFieldName Object-ID field name
    * @param {String} config.mapping Mapping
    * @param {String} [config.changedAttributeName=changed] Changed attribute
+   * @return {Object}
    */
   collectChangedTableData: function (config) {
     var data = {},
@@ -758,7 +786,7 @@ sol.define("sol.visitor.forms.Utils", {
     objIdField = $var(objIdFieldName);
 
     if (!objIdField) {
-      throw "Can't find field '" + objIdFieldName + "'";
+      return {};
     }
 
     table = sol.common.forms.Utils.getTable(objIdField);
@@ -804,9 +832,9 @@ sol.define("sol.visitor.forms.Utils", {
     me.transferResponsibleValues();
 
     params = params || {};
-    if (params.solType == "VISITOR_GROUP") {
+    if ((params.solType == "VISITOR_GROUP") || (params.solType == "VISITOR_COMPANY")) {
       promise = new Promise(function (resolve, reject) {
-        var changedData, params;
+        var changedData;
         changedData = me.collectChangedTableData({ objIdFieldName: "VISITOR_OBJID", mapping: sol.visitor.forms.Utils.visitorGroupMemberMapping });
         params = { visitorGroupObjId: ELO_PARAMS.ELO_OBJID, data: changedData };
         sol.common.IxUtils.execute("RF_sol_visitor_service_WriteVisitorGroupMembers", params,
@@ -826,18 +854,44 @@ sol.define("sol.visitor.forms.Utils", {
   },
 
   transferResponsibleValues: function () {
-    var responsibleField;
+    var responsibleField, lineIndex, firstName, lastName, companyName;
 
     responsibleField = document.querySelector("input[name^='VISITOR_GROUPRESPONSIBLE']:checked");
 
-    lineIndex = sol.common.forms.Utils.getFieldNameIndex(responsibleField.name);
+    if (responsibleField) {
+      lineIndex = sol.common.forms.Utils.getFieldNameIndex(responsibleField.name);
 
-    firstName = $val("VISITOR_FIRSTNAME" + lineIndex);
-    lastName = $val("VISITOR_LASTNAME" + lineIndex);
-    companyName = $val("VISITOR_COMPANYNAME" + lineIndex);
+      firstName = $val("VISITOR_FIRSTNAME" + lineIndex);
+      lastName = $val("VISITOR_LASTNAME" + lineIndex);
+      companyName = $val("VISITOR_COMPANYNAME" + lineIndex);
 
-    $update("IX_GRP_VISITOR_FIRSTNAME", firstName, true);
-    $update("IX_GRP_VISITOR_LASTNAME", lastName, true);
-    $update("IX_GRP_VISITOR_COMPANYNAME", companyName, true);
+      $update("IX_GRP_VISITOR_FIRSTNAME", firstName, true);
+      $update("IX_GRP_VISITOR_LASTNAME", lastName, true);
+      $update("IX_GRP_VISITOR_COMPANYNAME", companyName, true);
+    }
+  },
+
+  insertGroupMembers: function (objId, firstLineNo) {
+    var lineNo, entries, i, entry, firstNameFieldName, lastNameFieldName;
+
+    lineNo = firstLineNo || 1;
+
+    entries = sol.common.IxUtils.execute("RF_sol_visitor_service_ReadVisitorList", {
+      objId: objId
+    });
+
+    for (i = 0; i < entries.length; i++) {
+      entry = entries[i];
+      firstNameFieldName = "VISITOR_FIRSTNAME" + lineNo;
+      lastNameFieldName = "VISITOR_LASTNAME" + lineNo;
+
+      sol.common.forms.Utils.ensureRowExists(firstNameFieldName);
+      $update(firstNameFieldName, entry.firstName);
+      $update(lastNameFieldName, entry.lastName);
+
+      inputChanged($var(firstNameFieldName));
+      inputChanged($var(lastNameFieldName));
+      lineNo++;
+    }
   }
 });

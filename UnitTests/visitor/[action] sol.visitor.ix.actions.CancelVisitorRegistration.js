@@ -3,6 +3,8 @@ describe("[action] sol.visitor.ix.actions.CancelVisitorRegistration", function (
   var objTempId, objIdVs1, objIdVs2, objIdGr1, objIdGr2,
       visitorTypes, config, wfInfo,
       succNodes, succNodesIds,
+      userNode, nodes, userNodeId, subWfs, subWorkflows, key, i, j,
+      subWf, subWfFlowId,
       keywording, mapdata, nowDateTime, originalTimeout;
 
   beforeAll(function (done) {
@@ -89,7 +91,8 @@ describe("[action] sol.visitor.ix.actions.CancelVisitorRegistration", function (
               VISITOR_COMPANYNAME: "Capitol Versicherungen",
               VISITOR_VISITPURPOSE: "Hausratversicherung",
               VISITOR_STARTDATE: nowDateTime.date,
-              VISITOR_STARTTIME: nowDateTime.time
+              VISITOR_STARTTIME: nowDateTime.time,
+              VISITOR_SECURITY_CLEARANCE: "NC"
             };
             test.Utils.updateKeywording(sordVs1, keywording, true).then(function success1(updateKeywordingResult) {
               test.Utils.updateSord(sordVs1, [{ key: "desc", value: "Unittest desc1" }]).then(function success2(updateSordResult) {
@@ -147,9 +150,66 @@ describe("[action] sol.visitor.ix.actions.CancelVisitorRegistration", function (
           );
         }).not.toThrow();
       });
+      it("get active node 'Check' (id = 9) of Subworkflow 'sol.visitor.visitor.preregister.securityclearance'", function (done) {
+        expect(function () {
+          test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
+            subWfs = [];
+            subWorkflows = workflow.subWorkflows;
+            for (key in subWorkflows) {
+              subWfs.push(subWorkflows[key]);
+            }
+            for (i = 0; i < subWfs.length; i++) {
+              if (subWfs[i].templateName == "sol.visitor.visitor.preregister.securityclearance") {
+                subWf = subWfs[i];
+                subWfFlowId = subWf.id;
+                nodes = test.Utils.getActiveUserNodes(subWf);
+                if (nodes.length > 0) {
+                  for (j = 0; j < nodes.length; j++) {
+                    if (nodes[j].nameTranslationKey == "sol.visitor.wf.node.checkPreregistration") {
+                      userNode = nodes[j];
+                      userNodeId = userNode.id;
+                    }
+                  }
+                  // alert("(userNode.name, userNode.id) = (" + userNode.name + "," + userNode.id + ")");
+                } else {
+                  // alert("no userNodes available");
+                }
+              }
+            }
+            expect(userNodeId).toEqual(9);
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("'Submit rating' forwarding Subworkflow 'sol.visitor.visitor.preregister.securityclearance'", function (done) {
+        expect(function () {
+          test.Utils.getWorkflow(subWfFlowId).then(function success(workflow) {
+            succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.visitor.wf.node.checkPreregistration.approve");
+            succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
+            test.Utils.forwardWorkflowTask(subWfFlowId, userNodeId, succNodesIds, "Unittest 'Rating forward'", true).then(function success1(forwardWorkflowTaskResult) {
+              done();
+            }, function error(err) {
+              fail(err);
+              console.error(err);
+              done();
+            }
+            );
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("remove workflow", function (done) {
         expect(function () {
-          test.Utils.getFinishedWorkflows(wfInfo.objId).then(function success(wfs) {
+          test.Utils.getFinishedWorkflows().then(function success(wfs) {
             test.Utils.removeFinishedWorkflows(wfs).then(function success1(removeFinishedWorkflowsResult) {
               done();
             }, function error(err) {
@@ -314,7 +374,8 @@ describe("[action] sol.visitor.ix.actions.CancelVisitorRegistration", function (
               VISITOR_COMPANYNAME: "Freier Astronaut",
               VISITOR_VISITPURPOSE: "Raumflug",
               VISITOR_STARTDATE: nowDateTime.date,
-              VISITOR_STARTTIME: nowDateTime.time
+              VISITOR_STARTTIME: nowDateTime.time,
+              VISITOR_SECURITY_CLEARANCE: "NC"
             };
             test.Utils.updateKeywording(sordVs2, keywording, true).then(function success1(updateKeywordingResult) {
               test.Utils.updateSord(sordVs2, [{ key: "desc", value: "Unittest desc2" }]).then(function success2(updateSordResult) {
@@ -372,9 +433,66 @@ describe("[action] sol.visitor.ix.actions.CancelVisitorRegistration", function (
           );
         }).not.toThrow();
       });
+      it("get active node 'Check' (id = 9) of Subworkflow 'sol.visitor.visitor.preregister.securityclearance'", function (done) {
+        expect(function () {
+          test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
+            subWfs = [];
+            subWorkflows = workflow.subWorkflows;
+            for (key in subWorkflows) {
+              subWfs.push(subWorkflows[key]);
+            }
+            for (i = 0; i < subWfs.length; i++) {
+              if (subWfs[i].templateName == "sol.visitor.visitor.preregister.securityclearance") {
+                subWf = subWfs[i];
+                subWfFlowId = subWf.id;
+                nodes = test.Utils.getActiveUserNodes(subWf);
+                if (nodes.length > 0) {
+                  for (j = 0; j < nodes.length; j++) {
+                    if (nodes[j].nameTranslationKey == "sol.visitor.wf.node.checkPreregistration") {
+                      userNode = nodes[j];
+                      userNodeId = userNode.id;
+                    }
+                  }
+                  // alert("(userNode.name, userNode.id) = (" + userNode.name + "," + userNode.id + ")");
+                } else {
+                  // alert("no userNodes available");
+                }
+              }
+            }
+            expect(userNodeId).toEqual(9);
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("'Submit rating' forwarding Subworkflow 'sol.visitor.visitor.preregister.securityclearance'", function (done) {
+        expect(function () {
+          test.Utils.getWorkflow(subWfFlowId).then(function success(workflow) {
+            succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.visitor.wf.node.checkPreregistration.approve");
+            succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
+            test.Utils.forwardWorkflowTask(subWfFlowId, userNodeId, succNodesIds, "Unittest 'Rating forward'", true).then(function success1(forwardWorkflowTaskResult) {
+              done();
+            }, function error(err) {
+              fail(err);
+              console.error(err);
+              done();
+            }
+            );
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("remove workflow", function (done) {
         expect(function () {
-          test.Utils.getFinishedWorkflows(wfInfo.objId).then(function success(wfs) {
+          test.Utils.getFinishedWorkflows().then(function success(wfs) {
             test.Utils.removeFinishedWorkflows(wfs).then(function success1(removeFinishedWorkflowsResult) {
               done();
             }, function error(err) {
