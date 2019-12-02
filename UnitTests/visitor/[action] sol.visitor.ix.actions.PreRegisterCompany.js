@@ -1,15 +1,16 @@
 
-describe("[action] sol.recruiting.ix.actions.CreateLongTermBadge", function () {
-  var objTempId, longTermBadgeTypes,
-      configTypes, configAction, wfInfo, succNodes, succNodesIds, objIdL1,
-      originalTimeout, interval;
+describe("[action] sol.visitor.ix.actions.PreRegisterCompany", function () {
+  var objTempId, objIdGr1,
+      visitorCompanyTypes, wfInfo, succNodes, succNodesIds,
+      keywording, mapdata, nowDateTime,
+      configTypes, configAction,
+      originalTimeout;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
-      test.Utils.createTempSord("Actions.CreateLongTermBadge", null, null).then(function success(objTempId1) {
-        interval = 4000;
+      test.Utils.createTempSord("Actions.PreRegisterCompany", null, null).then(function success(objTempId1) {
         objTempId = objTempId1;
         done();
       }, function error(err) {
@@ -20,7 +21,7 @@ describe("[action] sol.recruiting.ix.actions.CreateLongTermBadge", function () {
       );
     }).not.toThrow();
   });
-  describe("test create longTermBadge", function () {
+  describe("test preregister group", function () {
     it("should not throw if executed without parameter", function (done) {
       expect(function () {
         test.Utils.execute("RF_sol_common_action_Standard", {
@@ -35,16 +36,21 @@ describe("[action] sol.recruiting.ix.actions.CreateLongTermBadge", function () {
       }).not.toThrow();
     });
   });
-  describe("test finish createlongTermBadge", function () {
-    it("longTermBadgeTypes must be available", function (done) {
+  describe("test finish preregistercompany", function () {
+    it("get current date, time", function () {
+      expect(function () {
+        nowDateTime = test.Utils.getNowDateTime();
+      }).not.toThrow();
+    });
+    it("visitorCompanyTypes must be available", function (done) {
       configTypes = {
         $types: {
-          path: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/visitor/Configuration/Long term badge types"
+          path: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/visitor/Configuration/Visitor Company Types"
         }
       };
-      test.Utils.execute("RF_sol_common_service_StandardTypes", configTypes).then(function success(longTermBadgeTypes1) {
-        longTermBadgeTypes = longTermBadgeTypes1;
-        expect(longTermBadgeTypes).toBeDefined();
+      test.Utils.execute("RF_sol_common_service_StandardTypes", configTypes).then(function success(visitorCompanyTypes1) {
+        visitorCompanyTypes = visitorCompanyTypes1;
+        expect(visitorCompanyTypes).toBeDefined();
         done();
       }, function error(err) {
         fail(err);
@@ -53,45 +59,51 @@ describe("[action] sol.recruiting.ix.actions.CreateLongTermBadge", function () {
       }
       );
     });
-    it("longTermBadgeTypes.length must greater than zero", function () {
-      expect(longTermBadgeTypes.length).toBeGreaterThan(0);
+    it("visitorCompanyTypes.length must greater than zero", function () {
+      expect(visitorCompanyTypes.length).toBeGreaterThan(0);
     });
     it("start action create workflow", function (done) {
       expect(function () {
         configAction = {
           objId: objTempId,
-          $new: {
-            target: {
-              mode: "DEFAULT"
-            },
-            template: {
-              base: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/visitor/Configuration/Long term badge types",
-              name: longTermBadgeTypes[0].name
-            }
-          },
-          $name: "sol.visitor.CreateLongTermBadge",
-          $wf: {
-            template: {
-              name: "sol.visitor.longtermbadge.create"
-            },
-            name: "{{translate 'sol.visitor.workflow.longtermbadge.create.name'}}"
-          },
           $metadata: {
+            solType: "VISITOR_COMPANY",
             owner: {
               fromConnection: true
-            },
-            solType: "LONG_TERM_BADGE"
+            }
           },
+          $wf: {
+            template: {
+              name: "sol.visitor.visitor.preregistercompany"
+            },
+            name: "{{translate 'sol.visitor.workflow.preRegisterCompany'}}"
+          },
+          $name: "PreRegisterCompany",
           $events: [
             {
-              id: "DIALOG",
-              onWfStatus: ""
+              id: "DIALOG"
             },
             {
               id: "GOTO",
               onWfStatus: "CREATE"
             }
-          ]
+          ],
+          $new: {
+            target: {
+              mode: "DEFAULT"
+            },
+            template: {
+              name: visitorCompanyTypes[0].name,
+              base: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/visitor/Configuration/Visitor Company Types"
+            }
+          },
+          $permissions: {
+            mode: "SET",
+            copySource: true,
+            inherit: {
+              fromDirectParent: true
+            }
+          }
         };
         wfInfo = {};
         test.Utils.executeIxActionHandler("RF_sol_common_action_Standard", configAction, []).then(function success(jsonResults) {
@@ -121,18 +133,48 @@ describe("[action] sol.recruiting.ix.actions.CreateLongTermBadge", function () {
     it("wfInfo.objId must be available", function () {
       expect(wfInfo.objId).toBeDefined();
     });
-    it("fill longTermBadge sord", function (done) {
+    it("fill group sord", function (done) {
       expect(function () {
-        test.Utils.getSord(wfInfo.objId).then(function success(sordL1) {
-          objIdL1 = wfInfo.objId;
-          test.Utils.updateKeywording(sordL1, { VISITOR_FIRSTNAME: "Bernd", VISITOR_LASTNAME: "Stromberg" }, true).then(function success1(updateKeywordingResult) {
-            done();
+        test.Utils.getSord(wfInfo.objId).then(function success(sordGr1) {
+          objIdGr1 = wfInfo.objId;
+          keywording = {
+            VISITOR_COMPANYNAME: "Bremer Stadtmusikanten",
+            VISITOR_VISITPURPOSE: "Platzkonzert",
+            VISITOR_STARTDATE: nowDateTime.date,
+            VISITOR_STARTTIME: nowDateTime.time
+          };
+          test.Utils.updateKeywording(sordGr1, keywording, true).then(function success1(updateKeywordingResult) {
+            test.Utils.updateSord(sordGr1, [{ key: "desc", value: "Unittest desc1" }]).then(function success2(updateSordResult) {
+              done();
+            }, function error(err) {
+              fail(err);
+              console.error(err);
+              done();
+            }
+            );
           }, function error(err) {
             fail(err);
             console.error(err);
             done();
           }
           );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("set number of visitors to 1 in group sord", function (done) {
+      expect(function () {
+        mapdata = {
+          VISITOR_GROUPRESPONSIBLE1: 1,
+          NUMBER_OF_VISITORS:	1,
+          VISITOR_TOTALVISITORS: 1
+        };
+        test.Utils.updateMapData(objIdGr1, mapdata).then(function success(updateMapDataResult) {
+          done();
         }, function error(err) {
           fail(err);
           console.error(err);
@@ -144,7 +186,7 @@ describe("[action] sol.recruiting.ix.actions.CreateLongTermBadge", function () {
     it("finish input forwarding workflow", function (done) {
       expect(function () {
         test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-          succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.visitor.wf.node.preregisterVisitor");
+          succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.visitor.wf.node.preregisterGroup");
           succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
           test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest finish input").then(function success1(forwardWorkflowTaskResult) {
             done();
@@ -154,102 +196,6 @@ describe("[action] sol.recruiting.ix.actions.CreateLongTermBadge", function () {
             done();
           }
           );
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
-    it("setTimeout (wait for elo as)", function (done) {
-      expect(function () {
-        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
-          done();
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
-    it("setTimeout (wait for elo as)", function (done) {
-      expect(function () {
-        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
-          done();
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
-    it("setTimeout (wait for elo as)", function (done) {
-      expect(function () {
-        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
-          done();
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
-    it("setTimeout (wait for elo as)", function (done) {
-      expect(function () {
-        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
-          done();
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
-    it("setTimeout (wait for elo as)", function (done) {
-      expect(function () {
-        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
-          done();
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
-    it("setTimeout (wait for elo as)", function (done) {
-      expect(function () {
-        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
-          done();
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
-    it("setTimeout (wait for elo as)", function (done) {
-      expect(function () {
-        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
-          done();
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
-    it("setTimeout (wait for elo as)", function (done) {
-      expect(function () {
-        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
-          done();
         }, function error(err) {
           fail(err);
           console.error(err);
@@ -278,16 +224,21 @@ describe("[action] sol.recruiting.ix.actions.CreateLongTermBadge", function () {
       }).not.toThrow();
     });
   });
-  describe("test cancel createlongTermBadge", function () {
-    it("longTermBadgeTypes must be available", function (done) {
+  describe("test cancel preregistercompany", function () {
+    it("get current date, time", function () {
+      expect(function () {
+        nowDateTime = test.Utils.getNowDateTime();
+      }).not.toThrow();
+    });
+    it("visitorCompanyTypes must be available", function (done) {
       configTypes = {
         $types: {
-          path: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/visitor/Configuration/Long term badge types"
+          path: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/visitor/Configuration/Visitor Company Types"
         }
       };
-      test.Utils.execute("RF_sol_common_service_StandardTypes", configTypes).then(function success(longTermBadgeTypes1) {
-        longTermBadgeTypes = longTermBadgeTypes1;
-        expect(longTermBadgeTypes).toBeDefined();
+      test.Utils.execute("RF_sol_common_service_StandardTypes", configTypes).then(function success(visitorCompanyTypes1) {
+        visitorCompanyTypes = visitorCompanyTypes1;
+        expect(visitorCompanyTypes).toBeDefined();
         done();
       }, function error(err) {
         fail(err);
@@ -296,45 +247,51 @@ describe("[action] sol.recruiting.ix.actions.CreateLongTermBadge", function () {
       }
       );
     });
-    it("longTermBadgeTypes.length must greater than zero", function () {
-      expect(longTermBadgeTypes.length).toBeGreaterThan(0);
+    it("visitorCompanyTypes.length must greater than zero", function () {
+      expect(visitorCompanyTypes.length).toBeGreaterThan(0);
     });
     it("start action create workflow", function (done) {
       expect(function () {
         configAction = {
           objId: objTempId,
-          $new: {
-            target: {
-              mode: "DEFAULT"
-            },
-            template: {
-              base: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/visitor/Configuration/Long term badge types",
-              name: longTermBadgeTypes[0].name
-            }
-          },
-          $name: "sol.visitor.CreateLongTermBadge",
-          $wf: {
-            template: {
-              name: "sol.visitor.longtermbadge.create"
-            },
-            name: "{{translate 'sol.visitor.workflow.longtermbadge.create.name'}}"
-          },
           $metadata: {
+            solType: "VISITOR_COMPANY",
             owner: {
               fromConnection: true
-            },
-            solType: "LONG_TERM_BADGE"
+            }
           },
+          $wf: {
+            template: {
+              name: "sol.visitor.visitor.preregistercompany"
+            },
+            name: "{{translate 'sol.visitor.workflow.preRegisterCompany'}}"
+          },
+          $name: "PreRegisterCompany",
           $events: [
             {
-              id: "DIALOG",
-              onWfStatus: ""
+              id: "DIALOG"
             },
             {
               id: "GOTO",
               onWfStatus: "CREATE"
             }
-          ]
+          ],
+          $new: {
+            target: {
+              mode: "DEFAULT"
+            },
+            template: {
+              name: visitorCompanyTypes[0].name,
+              base: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/visitor/Configuration/Visitor Company Types"
+            }
+          },
+          $permissions: {
+            mode: "SET",
+            copySource: true,
+            inherit: {
+              fromDirectParent: true
+            }
+          }
         };
         wfInfo = {};
         test.Utils.executeIxActionHandler("RF_sol_common_action_Standard", configAction, []).then(function success(jsonResults) {
@@ -364,17 +321,47 @@ describe("[action] sol.recruiting.ix.actions.CreateLongTermBadge", function () {
     it("wfInfo.objId must be available", function () {
       expect(wfInfo.objId).toBeDefined();
     });
-    it("fill longTermBadge sord", function (done) {
+    it("fill group sord", function (done) {
       expect(function () {
-        test.Utils.getSord(wfInfo.objId).then(function success(sordL2) {
-          test.Utils.updateKeywording(sordL2, { VISITOR_FIRSTNAME: "Nils", VISITOR_LASTNAME: "Armstrong" }, true).then(function success1(updateKeywordingResult) {
-            done();
+        test.Utils.getSord(wfInfo.objId).then(function success(sordGr2) {
+          keywording = {
+            VISITOR_COMPANYNAME: "Einzelkämpfer",
+            VISITOR_VISITPURPOSE: "Sport",
+            VISITOR_STARTDATE: nowDateTime.date,
+            VISITOR_STARTTIME: nowDateTime.time
+          };
+          test.Utils.updateKeywording(sordGr2, keywording, true).then(function success1(updateKeywordingResult) {
+            test.Utils.updateSord(sordGr2, [{ key: "desc", value: "Unittest desc2" }]).then(function success2(updateSordResult) {
+              done();
+            }, function error(err) {
+              fail(err);
+              console.error(err);
+              done();
+            }
+            );
           }, function error(err) {
             fail(err);
             console.error(err);
             done();
           }
           );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("set number of visitors to 1 in group sord", function (done) {
+      expect(function () {
+        mapdata = {
+          VISITOR_GROUPRESPONSIBLE1: 1,
+          NUMBER_OF_VISITORS:	1,
+          VISITOR_TOTALVISITORS: 1
+        };
+        test.Utils.updateMapData(objIdGr1, mapdata).then(function success(updateMapDataResult) {
+          done();
         }, function error(err) {
           fail(err);
           console.error(err);
@@ -406,7 +393,7 @@ describe("[action] sol.recruiting.ix.actions.CreateLongTermBadge", function () {
     });
     it("remove workflows", function (done) {
       expect(function () {
-        test.Utils.getFinishedWorkflows().then(function success(wfs) {
+        test.Utils.getFinishedWorkflows(wfInfo.objId).then(function success(wfs) {
           test.Utils.removeFinishedWorkflows(wfs).then(function success1(removeFinishedWorkflowsResult) {
             done();
           }, function error(err) {
@@ -429,14 +416,14 @@ describe("[action] sol.recruiting.ix.actions.CreateLongTermBadge", function () {
     expect(function () {
       test.Utils.getTempfolder().then(function success(tempfolder) {
         test.Utils.deleteSord(tempfolder).then(function success1(deleteResult) {
-          test.Utils.deleteSord(objIdL1).then(function success2(deleteResult1) {
+          test.Utils.deleteSord(objIdGr1).then(function success2(deleteResult1) {
             done();
           }, function error(err) {
             fail(err);
             console.error(err);
             done();
           }
-        );
+          );
         }, function error(err) {
           fail(err);
           console.error(err);
