@@ -1,5 +1,5 @@
 
-describe("[function] sol.common.as.functions.ReadExcelTable", function () {
+describe("[function] sol.common_document.as.functions.ReadExcelTable", function () {
   var originalTimeout, ReadExcelTableSord, objId, absolutePath;
 
   beforeAll(function (done) {
@@ -24,11 +24,11 @@ describe("[function] sol.common.as.functions.ReadExcelTable", function () {
     );
   });
   describe("Tests AS Action", function () {
-    describe("sol.common.as.ReadExcelTable", function () {
+    describe("sol.common_document.as.functions.ReadExcelTable", function () {
       it("should not throw with empty config", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.common.as.ReadExcelTable",
+            action: "sol.common_document.as.functions.ReadExcelTable",
             config: {}
           }).then(function success(jsonResult) {
             done();
@@ -63,7 +63,7 @@ describe("[function] sol.common.as.functions.ReadExcelTable", function () {
       it("should not throw with Parameter", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.common.as.ReadExcelTable",
+            action: "sol.common_document.as.functions.ReadExcelTable",
             config: {
               file: absolutePath
             }
