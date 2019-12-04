@@ -1,6 +1,6 @@
 
 describe("[function] sol.common_document.as.functions.ReadExcelTable", function () {
-  var originalTimeout, ReadExcelTableSord, objId, absolutePath;
+  var originalTimeout, ReadExcelTableSord;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -40,32 +40,14 @@ describe("[function] sol.common_document.as.functions.ReadExcelTable", function 
           );
         }).not.toThrow();
       });
-      it("downloadToFile", function (done) {
-        expect(function () {
-          objId = ReadExcelTableSord.id;
-          config = { dstDirPath: "C:\Temp", createDirs: true, createUniqueFileName: true };
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
-            className: "sol.common.RepoUtils",
-            classConfig: {},
-            method: "downloadToFile",
-            params: [objId, config]
-          }).then(function success(jsonResult) {
-            absolutePath = jsonResult;
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }).not.toThrow();
-      });
       it("should not throw with Parameter", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.common_document.as.functions.ReadExcelTable",
             config: {
-              file: absolutePath
+              objId: ReadExcelTableSord.id,
+              tableConfig: { startRowIndex: 8, startColumnIndex: 0, columnNames: ["lastName", "firstName"]
+              }
             }
           }).then(function success(jsonResult) {
             done();
