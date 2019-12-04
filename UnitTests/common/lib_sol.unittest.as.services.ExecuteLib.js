@@ -5,29 +5,15 @@
  * Examples
  *
  *
- *     sol.common.IxUtils.execute('RF_sol_unittest_service_ExecuteLib', {
- *       className: 'sol.common.AclUtils',
- *       classConfig: {}
- *       method: 'retrieveElements',
- *       params: ["4027", true, true]
+ *     sol.common.IxUtils.execute('RF_sol_common_service_ExecuteAsAction', {
+ *       action: "sol.unittest.as.services.ExecuteLib",
+ *       config: {
+ *         className: "sol.common_document.as.functions.ReadExcelTable",
+ *         classConfig: { objId: 4713 },
+ *         method: "initialize",
+ *         params: []
+ *       }
  *     });
- *
- *
- *     sol.common.IxUtils.execute('RF_sol_unittest_service_ExecuteLib', {
- *       className: 'sol.common.Template',
- *       classConfig: {source: "{{padLeft 1234 '0000000000'}}"}
- *       method: 'apply',
- *       params: []
- *     });
- *
- *
- *     sol.common.IxUtils.execute('RF_sol_unittest_service_ExecuteLib', {
- *       className: 'sol.common.TemplateUtils',
- *       classConfig: {}
- *       method: 'render',
- *       params: ["{{formatDate 'DD.MM.YYYY HH:mm:ss' 20001015120030}}", {" name": "Hans" }, { "emptyNonRendered": true, "stringifyResults": true }]
- *     });
- *
  *
  * @author JHR, ELO Digital Office GmbH
  * @version 1.0
