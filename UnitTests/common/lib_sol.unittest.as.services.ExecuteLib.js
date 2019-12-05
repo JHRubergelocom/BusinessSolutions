@@ -69,3 +69,17 @@ sol.define("sol.unittest.as.services.ExecuteLib", {
   }
 });
 
+sol.define("sol.unittest.as.ActionBase", {
+  extend: "sol.common.as.ActionBase",
+
+  getName: function () {
+    return "ActionBase";
+  },
+
+  process: function () {
+    return {};
+  }
+
+});
+
+

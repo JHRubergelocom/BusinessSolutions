@@ -10,9 +10,14 @@
     <interval>0H</interval>
     <includes>
       <name>lib_Class</name>
+      <name>lib_handlebars</name>
+      <name>lib_sol.common.ActionBase</name>
+      <name>lib_sol.common.CounterUtils</name>
+      <name>lib_sol.common.IxUtils</name>
       <name>lib_sol.common.ObjectUtils</name>
       <name>lib_sol.common.RepoUtils</name>
       <name>lib_sol.common.ExceptionUtils</name>
+      <name>lib_sol.common.as.ActionBase</name>
       <name>lib_sol.common.as.FunctionBase</name>
       <name>lib_sol.common.as.Office</name>
       <name>lib_sol.common.as.Utils</name>
