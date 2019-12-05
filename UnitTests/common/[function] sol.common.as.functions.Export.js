@@ -44,7 +44,7 @@ describe("[function] sol.common.as.functions.Export", function () {
               exporterClassName: "sol.common.as.SimpleExporter",
               objId: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common [unit tests]/Resources/SignUnitTest",
               tplObjId: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common [unit tests]/Resources/unittest.export.xml",
-              dstDirPath: "c:/Temp/"
+              dstDirPath: "/"
             }
           }).then(function success(jsonResult) {
             content = jsonResult.content;
