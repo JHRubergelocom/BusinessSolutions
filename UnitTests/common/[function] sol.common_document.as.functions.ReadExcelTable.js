@@ -1,6 +1,6 @@
 
 describe("[function] sol.common_document.as.functions.ReadExcelTable", function () {
-  var originalTimeout, ReadExcelTableSord;
+  var originalTimeout, ReadExcelTableSord, content;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -25,12 +25,16 @@ describe("[function] sol.common_document.as.functions.ReadExcelTable", function 
   });
   describe("Tests AS Action", function () {
     describe("sol.common_document.as.functions.ReadExcelTable", function () {
-      it("should not throw with empty config", function (done) {
+      it("should throw with empty config", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.common_document.as.functions.ReadExcelTable",
             config: {}
           }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") == -1) {
+              fail(jsonResult.content);
+            }
             done();
           }, function error(err) {
             fail(err);
@@ -50,6 +54,10 @@ describe("[function] sol.common_document.as.functions.ReadExcelTable", function 
               }
             }
           }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") != -1) {
+              fail(jsonResult.content);
+            }
             done();
           }, function error(err) {
             fail(err);

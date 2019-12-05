@@ -1,10 +1,10 @@
 
 describe("[function] sol.common.as.functions.SendMail", function () {
-  var originalTimeout;
+  var originalTimeout, content;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
-    jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     test.Utils.createTempSord("SendMail").then(function success(obExecuteAsActionId) {
       done();
     }, function error(err) {
@@ -16,12 +16,16 @@ describe("[function] sol.common.as.functions.SendMail", function () {
   });
   describe("Tests AS Action", function () {
     describe("sol.common.as.SendMail", function () {
-      it("should not throw with empty config", function (done) {
+      it("should throw with empty config", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.common.as.SendMail",
             config: {}
           }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") == -1) {
+              fail(jsonResult.content);
+            }
             done();
           }, function error(err) {
             fail(err);
@@ -42,6 +46,10 @@ describe("[function] sol.common.as.functions.SendMail", function () {
               body: "Unittest"
             }
           }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") != -1) {
+              fail(jsonResult.content);
+            }
             done();
           }, function error(err) {
             fail(err);

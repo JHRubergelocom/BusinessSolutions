@@ -1,7 +1,7 @@
 
 describe("[function] sol.common_sig.as.functions.CreateDocumentToSign", function () {
   var originalTimeout, objSignatureDocId, objId,
-      flowId, succNodes, succNodesIds;
+      flowId, succNodes, succNodesIds, content;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -26,13 +26,17 @@ describe("[function] sol.common_sig.as.functions.CreateDocumentToSign", function
     }).not.toThrow();
   });
   describe("Tests AS Action", function () {
-    xdescribe("sol.common_sig.as.functions.CreateDocumentToSign", function () {
-      it("should not throw with empty config", function (done) {
+    describe("sol.common_sig.as.functions.CreateDocumentToSign", function () {
+      it("should throw with empty config", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.common_sig.as.functions.CreateDocumentToSign",
             config: {}
           }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") == -1) {
+              fail(jsonResult.content);
+            }
             done();
           }, function error(err) {
             fail(err);
@@ -53,6 +57,10 @@ describe("[function] sol.common_sig.as.functions.CreateDocumentToSign", function
               userSource: { type: "GRP", key: "UNITTEST_FIELD2" }
             }
           }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") != -1) {
+              fail(jsonResult.content);
+            }
             done();
           }, function error(err) {
             fail(err);

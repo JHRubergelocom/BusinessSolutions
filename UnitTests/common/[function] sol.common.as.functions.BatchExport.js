@@ -1,6 +1,6 @@
 
 describe("[function] sol.common.as.functions.BatchExport", function () {
-  var originalTimeout;
+  var originalTimeout, content;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -18,14 +18,19 @@ describe("[function] sol.common.as.functions.BatchExport", function () {
   });
   describe("Tests AS Action", function () {
     describe("sol.common.BatchExport", function () {
-      it("should not throw with empty config", function (done) {
+      it("should throw with empty config", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.common.BatchExport",
             config: {}
           }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") == -1) {
+              fail(jsonResult.content);
+            }
             done();
           }, function error(err) {
+            fail(err);
             console.error(err);
             done();
           }
@@ -41,8 +46,13 @@ describe("[function] sol.common.as.functions.BatchExport", function () {
               objIds: ["ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common [unit tests]/Resources/SignUnitTest"]
             }
           }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") != -1) {
+              fail(jsonResult.content);
+            }
             done();
           }, function error(err) {
+            fail(err);
             console.error(err);
             done();
           }
