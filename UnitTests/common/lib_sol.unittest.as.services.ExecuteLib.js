@@ -54,15 +54,50 @@ sol.define("sol.unittest.as.services.ExecuteLib", {
   process: function () {
     var me = this,
         result = {},
-        cls, func;
+        cls, func, bytes, byte, i, string;
 
     cls = sol.create(me.className, me.classConfig);
     func = cls[me.method];
+
+    switch (me.className) {
+      case "sol.common.as.BarcodeUtils":
+        switch (me.method) {
+          case "convertByteArrayToBase64":
+            bytes = [];
+            for (i = 0; i < me.params[0].length; i++) {
+              string = me.params[0][i];
+              byte = java.lang.Byte.parseByte(string);
+              bytes.push(byte);
+            }
+            me.params[0] = bytes;
+            break;
+          case "createOutput":
+            me.params[0] = cls.createQrCode(me.params[0], me.params[1]);
+            break;
+          default:
+        }
+        break;
+      default:
+    }
 
     if (sol.common.ObjectUtils.isFunction(func)) {
       result = func.apply(cls, me.params);
     } else {
       throw "IllegalMethodException: Method '" + me.method + "' not supported in Class '" + me.className + "'";
+    }
+
+    switch (me.className) {
+      case "sol.common.as.BarcodeUtils":
+        switch (me.method) {
+          case "createCode39":
+          case "createItfCode":
+          case "createQrCode":
+            result = String(result);
+            break;
+          default:
+        }
+        break;
+      default:
     }
 
     return result;
