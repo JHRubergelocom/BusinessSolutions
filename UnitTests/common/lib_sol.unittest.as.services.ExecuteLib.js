@@ -78,6 +78,7 @@ sol.define("sol.unittest.as.services.ExecuteLib", {
         }
         break;
       case "sol.common.as.ExcelDocument":
+      case "sol.common.as.WordDocument":
       case "sol.common.as.MapiMessage":
         cls.openFromRepo({ objId: me.classConfig.objId });
         switch (me.method) {
@@ -90,6 +91,10 @@ sol.define("sol.unittest.as.services.ExecuteLib", {
             break;
           case "savePDF":
             me.params[0] = new ByteArrayOutputStream();
+            break;
+          case "openFile":
+          case "saveFile":
+            new File(me.classConfig.file).createNewFile();
             break;
           default:
         }
@@ -115,11 +120,13 @@ sol.define("sol.unittest.as.services.ExecuteLib", {
         }
         break;
       case "sol.common.as.ExcelDocument":
+      case "sol.common.as.WordDocument":
         switch (me.method) {
           case "getCells":
           case "getSaveParamsCSV":
           case "getSaveParamsHTML":
           case "getSaveParamsPDF":
+          case "getSaveParams":
             result = String(result);
             break;
           case "open":
