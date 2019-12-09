@@ -77,6 +77,19 @@ sol.define("sol.unittest.as.services.ExecuteLib", {
           default:
         }
         break;
+      case "sol.common.as.ExcelDocument":
+        cls.openFromRepo({ objId: me.classConfig.objId });
+        switch (me.method) {
+          case "open":
+            me.params[0] = sol.common.RepoUtils.downloadToStream(me.classConfig.objId);
+            break;
+          case "save":
+            me.params[1] = cls.getSaveParams(me.classConfig.saveToRepoConfig);
+            me.params[0] = new ByteArrayOutputStream();
+            break;
+          default:
+        }
+        break;
       default:
     }
 
@@ -93,6 +106,20 @@ sol.define("sol.unittest.as.services.ExecuteLib", {
           case "createItfCode":
           case "createQrCode":
             result = String(result);
+            break;
+          default:
+        }
+        break;
+      case "sol.common.as.ExcelDocument":
+        switch (me.method) {
+          case "getCells":
+          case "getSaveParamsCSV":
+          case "getSaveParamsHTML":
+          case "getSaveParamsPDF":
+            result = String(result);
+            break;
+          case "open":
+            me.params[0].close();
             break;
           default:
         }
