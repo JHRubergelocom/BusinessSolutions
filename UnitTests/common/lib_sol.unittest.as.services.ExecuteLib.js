@@ -78,6 +78,7 @@ sol.define("sol.unittest.as.services.ExecuteLib", {
         }
         break;
       case "sol.common.as.ExcelDocument":
+      case "sol.common.as.MapiMessage":
         cls.openFromRepo({ objId: me.classConfig.objId });
         switch (me.method) {
           case "open":
@@ -85,6 +86,9 @@ sol.define("sol.unittest.as.services.ExecuteLib", {
             break;
           case "save":
             me.params[1] = cls.getSaveParams(me.classConfig.saveToRepoConfig);
+            me.params[0] = new ByteArrayOutputStream();
+            break;
+          case "savePDF":
             me.params[0] = new ByteArrayOutputStream();
             break;
           default:
