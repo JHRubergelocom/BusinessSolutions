@@ -54,7 +54,7 @@ sol.define("sol.unittest.as.services.ExecuteLib", {
   process: function () {
     var me = this,
         result = {},
-        cls, func, bytes, byte, i, string;
+        cls, func, bytes, byte, i, string, inputstream;
 
     cls = sol.create(me.className, me.classConfig);
     func = cls[me.method];
@@ -81,12 +81,15 @@ sol.define("sol.unittest.as.services.ExecuteLib", {
       case "sol.common.as.WordDocument":
       case "sol.common.as.MapiMessage":
       case "sol.common.as.PowerPointDocument":
+      case "sol.common.as.VisioDocument":
         cls.openFromRepo({ objId: me.classConfig.objId });
         switch (me.method) {
           case "open":
             me.params[0] = sol.common.RepoUtils.downloadToStream(me.classConfig.objId);
             break;
           case "save":
+            inputstream = sol.common.RepoUtils.downloadToStream(me.classConfig.objId);
+            cls.open(inputstream);
             me.params[1] = cls.getSaveParams(me.classConfig.saveToRepoConfig);
             me.params[0] = new ByteArrayOutputStream();
             break;
@@ -122,6 +125,7 @@ sol.define("sol.unittest.as.services.ExecuteLib", {
       case "sol.common.as.ExcelDocument":
       case "sol.common.as.WordDocument":
       case "sol.common.as.PowerPointDocument":
+      case "sol.common.as.VisioDocument":
         switch (me.method) {
           case "getCells":
           case "getSaveParamsCSV":
@@ -135,6 +139,8 @@ sol.define("sol.unittest.as.services.ExecuteLib", {
             me.params[0].close();
             break;
           case "save":
+          case "savePDF":
+            me.params[0].close();
             result = "";
             break;
           default:
