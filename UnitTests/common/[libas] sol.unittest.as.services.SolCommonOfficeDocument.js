@@ -85,7 +85,7 @@ describe("[libas] sol.unittest.as.services.SolCommonOfficeDocument", function ()
             action: "sol.unittest.as.services.ExecuteLib",
             config: {
               className: "sol.common.as.WordDocument",
-              classConfig: { objId: WordDocumentSord.id, file: "file1.docx" },
+              classConfig: { objId: WordDocumentSord.id, file: "file1.docx", format: "docx" },
               method: "openFile",
               params: [openFileConfig]
             }
@@ -203,7 +203,7 @@ describe("[libas] sol.unittest.as.services.SolCommonOfficeDocument", function ()
           );
         }).not.toThrow();
       });
-      xit("saveToStream", function (done) {
+      it("saveToStream", function (done) {
         expect(function () {
           saveConfig = { format: "pdf" };
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {

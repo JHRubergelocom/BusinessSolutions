@@ -93,8 +93,7 @@ sol.define("sol.unittest.as.services.ExecuteLib", {
             me.params[0] = new ByteArrayOutputStream();
             break;
           case "openFile":
-          case "saveFile":
-            new File(me.classConfig.file).createNewFile();
+            cls.saveFile({ format: me.classConfig.format, filePath: me.classConfig.file });
             break;
           default:
         }
@@ -127,6 +126,7 @@ sol.define("sol.unittest.as.services.ExecuteLib", {
           case "getSaveParamsHTML":
           case "getSaveParamsPDF":
           case "getSaveParams":
+          case "saveToStream":
             result = String(result);
             break;
           case "open":
