@@ -80,6 +80,7 @@ sol.define("sol.unittest.as.services.ExecuteLib", {
       case "sol.common.as.ExcelDocument":
       case "sol.common.as.WordDocument":
       case "sol.common.as.MapiMessage":
+      case "sol.common.as.PowerPointDocument":
         cls.openFromRepo({ objId: me.classConfig.objId });
         switch (me.method) {
           case "open":
@@ -120,6 +121,7 @@ sol.define("sol.unittest.as.services.ExecuteLib", {
         break;
       case "sol.common.as.ExcelDocument":
       case "sol.common.as.WordDocument":
+      case "sol.common.as.PowerPointDocument":
         switch (me.method) {
           case "getCells":
           case "getSaveParamsCSV":
@@ -131,6 +133,9 @@ sol.define("sol.unittest.as.services.ExecuteLib", {
             break;
           case "open":
             me.params[0].close();
+            break;
+          case "save":
+            result = "";
             break;
           default:
         }
