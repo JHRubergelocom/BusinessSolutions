@@ -82,6 +82,7 @@ sol.define("sol.unittest.as.services.ExecuteLib", {
       case "sol.common.as.MapiMessage":
       case "sol.common.as.PowerPointDocument":
       case "sol.common.as.VisioDocument":
+      case "sol.common.as.WordDocument":
         cls.openFromRepo({ objId: me.classConfig.objId });
         switch (me.method) {
           case "open":
@@ -98,6 +99,10 @@ sol.define("sol.unittest.as.services.ExecuteLib", {
             break;
           case "openFile":
             cls.saveFile({ format: me.classConfig.format, filePath: me.classConfig.file });
+            break;
+          case "copyProperties":
+            me.params[0] = new java.lang.Object();
+            me.params[1] = new java.lang.Object();
             break;
           default:
         }
@@ -126,11 +131,13 @@ sol.define("sol.unittest.as.services.ExecuteLib", {
       case "sol.common.as.WordDocument":
       case "sol.common.as.PowerPointDocument":
       case "sol.common.as.VisioDocument":
+      case "sol.common.as.WordDocument":
         switch (me.method) {
           case "getCells":
           case "getSaveParamsCSV":
           case "getSaveParamsHTML":
           case "getSaveParamsPDF":
+          case "getSaveParamsDOCX":
           case "getSaveParams":
           case "saveToStream":
             result = String(result);
