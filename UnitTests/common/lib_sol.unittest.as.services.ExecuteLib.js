@@ -155,6 +155,14 @@ sol.define("sol.unittest.as.services.ExecuteLib", {
           default:
         }
         break;
+      case "sol.common.as.ExporterBase":
+        switch (me.method) {
+          case "getTemplateExtension":
+            result = String(result);
+            break;
+          default:
+        }
+        break;
       default:
     }
 
