@@ -12,6 +12,7 @@
       <name>lib_Class</name>
       <name>lib_handlebars</name>
       <name>lib_sol.common.ActionBase</name>
+      <name>lib_sol.common.Config</name>
       <name>lib_sol.common.CounterUtils</name>
       <name>lib_sol.common.IxUtils</name>
       <name>lib_sol.common.ObjectFormatter</name>
