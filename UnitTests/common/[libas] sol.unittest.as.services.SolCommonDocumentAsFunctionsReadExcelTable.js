@@ -54,7 +54,7 @@ describe("[libas] sol.unittest.as.services.SolCommonDocumentAsFunctionsReadExcel
       it("process", function (done) {
         expect(function () {
           objId = AsFunctionsReadExcelTableSord.id;
-          tableConfig = { startRowIndex: 8, startColumnIndex: 0, columnNames: ["lastName", "firstName"] };
+          tableConfig = { startRowIndex: 8, startColumnIndex: 0, columns: [{ key: "lastName" }, { key: "firstName" }] };
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.unittest.as.services.ExecuteLib",
             config: {

@@ -134,6 +134,8 @@ sol.define("sol.unittest.as.services.ExecuteLib", {
       case "sol.common.as.WordDocument":
         switch (me.method) {
           case "getCells":
+            result = "";
+            break;
           case "getSaveParamsCSV":
           case "getSaveParamsHTML":
           case "getSaveParamsPDF":

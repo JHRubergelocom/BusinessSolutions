@@ -682,12 +682,15 @@ sol.define("sol.common.as.ExcelDocument", {
    * @param {Number} [params.sheetIndex=0]
    * @param {String} [params.startRowIndex=0] Start row index
    * @param {String} [params.startColumnIndex=0] Start row index
-   * @param {Array} columnNames Column names
+   * @param {Object} columns Column names
+   * @param {Objekt} columns.key Column key
+   * @param {Object} columns.type Colum type, e.g. 'String', 'Date'
    * @param {Object} Table data
    */
   getTableData: function (params) {
     var me = this,
-        columnName, cells, rowIndex, value, rowData, rowEmpty, cell, result, i;
+        column, cells, rowIndex, stringValue, value, rowData, rowEmpty, cell, result, i,
+        dateTime;
 
     params = params || {};
     params.sheetIndex = params.sheetIndex || 0;
@@ -703,17 +706,34 @@ sol.define("sol.common.as.ExcelDocument", {
     do {
       rowData = {};
       rowEmpty = true;
-      for (i = 0; i < params.columnNames.length; i++) {
-        columnName = params.columnNames[i];
+      for (i = 0; i < params.columns.length; i++) {
+        column = params.columns[i];
         cell = cells.getCell(rowIndex, params.startColumnIndex + i);
-        value = cell.stringValueWithoutFormat + "";
-        if (value) {
-          rowData[columnName] = value;
+        stringValue = cell.stringValueWithoutFormat + "";
+        value = "";
+
+        column.type = column.type || "String";
+
+        if (stringValue) {
+          switch (column.type.toUpperCase()) {
+            case "DATE": {
+              dateTime = cell.dateTimeValue;
+              value = Packages.org.apache.commons.lang3.time.DateFormatUtils.format(dateTime.toDate(), "yyyyMMdd") + "";
+              break;
+            }
+            default: {
+              value = cell.stringValueWithoutFormat + "";
+              break;
+            }
+          }
+
+          rowData[column.key] = value;
           rowEmpty = false;
         } else {
-          rowData[columnName] = "";
+          rowData[column.key] = "";
         }
       }
+
       if (!rowEmpty) {
         result.data.push(rowData);
       }

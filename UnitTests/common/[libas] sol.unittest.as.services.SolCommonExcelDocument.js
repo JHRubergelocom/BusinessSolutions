@@ -151,7 +151,7 @@ describe("[libas] sol.unittest.as.services.SolCommonExcelDocument", function () 
       });
       it("getTableData", function (done) {
         expect(function () {
-          params = { columnNames: ["firstname", "lastname"], startRowIndex: 5 };
+          params = { columns: [{ key: "firstname" }, { key: "lastname" }], startRowIndex: 5 };
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.unittest.as.services.ExecuteLib",
             config: {

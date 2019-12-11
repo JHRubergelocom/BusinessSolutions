@@ -50,8 +50,7 @@ describe("[function] sol.common_document.as.functions.ReadExcelTable", function 
             action: "sol.common_document.as.functions.ReadExcelTable",
             config: {
               objId: ReadExcelTableSord.id,
-              tableConfig: { startRowIndex: 8, startColumnIndex: 0, columnNames: ["lastName", "firstName"]
-              }
+              tableConfig: { startRowIndex: 8, startColumnIndex: 0, columns: [{ key: "lastName" }, { key: "firstName" }] }
             }
           }).then(function success(jsonResult) {
             content = jsonResult.content;
