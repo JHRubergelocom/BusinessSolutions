@@ -34,6 +34,7 @@
       <name>lib_sol.common.as.functions.CreateSignedPdf</name>
       <name>lib_sol.common.as.functions.BatchExport</name>
       <name>lib_sol.common.as.functions.Export</name>
+      <name>lib_sol.common.as.Mail</name>
       <name>lib_sol.common.as.Office</name>
       <name>lib_sol.common.as.PdfUtils</name>
       <name>lib_sol.common.as.renderer.Fop</name>
