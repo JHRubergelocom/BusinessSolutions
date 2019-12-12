@@ -183,4 +183,12 @@ sol.define("sol.unittest.as.ActionBase", {
 
 });
 
+sol.define("sol.unittest.as.FunctionBase", {
+  extend: "sol.common.as.FunctionBase",
+
+  process: function () {
+    return {};
+  }
+
+});
 
