@@ -11,6 +11,7 @@
     <includes>
       <name>lib_Class</name>
       <name>lib_handlebars</name>
+      <name>lib_moment</name>
       <name>lib_sol.common.ActionBase</name>
       <name>lib_sol.common.Config</name>
       <name>lib_sol.common.CounterUtils</name>
@@ -29,6 +30,7 @@
       <name>lib_sol.common.as.BarcodeUtils</name>
       <name>lib_sol.common.as.DocumentGenerator</name>
       <name>lib_sol.common.as.FunctionBase</name>
+      <name>lib_sol.common.as.functions.BatchExport</name>
       <name>lib_sol.common.as.functions.Export</name>
       <name>lib_sol.common.as.Office</name>
       <name>lib_sol.common.as.renderer.Word</name>
