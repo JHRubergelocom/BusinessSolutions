@@ -10,7 +10,6 @@ describe("[libas] sol.unittest.as.services.SolCommonFunctionsExport", function (
         obSolCommonFunctionsExportId = obSolCommonFunctionsExportId1;
         test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/FunctionsExport").then(function success1(FunctionsExportSord1) {
           FunctionsExportSord = FunctionsExportSord1;
-          userName = test.Utils.getCurrentUserName();
           done();
         }, function error(err) {
           fail(err);
