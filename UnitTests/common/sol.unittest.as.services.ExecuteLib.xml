@@ -24,6 +24,7 @@
       <name>lib_sol.common.SordUtils</name>
       <name>lib_sol.common.StringUtils</name>
       <name>lib_sol.common.Template</name>
+      <name>lib_sol.common.UserUtils</name>
       <name>lib_sol.common.WfUtils</name>
       <name>lib_sol.common.XmlUtils</name>
       <name>lib_sol.common.ExceptionUtils</name>

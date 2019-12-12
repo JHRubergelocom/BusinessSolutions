@@ -115,6 +115,14 @@ sol.define("sol.unittest.as.services.ExecuteLib", {
           default:
         }
         break;
+      case "sol.common.as.Mail":
+        switch (me.method) {
+          case "addBody":
+            me.params[0] = new MimeMultipart();
+            break;
+          default:
+        }
+        break;
       default:
     }
 
@@ -180,6 +188,22 @@ sol.define("sol.unittest.as.services.ExecuteLib", {
           default:
         }
         break;
+      case "sol.common.as.Mail":
+        switch (me.method) {
+          case "getAttAsStream":
+            me.params[0] = new MimeMultipart();
+            result.close();
+            result = String(result);
+            break;
+          case "getPasswordAuthentication":
+          case "getRecipient":
+          case "getWorkflow":
+            result = String(result);
+            break;
+          default:
+        }
+        break;
+
       default:
     }
 
