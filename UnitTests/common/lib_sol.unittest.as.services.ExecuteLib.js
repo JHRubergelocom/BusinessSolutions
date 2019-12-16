@@ -54,7 +54,8 @@ sol.define("sol.unittest.as.services.ExecuteLib", {
   process: function () {
     var me = this,
         result = {},
-        cls, func, bytes, byte, i, string, inputstream;
+        cls, func, bytes, byte, i, string, inputstream,
+        excelDocument, cell, cells;
 
     cls = sol.create(me.className, me.classConfig);
     func = cls[me.method];
@@ -129,6 +130,47 @@ sol.define("sol.unittest.as.services.ExecuteLib", {
             inputstream = sol.common.RepoUtils.downloadToStream(me.classConfig.objId);
             me.params[0] = [inputstream];
             me.params[1] = new ByteArrayOutputStream();
+            break;
+          default:
+        }
+        break;
+      case "sol.common.as.renderer.Excel":
+        switch (me.method) {
+          case "copyObject":
+          case "expandRowSord":
+          case "readHeaderFromSord":
+            me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
+            break;
+          case "fillExcelSpreadsheet":
+            excelDocument = sol.create("sol.common.as.ExcelDocument", {});
+            excelDocument.openFromRepo({ objId: me.classConfig.templateId });
+            me.params[0] = excelDocument;
+            break;
+          case "prepareColumnMapping":
+          case "readHeader":
+            me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
+          case "prepareHeader":
+          case "readHeaderFromWorksheet":
+          case "writeLine":
+            excelDocument = sol.create("sol.common.as.ExcelDocument", {});
+            excelDocument.openFromRepo({ objId: me.classConfig.templateId });
+            cls.fillExcelSpreadsheet(excelDocument, {});
+            break;
+          case "isDate":
+          case "isNumber":
+            excelDocument = sol.create("sol.common.as.ExcelDocument", {});
+            excelDocument.openFromRepo({ objId: me.classConfig.templateId });
+            cls.fillExcelSpreadsheet(excelDocument, {});
+            cells = cls._worksheet.getCells();
+            cell = cells.getCell(0, 0);
+            me.params[0] = cell;
+            break;
+          case "writeData":
+            me.params[0] = [ixConnect.ix().checkoutSord([me.params[0]], new SordZ(SordC.mbAll), LockC.NO)];
+            excelDocument = sol.create("sol.common.as.ExcelDocument", {});
+            excelDocument.openFromRepo({ objId: me.classConfig.templateId });
+            cls.fillExcelSpreadsheet(excelDocument, {});
+            cls.prepareColumnMapping(me.params[0][0]);
             break;
           default:
         }
@@ -217,6 +259,15 @@ sol.define("sol.unittest.as.services.ExecuteLib", {
         switch (me.method) {
           case "mergePdfStreams":
             me.params[1].close();
+            break;
+          default:
+        }
+        break;
+      case "sol.common.as.renderer.Excel":
+        switch (me.method) {
+          case "copyObject":
+          case "expandRowSord":
+            result = String(result);
             break;
           default:
         }

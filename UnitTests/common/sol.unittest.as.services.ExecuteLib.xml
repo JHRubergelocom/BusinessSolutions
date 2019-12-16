@@ -38,6 +38,7 @@
       <name>lib_sol.common.as.Mail</name>
       <name>lib_sol.common.as.Office</name>
       <name>lib_sol.common.as.PdfUtils</name>
+      <name>lib_sol.common.as.renderer.Excel</name>
       <name>lib_sol.common.as.renderer.Fop</name>
       <name>lib_sol.common.as.renderer.Word</name>
       <name>lib_sol.common.as.Utils</name>
