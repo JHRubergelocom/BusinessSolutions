@@ -123,6 +123,16 @@ sol.define("sol.unittest.as.services.ExecuteLib", {
           default:
         }
         break;
+      case "sol.common.as.PdfUtils":
+        switch (me.method) {
+          case "mergePdfStreams":
+            inputstream = sol.common.RepoUtils.downloadToStream(me.classConfig.objId);
+            me.params[0] = [inputstream];
+            me.params[1] = new ByteArrayOutputStream();
+            break;
+          default:
+        }
+        break;
       default:
     }
 
@@ -203,7 +213,14 @@ sol.define("sol.unittest.as.services.ExecuteLib", {
           default:
         }
         break;
-
+      case "sol.common.as.PdfUtils":
+        switch (me.method) {
+          case "mergePdfStreams":
+            me.params[1].close();
+            break;
+          default:
+        }
+        break;
       default:
     }
 
