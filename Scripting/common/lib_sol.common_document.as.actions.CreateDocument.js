@@ -44,7 +44,11 @@ sol.define("sol.common_document.as.actions.PrepareDocument", {
 
     sol.common.AclUtils.changeRightsInBackground(objId, aclConfig);
 
-    flowId = me.startMaskStandardWorkflow(objId, { name: name, field: me.wfFieldName || "STANDARD_WORKFLOW" });
+    try {
+      flowId = me.startMaskStandardWorkflow(objId, { name: name, field: me.wfFieldName || "STANDARD_WORKFLOW" });
+    } catch (_e) {
+      flowId = me.startWorkflow(objId, "sol.common_document.createDocument", name);
+    }
 
     if (flowId) {
       me.addWfDialogEvent(flowId, { objId: objId, title: name, dialogId: me.getName() });
