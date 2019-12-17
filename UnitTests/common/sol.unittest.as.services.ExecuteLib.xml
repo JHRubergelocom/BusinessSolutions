@@ -15,6 +15,7 @@
       <name>lib_sol.common.ActionBase</name>
       <name>lib_sol.common.Config</name>
       <name>lib_sol.common.CounterUtils</name>
+      <name>lib_sol.common.DateUtils</name>
       <name>lib_sol.common.IxUtils</name>
       <name>lib_sol.common.ObjectFormatter</name>
       <name>lib_sol.common.ExecUtils</name>
@@ -42,6 +43,7 @@
       <name>lib_sol.common.as.renderer.Fop</name>
       <name>lib_sol.common.as.renderer.Word</name>
       <name>lib_sol.common.as.Utils</name>
+      <name>lib_sol.common.as.WfController</name>
       <name>lib_sol.common_document.as.functions.ReadExcelTable</name>
       <name>lib_sol.unittest.as.services.ExecuteLib</name>
     </includes>
