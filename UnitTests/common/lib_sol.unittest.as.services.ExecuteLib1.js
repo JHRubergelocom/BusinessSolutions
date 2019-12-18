@@ -68,6 +68,21 @@ sol.define("sol.unittest.as.services.ExecuteLib1", {
           default:
         }
         break;
+      case "sol.common_monitoring.as.analyzers.RetentionAnalyzer":
+        switch (me.method) {
+          case "analyze":
+          case "retrieveChangedDate":
+          case "retrieveOldestChildrenChangedDate":
+            me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
+            break;
+          case "calculateNextCheck":
+          case "isObsolete":
+            me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
+            me.params[1] = sol.common.DateUtils.isoToDate(me.params[1]);
+            break;
+          default:
+        }
+        break;
       default:
     }
 

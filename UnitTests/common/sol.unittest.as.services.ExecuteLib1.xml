@@ -11,9 +11,11 @@
     <includes>
       <name>lib_Class</name>
       <name>lib_handlebars</name>
+      <name>lib_moment</name>
       <name>lib_sol.common.AclUtils</name>
       <name>lib_sol.common.ActionBase</name>
       <name>lib_sol.common.CounterUtils</name>
+      <name>lib_sol.common.DateUtils</name>
       <name>lib_sol.common.IxUtils</name>
       <name>lib_sol.common.ObjectFormatter</name>
       <name>lib_sol.common.ExceptionUtils</name>
@@ -31,6 +33,8 @@
       <name>lib_sol.common_document.BatchImportData</name>
       <name>lib_sol.common_document.as.actions.CreateDocument</name>
       <name>lib_sol.common_document.as.actions.PrepareBatchImport</name>
+      <name>lib_sol.common_monitoring.as.MonitorUtils</name>
+      <name>lib_sol.common_monitoring.as.analyzers.RetentionAnalyzer</name>
       <name>lib_sol.unittest.as.services.ExecuteLib1</name>
     </includes>
     <onstart>EM_SYS_SELECTOR = SordC.mbAll;</onstart>
