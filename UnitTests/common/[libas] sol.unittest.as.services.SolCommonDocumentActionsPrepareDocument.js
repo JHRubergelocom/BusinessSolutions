@@ -1,15 +1,15 @@
 
-describe("[libas] sol.unittest.as.services.SolCommonDocumentActionsCreateDocument", function () {
-  var ActionsCreateDocumentSord, obSolCommonDocumentActionsCreateDocumentId, originalTimeout, content, config;
+describe("[libas] sol.unittest.as.services.SolCommonDocumentActionsPrepareDocument", function () {
+  var ActionsPrepareDocumentSord, obSolCommonDocumentActionsPrepareDocumentId, originalTimeout, content, name, sord;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
-      test.Utils.createTempSord("SolCommonDocumentActionsCreateDocument").then(function success(obSolCommonDocumentActionsCreateDocumentId1) {
-        obSolCommonDocumentActionsCreateDocumentId = obSolCommonDocumentActionsCreateDocumentId1;
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/ActionsCreateDocument").then(function success1(ActionsCreateDocumentSord1) {
-          ActionsCreateDocumentSord = ActionsCreateDocumentSord1;
+      test.Utils.createTempSord("SolCommonDocumentActionsPrepareDocument").then(function success(obSolCommonDocumentActionsPrepareDocumentId1) {
+        obSolCommonDocumentActionsPrepareDocumentId = obSolCommonDocumentActionsPrepareDocumentId1;
+        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/ActionsPrepareDocument").then(function success1(ActionsPrepareDocumentSord1) {
+          ActionsPrepareDocumentSord = ActionsPrepareDocumentSord1;
           done();
         }, function error(err) {
           fail(err);
@@ -26,16 +26,18 @@ describe("[libas] sol.unittest.as.services.SolCommonDocumentActionsCreateDocumen
     }).not.toThrow();
   });
   describe("Test Lib Functions", function () {
-    describe("sol.common_document.as.actions.CreateDocument", function () {
-      it("getName", function (done) {
+    describe("sol.common_document.as.actions.PrepareDocument", function () {
+      it("createEmptyDocument", function (done) {
         expect(function () {
+          name = "name1";
+          sord = ActionsPrepareDocumentSord.id;
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.unittest.as.services.ExecuteLib1",
             config: {
-              className: "sol.common_document.as.actions.CreateDocument",
-              classConfig: {},
-              method: "getName",
-              params: []
+              className: "sol.common_document.as.actions.PrepareDocument",
+              classConfig: { templateId: ActionsPrepareDocumentSord.id, parentId: obSolCommonDocumentActionsPrepareDocumentId },
+              method: "createEmptyDocument",
+              params: [name, sord]
             }
           }).then(function success(jsonResult) {
             content = jsonResult.content;
@@ -51,16 +53,15 @@ describe("[libas] sol.unittest.as.services.SolCommonDocumentActionsCreateDocumen
           );
         }).not.toThrow();
       });
-      it("initialize", function (done) {
+      it("getName", function (done) {
         expect(function () {
-          config = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.unittest.as.services.ExecuteLib1",
             config: {
-              className: "sol.common_document.as.actions.CreateDocument",
+              className: "sol.common_document.as.actions.PrepareDocument",
               classConfig: {},
-              method: "initialize",
-              params: [config]
+              method: "getName",
+              params: []
             }
           }).then(function success(jsonResult) {
             content = jsonResult.content;
@@ -81,8 +82,8 @@ describe("[libas] sol.unittest.as.services.SolCommonDocumentActionsCreateDocumen
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.unittest.as.services.ExecuteLib1",
             config: {
-              className: "sol.common_document.as.actions.CreateDocument",
-              classConfig: { objId: obSolCommonDocumentActionsCreateDocumentId, templateId: ActionsCreateDocumentSord.id },
+              className: "sol.common_document.as.actions.PrepareDocument",
+              classConfig: { templateId: ActionsPrepareDocumentSord.id, parentId: obSolCommonDocumentActionsPrepareDocumentId },
               method: "process",
               params: []
             }
