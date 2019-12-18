@@ -77,6 +77,18 @@ sol.define("sol.unittest.as.services.ExecuteLib1", {
       throw "IllegalMethodException: Method '" + me.method + "' not supported in Class '" + me.className + "'";
     }
 
+    switch (me.className) {
+      case "sol.common_document.as.actions.PrepareBatchImport":
+        switch (me.method) {
+          case "prepareContent":
+            result = String(result);
+            break;
+          default:
+        }
+        break;
+      default:
+    }
+
     return result;
   }
 });
