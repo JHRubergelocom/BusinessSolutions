@@ -35,6 +35,7 @@
       <name>lib_sol.common_document.as.actions.PrepareBatchImport</name>
       <name>lib_sol.common_monitoring.as.MonitorUtils</name>
       <name>lib_sol.common_monitoring.as.analyzers.RetentionAnalyzer</name>
+      <name>lib_sol.common_monitoring.as.analyzers.RuleAnalyzer</name>
       <name>lib_sol.unittest.as.services.ExecuteLib1</name>
     </includes>
     <onstart>EM_SYS_SELECTOR = SordC.mbAll;</onstart>

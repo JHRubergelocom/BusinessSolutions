@@ -83,6 +83,18 @@ sol.define("sol.unittest.as.services.ExecuteLib1", {
           default:
         }
         break;
+      case "sol.common_monitoring.as.analyzers.RuleAnalyzer":
+        switch (me.method) {
+          case "analyze":
+          case "analyzeRule":
+          case "checkExecution":
+          case "shiftIso":
+          case "updateExecution":
+            me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
+            break;
+          default:
+        }
+        break;
       default:
     }
 
@@ -96,6 +108,17 @@ sol.define("sol.unittest.as.services.ExecuteLib1", {
       case "sol.common_document.as.actions.PrepareBatchImport":
         switch (me.method) {
           case "prepareContent":
+            result = String(result);
+            break;
+          default:
+        }
+        break;
+      case "sol.common_document.as.actions.RuleAnalyzer":
+        switch (me.method) {
+          case "checkExecution":
+            result = "";
+            break;
+          case "updateExecution":
             result = String(result);
             break;
           default:
