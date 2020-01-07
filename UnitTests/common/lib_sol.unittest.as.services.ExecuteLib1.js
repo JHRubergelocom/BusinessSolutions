@@ -95,6 +95,19 @@ sol.define("sol.unittest.as.services.ExecuteLib1", {
           default:
         }
         break;
+      case "sol.common_monitoring.as.analyzers.ValueAnalyzer":
+        switch (me.method) {
+          case "analyze":
+          case "checkReferenceValues":
+          case "exists":
+          case "getValue":
+          case "isEmpty":
+          case "notEmpty":
+            me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
+            break;
+          default:
+        }
+        break;
       default:
     }
 
