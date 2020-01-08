@@ -33,6 +33,7 @@
       <name>lib_sol.common_document.BatchImportData</name>
       <name>lib_sol.common_document.as.actions.CreateDocument</name>
       <name>lib_sol.common_document.as.actions.PrepareBatchImport</name>
+      <name>lib_sol.common_monitoring.as.Monitor</name>
       <name>lib_sol.common_monitoring.as.MonitorUtils</name>
       <name>lib_sol.common_monitoring.as.analyzers.RetentionAnalyzer</name>
       <name>lib_sol.common_monitoring.as.analyzers.RuleAnalyzer</name>

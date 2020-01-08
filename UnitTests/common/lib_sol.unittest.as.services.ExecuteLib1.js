@@ -56,6 +56,15 @@ sol.define("sol.unittest.as.services.ExecuteLib1", {
         result = {},
         cls, func;
 
+    switch (me.className) {
+      case "sol.common_monitoring.as.Monitor":
+        me.classConfig.collector = sol.create("sol.common_monitoring.as.collectors.NextRunCollector", {});
+        me.classConfig.analyzer = sol.create("sol.common_monitoring.as.analyzers.RetentionAnalyzer", { retention: { value: 2, unit: "M" }, action: { type: "WORKFLOW", templateId: "UnittestStandardWF", user: "Administrator" } });
+        me.classConfig.executor = sol.create("sol.common_monitoring.as.executors.SimpleExecutor", { user: "Administrator" });
+        break;
+      default:
+    }
+
     cls = sol.create(me.className, me.classConfig);
     func = cls[me.method];
 
@@ -134,6 +143,19 @@ sol.define("sol.unittest.as.services.ExecuteLib1", {
             break;
           case "eveluateActionProperty":
             me.params[1] = ixConnect.ix().checkoutSord(me.params[1], new SordZ(SordC.mbAll), LockC.NO);
+            break;
+          default:
+        }
+        break;
+      case "sol.common_monitoring.as.Monitor":
+        switch (me.method) {
+          case "checkInterface":
+            me.params[0] = cls.collector;
+            me.params[1] = "collector";
+            me.params[2] = ["hasMoreResults", "getResults", "postProcess"];
+            break;
+          case "disposeComponent":
+            me.params[0] = cls.collector;
             break;
           default:
         }
