@@ -117,6 +117,14 @@ sol.define("sol.unittest.as.services.ExecuteLib1", {
           default:
         }
         break;
+      case "sol.common_monitoring.as.collectors.NextRunCollector":
+        switch (me.method) {
+          case "postProcess":
+            me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
+            break;
+          default:
+        }
+        break;
       default:
     }
 
@@ -141,6 +149,15 @@ sol.define("sol.unittest.as.services.ExecuteLib1", {
             result = "";
             break;
           case "updateExecution":
+            result = String(result);
+            break;
+          default:
+        }
+        break;
+      case "sol.common_monitoring.as.collectors.NextRunCollector":
+        switch (me.method) {
+          case "createFindInfo":
+          case "getResults":
             result = String(result);
             break;
           default:
