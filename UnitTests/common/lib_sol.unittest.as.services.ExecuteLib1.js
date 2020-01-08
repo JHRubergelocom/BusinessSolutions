@@ -125,6 +125,19 @@ sol.define("sol.unittest.as.services.ExecuteLib1", {
           default:
         }
         break;
+      case "sol.common_monitoring.as.executors.SimpleExecutor":
+        switch (me.method) {
+          case "buildName":
+          case "execute":
+          case "executeAction":
+            me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
+            break;
+          case "eveluateActionProperty":
+            me.params[1] = ixConnect.ix().checkoutSord(me.params[1], new SordZ(SordC.mbAll), LockC.NO);
+            break;
+          default:
+        }
+        break;
       default:
     }
 
@@ -163,9 +176,26 @@ sol.define("sol.unittest.as.services.ExecuteLib1", {
           default:
         }
         break;
+      case "sol.common_monitoring.as.executors.SimpleExecutor":
+        switch (me.method) {
+          case "buildName":
+          case "getConnection":
+            result = String(result);
+            break;
+          default:
+        }
+        break;
       default:
     }
 
     return result;
   }
 });
+
+sol.define("sol.unittest.as.executors.SimpleExecutor", {
+  process: function () {
+    return {};
+  }
+});
+
+
