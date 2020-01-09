@@ -5,6 +5,7 @@ importPackage(Packages.de.elo.ix.client);
 
 //@include lib_Class.js
 //@include lib_sol.common.ix.ActionBase.js
+//@include lib_sol.common.ix.DataCollectorBase.js
 //@include lib_sol.common.ix.FunctionBase.js
 //@include lib_sol.common.ix.ServiceBase.js
 
@@ -121,6 +122,15 @@ sol.define("sol.unittest.ix.ServiceBase", {
   extend: "sol.common.ix.ServiceBase",
 
   process: function () {
+    return {};
+  }
+
+});
+
+sol.define("sol.unittest.ix.DataCollectorBase", {
+  extend: "sol.common.ix.DataCollectorBase",
+
+  execute: function () {
     return {};
   }
 
