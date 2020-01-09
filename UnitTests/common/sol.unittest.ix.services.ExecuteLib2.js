@@ -5,6 +5,7 @@ importPackage(Packages.de.elo.ix.client);
 
 //@include lib_Class.js
 //@include lib_sol.common.ix.ActionBase.js
+//@include lib_sol.common.ix.FunctionBase.js
 //@include lib_sol.common.ix.ServiceBase.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.ExecuteLib2" });
@@ -107,3 +108,11 @@ sol.define("sol.unittest.ix.ActionBase", {
 
 });
 
+sol.define("sol.unittest.ix.FunctionBase", {
+  extend: "sol.common.ix.FunctionBase",
+
+  process: function () {
+    return {};
+  }
+
+});
