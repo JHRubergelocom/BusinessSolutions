@@ -168,6 +168,14 @@ sol.define("sol.unittest.as.services.ExecuteLib1", {
           default:
         }
         break;
+      case "sol.common_sig.as.functions.CreateDocumentToSign":
+        switch (me.method) {
+          case "convertToPdf":
+            me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
+            break;
+          default:
+        }
+        break;
       default:
     }
 
