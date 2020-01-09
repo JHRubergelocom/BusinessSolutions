@@ -116,3 +116,12 @@ sol.define("sol.unittest.ix.FunctionBase", {
   }
 
 });
+
+sol.define("sol.unittest.ix.ServiceBase", {
+  extend: "sol.common.ix.ServiceBase",
+
+  process: function () {
+    return {};
+  }
+
+});
