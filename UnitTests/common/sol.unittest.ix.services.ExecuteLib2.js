@@ -9,6 +9,7 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_sol.common.ix.DynAdHocFlowUtils.js
 //@include lib_sol.common.ix.DynKwlDatabaseIterator.js
 //@include lib_sol.common.ix.DynKwlFindChildrenIterator.js
+//@include lib_sol.common.ix.DynKwlSearchIterator.js
 //@include lib_sol.common.ix.FunctionBase.js
 //@include lib_sol.common.ix.ServiceBase.js
 
@@ -138,3 +139,17 @@ sol.define("sol.unittest.ix.DataCollectorBase", {
   }
 
 });
+
+sol.define("sol.unittest.ix.DynKwlSearchIterator", {
+  extend: "sol.common.ix.DynKwlSearchIterator",
+
+  getRowData: function (sord) {
+    return [sord.name, sord.desc];
+  },
+
+  getFindInfo: function (filter) {
+    return new FindInfo();
+  }
+
+});
+
