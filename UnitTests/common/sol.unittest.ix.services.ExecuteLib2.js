@@ -10,6 +10,7 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_sol.common.ix.DynKwlDatabaseIterator.js
 //@include lib_sol.common.ix.DynKwlFindChildrenIterator.js
 //@include lib_sol.common.ix.DynKwlSearchIterator.js
+//@include lib_sol.common.ix.DynKwlUserNameIterator.js
 //@include lib_sol.common.ix.DynKwlUtils.js
 //@include lib_sol.common.ix.FunctionBase.js
 //@include lib_sol.common.ix.ServiceBase.js
