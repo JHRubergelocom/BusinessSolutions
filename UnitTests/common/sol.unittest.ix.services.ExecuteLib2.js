@@ -8,6 +8,7 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_sol.common.ix.DataCollectorBase.js
 //@include lib_sol.common.ix.DynAdHocFlowUtils.js
 //@include lib_sol.common.ix.DynKwlDatabaseIterator.js
+//@include lib_sol.common.ix.DynKwlFindChildrenIterator.js
 //@include lib_sol.common.ix.FunctionBase.js
 //@include lib_sol.common.ix.ServiceBase.js
 
@@ -20,9 +21,9 @@ var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.Execute
  *
  *
  *     sol.common.IxUtils.execute('RF_sol_unittest_service_ExecuteLib2', {
- *       className: 'sol.common.DecimalUtils',
+ *       className: 'sol.unittest.ix.ActionBase',
  *       classConfig: {}
- *       method: 'configureDecimals',
+ *       method: 'getName',
  *       params: []
  *     });
  *
