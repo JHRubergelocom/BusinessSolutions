@@ -14,6 +14,7 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_sol.common.ix.DynKwlUtils.js
 //@include lib_sol.common.ix.FunctionBase.js
 //@include lib_sol.common.ix.GenericDynKwl.js
+//@include lib_sol.common.ix.LocalizedKwlIterator.js
 //@include lib_sol.common.ix.ServiceBase.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.ExecuteLib2" });
@@ -96,6 +97,9 @@ sol.define("sol.unittest.ix.services.ExecuteLib2", {
             break;
           default:
         }
+        break;
+      case "sol.common.ix.LocalizedKwlIterator":
+        cls.prepareCache();
         break;
       default:
     }
