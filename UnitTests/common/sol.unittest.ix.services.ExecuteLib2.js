@@ -76,6 +76,20 @@ sol.define("sol.unittest.ix.services.ExecuteLib2", {
     cls = sol.create(me.className, me.classConfig);
     func = cls[me.method];
 
+    switch (me.className) {
+      case "sol.common.ix.DynKwlUtils":
+        switch (me.method) {
+          case "fillMap":
+            me.params[1] = ixConnect.ix().checkoutSord(me.params[1], new SordZ(SordC.mbAll), LockC.NO);
+            break;
+          case "fillSord":
+            me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
+            break;
+          default:
+        }
+      default:
+    }
+
     if (sol.common.ObjectUtils.isFunction(func)) {
       result = func.apply(cls, me.params);
     } else {
