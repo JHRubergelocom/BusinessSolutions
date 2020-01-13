@@ -13,6 +13,7 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_sol.common.ix.DynKwlUserNameIterator.js
 //@include lib_sol.common.ix.DynKwlUtils.js
 //@include lib_sol.common.ix.FunctionBase.js
+//@include lib_sol.common.ix.GenericDynKwl.js
 //@include lib_sol.common.ix.ServiceBase.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.ExecuteLib2" });
@@ -87,6 +88,15 @@ sol.define("sol.unittest.ix.services.ExecuteLib2", {
             break;
           default:
         }
+        break;
+      case "sol.common.ix.GenericDynKwl":
+        switch (me.method) {
+          case "getRowData":
+            me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
+            break;
+          default:
+        }
+        break;
       default:
     }
 
