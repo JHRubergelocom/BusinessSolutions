@@ -16,6 +16,7 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_sol.common.ix.GenericDynKwl.js
 //@include lib_sol.common.ix.LocalizedKwlIterator.js
 //@include lib_sol.common.ix.ServiceBase.js
+//@include lib_sol.common.ix.ServiceRegistry.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.ExecuteLib2" });
 
@@ -71,7 +72,7 @@ sol.define("sol.unittest.ix.services.ExecuteLib2", {
   process: function () {
     var me = this,
         result = {},
-        cls, func;
+        cls, func, serviceRegistry;
 
     me.classConfig.ec = me.ec;
 
@@ -100,6 +101,20 @@ sol.define("sol.unittest.ix.services.ExecuteLib2", {
         break;
       case "sol.common.ix.LocalizedKwlIterator":
         cls.prepareCache();
+        break;
+      case "sol.common.ix.ServiceRegistry":
+        switch (me.method) {
+          case "get":
+            serviceRegistry = cls.getServiceRegistry();
+            serviceRegistry[me.params[0]] = null;
+            cls.register(me.params[0], { type: "type1", name: "name1", ns: "ns1" });
+            break;
+          case "register":
+            serviceRegistry = cls.getServiceRegistry();
+            serviceRegistry[me.params[0]] = null;
+            break;
+          default:
+        }
         break;
       default:
     }
