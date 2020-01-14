@@ -18,6 +18,7 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_sol.common.ix.ServiceBase.js
 //@include lib_sol.common.ix.ServiceRegistry.js
 //@include lib_sol.common.ix.SqlConnection.js
+//@include lib_sol.common.ix.SubscriptionUtils.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.ExecuteLib2" });
 
