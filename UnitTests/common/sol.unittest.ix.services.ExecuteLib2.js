@@ -19,6 +19,7 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_sol.common.ix.ServiceRegistry.js
 //@include lib_sol.common.ix.SqlConnection.js
 //@include lib_sol.common.ix.SubscriptionUtils.js
+//@include lib_sol.dev.ix.ActionUtils.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.ExecuteLib2" });
 
@@ -121,6 +122,19 @@ sol.define("sol.unittest.ix.services.ExecuteLib2", {
       case "sol.common.ix.SqlConnection":
         cls.open();
         break;
+      case "sol.dev.ix.ActionUtils":
+        cls.loadConfigDev();
+        switch (me.method) {
+          case "generateSordNameDesc":
+            me.params[1] = ixConnect.ix().checkoutSord(me.params[1], new SordZ(SordC.mbAll), LockC.NO);
+            break;
+          case "importWorkflow":
+          case "isJsonConfig":
+            me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
+            break;
+          default:
+        }
+        break;
       default:
     }
 
@@ -128,6 +142,21 @@ sol.define("sol.unittest.ix.services.ExecuteLib2", {
       result = func.apply(cls, me.params);
     } else {
       throw "IllegalMethodException: Method '" + me.method + "' not supported in Class '" + me.className + "'";
+    }
+
+    switch (me.className) {
+      case "sol.dev.ix.ActionUtils":
+        switch (me.method) {
+          case "createWorkflowTemplate":
+            ixConnect.ix().deleteWorkflowTemplate(me.params[0], 0, LockC.NO);
+            break;
+          case "importWorkflow":
+            ixConnect.ix().deleteWorkflowTemplate(me.params[1], 0, LockC.NO);
+            break;
+          default:
+        }
+        break;
+      default:
     }
 
     return result;

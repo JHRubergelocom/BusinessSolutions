@@ -2558,7 +2558,7 @@ sol.define("sol.dev.install.functions.CreateSingleReferences", {
     var me = this,
         srcPath, srcObjId, sordZ, srcSord, dstFolderId;
 
-    srcPath = sol.common.RepoUtils.resolveSpecialFolder(refEntry.source, me.config.base.repoPathParamObj),
+    srcPath = sol.common.RepoUtils.resolveSpecialFolder(refEntry.source, me.config.base.repoPathParamObj);
     srcObjId = sol.common.RepoUtils.getObjId(srcPath);
 
     if (!srcObjId) {
@@ -3450,6 +3450,34 @@ sol.define("sol.dev.install.functions.ExecuteRegisteredFunctions", {
   }
 });
 
+sol.define("sol.dev.install.functions.UninstallApps", {
+  extend: "sol.dev.install.InstallFunctionBase",
+  mixins: ["sol.dev.install.mixin.InstallUtils"],
+
+  initialize: function (config) {
+    var me = this;
+
+    me.$super("sol.dev.install.InstallFunctionBase", "initialize", [config]);
+  },
+
+  check: function () {
+    var me = this;
+
+    return !!me.config.install.uninstApps;
+  },
+
+  /**
+   * Uninstalls ELOapps and ELOapps modules
+   */
+  execute: function () {
+    var me = this;
+
+    me.config.install.uninstApps.forEach(function (uninstObj) {
+      me.sendHttpRequest("Uninstall ELOapp '" + uninstObj.appId + "'", "{{eloWfBaseUrl}}/apps/rest/cmd/app/undeploy/?namespace=" + uninstObj.namespace + "&appId=" + uninstObj.appId, { method: "post" });
+    });
+  }
+});
+
 sol.define("sol.dev.install.functions.InstallApps", {
   extend: "sol.dev.install.InstallFunctionBase",
   mixins: ["sol.dev.install.mixin.InstallUtils"],
@@ -3629,6 +3657,7 @@ sol.define("sol.dev.install.Installer", {
     me.register("install", "sol.dev.install.functions.CreateWorkflowTemplates");
     me.register("install", "sol.dev.install.functions.MergeWorkflowTemplates");
     me.register("install", "sol.dev.install.functions.InstallIxPlugins");
+    me.register("install", "sol.dev.install.functions.UninstallApps");
     me.register("install", "sol.dev.install.functions.PrepareRepoPaths");
     me.register("install", "sol.dev.install.functions.ImportRepoData");
     me.register("install", "sol.dev.install.functions.AdjustDocMaskRights");
@@ -3670,6 +3699,7 @@ sol.define("sol.dev.install.Installer", {
     me.register("transport", "sol.dev.install.functions.CreateWorkflowTemplates");
     me.register("transport", "sol.dev.install.functions.MergeWorkflowTemplates");
     me.register("transport", "sol.dev.install.functions.InstallIxPlugins");
+    me.register("transport", "sol.dev.install.functions.UninstallApps");
     me.register("transport", "sol.dev.install.functions.PrepareRepoPaths");
     me.register("transport", "sol.dev.install.functions.ImportRepoData");
     me.register("transport", "sol.dev.install.functions.AdjustDocMaskRights");
@@ -3786,7 +3816,7 @@ sol.define("sol.dev.install.Installer", {
     handler.log({ text: "mode={0}", data: [procName] });
     handler.log({ text: "scriptEnvironment={0}", data: [scriptEnvironment] });
     if (typeof Graal != "undefined") {
-      handler.log({ text: "JavaScript engine: Graal: Graal.language={0}, Graal.versionJS={1}, Graal.versionGraalVM={2}, Graal.isGraalRuntime={3}", data: [Graal.language, Graal.versionJS, Graal.versionGraalVM || "", Graal.isGraalRuntime] });
+      handler.log({ text: "JavaScript engine: Graal: Graal.language={0}, Graal.versionJS={1}, Graal.versionGraalVM={2}, Graal.isGraalRuntime={3}", data: [Graal.language || "", Graal.versionJS || "", Graal.versionGraalVM || "", Graal.isGraalRuntime() || ""] });
     }
 
     if (scriptEnvironment != "IX") {
