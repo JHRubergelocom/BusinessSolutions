@@ -17,6 +17,7 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_sol.common.ix.LocalizedKwlIterator.js
 //@include lib_sol.common.ix.ServiceBase.js
 //@include lib_sol.common.ix.ServiceRegistry.js
+//@include lib_sol.common.ix.SqlConnection.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.ExecuteLib2" });
 
@@ -115,6 +116,9 @@ sol.define("sol.unittest.ix.services.ExecuteLib2", {
             break;
           default:
         }
+        break;
+      case "sol.common.ix.SqlConnection":
+        cls.open();
         break;
       default:
     }
