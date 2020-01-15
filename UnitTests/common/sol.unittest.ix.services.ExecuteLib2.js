@@ -4,6 +4,7 @@ importPackage(Packages.java.util);
 importPackage(Packages.de.elo.ix.client);
 
 //@include lib_Class.js
+//@include lib_sol.common.HttpUtils.js
 //@include lib_sol.common.ix.ActionBase.js
 //@include lib_sol.common.ix.DataCollectorBase.js
 //@include lib_sol.common.ix.DynAdHocFlowUtils.js
@@ -19,7 +20,8 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_sol.common.ix.ServiceRegistry.js
 //@include lib_sol.common.ix.SqlConnection.js
 //@include lib_sol.common.ix.SubscriptionUtils.js
-//@include lib_sol.dev.ix.ActionUtils.js
+//@include lib_sol.common.ix.SubscriptionUtils.js
+//@include lib_sol.common_fx.ix.FxUtils.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.ExecuteLib2" });
 
