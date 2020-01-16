@@ -15,9 +15,15 @@
       <name>lib_sol.common.AsUtils</name>
       <name>lib_sol.common.Config</name>
       <name>lib_sol.common.CounterUtils</name>
+      <name>lib_sol.common.HttpUtils</name>
+      <name>lib_sol.common.IxUtils</name>
+      <name>lib_sol.common.JsonUtils</name>
       <name>lib_sol.common.ObjectFormatter</name>
       <name>lib_sol.common.ObjectUtils</name>
       <name>lib_sol.common.ExceptionUtils</name>
+      <name>lib_sol.common.RepoUtils</name>
+      <name>lib_sol.common.SordUtils</name>
+      <name>lib_sol.common.StringUtils</name>
       <name>lib_sol.common.Template</name>
       <name>lib_sol.common.TranslateTerms</name>
       <name>lib_sol.common.UserUtils</name>
@@ -25,7 +31,9 @@
       <name>lib_sol.common.as.DocumentGenerator</name>
       <name>lib_sol.common.as.FunctionBase</name>
       <name>lib_sol.common.as.Utils</name>
+      <name>lib_sol.common.as.renderer.Fop</name>
       <name>lib_sol.contract.as.actions.CreateCashflowReport</name>
+      <name>lib_sol.contract.as.actions.CreateContractCoverSheet</name>
       <name>lib_sol.unittest.contract.as.services.ExecuteLib</name>
     </includes>
     <onstart>EM_SYS_SELECTOR = SordC.mbAll;</onstart>
