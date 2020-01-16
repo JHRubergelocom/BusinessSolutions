@@ -34,9 +34,11 @@
       <name>lib_sol.common.as.Utils</name>
       <name>lib_sol.common.as.renderer.Excel</name>
       <name>lib_sol.common.as.renderer.Fop</name>
+      <name>lib_sol.common.as.renderer.Word</name>
       <name>lib_sol.contract.as.actions.CreateCashflowReport</name>
       <name>lib_sol.contract.as.actions.CreateContractCoverSheet</name>
       <name>lib_sol.contract.as.actions.CreateContractsReport</name>
+      <name>lib_sol.contract.as.actions.CreateDocument</name>
       <name>lib_sol.unittest.contract.as.services.ExecuteLib</name>
     </includes>
     <onstart>EM_SYS_SELECTOR = SordC.mbAll;</onstart>
