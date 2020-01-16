@@ -75,30 +75,6 @@ describe("[libas] sol.unittest.as.services.SolContractActionsCreateCashflowRepor
           );
         }).not.toThrow();
       });
-      it("process", function (done) {
-        expect(function () {
-          test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.contract.as.services.ExecuteLib",
-            config: {
-              className: "sol.contract.as.actions.CreateCashflowReport",
-              classConfig: {},
-              method: "process",
-              params: []
-            }
-          }).then(function success(jsonResult) {
-            content = jsonResult.content;
-            if (content.indexOf("exception") != -1) {
-              fail(jsonResult.content);
-            }
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }).not.toThrow();
-      });
     });
   });
   afterAll(function (done) {
