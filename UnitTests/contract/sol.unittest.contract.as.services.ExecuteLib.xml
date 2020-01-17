@@ -40,6 +40,7 @@
       <name>lib_sol.common.as.renderer.Fop</name>
       <name>lib_sol.common.as.renderer.Word</name>
       <name>lib_sol.common_monitoring.as.analyzers.RuleAnalyzer</name>
+      <name>lib_sol.common_monitoring.as.analyzers.ValueAnalyzer</name>
       <name>lib_sol.common_monitoring.as.collectors.NextRunCollector</name>
       <name>lib_sol.common_monitoring.as.executors.SimpleExecutor</name>
       <name>lib_sol.common_monitoring.as.Monitor</name>
@@ -49,6 +50,7 @@
       <name>lib_sol.contract.as.actions.CreateDocument</name>
       <name>lib_sol.contract.as.actions.CreateLabel</name>
       <name>lib_sol.contract.as.ContractReminder</name>
+      <name>lib_sol.contract.as.ExtendContracts</name>
       <name>lib_sol.unittest.contract.as.services.ExecuteLib</name>
     </includes>
     <onstart>EM_SYS_SELECTOR = SordC.mbAll;</onstart>
