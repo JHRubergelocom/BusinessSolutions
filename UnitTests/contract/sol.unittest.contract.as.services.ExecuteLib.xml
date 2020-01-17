@@ -24,6 +24,7 @@
       <name>lib_sol.common.ExceptionUtils</name>
       <name>lib_sol.common.RepoUtils</name>
       <name>lib_sol.common.SordUtils</name>
+      <name>lib_sol.common.SordTypeUtils</name>
       <name>lib_sol.common.StringUtils</name>
       <name>lib_sol.common.Template</name>
       <name>lib_sol.common.TranslateTerms</name>
@@ -39,6 +40,7 @@
       <name>lib_sol.contract.as.actions.CreateContractCoverSheet</name>
       <name>lib_sol.contract.as.actions.CreateContractsReport</name>
       <name>lib_sol.contract.as.actions.CreateDocument</name>
+      <name>lib_sol.contract.as.actions.CreateLabel</name>
       <name>lib_sol.unittest.contract.as.services.ExecuteLib</name>
     </includes>
     <onstart>EM_SYS_SELECTOR = SordC.mbAll;</onstart>
