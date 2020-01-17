@@ -8,9 +8,9 @@
  *     sol.common.IxUtils.execute('RF_sol_common_service_ExecuteAsAction', {
  *       action: "sol.unittest.contract.as.services.ExecuteLib",
  *       config: {
- *         className: "sol.common_document.as.functions.ReadExcelTable",
- *         classConfig: { objId: 4713 },
- *         method: "initialize",
+ *         className: "ssol.contract.as.actions.PrepareDocument",
+ *         classConfig: {},
+ *         method: "getName",
  *         params: []
  *       }
  *     });
@@ -58,6 +58,18 @@ sol.define("sol.unittest.contract.as.services.ExecuteLib", {
 
     cls = sol.create(me.className, me.classConfig);
     func = cls[me.method];
+
+    switch (me.className) {
+      case "sol.contract.as.actions.PrepareDocument":
+        switch (me.method) {
+          case "createEmptyDocument":
+            me.params[1] = ixConnect.ix().checkoutSord(me.params[1], new SordZ(SordC.mbAll), LockC.NO);
+            break;
+          default:
+        }
+        break;
+      default:
+    }
 
     if (sol.common.ObjectUtils.isFunction(func)) {
       result = func.apply(cls, me.params);

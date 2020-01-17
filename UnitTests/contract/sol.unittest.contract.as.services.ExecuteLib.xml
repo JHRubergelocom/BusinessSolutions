@@ -12,6 +12,7 @@
       <name>lib_Class</name>
       <name>lib_handlebars</name>
       <name>lib_moment</name>
+      <name>lib_sol.common.AclUtils</name>
       <name>lib_sol.common.ActionBase</name>
       <name>lib_sol.common.AsUtils</name>
       <name>lib_sol.common.Config</name>
@@ -29,6 +30,7 @@
       <name>lib_sol.common.Template</name>
       <name>lib_sol.common.TranslateTerms</name>
       <name>lib_sol.common.UserUtils</name>
+      <name>lib_sol.common.WfUtils</name>
       <name>lib_sol.common.as.ActionBase</name>
       <name>lib_sol.common.as.DocumentGenerator</name>
       <name>lib_sol.common.as.FunctionBase</name>
