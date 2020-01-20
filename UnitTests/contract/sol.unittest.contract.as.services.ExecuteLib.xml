@@ -51,6 +51,7 @@
       <name>lib_sol.contract.as.actions.CreateLabel</name>
       <name>lib_sol.contract.as.ContractReminder</name>
       <name>lib_sol.contract.as.ExtendContracts</name>
+      <name>lib_sol.contract.as.SetContractsEnded</name>
       <name>lib_sol.contract.as.functions.CreateCashflowReportBackground</name>
       <name>lib_sol.unittest.contract.as.services.ExecuteLib</name>
     </includes>
