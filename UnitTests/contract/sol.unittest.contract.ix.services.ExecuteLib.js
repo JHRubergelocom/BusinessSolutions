@@ -6,8 +6,10 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_moment.js
 //@include lib_decimal-light.js
 //@include lib_sol.common.ix.ServiceBase.js
+//@include lib_sol.common.Config.js
 //@include lib_sol.common.DateUtils.js
 //@include lib_sol.contract.DurationUtils.js
+//@include lib_sol.contract.ix.ContractUtils.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.contract.ix.services.ExecuteLib" });
 
