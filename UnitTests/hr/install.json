@@ -23,6 +23,12 @@
         "{{ixScriptingBaseFolderPath}}/_ALL/business_solutions"
       ],
       "ignoreSubfolders": true
+    },
+    {
+      "source": "{{packageFolderPath}}/ELOas Base",
+      "destinations": [
+        "{{administrationFolderPath}}/ELOas Base"
+      ]
     }
   ],
   "ref": []
