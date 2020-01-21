@@ -16,14 +16,20 @@
       <name>lib_sol.common.CounterUtils</name>
       <name>lib_sol.common.ExceptionUtils</name>
       <name>lib_sol.common.IxUtils</name>
+      <name>lib_sol.common.Map</name>
+      <name>lib_sol.common.ObjectFormatter</name>
       <name>lib_sol.common.ObjectUtils</name>
       <name>lib_sol.common.StringUtils</name>
+      <name>lib_sol.common.Template</name>
+      <name>lib_sol.common.UserUtils</name>
+      <name>lib_sol.common.WfUtils</name>
       <name>lib_sol.common.as.ActionBase</name>
       <name>lib_sol.common.as.DocumentGenerator</name>
       <name>lib_sol.common.as.FunctionBase</name>
       <name>lib_sol.common.as.Utils</name>
       <name>lib_sol.common.as.renderer.Fop</name>
       <name>lib_sol.hr.as.actions.CreatePDFByTemplate</name>
+      <name>lib_sol.hr.as.functions.ProvidePersonnelFileAccess</name>
       <name>lib_sol.unittest.hr.as.services.ExecuteLib</name>
     </includes>
     <onstart>EM_SYS_SELECTOR = SordC.mbAll;</onstart>

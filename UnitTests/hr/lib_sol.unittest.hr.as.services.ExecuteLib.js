@@ -54,10 +54,35 @@ sol.define("sol.unittest.hr.as.services.ExecuteLib", {
   process: function () {
     var me = this,
         result = {},
-        cls, func;
+        cls, func, findInfo, findByIndex, findChildren;
 
     cls = sol.create(me.className, me.classConfig);
     func = cls[me.method];
+
+    switch (me.className) {
+      case "sol.hr.as.functions.ProvidePersonnelFileAccess":
+        switch (me.method) {
+          case "copyTreeElements":
+          case "getSearchId":
+            findInfo = new FindInfo();
+            findByIndex = new FindByIndex();
+            findChildren = new FindChildren();
+            findChildren.parentId = 1;
+            findChildren.mainParent = false;
+            findChildren.endLevel = 1;
+            findInfo.findByIndex = findByIndex;
+            findInfo.findChildren = findChildren;
+            me.params[0] = findInfo;
+            break;
+          case "setByConfig":
+            me.params[1] = ixConnect.ix().checkoutSord(me.params[1], new SordZ(SordC.mbAll), LockC.NO);
+            me.params[2] = ixConnect.ix().checkoutSord(me.params[2], new SordZ(SordC.mbAll), LockC.NO);
+            break;
+          default:
+        }
+        break;
+      default:
+    }
 
     if (sol.common.ObjectUtils.isFunction(func)) {
       result = func.apply(cls, me.params);
@@ -70,6 +95,16 @@ sol.define("sol.unittest.hr.as.services.ExecuteLib", {
         switch (me.method) {
           case "genSordZ":
           case "getPdfGenerator":
+            result = String(result);
+            break;
+          default:
+        }
+        break;
+      case "sol.hr.as.functions.ProvidePersonnelFileAccess":
+        switch (me.method) {
+          case "genSordZ":
+          case "generateFindInfo":
+          case "getSearchId":
             result = String(result);
             break;
           default:
