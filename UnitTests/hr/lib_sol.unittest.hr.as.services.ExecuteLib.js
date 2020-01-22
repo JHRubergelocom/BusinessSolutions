@@ -81,6 +81,15 @@ sol.define("sol.unittest.hr.as.services.ExecuteLib", {
           default:
         }
         break;
+      case "sol.hr.as.functions.UpdatePersonnelFileWithOrgChartData":
+        switch (me.method) {
+          case "collectOrgChartElements":
+          case "processOrgChartElement":
+            me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
+            break;
+          default:
+        }
+        break;
       default:
     }
 
@@ -105,6 +114,14 @@ sol.define("sol.unittest.hr.as.services.ExecuteLib", {
           case "genSordZ":
           case "generateFindInfo":
           case "getSearchId":
+            result = String(result);
+            break;
+          default:
+        }
+        break;
+      case "sol.hr.as.functions.UpdatePersonnelFileWithOrgChartData":
+        switch (me.method) {
+          case "collectOrgChartElements":
             result = String(result);
             break;
           default:
