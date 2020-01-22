@@ -15,6 +15,7 @@
       <name>lib_sol.common.ActionBase</name>
       <name>lib_sol.common.Config</name>
       <name>lib_sol.common.CounterUtils</name>
+      <name>lib_sol.common.DateUtils</name>
       <name>lib_sol.common.ExceptionUtils</name>
       <name>lib_sol.common.Injection</name>
       <name>lib_sol.common.IxUtils</name>
@@ -31,10 +32,16 @@
       <name>lib_sol.common.as.FunctionBase</name>
       <name>lib_sol.common.as.Utils</name>
       <name>lib_sol.common.as.renderer.Fop</name>
+      <name>lib_sol.common_monitoring.as.collectors.NextRunCollector</name>
+      <name>lib_sol.common_monitoring.as.analyzers.RuleAnalyzer</name>
+      <name>lib_sol.common_monitoring.as.executors.SimpleExecutor</name>
+      <name>lib_sol.common_monitoring.as.Monitor</name>
       <name>lib_sol.hrorgchart.mixins.Configuration</name>
+      <name>lib_sol.hr.mixins.Configuration</name>
       <name>lib_sol.hr.as.actions.CreatePDFByTemplate</name>
       <name>lib_sol.hr.as.functions.ProvidePersonnelFileAccess</name>
       <name>lib_sol.hr.as.functions.UpdatePersonnelFileWithOrgChartData</name>
+      <name>lib_sol.hr.as.PersonnelFileReminder</name>
       <name>lib_sol.unittest.hr.as.services.ExecuteLib</name>
     </includes>
     <onstart>EM_SYS_SELECTOR = SordC.mbAll;</onstart>

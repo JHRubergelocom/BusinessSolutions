@@ -127,6 +127,14 @@ sol.define("sol.unittest.hr.as.services.ExecuteLib", {
           default:
         }
         break;
+      case "sol.hr.as.PersonnelFileReminder":
+        switch (me.method) {
+          case "getMonitorConfig":
+            result = String(result);
+            break;
+          default:
+        }
+        break;
       default:
     }
 
