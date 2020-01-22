@@ -21,13 +21,13 @@ describe("[action] sol.hr.ix.actions.InquirePersonnelFileAccess", function () {
     }).not.toThrow();
   });
   describe("test inquire personnel file access", function () {
-    it("should throw if executed without 'objId'", function (done) {
+    it("should not throw if executed without 'objId'", function (done) {
       expect(function () {
         test.Utils.execute("RF_sol_hr_personnel_action_InquirePersonnelFileAccess", {
         }).then(function success(jsonResult) {
-          fail(jsonResult);
           done();
         }, function error(err) {
+          fail(err);
           console.error(err);
           done();
         }
