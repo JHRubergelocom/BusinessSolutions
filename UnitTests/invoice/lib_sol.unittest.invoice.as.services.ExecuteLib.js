@@ -69,6 +69,21 @@ sol.define("sol.unittest.invoice.as.services.ExecuteLib", {
           default:
         }
         break;
+      case "sol.invoice_datev.as.functions.Export":
+        switch (me.method) {
+          case "exportInvoices":
+          case "getKeyIndex":
+          case "readInvoices":
+          case "writeDatevExport":
+            cls.invoiceDatevConfig = sol.invoice_datev.as.Utils.getConfig();
+            break;
+          case "writeDataSet":
+            cls.invoiceDatevConfig = sol.invoice_datev.as.Utils.getConfig();
+            me.params[1] = ixConnect.ix().checkoutSord(me.params[1], new SordZ(SordC.mbAll), LockC.NO);
+            break;
+          default:
+        }
+        break;
       default:
     }
 
@@ -76,6 +91,18 @@ sol.define("sol.unittest.invoice.as.services.ExecuteLib", {
       result = func.apply(cls, me.params);
     } else {
       throw "IllegalMethodException: Method '" + me.method + "' not supported in Class '" + me.className + "'";
+    }
+
+    switch (me.className) {
+      case "sol.invoice_datev.as.functions.Export":
+        switch (me.method) {
+          case "process":
+            result = String(result);
+            break;
+          default:
+        }
+        break;
+      default:
     }
 
     return result;

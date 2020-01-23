@@ -17,10 +17,12 @@
       <name>lib_sol.common.ExceptionUtils</name>
       <name>lib_sol.common.ObjectUtils</name>
       <name>lib_sol.common.RepoUtils</name>
+      <name>lib_sol.common.SordUtils</name>
       <name>lib_sol.common.as.FunctionBase</name>
       <name>lib_sol.common.as.Utils</name>
       <name>lib_sol.invoice_datev.as.Utils</name>
       <name>lib_sol.invoice_datev.as.export.HtmlLog</name>
+      <name>lib_sol.invoice_datev.as.functions.Export</name>
       <name>lib_sol.unittest.invoice.as.services.ExecuteLib</name>
     </includes>
     <onstart>EM_SYS_SELECTOR = SordC.mbAll;</onstart>
