@@ -22,9 +22,11 @@
       <name>lib_sol.common.Template</name>
       <name>lib_sol.common.as.FunctionBase</name>
       <name>lib_sol.common.as.Utils</name>
+      <name>lib_sol.connector_xml.Converter</name>
       <name>lib_sol.invoice_datev.as.Utils</name>
       <name>lib_sol.invoice_datev.as.export.HtmlLog</name>
       <name>lib_sol.invoice_datev.as.functions.Export</name>
+      <name>lib_sol.invoice_electronic.as.functions.ExtractData</name>
       <name>lib_sol.unittest.invoice.as.services.ExecuteLib</name>
     </includes>
     <onstart>EM_SYS_SELECTOR = SordC.mbAll;</onstart>
