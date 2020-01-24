@@ -84,6 +84,29 @@ sol.define("sol.unittest.invoice.as.services.ExecuteLib", {
           default:
         }
         break;
+      case "sol.invoice_datev.as.Utils":
+        switch (me.method) {
+          case "getDateValue":
+            cls.HTMLSTYLES = sol.invoice_datev.as.export.HtmlLog.HTMLSTYLES;
+            me.params[1] = new java.lang.String(me.params[1]);
+            break;
+          case "getDocument":
+            me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
+            break;
+          case "getNumericValue":
+            me.params[2] = new java.lang.String(me.params[2]);
+            break;
+          case "padding_left":
+          case "padding_right":
+            me.params[0] = new java.lang.String(me.params[0]);
+            me.params[1] = new java.lang.String(me.params[1]);
+            break;
+          case "setContent":
+            cls.invoiceDatevConfig = cls.getConfig();
+            break;
+          default:
+        }
+        break;
       default:
     }
 
@@ -97,6 +120,16 @@ sol.define("sol.unittest.invoice.as.services.ExecuteLib", {
       case "sol.invoice_datev.as.functions.Export":
         switch (me.method) {
           case "process":
+            result = String(result);
+            break;
+          default:
+        }
+        break;
+      case "sol.invoice_datev.as.Utils":
+        switch (me.method) {
+          case "getDocument":
+          case "getLanguageTextEscapeHTML":
+          case "getNumericValue":
             result = String(result);
             break;
           default:
