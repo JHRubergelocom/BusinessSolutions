@@ -114,7 +114,8 @@ sol.define("sol.knowledge.ix.services.GetConfig", {
 
       sords = me.getAllSolTypes("KNOWLEDGE_BOARD");
       boards = me.convert(sords, {
-        subscriptionInfo: true
+        subscriptionInfo: true,
+        accessRights: true
       });
 
       labels = me.getLabels();
@@ -361,6 +362,7 @@ sol.define("sol.knowledge.ix.services.GetConfig", {
           }
         });
         tplSord = tplSord.sord;
+        params.sord = sord;
         me.enrichTplSord(tplSord, params);
         converted.push(tplSord);
       });
@@ -398,6 +400,9 @@ sol.define("sol.knowledge.ix.services.GetConfig", {
         tplSord.subscription = {
           subscribed: sol.common.ix.SubscriptionUtils.hasSubscription(tplSord.guid)
         };
+      }
+      if (params.accessRights) {
+        tplSord.rights = sol.knowledge.ix.KnowledgeUtils.getAccessRights(params.sord);
       }
     }
   },
