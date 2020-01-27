@@ -54,7 +54,7 @@ sol.define("sol.unittest.invoice.as.services.ExecuteLib", {
   process: function () {
     var me = this,
         result = {},
-        cls, func;
+        cls, func, invoiceConfig, dir;
 
     cls = sol.create(me.className, me.classConfig);
     func = cls[me.method];
@@ -116,6 +116,22 @@ sol.define("sol.unittest.invoice.as.services.ExecuteLib", {
           case "getInvoiceXmlFilePath":
             me.params[0] = sol.common.FileUtils.createTempDir(me.params[0]);
             me.params[1] = ixConnect.ix().checkoutSord(me.params[1], new SordZ(SordC.mbAll), LockC.NO);
+            break;
+          default:
+        }
+        break;
+      case "sol.invoice.as.InvoiceXmlImporter":
+        switch (me.method) {
+          case "run":
+            invoiceConfig = sol.create("sol.common.Config", { compose: "/invoice/Configuration/sol.invoice.config" }).config;
+            dir = new File(invoiceConfig.importXML.importDirectory.value);
+            if (dir.exists()) {
+              dir.delete();
+            }
+            dir.mkdirs();
+            break;
+          case "startInvoiceWorkflow":
+            me.params[0] = sol.create("sol.common.Config", { compose: "/invoice/Configuration/sol.invoice.config" }).config;
             break;
           default:
         }
