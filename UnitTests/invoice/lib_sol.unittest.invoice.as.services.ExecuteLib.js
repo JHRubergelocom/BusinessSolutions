@@ -107,6 +107,19 @@ sol.define("sol.unittest.invoice.as.services.ExecuteLib", {
           default:
         }
         break;
+      case "sol.invoice_electronic.as.functions.extractData":
+        switch (me.method) {
+          case "getElectronicInvoiceType":
+            new File(me.params[0]).createNewFile();
+            sol.common.FileUtils.writeStringToFile(me.params[0], "<?xml version=\"1.0\"?><Items></Items>");
+            break;
+          case "getInvoiceXmlFilePath":
+            me.params[0] = sol.common.FileUtils.createTempDir(me.params[0]);
+            me.params[1] = ixConnect.ix().checkoutSord(me.params[1], new SordZ(SordC.mbAll), LockC.NO);
+            break;
+          default:
+        }
+        break;
       default:
     }
 
@@ -131,6 +144,14 @@ sol.define("sol.unittest.invoice.as.services.ExecuteLib", {
           case "getLanguageTextEscapeHTML":
           case "getNumericValue":
             result = String(result);
+            break;
+          default:
+        }
+        break;
+      case "sol.invoice_electronic.as.functions.extractData":
+        switch (me.method) {
+          case "getInvoiceXmlFilePath":
+            Packages.org.apache.commons.io.FileUtils.deleteQuietly(me.params[0]);
             break;
           default:
         }

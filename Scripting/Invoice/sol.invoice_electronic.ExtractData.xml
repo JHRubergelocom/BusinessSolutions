@@ -1,6 +1,6 @@
 ﻿<ruleset>
   <base>
-    <name>sol.unittest.invoice.as.services.ExecuteLib</name>
+    <name>sol.invoice_electronic.ExtractData</name>
     <search>
       <name>"DIRECT"</name>
       <value>""</value>
@@ -12,36 +12,36 @@
       <name>lib_Class</name>
       <name>lib_handlebars</name>
       <name>lib_moment</name>
+      <name>lib_sol.common.Cache</name>
       <name>lib_sol.common.Config</name>
       <name>lib_sol.common.DateUtils</name>
+      <name>lib_sol.common.IxUtils</name>
+      <name>lib_sol.common.UserUtils</name>
+      <name>lib_sol.common.ObjectUtils</name>
+      <name>lib_sol.common.ObjectFormatter</name>
+      <name>lib_sol.common.StringUtils</name>
       <name>lib_sol.common.ExceptionUtils</name>
       <name>lib_sol.common.FileUtils</name>
-      <name>lib_sol.common.ObjectFormatter</name>
-      <name>lib_sol.common.ObjectUtils</name>
-      <name>lib_sol.common.RepoUtils</name>
       <name>lib_sol.common.SordUtils</name>
-      <name>lib_sol.common.Template</name>
+      <name>lib_sol.common.RepoUtils</name>
+      <name>lib_sol.common.JsonUtils</name>
       <name>lib_sol.common.XmlUtils</name>
-      <name>lib_sol.common.as.FunctionBase</name>
       <name>lib_sol.common.as.Utils</name>
+      <name>lib_sol.common.as.FunctionBase</name>
+      <name>lib_sol.connector_xml.Utils</name>
       <name>lib_sol.connector_xml.Converter</name>
-      <name>lib_sol.invoice_datev.as.Utils</name>
-      <name>lib_sol.invoice_datev.as.export.HtmlLog</name>
-      <name>lib_sol.invoice_datev.as.functions.Export</name>
-      <name>lib_sol.invoice_electronic.as.ExtractDataTest</name>
+      <name>lib_sol.connector_xml.Importer</name>
+      <name>lib_sol.invoice_electronic.as.postProcessing.XRechnung</name>
+      <name>lib_sol.invoice_electronic.as.postProcessing.Zugferd</name>
       <name>lib_sol.invoice_electronic.as.functions.ExtractData</name>
-      <name>lib_sol.unittest.invoice.as.services.ExecuteLib</name>
+      <name>lib_sol.invoice_electronic.as.ExtractDataTest</name>
     </includes>
-    <onstart>EM_SYS_SELECTOR = SordC.mbAll;</onstart>
+     <onstart>EM_WF_SELECTOR = SordC.mbAll;</onstart>
   </base>
   <rule>
     <name>Regel1</name>
     <condition></condition>
-    <script>
-    sol.common.as.Utils.requiresUserSession(this);
-    sol.common.as.Utils.executeFunction("sol.unittest.invoice.as.services.ExecuteLib");
-    sol.common.as.Utils.cleanupUserSession(this);
-    </script>
+    <script>sol.common.as.Utils.executeFunction("sol.invoice_electronic.as.functions.extractData");</script>
   </rule>
   <rule>
     <name>Global Error Rule</name>
