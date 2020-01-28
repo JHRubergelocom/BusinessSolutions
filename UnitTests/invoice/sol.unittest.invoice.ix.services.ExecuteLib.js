@@ -3,8 +3,11 @@ importPackage(Packages.java.io);
 importPackage(Packages.de.elo.ix.client);
 
 //@include lib_Class.js
+//@include lib_sol.common.Map.js
+//@include lib_sol.common.ix.DynKwlUtils.js
 //@include lib_sol.common.ix.ServiceBase.js
 //@include lib_sol.invoice.Converter.js
+//@include lib_sol.invoice.ix.Invoice.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.invoice.ix.services.ExecuteLib" });
 
@@ -61,6 +64,13 @@ sol.define("sol.unittest.invoice.ix.services.ExecuteLib", {
     var me = this,
         result = {},
         cls, func;
+
+    switch (me.className) {
+      case "sol.invoice.ix.Invoice":
+        me.classConfig.sord = ixConnect.ix().checkoutSord(me.classConfig.sord, new SordZ(SordC.mbAll), LockC.NO);
+        break;
+      default:
+    }
 
     cls = sol.create(me.className, me.classConfig);
     func = cls[me.method];
