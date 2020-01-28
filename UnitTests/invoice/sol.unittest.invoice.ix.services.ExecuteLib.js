@@ -8,6 +8,7 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_sol.common.ix.ServiceBase.js
 //@include lib_sol.invoice.Converter.js
 //@include lib_sol.invoice.ix.Invoice.js
+//@include lib_sol.invoice.ix.LineApprovalMixin.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.invoice.ix.services.ExecuteLib" });
 
@@ -63,7 +64,7 @@ sol.define("sol.unittest.invoice.ix.services.ExecuteLib", {
   process: function () {
     var me = this,
         result = {},
-        cls, func;
+        cls, func, sordMap;
 
     switch (me.className) {
       case "sol.invoice.ix.Invoice":
@@ -80,6 +81,24 @@ sol.define("sol.unittest.invoice.ix.services.ExecuteLib", {
         switch (me.method) {
           case "currency":
             me.params[1] = ixConnect.ix().checkoutSord(me.params[1], new SordZ(SordC.mbAll), LockC.NO);
+            break;
+          default:
+        }
+        break;
+      case "sol.invoice.ix.LineApprovalMixin":
+        cls.logger = sol.create("sol.Logger", { scope: "sol.invoice.ix.LineApprovalMixin" });
+        cls.approvalConfig = cls.loadConfig();
+        sordMap = sol.create("sol.common.SordMap", { objId: me.classConfig.objId });
+        cls.sordMapTable = sol.create("sol.common.MapTable", { map: sordMap, columnNames: cls.approvalConfig.sordMapTableColumnNames });
+        switch (me.method) {
+          case "EQUALS":
+          case "GT":
+          case "GE":
+          case "LT":
+          case "LE":
+          case "BETWEEN":
+          case "EMPTY":
+            func = cls.fct[me.method];
             break;
           default:
         }
