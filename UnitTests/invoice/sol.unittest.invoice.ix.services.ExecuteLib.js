@@ -90,6 +90,9 @@ sol.define("sol.unittest.invoice.ix.services.ExecuteLib", {
         cls.approvalConfig = cls.loadConfig();
         sordMap = sol.create("sol.common.SordMap", { objId: me.classConfig.objId });
         cls.sordMapTable = sol.create("sol.common.MapTable", { map: sordMap, columnNames: cls.approvalConfig.sordMapTableColumnNames });
+        cls.sord = ixConnect.ix().checkoutSord(me.classConfig.objId, new SordZ(SordC.mbAll), LockC.NO);
+        cls.wfMap = sol.create("sol.common.WfMap", { flowId: 9999, objId: me.classConfig.objId });
+        cls.wfMap.read();
         switch (me.method) {
           case "EQUALS":
           case "GT":
@@ -99,6 +102,9 @@ sol.define("sol.unittest.invoice.ix.services.ExecuteLib", {
           case "BETWEEN":
           case "EMPTY":
             func = cls.fct[me.method];
+            break;
+          case "setLineApproved":
+            me.params[0] = cls.wfMap;
             break;
           default:
         }
