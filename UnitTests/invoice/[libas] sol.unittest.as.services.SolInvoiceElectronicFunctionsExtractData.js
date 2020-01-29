@@ -18,7 +18,7 @@ describe("[libas] sol.unittest.as.services.SolInvoiceElectronicFunctionsExtractD
     }).not.toThrow();
   });
   describe("Test Lib Functions", function () {
-    describe("sol.invoice_electronic.as.functions.extractData", function () {
+    describe("sol.invoice_electronic.as.functions.ExtractData", function () {
       it("get intray document", function (done) {
         expect(function () {
           test.Utils.getSord("ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/invoice [unit tests]/Resources/ZugferdInvoiceUnittest").then(function success(intrayDocumentSord1) {
@@ -39,7 +39,7 @@ describe("[libas] sol.unittest.as.services.SolInvoiceElectronicFunctionsExtractD
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.unittest.invoice.as.services.ExecuteLib",
             config: {
-              className: "sol.invoice_electronic.as.functions.extractData",
+              className: "sol.invoice_electronic.as.functions.ExtractData",
               classConfig: {},
               method: "checkXpaths",
               params: [xmlDoc, xpathChecks]
@@ -64,7 +64,7 @@ describe("[libas] sol.unittest.as.services.SolInvoiceElectronicFunctionsExtractD
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.unittest.invoice.as.services.ExecuteLib",
             config: {
-              className: "sol.invoice_electronic.as.functions.extractData",
+              className: "sol.invoice_electronic.as.functions.ExtractData",
               classConfig: {},
               method: "getElectronicInvoiceType",
               params: [xmlPath]
@@ -90,7 +90,7 @@ describe("[libas] sol.unittest.as.services.SolInvoiceElectronicFunctionsExtractD
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.unittest.invoice.as.services.ExecuteLib",
             config: {
-              className: "sol.invoice_electronic.as.functions.extractData",
+              className: "sol.invoice_electronic.as.functions.ExtractData",
               classConfig: {},
               method: "getInvoiceXmlFilePath",
               params: [tempDir, sord]
@@ -115,7 +115,7 @@ describe("[libas] sol.unittest.as.services.SolInvoiceElectronicFunctionsExtractD
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.unittest.invoice.as.services.ExecuteLib",
             config: {
-              className: "sol.invoice_electronic.as.functions.extractData",
+              className: "sol.invoice_electronic.as.functions.ExtractData",
               classConfig: {},
               method: "initialize",
               params: [config]
@@ -139,7 +139,7 @@ describe("[libas] sol.unittest.as.services.SolInvoiceElectronicFunctionsExtractD
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.unittest.invoice.as.services.ExecuteLib",
             config: {
-              className: "sol.invoice_electronic.as.functions.extractData",
+              className: "sol.invoice_electronic.as.functions.ExtractData",
               classConfig: { objId: intrayDocumentSord.id },
               method: "process",
               params: []

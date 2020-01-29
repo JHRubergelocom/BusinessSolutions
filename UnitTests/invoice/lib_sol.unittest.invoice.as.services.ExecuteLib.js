@@ -107,7 +107,7 @@ sol.define("sol.unittest.invoice.as.services.ExecuteLib", {
           default:
         }
         break;
-      case "sol.invoice_electronic.as.functions.extractData":
+      case "sol.invoice_electronic.as.functions.ExtractData":
         switch (me.method) {
           case "getElectronicInvoiceType":
             new File(me.params[0]).createNewFile();
@@ -164,7 +164,7 @@ sol.define("sol.unittest.invoice.as.services.ExecuteLib", {
           default:
         }
         break;
-      case "sol.invoice_electronic.as.functions.extractData":
+      case "sol.invoice_electronic.as.functions.ExtractData":
         switch (me.method) {
           case "getInvoiceXmlFilePath":
             Packages.org.apache.commons.io.FileUtils.deleteQuietly(me.params[0]);

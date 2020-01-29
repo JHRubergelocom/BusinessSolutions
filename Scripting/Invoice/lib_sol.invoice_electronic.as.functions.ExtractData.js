@@ -21,7 +21,7 @@
  *       "timestampMapFieldName": "ZUGFERD_IMPORTED"
  *     }
  */
-sol.define("sol.invoice_electronic.as.functions.extractData", {
+sol.define("sol.invoice_electronic.as.functions.ExtractData", {
   extend: "sol.common.as.FunctionBase",
 
   requiredProperty: ["objId"],
