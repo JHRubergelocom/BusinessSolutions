@@ -15,8 +15,11 @@
       <name>lib_sol.common.Config</name>
       <name>lib_sol.common.DateUtils</name>
       <name>lib_sol.common.ExceptionUtils</name>
+      <name>lib_sol.common.Map</name>
       <name>lib_sol.common.ObjectUtils</name>
       <name>lib_sol.common.RepoUtils</name>
+      <name>lib_sol.common.SordUtils</name>
+      <name>lib_sol.common.UserUtils</name>
       <name>lib_sol.common.as.FunctionBase</name>
       <name>lib_sol.common.as.Utils</name>
       <name>lib_sol.knowledge.as.CleanupImages</name>

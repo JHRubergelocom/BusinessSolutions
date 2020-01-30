@@ -59,6 +59,14 @@ sol.define("sol.unittest.knowledge.as.services.ExecuteLib", {
     cls = sol.create(me.className, me.classConfig);
     func = cls[me.method];
 
+    switch (me.className) {
+      case "sol.knowledge.as.Utils":
+        cls.cfgCategoryBadges = sol.create("sol.common.Config", { compose: "/knowledge/Configuration/badges.config" }).config.category;
+        cls.cfgReputation = sol.create("sol.common.Config", { compose: "/knowledge/Configuration/reputation.config" }).config;
+        break;
+      default:
+    }
+
     if (sol.common.ObjectUtils.isFunction(func)) {
       result = func.apply(cls, me.params);
     } else {
