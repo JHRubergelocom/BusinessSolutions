@@ -4,9 +4,11 @@ importPackage(Packages.de.elo.ix.client);
 
 //@include lib_Class.js
 //@include lib_sol.common.Config.js
+//@include lib_sol.common.RepoUtils.js
 //@include lib_sol.common.TranslateTerms.js
 //@include lib_sol.common.ix.ServiceBase.js
 //@include lib_sol.knowledge.ix.BadgesUtils.js
+//@include lib_sol.knowledge.ix.KnowledgeUtils.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.knowledge.ix.services.ExecuteLib" });
 
