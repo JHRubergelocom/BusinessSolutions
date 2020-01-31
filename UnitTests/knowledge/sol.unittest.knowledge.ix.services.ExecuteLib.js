@@ -10,6 +10,7 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_sol.knowledge.ix.BadgesUtils.js
 //@include lib_sol.knowledge.ix.KnowledgeUtils.js
 //@include lib_sol.knowledge.ix.LabelUtils.js
+//@include lib_sol.knowledge.ix.QueryUtils.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.knowledge.ix.services.ExecuteLib" });
 
