@@ -4,6 +4,7 @@ importPackage(Packages.de.elo.ix.client);
 
 //@include lib_Class.js
 //@include lib_sol.common.Config.js
+//@include lib_sol.common.Map.js
 //@include lib_sol.common.RepoUtils.js
 //@include lib_sol.common.TranslateTerms.js
 //@include lib_sol.common.ix.ServiceBase.js
@@ -11,6 +12,7 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_sol.knowledge.ix.KnowledgeUtils.js
 //@include lib_sol.knowledge.ix.LabelUtils.js
 //@include lib_sol.knowledge.ix.QueryUtils.js
+//@include lib_sol.knowledge.ix.ReputationUtils.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.knowledge.ix.services.ExecuteLib" });
 
@@ -70,6 +72,13 @@ sol.define("sol.unittest.knowledge.ix.services.ExecuteLib", {
 
     cls = sol.create(me.className, me.classConfig);
     func = cls[me.method];
+
+    switch (me.className) {
+      case "sol.knowledge.ix.ReputationUtils":
+        cls.config = cls.loadConfig();
+        break;
+      default:
+    }
 
     if (sol.common.ObjectUtils.isFunction(func)) {
       result = func.apply(cls, me.params);
