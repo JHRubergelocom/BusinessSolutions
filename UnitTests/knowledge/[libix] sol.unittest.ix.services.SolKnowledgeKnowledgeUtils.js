@@ -1,7 +1,7 @@
 
 describe("[libix] sol.unittest.ix.services.SolKnowledgeKnowledgeUtils", function () {
   var obSolKnowledgeKnowledgeUtilsId, originalTimeout, objId, contentType, knowledgeConfig,
-      objBoardId, objSpaceId;
+      objBoardId, objSpaceId, sord;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -90,6 +90,24 @@ describe("[libix] sol.unittest.ix.services.SolKnowledgeKnowledgeUtils", function
             classConfig: {},
             method: "findSpace",
             params: [objId]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("getAccessRights", function (done) {
+        expect(function () {
+          sord = objSpaceId;
+          test.Utils.execute("RF_sol_unittest_knowledge_service_ExecuteLib", {
+            className: "sol.knowledge.ix.KnowledgeUtils",
+            classConfig: {},
+            method: "getAccessRights",
+            params: [sord]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {

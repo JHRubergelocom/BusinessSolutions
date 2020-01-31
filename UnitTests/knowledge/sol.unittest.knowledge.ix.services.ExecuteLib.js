@@ -74,6 +74,14 @@ sol.define("sol.unittest.knowledge.ix.services.ExecuteLib", {
     func = cls[me.method];
 
     switch (me.className) {
+      case "sol.knowledge.ix.KnowledgeUtils":
+        switch (me.method) {
+          case "getAccessRights":
+            me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
+            break;
+          default:
+        }
+        break;
       case "sol.knowledge.ix.ReputationUtils":
         cls.config = cls.loadConfig();
         break;
