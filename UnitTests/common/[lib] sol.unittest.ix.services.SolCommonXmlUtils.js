@@ -23,7 +23,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonXmlUtils", function () {
         expect(function () {
           data = { ChildSordDataCollector: [{ name: "Sord1" }, { name: "Sord2" }] };
           dataDefinition = { ChildSordDataCollector: "Sord" };
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
             className: "sol.common.XmlUtils",
             classConfig: {},
             method: "convertObjectToXml",
@@ -41,7 +41,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonXmlUtils", function () {
       it("getAttributes", function (done) {
         expect(function () {
           xmlElement = "xmlElement1";
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
             className: "sol.common.XmlUtils",
             classConfig: {},
             method: "getAttributes",
@@ -60,7 +60,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonXmlUtils", function () {
         expect(function () {
           xmlFilePath = "xmlFilePath1";
           params = {};
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
             className: "sol.common.XmlUtils",
             classConfig: {},
             method: "readXmlFile",
@@ -78,7 +78,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonXmlUtils", function () {
       it("toString", function (done) {
         expect(function () {
           xmlDoc = "xmlDoc";
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
             className: "sol.common.XmlUtils",
             classConfig: {},
             method: "toString",

@@ -30,7 +30,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
         expect(function () {
           param1 = 1000;
           param2 = 1000;
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
             className: "sol.common.Roles",
             classConfig: {},
             method: "EQUALS",
@@ -50,7 +50,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
         expect(function () {
           param1 = 1000;
           param2 = 1001;
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
             className: "sol.common.Roles",
             classConfig: {},
             method: "EQUALS",
@@ -70,7 +70,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
         expect(function () {
           param1 = 1000;
           param2 = 1000;
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
             className: "sol.common.Roles",
             classConfig: {},
             method: "GE",
@@ -90,7 +90,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
         expect(function () {
           param1 = 1001;
           param2 = 1000;
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
             className: "sol.common.Roles",
             classConfig: {},
             method: "GE",
@@ -110,7 +110,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
         expect(function () {
           param1 = 1000;
           param2 = 1001;
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
             className: "sol.common.Roles",
             classConfig: {},
             method: "GE",
@@ -130,7 +130,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
         expect(function () {
           param1 = 1000;
           param2 = 1000;
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
             className: "sol.common.Roles",
             classConfig: {},
             method: "GT",
@@ -150,7 +150,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
         expect(function () {
           param1 = 1001;
           param2 = 1000;
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
             className: "sol.common.Roles",
             classConfig: {},
             method: "GT",
@@ -170,7 +170,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
         expect(function () {
           param1 = 1000;
           param2 = 1001;
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
             className: "sol.common.Roles",
             classConfig: {},
             method: "GT",
@@ -190,7 +190,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
         expect(function () {
           param1 = 1000;
           param2 = 1000;
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
             className: "sol.common.Roles",
             classConfig: {},
             method: "LE",
@@ -210,7 +210,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
         expect(function () {
           param1 = 1001;
           param2 = 1000;
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
             className: "sol.common.Roles",
             classConfig: {},
             method: "LE",
@@ -230,7 +230,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
         expect(function () {
           param1 = 1000;
           param2 = 1001;
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
             className: "sol.common.Roles",
             classConfig: {},
             method: "LE",
@@ -250,7 +250,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
         expect(function () {
           param1 = 1000;
           param2 = 1000;
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
             className: "sol.common.Roles",
             classConfig: {},
             method: "LT",
@@ -270,7 +270,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
         expect(function () {
           param1 = 1001;
           param2 = 1000;
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
             className: "sol.common.Roles",
             classConfig: {},
             method: "LT",
@@ -290,7 +290,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
         expect(function () {
           param1 = 1000;
           param2 = 1001;
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
             className: "sol.common.Roles",
             classConfig: {},
             method: "LT",
@@ -310,7 +310,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
         expect(function () {
           param1 = "ABCDE";
           param2 = "AB";
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
             className: "sol.common.Roles",
             classConfig: {},
             method: "STARTSWITH",
@@ -330,7 +330,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
         expect(function () {
           param1 = "ABCDE";
           param2 = "CD";
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
             className: "sol.common.Roles",
             classConfig: {},
             method: "STARTSWITH",
@@ -357,7 +357,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
             ]
           };
           userName = "Administrator";
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
             className: "sol.common.Roles",
             classConfig: {},
             method: "getSupervisor",
@@ -378,7 +378,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
           rule = {
             user: "Administrator"
           };
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
             className: "sol.common.Roles",
             classConfig: {},
             method: "getUserName",
@@ -449,7 +449,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
               ]
             }
           ];
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
             className: "sol.common.Roles",
             classConfig: {},
             method: "getUsers",
@@ -520,7 +520,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
               ]
             }
           ];
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
             className: "sol.common.Roles",
             classConfig: {},
             method: "getUsers2",
@@ -590,7 +590,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
               ]
             }
           ];
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
             className: "sol.common.Roles",
             classConfig: {},
             method: "getUsersByRole",
@@ -608,7 +608,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
       });
       it("get sordmap of RolesSord", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
             className: "sol.common.SordMap",
             classConfig: { objId: RolesSord.id },
             method: "read",
@@ -629,7 +629,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
           sord = RolesSord;
           sordMap = sordMap;
           condition = { type: "GRP", key: "UNITTEST_FIELD1", rel: "EQUALS", val: "Value1" };
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
             className: "sol.common.Roles",
             classConfig: {},
             method: "getValue",
@@ -699,7 +699,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
             }
           ];
           sord = RolesSord;
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
             className: "sol.common.Roles",
             classConfig: {},
             method: "retrieveRole",

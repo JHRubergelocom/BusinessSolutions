@@ -24,7 +24,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonZipUtils", function () {
           folder = "folder1";
           zipOutputStream = "zipOutputStream1";
           prefixLength = 3;
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
             className: "sol.common.ZipUtils",
             classConfig: {},
             method: "compressFolder",
@@ -43,7 +43,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonZipUtils", function () {
         expect(function () {
           zipFilePath = "zipFilePath";
           pathInZipFile = "pathInZipFile";
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
             className: "sol.common.ZipUtils",
             classConfig: {},
             method: "readFileInZipToByteArray",
@@ -63,7 +63,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonZipUtils", function () {
           zipFilePath = "zipFilePath";
           pathInZipFile = "pathInZipFile";
           params = {};
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
             className: "sol.common.ZipUtils",
             classConfig: {},
             method: "readFileInZipToString",
@@ -83,7 +83,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonZipUtils", function () {
           zipFile = "zipFile";
           dstDir = dstDir;
           params = {};
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
             className: "sol.common.ZipUtils",
             classConfig: {},
             method: "unzip",
@@ -102,7 +102,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonZipUtils", function () {
         expect(function () {
           folder = "folder";
           zipFile = "zipFile";
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
             className: "sol.common.ZipUtils",
             classConfig: {},
             method: "zipFolder",

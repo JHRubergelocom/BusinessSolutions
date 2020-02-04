@@ -22,7 +22,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordProviderUtils", function (
         expect(function () {
           config = { output: [{ source: { type: "SORD", key: "name" }, target: { prop: "name" } }] };
           opts = {};
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
             className: "sol.common.SordProviderUtils",
             classConfig: {},
             method: "run",
@@ -44,7 +44,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordProviderUtils", function (
           cacheObject = {};
           optimizationName = "optimization";
           opts = {};
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
             className: "sol.common.SordProviderUtils",
             classConfig: {},
             method: "runOptimized",

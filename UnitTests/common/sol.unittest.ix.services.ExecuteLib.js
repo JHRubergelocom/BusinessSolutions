@@ -24,11 +24,6 @@ importPackage(Packages.org.apache.commons.io);
 //@include lib_sol.common.Locale.js
 //@include lib_sol.common.Config.js
 //@include lib_sol.common.Template.js
-//@include lib_sol.common.WfUtils.js
-//@include lib_sol.common.Roles.js
-//@include lib_sol.common.SordProvider.js
-//@include lib_sol.common.XmlUtils.js
-//@include lib_sol.common.ZipUtils.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.ExecuteLib" });
 
@@ -87,10 +82,6 @@ var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.Execute
  * @requires  sol.common.Config
  * @requires  sol.common.Template
  * @requires  sol.common.WfUtils
- * @requires  sol.common.Roles
- * @requires  sol.common.SordProvider
- * @requires  sol.common.XmlUtils
- * @requires  sol.common.ZipUtils
  */
 sol.define("sol.unittest.ix.services.ExecuteLib", {
   extend: "sol.common.ix.ServiceBase",
@@ -143,7 +134,7 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
         result = {},
         file, dir, path, fileData, cls, func,
         i, bytes, byte, string, strings, sordMap,
-        findInfo, findChildren, findByType, findDirect,
+        findInfo, findChildren, findByType,
         fileData1, fileData2, fileData3, wf1, wf2,
         wfFindInfo;
 
@@ -343,80 +334,6 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
           default:
         }
         break;
-      case "sol.common.Roles":
-        switch (me.method) {
-          case "EQUALS":
-          case "GT":
-          case "GE":
-          case "LT":
-          case "LE":
-          case "STARTSWITH":
-            func = cls.fct[me.method];
-            break;
-          default:
-        }
-        break;
-      case "sol.common.SordProvider":
-        findInfo = new FindInfo();
-        findChildren = new FindChildren();
-        findByType = new FindByType();
-        findChildren.parentId = 1;
-        findChildren.mainParent = false;
-        findChildren.endLevel = 1;
-        findByType.typeStructures = true;
-        findByType.typeDocuments = true;
-        findInfo.findChildren = findChildren;
-        findInfo.findByType = findByType;
-        switch (me.method) {
-          case "find":
-          case "pageFind":
-            me.params[0] = findInfo;
-            me.params[3] = new SordZ();
-            break;
-          case "findAll":
-            me.params[0] = findInfo;
-            me.params[2] = new SordZ();
-            break;
-          case "findIds":
-            me.params[0] = findInfo;
-            me.params[2] = { idSordZ: new SordZ() };
-            return result;
-          case "formBlobsExtractor":
-            return result;
-          case "getAvailableTerms":
-            me.params[3] = findInfo;
-            break;
-          case "getContextTerms":
-            findInfo = new FindInfo();
-            findDirect = new FindDirect();
-            findDirect.query = "(*) ( ( (sord_maskName:\"mask1\") OR (sord_maskName:\"mask2\") ) (LINE_SOL_TYPE: \"RECRUITING_CANDIDATE\") ( (LINE_DEPARTMENTS: \"Sales\") OR (LINE_DEPARTMENTS: \"Purchasing\") ) )";
-            findDirect.searchInMemo = true;
-            findDirect.searchInFulltext = true;
-            findDirect.searchInIndex = true;
-            findDirect.searchInSordName = true;
-            findInfo.findDirect = findDirect;
-            me.params[0] = findInfo;
-            return result;
-          case "getSearchCriteriaQuery":
-            findInfo = new FindInfo();
-            findDirect = new FindDirect();
-            findDirect.query = "query1";
-            findDirect.searchInMemo = true;
-            findDirect.searchInFulltext = true;
-            findDirect.searchInIndex = true;
-            findDirect.searchInSordName = true;
-            findInfo.findDirect = findDirect;
-            me.params[2] = findInfo;
-            break;
-          case "getSord":
-            me.params[1] = new SordZ();
-          case "performSearch":
-          case "searchViaIndex":
-          case "searchFor":
-            me.params[2] = { idSordZ: new SordZ() };
-            break;
-          default:
-        }
       case "sol.common.SordTypeUtils":
         switch (me.method) {
           case "buildSordType":
@@ -500,26 +417,6 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
           default:
         }
         break;
-      case "sol.common.XmlBuilder":
-      case "sol.common.XmlUtils":
-        return result;
-      case "sol.common.ZipUtils":
-        switch (me.method) {
-          case "compressFolder":
-            dir = new File(me.params[0]);
-            if (dir.exists()) {
-              dir.delete();
-            }
-            dir.mkdir();
-            me.params[0] = dir;
-            break;
-          case "readFileInZipToByteArray":
-          case "readFileInZipToString":
-          case "unzip":
-          case "zipFolder":
-            return result;
-          default:
-        }
       case "sol.common.DateUtils":
         switch (me.method) {
           case "diff":
@@ -581,14 +478,6 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
           default:
         }
         break;
-      case "sol.common.SordProvider":
-        switch (me.method) {
-          case "buildRegEx":
-          case "stringToRegExp":
-            result = String(result);
-            break;
-          default:
-        }
       case "sol.common.WfUtils":
         switch (me.method) {
           case "addWorkflowTemplateVersions":
