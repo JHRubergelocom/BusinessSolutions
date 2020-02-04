@@ -65,6 +65,18 @@ sol.define("sol.unittest.learning.as.services.ExecuteLib", {
       throw "IllegalMethodException: Method '" + me.method + "' not supported in Class '" + me.className + "'";
     }
 
+    switch (me.className) {
+      case "sol.learning.as.LearningMonitoring":
+        switch (me.method) {
+          case "getMonitorConfig":
+            result = String(result);
+            break;
+          default:
+        }
+        break;
+      default:
+    }
+
     return result;
   }
 });
