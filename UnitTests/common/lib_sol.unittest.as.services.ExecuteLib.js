@@ -108,14 +108,6 @@ sol.define("sol.unittest.as.services.ExecuteLib", {
           default:
         }
         break;
-      case "sol.common.as.functions.CreateSignedPdf":
-        switch (me.method) {
-          case "convertOutputStreamToInputStream":
-            me.params[0] = new ByteArrayOutputStream();
-            break;
-          default:
-        }
-        break;
       case "sol.common.as.Mail":
         switch (me.method) {
           case "addBody":
@@ -226,15 +218,6 @@ sol.define("sol.unittest.as.services.ExecuteLib", {
       case "sol.common.as.ExporterBase":
         switch (me.method) {
           case "getTemplateExtension":
-            result = String(result);
-            break;
-          default:
-        }
-        break;
-      case "sol.common.as.functions.CreateSignedPdf":
-        switch (me.method) {
-          case "convertOutputStreamToInputStream":
-            result.close();
             result = String(result);
             break;
           default:

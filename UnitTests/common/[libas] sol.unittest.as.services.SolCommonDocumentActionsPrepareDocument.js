@@ -32,7 +32,7 @@ describe("[libas] sol.unittest.as.services.SolCommonDocumentActionsPrepareDocume
           name = "name1";
           sord = ActionsPrepareDocumentSord.id;
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.as.services.ExecuteLib1",
+            action: "sol.unittest.as.services.ExecuteLib2",
             config: {
               className: "sol.common_document.as.actions.PrepareDocument",
               classConfig: { templateId: ActionsPrepareDocumentSord.id, parentId: obSolCommonDocumentActionsPrepareDocumentId },
@@ -56,7 +56,7 @@ describe("[libas] sol.unittest.as.services.SolCommonDocumentActionsPrepareDocume
       it("getName", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.as.services.ExecuteLib1",
+            action: "sol.unittest.as.services.ExecuteLib2",
             config: {
               className: "sol.common_document.as.actions.PrepareDocument",
               classConfig: {},
@@ -80,7 +80,7 @@ describe("[libas] sol.unittest.as.services.SolCommonDocumentActionsPrepareDocume
       it("process", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.as.services.ExecuteLib1",
+            action: "sol.unittest.as.services.ExecuteLib2",
             config: {
               className: "sol.common_document.as.actions.PrepareDocument",
               classConfig: { templateId: ActionsPrepareDocumentSord.id, parentId: obSolCommonDocumentActionsPrepareDocumentId },

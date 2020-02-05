@@ -69,14 +69,6 @@ sol.define("sol.unittest.as.services.ExecuteLib1", {
     func = cls[me.method];
 
     switch (me.className) {
-      case "sol.common_document.as.actions.PrepareDocument":
-        switch (me.method) {
-          case "createEmptyDocument":
-            me.params[1] = ixConnect.ix().checkoutSord(me.params[1], new SordZ(SordC.mbAll), LockC.NO);
-            break;
-          default:
-        }
-        break;
       case "sol.common_monitoring.as.analyzers.RetentionAnalyzer":
         switch (me.method) {
           case "analyze":

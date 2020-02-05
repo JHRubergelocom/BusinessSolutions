@@ -33,7 +33,7 @@ describe("[libas] sol.unittest.as.services.SolCommonFunctionsCreateSignedPdf", f
         expect(function () {
           outputStream = "outputStream1";
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.as.services.ExecuteLib",
+            action: "sol.unittest.as.services.ExecuteLib2",
             config: {
               className: "sol.common.as.functions.CreateSignedPdf",
               classConfig: { templateId: templateId },
@@ -57,7 +57,7 @@ describe("[libas] sol.unittest.as.services.SolCommonFunctionsCreateSignedPdf", f
       it("getName", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.as.services.ExecuteLib",
+            action: "sol.unittest.as.services.ExecuteLib2",
             config: {
               className: "sol.common.as.functions.CreateSignedPdf",
               classConfig: { templateId: templateId },
@@ -81,7 +81,7 @@ describe("[libas] sol.unittest.as.services.SolCommonFunctionsCreateSignedPdf", f
       it("getTemplateId", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.as.services.ExecuteLib",
+            action: "sol.unittest.as.services.ExecuteLib2",
             config: {
               className: "sol.common.as.functions.CreateSignedPdf",
               classConfig: { templateId: templateId },
@@ -106,7 +106,7 @@ describe("[libas] sol.unittest.as.services.SolCommonFunctionsCreateSignedPdf", f
         expect(function () {
           config = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.as.services.ExecuteLib",
+            action: "sol.unittest.as.services.ExecuteLib2",
             config: {
               className: "sol.common.as.functions.CreateSignedPdf",
               classConfig: { templateId: templateId },
@@ -143,7 +143,7 @@ describe("[libas] sol.unittest.as.services.SolCommonFunctionsCreateSignedPdf", f
       it("process", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.as.services.ExecuteLib",
+            action: "sol.unittest.as.services.ExecuteLib2",
             config: {
               className: "sol.common.as.functions.CreateSignedPdf",
               classConfig: { objId: objFunctionsCreateSignedPdfId, templateId: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common [unit tests]/Resources/Signature", flowId: flowId, dataNodeName: "[data] signature" },
