@@ -32,7 +32,7 @@ describe("[libas] sol.unittest.as.services.SolCommonSigFunctionsCreateDocumentTo
         expect(function () {
           sord = objFunctionsCreateDocumentToSignId;
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.as.services.ExecuteLib1",
+            action: "sol.unittest.as.services.ExecuteLib2",
             config: {
               className: "sol.common_sig.as.functions.CreateDocumentToSign",
               classConfig: {
@@ -63,7 +63,7 @@ describe("[libas] sol.unittest.as.services.SolCommonSigFunctionsCreateDocumentTo
           documentType = "FunctionsCreateDocumentToSign";
           basePath = "ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources";
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.as.services.ExecuteLib1",
+            action: "sol.unittest.as.services.ExecuteLib2",
             config: {
               className: "sol.common_sig.as.functions.CreateDocumentToSign",
               classConfig: {
@@ -93,7 +93,7 @@ describe("[libas] sol.unittest.as.services.SolCommonSigFunctionsCreateDocumentTo
         expect(function () {
           config = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.as.services.ExecuteLib1",
+            action: "sol.unittest.as.services.ExecuteLib2",
             config: {
               className: "sol.common_sig.as.functions.CreateDocumentToSign",
               classConfig: {
@@ -122,7 +122,7 @@ describe("[libas] sol.unittest.as.services.SolCommonSigFunctionsCreateDocumentTo
       it("process", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.as.services.ExecuteLib1",
+            action: "sol.unittest.as.services.ExecuteLib2",
             config: {
               className: "sol.common_sig.as.functions.CreateDocumentToSign",
               classConfig: {
@@ -140,40 +140,6 @@ describe("[libas] sol.unittest.as.services.SolCommonSigFunctionsCreateDocumentTo
               fail(jsonResult.content);
             }
             done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }).not.toThrow();
-      });
-      it("get workflow 'Workflow Unittest CreateDocumentToSign' of FunctionsCreateDocumentToSign", function (done) {
-        expect(function () {
-          test.Utils.getActiveWorkflows().then(function success(wfs) {
-            flowId = wfs[0].id;
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }).not.toThrow();
-      });
-      it("finish workflow 'Workflow Unittest CreateDocumentToSign' of FunctionsCreateDocumentToSign", function (done) {
-        expect(function () {
-          test.Utils.getWorkflow(flowId).then(function success1(workflow) {
-            succNodes = test.Utils.getSuccessorNodes(workflow, "1", null, "node 2");
-            succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
-            test.Utils.forwardWorkflowTask(flowId, "1", succNodesIds, "Unittest finish input").then(function success2(forwardWorkflowTaskResult) {
-              done();
-            }, function error(err) {
-              fail(err);
-              console.error(err);
-              done();
-            }
-            );
           }, function error(err) {
             fail(err);
             console.error(err);

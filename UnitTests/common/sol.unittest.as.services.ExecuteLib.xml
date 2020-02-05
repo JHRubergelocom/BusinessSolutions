@@ -28,6 +28,7 @@
       <name>lib_sol.common.TranslateTerms</name>
       <name>lib_sol.common.UserUtils</name>
       <name>lib_sol.common.ExceptionUtils</name>
+      <name>lib_sol.common.XmlUtils</name>
       <name>lib_sol.common.as.ActionBase</name>
       <name>lib_sol.common.as.BarcodeUtils</name>
       <name>lib_sol.common.as.DocumentGenerator</name>
