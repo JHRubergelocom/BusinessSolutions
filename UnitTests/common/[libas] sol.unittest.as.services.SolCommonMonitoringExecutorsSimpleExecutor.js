@@ -32,7 +32,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringExecutorsSimpleExe
           ctx = {};
           nameTemplate = null;
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.as.services.ExecuteLib1",
+            action: "sol.unittest.as.services.ExecuteLib2",
             config: {
               className: "sol.common_monitoring.as.executors.SimpleExecutor",
               classConfig: {},
@@ -56,7 +56,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringExecutorsSimpleExe
       it("dispose", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.as.services.ExecuteLib1",
+            action: "sol.unittest.as.services.ExecuteLib2",
             config: {
               className: "sol.common_monitoring.as.executors.SimpleExecutor",
               classConfig: { _userConnectionCache: {} },
@@ -83,7 +83,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringExecutorsSimpleExe
           sord = ExecutorsSimpleExecutorSord.id;
           ctx = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.as.services.ExecuteLib1",
+            action: "sol.unittest.as.services.ExecuteLib2",
             config: {
               className: "sol.common_monitoring.as.executors.SimpleExecutor",
               classConfig: {},
@@ -110,7 +110,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringExecutorsSimpleExe
           results = [];
           ctx = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.as.services.ExecuteLib1",
+            action: "sol.unittest.as.services.ExecuteLib2",
             config: {
               className: "sol.common_monitoring.as.executors.SimpleExecutor",
               classConfig: {},
@@ -137,7 +137,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringExecutorsSimpleExe
           action = { type: "WORKFLOW", templateId: "UnittestStandardWF" };
           ctx = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.as.services.ExecuteLib1",
+            action: "sol.unittest.as.services.ExecuteLib2",
             config: {
               className: "sol.common_monitoring.as.executors.SimpleExecutor",
               classConfig: {},
@@ -164,7 +164,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringExecutorsSimpleExe
           action = { type: "TECHNICAL_WORKFLOW", templateId: "UnittestStandardWF" };
           ctx = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.as.services.ExecuteLib1",
+            action: "sol.unittest.as.services.ExecuteLib2",
             config: {
               className: "sol.common_monitoring.as.executors.SimpleExecutor",
               classConfig: {},
@@ -191,7 +191,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringExecutorsSimpleExe
           action = { type: "REMINDER", user: "Administrator" };
           ctx = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.as.services.ExecuteLib1",
+            action: "sol.unittest.as.services.ExecuteLib2",
             config: {
               className: "sol.common_monitoring.as.executors.SimpleExecutor",
               classConfig: {},
@@ -218,7 +218,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringExecutorsSimpleExe
           action = { type: "FUNCTION", module: "sol.unittest.as.executors.SimpleExecutor" };
           ctx = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.as.services.ExecuteLib1",
+            action: "sol.unittest.as.services.ExecuteLib2",
             config: {
               className: "sol.common_monitoring.as.executors.SimpleExecutor",
               classConfig: {},
@@ -243,7 +243,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringExecutorsSimpleExe
         expect(function () {
           user = "Administrator";
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.as.services.ExecuteLib1",
+            action: "sol.unittest.as.services.ExecuteLib2",
             config: {
               className: "sol.common_monitoring.as.executors.SimpleExecutor",
               classConfig: {},
@@ -268,7 +268,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringExecutorsSimpleExe
         expect(function () {
           config = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.as.services.ExecuteLib1",
+            action: "sol.unittest.as.services.ExecuteLib2",
             config: {
               className: "sol.common_monitoring.as.executors.SimpleExecutor",
               classConfig: {},

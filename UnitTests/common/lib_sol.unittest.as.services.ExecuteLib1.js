@@ -126,19 +126,6 @@ sol.define("sol.unittest.as.services.ExecuteLib1", {
           default:
         }
         break;
-      case "sol.common_monitoring.as.executors.SimpleExecutor":
-        switch (me.method) {
-          case "buildName":
-          case "execute":
-          case "executeAction":
-            me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
-            break;
-          case "eveluateActionProperty":
-            me.params[1] = ixConnect.ix().checkoutSord(me.params[1], new SordZ(SordC.mbAll), LockC.NO);
-            break;
-          default:
-        }
-        break;
       case "sol.common_monitoring.as.Monitor":
         switch (me.method) {
           case "checkInterface":
@@ -201,15 +188,6 @@ sol.define("sol.unittest.as.services.ExecuteLib1", {
         switch (me.method) {
           case "createFindInfo":
           case "getResults":
-            result = String(result);
-            break;
-          default:
-        }
-        break;
-      case "sol.common_monitoring.as.executors.SimpleExecutor":
-        switch (me.method) {
-          case "buildName":
-          case "getConnection":
             result = String(result);
             break;
           default:

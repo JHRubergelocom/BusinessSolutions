@@ -41,7 +41,6 @@
       <name>lib_sol.common_monitoring.as.analyzers.ValueAnalyzer</name>
       <name>lib_sol.common_monitoring.as.collectors.ChildrenCollector</name>
       <name>lib_sol.common_monitoring.as.collectors.NextRunCollector</name>
-      <name>lib_sol.common_monitoring.as.executors.SimpleExecutor</name>
       <name>lib_sol.common_sig.as.functions.CreateDocumentToSign</name>
       <name>lib_sol.unittest.as.services.ExecuteLib1</name>
     </includes>
