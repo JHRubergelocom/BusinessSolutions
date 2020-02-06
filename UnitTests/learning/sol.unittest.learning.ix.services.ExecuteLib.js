@@ -4,9 +4,11 @@ importPackage(Packages.de.elo.ix.client);
 
 //@include lib_Class.js
 //@include lib_sol.common.Config.js
+//@include lib_sol.common.Map.js
 //@include lib_sol.common.RepoUtils.js
 //@include lib_sol.common.ix.ServiceBase.js
 //@include lib_sol.learning.ix.LearningUtils.js
+//@include lib_sol.learning.ix.ReputationUtils.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.learning.ix.services.ExecuteLib" });
 
@@ -72,6 +74,15 @@ sol.define("sol.unittest.learning.ix.services.ExecuteLib", {
         switch (me.method) {
           case "updateXdate":
             me.params[1] = cls.loadLearningConfig();
+            break;
+          default:
+        }
+        break;
+      case "sol.learning.ix.ReputationUtils":
+        switch (me.method) {
+          case "readStatistics":
+          case "writeStatistics":
+            cls.loadConfig();
             break;
           default:
         }
