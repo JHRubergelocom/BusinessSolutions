@@ -531,6 +531,7 @@ sol.define("sol.notify.as.Utils", {
       me.logger.exit("createConnectionForUser", ixConnectUser);
 
     } catch (ex) {
+      me.logger.error("Error getFeedAggregation: " + ex);
       return {};
     }
 
@@ -538,6 +539,7 @@ sol.define("sol.notify.as.Utils", {
     if (responseObj) {
       return JSON.parse(responseObj.content);
     } else {
+      me.logger.error("Error getFeedAggregation: responseObj missing");
       return {};
     }
   },

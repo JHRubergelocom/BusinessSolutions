@@ -54,15 +54,58 @@ sol.define("sol.unittest.productivity.as.services.ExecuteLib", {
   process: function () {
     var me = this,
         result = {},
-        cls, func;
+        cls, func, notifyConfig;
 
     cls = sol.create(me.className, me.classConfig);
     func = cls[me.method];
+
+    switch (me.className) {
+      case "sol.notify.as.Utils":
+        switch (me.method) {
+          case "createMailNotifyBody":
+            notifyConfig = sol.notify.Utils.loadNotifyConfig();
+            me.params[0] = notifyConfig.mailTemplates.tasks;
+            break;
+          case "getFeedAggregation":
+          case "getPictureUrl":
+          case "loadReportFlags":
+          case "loadUserLanguage":
+          case "loadUserTimeZone":
+          case "prepareTask":
+            cls.cfgNotifyMail = sol.notify.Utils.loadNotifyConfig().email;
+            me.params[1].wfNode = new WFCollectNode();
+            me.params[1].wfNode.timeLimitEscalations = [];
+            break;
+          case "isOverTimeLimit":
+            me.params[0] = new WFCollectNode();
+            me.params[0].timeLimitEscalations = [];
+            break;
+          default:
+        }
+        break;
+      default:
+    }
 
     if (sol.common.ObjectUtils.isFunction(func)) {
       result = func.apply(cls, me.params);
     } else {
       throw "IllegalMethodException: Method '" + me.method + "' not supported in Class '" + me.className + "'";
+    }
+
+    switch (me.className) {
+      case "sol.notify.as.Utils":
+        switch (me.method) {
+          case "getMailAddress":
+          case "getTemplateSordInstance":
+          case "getUserName":
+          case "loadUserTimeZone":
+          case "prepareFindTasksInfo":
+            result = String(result);
+            break;
+          default:
+        }
+        break;
+      default:
     }
 
     return result;

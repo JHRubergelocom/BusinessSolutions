@@ -15,13 +15,18 @@
       <name>lib_sol.common.ActionBase</name>
       <name>lib_sol.common.Config</name>
       <name>lib_sol.common.CounterUtils</name>
+      <name>lib_sol.common.DateUtils</name>
+      <name>lib_sol.common.HttpUtils</name>
       <name>lib_sol.common.ExceptionUtils</name>
       <name>lib_sol.common.IxUtils</name>
+      <name>lib_sol.common.ObjectFormatter</name>
       <name>lib_sol.common.ObjectUtils</name>
       <name>lib_sol.common.RepoUtils</name>
       <name>lib_sol.common.StringUtils</name>
       <name>lib_sol.common.Template</name>
       <name>lib_sol.common.TranslateTerms</name>
+      <name>lib_sol.common.UserProfile</name>
+      <name>lib_sol.common.WfUtils</name>
       <name>lib_sol.common.as.ActionBase</name>
       <name>lib_sol.common.as.DocumentGenerator</name>
       <name>lib_sol.common.as.FunctionBase</name>
@@ -29,6 +34,8 @@
       <name>lib_sol.common.as.renderer.Fop</name>
       <name>lib_sol.contact.as.actions.CreateContactReport</name>
       <name>lib_sol.contact.as.actions.CreateLabel</name>
+      <name>lib_sol.notify.Utils</name>
+      <name>lib_sol.notify.as.Utils</name>
       <name>lib_sol.unittest.productivity.as.services.ExecuteLib</name>
     </includes>
     <onstart>EM_SYS_SELECTOR = SordC.mbAll;</onstart>

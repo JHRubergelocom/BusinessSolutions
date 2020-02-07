@@ -1,8 +1,26 @@
 {
-  "mailTemplates": {
-    "tasks": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions Custom/notify/Configuration/Mail templates/NotifyMailNeu"
-  },
+  "version": "9.00.001",
+  "appName": "sol.notify.apps.UserSettings",
   "email": {
-    "subject": "Jans Benachrichtigung"
-  }
+    "sender": "EloService@elo.local",
+    "subject": "{{translate 'sol.notify.as.utils.sendNotification.subject'}}",
+    "subjectNoEntries": "{{translate 'sol.notify.as.utils.sendNotification.subject.noentries'}}",
+    "withGroups": true,
+    "withDeputies": true,
+    "withIndex": true,
+    "optionKey": "ELOas.SendWfAsMail",
+    "language": "ELOas.SendWfAsMail.language",
+    "timeZoneKey": "ELOas.SendWfAsMail.timeZone",
+    "showMailBody": true,
+    "periodDays": 1,
+    "wfBaseUrl": ""
+  },
+  "links": {
+    "sord": "elodms://{{sord.guid}}",
+    "task": "elodms://{{task.guid}}"
+  },
+  "mailTemplates": {
+    "tasks": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions Custom/notify/Configuration/Mail templates/NotifyMail"
+  },
+  "defaultTimeZone": "Europe/Berlin"
 }
