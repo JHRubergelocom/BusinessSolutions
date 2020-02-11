@@ -66,11 +66,6 @@ sol.define("sol.unittest.productivity.as.services.ExecuteLib", {
             notifyConfig = sol.notify.Utils.loadNotifyConfig();
             me.params[0] = notifyConfig.mailTemplates.tasks;
             break;
-          case "getFeedAggregation":
-          case "getPictureUrl":
-          case "loadReportFlags":
-          case "loadUserLanguage":
-          case "loadUserTimeZone":
           case "prepareTask":
             cls.cfgNotifyMail = sol.notify.Utils.loadNotifyConfig().email;
             me.params[1].wfNode = new WFCollectNode();
@@ -79,6 +74,17 @@ sol.define("sol.unittest.productivity.as.services.ExecuteLib", {
           case "isOverTimeLimit":
             me.params[0] = new WFCollectNode();
             me.params[0].timeLimitEscalations = [];
+            break;
+          case "getFeedAggregation":
+          case "getPictureUrl":
+          case "loadReportFlags":
+          case "loadUserLanguage":
+          case "loadUserTimeZone":
+          case "processNotifyMail":
+            cls.cfgNotifyMail = sol.notify.Utils.loadNotifyConfig().email;
+            break;
+          case "processTask":
+            me.params[0].wfNode = new WFCollectNode();
             break;
           default:
         }

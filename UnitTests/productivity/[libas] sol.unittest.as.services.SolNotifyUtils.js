@@ -508,10 +508,10 @@ describe("[libas] sol.unittest.as.services.SolNotifyUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("processNotifyMail", function (done) {
+      it("processNotifyMail", function (done) {
         expect(function () {
-          userId = PVALUE;
-          configReport = PVALUE;
+          userId = "0";
+          configReport = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.unittest.productivity.as.services.ExecuteLib",
             config: {
@@ -534,11 +534,11 @@ describe("[libas] sol.unittest.as.services.SolNotifyUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("processTask", function (done) {
+      it("processTask", function (done) {
         expect(function () {
-          task = PVALUE;
-          userId = PVALUE;
-          configReport = PVALUE;
+          task = {};
+          userId = "0";
+          configReport = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.unittest.productivity.as.services.ExecuteLib",
             config: {
@@ -561,9 +561,9 @@ describe("[libas] sol.unittest.as.services.SolNotifyUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("processUser", function (done) {
+      it("processUser", function (done) {
         expect(function () {
-          userId = PVALUE;
+          userId = "0";
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.unittest.productivity.as.services.ExecuteLib",
             config: {
@@ -586,12 +586,12 @@ describe("[libas] sol.unittest.as.services.SolNotifyUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("sendNotifyMail", function (done) {
+      it("sendNotifyMail", function (done) {
         expect(function () {
-          userId = PVALUE;
-          notifyTasks = PVALUE;
-          notifyPosts = PVALUE;
-          configReport = PVALUE;
+          userId = "0";
+          notifyTasks = [];
+          notifyPosts = [];
+          configReport = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.unittest.productivity.as.services.ExecuteLib",
             config: {
