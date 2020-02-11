@@ -22,6 +22,7 @@
       <name>lib_sol.common.ObjectFormatter</name>
       <name>lib_sol.common.ObjectUtils</name>
       <name>lib_sol.common.RepoUtils</name>
+      <name>lib_sol.common.SordUtils</name>
       <name>lib_sol.common.StringUtils</name>
       <name>lib_sol.common.Template</name>
       <name>lib_sol.common.TranslateTerms</name>
@@ -32,10 +33,12 @@
       <name>lib_sol.common.as.FunctionBase</name>
       <name>lib_sol.common.as.Utils</name>
       <name>lib_sol.common.as.renderer.Fop</name>
+      <name>lib_sol.common.as.renderer.Word</name>
       <name>lib_sol.contact.as.actions.CreateContactReport</name>
       <name>lib_sol.contact.as.actions.CreateLabel</name>
       <name>lib_sol.notify.Utils</name>
       <name>lib_sol.notify.as.Utils</name>
+      <name>lib_sol.privacy.as.functions.CreateProcessingActivityVersion</name>
       <name>lib_sol.unittest.productivity.as.services.ExecuteLib</name>
     </includes>
     <onstart>EM_SYS_SELECTOR = SordC.mbAll;</onstart>
