@@ -17,11 +17,14 @@
       <name>lib_sol.common.CounterUtils</name>
       <name>lib_sol.common.ExceptionUtils</name>
       <name>lib_sol.common.IxUtils</name>
+      <name>lib_sol.common.ObjectFormatter</name>
       <name>lib_sol.common.ObjectUtils</name>
       <name>lib_sol.common.RepoUtils</name>
+      <name>lib_sol.common.SordUtils</name>
       <name>lib_sol.common.StringUtils</name>
       <name>lib_sol.common.TranslateTerms</name>
       <name>lib_sol.common.Template</name>
+      <name>lib_sol.common.WfUtils</name>
       <name>lib_sol.common.as.FunctionBase</name>
       <name>lib_sol.common.as.ActionBase</name>
       <name>lib_sol.common.as.DocumentGenerator</name>
