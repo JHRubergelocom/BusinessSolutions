@@ -31,6 +31,7 @@
       <name>lib_sol.pubsec.Utils</name>
       <name>lib_sol.pubsec.as.actions.CreateDocument</name>
       <name>lib_sol.pubsec.as.actions.CreateFileCoverSheet</name>
+      <name>lib_sol.pubsec.as.actions.CreateFileReport</name>
       <name>lib_sol.unittest.pubsec.as.services.ExecuteLib</name>
     </includes>
     <onstart>EM_SYS_SELECTOR = SordC.mbAll;</onstart>
