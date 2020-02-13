@@ -59,6 +59,19 @@ sol.define("sol.unittest.pubsec.as.services.ExecuteLib", {
     cls = sol.create(me.className, me.classConfig);
     func = cls[me.method];
 
+    switch (me.className) {
+      case "sol.pubsec.as.ImportFilingPlan":
+        switch (me.method) {
+          case "convertCsvToTable":
+          case "createElement":
+            cls.config = sol.pubsec.Utils.loadConfig();
+            break;
+          default:
+        }
+        break;
+      default:
+    }
+
     if (sol.common.ObjectUtils.isFunction(func)) {
       result = func.apply(cls, me.params);
     } else {

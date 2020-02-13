@@ -1,0 +1,54 @@
+﻿<ruleset>
+  <base>
+    <name>sol.pubsec.as.ImportFilingPlan</name>
+    <search>
+      <name>"DIRECT"</name>
+      <value>""</value>
+      <mask>0</mask>
+      <max>200</max>
+    </search>
+    <interval>0H</interval>
+    <includes>
+      <name>lib_Class</name>
+      <name>lib_sol.common.Config</name>
+      <name>lib_sol.common.Cache</name>
+      <name>lib_sol.common.IxUtils</name>
+      <name>lib_sol.common.ObjectUtils</name>
+      <name>lib_sol.common.SordUtils</name>
+      <name>lib_sol.common.RepoUtils</name>
+      <name>lib_sol.common.SordTypeUtils</name>
+      <name>lib_sol.common.XmlUtils</name>
+      <name>lib_sol.common.UserUtils</name>
+      <name>lib_sol.common.as.FunctionBase</name>
+      <name>lib_sol.common.as.Utils</name>
+      <name>lib_sol.common.as.Office</name>
+      <name>lib_sol.pubsec.Utils</name>
+      <name>lib_sol.pubsec.FilingPlanUtils</name>
+      <name>lib_sol.pubsec.as.ImportFilingPlan</name>
+    </includes>
+  </base>
+<rule>
+  <name>Regel1</name>
+  <condition></condition>
+  <script>
+    sol.common.as.Utils.requiresUserSession(this);
+    
+    try {
+      var params = JSON.parse(EM_PARAM2);
+      params.userId = EM_USERID;
+      
+      var importFilingPlan = sol.create("sol.pubsec.as.ImportFilingPlan", params);
+      ruleset.setStatusMessage(JSON.stringify(importFilingPlan.execute()));
+    } catch (ex) {
+      elo.setAnswer("Error: " + ex);
+    } finally {
+      sol.common.as.Utils.cleanupUserSession(this);
+    }
+</script>
+</rule>
+<rule>
+  <name>Global Error Rule</name>
+  <condition>OnError</condition>
+  <script></script>
+</rule>
+</ruleset>
