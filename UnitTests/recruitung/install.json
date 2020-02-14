@@ -18,6 +18,10 @@
       "refFolders": false
     },
     {
+      "source": "{{packageFolderPath}}/ELOas Base",
+      "destinations": ["{{asBaseFolderPath}}"]
+    },
+    {
       "source": "{{packageFolderPath}}/IndexServer Scripting Base",
       "destinations": [
         "{{ixScriptingBaseFolderPath}}/_ALL/business_solutions"
