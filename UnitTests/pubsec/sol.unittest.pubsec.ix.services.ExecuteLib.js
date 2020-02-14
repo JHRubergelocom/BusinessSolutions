@@ -3,6 +3,7 @@ importPackage(Packages.java.io);
 importPackage(Packages.de.elo.ix.client);
 
 //@include lib_Class.js
+//@include lib_sol.common.AclUtils.js
 //@include lib_sol.common.Config.js
 //@include lib_sol.common.SordTypeUtils.js
 //@include lib_sol.common.SordMap.js
@@ -12,6 +13,7 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_sol.pubsec.Utils.js
 //@include lib_sol.pubsec.ix.FileUtils.js
 //@include lib_sol.pubsec.ix.ProcessUtils.js
+//@include lib_sol.pubsec.ix.Routines.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.pubsec.ix.services.ExecuteLib" });
 
