@@ -11,6 +11,7 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_sol.pubsec.FilingPlanUtils.js
 //@include lib_sol.pubsec.Utils.js
 //@include lib_sol.pubsec.ix.FileUtils.js
+//@include lib_sol.pubsec.ix.ProcessUtils.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.pubsec.ix.services.ExecuteLib" });
 
