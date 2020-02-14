@@ -10,6 +10,7 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_sol.common.ix.ServiceBase.js
 //@include lib_sol.pubsec.FilingPlanUtils.js
 //@include lib_sol.pubsec.Utils.js
+//@include lib_sol.pubsec.ix.FileUtils.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.pubsec.ix.services.ExecuteLib" });
 
@@ -78,6 +79,9 @@ sol.define("sol.unittest.pubsec.ix.services.ExecuteLib", {
             break;
           default:
         }
+        break;
+      case "sol.pubsec.ix.FileUtils":
+        me.params[0] = ixConnect.ix().checkoutSord(me.params[0], SordC.mbAllIndex, LockC.NO);
         break;
       default:
     }
