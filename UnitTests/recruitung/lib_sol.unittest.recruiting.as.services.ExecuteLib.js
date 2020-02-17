@@ -65,6 +65,19 @@ sol.define("sol.unittest.recruiting.as.services.ExecuteLib", {
       throw "IllegalMethodException: Method '" + me.method + "' not supported in Class '" + me.className + "'";
     }
 
+    switch (me.className) {
+      case "sol.recruiting.as.RecruitingMonitoring":
+        switch (me.method) {
+          case "getMonitorConfig":
+          case "createElement":
+            result = String(result);
+            break;
+          default:
+        }
+        break;
+      default:
+    }
+
     return result;
   }
 });
