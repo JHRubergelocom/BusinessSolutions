@@ -143,11 +143,13 @@ sol.define("sol.knowledge.ix.services.GetAdditionalInfo", {
       linkedPostsResult = me.getLinkedPosts();
       result.linkedPosts = linkedPostsResult.posts;
       result.relatedPosts = me.getRelatedPosts(linkedPostsResult.guids);
+      result.referenceInPosts = me.getReferenceInPosts();
     } catch (ex) {
       me.logger.warn("Elastic search not available", ex);
       result.users = [];
       result.relatedPosts = [];
       result.linkedPosts = [];
+      result.referenceInPosts = [];
     }
 
     return JSON.stringify(result);
@@ -361,6 +363,45 @@ sol.define("sol.knowledge.ix.services.GetAdditionalInfo", {
       posts: linkedPosts,
       guids: linkedPostsGuids
     };
+  },
+
+  /**
+   * @private
+   * Retrieves linked posts
+   * @return {Object}
+   */
+  getReferenceInPosts: function () {
+    var me = this,
+        referenceInPosts = [],
+        sords, i, sord, tplSord;
+
+    sords = sol.common.RepoUtils.findChildren(me.postObjId, {
+      includeFolders: true,
+      includeDocuments: false,
+      includeReferences: true,
+      sordZ: SordC.mbAllIndex,
+      objKeysObj: { SOL_TYPE: "KNOWLEDGE_POST" }
+    });
+
+    for (i = 0; i < sords.length; i++) {
+      sord = sords[i];
+      if (sord.parentId != me.postObjId) {
+        tplSord = sol.common.ObjectFormatter.format({
+          sord: {
+            formatter: "sol.common.ObjectFormatter.TemplateSord",
+            data: sord,
+            config: {
+              sordKeys: me.sordKeys,
+              allObjKeys: false,
+              objKeys: me.objKeys
+            }
+          }
+        });
+        referenceInPosts.push(tplSord);
+      }
+
+    }
+    return referenceInPosts;
   }
 });
 
