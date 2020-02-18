@@ -30,7 +30,9 @@ sol.define("sol.notify.as.Utils", {
   processAllUsers: function () {
     var me = this,
         users = [],
-        u;
+        index = 0,
+        max = 100,
+        u, findUserInfo, findResult, userNamesIterator;
 
     me.logger.enter("processAllUsers");
     me.sessionLanguage = ixConnect.loginResult.clientInfo.language;
@@ -40,7 +42,28 @@ sol.define("sol.notify.as.Utils", {
         me.cfgNotifyMail = sol.notify.Utils.loadNotifyConfig().email;
       }
 
-      users = ixConnect.ix().checkoutUsers(null, CheckoutUsersC.ALL_USERS_RAW, LockC.NO);
+      findUserInfo = new FindUserInfo();
+      findUserInfo.hasNotFlags = AccessC.FLAG_NOLOGIN;
+      findUserInfo.checkoutUsersZ = CheckoutUsersC.ALL_USERS_RAW;
+      findResult = ixConnect.ix().findFirstUsers(findUserInfo, max);
+      try {
+        while (true) {
+          userNamesIterator = findResult.userNames.values().iterator();
+          while (userNamesIterator.hasNext()) {
+            users.push(userNamesIterator.next());
+          }
+          if (!findResult.isMoreResults()) {
+            break;
+          }
+          index += findResult.userNames.size();
+          findResult = ixConnect.ix().findNextUsers(findResult.searchId, index, max);
+        }
+      } catch (ex) {
+        throw ex;
+      } finally {
+        ixConnect.ix().findClose(findResult.searchId);
+      }
+
       for (u = 0; u < users.length; u++) {
         me.processUser(users[u].id);
       }
@@ -229,7 +252,13 @@ sol.define("sol.notify.as.Utils", {
         notifyPost.guid = sordInfo.Guid;
         notifyPost.createDate = sol.common.DateUtils.transformIsoDate(notifyPost.createDate, { asUtc: true, utcOffset: utcOffset });
         notifyPost.updateDate = sol.common.DateUtils.transformIsoDate(notifyPost.updateDate, { asUtc: true, utcOffset: utcOffset });
-        comments = notifyPosts[i].comments;
+
+        if (notifyPost.type == Packages.de.elo.ix.client.feed.EActionType.Survey) {
+          notifyPost.comments = [];
+        }
+
+        comments = notifyPost.comments;
+
         for (j = 0; j < comments.length; j++) {
           comment = comments[j];
           comment.text1 = me.getText(comment.text, comment.type);
