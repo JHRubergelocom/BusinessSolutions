@@ -181,8 +181,40 @@ sol.define("sol.knowledge.ix.KnowledgeUtils", {
     };
 
     return accessRights;
+  },
+
+  /**
+   * Create references in post
+   * @param {Array} refIds Object IDs to insert as references in post
+   * @param {String} objId Object ID of post
+   */
+  createReferences: function (refIds, objId) {
+    if (!refIds) {
+      return;
+    }
+    refIds.forEach(function (refId) {
+      sol.common.IxUtils.execute("RF_sol_function_Move", {
+        objId: refId,
+        referenceIds: [objId]
+      });
+    });
+  },
+
+  /**
+   * Delete references in post
+   * @param {Array} refIds Object IDs to remove as references from post
+   * @param {String} objId Object ID of post
+   */
+  deleteReferences: function (refIds, objId) {
+    if (!refIds) {
+      return;
+    }
+    refIds.forEach(function (refId) {
+      sol.common.IxUtils.execute("RF_sol_function_Delete", {
+        objId: refId,
+        parentId: [objId]
+      });
+    });
   }
-
-
 
 });

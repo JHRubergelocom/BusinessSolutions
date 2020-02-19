@@ -88,6 +88,16 @@ sol.define("sol.knowledge.ix.services.CreatePost", {
    * The length has to be 2.
    */
 
+  /**
+   * @cfg {Array} createReferences
+   * Object IDs of referenzes to create in post
+   */
+
+  /**
+   * @cfg {Array} deleteReferences
+   * Object IDs of referenzes to delete in post
+   */
+
   initialize: function (params) {
     var me = this;
     me.$super("sol.common.ix.ServiceBase", "initialize", [params]);
@@ -150,9 +160,8 @@ sol.define("sol.knowledge.ix.services.CreatePost", {
 
     sol.common.RepoUtils.moveSords(me.createdFiles, objId);
 
-      // TODO createReferences (Array): mit RF_sol_function_Move
-
-      // TODO deleteReferences (Array): mit RF_sol_function_Delete
+    sol.knowledge.ix.KnowledgeUtils.createReferences(me.createReferences, objId);
+    sol.knowledge.ix.KnowledgeUtils.deleteReferences(me.deleteReferences, objId);
 
     flowNameData = { sordName: String(post.name) };
     flowName = sol.create("sol.common.Template", { source: me.knowledgeConfig.workflows.createPost.workflowNameTemplate }).apply(flowNameData);
