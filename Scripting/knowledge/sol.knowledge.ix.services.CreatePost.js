@@ -150,6 +150,10 @@ sol.define("sol.knowledge.ix.services.CreatePost", {
 
     sol.common.RepoUtils.moveSords(me.createdFiles, objId);
 
+      // TODO createReferences (Array): mit RF_sol_function_Move
+
+      // TODO deleteReferences (Array): mit RF_sol_function_Delete
+
     flowNameData = { sordName: String(post.name) };
     flowName = sol.create("sol.common.Template", { source: me.knowledgeConfig.workflows.createPost.workflowNameTemplate }).apply(flowNameData);
 

@@ -373,34 +373,27 @@ sol.define("sol.knowledge.ix.services.GetAdditionalInfo", {
   getReferenceInPosts: function () {
     var me = this,
         referenceInPosts = [],
-        sords, i, sord, tplSord;
+        sord, tplSord;
 
-    sords = sol.common.RepoUtils.findChildren(me.postObjId, {
-      includeFolders: true,
-      includeDocuments: false,
-      includeReferences: true,
-      sordZ: SordC.mbAllIndex,
-      objKeysObj: { SOL_TYPE: "KNOWLEDGE_POST" }
-    });
-
-    for (i = 0; i < sords.length; i++) {
-      sord = sords[i];
-      if (sord.parentId != me.postObjId) {
-        tplSord = sol.common.ObjectFormatter.format({
-          sord: {
-            formatter: "sol.common.ObjectFormatter.TemplateSord",
-            data: sord,
-            config: {
-              sordKeys: me.sordKeys,
-              allObjKeys: false,
-              objKeys: me.objKeys
+    me.postSord.parentIds.forEach(function (parentId) {
+      if (parentId != me.postSord.parentId) {
+        sord = sol.common.RepoUtils.getSord(parentId);
+        if (sol.common.SordUtils.getObjKeyValue(sord, "SOL_TYPE") == "KNOWLEDGE_POST") {
+          tplSord = sol.common.ObjectFormatter.format({
+            sord: {
+              formatter: "sol.common.ObjectFormatter.TemplateSord",
+              data: sord,
+              config: {
+                sordKeys: me.sordKeys,
+                allObjKeys: false,
+                objKeys: me.objKeys
+              }
             }
-          }
-        });
-        referenceInPosts.push(tplSord);
+          });
+          referenceInPosts.push(tplSord);
+        }
       }
-
-    }
+    });
     return referenceInPosts;
   }
 });
