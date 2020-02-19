@@ -1,7 +1,7 @@
 
 describe("[libix] sol.unittest.ix.services.SolKnowledgeKnowledgeUtils", function () {
   var obSolKnowledgeKnowledgeUtilsId, originalTimeout, objId, contentType, knowledgeConfig,
-      objBoardId, objSpaceId, sord;
+      objBoardId, objSpaceId, objPostId, sord, refIds;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -37,6 +37,57 @@ describe("[libix] sol.unittest.ix.services.SolKnowledgeKnowledgeUtils", function
         expect(function () {
           test.Utils.createSord(objBoardId, "knowledge Space", "TestSpace", { SOL_TYPE: "KNOWLEDGE_SPACE", KNOWLEDGE_SPACE_REFERENCE: "TSpace" }).then(function success(objSpaceId1) {
             objSpaceId = objSpaceId1;
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("create post", function (done) {
+        expect(function () {
+          test.Utils.createSord(objSpaceId, "knowledge Post", "TestPost", { SOL_TYPE: "KNOWLEDGE_POST", KNOWLEDGE_POST_REFERENCE: "TPost" }).then(function success(objPostId1) {
+            objPostId = objPostId1;
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("createReferences", function (done) {
+        expect(function () {
+          refIds = [obSolKnowledgeKnowledgeUtilsId];
+          objId = objPostId;
+          test.Utils.execute("RF_sol_unittest_knowledge_service_ExecuteLib", {
+            className: "sol.knowledge.ix.KnowledgeUtils",
+            classConfig: {},
+            method: "createReferences",
+            params: [refIds, objId]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("deleteReferences", function (done) {
+        expect(function () {
+          refIds = [obSolKnowledgeKnowledgeUtilsId];
+          objId = objPostId;
+          test.Utils.execute("RF_sol_unittest_knowledge_service_ExecuteLib", {
+            className: "sol.knowledge.ix.KnowledgeUtils",
+            classConfig: {},
+            method: "deleteReferences",
+            params: [refIds, objId]
+          }).then(function success(jsonResult) {
             done();
           }, function error(err) {
             fail(err);
