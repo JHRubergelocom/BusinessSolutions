@@ -1,6 +1,6 @@
 
 describe("[lib] sol.unittest.ix.services.SolVisitorUtils", function () {
-  var UtilsSord, originalTimeout, objId, sord;
+  var UtilsSord, originalTimeout, objId, sord, longtermBadge;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -54,6 +54,60 @@ describe("[lib] sol.unittest.ix.services.SolVisitorUtils", function () {
             params: [sord]
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual(true);
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("isLongtermBadge", function (done) {
+        expect(function () {
+          sord = UtilsSord.id;
+          test.Utils.execute("RF_sol_unittest_visitor_service_ExecuteLib", {
+            className: "sol.visitor.Utils",
+            classConfig: {},
+            method: "isLongtermBadge",
+            params: [sord]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("isLongtermBadgeActive", function (done) {
+        expect(function () {
+          longtermBadge = UtilsSord.id;
+          test.Utils.execute("RF_sol_unittest_visitor_service_ExecuteLib", {
+            className: "sol.visitor.Utils",
+            classConfig: {},
+            method: "isLongtermBadgeActive",
+            params: [longtermBadge]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("isLongtermBadgeInValidTimerange", function (done) {
+        expect(function () {
+          longtermBadge = UtilsSord.id;
+          test.Utils.execute("RF_sol_unittest_visitor_service_ExecuteLib", {
+            className: "sol.visitor.Utils",
+            classConfig: {},
+            method: "isLongtermBadgeInValidTimerange",
+            params: [longtermBadge]
+          }).then(function success(jsonResult) {
             done();
           }, function error(err) {
             fail(err);

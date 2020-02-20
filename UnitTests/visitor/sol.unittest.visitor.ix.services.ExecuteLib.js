@@ -4,6 +4,7 @@ importPackage(Packages.de.elo.ix.client);
 
 //@include lib_Class.js
 //@include lib_sol.common.Config.js
+//@include lib_sol.common.DateUtils.js
 //@include lib_sol.common.ix.ServiceBase.js
 //@include lib_sol.visitor.Utils.js
 
@@ -70,6 +71,9 @@ sol.define("sol.unittest.visitor.ix.services.ExecuteLib", {
       case "sol.visitor.Utils":
         switch (me.method) {
           case "isVisitor":
+          case "isLongtermBadge":
+          case "isLongtermBadgeActive":
+          case "isLongtermBadgeInValidTimerange":
             me.params[0] = ixConnect.ix().checkoutSord(me.params[0], SordC.mbAllIndex, LockC.NO);
             break;
           default:
