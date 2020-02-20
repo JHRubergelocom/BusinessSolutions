@@ -7,6 +7,7 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_sol.common.DateUtils.js
 //@include lib_sol.common.ix.ServiceBase.js
 //@include lib_sol.visitor.Utils.js
+//@include lib_sol.visitor.ix.VisitorUtils.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.visitor.ix.services.ExecuteLib" });
 
