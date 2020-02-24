@@ -26,7 +26,10 @@ var logger = sol.create("sol.Logger", { scope: "sol.knowledge.ix.services.EditPo
  *       content: "Content2",
  *       lang: "de",
  *       topics: ["Topic3", "Topic4"],
- *       createdFiles: ["(0C055DF8-9567-A640-0C01-741E5C264250)", "(BD628BE4-5951-E722-0B07-6F903756A226)"]
+ *       pinnedAt: ["pin1", "pin2"],
+ *       createdFiles: ["(0C055DF8-9567-A640-0C01-741E5C264250)", "(BD628BE4-5951-E722-0B07-6F903756A226)"],
+ *       createReferences: ["(0C055DF8-9567-A640-0C01-53A231289DD1)", "(BD628BE4-5951-E722-0B07-44FFED3412AA)"],
+ *       deleteReferences: ["(0C055DF8-9567-A640-99A1-741E5C264250)", "(BD628BE4-5951-BB23-C123-6F903756A226)"]
  *     });
  *
  * @author MW, ELO Digital Office GmbH
@@ -70,6 +73,11 @@ sol.define("sol.knowledge.ix.services.EditPost", {
   /**
    * @cfg {String[]} topics
    * Topics
+   */
+
+  /**
+   * @cfg {Array} pinnedAt
+   * PinnedAt
    */
 
   /**
@@ -124,6 +132,10 @@ sol.define("sol.knowledge.ix.services.EditPost", {
       if (me.topics) {
         sol.common.SordUtils.setObjKeyValues(post, me.knowledgeConfig.fields.knowledgeTopics, me.topics);
       }
+      if (!me.pinnedAt) {
+        me.pinnedAt = [];
+      }
+      sol.common.SordUtils.setObjKeyValues(post, me.knowledgeConfig.fields.knowledgePinnedAt, me.pinnedAt);
 
       if (me.lang && (me.lang.length === 2)) {
         sol.common.SordUtils.setObjKeyValue(post, me.knowledgeConfig.fields.knowledgeLanguage, me.lang);

@@ -750,7 +750,7 @@ sol.define("sol.common.SordUtils", {
     languageCache = me.docMaskCache.get(language);
 
     if (!languageCache.containsKey(name)) {
-      languageCache.put(name, ixConnect.ix().checkoutDocMask(name, DocMaskC.mbAll, LockC.NO));
+      languageCache.put(name, ixConnect.ix().checkoutDocMask(name + "", DocMaskC.mbAll, LockC.NO));
     }
 
     _result = languageCache.get(name);
@@ -846,7 +846,7 @@ sol.define("sol.common.SordUtils", {
       throw "Mask name is empty";
     }
     try {
-      ixConnect.ix().checkoutDocMask(maskName, DocMaskC.mbAll, LockC.NO);
+      ixConnect.ix().checkoutDocMask(maskName + "", DocMaskC.mbAll, LockC.NO);
       return true;
     } catch (ex) {
       return false;
@@ -1366,6 +1366,25 @@ sol.define("sol.common.SordUtils", {
     }
 
     return esw;
+  },
+
+  /**
+   * Returns a string map blob
+   * @param {String} key Key
+   * @param {String} value Value
+   * @return {de.elo.ix.client.MapValue} Map blob
+   */
+  createStringMapBlob: function (key, value) {
+    var str, bytes, fileData, stringMapBlob;
+    if (!key) {
+      throw "Key is empty";
+    }
+    value = value || "";
+    str = new java.lang.String(value);
+    bytes = str.getBytes("UTF-8");
+    fileData = new FileData("text/plain", bytes);
+    stringMapBlob = new MapValue(key, fileData);
+    return stringMapBlob;
   }
 });
 
