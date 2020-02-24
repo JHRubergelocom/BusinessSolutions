@@ -132,10 +132,9 @@ sol.define("sol.knowledge.ix.services.EditPost", {
       if (me.topics) {
         sol.common.SordUtils.setObjKeyValues(post, me.knowledgeConfig.fields.knowledgeTopics, me.topics);
       }
-      if (!me.pinnedAt) {
-        me.pinnedAt = [];
+      if (me.pinnedAt) {
+        sol.common.SordUtils.setObjKeyValues(post, me.knowledgeConfig.fields.knowledgePinnedAt, me.pinnedAt);
       }
-      sol.common.SordUtils.setObjKeyValues(post, me.knowledgeConfig.fields.knowledgePinnedAt, me.pinnedAt);
 
       if (me.lang && (me.lang.length === 2)) {
         sol.common.SordUtils.setObjKeyValue(post, me.knowledgeConfig.fields.knowledgeLanguage, me.lang);
