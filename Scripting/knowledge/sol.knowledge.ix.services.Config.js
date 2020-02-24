@@ -109,7 +109,8 @@ sol.define("sol.knowledge.ix.services.GetConfig", {
 
       sords = me.getAllSolTypes("KNOWLEDGE_SPACE");
       spaces = me.convert(sords, {
-        subscriptionInfo: true
+        subscriptionInfo: true,
+        accessRights: true
       });
 
       sords = me.getAllSolTypes("KNOWLEDGE_BOARD");
@@ -228,7 +229,7 @@ sol.define("sol.knowledge.ix.services.GetConfig", {
       if (!findResult.moreResults) {
         break;
       }
-      idx += findResult.sords.Length;
+      idx += findResult.sords.length;
       findResult = conn.ix().findNextSords(findResult.searchId, idx, 100, sordZ);
     }
     conn.ix().findClose(findResult.searchId);
