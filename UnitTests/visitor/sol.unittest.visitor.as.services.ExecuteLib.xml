@@ -29,6 +29,7 @@
       <name>lib_sol.common.as.FunctionBase</name>
       <name>lib_sol.common.as.Utils</name>
       <name>lib_sol.common.as.renderer.Fop</name>
+      <name>lib_sol.visitor.as.AutoCheckOut</name>
       <name>lib_sol.visitor.as.actions.CreateVisitorBadge</name>
       <name>lib_sol.visitor.as.actions.CreateVisitorList</name>
       <name>lib_sol.unittest.visitor.as.services.ExecuteLib</name>
