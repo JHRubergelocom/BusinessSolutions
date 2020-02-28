@@ -152,6 +152,21 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
     func = cls[me.method];
 
     switch (me.className) {
+      case "sol.common.AclUtils":
+        switch (me.method) {
+          case "editRights":
+            me.params[4] = cls.addSordRights;
+            break;
+          case "editSordRights":
+            me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
+            me.params[1] = { combineAclFunction: cls.addSordRights, accessCode: 0, asAdmin: true };
+            break;
+          case "enrichContextSord":
+            me.params[2] = ixConnect;
+            break;
+          default:
+        }
+        break;
       case "sol.common.Template":
         switch (me.method) {
           case "registerCustomHelper":
@@ -452,6 +467,14 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
     }
 
     switch (me.className) {
+      case "sol.common.AclUtils":
+        switch (me.method) {
+          case "addSordRights":
+            result = String(result);
+            break;
+          default:
+        }
+        break;
       case "sol.common.HttpUtils":
         switch (me.method) {
           case "convertStringToByteArray":

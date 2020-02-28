@@ -3,7 +3,8 @@ describe("[lib] sol.unittest.ix.services.SolCommonAclUtils", function () {
   var aclUtilsSord, userName, userInfo, originalTimeout,
       objId, users, rights, config, accessCode, asAdmin,
       andGroup, defaultAccessCode, sord, recursive, rightsConfig,
-      params;
+      params, oldAclList, newAclList, newAclItems, conn, mode, aclItems,
+      aclItem, combineAclFunction, ctxSord, inclTplSord;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -49,6 +50,108 @@ describe("[lib] sol.unittest.ix.services.SolCommonAclUtils", function () {
             classConfig: {},
             method: "addRights",
             params: [objId, users, rights, config]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("addSordRights", function (done) {
+        expect(function () {
+          oldAclList = [];
+          newAclList = [];
+          asAdmin = true;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.AclUtils",
+            classConfig: {},
+            method: "addSordRights",
+            params: [oldAclList, newAclList, asAdmin]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("appendAndGroupAcl", function (done) {
+        expect(function () {
+          newAclItems = [];
+          objId = aclUtilsSord.id;
+          config = {};
+          defaultAccessCode = 0;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.AclUtils",
+            classConfig: {},
+            method: "appendAndGroupAcl",
+            params: [newAclItems, objId, config, defaultAccessCode]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("appendInheritedAcl", function (done) {
+        expect(function () {
+          newAclItems = [];
+          objId = aclUtilsSord.id;
+          config = {};
+          conn = null;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.AclUtils",
+            classConfig: {},
+            method: "appendInheritedAcl",
+            params: [newAclItems, objId, config, conn]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("appendUserAcl", function (done) {
+        expect(function () {
+          newAclItems = [];
+          objId = aclUtilsSord.id;
+          config = {};
+          defaultAccessCode = 0;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.AclUtils",
+            classConfig: {},
+            method: "appendUserAcl",
+            params: [newAclItems, objId, config, defaultAccessCode]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("canExecute", function (done) {
+        expect(function () {
+          mode = "SET";
+          aclItems = [];
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.AclUtils",
+            classConfig: {},
+            method: "canExecute",
+            params: [mode, aclItems]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
@@ -254,6 +357,25 @@ describe("[lib] sol.unittest.ix.services.SolCommonAclUtils", function () {
           );
         }).not.toThrow();
       });
+      it("createAclItemFromAcl", function (done) {
+        expect(function () {
+          aclItem = { id: 0, type: 0 };
+          accessCode = 0;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.AclUtils",
+            classConfig: {},
+            method: "createAclItemFromAcl",
+            params: [aclItem, accessCode]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("createAclItemFromUserInfo", function (done) {
         userInfo = userInfo;
         accessCode = elo.CONST.ACCESS.LUR_READ;
@@ -274,6 +396,90 @@ describe("[lib] sol.unittest.ix.services.SolCommonAclUtils", function () {
           );
         }).not.toThrow();
       });
+      it("editRights", function (done) {
+        expect(function () {
+          objId = aclUtilsSord.id;
+          users = [];
+          rights = {};
+          config = {};
+          combineAclFunction = "combineAclFunction";
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.AclUtils",
+            classConfig: {},
+            method: "editRights",
+            params: [objId, users, rights, config, combineAclFunction]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("editSordRights", function (done) {
+        expect(function () {
+          sord = aclUtilsSord.id;
+          params = {};
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.AclUtils",
+            classConfig: {},
+            method: "editSordRights",
+            params: [sord, params]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("enrichContextSord", function (done) {
+        expect(function () {
+          ctxSord = { objId: aclUtilsSord.id };
+          inclTplSord = true;
+          conn = "conn";
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.AclUtils",
+            classConfig: {},
+            method: "enrichContextSord",
+            params: [ctxSord, inclTplSord, conn]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      
+      xit("executeBackgroundAclJob", function (done) {
+        expect(function () {
+          conn = PVALUE;
+          startIds = PVALUE;
+          config = PVALUE;
+          newAclItems = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.AclUtils",
+            classConfig: {},
+            method: "executeBackgroundAclJob",
+            params: [conn, startIds, config, newAclItems]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+
       it("hasEffectiveRights", function (done) {
         expect(function () {
           sord = aclUtilsSord;
@@ -298,6 +504,48 @@ describe("[lib] sol.unittest.ix.services.SolCommonAclUtils", function () {
           );
         }).not.toThrow();
       });
+
+      xit("initializeRights", function (done) {
+        expect(function () {
+          newAclItems = PVALUE;
+          objId = aclUtilsSord.id;
+          config = PVALUE;
+          conn = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.AclUtils",
+            classConfig: {},
+            method: "initializeRights",
+            params: [newAclItems, objId, config, conn]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("ixExecutesBackgroundJobsSynchronous", function (done) {
+        expect(function () {
+          conn = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.AclUtils",
+            classConfig: {},
+            method: "ixExecutesBackgroundJobsSynchronous",
+            params: [conn]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+
+
       it("preprocessUsers", function (done) {
         expect(function () {
           objId = aclUtilsSord.id;
@@ -376,6 +624,49 @@ describe("[lib] sol.unittest.ix.services.SolCommonAclUtils", function () {
           );
         }).not.toThrow();
       });
+
+      xit("removeSordRights", function (done) {
+        expect(function () {
+          oldAclList = PVALUE;
+          newAclList = PVALUE;
+          asAdmin = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.AclUtils",
+            classConfig: {},
+            method: "removeSordRights",
+            params: [oldAclList, newAclList, asAdmin]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+
+      xit("replaceUserNamePlaceholders", function (done) {
+        expect(function () {
+          userName = PVALUE;
+          ctxSord = PVALUE;
+          conn = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.AclUtils",
+            classConfig: {},
+            method: "replaceUserNamePlaceholders",
+            params: [userName, ctxSord, conn]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+
       it("restoreRights", function (done) {
         objId = aclUtilsSord.id;
         config = { recursive: true, storeAcl: { type: "MAP", key: "OLD_ACL" } };
@@ -395,6 +686,27 @@ describe("[lib] sol.unittest.ix.services.SolCommonAclUtils", function () {
           );
         }).not.toThrow();
       });
+
+      xit("restoreSordRights", function (done) {
+        expect(function () {
+          sord = PVALUE;
+          params = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.AclUtils",
+            classConfig: {},
+            method: "restoreSordRights",
+            params: [sord, params]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+
       it("retrieveAndGroupAcl", function (done) {
         andGroup = { groups: ["Administrators", "Buchhaltung"] };
         defaultAccessCode = elo.CONST.ACCESS.LUR_READ;
