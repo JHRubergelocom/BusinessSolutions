@@ -1,6 +1,6 @@
 
 describe("[lib] sol.unittest.ix.services.SolCommonJsonUtils", function () {
-  var originalTimeout, json, className, javaObject, obj, objFormat;
+  var originalTimeout, json, classJava, javaObject, obj, objFormat;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -21,12 +21,12 @@ describe("[lib] sol.unittest.ix.services.SolCommonJsonUtils", function () {
       it("deserialize", function (done) {
         expect(function () {
           json = "{\"aa\":{\"bb\": \"cc\"}}";
-          className = "java.lang.Object";
+          classJava = "java.lang.Object";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.JsonUtils",
             classConfig: {},
             method: "deserialize",
-            params: [json, className]
+            params: [json, classJava]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {

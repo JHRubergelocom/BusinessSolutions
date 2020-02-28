@@ -1,6 +1,6 @@
 
 describe("[libix] sol.unittest.ix.services.SolCommonServiceBase", function () {
-  var obSolCommonServiceBaseId, originalTimeout, classNames, config, objId;
+  var obSolCommonServiceBaseId, originalTimeout, classes, config, objId;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -38,12 +38,12 @@ describe("[libix] sol.unittest.ix.services.SolCommonServiceBase", function () {
       });
       it("containsClassName", function (done) {
         expect(function () {
-          classNames = ["sol.unittest.ix.ServiceBase"];
+          classes = ["sol.unittest.ix.ServiceBase"];
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib2", {
             className: "sol.unittest.ix.ServiceBase",
             classConfig: {},
             method: "containsClassName",
-            params: [classNames]
+            params: [classes]
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual(true);
             done();

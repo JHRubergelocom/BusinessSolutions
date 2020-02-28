@@ -218,6 +218,117 @@ describe("[lib] sol.unittest.ix.services.SolCommonIxUtils", function () {
           );
         }).not.toThrow();
       });
+      it("initialize", function (done) {
+        expect(function () {
+          config = { params: { adminTicket: "" } };
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib1", {
+            className: "sol.common.IxUtils.Proxy",
+            classConfig: {
+              fctName: "RF_sol_common_service_GetConfig",
+              params: { objId: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common [unit tests]/Test data/unittest.config", forceReload: true },
+              successFct: null,
+              failureFct: null
+            },
+            method: "initialize",
+            params: [config]
+          }).then(function success(jsonResult) {
+            fail(jsonResult);
+            done();
+          }, function error(err) {
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("isEloApp", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib1", {
+            className: "sol.common.IxUtils.Proxy",
+            classConfig: {
+              fctName: "RF_sol_common_service_GetConfig",
+              params: { objId: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common [unit tests]/Test data/unittest.config", forceReload: true },
+              successFct: null,
+              failureFct: null
+            },
+            method: "isEloApp",
+            params: []
+          }).then(function success(jsonResult) {
+            fail(jsonResult);
+            done();
+          }, function error(err) {
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("isEloWf", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib1", {
+            className: "sol.common.IxUtils.Proxy",
+            classConfig: {
+              fctName: "RF_sol_common_service_GetConfig",
+              params: { objId: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common [unit tests]/Test data/unittest.config", forceReload: true },
+              successFct: null,
+              failureFct: null
+            },
+            method: "isEloWf",
+            params: []
+          }).then(function success(jsonResult) {
+            fail(jsonResult);
+            done();
+          }, function error(err) {
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("isRhino", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib1", {
+            className: "sol.common.IxUtils.Proxy",
+            classConfig: {
+              fctName: "RF_sol_common_service_GetConfig",
+              params: { objId: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common [unit tests]/Test data/unittest.config", forceReload: true },
+              successFct: null,
+              failureFct: null
+            },
+            method: "isRhino",
+            params: []
+          }).then(function success(jsonResult) {
+            fail(jsonResult);
+            done();
+          }, function error(err) {
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("isWebClient", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib1", {
+            className: "sol.common.IxUtils.Proxy",
+            classConfig: {
+              fctName: "RF_sol_common_service_GetConfig",
+              params: { objId: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common [unit tests]/Test data/unittest.config", forceReload: true },
+              successFct: null,
+              failureFct: null
+            },
+            method: "isWebClient",
+            params: []
+          }).then(function success(jsonResult) {
+            fail(jsonResult);
+            done();
+          }, function error(err) {
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("wfSupportsSessionLight", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib1", {
