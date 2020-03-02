@@ -136,7 +136,7 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
         i, bytes, byte, string, strings, sordMap,
         findInfo, findChildren, findByType,
         fileData1, fileData2, fileData3, wf1, wf2,
-        wfFindInfo;
+        wfFindInfo, defaultAccessCode;
 
     switch (me.className) {
       case "sol.common.MapTable":
@@ -164,6 +164,14 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
           case "enrichContextSord":
             me.params[2] = ixConnect;
             break;
+          case "executeBackgroundAclJob":            
+            me.params[0] = ixConnect;
+            defaultAccessCode = cls.createAccessCode(me.params[2].rights);
+            cls.initializeRights(me.params[3], me.params[1], me.params[2], me.params[0]);
+            cls.appendInheritedAcl(me.params[3], me.params[1], me.params[2], me.params[0]);
+            cls.appendUserAcl(me.params[3], me.params[1], me.params[2], defaultAccessCode);
+            cls.appendAndGroupAcl(me.params[3], me.params[1], me.params[2], defaultAccessCode);
+            break;  
           default:
         }
         break;

@@ -4,7 +4,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonAclUtils", function () {
       objId, users, rights, config, accessCode, asAdmin,
       andGroup, defaultAccessCode, sord, recursive, rightsConfig,
       params, oldAclList, newAclList, newAclItems, conn, mode, aclItems,
-      aclItem, combineAclFunction, ctxSord, inclTplSord;
+      aclItem, combineAclFunction, ctxSord, inclTplSord, startIds;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -441,7 +441,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonAclUtils", function () {
         expect(function () {
           ctxSord = { objId: aclUtilsSord.id };
           inclTplSord = true;
-          conn = "conn";
+          conn = "conn1";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.AclUtils",
             classConfig: {},
@@ -456,14 +456,13 @@ describe("[lib] sol.unittest.ix.services.SolCommonAclUtils", function () {
           }
           );
         }).not.toThrow();
-      });
-      
-      xit("executeBackgroundAclJob", function (done) {
+      });      
+      it("executeBackgroundAclJob", function (done) {
         expect(function () {
-          conn = PVALUE;
-          startIds = PVALUE;
-          config = PVALUE;
-          newAclItems = PVALUE;
+          conn = "conn1";
+          startIds = [aclUtilsSord.id];
+          config = { users: [0], rights: { r: true, w: true, d: false, e: false, l: false, p: true }, mode: "SET" };
+          newAclItems = [];
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.AclUtils",
             classConfig: {},
@@ -479,7 +478,6 @@ describe("[lib] sol.unittest.ix.services.SolCommonAclUtils", function () {
           );
         }).not.toThrow();
       });
-
       it("hasEffectiveRights", function (done) {
         expect(function () {
           sord = aclUtilsSord;
