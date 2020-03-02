@@ -155,6 +155,24 @@ describe("[lib] sol.unittest.ix.services.SolCommonExecUtils", function () {
           );
         }).not.toThrow();
       });
+      it("logSystemInfo", function (done) {
+        expect(function () {
+          conn = null;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.ExecUtils",
+            classConfig: {},
+            method: "logSystemInfo",
+            params: [conn]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("open", function (done) {
         expect(function () {
           path = "text.txt";

@@ -218,7 +218,7 @@ sol.define("sol.common.HttpUtils", {
         });
       } else {
         userpass = java.lang.String(config.user + ":" + config.password);
-        basicAuth = "Basic " + javax.xml.bind.DatatypeConverter.printBase64Binary(userpass.getBytes());
+        basicAuth = "Basic " + me.encodeBase64(userpass);
         urlConn.setRequestProperty("Authorization", basicAuth);
       }
     }
