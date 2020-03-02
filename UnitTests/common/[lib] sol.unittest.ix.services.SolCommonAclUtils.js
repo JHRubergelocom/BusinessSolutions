@@ -502,13 +502,12 @@ describe("[lib] sol.unittest.ix.services.SolCommonAclUtils", function () {
           );
         }).not.toThrow();
       });
-
-      xit("initializeRights", function (done) {
+      it("initializeRights", function (done) {
         expect(function () {
-          newAclItems = PVALUE;
+          newAclItems = [];
           objId = aclUtilsSord.id;
-          config = PVALUE;
-          conn = PVALUE;
+          config = { users: [0] };
+          conn = "conn1";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.AclUtils",
             classConfig: {},
@@ -524,9 +523,9 @@ describe("[lib] sol.unittest.ix.services.SolCommonAclUtils", function () {
           );
         }).not.toThrow();
       });
-      xit("ixExecutesBackgroundJobsSynchronous", function (done) {
+      it("ixExecutesBackgroundJobsSynchronous", function (done) {
         expect(function () {
-          conn = PVALUE;
+          conn = "conn1";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.AclUtils",
             classConfig: {},
@@ -542,8 +541,6 @@ describe("[lib] sol.unittest.ix.services.SolCommonAclUtils", function () {
           );
         }).not.toThrow();
       });
-
-
       it("preprocessUsers", function (done) {
         expect(function () {
           objId = aclUtilsSord.id;
@@ -622,12 +619,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonAclUtils", function () {
           );
         }).not.toThrow();
       });
-
-      xit("removeSordRights", function (done) {
+      it("removeSordRights", function (done) {
         expect(function () {
-          oldAclList = PVALUE;
-          newAclList = PVALUE;
-          asAdmin = PVALUE;
+          oldAclList = [];
+          newAclList = [];
+          asAdmin = true;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.AclUtils",
             classConfig: {},
@@ -643,12 +639,11 @@ describe("[lib] sol.unittest.ix.services.SolCommonAclUtils", function () {
           );
         }).not.toThrow();
       });
-
-      xit("replaceUserNamePlaceholders", function (done) {
+      it("replaceUserNamePlaceholders", function (done) {
         expect(function () {
-          userName = PVALUE;
-          ctxSord = PVALUE;
-          conn = PVALUE;
+          userName = "$CURRENTUSER";
+          ctxSord = {};
+          conn = "conn1";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.AclUtils",
             classConfig: {},
@@ -664,7 +659,6 @@ describe("[lib] sol.unittest.ix.services.SolCommonAclUtils", function () {
           );
         }).not.toThrow();
       });
-
       it("restoreRights", function (done) {
         objId = aclUtilsSord.id;
         config = { recursive: true, storeAcl: { type: "MAP", key: "OLD_ACL" } };
@@ -684,11 +678,10 @@ describe("[lib] sol.unittest.ix.services.SolCommonAclUtils", function () {
           );
         }).not.toThrow();
       });
-
-      xit("restoreSordRights", function (done) {
+      it("restoreSordRights", function (done) {
         expect(function () {
-          sord = PVALUE;
-          params = PVALUE;
+          sord = aclUtilsSord;
+          params = { storeAcl: {} };
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.AclUtils",
             classConfig: {},
@@ -704,7 +697,6 @@ describe("[lib] sol.unittest.ix.services.SolCommonAclUtils", function () {
           );
         }).not.toThrow();
       });
-
       it("retrieveAndGroupAcl", function (done) {
         andGroup = { groups: ["Administrators", "Buchhaltung"] };
         defaultAccessCode = elo.CONST.ACCESS.LUR_READ;

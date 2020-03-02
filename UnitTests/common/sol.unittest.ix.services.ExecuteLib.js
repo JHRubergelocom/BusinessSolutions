@@ -162,6 +162,7 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
             me.params[1] = { combineAclFunction: cls.addSordRights, accessCode: 0, asAdmin: true };
             break;
           case "enrichContextSord":
+          case "replaceUserNamePlaceholders":
             me.params[2] = ixConnect;
             break;
           case "executeBackgroundAclJob":            
@@ -171,7 +172,13 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
             cls.appendInheritedAcl(me.params[3], me.params[1], me.params[2], me.params[0]);
             cls.appendUserAcl(me.params[3], me.params[1], me.params[2], defaultAccessCode);
             cls.appendAndGroupAcl(me.params[3], me.params[1], me.params[2], defaultAccessCode);
+            break;
+          case "initializeRights":
+            me.params[3] = ixConnect;
             break;  
+          case "ixExecutesBackgroundJobsSynchronous":
+            me.params[0] = ixConnect;
+            break;
           default:
         }
         break;
@@ -478,6 +485,7 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
       case "sol.common.AclUtils":
         switch (me.method) {
           case "addSordRights":
+          case "removeSordRights":
             result = String(result);
             break;
           default:
