@@ -1,7 +1,7 @@
 
 describe("[lib] sol.unittest.ix.services.SolCommonInjection", function () {
   var InjectionSord, originalTimeout, obj, objId, flowId,
-      asAdmin, formBlobs, log, any, classContext, injectId, json;
+      asAdmin, formBlobs, log, any, classContext, injectId, json, configName;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -107,6 +107,25 @@ describe("[lib] sol.unittest.ix.services.SolCommonInjection", function () {
           );
         }).not.toThrow();
       });
+      it("initConfig", function (done) {
+        expect(function () {
+          configName = "as";
+          classContext = {};
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Injection",
+            classConfig: {},
+            method: "initConfig",
+            params: [configName, classContext]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("inject", function (done) {
         expect(function () {
           classContext = {};
@@ -125,7 +144,68 @@ describe("[lib] sol.unittest.ix.services.SolCommonInjection", function () {
           );
         }).not.toThrow();
       });
-      it("injectJSON", function (done) {
+
+      xit("injectConfig", function (done) {
+        expect(function () {
+          config = PVALUE;
+          injectId = PVALUE;
+          classContext = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Injection",
+            classConfig: {},
+            method: "injectConfig",
+            params: [config, injectId, classContext]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("injectConfigProperty", function (done) {
+        expect(function () {
+          config = PVALUE;
+          classContext = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Injection",
+            classConfig: {},
+            method: "injectConfigProperty",
+            params: [config, classContext]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      xit("injectFromThis", function (done) {
+        expect(function () {
+          prop = PVALUE;
+          injectId = PVALUE;
+          classContext = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Injection",
+            classConfig: {},
+            method: "injectFromThis",
+            params: [prop, injectId, classContext]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+
+      xit("injectJSON", function (done) {
         expect(function () {
           json = {};
           injectId = "";
@@ -145,7 +225,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonInjection", function () {
           );
         }).not.toThrow();
       });
-      it("injectSordById", function (done) {
+      xit("injectSordById", function (done) {
         expect(function () {
           objId = InjectionSord.id;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
@@ -163,6 +243,28 @@ describe("[lib] sol.unittest.ix.services.SolCommonInjection", function () {
           );
         }).not.toThrow();
       });
+
+      xit("performInjection", function (done) {
+        expect(function () {
+          injection = PVALUE;
+          injectionId = PVALUE;
+          classContext = PVALUE;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.Injection",
+            classConfig: {},
+            method: "performInjection",
+            params: [injection, injectionId, classContext]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+
     });
   });
   afterAll(function (done) {

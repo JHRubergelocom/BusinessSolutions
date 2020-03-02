@@ -263,11 +263,16 @@ sol.define("sol.common.Injection", {
   },
 
   injectFromThis: function (prop, injectId, classContext) {
-    var me = this, result;
+    var me = this, result, propType;
     me.logger.debug(["Reading property of class-context as defined in injection `{0}`.", injectId]);
     result = sol.common.ObjectUtils.getProp(classContext, String(prop.prop));
+    propType = me.typeOf(result);
     me.logger.debug("Property value read", me.ifLog(prop.log, result));
-    if (result.forTemplating !== false) {  // is added to templating as default
+    if ((propType === "object") || (propType === "array")) {
+      me.logger.debug("The value is an object or an array. It will be cloned to minimize sideeffects");
+      result = me.copyConfig(result);
+    }
+    if (prop.forTemplating !== false) {  // is added to templating as default
       me.logger.debug("Adding value to templating-data");
       classContext.$templatingData = classContext.$templatingData || {};
       classContext.$templatingData[injectId] = result;  // also add data to templating
@@ -291,7 +296,9 @@ sol.define("sol.common.Injection", {
   },
 
   copyConfig: function (obj) {
-    return JSON.parse(JSON.stringify(obj));
+    return JSON.parse(JSON.stringify(obj, function (_, val) {
+      return (val && val.getClass) ? String(val) : val;
+    }));
   },
 
   performInjection: function (injection, injectionId, classContext) {
