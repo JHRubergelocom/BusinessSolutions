@@ -278,15 +278,28 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
       case "sol.common.Injection":
         switch (me.method) {
           case "initConfig":
+          case "injectConfigProperty":
             me.params[1] = sol.create("sol.unittest.Injection", {});
             cls.typeOf = sol.common.ObjectUtils.type;
             break;
           case "inject":
             me.params[0] = sol.create("sol.unittest.Injection", {});
             break;
+          case "injectConfig":
+            me.params[2] = sol.create("sol.unittest.mixins.Configuration", {});
+            cls.typeOf = sol.common.ObjectUtils.type;
+            break;
+          case "injectFromThis":
+          case "performInjection":
+            me.params[2] = sol.create("sol.unittest.Injection", {});
+            cls.typeOf = sol.common.ObjectUtils.type;
+            break;
           case "injectJSON":
-          case "injectSordById":
             me.params[2] = sol.create("sol.unittest.InjectionJson", {});
+            cls.typeOf = sol.common.ObjectUtils.type;
+            break;
+          case "injectSordById":
+            me.params[2] = sol.create("sol.unittest.InjectionSord", {});
             cls.typeOf = sol.common.ObjectUtils.type;
             break;
           default:
