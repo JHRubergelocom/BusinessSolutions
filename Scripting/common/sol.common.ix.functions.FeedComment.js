@@ -58,6 +58,8 @@ var logger = sol.create("sol.Logger", { scope: "sol.common.ix.functions.FeedComm
  *     data: [ { type: "GRP", key: "MY_FIELD" } ]  // will replace {0} with the value of the index field `MY_FIELD`
  *     data: [ { type: "MAP", key: "MY_MAP" } ]  // will replace {0} with the value of the map field `MY_MAP`
  *     data: [ { type: "WFMAP", key: "MY_WFMAP" } ]  // will replace {0} with the value of the workflow map field `MY_MAP` (only available in workflow functions)
+ *     data: [ { type: "FORMBLOB", key: "REASON_OF_REJECTION", "deleteAfterUse": true } ]  // will delete the value after use (only available for type `FORMBLOB`)
+ *     data: [ { type: "WFNODE", node: "my.node.translation.key", key: "comment" } ]  // only works in workflows, searches the node either by translation key or by node id and writes the node property defined in key
  *
  * Both notations can be mixed.
  *
@@ -162,6 +164,12 @@ var logger = sol.create("sol.Logger", { scope: "sol.common.ix.functions.FeedComm
  *       "data": ["Test", "xyz"]
  *     }
  *
+ *     {
+ *       "text": ""has created a document {0}",
+ *       "data": [{ "type": "MAP", "key": "TEST" }],
+ *       "dynamicData": true
+ *     }
+ *
  * @author JHR, ELO Digital Office GmbH
  * @version 1.06.000
  *
@@ -211,6 +219,12 @@ sol.define("sol.common.ix.functions.FeedComment", {
   data: undefined,
 
   /**
+   * @cfg {Boolean} dynamicData
+   * If `text` is given, this property defines if the property `data` contains field definitions
+   */
+  dynamicData: undefined,
+
+  /**
    * @cfg {Boolean} [writeToParent=false]
    * If true then the comment will be written to the parent of the element
    */
@@ -257,12 +271,13 @@ sol.define("sol.common.ix.functions.FeedComment", {
       }
     }
     if (me.data && me.data.length > 0) {
-      if (!me.text) {
+      if ((me.file && me.key) || (me.text && me.dynamicData)) {
         sord = ixConnect.ix().checkoutSord(me.objId, EditInfoC.mbSord, LockC.NO).sord;
         me.data.forEach(function (entry) {
           var value;
           value = (me.getValue(sord, entry) || "") + "";
           values.push(value);
+          me.deleteValue(sord, entry);
         });
       }
     }
@@ -278,7 +293,7 @@ sol.define("sol.common.ix.functions.FeedComment", {
     dataString = JSON.stringify(values);
 
     if (me.text) {
-      action.text = me.formatText(me.text, me.data);
+      action.text = me.formatText(me.text, me.dynamicData ? values : me.data);
     } else {
       action.text = '{"file": "' + me.file + '", "key": "' + me.key + '", "data": ' + dataString + "}";
     }
@@ -312,7 +327,7 @@ sol.define("sol.common.ix.functions.FeedComment", {
    */
   getValue: function (sord, dataConfig) {
     var me = this,
-        wfMapValue, values, value;
+        wfMapValue, wfNodeValue, values, value;
     if (!sol.common.ObjectUtils.isObject(dataConfig)) {
       values = sol.common.SordUtils.getObjKeyValues(sord, dataConfig);
       if (!values) {
@@ -324,8 +339,9 @@ sol.define("sol.common.ix.functions.FeedComment", {
     }
     try {
       wfMapValue = me.getWfMapValue(dataConfig);
-      if (wfMapValue) {
-        value = me.formatValue(wfMapValue, dataConfig);
+      wfNodeValue = me.getWfNodeValue(dataConfig);
+      if (wfMapValue || wfNodeValue) {
+        value = me.formatValue(wfMapValue || wfNodeValue, dataConfig);
       } else {
         values = sol.common.SordUtils.getValues(sord, dataConfig);
         values = me.formatValues(values, dataConfig);
@@ -343,18 +359,53 @@ sol.define("sol.common.ix.functions.FeedComment", {
 
   /**
    * @private
+   * @param {de.elo.ix.client.Sord} sord
+   * @param {Object} dataConfig
+   */
+  deleteValue: function (sord, dataConfig) {
+    if (!sol.common.ObjectUtils.isObject(dataConfig) || (dataConfig.type != "FORMBLOB") || !dataConfig.deleteAfterUse) {
+      return;
+    }
+
+    ixConnect.ix().deleteMap("formdata", sord.id, [dataConfig.key], LockC.NO);
+  },
+
+  /**
+   * @private
    * @param {Object} dataConfig
    * @return {String}
    */
   getWfMapValue: function (dataConfig) {
     var me = this,
+        flowId = (me.wFDiagram) ? me.wFDiagram.id : me.flowId,
         wfMapitems;
-    if (dataConfig.type === "WFMAP" && me.flowId) {
-      wfMapitems = ixConnect.ix().checkoutMap(MapDomainC.DOMAIN_WORKFLOW_ACTIVE, me.flowId, [dataConfig.key], LockC.NO).items;
+
+    if (dataConfig.type === "WFMAP" && flowId) {
+      wfMapitems = ixConnect.ix().checkoutMap(MapDomainC.DOMAIN_WORKFLOW_ACTIVE, flowId, [dataConfig.key], LockC.NO).items;
       if (wfMapitems && wfMapitems.length > 0) {
         return wfMapitems[0].value;
       }
     }
+  },
+
+  /**
+   * @private
+   * @param {Object} dataConfig
+   * @return {String}
+   */
+  getWfNodeValue: function (dataConfig) {
+    var me = this,
+        value;
+
+    if (me.wFDiagram && dataConfig.type === "WFNODE" && dataConfig.node && dataConfig.key) {
+      me.wFDiagram.nodes.some(function (node) {
+        if ((node.nameTranslationKey == dataConfig.node) || (node.id == dataConfig.node)) {
+          value = node[dataConfig.key];
+          return true;
+        }
+      });
+    }
+    return value;
   },
 
   /**
@@ -415,7 +466,7 @@ function onEnterNode(clInfo, userId, wFDiagram, nodeId) {
   params.userGuid = undefined;
 
   params.objId = wFDiagram.objId;
-  params.flowId = wFDiagram.id;
+  params.wFDiagram = wFDiagram;
   module = sol.create("sol.common.ix.functions.FeedComment", params);
 
   module.process();
@@ -436,7 +487,7 @@ function onExitNode(clInfo, userId, wFDiagram, nodeId) {
   params.userGuid = undefined;
 
   params.objId = wFDiagram.objId;
-  params.flowId = wFDiagram.id;
+  params.wFDiagram = wFDiagram;
   module = sol.create("sol.common.ix.functions.FeedComment", params);
 
   module.process();

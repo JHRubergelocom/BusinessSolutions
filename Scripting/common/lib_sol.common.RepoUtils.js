@@ -83,7 +83,7 @@ sol.define("sol.common.RepoUtils", {
       if (!findResult.moreResults) {
         break;
       }
-      idx += findResult.sords.Length;
+      idx += findResult.sords.length;
       findResult = conn.ix().findNextSords(findResult.searchId, idx, 100, sordZ);
     }
     conn.ix().findClose(findResult.searchId);
@@ -137,18 +137,28 @@ sol.define("sol.common.RepoUtils", {
    */
   createTempFileWithSordName: function (objId) {
     var me = this,
-        editInfo, url, fileName, tempDir, tempFile;
-    me.logger.enter("createTempFileWithSordName", arguments);
+        editInfo, docVersion, url, fileName, tempDir, tempFile;
+
+    me.logger.enter("createTempFileWithSordName", objId);
     editInfo = ixConnect.ix().checkoutDoc(objId + "", null, EditInfoC.mbSordDoc, LockC.NO);
-    url = editInfo.document.docs[0].url;
+    docVersion = editInfo.document.docs[0];
+
+    if (!docVersion) {
+      me.logger.info(["Document version is emtpy: objId={0}", objId]);
+      return;
+    }
+
+    url = docVersion.url;
     fileName = sol.common.FileUtils.sanitizeFilename(editInfo.sord.name) + "." + editInfo.document.docs[0].ext;
-    tempDir = new File(java.lang.System.getProperty("java.io.tmpdir") + "ELO_" + java.lang.System.nanoTime());
+    tempDir = new File(java.lang.System.getProperty("java.io.tmpdir"), "ELO_" + java.lang.System.nanoTime());
     tempDir.mkdir();
-    tempFile = new File(tempDir.absolutePath + File.separator + fileName);
+    tempFile = new File(tempDir.canonicalPath, fileName);
     ixConnect.download(url, tempFile);
+
     tempFile.deleteOnExit();
     tempDir.deleteOnExit();
-    me.logger.exit("createTempFileWithSordName", tempFile + "");
+
+    me.logger.exit("createTempFileWithSordName", tempFile.canonicalPath + "");
     return tempFile;
   },
 
@@ -262,6 +272,39 @@ sol.define("sol.common.RepoUtils", {
     }
     me.logger.exit("findChildren", children);
     return children;
+  },
+
+  /**
+   * Returns the first child
+   * @param {Object} config Config
+   * @param {de.elo.ix.client.Sord} config.parentId Parent Sord ID
+   * @param {Boolean} [config.includeDocuments=true] Include documents
+   * @param {Boolean} [config.includeFolders=true] Include folders
+   * @return {de.elo.ix.client.Sord} First child
+   */
+  getFirstChild: function (config) {
+    var me = this,
+        sords, firstChildDocSord;
+
+    config = config || {};
+    config.includeDocuments = (typeof config.includeDocuments == "undefined") ? true : config.includeDocuments;
+    config.includeFolders = (typeof config.includeFolders == "undefined") ? true : config.includeFolders;
+
+    if (!config.parentId) {
+      throw "Parent ID is empty";
+    }
+
+    sords = me.findChildren(config.parentId, {
+      includeDocuments: config.includeDocuments,
+      includeFolders: config.includeFolders
+    });
+
+    if (!sords || (sords.length < 1)) {
+      return null;
+    }
+
+    firstChildDocSord = sords[0];
+    return firstChildDocSord;
   },
 
   /**
@@ -401,28 +444,44 @@ sol.define("sol.common.RepoUtils", {
     return file.absolutePath;
   },
 
+  replacementChar: "\uFFFD", // Replacement char
+
   /**
    * Downloads the content of a repository document into a string
    * @param {String} objId Object ID of the document. If a document version should be loaded, this has to be null
    * @param {String} docId If a docId is supplied, the function will try to download the version only, if objId is null.
    * @param {Object} params (optional) Additional parameter
    * @param {Boolean} [params.preserveBOM=false] (optional) If `true`, the BOM will not be removed (if present)
+   * @param {Array} [param.charsets=[UTF-8] Charsets, e.g. ["UTF-8", "ISO-8859-1"]
    * @return {String} Content as string.
    */
   downloadToString: function (objId, docId, params) {
     var me = this,
-        inputStream, content;
+        bytes, content, i, charset;
+
+    params = params || {};
+    params.charsets = params.charsets || ["UTF-8"];
 
     me.logger.enter("downloadToString", arguments);
-    inputStream = me.downloadToStream(objId, docId);
-    content = String(Packages.org.apache.commons.io.IOUtils.toString(inputStream, "UTF-8"));
-    inputStream.close();
-    if (params && (params.preserveBOM === true)) {
+
+    bytes = me.downloadToByteArray(objId, docId);
+
+    for (i = 0; i < params.charsets.length; i++) {
+      charset = params.charsets[i];
+      content = new java.lang.String(bytes, charset) + "";
+      if ((i == params.charsets.length - 1) || (content.indexOf(me.replacementChar) < 0)) {
+        break;
+      }
+    }
+
+    if (params.preserveBOM === true) {
       me.logger.exit("downloadToString", content);
       return content;
     }
     me.logger.exit("downloadToString");
-    return content.replace(me.bom, "");
+    content = content.replace(me.bom, "");
+
+    return content;
   },
 
   /**
@@ -435,7 +494,7 @@ sol.define("sol.common.RepoUtils", {
     var me = this,
         bytes;
     me.logger.enter("downloadToBase64String", arguments);
-    bytes = me.downloadToByteArray(objId, docId);
+    bytes = me.downloadTo(objId, docId);
     me.logger.exit("downloadToBase64String");
     return String(Packages.org.apache.commons.codec.binary.Base64.encodeBase64String(bytes));
   },
@@ -590,12 +649,19 @@ sol.define("sol.common.RepoUtils", {
    * @param {java.io.OutputStream} saveToRepoConfig.outputStream Output stream to save
    * @param {String} saveToRepoConfig.base64Content Base64 encoded content to save
    * @param {Boolean} saveToRepoConfig.tryUpdate Inserts a new version if the object already exists
+   * @param {String} saveToRepoConfig.version Version
+   * @param {String|Number} saveToRepoConfig.versionIncrement Version increment, i.g. `1`
+   * @param {String} saveToRepoConfig.versionComment Version comment
    * @param {de.elo.ix.client.IXConnection} saveToRepoConfig.connection Index server connection
    * @return {String} Object ID
    */
   saveToRepo: function (saveToRepoConfig) {
     var me = this,
-        parentRepoPath, bytes, inputStream, editInfo, objKeys, key, objId, conn;
+        parentRepoPath, bytes, inputStream, editInfo, objKeys, key, objId, conn,
+        newVersionString = "",
+        currentVersionString, currentVersionBigDecimal, versionIncrementBigDecimal,
+        newVersionBigDecimal, decimalFormat;
+
     me.logger.enter("saveToRepo", arguments);
 
     conn = saveToRepoConfig.connection || ixConnect;
@@ -681,7 +747,44 @@ sol.define("sol.common.RepoUtils", {
       sol.common.SordUtils.setObjKeyValue(editInfo.sord, DocMaskLineC.NAME_FILENAME, saveToRepoConfig.fileName);
     }
 
+    if (saveToRepoConfig.versionIncrement && editInfo.document.docs && (editInfo.document.docs.length > 0)) {
+      currentVersionString = editInfo.document.docs[0].version + "";
+      try {
+        currentVersionBigDecimal = new java.math.BigDecimal(currentVersionString);
+      } catch (ignore) {
+      }
+    } else {
+      newVersionString = (saveToRepoConfig.versionIncrement || "") + "";
+    }
+
     editInfo.document.docs = [new DocVersion()];
+
+    if (saveToRepoConfig.versionIncrement) {
+      if (currentVersionBigDecimal) {
+        try {
+          versionIncrementBigDecimal = new java.math.BigDecimal(saveToRepoConfig.versionIncrement);
+        } catch (ignore) {
+        }
+        if (versionIncrementBigDecimal) {
+          newVersionBigDecimal = currentVersionBigDecimal.add(versionIncrementBigDecimal);
+          decimalFormat = new java.text.DecimalFormat("#0.#####", new java.text.DecimalFormatSymbols(java.util.Locale.US));
+          newVersionString = decimalFormat.format(newVersionBigDecimal);
+        }
+      }
+    }
+
+    if (saveToRepoConfig.version) {
+      newVersionString = saveToRepoConfig.version;
+    }
+
+    if (newVersionString) {
+      editInfo.document.docs[0].version = newVersionString;
+    }
+
+    if (saveToRepoConfig.versionComment) {
+      editInfo.document.docs[0].comment = saveToRepoConfig.versionComment;
+    }
+
     editInfo.document.docs[0].ext = saveToRepoConfig.extension;
     editInfo.document.docs[0].pathId = editInfo.sord.path;
     editInfo.document.docs[0].encryptionSet = editInfo.sord.details.encryptionSet;
