@@ -30,6 +30,12 @@ sol.define("sol.common_document.as.actions.ExportFolder", {
   },
 
   process: function () {
+    var me = this, 
+        exportDirPath;
+
+    exportDirPath = "C:\\Temp\\Export";
+    sol.common_document.Utils.exportFolder(me.folderId, exportDirPath);
+
     /*
     var me = this,
         name = sol.create("sol.common.Template", { source: me.config.reporting.names.filingPlan }).apply({ date: new Date() }),

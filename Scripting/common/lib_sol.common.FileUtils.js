@@ -518,9 +518,11 @@ sol.define("sol.common.FileUtils", {
 
     if (sol.common.SordUtils.isFolder(sord)) {
       children = sol.common.RepoUtils.findChildren(sord.id, { includeFolders: false, includeDocuments: true });
-      children.forEach(function (child) {
-        me.downloadDocument(child.id, dstDirPath);
-      });
+      if (children) {
+        children.forEach(function (child) {
+          me.downloadDocument(child.id, dstDirPath);
+        });
+      }
     } else {
       me.downloadDocument(sord.id, dstDirPath);
     }
