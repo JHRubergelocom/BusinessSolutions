@@ -1,2 +1,10 @@
 {
+  "exportFolder": "ARCPATH:/ExportPdf",
+  "coverSheets": [
+    { "mask": "Folder", "template": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common_document/Configuration/Coversheet Templates/Folder" }
+  ],
+  "defaultTemplate": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common_document/Configuration/Coversheet Templates/Default",
+  "errorTemplate": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common_document/Configuration/Coversheet Templates/Error",
+  "workflow": "",
+  "zipExport": false
 }

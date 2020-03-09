@@ -12,6 +12,7 @@
  * @requires sol.common.as.ActionBase
  * @requires sol.common.as.renderer.Fop
  * @requires sol.common_document.Utils
+ * @requires sol.common_document.as.Utils
  */
 sol.define("sol.common_document.as.actions.ExportFolder", {
   extend: "sol.common.as.ActionBase",
@@ -34,7 +35,7 @@ sol.define("sol.common_document.as.actions.ExportFolder", {
         exportDirPath;
 
     exportDirPath = "C:\\Temp\\Export";
-    sol.common_document.Utils.exportFolder(me.folderId, exportDirPath);
+    sol.common_document.as.Utils.exportFolder(me.folderId, exportDirPath);
 
     /*
     var me = this,

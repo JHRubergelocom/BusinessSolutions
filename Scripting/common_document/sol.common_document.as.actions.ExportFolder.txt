@@ -34,6 +34,7 @@
       <name>lib_sol.common.as.renderer.Fop</name>
       <name>lib_sol.common.as.Utils</name>
       <name>lib_sol.common_document.Utils</name>
+      <name>lib_sol.common_document.as.Utils</name>
       <name>lib_sol.common_document.as.actions.ExportFolder</name>
     </includes>
   </base>
