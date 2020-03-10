@@ -41,82 +41,38 @@ sol.define("sol.common_document.as.Utils", {
 
   createCoverSheetSord: function (sord, dstDirPath) {
     var me = this, 
-        generator, templateId, result, targetId;
+        templateId, result, targetId, fopRenderer, data, name;
 
     templateId = me.getTemplateCoverSheetSord(sord);
     targetId = me.getExportFolder();
-    
-    generator = sol.create("sol.common.as.DocumentGenerator", {
-      name: sord.name,
-      dataCollector: "RF_sol_common_service_ParentDataCollector",
-      renderer: "sol.common.as.renderer.Fop",
-      collectorConfig: {
-        objId: sord.id,
-        returnDataDefinition: true
-      },
-      rendererConfig: {
-        targetId: targetId,
-        templateId: templateId
-      },
-      returnData: true
-    });
-
-    result = generator.process();
+    data = { sord: sol.common.SordUtils.getTemplateSord(sord).sord };
+    fopRenderer = sol.create("sol.common.as.renderer.Fop", { targetId: targetId, templateId: templateId });
+    name = sord.name;  
+    result = fopRenderer.render(name, data);
 
     if (result.objId) {
-      // me.addGotoIdEvent(result.objId);
       sol.common.FileUtils.downloadDocument(result.objId, dstDirPath);
-
-      // TODO Delete object in Chaosablage
       sol.common.RepoUtils.deleteSord(result.objId);
     }
-
   },
 
-  // TODO ErrorTemplate
   createErrorConversionPdf: function (sord, dstDirPath) {
     var me = this, 
-        generator, templateId, result, targetId, ext, fopRenderer, data, name;
+        templateId, result, targetId, ext, fopRenderer, data, name;
 
     templateId = me.getTemplateErrorConversionPdf(sord);
     targetId = me.getExportFolder();
-    ext = (sord && sord.docVersion && sord.docVersion.ext) ? sord.docVersion.ext : null;
-    
-/*    
-    generator = sol.create("sol.common.as.DocumentGenerator", {
-      name: sord.name + "." + ext,
-      dataCollector: "RF_sol_common_service_ParentDataCollector",
-      renderer: "sol.common.as.renderer.Fop",
-      collectorConfig: {
-        objId: sord.id,
-        returnDataDefinition: true
-      },
-      rendererConfig: {
-        targetId: targetId,
-        templateId: templateId
-      },
-      returnData: true
-    });
-
-    result = generator.process();
-*/
+    ext = (sord && sord.docVersion && sord.docVersion.ext) ? sord.docVersion.ext : null;    
     data = { sord: sol.common.SordUtils.getTemplateSord(sord).sord, ext: ext };
     fopRenderer = sol.create("sol.common.as.renderer.Fop", { targetId: targetId, templateId: templateId });
     name = sord.name + "." + ext;  
     result = fopRenderer.render(name, data);
 
     if (result.objId) {
-      // me.addGotoIdEvent(result.objId);
       sol.common.FileUtils.downloadDocument(result.objId, dstDirPath);
-
-      // TODO Delete object in Chaosablage
       sol.common.RepoUtils.deleteSord(result.objId);
     }
-
   },
-
-  // TODO
-
 
   /**
    * @private
@@ -166,24 +122,17 @@ sol.define("sol.common_document.as.Utils", {
         objId;
     objId = me.convertToPdf(sord);
     if (objId !== "-1") {
-      // me.addGotoIdEvent(result.objId);
       sol.common.FileUtils.downloadDocument(objId, dstDirPath);
-
-      // TODO Delete object in Chaosablage
       sol.common.RepoUtils.deleteSord(objId);
-
     } else {
-      // TODO ErrorTemplate
       me.createErrorConversionPdf(sord, dstDirPath);
-      // TODO
-
     }
-
   },
 
   exportFolder: function (folderId, dstDirPath) {
     var me = this,
-        dstDir, sord, sordName, subFolderPath, subFolderPathFile;
+        dstDir, sord, sordName, subFolderPath, subFolderPathFile,
+        zipFile, zipDir, parentId, result;
      
     if (!folderId) {
       throw "Folder ID is empty";
@@ -192,7 +141,7 @@ sol.define("sol.common_document.as.Utils", {
     if (!dstDirPath) {
       throw "Destination directory path is empty";
     }
-
+    result = {};
     dstDir = new java.io.File(dstDirPath);
     sol.common.FileUtils.delete(dstDirPath, { quietly: true });
     sol.common.FileUtils.makeDirectories(dstDir);
@@ -200,9 +149,7 @@ sol.define("sol.common_document.as.Utils", {
 
     try {
       sord = ixConnect.ix().checkoutSord(folderId, SordC.mbOnlyGuid, LockC.NO);
-      // TODO CreateCoverSheetSord
       me.createCoverSheetSord(sord, dstDirPath);
-      // TODO
       if (sol.common.SordUtils.isFolder(sord)) {
         sordName = sol.common.FileUtils.sanitizeFilename(sord.name);
         subFolderPath = dstDirPath + java.io.File.separator + sordName;
@@ -215,22 +162,27 @@ sol.define("sol.common_document.as.Utils", {
           }
         }
         me.exportChildren(sord.id, subFolderPath);
+        zipFile = new File(dstDirPath + ".zip");
+        zipDir = new File(dstDirPath);
+        sol.common.ZipUtils.zipFolder(zipDir, zipFile);
+        parentId = me.getExportFolder();
+        result.objId = sol.common.RepoUtils.saveToRepo({ name: sordName, file: zipFile, parentId: parentId });
+  
       } else {
         try {
-          // TODO CreatePdfDocument
           me.createPdfDocument(sord, dstDirPath);
           sol.common.FileUtils.downloadDocument(sord.id, dstDirPath);
-          // TODO
         } catch (e) {
           me.logger.error("error downloadDocument ", e);
           me.logger.error(["error downloadDocument id = '{0}' name = '{1}'", sord.id, sord.name]);
         }
       }
-
-    } catch (e) {
+    } catch (e) {      
       me.logger.error("error checkoutSord exportFolder ", e);
       me.logger.error(["error checkoutSord exportFolder id = '{0}' name = '{1}'", sord.id, sord.name]);
+      result.exception = String(e);
     }
+    return result;
   },
 
   exportChildren: function (folderId, dstDirPath) {
@@ -252,9 +204,7 @@ sol.define("sol.common_document.as.Utils", {
       while (true) {
         for (i = 0; i < findResult.sords.length; i++) {
           sord = findResult.sords[i];
-          // TODO CreateCoverSheetSord
           me.createCoverSheetSord(sord, dstDirPath);
-          // TODO
           if (sol.common.SordUtils.isFolder(sord)) {
             sordName = sol.common.FileUtils.sanitizeFilename(sord.name);
             subFolderPath = dstDirPath + java.io.File.separator + sordName;
@@ -269,10 +219,8 @@ sol.define("sol.common_document.as.Utils", {
             me.exportChildren(sord.id, subFolderPath);
           } else {
             try {
-              // TODO CreatePdfDocument
               me.createPdfDocument(sord, dstDirPath);
               sol.common.FileUtils.downloadDocument(sord.id, dstDirPath);    
-              // TODO
             } catch (e) {
               me.logger.error("error downloadDocument ", e);
               me.logger.error(["error downloadDocument id = '{0}' name = '{1}'", sord.id, sord.name]);

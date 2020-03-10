@@ -32,10 +32,10 @@ sol.define("sol.common_document.as.actions.ExportFolder", {
 
   process: function () {
     var me = this, 
-        exportDirPath;
+        exportDirPath, result;
 
     exportDirPath = "C:\\Temp\\Export";
-    sol.common_document.as.Utils.exportFolder(me.folderId, exportDirPath);
+    result = sol.common_document.as.Utils.exportFolder(me.folderId, exportDirPath);
 
     /*
     var me = this,
@@ -71,11 +71,11 @@ sol.define("sol.common_document.as.actions.ExportFolder", {
     });
     
     result = generator.process();
-    
+    */    
     if (result.objId) {
       me.addGotoIdEvent(result.objId);
     }
-*/
+
   }
   
 });
