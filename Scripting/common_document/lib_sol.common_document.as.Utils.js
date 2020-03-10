@@ -129,6 +129,131 @@ sol.define("sol.common_document.as.Utils", {
     }
   },
 
+  exportFolder: function (folderId, baseDstDirPath) {
+    var me = this,
+        result, i, j, sord, dstDir, pathParts, dstDirPath, sords, dstDirPathFile, folderSord, addPathPart, partPath,
+        subDirPath, subDirPathFile;
+
+    if (!folderId) {
+      throw "Folder ID is empty";
+    }
+
+    if (!baseDstDirPath) {
+      throw "Destination directory path is empty";
+    }
+
+    result = {};
+    dstDir = new java.io.File(baseDstDirPath);
+    sol.common.FileUtils.delete(baseDstDirPath, { quietly: true });
+    sol.common.FileUtils.makeDirectories(dstDir);
+    sol.common.FileUtils.deleteFiles({ dirPath: baseDstDirPath });
+
+
+    folderSord = ixConnect.ix().checkoutSord(folderId, new SordZ(SordC.mbAll), LockC.NO);
+    me.createCoverSheetSord(folderSord, baseDstDirPath);
+
+    dstDirPath = baseDstDirPath + java.io.File.separator + sol.common.FileUtils.sanitizeFilename(folderSord.name);
+    dstDirPathFile = new File(dstDirPath);
+    if (!dstDirPathFile.exists()) {
+      try {
+        dstDirPathFile.mkdirs();
+      } catch (e) {
+        me.logger.error("error creating destination directory", e);
+      }
+    }
+
+    sords = sol.common.RepoUtils.findChildren(folderId, { recursive: true, level: -1, includeDocuments: true, includeFolders: true, includeReferences: true });
+
+    for (i = 0; i < sords.length; i++) {
+      sord = sords[i];
+      pathParts = [dstDirPathFile];
+      addPathPart = false;
+      
+      for (j = 0; j < sord.refPaths[0].path.length; j++) {
+        partPath = sol.common.FileUtils.sanitizeFilename(sord.refPaths[0].path[j].name);
+        if (addPathPart == true) {
+          pathParts.push(partPath);
+        } 
+        if (partPath == folderSord.name) {
+          addPathPart = true;
+        }
+      }
+      if (sol.common.SordUtils.isFolder(sord)) {     
+        
+        subDirPath = pathParts.join(File.separator);
+        subDirPathFile = new File(subDirPath);
+        if (!subDirPathFile.exists()) {
+          try {
+            subDirPathFile.mkdirs();
+          } catch (e) {
+            me.logger.error("error creating destination directory", e);
+          }
+        }
+        me.createCoverSheetSord(sord, subDirPath);                
+        partPath = sol.common.FileUtils.sanitizeFilename(sord.name);
+        if (addPathPart == true) {
+          pathParts.push(partPath);
+        }   
+      }
+      subDirPath = pathParts.join(File.separator);
+      subDirPathFile = new File(subDirPath);
+      if (!subDirPathFile.exists()) {
+        try {
+          subDirPathFile.mkdirs();
+        } catch (e) {
+          me.logger.error("error creating destination directory", e);
+        }
+      }
+      if (!sol.common.SordUtils.isFolder(sord)) {
+        try {
+          me.createCoverSheetSord(sord, subDirPath);      
+          me.createPdfDocument(sord, subDirPath);
+          sol.common.FileUtils.downloadDocument(sord.id, subDirPath);
+        } catch (e) {
+          me.logger.error("error downloadDocument ", e);
+          me.logger.error(["error downloadDocument id = '{0}' name = '{1}'", sord.id, sord.name]);
+        }
+      }
+
+
+      /*
+      if (sol.common.SordUtils.isFolder(sord)) {
+        sordName = sol.common.FileUtils.sanitizeFilename(sord.name);
+        subFolderPath = dstDirPath + java.io.File.separator + sordName;
+        subFolderPathFile = new File(subFolderPath);
+        if (!subFolderPathFile.exists()) {
+          try {
+            subFolderPathFile.mkdirs();
+          } catch (e) {
+            me.logger.error("error creating destination directory", e);
+          }
+        }
+        me.exportChildren(sord.id, subFolderPath);
+        zipFile = new File(dstDirPath + ".zip");
+        zipDir = new File(dstDirPath);
+        sol.common.ZipUtils.zipFolder(zipDir, zipFile);
+        parentId = me.getExportFolder();
+        result.objId = sol.common.RepoUtils.saveToRepo({ name: sordName, file: zipFile, parentId: parentId });
+  
+      } else {
+        try {
+          me.createPdfDocument(sord, dstDirPath);
+          sol.common.FileUtils.downloadDocument(sord.id, dstDirPath);
+        } catch (e) {
+          me.logger.error("error downloadDocument ", e);
+          me.logger.error(["error downloadDocument id = '{0}' name = '{1}'", sord.id, sord.name]);
+        }
+      }
+      */
+
+
+    }
+
+
+    return result;
+  }
+
+  /*
   exportFolder: function (folderId, dstDirPath) {
     var me = this,
         dstDir, sord, sordName, subFolderPath, subFolderPathFile,
@@ -239,4 +364,7 @@ sol.define("sol.common_document.as.Utils", {
       }
     }
   }
+
+*/
+
 });
