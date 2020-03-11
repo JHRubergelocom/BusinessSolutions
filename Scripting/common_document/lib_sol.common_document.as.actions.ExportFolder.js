@@ -36,42 +36,8 @@ sol.define("sol.common_document.as.actions.ExportFolder", {
 
     exportDirPath = "C:\\Temp\\Export";
     result = sol.common_document.as.Utils.exportFolder(me.folderId, exportDirPath);
+    sol.common.FileUtils.delete(exportDirPath, { quietly: true });
 
-    /*
-    var me = this,
-        name = sol.create("sol.common.Template", { source: me.config.reporting.names.filingPlan }).apply({ date: new Date() }),
-        generator, result;
-    
-    generator = sol.create("sol.common.as.DocumentGenerator", {
-      name: name,
-      dataCollector: "RF_sol_common_services_ChildrenDataCollector",
-      renderer: "sol.common.as.renderer.Fop",
-      collectorConfig: {
-        folderId: me.folderId,
-        endLevel: -1,
-        objKeys: [],
-        totalCount: 50000,
-        sordKeys: ["ownerName", "name", "maskName", "maskId", "id", "guid", "folderId", "XDateIso", "IDateIso"],
-        maskName: me.config.filingPlan.maskName,
-        formatter: "sol.common.ObjectFormatter.TemplateSord"
-      },
-      rendererConfig: {
-        targetId: me.targetId,
-        templateId: me.templateId
-      },
-      compareFct: function (templateSord1, templateSord2) {
-        var result;
-        try {
-          result = templateSord1.objKeys.FILING_PLAN_REFERENCE.localeCompare(templateSord2.objKeys.FILING_PLAN_REFERENCE);
-        } catch (ex) {
-          result = 0;
-        }
-        return result;
-      }
-    });
-    
-    result = generator.process();
-    */    
     if (result.objId) {
       me.addGotoIdEvent(result.objId);
     }

@@ -132,7 +132,7 @@ sol.define("sol.common_document.as.Utils", {
   exportFolder: function (folderId, baseDstDirPath) {
     var me = this,
         result, i, j, sord, dstDir, pathParts, dstDirPath, sords, dstDirPathFile, folderSord, addPathPart, partPath,
-        subDirPath, subDirPathFile;
+        subDirPath, subDirPathFile, zipFile, zipDir, parentId, folderName;
 
     if (!folderId) {
       throw "Folder ID is empty";
@@ -152,7 +152,8 @@ sol.define("sol.common_document.as.Utils", {
     folderSord = ixConnect.ix().checkoutSord(folderId, new SordZ(SordC.mbAll), LockC.NO);
     me.createCoverSheetSord(folderSord, baseDstDirPath);
 
-    dstDirPath = baseDstDirPath + java.io.File.separator + sol.common.FileUtils.sanitizeFilename(folderSord.name);
+    folderName = sol.common.FileUtils.sanitizeFilename(folderSord.name);
+    dstDirPath = baseDstDirPath + java.io.File.separator + folderName;
     dstDirPathFile = new File(dstDirPath);
     if (!dstDirPathFile.exists()) {
       try {
@@ -215,156 +216,15 @@ sol.define("sol.common_document.as.Utils", {
         }
       }
 
-
-      /*
-      if (sol.common.SordUtils.isFolder(sord)) {
-        sordName = sol.common.FileUtils.sanitizeFilename(sord.name);
-        subFolderPath = dstDirPath + java.io.File.separator + sordName;
-        subFolderPathFile = new File(subFolderPath);
-        if (!subFolderPathFile.exists()) {
-          try {
-            subFolderPathFile.mkdirs();
-          } catch (e) {
-            me.logger.error("error creating destination directory", e);
-          }
-        }
-        me.exportChildren(sord.id, subFolderPath);
-        zipFile = new File(dstDirPath + ".zip");
-        zipDir = new File(dstDirPath);
-        sol.common.ZipUtils.zipFolder(zipDir, zipFile);
-        parentId = me.getExportFolder();
-        result.objId = sol.common.RepoUtils.saveToRepo({ name: sordName, file: zipFile, parentId: parentId });
-  
-      } else {
-        try {
-          me.createPdfDocument(sord, dstDirPath);
-          sol.common.FileUtils.downloadDocument(sord.id, dstDirPath);
-        } catch (e) {
-          me.logger.error("error downloadDocument ", e);
-          me.logger.error(["error downloadDocument id = '{0}' name = '{1}'", sord.id, sord.name]);
-        }
-      }
-      */
-
-
     }
-
+    zipFile = new File(baseDstDirPath + ".zip");
+    zipDir = new File(baseDstDirPath);
+    sol.common.ZipUtils.zipFolder(zipDir, zipFile);
+    parentId = me.getExportFolder();
+    result.objId = sol.common.RepoUtils.saveToRepo({ name: folderName, file: zipFile, parentId: parentId });
+    sol.common.FileUtils.delete(zipFile, { quietly: true });
 
     return result;
   }
-
-  /*
-  exportFolder: function (folderId, dstDirPath) {
-    var me = this,
-        dstDir, sord, sordName, subFolderPath, subFolderPathFile,
-        zipFile, zipDir, parentId, result;
-     
-    if (!folderId) {
-      throw "Folder ID is empty";
-    }
-
-    if (!dstDirPath) {
-      throw "Destination directory path is empty";
-    }
-    result = {};
-    dstDir = new java.io.File(dstDirPath);
-    sol.common.FileUtils.delete(dstDirPath, { quietly: true });
-    sol.common.FileUtils.makeDirectories(dstDir);
-    sol.common.FileUtils.deleteFiles({ dirPath: dstDirPath });
-
-    try {
-      sord = ixConnect.ix().checkoutSord(folderId, SordC.mbOnlyGuid, LockC.NO);
-      me.createCoverSheetSord(sord, dstDirPath);
-      if (sol.common.SordUtils.isFolder(sord)) {
-        sordName = sol.common.FileUtils.sanitizeFilename(sord.name);
-        subFolderPath = dstDirPath + java.io.File.separator + sordName;
-        subFolderPathFile = new File(subFolderPath);
-        if (!subFolderPathFile.exists()) {
-          try {
-            subFolderPathFile.mkdirs();
-          } catch (e) {
-            me.logger.error("error creating destination directory", e);
-          }
-        }
-        me.exportChildren(sord.id, subFolderPath);
-        zipFile = new File(dstDirPath + ".zip");
-        zipDir = new File(dstDirPath);
-        sol.common.ZipUtils.zipFolder(zipDir, zipFile);
-        parentId = me.getExportFolder();
-        result.objId = sol.common.RepoUtils.saveToRepo({ name: sordName, file: zipFile, parentId: parentId });
-  
-      } else {
-        try {
-          me.createPdfDocument(sord, dstDirPath);
-          sol.common.FileUtils.downloadDocument(sord.id, dstDirPath);
-        } catch (e) {
-          me.logger.error("error downloadDocument ", e);
-          me.logger.error(["error downloadDocument id = '{0}' name = '{1}'", sord.id, sord.name]);
-        }
-      }
-    } catch (e) {      
-      me.logger.error("error checkoutSord exportFolder ", e);
-      me.logger.error(["error checkoutSord exportFolder id = '{0}' name = '{1}'", sord.id, sord.name]);
-      result.exception = String(e);
-    }
-    return result;
-  },
-
-  exportChildren: function (folderId, dstDirPath) {
-    var me = this,
-        findResult, findInfo, findChildren, idx, i, sord, sordName, subFolderPath, sordZ, subFolderPathFile;
-
-    findInfo = new FindInfo();
-    findChildren = new FindChildren();
-
-    findChildren.parentId = folderId + "";
-    findChildren.mainParent = true;
-    findChildren.endLevel = 1;
-    findInfo.findChildren = findChildren;
-
-    sordZ = SordC.mbAll;
-    try {
-      idx = 0;
-      findResult = ixConnect.ix().findFirstSords(findInfo, 1000, sordZ);
-      while (true) {
-        for (i = 0; i < findResult.sords.length; i++) {
-          sord = findResult.sords[i];
-          me.createCoverSheetSord(sord, dstDirPath);
-          if (sol.common.SordUtils.isFolder(sord)) {
-            sordName = sol.common.FileUtils.sanitizeFilename(sord.name);
-            subFolderPath = dstDirPath + java.io.File.separator + sordName;
-            subFolderPathFile = new File(subFolderPath);
-            if (!subFolderPathFile.exists()) {
-              try {
-                subFolderPathFile.mkdirs();
-              } catch (e) {
-                me.logger.error("error creating destination directory", e);
-              }
-            }
-            me.exportChildren(sord.id, subFolderPath);
-          } else {
-            try {
-              me.createPdfDocument(sord, dstDirPath);
-              sol.common.FileUtils.downloadDocument(sord.id, dstDirPath);    
-            } catch (e) {
-              me.logger.error("error downloadDocument ", e);
-              me.logger.error(["error downloadDocument id = '{0}' name = '{1}'", sord.id, sord.name]);
-            }
-          }
-        }
-        if (!findResult.moreResults) {
-          break;
-        }
-        idx += findResult.sords.length;
-        findResult = ixConnect.ix().findNextSords(findResult.searchId, idx, 1000, sordZ);
-      }
-    } finally {
-      if (findResult) {
-        ixConnect.ix().findClose(findResult.searchId);
-      }
-    }
-  }
-
-*/
 
 });
