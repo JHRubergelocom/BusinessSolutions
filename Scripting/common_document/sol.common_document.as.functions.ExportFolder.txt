@@ -1,6 +1,6 @@
 ﻿<ruleset>
   <base>
-    <name>sol.common_document.as.actions.ExportFolder</name>
+    <name>sol.common_document.as.functions.ExportFolder</name>
     <search>
       <name>"DIRECT"</name>
       <value>"1"</value>
@@ -12,33 +12,27 @@
       <name>lib_Class</name>
       <name>lib_handlebars</name>
       <name>lib_moment</name>
-      <name>lib_sol.common.Cache</name>
       <name>lib_sol.common.Config</name>
-      <name>lib_sol.common.AsUtils</name>
+      <name>lib_sol.common.AclUtils</name>
+      <name>lib_sol.common.DateUtils</name>
       <name>lib_sol.common.FileUtils</name>
-      <name>lib_sol.common.HttpUtils</name>
-      <name>lib_sol.common.IxUtils</name>
       <name>lib_sol.common.ObjectUtils</name>
       <name>lib_sol.common.StringUtils</name>
       <name>lib_sol.common.JsonUtils</name>
       <name>lib_sol.common.SordUtils</name>
       <name>lib_sol.common.RepoUtils</name>
-      <name>lib_sol.common.CounterUtils</name>
-      <name>lib_sol.common.UserUtils</name>
       <name>lib_sol.common.Template</name>
       <name>lib_sol.common.TranslateTerms</name>
+      <name>lib_sol.common.WfUtils</name>
       <name>lib_sol.common.ZipUtils</name>
       <name>lib_sol.common.ObjectFormatter</name>
-      <name>lib_sol.common.ActionBase</name>
-      <name>lib_sol.common.as.DocumentGenerator</name>
-      <name>lib_sol.common.as.ActionBase</name>
       <name>lib_sol.common.as.FunctionBase</name>
       <name>lib_sol.common.as.Office</name>
       <name>lib_sol.common.as.renderer.Fop</name>
       <name>lib_sol.common.as.Utils</name>
       <name>lib_sol.common_document.Utils</name>
       <name>lib_sol.common_document.as.Utils</name>
-      <name>lib_sol.common_document.as.actions.ExportFolder</name>
+      <name>lib_sol.common_document.as.functions.ExportFolder</name>
     </includes>
   </base>
 <rule>
@@ -49,9 +43,8 @@
 
     var params = JSON.parse(EM_PARAM2);
     params.user = EM_USERID;
-    
-    var exportFolder = sol.create("sol.common_document.as.actions.ExportFolder", params);
-    ruleset.setStatusMessage(exportFolder.execute());
+    var exportFolder = sol.create("sol.common_document.as.functions.ExportFolder", params);
+    exportFolder.process();
     
     sol.common.as.Utils.cleanupUserSession(this);
   </script>

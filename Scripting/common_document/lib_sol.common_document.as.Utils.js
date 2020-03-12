@@ -122,7 +122,7 @@ sol.define("sol.common_document.as.Utils", {
         objId;
     objId = me.convertToPdf(sord);
     if (objId !== "-1") {
-      sol.common.FileUtils.downloadDocument(objId, dstDirPath);
+      // sol.common.FileUtils.downloadDocument(objId, dstDirPath);
       sol.common.RepoUtils.deleteSord(objId);
     } else {
       me.createErrorConversionPdf(sord, dstDirPath);

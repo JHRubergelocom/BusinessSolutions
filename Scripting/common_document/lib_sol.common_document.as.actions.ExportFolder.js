@@ -22,7 +22,6 @@ sol.define("sol.common_document.as.actions.ExportFolder", {
   initialize: function (config) {
     var me = this;
     me.$super("sol.common.as.ActionBase", "initialize", [config]);
-    me.config = sol.common_document.Utils.loadConfigExport();
     sol.common.TranslateTerms.require("sol.common_document.action.ExportFolder");
   },
   
@@ -31,17 +30,29 @@ sol.define("sol.common_document.as.actions.ExportFolder", {
   },
 
   process: function () {
-    var me = this, 
-        exportDirPath, result;
+    var me = this,
+        language = ixConnect.loginResult.clientInfo.language,
+        param2, param3;
 
-    exportDirPath = "C:\\Temp\\Export";
-    result = sol.common_document.as.Utils.exportFolder(me.folderId, exportDirPath);
-    sol.common.FileUtils.delete(exportDirPath, { quietly: true });
+    param2 = {
+      folderId: me.folderId,
+      user: me.user
+    };
 
-    if (result.objId) {
-      me.addGotoIdEvent(result.objId);
-    }
+    param3 = {
+      language: language
+    };
 
+    sol.common.AsUtils.callAs({
+      ruleName: "sol.common_document.as.functions.ExportFolder",
+      cmd: "run",
+      expectJsonResponse: false,
+      addTicket: true,
+      param2Obj: param2,
+      param3Obj: param3
+    });
+
+    me.addInfoEvent("sol.common_document.action.exportFolder.msg", language);
   }
   
 });
