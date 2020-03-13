@@ -28,6 +28,7 @@
       <name>lib_sol.common.ObjectFormatter</name>
       <name>lib_sol.common.as.FunctionBase</name>
       <name>lib_sol.common.as.Office</name>
+      <name>lib_sol.common.as.PdfUtils</name>
       <name>lib_sol.common.as.renderer.Fop</name>
       <name>lib_sol.common.as.Utils</name>
       <name>lib_sol.common_document.Utils</name>

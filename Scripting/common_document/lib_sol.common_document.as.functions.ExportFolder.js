@@ -25,7 +25,7 @@ sol.define("sol.common_document.as.functions.ExportFolder", {
     var me = this;
     me.$super("sol.common.as.FunctionBase", "initialize", [config]);
     me.config = sol.common_document.Utils.loadConfigExport();
-    sol.common.TranslateTerms.require("sol.common_document.action.ExportFolder");
+    sol.common.TranslateTerms.require("sol.common_document.action.exportFolder");
   },
   
   process: function () {
@@ -33,7 +33,7 @@ sol.define("sol.common_document.as.functions.ExportFolder", {
         exportDirPath, result;
 
     exportDirPath = "C:\\Temp\\Export";
-    result = sol.common_document.as.Utils.exportFolder(me.folderId, exportDirPath);
+    result = sol.common_document.as.Utils.exportFolder(me.folderId, exportDirPath, me.config);
     sol.common.FileUtils.delete(exportDirPath, { quietly: true });
 
     if (result.objId) {

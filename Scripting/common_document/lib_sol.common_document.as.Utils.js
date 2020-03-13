@@ -12,11 +12,11 @@ sol.define("sol.common_document.as.Utils", {
   singleton: true,
 
   getTemplateCoverSheetSord: function (sord) {
-    var config, templateId;
+    var me = this, 
+        templateId;
 
-    config = sol.common_document.Utils.loadConfigExport();
-    templateId = config.defaultTemplate;
-    config.coverSheets.forEach(function (coverSheet) {
+    templateId = me.config.defaultTemplate;
+    me.config.coverSheets.forEach(function (coverSheet) {
       if (coverSheet.mask == sord.maskName) {
         templateId = coverSheet.template;
       }
@@ -25,53 +25,77 @@ sol.define("sol.common_document.as.Utils", {
   },
 
   getTemplateErrorConversionPdf: function () {
-    var config;
+    var me = this;
 
-    config = sol.common_document.Utils.loadConfigExport();
-    return config.errorTemplate;
+    return me.config.errorTemplate;
   },
 
 
   getExportFolder: function () {
-    var config;
+    var me = this;
 
-    config = sol.common_document.Utils.loadConfigExport();
-    return config.exportFolder;
+    return me.config.exportFolder;
+  },
+
+  /**
+   * @private
+   * Converts an output stream to an input stream
+   * @param {java.io.OutputStream} outputStream
+   * @return {java.io.InputStream}
+   */
+  convertOutputStreamToInputStream: function (outputStream) {
+    if (!outputStream) {
+      throw "Output stream is empty";
+    }
+    var inputStream = new ByteArrayInputStream(outputStream.toByteArray());
+    outputStream.close();
+    return inputStream;
+  },
+
+
+  createPdfFromSord: function (sord, templateId, dstDirPath, ext) {
+    var me = this,
+        targetId, data, fopRenderer, name, result, pdfInputStream;
+
+    targetId = me.getExportFolder();
+    if (ext) {
+      data = { sord: sol.common.SordUtils.getTemplateSord(sord).sord, ext: ext };
+      name = sord.name + "." + ext;
+    } else {
+      data = { sord: sol.common.SordUtils.getTemplateSord(sord).sord };
+      name = sord.name;    
+    }
+
+    if (me.config.pdfExport === true) {
+      fopRenderer = sol.create("sol.common.as.renderer.Fop", { templateId: templateId, toStream: true });
+      result = fopRenderer.render(name, data);
+      pdfInputStream = me.convertOutputStreamToInputStream(result.outputStream);
+      me.pdfInputStreams.push(pdfInputStream);  
+    } else {
+      fopRenderer = sol.create("sol.common.as.renderer.Fop", { targetId: targetId, templateId: templateId, toStream: true });
+      result = fopRenderer.render(name, data);
+    }
+    if (result.objId) {
+      sol.common.FileUtils.downloadDocument(result.objId, dstDirPath);
+      sol.common.RepoUtils.deleteSord(result.objId);
+    }
   },
 
   createCoverSheetSord: function (sord, dstDirPath) {
-    var me = this, 
-        templateId, result, targetId, fopRenderer, data, name;
+    var me = this,
+        templateId;
 
     templateId = me.getTemplateCoverSheetSord(sord);
-    targetId = me.getExportFolder();
-    data = { sord: sol.common.SordUtils.getTemplateSord(sord).sord };
-    fopRenderer = sol.create("sol.common.as.renderer.Fop", { targetId: targetId, templateId: templateId });
-    name = sord.name;  
-    result = fopRenderer.render(name, data);
-
-    if (result.objId) {
-      sol.common.FileUtils.downloadDocument(result.objId, dstDirPath);
-      sol.common.RepoUtils.deleteSord(result.objId);
-    }
+    me.createPdfFromSord(sord, templateId, dstDirPath, null);
   },
 
   createErrorConversionPdf: function (sord, dstDirPath) {
-    var me = this, 
-        templateId, result, targetId, ext, fopRenderer, data, name;
+    var me = this,
+        templateId, ext;
 
     templateId = me.getTemplateErrorConversionPdf(sord);
-    targetId = me.getExportFolder();
-    ext = (sord && sord.docVersion && sord.docVersion.ext) ? sord.docVersion.ext : null;    
-    data = { sord: sol.common.SordUtils.getTemplateSord(sord).sord, ext: ext };
-    fopRenderer = sol.create("sol.common.as.renderer.Fop", { targetId: targetId, templateId: templateId });
-    name = sord.name + "." + ext;  
-    result = fopRenderer.render(name, data);
-
-    if (result.objId) {
-      sol.common.FileUtils.downloadDocument(result.objId, dstDirPath);
-      sol.common.RepoUtils.deleteSord(result.objId);
-    }
+    ext = (sord && sord.docVersion && sord.docVersion.ext) ? sord.docVersion.ext : null;
+    me.createPdfFromSord(sord, templateId, dstDirPath, ext);
   },
 
   /**
@@ -119,20 +143,27 @@ sol.define("sol.common_document.as.Utils", {
 
   createPdfDocument: function (sord, dstDirPath) {
     var me = this,
-        objId;
+        objId, pdfInputStream;
     objId = me.convertToPdf(sord);
     if (objId !== "-1") {
-      // sol.common.FileUtils.downloadDocument(objId, dstDirPath);
+      sol.common.FileUtils.downloadDocument(objId, dstDirPath);
+      if (me.config.pdfExport === true) {
+        pdfInputStream = sol.common.RepoUtils.downloadToStream(objId);
+        me.pdfInputStreams.push(pdfInputStream);
+      } 
       sol.common.RepoUtils.deleteSord(objId);
     } else {
       me.createErrorConversionPdf(sord, dstDirPath);
     }
   },
 
-  exportFolder: function (folderId, baseDstDirPath) {
+  exportFolder: function (folderId, baseDstDirPath, config) {
     var me = this,
         result, i, j, sord, dstDir, pathParts, dstDirPath, sords, dstDirPathFile, folderSord, addPathPart, partPath,
-        subDirPath, subDirPathFile, zipFile, zipDir, parentId, folderName;
+        subDirPath, subDirPathFile, zipFile, zipDir, parentId, folderName, mergedOutputStream;
+
+    me.config = config;
+    me.pdfInputStreams = [];
 
     if (!folderId) {
       throw "Folder ID is empty";
@@ -209,20 +240,26 @@ sol.define("sol.common_document.as.Utils", {
         try {
           me.createCoverSheetSord(sord, subDirPath);      
           me.createPdfDocument(sord, subDirPath);
-          sol.common.FileUtils.downloadDocument(sord.id, subDirPath);
         } catch (e) {
           me.logger.error("error downloadDocument ", e);
           me.logger.error(["error downloadDocument id = '{0}' name = '{1}'", sord.id, sord.name]);
         }
       }
-
     }
-    zipFile = new File(baseDstDirPath + ".zip");
-    zipDir = new File(baseDstDirPath);
-    sol.common.ZipUtils.zipFolder(zipDir, zipFile);
-    parentId = me.getExportFolder();
-    result.objId = sol.common.RepoUtils.saveToRepo({ name: folderName, file: zipFile, parentId: parentId });
-    sol.common.FileUtils.delete(zipFile, { quietly: true });
+
+    if (me.config.pdfExport === true) {
+      mergedOutputStream = new ByteArrayOutputStream();
+      sol.common.as.PdfUtils.mergePdfStreams(me.pdfInputStreams, mergedOutputStream);
+      parentId = me.getExportFolder();
+      result.objId = sol.common.RepoUtils.saveToRepo({ parentId: parentId, name: folderName, outputStream: mergedOutputStream, extension: "pdf" });
+    } else {
+      zipFile = new File(baseDstDirPath + ".zip");
+      zipDir = new File(baseDstDirPath);
+      sol.common.ZipUtils.zipFolder(zipDir, zipFile);
+      parentId = me.getExportFolder();
+      result.objId = sol.common.RepoUtils.saveToRepo({ name: folderName, file: zipFile, parentId: parentId });
+      sol.common.FileUtils.delete(zipFile, { quietly: true });  
+    }
 
     return result;
   }
