@@ -52,28 +52,50 @@ sol.define("sol.common_document.as.Utils", {
     return inputStream;
   },
 
+  // TODO getRefPath
+  getRefPath: function (sord, ext) {
+    var pathIds = [],
+        refPath;
 
-  createPdfFromSord: function (sord, templateId, dstDirPath, ext) {
+    sord.refPaths[0].path.forEach(function (ldname) {
+      pathIds.push(ldname.id);
+    });
+    refPath = pathIds.join(File.separator) + File.separator;
+    if (sol.common.SordUtils.isFolder(sord)) {
+      refPath = refPath + sord.id + File.separator + "1.";
+    } else {      
+      if (ext) {
+        refPath = refPath + sord.id + File.separator + "2." + ext;
+      } else {
+        refPath = refPath + sord.id + File.separator + "2.";
+      }
+    }
+    return refPath;
+  },
+  // TODO getRefPath
+
+  createPdfFromSord: function (sord, templateId, dstDirPath, ext, pdfName) {
     var me = this,
-        targetId, data, fopRenderer, name, result, pdfInputStream;
+        targetId, data, fopRenderer, result, pdfInputStream, refPath;
 
     targetId = me.getExportFolder();
     if (ext) {
       data = { sord: sol.common.SordUtils.getTemplateSord(sord).sord, ext: ext };
-      name = sord.name + "." + ext;
     } else {
       data = { sord: sol.common.SordUtils.getTemplateSord(sord).sord };
-      name = sord.name;    
     }
 
     if (me.config.pdfExport === true) {
       fopRenderer = sol.create("sol.common.as.renderer.Fop", { templateId: templateId, toStream: true });
-      result = fopRenderer.render(name, data);
+      result = fopRenderer.render(pdfName, data);
       pdfInputStream = me.convertOutputStreamToInputStream(result.outputStream);
-      me.pdfInputStreams.push(pdfInputStream);  
+      // TODO getRefPath
+      refPath = me.getRefPath(sord, ext);
+      // TODO getRefPath
+      me.pdfContents.push({ pdfInputStream: pdfInputStream, refPath: refPath });
     } else {
       fopRenderer = sol.create("sol.common.as.renderer.Fop", { targetId: targetId, templateId: templateId, toStream: true });
-      result = fopRenderer.render(name, data);
+      result = fopRenderer.render(pdfName, data);
     }
     if (result.objId) {
       sol.common.FileUtils.downloadDocument(result.objId, dstDirPath);
@@ -81,21 +103,26 @@ sol.define("sol.common_document.as.Utils", {
     }
   },
 
-  createCoverSheetSord: function (sord, dstDirPath) {
+  createCoverSheetSord: function (sord, dstDirPath, pdfName) {
     var me = this,
         templateId;
 
     templateId = me.getTemplateCoverSheetSord(sord);
-    me.createPdfFromSord(sord, templateId, dstDirPath, null);
+    me.createPdfFromSord(sord, templateId, dstDirPath, null, pdfName);
   },
 
   createErrorConversionPdf: function (sord, dstDirPath) {
     var me = this,
-        templateId, ext;
+        templateId, ext, pdfName;
 
     templateId = me.getTemplateErrorConversionPdf(sord);
     ext = (sord && sord.docVersion && sord.docVersion.ext) ? sord.docVersion.ext : null;
-    me.createPdfFromSord(sord, templateId, dstDirPath, ext);
+    if (ext) {
+      pdfName = sord.name + "." + ext;
+    } else {
+      pdfName = sord.name;
+    }
+    me.createPdfFromSord(sord, templateId, dstDirPath, ext, pdfName);
   },
 
   /**
@@ -143,15 +170,23 @@ sol.define("sol.common_document.as.Utils", {
 
   createPdfDocument: function (sord, dstDirPath) {
     var me = this,
-        objId, pdfInputStream;
+        objId, pdfInputStream, ext, refPath;
+        
     objId = me.convertToPdf(sord);
     if (objId !== "-1") {
+      ext = (sord && sord.docVersion && sord.docVersion.ext) ? sord.docVersion.ext : null;
       sol.common.FileUtils.downloadDocument(objId, dstDirPath);
       if (me.config.pdfExport === true) {
         pdfInputStream = sol.common.RepoUtils.downloadToStream(objId);
-        me.pdfInputStreams.push(pdfInputStream);
+        // TODO getRefPath
+        refPath = me.getRefPath(sord, ext);
+        me.pdfContents.push({ pdfInputStream: pdfInputStream, refPath: refPath });
+        // TODO getRefPath
       } 
-      sol.common.RepoUtils.deleteSord(objId);
+      if (ext != "pdf") {
+        sol.common.RepoUtils.deleteSord(objId);
+      }
+
     } else {
       me.createErrorConversionPdf(sord, dstDirPath);
     }
@@ -160,10 +195,10 @@ sol.define("sol.common_document.as.Utils", {
   exportFolder: function (folderId, baseDstDirPath, config) {
     var me = this,
         result, i, j, sord, dstDir, pathParts, dstDirPath, sords, dstDirPathFile, folderSord, addPathPart, partPath,
-        subDirPath, subDirPathFile, zipFile, zipDir, parentId, folderName, mergedOutputStream;
+        subDirPath, subDirPathFile, zipFile, zipDir, parentId, folderName, mergedOutputStream, pdfName, ext, pdfInputStreams;
 
     me.config = config;
-    me.pdfInputStreams = [];
+    me.pdfContents = [];
 
     if (!folderId) {
       throw "Folder ID is empty";
@@ -181,7 +216,8 @@ sol.define("sol.common_document.as.Utils", {
 
 
     folderSord = ixConnect.ix().checkoutSord(folderId, new SordZ(SordC.mbAll), LockC.NO);
-    me.createCoverSheetSord(folderSord, baseDstDirPath);
+    pdfName = folderSord.name + ".cover";
+    me.createCoverSheetSord(folderSord, baseDstDirPath, pdfName);
 
     folderName = sol.common.FileUtils.sanitizeFilename(folderSord.name);
     dstDirPath = baseDstDirPath + java.io.File.separator + folderName;
@@ -221,7 +257,8 @@ sol.define("sol.common_document.as.Utils", {
             me.logger.error("error creating destination directory", e);
           }
         }
-        me.createCoverSheetSord(sord, subDirPath);                
+        pdfName = sord.name + ".cover";
+        me.createCoverSheetSord(sord, subDirPath, pdfName);                
         partPath = sol.common.FileUtils.sanitizeFilename(sord.name);
         if (addPathPart == true) {
           pathParts.push(partPath);
@@ -238,7 +275,13 @@ sol.define("sol.common_document.as.Utils", {
       }
       if (!sol.common.SordUtils.isFolder(sord)) {
         try {
-          me.createCoverSheetSord(sord, subDirPath);      
+          ext = (sord && sord.docVersion && sord.docVersion.ext) ? sord.docVersion.ext : null;
+          if (ext) {
+            pdfName = sord.name + "." + ext + ".cover";
+          } else {
+            pdfName = sord.name + ".cover";
+          }
+          me.createCoverSheetSord(sord, subDirPath, pdfName);      
           me.createPdfDocument(sord, subDirPath);
         } catch (e) {
           me.logger.error("error downloadDocument ", e);
@@ -249,7 +292,25 @@ sol.define("sol.common_document.as.Utils", {
 
     if (me.config.pdfExport === true) {
       mergedOutputStream = new ByteArrayOutputStream();
-      sol.common.as.PdfUtils.mergePdfStreams(me.pdfInputStreams, mergedOutputStream);
+      me.pdfContents.sort(function (a, b) {
+        var refPathA = a.refPath.toUpperCase(),
+            refPathB = b.refPath.toUpperCase(); // Groß-/Kleinschreibung ignorieren
+
+        if (refPathA < refPathB) {
+          return -1;
+        }
+        if (refPathA > refPathB) {
+          return 1;
+        }      
+        // Namen müssen gleich sein
+        return 0;
+      });
+      pdfInputStreams = [];
+      me.pdfContents.forEach(function (pdfContent) {
+        pdfInputStreams.push(pdfContent.pdfInputStream);
+      });
+
+      sol.common.as.PdfUtils.mergePdfStreams(pdfInputStreams, mergedOutputStream);
       parentId = me.getExportFolder();
       result.objId = sol.common.RepoUtils.saveToRepo({ parentId: parentId, name: folderName, outputStream: mergedOutputStream, extension: "pdf" });
     } else {
