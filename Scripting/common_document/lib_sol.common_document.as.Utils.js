@@ -98,12 +98,10 @@ sol.define("sol.common_document.as.Utils", {
       } else {
         contentName = sord.name;
       } 
-      // TODO GetPdfPages
       if (result.objId) {
         dstFile = sol.common.FileUtils.downloadDocument(result.objId, dstDirPath);
         pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstFile);
       }
-      // TODO
       me.pdfContents.push({ pdfInputStream: pdfInputStream, refPath: refPath, contentName: contentName, pdfPages: pdfPages });      
     } else {
       fopRenderer = sol.create("sol.common.as.renderer.Fop", { targetId: targetId, templateId: templateId, toStream: true });
@@ -196,11 +194,9 @@ sol.define("sol.common_document.as.Utils", {
         } else {
           contentName = sord.name;
         }
-        // TODO GetPdfPages
         if (objId) {
           pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstFile);
         }
-        // TODO
         me.pdfContents.push({ pdfInputStream: pdfInputStream, refPath: refPath, contentName: contentName, pdfPages: pdfPages });
       } 
       if (ext != "pdf") {
@@ -211,10 +207,36 @@ sol.define("sol.common_document.as.Utils", {
     }
   },
 
+  // TODO Inhaltsverzeichnis / Content erzeugen und am Anfang einhängen
+  createContent: function () {
+    var me = this,
+        templateId, fopRenderer, result, data, pdfInputStream;
+
+    templateId = me.getTemplateContents();
+    data = {};
+    data.header = { name: "Content Test" };
+    data.contents = [];
+    data.contents.push({ name: "Kapitel1", pageno: 3 });
+    data.contents.push({ name: "Kapitel2", pageno: 4 });
+    data.contents.push({ name: "Kapitel3", pageno: 5 });
+    data.contents.push({ name: "Kapitel434", pageno: 51 });
+    data.contents.push({ name: "Kapitelzuzu", pageno: 253 });
+    data.contents.push({ name: "Kapitel212112", pageno: 3335 });
+
+    fopRenderer = sol.create("sol.common.as.renderer.Fop", { templateId: templateId, toStream: true });
+    result = fopRenderer.render("Content", data);
+    pdfInputStream = me.convertOutputStreamToInputStream(result.outputStream);
+
+    return pdfInputStream;
+
+  },
+  // TODO
+
   exportFolder: function (folderId, baseDstDirPath, config) {
     var me = this,
         result, i, j, sord, dstDir, pathParts, dstDirPath, sords, dstDirPathFile, folderSord, addPathPart, partPath,
-        subDirPath, subDirPathFile, zipFile, zipDir, parentId, folderName, mergedOutputStream, pdfName, ext, pdfInputStreams;
+        subDirPath, subDirPathFile, zipFile, zipDir, parentId, folderName, mergedOutputStream, pdfName, ext, 
+        pdfInputStreams, pdfInputStream;
 
     me.config = config;
     me.pdfContents = [];
@@ -325,6 +347,13 @@ sol.define("sol.common_document.as.Utils", {
         return 0;
       });
       pdfInputStreams = [];
+
+      // TODO Inhaltsverzeichnis / Content erzeugen und am Anfang einhängen
+      pdfInputStream = me.createContent();
+      pdfInputStreams.push(pdfInputStream);
+      // TODO
+
+
       me.pdfContents.forEach(function (pdfContent) {
         pdfInputStreams.push(pdfContent.pdfInputStream);
       });
