@@ -30,9 +30,11 @@ sol.define("sol.common_document.as.functions.ExportFolder", {
   
   process: function () {
     var me = this, 
-        exportDirPath, result;
+        exportDirPath, result, tempDirBasePath, timestamp;
 
-    exportDirPath = "C:\\Temp\\Export";
+    tempDirBasePath = sol.common.FileUtils.getTempDirPath(); 
+    timestamp = sol.common.FileUtils.getTimeStampString();   
+    exportDirPath = tempDirBasePath + File.separator + "temp" + "_" + timestamp;
     result = sol.common_document.as.Utils.exportFolder(me.folderId, exportDirPath, me.config);
     sol.common.FileUtils.delete(exportDirPath, { quietly: true });
 
