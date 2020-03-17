@@ -208,20 +208,49 @@ sol.define("sol.common_document.as.Utils", {
   },
 
   // TODO Inhaltsverzeichnis / Content erzeugen und am Anfang einhängen
-  createContent: function () {
+  getOffsetSumPages: function (folderName, dstDirPath) {
     var me = this,
-        templateId, fopRenderer, result, data, pdfInputStream;
+        targetId, templateId, data, fopRenderer, result, dstFile, pdfPages;
+
+    pdfPages = 0;
+    targetId = me.getExportFolder();
+    templateId = me.getTemplateContents();
+    data = {};
+    data.header = { name: folderName };
+    data.contents = [];
+
+    me.pdfContents.forEach(function (pdfContent) {
+      data.contents.push({ name: pdfContent.contentName, pageno: pdfContent.pdfPages });
+    });
+
+    fopRenderer = sol.create("sol.common.as.renderer.Fop", { targetId: targetId, templateId: templateId });
+    result = fopRenderer.render("Content", data);
+
+    if (result.objId) {
+      dstFile = sol.common.FileUtils.downloadDocument(result.objId, dstDirPath);
+      pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstFile);
+    }
+
+    sol.common.RepoUtils.deleteSord(result.objId);
+    return pdfPages;
+  },
+
+
+
+  createContent: function (folderName, dstDirPath) {
+    var me = this,
+        templateId, fopRenderer, result, data, pdfInputStream, sumPages;
 
     templateId = me.getTemplateContents();
     data = {};
-    data.header = { name: "Content Test" };
+    data.header = { name: folderName };
     data.contents = [];
-    data.contents.push({ name: "Kapitel1", pageno: 3 });
-    data.contents.push({ name: "Kapitel2", pageno: 4 });
-    data.contents.push({ name: "Kapitel3", pageno: 5 });
-    data.contents.push({ name: "Kapitel434", pageno: 51 });
-    data.contents.push({ name: "Kapitelzuzu", pageno: 253 });
-    data.contents.push({ name: "Kapitel212112", pageno: 3335 });
+
+    sumPages = me.getOffsetSumPages(folderName, dstDirPath);
+    me.pdfContents.forEach(function (pdfContent) {
+      sumPages += pdfContent.pdfPages;
+      data.contents.push({ name: pdfContent.contentName, pageno: sumPages });
+    });
 
     fopRenderer = sol.create("sol.common.as.renderer.Fop", { templateId: templateId, toStream: true });
     result = fopRenderer.render("Content", data);
@@ -349,7 +378,7 @@ sol.define("sol.common_document.as.Utils", {
       pdfInputStreams = [];
 
       // TODO Inhaltsverzeichnis / Content erzeugen und am Anfang einhängen
-      pdfInputStream = me.createContent();
+      pdfInputStream = me.createContent(folderName, dstDirPath);
       pdfInputStreams.push(pdfInputStream);
       // TODO
 
