@@ -97,16 +97,16 @@ describe("[libas] sol.unittest.as.services.SolCommonDocumentUtils", function () 
           );
         }).not.toThrow();
       });
-      xit("createCoverSheetSord", function (done) {
+      it("createCoverSheetSord", function (done) {
         expect(function () {
-          sord = PVALUE;
-          dstDirPath = PVALUE;
-          pdfName = PVALUE;
+          sord = obSolCommonDocumentUtilsId;
+          dstDirPath = "dstDirPath1";
+          pdfName = "pdfName1";
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.unittest.as.services.ExecuteLib2",
             config: {
               className: "sol.common_document.as.Utils",
-              classConfig: {},
+              classConfig: { pdfContents: [] },
               method: "createCoverSheetSord",
               params: [sord, dstDirPath, pdfName]
             }

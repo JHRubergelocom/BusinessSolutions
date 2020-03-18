@@ -112,6 +112,21 @@ sol.define("sol.unittest.as.services.ExecuteLib2", {
               }
             }        
             break;
+          case "createCoverSheetSord":
+            me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
+            tempDirBasePath = sol.common.FileUtils.getTempDirPath(); 
+            timestamp = sol.common.FileUtils.getTimeStampString();   
+            exportDirPath = tempDirBasePath + File.separator + "temp" + "_" + timestamp;        
+            me.params[1] = exportDirPath;
+            exportDirPathFile = new File(exportDirPath);
+            if (!exportDirPathFile.exists()) {
+              try {
+                exportDirPathFile.mkdirs();
+              } catch (e) {
+                me.logger.error("error creating destination directory", e);
+              }
+            }        
+            break;
           default:
         }
         break;
@@ -153,6 +168,9 @@ sol.define("sol.unittest.as.services.ExecuteLib2", {
             sol.common.FileUtils.delete(exportDirPath, { quietly: true });
             result.close();
             result = String(result);
+            break;
+          case "createCoverSheetSord":
+            sol.common.FileUtils.delete(exportDirPath, { quietly: true });
             break;
           default:
         }
