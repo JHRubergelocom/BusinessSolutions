@@ -5,6 +5,7 @@ importPackage(Packages.de.elo.ix.client);
 importPackage(Packages.org.apache.commons.io);
 
 //@include lib_Class.js
+//@include lib_sol.common.Config.js
 //@include lib_sol.common.Map.js
 //@include lib_sol.common.Roles.js
 //@include lib_sol.common.SordProvider.js
@@ -12,6 +13,7 @@ importPackage(Packages.org.apache.commons.io);
 //@include lib_sol.common.XmlUtils.js
 //@include lib_sol.common.ZipUtils.js
 //@include lib_sol.common.ix.ServiceBase.js
+//@include lib_sol.common_document.Utils.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.ExecuteLib3" });
 
