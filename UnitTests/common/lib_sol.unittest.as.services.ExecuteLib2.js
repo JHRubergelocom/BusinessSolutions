@@ -54,7 +54,7 @@ sol.define("sol.unittest.as.services.ExecuteLib2", {
   process: function () {
     var me = this,
         result = {},
-        cls, func;
+        cls, func, tempDirBasePath, timestamp, exportDirPath, exportDirPathFile;
 
     cls = sol.create(me.className, me.classConfig);
     func = cls[me.method];
@@ -89,6 +89,32 @@ sol.define("sol.unittest.as.services.ExecuteLib2", {
           default:
         }
         break;
+      case "sol.common_document.as.Utils":
+        cls.config = sol.common_document.Utils.loadConfigExport();
+        switch (me.method) {
+          case "convertOutputStreamToInputStream":
+            me.params[0] = new ByteArrayOutputStream();
+            break;
+          case "convertToPdf":
+            me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
+            break;
+          case "createContent":
+            tempDirBasePath = sol.common.FileUtils.getTempDirPath(); 
+            timestamp = sol.common.FileUtils.getTimeStampString();   
+            exportDirPath = tempDirBasePath + File.separator + "temp" + "_" + timestamp + java.io.File.separator + me.params[0];        
+            me.params[1] = exportDirPath;
+            exportDirPathFile = new File(exportDirPath);
+            if (!exportDirPathFile.exists()) {
+              try {
+                exportDirPathFile.mkdirs();
+              } catch (e) {
+                me.logger.error("error creating destination directory", e);
+              }
+            }        
+            break;
+          default:
+        }
+        break;
       default:
     }
 
@@ -117,6 +143,20 @@ sol.define("sol.unittest.as.services.ExecuteLib2", {
           default:
         }
         break;
+      case "sol.common_document.as.Utils":
+        switch (me.method) {
+          case "convertOutputStreamToInputStream":
+            result.close();
+            result = String(result);
+            break;
+          case "createContent":
+            sol.common.FileUtils.delete(exportDirPath, { quietly: true });
+            result.close();
+            result = String(result);
+            break;
+          default:
+        }
+        break;  
       default:
     }
 

@@ -5,12 +5,17 @@ importPackage(Packages.de.elo.ix.client);
 
 /**
  *
- * @eloall
+ * @eloas
  * @requires sol.common.Config
  */
 sol.define("sol.common_document.as.Utils", {
   singleton: true,
 
+  /**
+   * Get coversheet template
+   * @param {de.elo.ix.client.Sord} sord
+   * @return {String}
+   */
   getTemplateCoverSheetSord: function (sord) {
     var me = this, 
         templateId;
@@ -24,18 +29,30 @@ sol.define("sol.common_document.as.Utils", {
     return templateId;
   },
 
+  /**
+   * Get error conversion template
+   * @return {String}
+   */
   getTemplateErrorConversionPdf: function () {
     var me = this;
 
     return me.config.errorTemplate;
   },
-  // TODO
+
+  /**
+   * Get content template
+   * @return {String}
+   */
   getTemplateContents: function () {
     var me = this;
 
     return me.config.contentsTemplate;
   },
-  // TODO
+
+  /**
+   * Get export folder in archive
+   * @return {String}
+   */
   getExportFolder: function () {
     var me = this;
 
@@ -43,7 +60,6 @@ sol.define("sol.common_document.as.Utils", {
   },
 
   /**
-   * @private
    * Converts an output stream to an input stream
    * @param {java.io.OutputStream} outputStream
    * @return {java.io.InputStream}
@@ -57,6 +73,12 @@ sol.define("sol.common_document.as.Utils", {
     return inputStream;
   },
 
+  /**
+   * Get refpath
+   * @param {de.elo.ix.client.Sord} sord
+   * @param {String} ext
+   * @return {String} refPath
+   */
   getRefPath: function (sord, ext) {
     var pathIds = [],
         refPath;
@@ -77,6 +99,14 @@ sol.define("sol.common_document.as.Utils", {
     return refPath;
   },
 
+  /**
+   * Create PDF from sord
+   * @param {de.elo.ix.client.Sord} sord
+   * @param {String} templateId
+   * @param {String} dstDirPath
+   * @param {String} ext
+   * @param {String} pdfName
+   */
   createPdfFromSord: function (sord, templateId, dstDirPath, ext, pdfName) {
     var me = this,
         targetId, data, fopRenderer, result, pdfInputStream, refPath, contentName, pdfPages, dstFile;
@@ -113,6 +143,12 @@ sol.define("sol.common_document.as.Utils", {
     }
   },
 
+  /**
+   * Create coversheet from sord
+   * @param {de.elo.ix.client.Sord} sord
+   * @param {String} dstDirPath
+   * @param {String} pdfName
+   */
   createCoverSheetSord: function (sord, dstDirPath, pdfName) {
     var me = this,
         templateId;
@@ -121,6 +157,11 @@ sol.define("sol.common_document.as.Utils", {
     me.createPdfFromSord(sord, templateId, dstDirPath, null, pdfName);
   },
 
+  /**
+   * Create error conversion pdf
+   * @param {de.elo.ix.client.Sord} sord
+   * @param {String} dstDirPath
+   */
   createErrorConversionPdf: function (sord, dstDirPath) {
     var me = this,
         templateId, ext, pdfName;
@@ -136,7 +177,6 @@ sol.define("sol.common_document.as.Utils", {
   },
 
   /**
-   * @private
    * Converts a document to a PDF.
    * @param {de.elo.ix.client.Sord} sord
    * @return {String} The objId of the converted document or '-1' if there was an error
@@ -178,6 +218,11 @@ sol.define("sol.common_document.as.Utils", {
     return objId;
   },
 
+  /**
+   * Converts a document to a PDF.
+   * @param {de.elo.ix.client.Sord} sord
+   * @param {String} dstDirPath
+   */
   createPdfDocument: function (sord, dstDirPath) {
     var me = this,
         objId, pdfInputStream, ext, refPath, contentName, pdfPages, dstFile;
@@ -207,7 +252,12 @@ sol.define("sol.common_document.as.Utils", {
     }
   },
 
-  // TODO Inhaltsverzeichnis / Content erzeugen und am Anfang einhängen
+  /**
+   * Get number of pages for content pdf.
+   * @param {String} folderName
+   * @param {String} dstDirPath
+   * @return {Number} number of pages
+   */
   getOffsetSumPages: function (folderName, dstDirPath) {
     var me = this,
         targetId, templateId, data, fopRenderer, result, dstFile, pdfPages;
@@ -235,8 +285,12 @@ sol.define("sol.common_document.as.Utils", {
     return pdfPages;
   },
 
-
-
+  /**
+   * Get inputstream of content pdf.
+   * @param {String} folderName
+   * @param {String} dstDirPath
+   * @return {java.io.InputStream}
+   */
   createContent: function (folderName, dstDirPath) {
     var me = this,
         templateId, fopRenderer, result, data, pdfInputStream, sumPages;
@@ -259,8 +313,14 @@ sol.define("sol.common_document.as.Utils", {
     return pdfInputStream;
 
   },
-  // TODO
 
+  /**
+   * export folder as pdf or zip filde.
+   * @param {String} folderId
+   * @param {String} baseDstDirPath
+   * @param {Object} config
+   * @return {Object} result
+   */
   exportFolder: function (folderId, baseDstDirPath, config) {
     var me = this,
         result, i, j, sord, dstDir, pathParts, dstDirPath, sords, dstDirPathFile, folderSord, addPathPart, partPath,
@@ -364,7 +424,7 @@ sol.define("sol.common_document.as.Utils", {
       mergedOutputStream = new ByteArrayOutputStream();
       me.pdfContents.sort(function (a, b) {
         var refPathA = a.refPath.toUpperCase(),
-            refPathB = b.refPath.toUpperCase(); // Groß-/Kleinschreibung ignorieren
+            refPathB = b.refPath.toUpperCase();
 
         if (refPathA < refPathB) {
           return -1;
@@ -372,16 +432,11 @@ sol.define("sol.common_document.as.Utils", {
         if (refPathA > refPathB) {
           return 1;
         }      
-        // Namen müssen gleich sein
         return 0;
       });
       pdfInputStreams = [];
-
-      // TODO Inhaltsverzeichnis / Content erzeugen und am Anfang einhängen
       pdfInputStream = me.createContent(folderName, dstDirPath);
       pdfInputStreams.push(pdfInputStream);
-      // TODO
-
 
       me.pdfContents.forEach(function (pdfContent) {
         pdfInputStreams.push(pdfContent.pdfInputStream);
