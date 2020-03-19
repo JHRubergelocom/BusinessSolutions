@@ -47,6 +47,24 @@ sol.define("sol.unittest.as.services.ExecuteLib2", {
     me.$super("sol.common.as.FunctionBase", "initialize", [config]);
   },
 
+  createExportDirPath: function (folderName) {
+    var me = this, 
+        tempDirBasePath, timestamp, exportDirPath, exportDirPathFile;
+
+    tempDirBasePath = sol.common.FileUtils.getTempDirPath(); 
+    timestamp = sol.common.FileUtils.getTimeStampString();   
+    exportDirPath = tempDirBasePath + File.separator + "temp" + "_" + timestamp + java.io.File.separator + folderName;        
+    exportDirPathFile = new File(exportDirPath);
+    if (!exportDirPathFile.exists()) {
+      try {
+        exportDirPathFile.mkdirs();
+      } catch (e) {
+        me.logger.error("error creating destination directory", e);
+      }
+    }
+    return exportDirPath;        
+  },
+
   /**
    * Call the method and returns the result
    * @return {String|Object} result of method
@@ -54,7 +72,7 @@ sol.define("sol.unittest.as.services.ExecuteLib2", {
   process: function () {
     var me = this,
         result = {},
-        cls, func, tempDirBasePath, timestamp, exportDirPath, exportDirPathFile;
+        cls, func, exportDirPath;
 
     cls = sol.create(me.className, me.classConfig);
     func = cls[me.method];
@@ -96,37 +114,36 @@ sol.define("sol.unittest.as.services.ExecuteLib2", {
             me.params[0] = new ByteArrayOutputStream();
             break;
           case "convertToPdf":
+          case "getRefPath":
+          case "getTemplateCoverSheetSord":
             me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
             break;
           case "createContent":
-            tempDirBasePath = sol.common.FileUtils.getTempDirPath(); 
-            timestamp = sol.common.FileUtils.getTimeStampString();   
-            exportDirPath = tempDirBasePath + File.separator + "temp" + "_" + timestamp + java.io.File.separator + me.params[0];        
-            me.params[1] = exportDirPath;
-            exportDirPathFile = new File(exportDirPath);
-            if (!exportDirPathFile.exists()) {
-              try {
-                exportDirPathFile.mkdirs();
-              } catch (e) {
-                me.logger.error("error creating destination directory", e);
-              }
-            }        
+            exportDirPath = me.createExportDirPath(me.params[0]);
+            me.params[1] = exportDirPath;            
             break;
           case "createCoverSheetSord":
+          case "createErrorConversionPdf":
+          case "createPdfDocument":
             me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
-            tempDirBasePath = sol.common.FileUtils.getTempDirPath(); 
-            timestamp = sol.common.FileUtils.getTimeStampString();   
-            exportDirPath = tempDirBasePath + File.separator + "temp" + "_" + timestamp;        
-            me.params[1] = exportDirPath;
-            exportDirPathFile = new File(exportDirPath);
-            if (!exportDirPathFile.exists()) {
-              try {
-                exportDirPathFile.mkdirs();
-              } catch (e) {
-                me.logger.error("error creating destination directory", e);
-              }
-            }        
+            exportDirPath = me.createExportDirPath("folderName1");
+            me.params[1] = exportDirPath;            
             break;
+          case "createPdfFromSord":
+            me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
+            me.params[1] = cls.getTemplateCoverSheetSord(me.params[0]);
+            exportDirPath = me.createExportDirPath("folderName1");
+            me.params[2] = exportDirPath;            
+            break; 
+          case "exportFolder":
+            exportDirPath = me.createExportDirPath("folderName1");
+            me.params[1] = exportDirPath;            
+            me.params[2] = cls.config;            
+            break;              
+          case "getOffsetSumPages":
+            exportDirPath = me.createExportDirPath("folderName1");
+            me.params[1] = exportDirPath;                        
+            break;                
           default:
         }
         break;
@@ -170,6 +187,11 @@ sol.define("sol.unittest.as.services.ExecuteLib2", {
             result = String(result);
             break;
           case "createCoverSheetSord":
+          case "createErrorConversionPdf":
+          case "createPdfDocument":
+          case "createPdfFromSord":
+          case "exportFolder":
+          case "getOffsetSumPages":    
             sol.common.FileUtils.delete(exportDirPath, { quietly: true });
             break;
           default:
