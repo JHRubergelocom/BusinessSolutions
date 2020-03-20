@@ -23,7 +23,7 @@ sol.define("sol.common_document.as.Utils", {
     templateId = me.config.defaultTemplate;
     me.config.coverSheets.forEach(function (coverSheet) {
       if (coverSheet.mask == sord.maskName) {
-        templateId = coverSheet.template;
+        templateId = me.config.coversheetBasePath + coverSheet.template;
       }
     });
     return templateId;

@@ -16,7 +16,7 @@ sol.define("sol.common_document.Utils", {
    * @return {Object}
    */
   loadConfigExport: function () {
-    return sol.create("sol.common.Config", { compose: "/common_document/Configuration/Export.config" }).config;
+    return sol.create("sol.common.Config", { compose: "/common_document/Configuration/PdfExport.config" }).config;
   },
 
 });
