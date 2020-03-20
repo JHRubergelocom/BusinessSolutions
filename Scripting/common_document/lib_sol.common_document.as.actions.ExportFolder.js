@@ -22,7 +22,7 @@ sol.define("sol.common_document.as.actions.ExportFolder", {
   initialize: function (config) {
     var me = this;
     me.$super("sol.common.as.ActionBase", "initialize", [config]);
-    sol.common.TranslateTerms.require("sol.common_document.action.ExportFolder");
+    sol.common.TranslateTerms.require("sol.common_document.action.exportFolder");
   },
   
   getName: function () {
