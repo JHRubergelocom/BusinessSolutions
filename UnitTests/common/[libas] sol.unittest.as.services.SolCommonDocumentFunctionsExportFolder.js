@@ -37,7 +37,6 @@ describe("[libas] sol.unittest.as.services.SolCommonDocumentFunctionsExportFolde
             }
             done();
           }, function error(err) {
-            fail(err);
             console.error(err);
             done();
           }
@@ -61,7 +60,6 @@ describe("[libas] sol.unittest.as.services.SolCommonDocumentFunctionsExportFolde
             }
             done();
           }, function error(err) {
-            fail(err);
             console.error(err);
             done();
           }
