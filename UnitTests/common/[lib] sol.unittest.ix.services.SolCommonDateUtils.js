@@ -3,7 +3,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonDateUtils", function () {
   var originalTimeout, date, params,
       startDate, endDate, unit, config, moment,
       mo, pattern, checkDate, isoDate,
-      dateString, number, value;
+      dateString, number, value, mom;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -109,6 +109,25 @@ describe("[lib] sol.unittest.ix.services.SolCommonDateUtils", function () {
             classConfig: {},
             method: "isBetween",
             params: [startDate, endDate, checkDate]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("isLastDayOfMonth", function (done) {
+        expect(function () {
+          mom = "20170731";
+          params = {};
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.DateUtils",
+            classConfig: {},
+            method: "isLastDayOfMonth",
+            params: [mom, params]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {

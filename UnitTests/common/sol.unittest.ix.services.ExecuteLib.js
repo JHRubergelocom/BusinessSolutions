@@ -478,6 +478,7 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
             me.params[2] = new Date(2009, 6, 13);
             break;
           case "momentToIso":
+          case "isLastDayOfMonth":
             me.params[0] = cls.isoToMoment(me.params[0]);
             break;
           case "shift":

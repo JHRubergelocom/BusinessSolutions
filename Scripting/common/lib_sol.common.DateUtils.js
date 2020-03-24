@@ -437,6 +437,27 @@ sol.define("sol.common.DateUtils", {
     isoDate = sol.common.DateUtils.momentToIso(mo, config);
 
     return isoDate;
+  },
+
+  /**
+   * Checks wether the given moment represents the last day of the month
+   * @param {Moment} mom Moment
+   * @param {Object} params Parameters
+   * @param {Number} [config.toleranceDays==0] Tolerance days
+   */
+  isLastDayOfMonth: function (mom, params) {
+    if (!mom) {
+      return false;
+    }
+
+    params = params || {};
+    params.toleranceDays = params.toleranceDays || 0;
+
+    if ((mom.get("date") + params.toleranceDays) >= mom.daysInMonth()) {
+      return true;
+    }
+
+    return false;
   }
 });
 
