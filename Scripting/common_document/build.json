@@ -1,0 +1,8 @@
+{
+  "setupName": "sol.common_document",
+  "fileNamePrefix": "custom",
+  "gitPackagePath": "C:/Git/solutions/common.git/Business Solutions Custom/common_document",
+  "preserveAclUserNames": [
+    "Solutions"
+  ]
+}
