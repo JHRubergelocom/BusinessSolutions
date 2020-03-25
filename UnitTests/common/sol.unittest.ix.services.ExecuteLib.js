@@ -323,6 +323,12 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
         if (cls.hasNextRow()) {
           cls.nextRow();
         }
+        switch (me.method) {
+          case "initialize":
+            me.params[0].map = sordMap;
+            break;
+          default:
+        }
         break;
       case "sol.common.SordMap":
         cls.read();

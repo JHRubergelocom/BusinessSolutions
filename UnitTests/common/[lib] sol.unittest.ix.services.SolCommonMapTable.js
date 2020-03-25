@@ -47,6 +47,24 @@ describe("[lib] sol.unittest.ix.services.SolCommonMapTable", function () {
   });
   describe("Test Lib Functions", function () {
     describe("sol.common.MapTable", function () {
+      it("initialize", function (done) {
+        expect(function () {
+          config = classConfig;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.MapTable",
+            classConfig: classConfig,
+            method: "initialize",
+            params: [config]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("appendRow", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
