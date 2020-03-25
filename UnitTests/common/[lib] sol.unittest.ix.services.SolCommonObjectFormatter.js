@@ -816,6 +816,24 @@ describe("[lib] sol.unittest.ix.services.solcommonObjectFormatter", function () 
           );
         }).not.toThrow();
       });
+      it("initialize", function (done) {
+        expect(function () {
+          params = {};
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.ObjectFormatter.TemplateTask",
+            classConfig: {},
+            method: "initialize",
+            params: [params]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("format", function (done) {
         expect(function () {
           config = {
@@ -902,6 +920,24 @@ describe("[lib] sol.unittest.ix.services.solcommonObjectFormatter", function () 
           );
         }).not.toThrow();
       });
+      it("initialize", function (done) {
+        expect(function () {
+          params = { data: wfDiagram, config: { nodeId: nodeId } };
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.ObjectFormatter.BaseWfDiagramNode",
+            classConfig: { data: wfDiagram, config: { nodeId: nodeId } },
+            method: "initialize",
+            params: [params]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("build", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
@@ -972,6 +1008,24 @@ describe("[lib] sol.unittest.ix.services.solcommonObjectFormatter", function () 
         expect(function () {
           test.Utils.findFirstActiveNode(ObjectFormatterSord.id, flowId).then(function success1(firstActiveNode) {
             nodeId = firstActiveNode.nodeId;
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("initialize", function (done) {
+        expect(function () {
+          params = { data: wfDiagram, config: { nodeId: nodeId } };
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.ObjectFormatter.TemplateWfDiagramNode",
+            classConfig: { data: wfDiagram, config: { nodeId: nodeId } },
+            method: "initialize",
+            params: [params]
+          }).then(function success(jsonResult) {
             done();
           }, function error(err) {
             fail(err);
