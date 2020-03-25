@@ -88,15 +88,19 @@ sol.define("sol.common.Map", {
    */
   write: function () {
     var me = this,
-        mapValues = [],
-        ixConn = (me.asAdmin === true) ? ixConnectAdmin : ixConnect,
-        key;
+        i = 0,
+        mapValues = [], entry, key, ixConn;
+
+    ixConn = (me.asAdmin === true) ? ixConnectAdmin : ixConnect;
 
     me.logger.enter("write", arguments);
 
     for (key in me.newEntries) {
       if (me.newEntries.hasOwnProperty(key)) {
-        mapValues.push(me.newEntries[key]);
+        entry = me.newEntries[key];
+        i++;
+        me.logger.debug("Write entry " + i + ": " + entry.key + "=" + entry.value);
+        mapValues.push(entry);
       }
     }
 
@@ -135,6 +139,7 @@ sol.define("sol.common.Map", {
     items = ixConn.ix().checkoutMap(me.mapDomain, me.mapId, keynames, LockC.NO).items;
     for (i = 0; i < items.length; i++) {
       entry = items[i];
+      me.logger.debug("Read entry " + i + ": " + entry.key + "=" + entry.value);
       me.data[entry.key] = entry.value;
       result[entry.key] = entry.value;
     }

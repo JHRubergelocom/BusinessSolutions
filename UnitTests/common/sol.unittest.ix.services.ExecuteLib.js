@@ -309,6 +309,16 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
         cls = sol.create("sol.common.Locale", { ec: me.ec });
         cls.read();
         break;
+      case "sol.unittest.Map":
+        cls.read();
+        switch (me.method) {
+          case "forEachRow":
+            me.params.push(function () {});
+            me.params.push(me);
+            break;
+          default:
+        }
+        break;
       case "sol.common.MapTable":
         if (cls.hasNextRow()) {
           cls.nextRow();
@@ -678,4 +688,25 @@ sol.define("sol.unittest.ObjectFormatter", {
     return {};
   }
 });
+
+sol.define("sol.unittest.Map", {
+
+  extend: "sol.common.Map",
+
+  initialize: function (config) {
+    var me = this;
+    if (!config.objId) {
+      throw "Object ID is empty";
+    }
+    me.mapId = config.objId;
+    me.objId = config.objId;
+    if (config.asAdmin) {
+      me.asAdmin = config.asAdmin;
+    }
+    me.mapDomain = MapDomainC.DOMAIN_SORD;
+    me.$super("sol.common.Map", "initialize", [config]);
+  }
+
+});
+
 
