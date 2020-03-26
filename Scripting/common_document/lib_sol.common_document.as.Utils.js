@@ -138,6 +138,9 @@ sol.define("sol.common_document.as.Utils", {
       result = fopRenderer.render(pdfName, data);
     }
     if (result.objId) {
+      if (me.config.pdfA == true) {
+        result.objId = me.convertPDFtoPDFA(result.objId, dstDirPath);
+      }
       sol.common.FileUtils.downloadDocument(result.objId, dstDirPath);
       sol.common.RepoUtils.deleteSord(result.objId);
     }
@@ -229,6 +232,9 @@ sol.define("sol.common_document.as.Utils", {
         
     objId = me.convertToPdf(sord);
     if (objId !== "-1") {
+      if (me.config.pdfA == true) {
+        objId = me.convertPDFtoPDFA(objId, dstDirPath);
+      }
       ext = (sord && sord.docVersion && sord.docVersion.ext) ? sord.docVersion.ext : null;
       dstFile = sol.common.FileUtils.downloadDocument(objId, dstDirPath);
       if (me.config.pdfExport === true) {
@@ -312,6 +318,35 @@ sol.define("sol.common_document.as.Utils", {
 
     return pdfInputStream;
 
+  },
+
+  /**
+   * converts a PDF to the PDF/A standard.
+   * @param {String} objId
+   * @param {String} dstDirPath
+   * @param {Object} config
+   * @return {String} objId of PDF/A
+   */
+  convertPDFtoPDFA: function (objId, dstDirPath) {
+    var doc, dstPdfPath, dstPdfFile, dstPdfAPath, dstPdfAFile, sord, parentId;
+
+    sord = ixConnect.ix().checkoutSord(objId, new SordZ(SordC.mbAll), LockC.NO);
+    parentId = sord.parentId;
+
+    dstPdfFile = sol.common.FileUtils.downloadDocument(objId, dstDirPath);
+    dstPdfPath = dstPdfFile.getPath();
+    dstPdfAPath = dstPdfPath + "_";
+    doc = new Packages.com.aspose.pdf.Document(dstPdfPath);
+    doc.convert("file.log", Packages.com.aspose.pdf.PdfFormat.PDF_A_1B, Packages.com.aspose.pdf.ConvertErrorAction.Delete);
+    doc.save(dstPdfAPath);
+    dstPdfAFile = new File(dstPdfAPath);
+    dstPdfFile.delete();
+
+    dstPdfAFile.renameTo(dstPdfFile);
+
+    sol.common.RepoUtils.deleteSord(objId);
+    objId = sol.common.RepoUtils.saveToRepo({ name: sord.name, file: dstPdfFile, parentId: parentId });
+    return objId;
   },
 
   /**
@@ -445,6 +480,9 @@ sol.define("sol.common_document.as.Utils", {
       sol.common.as.PdfUtils.mergePdfStreams(pdfInputStreams, mergedOutputStream);
       parentId = me.getExportFolder();
       result.objId = sol.common.RepoUtils.saveToRepo({ parentId: parentId, name: folderName, outputStream: mergedOutputStream, extension: "pdf" });
+      if (me.config.pdfA == true) {
+        result.objId = me.convertPDFtoPDFA(result.objId, dstDirPath);
+      }
     } else {
       zipFile = new File(baseDstDirPath + ".zip");
       zipDir = new File(baseDstDirPath);
