@@ -12,7 +12,7 @@ sol.define("sol.common_document.Utils", {
   singleton: true,
 
   /**
-   * Loads the export configuration from the JSON file: `/Administration/Business Solutions/common_document/Configuration/Export.config`
+   * Loads the export configuration from the JSON file: `/Administration/Business Solutions/common_document/Configuration/PdfExport.config`
    * @return {Object}
    */
   loadConfigExport: function () {

@@ -387,7 +387,7 @@ sol.define("sol.common_document.as.Utils", {
    * @param {Object} config
    * @return {Object} result of folder export
    */
-  exportFolder: function (folderId, baseDstDirPath, config) {
+  pdfExport: function (folderId, baseDstDirPath, config) {
     var me = this,
         result, i, j, sord, dstDir, pathParts, dstDirPath, sords, dstDirPathFile, folderSord, addPathPart, partPath,
         subDirPath, subDirPathFile, zipFile, zipDir, parentId, folderName, mergedOutputStream, pdfName, ext, 

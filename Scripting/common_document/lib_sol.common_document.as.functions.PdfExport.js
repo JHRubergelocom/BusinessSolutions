@@ -16,7 +16,7 @@
  * @requires sol.common_document.Utils
  * @requires sol.common_document.as.Utils
  */
-sol.define("sol.common_document.as.functions.ExportFolder", {
+sol.define("sol.common_document.as.functions.PdfExport", {
   extend: "sol.common.as.FunctionBase",
   
   requiredConfig: ["folderId"],
@@ -25,7 +25,7 @@ sol.define("sol.common_document.as.functions.ExportFolder", {
     var me = this;
     me.$super("sol.common.as.FunctionBase", "initialize", [config]);
     me.config = sol.common_document.Utils.loadConfigExport();
-    sol.common.TranslateTerms.require("sol.common_document.action.exportFolder");
+    sol.common.TranslateTerms.require("sol.common_document.action.pdfExport");
   },
   
   process: function () {
@@ -35,7 +35,7 @@ sol.define("sol.common_document.as.functions.ExportFolder", {
     tempDirBasePath = sol.common.FileUtils.getTempDirPath(); 
     timestamp = sol.common.FileUtils.getTimeStampString();   
     exportDirPath = tempDirBasePath + File.separator + "temp" + "_" + timestamp;
-    result = sol.common_document.as.Utils.exportFolder(me.folderId, exportDirPath, me.config);
+    result = sol.common_document.as.Utils.pdfExport(me.folderId, exportDirPath, me.config);
     sol.common.FileUtils.delete(exportDirPath, { quietly: true });
 
     if (result.objId) {

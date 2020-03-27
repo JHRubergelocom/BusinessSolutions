@@ -1,6 +1,6 @@
 ﻿<ruleset>
   <base>
-    <name>sol.common_document.as.functions.ExportFolder</name>
+    <name>sol.common_document.as.functions.PdfExport</name>
     <search>
       <name>"DIRECT"</name>
       <value>"1"</value>
@@ -33,7 +33,7 @@
       <name>lib_sol.common.as.Utils</name>
       <name>lib_sol.common_document.Utils</name>
       <name>lib_sol.common_document.as.Utils</name>
-      <name>lib_sol.common_document.as.functions.ExportFolder</name>
+      <name>lib_sol.common_document.as.functions.PdfExport</name>
     </includes>
   </base>
 <rule>
@@ -44,8 +44,8 @@
 
     var params = JSON.parse(EM_PARAM2);
     params.user = EM_USERID;
-    var exportFolder = sol.create("sol.common_document.as.functions.ExportFolder", params);
-    exportFolder.process();
+    var pdfExport = sol.create("sol.common_document.as.functions.PdfExport", params);
+    pdfExport.process();
     
     sol.common.as.Utils.cleanupUserSession(this);
   </script>

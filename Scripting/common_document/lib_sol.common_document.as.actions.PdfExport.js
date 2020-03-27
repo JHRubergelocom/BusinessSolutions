@@ -14,7 +14,7 @@
  * @requires sol.common_document.Utils
  * @requires sol.common_document.as.Utils
  */
-sol.define("sol.common_document.as.actions.ExportFolder", {
+sol.define("sol.common_document.as.actions.PdfExport", {
   extend: "sol.common.as.ActionBase",
   
   requiredConfig: ["folderId"],
@@ -22,11 +22,11 @@ sol.define("sol.common_document.as.actions.ExportFolder", {
   initialize: function (config) {
     var me = this;
     me.$super("sol.common.as.ActionBase", "initialize", [config]);
-    sol.common.TranslateTerms.require("sol.common_document.action.exportFolder");
+    sol.common.TranslateTerms.require("sol.common_document.action.pdfExport");
   },
   
   getName: function () {
-    return "ExportFolder";
+    return "PdfExport";
   },
 
   process: function () {
@@ -44,7 +44,7 @@ sol.define("sol.common_document.as.actions.ExportFolder", {
     };
 
     sol.common.AsUtils.callAs({
-      ruleName: "sol.common_document.as.functions.ExportFolder",
+      ruleName: "sol.common_document.as.functions.PdfExport",
       cmd: "run",
       expectJsonResponse: false,
       addTicket: true,
@@ -52,7 +52,7 @@ sol.define("sol.common_document.as.actions.ExportFolder", {
       param3Obj: param3
     });
 
-    me.addInfoEvent("sol.common_document.action.exportFolder.msg", language);
+    me.addInfoEvent("sol.common_document.action.pdfExport.msg", language);
   }
   
 });
