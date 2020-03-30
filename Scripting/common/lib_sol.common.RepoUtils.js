@@ -494,7 +494,7 @@ sol.define("sol.common.RepoUtils", {
     var me = this,
         bytes;
     me.logger.enter("downloadToBase64String", arguments);
-    bytes = me.downloadTo(objId, docId);
+    bytes = me.downloadToByteArray(objId, docId);
     me.logger.exit("downloadToBase64String");
     return String(Packages.org.apache.commons.codec.binary.Base64.encodeBase64String(bytes));
   },

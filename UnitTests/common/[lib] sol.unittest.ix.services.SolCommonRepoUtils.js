@@ -708,6 +708,24 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           );
         }).not.toThrow();
       });
+      it("getFirstChild", function (done) {
+        expect(function () {
+          config = { parentId: 2 };
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.RepoUtils",
+            classConfig: {},
+            method: "getFirstChild",
+            params: [config]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("getGuid", function (done) {
         expect(function () {
           objId = RepoUtilsSord.id;
