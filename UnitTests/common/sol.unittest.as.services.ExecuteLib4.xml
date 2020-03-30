@@ -31,7 +31,7 @@
       <name>lib_sol.common.as.Utils</name>
       <name>lib_sol.common_document.Utils</name>
       <name>lib_sol.common_document.as.Utils</name>      
-      <name>lib_sol.common_document.as.functions.ExportFolder</name>
+      <name>lib_sol.common_document.as.functions.PdfExport</name>
       <name>lib_sol.unittest.as.services.ExecuteLib4</name>
     </includes>
     <onstart>EM_SYS_SELECTOR = SordC.mbAll;</onstart>

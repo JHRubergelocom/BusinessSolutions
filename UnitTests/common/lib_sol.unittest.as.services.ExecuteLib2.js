@@ -108,41 +108,65 @@ sol.define("sol.unittest.as.services.ExecuteLib2", {
         }
         break;
       case "sol.common_document.as.Utils":
-        cls.config = sol.common_document.Utils.loadConfigExport();
+        config = sol.common_document.Utils.loadConfigExport();
         switch (me.method) {
           case "convertOutputStreamToInputStream":
             me.params[0] = new ByteArrayOutputStream();
             break;
+          case "convertPDFtoPDFA":
+            exportDirPath = me.createExportDirPath("folderName1");
+            me.params[1] = exportDirPath;            
+            break;  
           case "convertToPdf":
           case "getRefPath":
+            me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
+            break;
           case "getTemplateCoverSheetSord":
             me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
+            me.params[1] = config;           
             break;
           case "createContent":
             exportDirPath = me.createExportDirPath(me.params[0]);
-            me.params[1] = exportDirPath;            
+            me.params[1] = exportDirPath;
+            me.params[2] = config;           
             break;
           case "createCoverSheetSord":
+            me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
+            exportDirPath = me.createExportDirPath("folderName1");
+            me.params[1] = exportDirPath;            
+            me.params[3] = config; 
+            break;
           case "createErrorConversionPdf":
           case "createPdfDocument":
             me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
             exportDirPath = me.createExportDirPath("folderName1");
             me.params[1] = exportDirPath;            
+            me.params[2] = config; 
             break;
           case "createPdfFromSord":
             me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
-            me.params[1] = cls.getTemplateCoverSheetSord(me.params[0]);
+            me.params[1] = cls.getTemplateCoverSheetSord(me.params[0], config);
             exportDirPath = me.createExportDirPath("folderName1");
-            me.params[2] = exportDirPath;            
+            me.params[2] = exportDirPath;   
+            me.params[5] = config; 
             break; 
           case "exportFolder":
             exportDirPath = me.createExportDirPath("folderName1");
             me.params[1] = exportDirPath;            
-            me.params[2] = cls.config;            
-            break;              
+            me.params[2] = config;            
+            break;  
+          case "getExportFolder":
+          case "getTemplateContents":
+          case "getTemplateErrorConversionPdf":
+            me.params[0] = config;            
+            break;            
           case "getOffsetSumPages":
             exportDirPath = me.createExportDirPath("folderName1");
-            me.params[1] = exportDirPath;                        
+            me.params[1] = exportDirPath;    
+            me.params[2] = config;            
+            break;
+          case "pdfExport":
+            me.params[2] = config;            
             break;                
           default:
         }
@@ -184,6 +208,10 @@ sol.define("sol.unittest.as.services.ExecuteLib2", {
           case "createContent":
             sol.common.FileUtils.delete(exportDirPath, { quietly: true });
             result.close();
+            result = String(result);
+            break;
+          case "convertPDFtoPDFA":
+            sol.common.FileUtils.delete(exportDirPath, { quietly: true });
             result = String(result);
             break;
           case "createCoverSheetSord":
