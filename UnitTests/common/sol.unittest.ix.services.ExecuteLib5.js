@@ -5,13 +5,11 @@ importPackage(Packages.de.elo.ix.client);
 importPackage(Packages.org.apache.commons.io);
 
 //@include lib_Class.js
-//@include lib_sol.common.Config.js
-//@include lib_sol.common.Map.js
-//@include lib_sol.common.Roles.js
 //@include lib_sol.common.ix.ServiceBase.js
-//@include lib_sol.common_document.Utils.js
+//@include lib_sol.common.XmlUtils.js
+//@include lib_sol.common.ZipUtils.js
 
-var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.ExecuteLib3" });
+var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.ExecuteLib5" });
 
 /**
  * Unittests of Methods in className.
@@ -19,7 +17,7 @@ var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.Execute
  * Examples
  *
  *
- *     sol.common.IxUtils.execute('RF_sol_unittest_service_ExecuteLib3', {
+ *     sol.common.IxUtils.execute('RF_sol_unittest_service_ExecuteLib5', {
  *       className: 'sol.unittest.ix.ActionBase',
  *       classConfig: {}
  *       method: 'getName',
@@ -32,7 +30,7 @@ var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.Execute
  * @version 1.0
  *
  */
-sol.define("sol.unittest.ix.services.ExecuteLib3", {
+sol.define("sol.unittest.ix.services.ExecuteLib5", {
   extend: "sol.common.ix.ServiceBase",
 
   requiredConfig: ["className", "classConfig", "method", "params"],
@@ -65,7 +63,7 @@ sol.define("sol.unittest.ix.services.ExecuteLib3", {
   process: function () {
     var me = this,
         result = {},
-        cls, func;
+        cls, func, dir;
 
     me.classConfig.ec = me.ec;
 
@@ -73,16 +71,24 @@ sol.define("sol.unittest.ix.services.ExecuteLib3", {
     func = cls[me.method];
 
     switch (me.className) {
-      case "sol.common.Roles":
+      case "sol.common.XmlBuilder":
+      case "sol.common.XmlUtils":
+        return result;
+      case "sol.common.ZipUtils":
         switch (me.method) {
-          case "EQUALS":
-          case "GT":
-          case "GE":
-          case "LT":
-          case "LE":
-          case "STARTSWITH":
-            func = cls.fct[me.method];
+          case "compressFolder":
+            dir = new File(me.params[0]);
+            if (dir.exists()) {
+              dir.delete();
+            }
+            dir.mkdir();
+            me.params[0] = dir;
             break;
+          case "readFileInZipToByteArray":
+          case "readFileInZipToString":
+          case "unzip":
+          case "zipFolder":
+            return result;
           default:
         }
         break;
@@ -100,20 +106,20 @@ sol.define("sol.unittest.ix.services.ExecuteLib3", {
 });
 
 /**
- * @member sol.unittest.ix.services.ExecuteLib3
- * @method RF_sol_unittest_service_ExecuteLib3
+ * @member sol.unittest.ix.services.ExecuteLib5
+ * @method RF_sol_unittest_service_ExecuteLib5
  * @static
  * @inheritdoc sol.unittest.ix.ServiceBase#RF_ServiceBaseName
  */
-function RF_sol_unittest_service_ExecuteLib3(ec, args) {
+function RF_sol_unittest_service_ExecuteLib5(ec, args) {
   var params, service, result;
-  logger.enter("RF_sol_unittest_service_ExecuteLib3", args);
+  logger.enter("RF_sol_unittest_service_ExecuteLib5", args);
 
   params = sol.common.ix.RfUtils.parseAndCheckParams(ec, arguments.callee.name, args, "className", "classConfig", "method", "params");
   params.ec = ec;
-  service = sol.create("sol.unittest.ix.services.ExecuteLib3", params);
+  service = sol.create("sol.unittest.ix.services.ExecuteLib5", params);
   result = service.process();
-  logger.exit("RF_sol_unittest_service_ExecuteLib3", result);
+  logger.exit("RF_sol_unittest_service_ExecuteLib5", result);
   return sol.common.JsonUtils.stringifyAll(result);
 }
 

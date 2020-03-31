@@ -26,7 +26,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonXmlBuilder", function () {
           tagName = "tagName1";
           content = null;
           attribObj = null;
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib5", {
             className: "sol.common.XmlBuilder",
             classConfig: {},
             method: "addElement",
@@ -45,7 +45,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonXmlBuilder", function () {
         expect(function () {
           data = { tag: "tag1" };
           dataDefintion = {};
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib5", {
             className: "sol.common.XmlBuilder",
             classConfig: {},
             method: "buildFromJson",
@@ -64,7 +64,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonXmlBuilder", function () {
         expect(function () {
           rootTagName = "rootTagName1";
           attribObj = {};
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib5", {
             className: "sol.common.XmlBuilder",
             classConfig: {},
             method: "createXml",
@@ -82,7 +82,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonXmlBuilder", function () {
       it("getFirstPropName", function (done) {
         expect(function () {
           obj = { tag: "tag1" };
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib5", {
             className: "sol.common.XmlBuilder",
             classConfig: {},
             method: "getFirstPropName",
@@ -100,7 +100,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonXmlBuilder", function () {
       it("getNamespaceUri", function (done) {
         expect(function () {
           node = null;
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib5", {
             className: "sol.common.XmlBuilder",
             classConfig: {},
             method: "getNamespaceUri",
@@ -117,7 +117,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonXmlBuilder", function () {
       });
       it("getXmlDoc", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib5", {
             className: "sol.common.XmlBuilder",
             classConfig: {},
             method: "getXmlDoc",
@@ -135,7 +135,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonXmlBuilder", function () {
       it("initialize", function (done) {
         expect(function () {
           config = {};
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib5", {
             className: "sol.common.XmlBuilder",
             classConfig: {},
             method: "initialize",
@@ -154,7 +154,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonXmlBuilder", function () {
         expect(function () {
           obj = { tag: "tag1" };
           parentElement = "xmlDoc";
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib5", {
             className: "sol.common.XmlBuilder",
             classConfig: {},
             method: "processObj",
@@ -171,7 +171,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonXmlBuilder", function () {
       });
       it("toString", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib3", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib5", {
             className: "sol.common.XmlBuilder",
             classConfig: {},
             method: "toString",
