@@ -135,6 +135,25 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
+      it("createStringMapBlob", function (done) {
+        expect(function () {
+          key = "key1";
+          value = "value1";
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordUtils",
+            classConfig: {},
+            method: "createStringMapBlob",
+            params: [key, value]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("decObjKeyValue", function (done) {
         expect(function () {
           sord = SordUtilsSord;

@@ -737,7 +737,7 @@ sol.define("sol.common.SordUtils", {
 
     me.logger.enter("getDocMask", { name: name, language: language });
 
-    if (!name) {
+    if (!name && (name !== 0)) { // Issue BS-799: second check is for the special case if some of our scripts call this function with an integer (which can be zero)
       throw "Document mask name is empty";
     }
 
@@ -1135,13 +1135,14 @@ sol.define("sol.common.SordUtils", {
    * @param {String} params.dstMask (optional) Destination mask
    * @param {de.elo.ix.client.Sord} params.dstParentId (optional) Destination parent ID. Hint: parameter is mandatory if no `dstSord` is configured
    * @param {String[]} [params.memberNames=["name"]] (optional) Member names to copy
+   * @param {String[]} params.detailMemberNames (optional) Detail member names to copy, e.g. `sortOrder`
    * @param {String[]} params.objKeyNames (optional) Object key names to copy
    * @param {Boolean} [params.inheritDestinationAcl=false] (optional) If `true` (and the target is a sord) the ACL of the target will be inherited to the cloned sord. Hint: to copy the ACL of the source sord use member `aclItems` (but `inheritDestinationAcl` has priority).
    * @return {de.elo.ix.client.Sord} Sord
    */
   cloneSord: function (srcSord, params) {
     var me = this,
-        dstSord, dstMask, memberName, now, i, parentSord, objKey, objKeyName, values, conn;
+        dstSord, dstMask, memberName, detailMemberName, now, i, parentSord, objKey, objKeyName, values, conn;
 
     if (!srcSord) {
       throw "Source Sord is emtpy";
@@ -1149,6 +1150,7 @@ sol.define("sol.common.SordUtils", {
 
     params = params || {};
     params.memberNames = params.memberNames || ["name"];
+
     conn = params.conn || ixConnect;
 
     if (params.dstSord) {
@@ -1168,6 +1170,13 @@ sol.define("sol.common.SordUtils", {
     for (i = 0; i < params.memberNames.length; i++) {
       memberName = params.memberNames[i];
       dstSord[memberName] = srcSord[memberName];
+    }
+
+    if (params.detailMemberNames) {
+      for (i = 0; i < params.detailMemberNames.length; i++) {
+        detailMemberName = params.detailMemberNames[i];
+        dstSord.details[detailMemberName] = srcSord.details[detailMemberName];
+      }
     }
 
     if (params.dstParentId) {
