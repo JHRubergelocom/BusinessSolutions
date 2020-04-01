@@ -769,7 +769,7 @@ sol.define("sol.common.WfUtils", {
 
     try {
       config = JSON.parse(configString);
-      config = sol.common.ConfigMixin.parseConfiguration(config).config;
+      config = sol.common.ConfigMixin.parseConfiguration(config, undefined, true).config;
     } catch (ex) {
       me.logger.error(["error reading node config of node '{0}': {1}", node.name, configString], ex);
       throw "configuration syntax error (node='" + node.name + "'): " + ex + " - config=" + configString;
@@ -1121,14 +1121,15 @@ sol.define("sol.common.WfUtils", {
   /**
    * Sets node escalations
    * @param {de.elo.ix.client.WFNode} node The node to be changed
-   * @param {Array} nodeEscalations Node escalations
-   * @param {Object} nodeEscalations[].user Node escalation user
-   * @param {String} nodeEscalations[].user.value Node escalation user name
-   * @param {Number} nodeEscalations[].timeLimitMinutes Node escalation minutes
+   * @param {Object[]} nodeEscalations Node escalations
+   * @param {Object} nodeEscalations.user Node escalation user
+   * @param {String} nodeEscalations.user.value Node escalation user name
+   * @param {Number} nodeEscalations.timeLimitMinutes Node escalation minutes
    * Example:
    *     [
    *       { "timeLimitMinutes": 1, "user": { "value": "User1" } }
    *     ]
+   *
    * @param {String} defaultUserName Default user name
    *
    */
@@ -1185,6 +1186,7 @@ sol.define("sol.common.WfUtils", {
    * @param {Boolean} override (optional) If `true`, an existing comment will be overridden
    */
   appendNodeComment: function (node, comment, override) {
+    comment = comment || "";
     if (override) {
       node.comment = comment;
       return;
