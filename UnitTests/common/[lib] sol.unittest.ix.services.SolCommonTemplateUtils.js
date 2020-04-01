@@ -1,7 +1,7 @@
 
 describe("[lib] sol.unittest.ix.services.TemplateUtils", function () {
   var templateSord, originalTimeout,
-      tpl, tplData, options;
+      tpl, tplData, options, source;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -27,6 +27,43 @@ describe("[lib] sol.unittest.ix.services.TemplateUtils", function () {
   });
   describe("Test Lib Functions", function () {
     describe("sol.common.TemplateUtils", function () {
+      it("compileUsingCache", function (done) {
+        expect(function () {
+          source = "Hello {{name}}.";
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.TemplateUtils",
+            classConfig: {},
+            method: "compileUsingCache",
+            params: [source]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("compileWithRetries", function (done) {
+        expect(function () {
+          source = "Hello {{name}}.";
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.TemplateUtils",
+            classConfig: {},
+            method: "compileWithRetries",
+            params: [source]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+
       it("render", function (done) {
         expect(function () {
           tpl = "{{formatDate 'DD.MM.YYYY HH:mm:ss' 20001015120030}}";
