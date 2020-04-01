@@ -190,9 +190,18 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
             me.params.push(function (config) {
               return "hello " + arguments[0];
             });
+            break;
           default:
         }
         break;
+      case "sol.common.TemplateRegexUtils":
+        switch (me.method) {
+          case "extract":
+            me.params[1] = new RegExp(me.params[1]);
+            break;
+          default:
+        }
+        break;  
       case "sol.common.FileUtils":
         switch (me.method) {
           case "copyFile":

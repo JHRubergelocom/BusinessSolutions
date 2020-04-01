@@ -4,6 +4,7 @@
 //@include lib_handlebars.js
 //@include lib_moment.js
 /* eslint-enable */
+//@include lib_sol.common.Cache.js
 //@include lib_sol.common.StringUtils.js
 //@include lib_sol.common.ObjectUtils.js
 //@include lib_sol.common.SordUtils.js
@@ -199,7 +200,7 @@ importPackage(Packages.de.elo.ix.client);
  *
  * ## Block helper 'ifKey'
  *
- *    {{#ifKey ../objKeys.INVOICE_TYPE 'CN'}} ... {{/ifKey}}
+ *     {{#ifKey ../objKeys.INVOICE_TYPE 'CN'}} ... {{/ifKey}}
  *
  * ## Current user
  *
@@ -213,6 +214,7 @@ importPackage(Packages.de.elo.ix.client);
  *     {{currentUser 'id'}}
  *     {{currentUser 'guid'}}
  *     {{currentUser 'desc'}}
+ *     {{currentUser 'email'}}
  *
  * By default or if properties are passed that are not mentioned above the users name ist returned.
  *
@@ -236,19 +238,19 @@ importPackage(Packages.de.elo.ix.client);
  *
  * Returns a number with a dot as decimal separator
  *
- *    {{number sord.mapKeys.INVI_TOTAL_NET_PRICE1}}
+ *     {{number sord.mapKeys.INVI_TOTAL_NET_PRICE1}}
  *
  * ## Abs
  *
  * Returns a number without sign
  *
- *    {{{abs INVI_GROSS_AMOUNT decimalSeparator=','}}}
+ *     {{{abs INVI_GROSS_AMOUNT decimalSeparator=','}}}
  *
  * ## Helper 'debitCreditIndicator':
  *
  * Returns an indicator that shows if an amount is negative
  *
- *    {{debitCreditIndicator INVI_GROSS_AMOUNT 'S' 'H'}}
+ *     {{debitCreditIndicator INVI_GROSS_AMOUNT 'S' 'H'}}
  *
  * ## External link
  *
@@ -258,10 +260,10 @@ importPackage(Packages.de.elo.ix.client);
  *
  * ## Sum map field values
  *
- *    Iterates over an object with map keys which ends with an index number.
- *    The values of the specified field are summed.
+ * Iterates over an object with map keys which ends with an index number.
+ * The values of the specified field are summed.
  *
- *    {{mapFieldSum sord.mapKeys field='INVI_POS_DATA' decimals=2 onlyIfEmpty='INVI_POS_OPT' onlyIfNotEmpty='INVI_POS_NR'}}
+ *     {{mapFieldSum sord.mapKeys field='INVI_POS_DATA' decimals=2 onlyIfEmpty='INVI_POS_OPT' onlyIfNotEmpty='INVI_POS_NR'}}
  *
  *     // example map data
  *     INVI_POS_NR1 = "01"
@@ -281,19 +283,34 @@ importPackage(Packages.de.elo.ix.client);
  *
  * ## Block helper 'minDate'
  *
- *    Iterates over an array and determinates the minimum date.
+ * Iterates over an array and determinates the minimum date.
  *
- *    {{#minDate sords format='DD.MM.YYYY'}}{{objKeys.INVOICE_DATE}}{{/minDate}}
+ *     {{#minDate sords format='DD.MM.YYYY'}}{{objKeys.INVOICE_DATE}}{{/minDate}}
  *
  *
  * ## Block helper 'maxDate'
  *
- *    Iterates over an array and determinates the minimum date.
+ * Iterates over an array and determinates the minimum date.
  *
- *    {{#maxDate sords format='DD.MM.YYYY'}}{{objKeys.INVOICE_DATE}}{{/maxDate}}
+ *     {{#maxDate sords format='DD.MM.YYYY'}}{{objKeys.INVOICE_DATE}}{{/maxDate}}
+ *
+ *
+ *  ## Helper `kwl:key`
+ *
+ *  Returns the key of a localized keyword list entry
+ *
+ *     {{kwl:key sord.objKeys.INVOICE_TYPE}}
+ *
+ *
+ *   ## Helper `kwl:value`
+ *
+ *   Returns the localized text of a localized keyword list entry
+ *
+ *      {{kwl:value sord.objKeys.INVOICE_TYPE}}
  *
  *
  * ## Custom
+ *
  * This helper lets you use your previously by {@link #registerCustomHelper} registered functions.
  * This only works in ELO modules which support the 'globalScope' (currently only JavaClient and IndexServer).
  *
@@ -341,13 +358,15 @@ importPackage(Packages.de.elo.ix.client);
  *     var tpl = sol.create("sol.common.Template", { source: "{{custom 'hello' name=name}}" });
  *     var str = tpl.apply({ name: "hans" });
  *
- * @author MW, ELO Digital Office GmbH
+ *
+ * @author ELO Digital Office GmbH
  * @version 1.03.000
  *
  * @eloix
  * @eloas
  * @elojc
  *
+ * @requires sol.common.Cache
  * @requires sol.common.ObjectUtils
  * @requires sol.common.SordUtils
  * @requires sol.common.RepoUtils
@@ -398,11 +417,9 @@ sol.define("sol.common.Template", {
     if (!me.source) {
       return;
     }
-    try {
-      me.template = Handlebars.compile(me.source);
-    } catch (e) {
-      throw "Exception compiling template";
-    }
+
+    me.source += "";
+    me.template = sol.common.TemplateUtils.compileUsingCache(me.source);
   },
 
   /**
@@ -564,7 +581,7 @@ Handlebars.registerHelper("count", function () {
   if (!counterTemplateString) {
     return new Handlebars.SafeString("-");
   }
-  counterTemplate = Handlebars.compile(counterTemplateString);
+  counterTemplate = sol.common.TemplateUtils.compileUsingCache(counterTemplateString);
   counterName = counterTemplate(context.data.root);
 
   if (!counterName) {
@@ -603,6 +620,8 @@ Handlebars.registerHelper("mapTable", function (context, options) {
       maxLines = 2000,
       indicatorKey = options.hash.indicatorKey,
       i, key, index, name, data;
+
+  context = context || {};
 
   if (!options.mapFields) {
     for (key in context) {
@@ -755,7 +774,7 @@ Handlebars.registerHelper("base64Barcode", function (options) {
       config = options.hash,
       contentTemplate, base64String;
   config.returnBase64 = true;
-  contentTemplate = Handlebars.compile(config.content);
+  contentTemplate = sol.common.TemplateUtils.compileUsingCache(config.content);
   config.content = contentTemplate(me);
   base64String = sol.common.as.BarcodeUtils.generate(config.type, config.content, config);
   return new Handlebars.SafeString(base64String);
@@ -765,7 +784,7 @@ Handlebars.registerHelper("base64Image", function (options) {
   var me = this,
       config = options.hash,
       objIdTemplate, base64Content;
-  objIdTemplate = Handlebars.compile(config.objId);
+  objIdTemplate = sol.common.TemplateUtils.compileUsingCache(config.objId);
   config.objId = objIdTemplate(me);
   if (!config.objId) {
     throw "Object ID is empty";
@@ -832,6 +851,8 @@ Handlebars.registerHelper("currentUser", function (options) {
       return new Handlebars.SafeString(user.guid);
     case "desc":
       return new Handlebars.SafeString(user.desc);
+    case "email":
+      return new Handlebars.SafeString(user.userProps[UserInfoC.PROP_NAME_EMAIL]);
     default:
       return new Handlebars.SafeString(user.name);
   }
@@ -978,7 +999,7 @@ Handlebars.registerHelper("externalLink", function (options) {
 
   config = options.hash;
   if (config.objId) {
-    objIdTemplate = Handlebars.compile(config.objId);
+    objIdTemplate = sol.common.TemplateUtils.compileUsingCache(config.objId);
     config.objId = objIdTemplate(me);
   }
 
@@ -1017,6 +1038,47 @@ Handlebars.registerHelper("monthName", function (options) {
   return new Handlebars.SafeString(monthName);
 });
 
+/**
+ * @private
+ */
+sol.define("sol.common.TemplateRegexUtils", {
+  singleton: true,
+
+  extract: function (text, regExp) {
+    var m, matchValue;
+
+    matchValue = (text === undefined) ? "" : String(text);
+    if (regExp && (m = regExp.exec(text)) !== null) {
+      // The result can be accessed through the `m`-variable.
+      if (m.length > 0) {
+        matchValue = m[1];
+      }
+    }
+    return matchValue.trim();
+  }
+});
+
+Handlebars.registerHelper("kwl:key", function (keyValue, options) {
+  var delimiter, regExp, result;
+
+  delimiter = options.hash.delimiter || "-";
+  regExp = new RegExp("([^\\s]+)\\s" + delimiter + "\\s", "m");
+
+  result = sol.common.TemplateRegexUtils.extract(keyValue, regExp);
+
+  return new Handlebars.SafeString(result);
+});
+
+Handlebars.registerHelper("kwl:value", function (keyValue, options) {
+  var delimiter, regExp, result;
+
+  delimiter = options.hash.delimiter || "-";
+  regExp = new RegExp(delimiter + "\\s(.*)", "m");
+
+  result = sol.common.TemplateRegexUtils.extract(keyValue, regExp);
+
+  return new Handlebars.SafeString(result);
+});
 
 /**
  * This class contains util functions to facilitate working with templates.
@@ -1056,12 +1118,12 @@ sol.define("sol.common.TemplateUtils", {
       Object.keys(obj)
         .forEach(function (key) {
           try {
-            obj[key] = render(obj[key]);  // recursion
+            obj[key] = render(obj[key]); // recursion
           } catch (e) {} // setting the property value may fail
         });
     }
     function processAny(any) {
-      return (Array.isArray(any) && any.map(render))  // recursion
+      return (Array.isArray(any) && any.map(render)) // recursion
         || ((typeof any === "object" && any !== null) && processObj(any))
         || any;
     }
@@ -1069,6 +1131,59 @@ sol.define("sol.common.TemplateUtils", {
       return isString(any) ? processStr(String(any)) : processAny(any);
     }
     return render(tpl);
+  },
+
+  /**
+   * Compiles Handlebars strings using a cache for compiled strings
+   * @param {String} source Source
+   */
+  compileUsingCache: function (source) {
+    var me = this,
+        template;
+
+    source += "";
+
+    if ((typeof globalScope === "object") && (source.length <= 512)) {
+      globalScope.$handlebars = globalScope.$handlebars || {};
+      globalScope.$handlebars.compiledTemplates = globalScope.$handlebars.compiledTemplates || sol.create("sol.common.Cache", {});
+      template = globalScope.$handlebars.compiledTemplates.get(source);
+      if (template) {
+        me.logger.debug(["Handlebars code from cache: {0}", source]);
+      } else {
+        template = me.compileWithRetries(source);
+        globalScope.$handlebars.compiledTemplates.put(source, template);
+      }
+    }
+
+    if (!template) {
+      template = me.compileWithRetries(source);
+    }
+
+    return template;
+  },
+
+  /**
+   * @private
+   * @param {String} source Source
+   */
+  compileWithRetries: function (source) {
+    var me = this,
+        tries = 3,
+        i, template;
+
+    for (i = 0; i <= tries; i++) {
+      try {
+        template = Handlebars.compile(source);
+        me.logger.debug(["Handlebars string compiled: {0}", source]);
+        break;
+      } catch (ex) {
+        if (i >= tries) {
+          throw "Exception compiling template: " + ex;
+        }
+      }
+    }
+
+    return template;
   }
 });
 
