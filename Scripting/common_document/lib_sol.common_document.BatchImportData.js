@@ -4,6 +4,8 @@
 sol.define("sol.common_document.BatchImportConst", {
   singleton: true,
 
+  LASTMODIFIED_KEY: "SOL_BATCHIMPORT_LASTMODIFIED",
+
   STATUS: {
     new: "NEW",
     invalid: "INVALID",
@@ -19,9 +21,13 @@ sol.define("sol.common_document.BatchImportConst", {
 
   extractMapValue: function (entry) {
     var value = null;
-    if (entry && entry.blobValue && entry.blobValue.stream) {
-      value = JSON.parse(Packages.org.apache.commons.io.IOUtils.toString(entry.blobValue.stream, java.nio.charset.StandardCharsets.UTF_8));
-      entry.blobValue.stream.close();
+    if (entry) {
+      if (entry.blobValue && entry.blobValue.stream) {
+        value = JSON.parse(Packages.org.apache.commons.io.IOUtils.toString(entry.blobValue.stream, java.nio.charset.StandardCharsets.UTF_8));
+        entry.blobValue.stream.close();
+      } else {
+        value = entry.value;
+      }
     }
     return value;
   },
@@ -98,6 +104,16 @@ sol.define("sol.common_document.BatchImportData", {
     me.importStatus = sol.create("sol.common_document.BatchImportStatus", { objId: me.sourceId });
 
     me.loadData();
+  },
+
+  getLastModified: function () {
+    var me = this;
+    return me.$lastModified;
+  },
+
+  setLastModified: function (timestamp) {
+    var me = this;
+    me.$lastModified = timestamp;
   },
 
   getHeader: function () {
@@ -241,6 +257,7 @@ sol.define("sol.common_document.BatchImportData", {
     }
 
     if (mapitems.length > 0) {
+      mapitems.push(new KeyValue(sol.common_document.BatchImportConst.LASTMODIFIED_KEY, sol.common.DateUtils.nowIso()));
       ixConnect.ix().checkinMap(MapDomainC.DOMAIN_SORD, me.sourceId, me.sourceId, mapitems, LockC.NO);
     }
   },
@@ -358,6 +375,9 @@ sol.define("sol.common_document.BatchImportData", {
           case me.DATA_KEY:
             me.setData(value);
             break;
+          case sol.common_document.BatchImportConst.LASTMODIFIED_KEY:
+            me.setLastModified(value);
+            break;
           default:
             break;
         }
@@ -398,21 +418,23 @@ sol.define("sol.common_document.BatchImportStatus", {
 
   getStatus: function () {
     var me = this,
-        mapitems, statusEntry, statusObj;
+        mapitems, statusObj, lastModified;
 
     // TODO internal, temporary status cache
 
-    mapitems = ixConnect.ix().checkoutMap(MapDomainC.DOMAIN_SORD, me.objId, [me.STATUS_KEY], LockC.NO).mapItems;
+    mapitems = ixConnect.ix().checkoutMap(MapDomainC.DOMAIN_SORD, me.objId, [me.STATUS_KEY, sol.common_document.BatchImportConst.LASTMODIFIED_KEY], LockC.NO).mapItems;
 
-    if (mapitems && (mapitems.size() === 1)) {
-      statusEntry = mapitems.get(me.STATUS_KEY);
-      statusObj = sol.common_document.BatchImportConst.extractMapValue(statusEntry);
+    if (mapitems && (mapitems.size() > 0)) {
+      statusObj = sol.common_document.BatchImportConst.extractMapValue(mapitems.get(me.STATUS_KEY));
+      lastModified = sol.common_document.BatchImportConst.extractMapValue(mapitems.get(sol.common_document.BatchImportConst.LASTMODIFIED_KEY));
     }
 
     if (!statusObj) {
       statusObj = me.initStatus();
       me.saveStatus(statusObj);
     }
+
+    statusObj.lastModified = lastModified;
 
     return statusObj;
   },
@@ -504,6 +526,7 @@ sol.define("sol.common_document.BatchImportStatus", {
   /* internal */
   saveStatus: function (statusObj) {
     var me = this;
+    delete statusObj.lastModified;
     ixConnect.ix().checkinMap(MapDomainC.DOMAIN_SORD, me.objId, me.objId, [sol.common_document.BatchImportConst.createMapValue(me.STATUS_KEY, statusObj)], LockC.NO);
   }
 

@@ -1,7 +1,7 @@
 
 describe("[lib] sol.unittest.ix.services.SolCommonDocumentBatchImportData", function () {
   var BatchImportDataSord, originalTimeout,
-      title, rowData, config, data, headers, row;
+      title, rowData, config, data, headers, row, timestamp;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -120,6 +120,23 @@ describe("[lib] sol.unittest.ix.services.SolCommonDocumentBatchImportData", func
             className: "sol.common_document.BatchImportData",
             classConfig: { sourceId: BatchImportDataSord.id },
             method: "getHeader",
+            params: []
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("getLastModified", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib1", {
+            className: "sol.common_document.BatchImportData",
+            classConfig: { sourceId: BatchImportDataSord.id },
+            method: "getLastModified",
             params: []
           }).then(function success(jsonResult) {
             done();
@@ -382,6 +399,24 @@ describe("[lib] sol.unittest.ix.services.SolCommonDocumentBatchImportData", func
             classConfig: { sourceId: BatchImportDataSord.id },
             method: "setHeader",
             params: [headers]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("setLastModified", function (done) {
+        expect(function () {
+          timestamp = "01012020";
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib1", {
+            className: "sol.common_document.BatchImportData",
+            classConfig: { sourceId: BatchImportDataSord.id },
+            method: "setLastModified",
+            params: [timestamp]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
