@@ -41,6 +41,10 @@
             "elo": "/Business Solutions Custom/common"
         },
         {
+            "folder": "./Business Solutions Custom/common_document",
+            "elo": "/Business Solutions Custom/common_document"
+        },
+        {
             "folder": "./Business Solutions Custom/common_signature",
             "elo": "/Business Solutions Custom/common_signature"
         },
