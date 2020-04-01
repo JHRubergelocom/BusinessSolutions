@@ -126,6 +126,8 @@ sol.define("sol.dev.BuildPackage", {
 
   repoDataFileName: "RepoData",
 
+  pilcrow: "\u00b6",
+
   execute: function () {
     var me = this,
         debugDstFileNamePart = "",
@@ -229,6 +231,13 @@ sol.define("sol.dev.BuildPackage", {
       sol.common.FileUtils.downloadDocuments(setupFileRepoPath, me.zipDirPath, { makeDirectories: true });
     });
 
+    if (me.buildConfig.forceMasks) {
+
+      me.buildConfig.forceMasks.forEach(function (forceMaskConfig) {
+        me.forceMask(forceMaskConfig);
+      });
+    }
+
     me.prepareBranchForInstallExport(me.exportRepoPath);
 
     repoDataFilePath = me.payloadDirPath + File.separator + me.repoDataFileName + ".zip";
@@ -237,7 +246,6 @@ sol.define("sol.dev.BuildPackage", {
     me.exportObjId = sol.common.RepoUtils.getObjId(me.exportRepoPath);
 
     sol.common.RepoUtils.exportRepoData(repoDataFile, { srcList: [me.exportObjId], exportDocs: true, exportKeywords: true, replaceRefWithOriginal: false });
-
 
     me.buildConfig.workflowTemplatesDirPath = me.payloadDirPath + File.separator + "workflowTemplates";
     me.buildConfig.workflowTemplatesDir = new File(me.buildConfig.workflowTemplatesDirPath);
@@ -280,7 +288,7 @@ sol.define("sol.dev.BuildPackage", {
       "ELOScripts",
       "Basic Entry",
       "Folder"
-    ],
+    ];
 
     me.buildConfig.masks = me.buildConfig.masks || [];
 
@@ -394,13 +402,54 @@ sol.define("sol.dev.BuildPackage", {
 
   /**
    * @private
+   * Force a specific Mask
+   * @param {Object} forceMaskConfig Change mask find definition
+   */
+  forceMask: function (forceMaskConfig) {
+    var me = this,
+        sords, i, sord, logRepoPath;
+
+    if (!forceMaskConfig) {
+      throw "Force mask configution is empty";
+    }
+
+    if (!forceMaskConfig.findChildren) {
+      throw "Find children configuation is empty";
+    }
+
+    if (!forceMaskConfig.findChildren.objId) {
+      throw "Object ID is empty";
+    }
+
+    if (!forceMaskConfig.mask) {
+      throw "Mask is empty";
+    }
+
+    forceMaskConfig.findChildren.sordZ = SordC.mbAll;
+
+    sords = sol.common.RepoUtils.findChildren(forceMaskConfig.findChildren.objId, forceMaskConfig.findChildren.params);
+
+    for (i = 0; i < sords.length; i++) {
+      sord = sords[i];
+      if (sord.maskName != forceMaskConfig.mask) {
+        sord = ixConnect.ix().changeSordMask(sord, forceMaskConfig.mask, EditInfoC.mbSord).sord;
+        logRepoPath = sol.common.StringUtils.replaceAll(sord.refPaths[0].pathAsString + "", me.pilcrow, "/") + "/" + sord.name;
+
+        me.logger.debug("Change sord mask: " + logRepoPath + " -> mask=" + sord.maskName);
+        ixConnect.ix().checkinSord(sord, SordC.mbAll, LockC.NO);
+      }
+    }
+  },
+
+  /**
+   * @private
    * Prepares a branch for installation export
    * @param {String} startId
    */
   prepareBranchForInstallExport: function (startId) {
     var me = this,
         sordZ, sords, startSord;
-    me.logger.enter("changeOwnerRecursively", arguments);
+    me.logger.enter("prepareBranchForInstallExport", startId);
 
     if (!startId) {
       throw "Start ID is empty";
@@ -418,7 +467,7 @@ sol.define("sol.dev.BuildPackage", {
     sords.forEach(function (sord) {
       me.prepareSordForInstallExport(sord);
     });
-    me.logger.exit("changeOwnerRecursively");
+    me.logger.exit("prepareBranchForInstallExport");
   },
 
   /**

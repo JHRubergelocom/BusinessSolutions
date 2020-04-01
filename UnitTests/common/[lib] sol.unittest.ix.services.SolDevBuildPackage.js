@@ -2,13 +2,14 @@
 describe("[lib] sol.unittest.ix.services.SolDevBuildPackage", function () {
   var BuildPackageSord, originalTimeout, aclItems,
       maskObj, arr, pluginName, id, startId, sord, config, maskName,
-      workflowTemplateName;
+      workflowTemplateName, obSolDevBuildPackageId, forceMaskConfig;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
-      test.Utils.createTempSord("SolDevBuildPackage").then(function success(obSolDevBuildPackageId) {
+      test.Utils.createTempSord("SolDevBuildPackage").then(function success(obSolDevBuildPackageId1) {
+        obSolDevBuildPackageId = obSolDevBuildPackageId1;
         test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/BuildPackage").then(function success1(BuildPackageSord1) {
           BuildPackageSord = BuildPackageSord1;
           done();
@@ -158,6 +159,24 @@ describe("[lib] sol.unittest.ix.services.SolDevBuildPackage", function () {
             classConfig: { objId: "ARCPATH:/Administration/Business Solutions/dev_internal", exportDirPath: "/" },
             method: "execute",
             params: []
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("forceMask", function (done) {
+        expect(function () {
+          forceMaskConfig = { findChildren: { objId: obSolDevBuildPackageId }, mask: "UnitTest" };
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib1", {
+            className: "sol.dev.BuildPackage",
+            classConfig: {},
+            method: "forceMask",
+            params: [forceMaskConfig]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
