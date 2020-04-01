@@ -1,7 +1,7 @@
 
 describe("[lib] sol.unittest.ix.services.SolConnectorXmlConverter", function () {
   var originalTimeout, value, config, fields,
-      mapObj, type, converter, object;
+      mapObj, type, converter, object, dependentFields;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -149,6 +149,25 @@ describe("[lib] sol.unittest.ix.services.SolConnectorXmlConverter", function () 
             classConfig: {},
             method: "convert",
             params: [value, config, fields]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("fillDependentFields", function (done) {
+        expect(function () {
+          fields = [];
+          dependentFields = [];
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib1", {
+            className: "sol.connector_xml.Converter.DynamicKwlLookup",
+            classConfig: {},
+            method: "fillDependentFields",
+            params: [fields, dependentFields]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
