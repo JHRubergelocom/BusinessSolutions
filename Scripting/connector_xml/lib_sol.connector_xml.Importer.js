@@ -288,6 +288,7 @@ sol.define("sol.connector_xml.Importer", {
 
     me.mapEntries = [];
     me.fieldMap = {};
+    me.formBlobs = [];
 
     if (!sol.common.SordUtils.hasDocMask(me.sord, me.config.sord.mask)) {
       me.sord = ixConnect.ix().changeSordMask(me.sord, me.config.sord.mask, EditInfoC.mbSord).sord;
@@ -319,14 +320,21 @@ sol.define("sol.connector_xml.Importer", {
    * Saves the changes of the {@link Sord} and the map data.
    */
   save: function () {
-    if (this.dirty) {
-      this.logger.debug(["checkin Sord, objId={0}", this.sord.id]);
-      ixConnect.ix().checkinSord(this.sord, this.sordZ, LockC.NO);
+    var me = this;
+
+    if (me.dirty) {
+      me.logger.debug(["checkin Sord, objId={0}", me.sord.id]);
+      ixConnect.ix().checkinSord(me.sord, me.sordZ, LockC.NO);
     }
 
-    if (this.mapEntries && (this.mapEntries.length > 0)) {
-      this.logger.debug(["checkin Maps, count={0}", this.mapEntries.length]);
-      ixConnect.ix().checkinMap(MapDomainC.DOMAIN_SORD, this.sord.id, this.sord.id, this.mapEntries, LockC.NO);
+    if (me.mapEntries && (me.mapEntries.length > 0)) {
+      me.logger.debug(["checkin Maps, count={0}", me.mapEntries.length]);
+      ixConnect.ix().checkinMap(MapDomainC.DOMAIN_SORD, me.sord.id, me.sord.id, me.mapEntries, LockC.NO);
+    }
+
+    if (me.formBlobs && (me.formBlobs.length > 0)) {
+      me.logger.debug(["checkin Maps, count={0}", me.mapEntries.length]);
+      ixConnect.ix().checkinMap("formdata", me.sord.id, me.sord.id, me.formBlobs, LockC.NO);
     }
   },
 
@@ -364,6 +372,9 @@ sol.define("sol.connector_xml.Importer", {
           break;
         case "MAP":
           me.mapEntries.push(me.utils.createMapEntry(mapObj.key, value));
+          break;
+        case "FORMBLOB":
+          me.formBlobs.push(sol.common.SordUtils.createStringMapBlob(mapObj.key, value));
           break;
         default:
           throw "Illegal Configuration: type=" + mapObj.type + " is not implemented for mappings";
@@ -428,6 +439,9 @@ sol.define("sol.connector_xml.Importer", {
             case "GRP":
               sol.common.SordUtils.setObjKeyValue(me.sord, mapObj.key, value);
               me.dirty = true;
+              break;
+            case "FORMBLOB":
+              me.formBlobs.push(sol.common.SordUtils.createStringMapBlob(mapObj.key, value));
               break;
             default:
               throw "Illegal Configuration: type=" + mapObj.type + " is not implemented for tables";
