@@ -1,6 +1,7 @@
 
 describe("[libix] sol.unittest.ix.services.SolCommonGenericDynKwl", function () {
-  var obSolCommonGenericDynKwlId, originalTimeout, config, filterList, sord, initConfigParam;
+  var obSolCommonGenericDynKwlId, originalTimeout, config, filterList, sord, 
+      initConfigParam, providerConfig;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -19,6 +20,63 @@ describe("[libix] sol.unittest.ix.services.SolCommonGenericDynKwl", function () 
   });
   describe("Test Lib Functions", function () {
     describe("sol.common.ix.GenericDynKwl", function () {
+      it("CHILDREN", function (done) {
+        expect(function () {
+          providerConfig = {};
+          config = {};
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib2", {
+            className: "sol.common.ix.GenericDynKwl",
+            classConfig: { type: "CHILDREN" },
+            method: "CHILDREN",
+            params: [providerConfig, config]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("DB", function (done) {
+        expect(function () {
+          providerConfig = {};
+          config = {};
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib2", {
+            className: "sol.common.ix.GenericDynKwl",
+            classConfig: { type: "DB" },
+            method: "DB",
+            params: [providerConfig, config]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("SEARCH", function (done) {
+        expect(function () {
+          providerConfig = {};
+          config = {};
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib2", {
+            className: "sol.common.ix.GenericDynKwl",
+            classConfig: { type: "SEARCH" },
+            method: "SEARCH",
+            params: [providerConfig, config]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("getFindInfo", function (done) {
         expect(function () {
           filterList = [];

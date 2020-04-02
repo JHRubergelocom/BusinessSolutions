@@ -104,6 +104,11 @@ sol.define("sol.unittest.ix.services.ExecuteLib2", {
           case "getRowData":
             me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
             break;
+          case "CHILDREN":
+          case "DB":
+          case "SEARCH":
+            func = cls.prepareFunctions[me.method];
+            break;    
           default:
         }
         break;
