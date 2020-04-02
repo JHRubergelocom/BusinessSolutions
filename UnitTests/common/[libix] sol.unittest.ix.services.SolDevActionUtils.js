@@ -449,6 +449,23 @@ describe("[libix] sol.unittest.ix.services.SolDevActionUtils", function () {
           );
         }).not.toThrow();
       });
+      it("processComponent", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib2", {
+            className: "sol.dev.ix.ActionUtils",
+            classConfig: {},
+            method: "processComponent",
+            params: []
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("processOldDocuments", function (done) {
         expect(function () {
           oldDocuments = [];
@@ -494,6 +511,25 @@ describe("[libix] sol.unittest.ix.services.SolDevActionUtils", function () {
             classConfig: {},
             method: "setObjId",
             params: [classObjId]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("startCreateActionWorkflow", function (done) {
+        expect(function () {
+          objId = "objId1";
+          wfName = "wfNane1";
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib2", {
+            className: "sol.dev.ix.ActionUtils",
+            classConfig: {},
+            method: "startCreateActionWorkflow",
+            params: [objId, wfName]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {

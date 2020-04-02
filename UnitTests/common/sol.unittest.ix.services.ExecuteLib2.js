@@ -142,6 +142,9 @@ sol.define("sol.unittest.ix.services.ExecuteLib2", {
           case "isJsonConfig":
             me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
             break;
+          case "processComponent":
+          case "startCreateActionWorkflow":
+            return result;
           default:
         }
         break;
