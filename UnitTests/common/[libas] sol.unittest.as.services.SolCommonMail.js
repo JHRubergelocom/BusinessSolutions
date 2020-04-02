@@ -1,7 +1,8 @@
 
 describe("[libas] sol.unittest.as.services.SolCommonMail", function () {
   var MailSord, obSolCommonMailId, originalTimeout, content,
-      multiPart, to, attConfig, subj, def, config, repoPath, flowId, succNodes, succNodesIds;
+      multiPart, to, from, attConfig, subj, def, config, repoPath, 
+      flowId, succNodes, succNodesIds;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -198,6 +199,31 @@ describe("[libas] sol.unittest.as.services.SolCommonMail", function () {
               classConfig: {},
               method: "getRecipient",
               params: [to]
+            }
+          }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") != -1) {
+              fail(jsonResult.content);
+            }
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("getSender", function (done) {
+        expect(function () {
+          from = "test-business-solutions@elo.local";
+          test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
+            action: "sol.unittest.as.services.ExecuteLib",
+            config: {
+              className: "sol.common.as.Mail",
+              classConfig: {},
+              method: "getSender",
+              params: [from]
             }
           }).then(function success(jsonResult) {
             content = jsonResult.content;

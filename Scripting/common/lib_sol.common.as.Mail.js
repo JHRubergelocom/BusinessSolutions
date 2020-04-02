@@ -38,7 +38,7 @@ importPackage(javax.mail.internet);
  *       to: "test@elo.local",
  *       cc: "solutions@elo.com",
  *       bcc: "solutions@elo.com",
- *       subject: "Test1",
+ *       subject: "New task: {{sord.name}}",
  *       body: {
  *         type: "html",
  *         tplObjId: "ARCPATH:/Administration/Business Solutions/contract/Configuration/Mail templates/Notification",
@@ -93,7 +93,7 @@ importPackage(javax.mail.internet);
  *       "mode": "run",
  *       "from": "elo@contelo.com",
  *       "to": "solutions@elo.com",
- *       "subject": "Neue Aufgabe",
+ *       "subject": "New task: {{sord.name}}",
  *       "body": {
  *         "type": "html",
  *         "tplObjId": "ARCPATH:/Administration/Business Solutions Custom/notify/Configuration/Mail templates/Example",
@@ -123,7 +123,7 @@ sol.define("sol.common.as.functions.SendMail", {
    */
   process: function () {
     var me = this,
-        isAdmin, mail;
+        mail;
 
     mail = sol.create("sol.common.as.Mail", me.config);
     mail.send();
@@ -165,6 +165,7 @@ sol.define("sol.common.as.Mail", {
   /**
    * @cfg {String} subject
    * Subject
+   * Templating can be used, e.g. {{sord.name}}
    */
 
   /**
@@ -464,15 +465,47 @@ sol.define("sol.common.as.Mail", {
 
   /**
    * @private
+   * Retrieves the sender of the mail
+   * @param {Object|String} from Sender definition
+   * @return {String} sender
+   */
+  getSender: function (from) {
+    var me = this, sender;
+
+    sender = me.getValue(from);
+
+    if (!sender) {
+      throw "Sender user is empty";
+    }
+
+    if (sender.indexOf("@") == -1) {
+      sender = sol.common.UserUtils.getMailAddress(sender);
+    }
+
+    if (!sender) {
+      throw "Sender is empty";
+    }
+
+    return sender;
+  },
+
+  /**
+   * @private
    * Retrieves the subject of the mail
    * @param {Object|String} subj subject definition
    * @return {String} subject
    */
   getSubject: function (subj) {
-    var me = this, subject;
+    var me = this,
+        subject, tpl;
 
     if (!(subject = me.getValue(subj))) {
       throw "subject is empty";
+    }
+
+    if (subject.indexOf("{{") > -1) {
+      tpl = sol.create("sol.common.Template", { source: subject });
+      subject = tpl.apply(me.data);
     }
 
     return subject;
@@ -552,7 +585,7 @@ sol.define("sol.common.as.Mail", {
 
     try {
       message = new MimeMessage(me.session);
-      message.setFrom(new InternetAddress(me.from));
+      message.setFrom(new InternetAddress(me.getSender(me.from)));
 
       me.recipient.split(";").forEach(function (toPart) {
         message.addRecipient(Message.RecipientType.TO, new InternetAddress(toPart));
