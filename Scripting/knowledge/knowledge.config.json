@@ -20,6 +20,7 @@
     "knowledgeTopics": "KNOWLEDGE_TOPICS",
     "knowledgePinnedAt": "KNOWLEDGE_PINNED_AT",
     "knowledgeLanguage": "KNOWLEDGE_LANGUAGE",
+    "knowledgeLabel": "KNOWLEDGE_LABEL",
     "objectType": "SOL_TYPE"
   },
   "mapFields": {},
