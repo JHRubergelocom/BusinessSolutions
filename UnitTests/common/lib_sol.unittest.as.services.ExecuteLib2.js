@@ -104,6 +104,13 @@ sol.define("sol.unittest.as.services.ExecuteLib2", {
           case "eveluateActionProperty":
             me.params[1] = ixConnect.ix().checkoutSord(me.params[1], new SordZ(SordC.mbAll), LockC.NO);
             break;
+          case "FUNCTION":
+          case "REMINDER":
+          case "TECHNICAL_WORKFLOW":
+          case "WORKFLOW":
+            me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
+            func = cls.ACTIONS[me.method];
+            break;    
           default:
         }
         break;

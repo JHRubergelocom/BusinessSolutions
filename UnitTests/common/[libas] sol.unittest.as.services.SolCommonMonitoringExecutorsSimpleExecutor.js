@@ -26,6 +26,114 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringExecutorsSimpleExe
   });
   describe("Test Lib Functions", function () {
     describe("sol.common_monitoring.as.executors.SimpleExecutor", function () {
+      it("FUNCTION", function (done) {
+        expect(function () {
+          sord = ExecutorsSimpleExecutorSord.id;
+          action = { type: "FUNCTION", module: "sol.unittest.as.executors.SimpleExecutor" };
+          ctx = {};
+          test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
+            action: "sol.unittest.as.services.ExecuteLib2",
+            config: {
+              className: "sol.common_monitoring.as.executors.SimpleExecutor",
+              classConfig: {},
+              method: "FUNCTION",
+              params: [sord, action, ctx]
+            }
+          }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") != -1) {
+              fail(jsonResult.content);
+            }
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("REMINDER", function (done) {
+        expect(function () {
+          sord = ExecutorsSimpleExecutorSord.id;
+          action = { type: "REMINDER", user: "Administrator" };
+          ctx = {};
+          test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
+            action: "sol.unittest.as.services.ExecuteLib2",
+            config: {
+              className: "sol.common_monitoring.as.executors.SimpleExecutor",
+              classConfig: {},
+              method: "REMINDER",
+              params: [sord, action, ctx]
+            }
+          }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") != -1) {
+              fail(jsonResult.content);
+            }
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("TECHNICAL_WORKFLOW", function (done) {
+        expect(function () {
+          sord = ExecutorsSimpleExecutorSord.id;
+          action = { type: "TECHNICAL_WORKFLOW", templateId: "UnittestStandardWF" };
+          ctx = {};
+          test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
+            action: "sol.unittest.as.services.ExecuteLib2",
+            config: {
+              className: "sol.common_monitoring.as.executors.SimpleExecutor",
+              classConfig: {},
+              method: "TECHNICAL_WORKFLOW",
+              params: [sord, action, ctx]
+            }
+          }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") != -1) {
+              fail(jsonResult.content);
+            }
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("WORKFLOW", function (done) {
+        expect(function () {
+          sord = ExecutorsSimpleExecutorSord.id;
+          action = { type: "WORKFLOW", templateId: "UnittestStandardWF" };
+          ctx = {};
+          test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
+            action: "sol.unittest.as.services.ExecuteLib2",
+            config: {
+              className: "sol.common_monitoring.as.executors.SimpleExecutor",
+              classConfig: {},
+              method: "WORKFLOW",
+              params: [sord, action, ctx]
+            }
+          }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") != -1) {
+              fail(jsonResult.content);
+            }
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("buildName", function (done) {
         expect(function () {
           sord = ExecutorsSimpleExecutorSord.id;
