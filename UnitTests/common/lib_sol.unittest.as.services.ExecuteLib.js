@@ -167,6 +167,14 @@ sol.define("sol.unittest.as.services.ExecuteLib", {
           default:
         }
         break;
+      case "sol.common.as.Utils":
+        switch (me.method) {
+          case "ensureRelogin":
+            me.params[0] = ixConnect;
+            break;
+          default:
+        }
+        break;
       default:
     }
 

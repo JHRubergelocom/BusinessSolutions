@@ -511,6 +511,7 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
             break;
           default:
         }
+        break;
       default:
     }
 
