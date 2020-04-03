@@ -1,6 +1,6 @@
 
 describe("[libas] sol.unittest.as.services.SolCommonWfController", function () {
-  var originalTimeout, content, value, nodeConfig, resultObj, waitDef;
+  var originalTimeout, content, value, nodeConfig, resultObj, waitDef, params, ex;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -81,6 +81,154 @@ describe("[libas] sol.unittest.as.services.SolCommonWfController", function () {
               classConfig: {},
               method: "dispatch",
               params: [resultObj, nodeConfig]
+            }
+          }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") != -1) {
+              fail(jsonResult.content);
+            }
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("getNextNodes", function (done) {
+        expect(function () {
+          params = {};
+          test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
+            action: "sol.unittest.as.services.ExecuteLib",
+            config: {
+              className: "sol.common.as.WfController",
+              classConfig: {},
+              method: "getNextNodes",
+              params: [params]
+            }
+          }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") != -1) {
+              fail(jsonResult.content);
+            }
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("getNodeConfig", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
+            action: "sol.unittest.as.services.ExecuteLib",
+            config: {
+              className: "sol.common.as.WfController",
+              classConfig: {},
+              method: "getNodeConfig",
+              params: []
+            }
+          }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") != -1) {
+              fail(jsonResult.content);
+            }
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("handleControllerFunction", function (done) {
+        expect(function () {
+          nodeConfig = {};
+          test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
+            action: "sol.unittest.as.services.ExecuteLib",
+            config: {
+              className: "sol.common.as.WfController",
+              classConfig: {},
+              method: "handleControllerFunction",
+              params: [nodeConfig]
+            }
+          }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") != -1) {
+              fail(jsonResult.content);
+            }
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("handleDirectRule", function (done) {
+        expect(function () {
+          nodeConfig = {};
+          test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
+            action: "sol.unittest.as.services.ExecuteLib",
+            config: {
+              className: "sol.common.as.WfController",
+              classConfig: {},
+              method: "handleDirectRule",
+              params: [nodeConfig]
+            }
+          }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") != -1) {
+              fail(jsonResult.content);
+            }
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("handleException", function (done) {
+        expect(function () {
+          ex = "ex1";
+          test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
+            action: "sol.unittest.as.services.ExecuteLib",
+            config: {
+              className: "sol.common.as.WfController",
+              classConfig: {},
+              method: "handleException",
+              params: [ex]
+            }
+          }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") != -1) {
+              fail(jsonResult.content);
+            }
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("run", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
+            action: "sol.unittest.as.services.ExecuteLib",
+            config: {
+              className: "sol.common.as.WfController",
+              classConfig: {},
+              method: "run",
+              params: []
             }
           }).then(function success(jsonResult) {
             content = jsonResult.content;

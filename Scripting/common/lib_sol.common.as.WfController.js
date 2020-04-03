@@ -596,7 +596,7 @@ sol.define("sol.common.as.WfController", {
       if (nodeConfig.fieldValue && (nodeConfig.fieldValue == value)) {
         return true;
       }
-      if (nodeConfig.fieldValueStartsWith && (value.indexOf(nodeConfig.fieldValueStartsWith) == 0)) {
+      if (nodeConfig.fieldValueStartsWith && value && (value.indexOf(nodeConfig.fieldValueStartsWith) == 0)) {
         return true;
       }
       if (nodeConfig.waitUntil && value) {

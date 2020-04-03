@@ -175,6 +175,18 @@ sol.define("sol.unittest.as.services.ExecuteLib", {
           default:
         }
         break;
+      case "sol.common.as.WfController":
+        switch (me.method) {
+          case "getNextNodes":
+          case "getNodeConfig":
+          case "handleControllerFunction":
+          case "handleDirectRule":
+          case "handleException":
+          case "run":
+            return result;
+          default:
+        }
+        break;  
       default:
     }
 
