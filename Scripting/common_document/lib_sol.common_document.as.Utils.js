@@ -108,6 +108,70 @@ sol.define("sol.common_document.as.Utils", {
   },
 
   /**
+   * Get pdfName
+   * @private
+   * @param {de.elo.ix.client.Sord} sord
+   * @param {String} ext document extension
+   * @return {String} pdfName;
+   */
+  getPdfName: function (sord, ext) {
+    var sordName, pdfName;
+
+    sordName = sol.common.FileUtils.sanitizeFilename(sord.name);
+    if (ext) {
+      pdfName = sordName + "." + ext;
+    } else {
+      pdfName = sordName;
+    }
+    return pdfName;
+  },
+
+  /**
+   * Write outputstream to file
+   * @private
+   * @param {java.io.OutputStream} pdfOutputStream
+   * @param {String} dstDirPath
+   * @param {String} pdfName;
+   * @return {java.io.File} dstFile
+   */
+  writePdfOutputStreamToFile: function (pdfOutputStream, dstDirPath, pdfName) {
+    var dstFile, fop, contentInBytes;
+
+    dstFile = new java.io.File(dstDirPath + java.io.File.separator + pdfName + ".pdf");
+    fop = new FileOutputStream(dstFile);
+    if (!dstFile.exists()) {
+      dstFile.createNewFile();
+    }
+    contentInBytes = pdfOutputStream.toByteArray();
+    fop.write(contentInBytes);
+    fop.flush();
+    fop.close();
+
+    return dstFile;
+  },
+
+  /**
+   * Write inputstream to file
+   * @private
+   * @param {java.io.InputStream} pdfInputStream
+   * @param {String} dstDirPath
+   * @param {String} pdfName;
+   * @return {java.io.File} dstFile
+   */
+  writePdfInputStreamToFile: function (pdfInputStream, dstDirPath, pdfName) {
+    var dstFile;
+
+    dstFile = new java.io.File(dstDirPath + java.io.File.separator + pdfName + ".pdf");
+    if (!dstFile.exists()) {
+      dstFile.createNewFile();
+    }
+
+    Packages.org.apache.commons.io.FileUtils.copyInputStreamToFile(pdfInputStream, dstFile);
+
+    return dstFile;
+  },
+
+  /**
    * Create PDF from sord
    * @private
    * @param {de.elo.ix.client.Sord} sord
@@ -122,9 +186,9 @@ sol.define("sol.common_document.as.Utils", {
    */
   createPdfFromSord: function (sord, templateId, dstDirPath, ext, pdfName, config, pdfContents) {
     var me = this,
-        targetId, data, fopRenderer, result, pdfInputStream, refPath, contentName, pdfPages, dstFile;
+        data, fopRenderer, result, pdfInputStream, refPath, contentName, pdfPages, 
+        dstFile;
 
-    targetId = me.getExportFolder(config);
     if (ext) {
       data = { sord: sol.common.SordUtils.getTemplateSord(sord).sord, ext: ext };
     } else {
@@ -132,7 +196,7 @@ sol.define("sol.common_document.as.Utils", {
     }
 
     if (config.pdfExport === true) {
-      fopRenderer = sol.create("sol.common.as.renderer.Fop", { targetId: targetId, templateId: templateId, toStream: true });
+      fopRenderer = sol.create("sol.common.as.renderer.Fop", { templateId: templateId, toStream: true });
       result = fopRenderer.render(pdfName, data);
       pdfInputStream = me.convertOutputStreamToInputStream(result.outputStream);
       refPath = me.getRefPath(sord, ext);
@@ -141,21 +205,18 @@ sol.define("sol.common_document.as.Utils", {
       } else {
         contentName = sord.name;
       } 
-      if (result.objId) {
-        dstFile = sol.common.FileUtils.downloadDocument(result.objId, dstDirPath);
-        pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstFile);
-      }
+      dstFile = me.writePdfOutputStreamToFile(result.outputStream, dstDirPath, pdfName);
+      pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstFile);
+
       pdfContents.push({ pdfInputStream: pdfInputStream, refPath: refPath, contentName: contentName, pdfPages: pdfPages });      
     } else {
-      fopRenderer = sol.create("sol.common.as.renderer.Fop", { targetId: targetId, templateId: templateId, toStream: true });
+      fopRenderer = sol.create("sol.common.as.renderer.Fop", { templateId: templateId, toStream: true });
       result = fopRenderer.render(pdfName, data);
+      dstFile = me.writePdfOutputStreamToFile(result.outputStream, dstDirPath, pdfName);
     }
-    if (result.objId) {
-      if (config.pdfA == true) {
-        result.objId = me.convertPDFtoPDFA(result.objId, dstDirPath);
-      }
-      sol.common.FileUtils.downloadDocument(result.objId, dstDirPath);
-      sol.common.RepoUtils.deleteSord(result.objId);
+
+    if (config.pdfA == true) {
+      me.convertPDFtoPDFA(dstFile);
     }
   },
 
@@ -173,63 +234,82 @@ sol.define("sol.common_document.as.Utils", {
         templateId;
 
     templateId = me.getTemplateCoverSheetSord(sord, config);
-    me.createPdfFromSord(sord, templateId, dstDirPath, null, pdfName, config, pdfContents);
+    me.createPdfFromSord(sord, templateId, dstDirPath, "pdf", pdfName, config, pdfContents);
   },
 
   /**
    * Create error conversion pdf
    * @private
    * @param {de.elo.ix.client.Sord} sord
+   * @param {String} ext
    * @param {String} dstDirPath
    * @param {Object} config Pdf export configuration
    * @param {Object[]} pdfContents
    */
-  createErrorConversionPdf: function (sord, dstDirPath, config, pdfContents) {
+  createErrorConversionPdf: function (sord, ext, dstDirPath, config, pdfContents) {
     var me = this,
-        templateId, ext, pdfName;
+        templateId, pdfName, data, fopRenderer, result, pdfInputStream,
+        refPath, contentName, dstFile, pdfPages;
 
     templateId = me.getTemplateErrorConversionPdf(config);
-    ext = (sord && sord.docVersion && sord.docVersion.ext) ? sord.docVersion.ext : null;
     if (ext) {
-      pdfName = sord.name + "." + ext;
+      data = { sord: sol.common.SordUtils.getTemplateSord(sord).sord, ext: ext };
     } else {
-      pdfName = sord.name;
+      data = { sord: sol.common.SordUtils.getTemplateSord(sord).sord };
     }
-    me.createPdfFromSord(sord, templateId, dstDirPath, ext, pdfName, config, pdfContents);
+
+    pdfName = me.getPdfName(sord, ext);
+
+    if (config.pdfExport === true) {
+      fopRenderer = sol.create("sol.common.as.renderer.Fop", { templateId: templateId, toStream: true });
+      result = fopRenderer.render(pdfName, data);
+      pdfInputStream = me.convertOutputStreamToInputStream(result.outputStream);
+      refPath = me.getRefPath(sord, ext);
+      if (ext) {
+        contentName = sord.name + "." + ext;
+      } else {
+        contentName = sord.name;
+      } 
+      dstFile = me.writePdfOutputStreamToFile(result.outputStream, dstDirPath, pdfName);
+      pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstFile);
+
+      pdfContents.push({ pdfInputStream: pdfInputStream, refPath: refPath, contentName: contentName, pdfPages: pdfPages });   
+      sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
+
+    } else {
+      fopRenderer = sol.create("sol.common.as.renderer.Fop", { templateId: templateId, toStream: true });
+      result = fopRenderer.render(pdfName, data);
+      dstFile = me.writePdfOutputStreamToFile(result.outputStream, dstDirPath, pdfName);
+    }
   },
 
   /**
    * Converts a document to a PDF.
    * @private
    * @param {de.elo.ix.client.Sord} sord
-   * @return {String} The objId of the converted document or '-1' if there was an error
+   * @return {java.io.InputStream} inputStream or null if there was an error
    */
   convertToPdf: function (sord) {
     var me = this,
-        objId = "-1",
-        ext, converter, convertResult;
+        inputStream = null,
+        ext, converter;
     me.logger.enter("convertToPdf");
     try {
       ext = (sord && sord.docVersion && sord.docVersion.ext) ? sord.docVersion.ext : null;
       if (ext && (ext == "pdf")) {
         me.logger.debug("skip converting, document is already an PDF");
-        objId = sord.id;
+        inputStream = sol.common.RepoUtils.downloadToStream(sord.id);
       } else {
         converter = sol.create("sol.common.as.functions.OfficeConverter", {
           openFromRepo: {
             objId: sord.id
           },
-          saveToRepo: {
-            format: "pdf",
-            parentId: sord.parentId,
-            name: sord.name + "." + ext
+          saveToStream: {
+            format: "pdf"
           }
         });
         if (converter.isSupported(ext)) {
-          convertResult = converter.execute();
-          if (convertResult && convertResult.objId) {
-            objId = convertResult.objId;
-          }
+          inputStream = converter.execute();
         } else {
           me.logger.warn(["format '{0}' is not supported", ext]);
         }
@@ -238,7 +318,7 @@ sol.define("sol.common_document.as.Utils", {
       me.logger.error(["error converting document (objId={0}, name={1})", sord.id, sord.name], ex);
     }
     me.logger.exit("convertToPdf");
-    return objId;
+    return inputStream;
   },
 
   /**
@@ -253,33 +333,33 @@ sol.define("sol.common_document.as.Utils", {
    */
   createPdfDocument: function (sord, dstDirPath, config, pdfContents) {
     var me = this,
-        objId, pdfInputStream, ext, refPath, contentName, pdfPages, dstFile;
-        
-    objId = me.convertToPdf(sord);
-    if (objId !== "-1") {
+        pdfInputStream, ext, refPath, contentName, pdfPages, dstFile, pdfName;
+
+    pdfInputStream = me.convertToPdf(sord);
+    ext = (sord && sord.docVersion && sord.docVersion.ext) ? sord.docVersion.ext : null;  
+
+    if (pdfInputStream != null) {
+      pdfName = me.getPdfName(sord, ext);
+      dstFile = me.writePdfInputStreamToFile(pdfInputStream, dstDirPath, pdfName);
+
       if (config.pdfA == true) {
-        objId = me.convertPDFtoPDFA(objId, dstDirPath);
+        me.convertPDFtoPDFA(dstFile);
       }
-      ext = (sord && sord.docVersion && sord.docVersion.ext) ? sord.docVersion.ext : null;
-      dstFile = sol.common.FileUtils.downloadDocument(objId, dstDirPath);
+      pdfInputStream = new ByteArrayInputStream(Packages.org.apache.commons.io.FileUtils.readFileToByteArray(dstFile));
+
       if (config.pdfExport === true) {
-        pdfInputStream = sol.common.RepoUtils.downloadToStream(objId);
         refPath = me.getRefPath(sord, ext);
         if (ext) {
           contentName = sord.name + "." + ext;
         } else {
           contentName = sord.name;
         }
-        if (objId) {
-          pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstFile);
-        }
+        pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstFile);
         pdfContents.push({ pdfInputStream: pdfInputStream, refPath: refPath, contentName: contentName, pdfPages: pdfPages });
-      } 
-      if (ext != "pdf") {
-        sol.common.RepoUtils.deleteSord(objId);
+        sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
       }
     } else {
-      me.createErrorConversionPdf(sord, dstDirPath, config, pdfContents);
+      me.createErrorConversionPdf(sord, ext, dstDirPath, config, pdfContents);
     }
   },
 
@@ -289,12 +369,12 @@ sol.define("sol.common_document.as.Utils", {
    * @param {String} folderName
    * @param {String} dstDirPath
    * @param {Object} config Pdf export configuration
-   * @param {Object} pdfContents
+   * @param {Object[]} pdfContents
    * @return {Number} number of pages
    */
   getOffsetSumPages: function (folderName, dstDirPath, config, pdfContents) {
     var me = this,
-        targetId, templateId, data, fopRenderer, result, dstFile, pdfPages;
+        targetId, templateId, data, fopRenderer, result, dstFile, pdfPages, fop, contentInBytes;
 
     pdfPages = 0;
     targetId = me.getExportFolder(config);
@@ -307,15 +387,21 @@ sol.define("sol.common_document.as.Utils", {
       data.contents.push({ name: pdfContent.contentName, pageno: pdfContent.pdfPages });
     });
 
-    fopRenderer = sol.create("sol.common.as.renderer.Fop", { targetId: targetId, templateId: templateId });
+    fopRenderer = sol.create("sol.common.as.renderer.Fop", { templateId: templateId, toStream: true });
     result = fopRenderer.render("Content", data);
-
-    if (result.objId) {
-      dstFile = sol.common.FileUtils.downloadDocument(result.objId, dstDirPath);
-      pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstFile);
+    dstFile = new java.io.File(dstDirPath + java.io.File.separator + "Content.pdf");
+    fop = new FileOutputStream(dstFile);
+    if (!dstFile.exists()) {
+      dstFile.createNewFile();
     }
+    contentInBytes = result.outputStream.toByteArray();
+    fop.write(contentInBytes);
+    fop.flush();
+    fop.close();
 
-    sol.common.RepoUtils.deleteSord(result.objId);
+    pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstFile);
+    sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
+    
     return pdfPages;
   },
 
@@ -354,17 +440,11 @@ sol.define("sol.common_document.as.Utils", {
   /**
    * Converts a PDF to the PDF/A standard.
    * @private
-   * @param {String} objId
-   * @param {String} dstDirPath
-   * @return {String} objId of PDF/A
+   * @param {java.io.File} dstPdfFile PDF File
    */
-  convertPDFtoPDFA: function (objId, dstDirPath) {
-    var doc, dstPdfPath, dstPdfFile, dstPdfAPath, dstPdfAFile, sord, parentId;
+  convertPDFtoPDFA: function (dstPdfFile) {
+    var doc, dstPdfPath, dstPdfAPath, dstPdfAFile;
 
-    sord = ixConnect.ix().checkoutSord(objId, new SordZ(SordC.mbAll), LockC.NO);
-    parentId = sord.parentId;
-
-    dstPdfFile = sol.common.FileUtils.downloadDocument(objId, dstDirPath);
     dstPdfPath = dstPdfFile.getPath();
     dstPdfAPath = dstPdfPath + "_";
     doc = new Packages.com.aspose.pdf.Document(dstPdfPath);
@@ -374,10 +454,6 @@ sol.define("sol.common_document.as.Utils", {
     dstPdfFile.delete();
 
     dstPdfAFile.renameTo(dstPdfFile);
-
-    sol.common.RepoUtils.deleteSord(objId);
-    objId = sol.common.RepoUtils.saveToRepo({ name: sord.name, file: dstPdfFile, parentId: parentId });
-    return objId;
   },
 
   /**
@@ -391,7 +467,7 @@ sol.define("sol.common_document.as.Utils", {
     var me = this,
         result, i, j, sord, dstDir, pathParts, dstDirPath, sords, dstDirPathFile, folderSord, addPathPart, partPath,
         subDirPath, subDirPathFile, zipFile, zipDir, parentId, folderName, mergedOutputStream, pdfName, ext, 
-        pdfInputStreams, pdfInputStream, pdfContents;
+        pdfInputStreams, pdfInputStream, pdfContents, dstFile, fop, contentInBytes, bytes;
 
     pdfContents = [];
 
@@ -509,10 +585,27 @@ sol.define("sol.common_document.as.Utils", {
 
       sol.common.as.PdfUtils.mergePdfStreams(pdfInputStreams, mergedOutputStream);
       parentId = me.getExportFolder(config);
-      result.objId = sol.common.RepoUtils.saveToRepo({ parentId: parentId, name: folderName, outputStream: mergedOutputStream, extension: "pdf" });
+
       if (config.pdfA == true) {
-        result.objId = me.convertPDFtoPDFA(result.objId, dstDirPath);
+        dstFile = new java.io.File(dstDirPath + java.io.File.separator + "All.pdf");
+        fop = new FileOutputStream(dstFile);
+        if (!dstFile.exists()) {
+          dstFile.createNewFile();
+        }
+        contentInBytes = mergedOutputStream.toByteArray();
+        fop.write(contentInBytes);
+        fop.flush();
+        fop.close();
+    
+        me.convertPDFtoPDFA(dstFile);
+
+        bytes = Packages.org.apache.commons.io.FileUtils.readFileToByteArray(dstFile);
+        mergedOutputStream = new ByteArrayOutputStream(bytes.length);
+        mergedOutputStream.write(bytes, 0, bytes.length);
+
+        sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
       }
+      result.objId = sol.common.RepoUtils.saveToRepo({ parentId: parentId, name: folderName, outputStream: mergedOutputStream, extension: "pdf" });
     } else {
       zipFile = new File(baseDstDirPath + ".zip");
       zipDir = new File(baseDstDirPath);
