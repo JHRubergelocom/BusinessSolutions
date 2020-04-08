@@ -56,7 +56,7 @@ sol.define("sol.unittest.as.services.ExecuteLib4", {
         result = {},
         cls, func;
 
-    cls = sol.create(me.className, me.classConfig);
+    cls = sol.create(me.className, me.classConfig); 
     func = cls[me.method];
 
     if (sol.common.ObjectUtils.isFunction(func)) {
@@ -66,7 +66,7 @@ sol.define("sol.unittest.as.services.ExecuteLib4", {
     }
 
     switch (me.className) {
-      case "sol.common_document.as.functions.ExportFolder":
+      case "sol.common_document.as.functions.PdfExport":
         switch (me.method) {
           case "process":
             result = {};

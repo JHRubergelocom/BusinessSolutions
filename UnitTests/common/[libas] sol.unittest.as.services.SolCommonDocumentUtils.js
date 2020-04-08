@@ -3,7 +3,8 @@ describe("[libas] sol.unittest.as.services.SolCommonDocumentUtils", function () 
   var originalTimeout, content, outputStream, sord, folderName,
       dstDirPath, pdfName, templateId, ext, folderId, baseDstDirPath, 
       config, obSolCommonDocumentUtilsId, PdfExportSord, objId,
-      objConvertPdfToPdfAId, pdfContents;
+      objConvertPdfToPdfAId, pdfContents, dstPdfFile, isCover, 
+      pdfInputStream, pdfOutputStream;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -70,15 +71,14 @@ describe("[libas] sol.unittest.as.services.SolCommonDocumentUtils", function () 
       });
       it("convertPDFtoPDFA", function (done) {
         expect(function () {
-          objId = objConvertPdfToPdfAId;
-          dstDirPath = "dstDirPath1";
+          dstPdfFile = objConvertPdfToPdfAId;
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.unittest.as.services.ExecuteLib2",
             config: {
               className: "sol.common_document.as.Utils",
               classConfig: {},
               method: "convertPDFtoPDFA",
-              params: [objId, dstDirPath]
+              params: [dstPdfFile]
             }
           }).then(function success(jsonResult) {
             content = jsonResult.content;
@@ -178,6 +178,7 @@ describe("[libas] sol.unittest.as.services.SolCommonDocumentUtils", function () 
       it("createErrorConversionPdf", function (done) {
         expect(function () {
           sord = obSolCommonDocumentUtilsId;
+          ext = "ext1";
           dstDirPath = "dstDirPath1";
           config = {};
           pdfContents = [];
@@ -187,7 +188,7 @@ describe("[libas] sol.unittest.as.services.SolCommonDocumentUtils", function () 
               className: "sol.common_document.as.Utils",
               classConfig: {},
               method: "createErrorConversionPdf",
-              params: [sord, dstDirPath, config, pdfContents]
+              params: [sord, ext, dstDirPath, config, pdfContents]
             }
           }).then(function success(jsonResult) {
             content = jsonResult.content;
@@ -315,7 +316,7 @@ describe("[libas] sol.unittest.as.services.SolCommonDocumentUtils", function () 
           );
         }).not.toThrow();
       });
-      it("getRefPath", function (done) {
+      it("getPdfName", function (done) {
         expect(function () {
           sord = obSolCommonDocumentUtilsId;
           ext = "ext1";
@@ -324,8 +325,34 @@ describe("[libas] sol.unittest.as.services.SolCommonDocumentUtils", function () 
             config: {
               className: "sol.common_document.as.Utils",
               classConfig: {},
-              method: "getRefPath",
+              method: "getPdfName",
               params: [sord, ext]
+            }
+          }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") != -1) {
+              fail(jsonResult.content);
+            }
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("getRefPath", function (done) {
+        expect(function () {
+          sord = obSolCommonDocumentUtilsId;
+          isCover = true;
+          test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
+            action: "sol.unittest.as.services.ExecuteLib2",
+            config: {
+              className: "sol.common_document.as.Utils",
+              classConfig: {},
+              method: "getRefPath",
+              params: [sord, isCover]
             }
           }).then(function success(jsonResult) {
             content = jsonResult.content;
@@ -437,6 +464,60 @@ describe("[libas] sol.unittest.as.services.SolCommonDocumentUtils", function () 
             } else {
               content = JSON.parse(content);
               objId = content.objId;
+            }
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("writePdfInputStreamToFile", function (done) {
+        expect(function () {
+          pdfInputStream = objConvertPdfToPdfAId;
+          dstDirPath = "dstDirPath1";
+          pdfName = "pdfName1";
+          test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
+            action: "sol.unittest.as.services.ExecuteLib2",
+            config: {
+              className: "sol.common_document.as.Utils",
+              classConfig: {},
+              method: "writePdfInputStreamToFile",
+              params: [pdfInputStream, dstDirPath, pdfName]
+            }
+          }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") != -1) {
+              fail(jsonResult.content);
+            }
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("writePdfOutputStreamToFile", function (done) {
+        expect(function () {
+          pdfOutputStream = "pdfOutputStream1";
+          dstDirPath = "dstDirPath1";
+          pdfName = "pdfName1";
+          test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
+            action: "sol.unittest.as.services.ExecuteLib2",
+            config: {
+              className: "sol.common_document.as.Utils",
+              classConfig: {},
+              method: "writePdfOutputStreamToFile",
+              params: [pdfOutputStream, dstDirPath, pdfName]
+            }
+          }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") != -1) {
+              fail(jsonResult.content);
             }
             done();
           }, function error(err) {

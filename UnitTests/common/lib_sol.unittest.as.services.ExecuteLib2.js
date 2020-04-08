@@ -72,7 +72,8 @@ sol.define("sol.unittest.as.services.ExecuteLib2", {
   process: function () {
     var me = this,
         result = {},
-        cls, func, exportDirPath;
+        cls, func, exportDirPath, sord, pdfInputStream, templateId, data, 
+        fopRenderer, fopResult, pdfOutputStream;
 
     cls = sol.create(me.className, me.classConfig);
     func = cls[me.method];
@@ -122,10 +123,13 @@ sol.define("sol.unittest.as.services.ExecuteLib2", {
             break;
           case "convertPDFtoPDFA":
             exportDirPath = me.createExportDirPath("folderName1");
-            me.params[1] = exportDirPath;            
+            sord = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
+            pdfInputStream = cls.convertToPdf(sord);
+            me.params[0] = cls.writePdfInputStreamToFile(pdfInputStream, exportDirPath, "pdfName1");
             break;  
           case "convertToPdf":
           case "getRefPath":
+          case "getPdfName":
             me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
             break;
           case "getTemplateCoverSheetSord":
@@ -144,6 +148,11 @@ sol.define("sol.unittest.as.services.ExecuteLib2", {
             me.params[3] = config; 
             break;
           case "createErrorConversionPdf":
+            me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
+            exportDirPath = me.createExportDirPath("folderName1");
+            me.params[2] = exportDirPath;            
+            me.params[3] = config; 
+            break;
           case "createPdfDocument":
             me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
             exportDirPath = me.createExportDirPath("folderName1");
@@ -174,7 +183,26 @@ sol.define("sol.unittest.as.services.ExecuteLib2", {
             break;
           case "pdfExport":
             me.params[2] = config;            
-            break;                
+            break;   
+          case "writePdfInputStreamToFile":
+            exportDirPath = me.createExportDirPath("folderName1");
+            sord = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
+            pdfInputStream = cls.convertToPdf(sord);
+            me.params[0] = pdfInputStream;
+            me.params[1] = exportDirPath;    
+            break; 
+          case "writePdfOutputStreamToFile":
+            exportDirPath = me.createExportDirPath("folderName1");
+            templateId = cls.getTemplateContents(config);
+            data = {};
+            data.header = { name: "folderName1" };
+            data.contents = [];            
+            fopRenderer = sol.create("sol.common.as.renderer.Fop", { templateId: templateId, toStream: true });
+            fopResult = fopRenderer.render("Content", data);
+            pdfOutputStream = fopResult.outputStream;
+            me.params[0] = pdfOutputStream;
+            me.params[1] = exportDirPath;    
+            break;
           default:
         }
         break;
@@ -218,6 +246,8 @@ sol.define("sol.unittest.as.services.ExecuteLib2", {
             result = String(result);
             break;
           case "convertPDFtoPDFA":
+          case "writePdfInputStreamToFile":  
+          case "writePdfOutputStreamToFile":
             sol.common.FileUtils.delete(exportDirPath, { quietly: true });
             result = String(result);
             break;
@@ -226,7 +256,7 @@ sol.define("sol.unittest.as.services.ExecuteLib2", {
           case "createPdfDocument":
           case "createPdfFromSord":
           case "exportFolder":
-          case "getOffsetSumPages":    
+          case "getOffsetSumPages":  
             sol.common.FileUtils.delete(exportDirPath, { quietly: true });
             break;
           default:
