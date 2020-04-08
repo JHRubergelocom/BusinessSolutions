@@ -84,10 +84,10 @@ sol.define("sol.common_document.as.Utils", {
    * Get refpath
    * @private
    * @param {de.elo.ix.client.Sord} sord
-   * @param {String} ext document extension
+   * @param {String} isCover flag if is coversheet
    * @return {String} refPath
    */
-  getRefPath: function (sord, ext) {
+  getRefPath: function (sord, isCover) {
     var pathIds = [],
         refPath;
 
@@ -98,10 +98,10 @@ sol.define("sol.common_document.as.Utils", {
     if (sol.common.SordUtils.isFolder(sord)) {
       refPath = refPath + sord.id + File.separator + "1.";
     } else {      
-      if (ext) {
-        refPath = refPath + sord.id + File.separator + "2." + ext;
-      } else {
+      if (isCover) {
         refPath = refPath + sord.id + File.separator + "2.";
+      } else {
+        refPath = refPath + sord.id + File.separator + "3.";
       }
     }
     return refPath;
@@ -186,8 +186,8 @@ sol.define("sol.common_document.as.Utils", {
    */
   createPdfFromSord: function (sord, templateId, dstDirPath, ext, pdfName, config, pdfContents) {
     var me = this,
-        data, fopRenderer, result, pdfInputStream, refPath, contentName, pdfPages, 
-        dstFile;
+        data, fopRenderer, result, pdfInputStream, refPath, pdfPages, 
+        dstFile, isCover;
 
     if (ext) {
       data = { sord: sol.common.SordUtils.getTemplateSord(sord).sord, ext: ext };
@@ -199,16 +199,16 @@ sol.define("sol.common_document.as.Utils", {
       fopRenderer = sol.create("sol.common.as.renderer.Fop", { templateId: templateId, toStream: true });
       result = fopRenderer.render(pdfName, data);
       pdfInputStream = me.convertOutputStreamToInputStream(result.outputStream);
-      refPath = me.getRefPath(sord, ext);
-      if (ext) {
-        contentName = sord.name + "." + ext;
-      } else {
-        contentName = sord.name;
-      } 
+      isCover = null;
+      if (pdfName.indexOf(".cover") > -1) {
+        isCover = true;
+      }
+      refPath = me.getRefPath(sord, isCover);
       dstFile = me.writePdfOutputStreamToFile(result.outputStream, dstDirPath, pdfName);
       pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstFile);
 
-      pdfContents.push({ pdfInputStream: pdfInputStream, refPath: refPath, contentName: contentName, pdfPages: pdfPages });      
+      pdfContents.push({ pdfInputStream: pdfInputStream, refPath: refPath, contentName: pdfName, pdfPages: pdfPages });    
+
     } else {
       fopRenderer = sol.create("sol.common.as.renderer.Fop", { templateId: templateId, toStream: true });
       result = fopRenderer.render(pdfName, data);
@@ -264,7 +264,8 @@ sol.define("sol.common_document.as.Utils", {
       fopRenderer = sol.create("sol.common.as.renderer.Fop", { templateId: templateId, toStream: true });
       result = fopRenderer.render(pdfName, data);
       pdfInputStream = me.convertOutputStreamToInputStream(result.outputStream);
-      refPath = me.getRefPath(sord, ext);
+      refPath = me.getRefPath(sord);
+
       if (ext) {
         contentName = sord.name + "." + ext;
       } else {
@@ -348,7 +349,7 @@ sol.define("sol.common_document.as.Utils", {
       pdfInputStream = new ByteArrayInputStream(Packages.org.apache.commons.io.FileUtils.readFileToByteArray(dstFile));
 
       if (config.pdfExport === true) {
-        refPath = me.getRefPath(sord, ext);
+        refPath = me.getRefPath(sord);
         if (ext) {
           contentName = sord.name + "." + ext;
         } else {
@@ -374,10 +375,9 @@ sol.define("sol.common_document.as.Utils", {
    */
   getOffsetSumPages: function (folderName, dstDirPath, config, pdfContents) {
     var me = this,
-        targetId, templateId, data, fopRenderer, result, dstFile, pdfPages, fop, contentInBytes;
+        templateId, data, fopRenderer, result, dstFile, pdfPages, fop, contentInBytes;
 
     pdfPages = 0;
-    targetId = me.getExportFolder(config);
     templateId = me.getTemplateContents(config);
     data = {};
     data.header = { name: folderName };
@@ -548,7 +548,7 @@ sol.define("sol.common_document.as.Utils", {
         try {
           ext = (sord && sord.docVersion && sord.docVersion.ext) ? sord.docVersion.ext : null;
           if (ext) {
-            pdfName = sord.name + "." + ext + ".cover";
+            pdfName = sord.name + ".cover." + ext;
           } else {
             pdfName = sord.name + ".cover";
           }
