@@ -99,9 +99,9 @@ sol.define("sol.common_document.as.Utils", {
       refPath = refPath + sord.id + File.separator + "1.";
     } else {      
       if (isCover) {
-        refPath = refPath + sord.id + File.separator + "2.";
+        refPath = refPath + sord.name + File.separator + "2.";
       } else {
-        refPath = refPath + sord.id + File.separator + "3.";
+        refPath = refPath + sord.name + File.separator + "3.";
       }
     }
     return refPath;
@@ -187,7 +187,7 @@ sol.define("sol.common_document.as.Utils", {
   createPdfFromSord: function (sord, templateId, dstDirPath, ext, pdfName, config, pdfContents) {
     var me = this,
         data, fopRenderer, result, pdfInputStream, refPath, pdfPages, 
-        dstFile, isCover;
+        dstFile, isCover, contentType;
 
     if (ext) {
       data = { sord: sol.common.SordUtils.getTemplateSord(sord).sord, ext: ext };
@@ -207,7 +207,19 @@ sol.define("sol.common_document.as.Utils", {
       dstFile = me.writePdfOutputStreamToFile(result.outputStream, dstDirPath, pdfName);
       pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstFile);
 
-      pdfContents.push({ pdfInputStream: pdfInputStream, refPath: refPath, contentName: pdfName, pdfPages: pdfPages });    
+      contentType = "Document";
+      if (sol.common.SordUtils.isFolder(sord)) {
+        contentType = "Folder";
+      }     
+      pdfContents.push({ 
+        pdfInputStream: pdfInputStream, 
+        refPath: refPath, 
+        contentName: pdfName, 
+        pdfPages: pdfPages, 
+        contentType: contentType, 
+        contentMask: sord.maskName,
+        contentHint: ""
+      });    
 
     } else {
       fopRenderer = sol.create("sol.common.as.renderer.Fop", { templateId: templateId, toStream: true });
@@ -249,7 +261,7 @@ sol.define("sol.common_document.as.Utils", {
   createErrorConversionPdf: function (sord, ext, dstDirPath, config, pdfContents) {
     var me = this,
         templateId, pdfName, data, fopRenderer, result, pdfInputStream,
-        refPath, contentName, dstFile, pdfPages;
+        refPath, contentName, dstFile, pdfPages, contentType;
 
     templateId = me.getTemplateErrorConversionPdf(config);
     if (ext) {
@@ -274,7 +286,20 @@ sol.define("sol.common_document.as.Utils", {
       dstFile = me.writePdfOutputStreamToFile(result.outputStream, dstDirPath, pdfName);
       pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstFile);
 
-      pdfContents.push({ pdfInputStream: pdfInputStream, refPath: refPath, contentName: contentName, pdfPages: pdfPages });   
+      contentType = "Document";
+      if (sol.common.SordUtils.isFolder(sord)) {
+        contentType = "Folder";
+      }     
+      pdfContents.push({ 
+        pdfInputStream: pdfInputStream, 
+        refPath: refPath, 
+        contentName: contentName, 
+        pdfPages: pdfPages, 
+        contentType: contentType, 
+        contentMask: sord.maskName,
+        contentHint: "Konvertierung fehlgeschlagen"
+      });    
+
       sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
 
     } else {
@@ -334,7 +359,7 @@ sol.define("sol.common_document.as.Utils", {
    */
   createPdfDocument: function (sord, dstDirPath, config, pdfContents) {
     var me = this,
-        pdfInputStream, ext, refPath, contentName, pdfPages, dstFile, pdfName;
+        pdfInputStream, ext, refPath, contentName, pdfPages, dstFile, pdfName, contentType;
 
     pdfInputStream = me.convertToPdf(sord);
     ext = (sord && sord.docVersion && sord.docVersion.ext) ? sord.docVersion.ext : null;  
@@ -356,12 +381,61 @@ sol.define("sol.common_document.as.Utils", {
           contentName = sord.name;
         }
         pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstFile);
-        pdfContents.push({ pdfInputStream: pdfInputStream, refPath: refPath, contentName: contentName, pdfPages: pdfPages });
+        contentType = "Document";
+        if (sol.common.SordUtils.isFolder(sord)) {
+          contentType = "Folder";
+        }     
+        pdfContents.push({ 
+          pdfInputStream: pdfInputStream, 
+          refPath: refPath, 
+          contentName: contentName, 
+          pdfPages: pdfPages, 
+          contentType: contentType, 
+          contentMask: sord.maskName,
+          contentHint: ""
+        });    
+
         sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
       }
     } else {
       me.createErrorConversionPdf(sord, ext, dstDirPath, config, pdfContents);
     }
+  },
+
+  /**
+   * Adjust contents.
+   * @private
+   * @param {Object[]} contents
+   * @return {Object[]} new contents
+   */
+  adjustContent: function (contents) {
+    var newContents, newName, oldContents, i, j, newContent, oldContent;
+
+    newContents = [];
+    oldContents = [];
+    contents.forEach(function (content) {
+      if (content.name.indexOf(".cover") > -1) {
+        newName = content.name.split(".cover").join("");
+        newName = newName + "  ------  (" + content.type + ", " + content.mask + ")";
+        newContents.push({ name: newName, pageno: content.pageno });
+      } else {
+        oldContents.push({ name: content.name, hint: content.hint });
+      }
+    });
+    for (i = 0; i < newContents.length; i++) {
+      newContent = newContents[i];
+      for (j = 0; j < oldContents.length; j++) {
+        oldContent = oldContents[j];
+        if (newContent.name.indexOf(oldContent.name) > -1) {
+          if (oldContent.hint != "") {
+            newContent.name = newContent.name + " [" + oldContent.hint + "]";
+            break;
+          }
+        }
+      }
+    }
+    
+    return newContents;
   },
 
   /**
@@ -384,9 +458,10 @@ sol.define("sol.common_document.as.Utils", {
     data.contents = [];
 
     pdfContents.forEach(function (pdfContent) {
-      data.contents.push({ name: pdfContent.contentName, pageno: pdfContent.pdfPages });
+      data.contents.push({ name: pdfContent.contentName, pageno: pdfContent.pdfPages, type: pdfContent.contentType, mask: pdfContent.contentMask, hint: pdfContent.contentHint });
     });
 
+    data.contents = me.adjustContent(data.contents);
     fopRenderer = sol.create("sol.common.as.renderer.Fop", { templateId: templateId, toStream: true });
     result = fopRenderer.render("Content", data);
     dstFile = new java.io.File(dstDirPath + java.io.File.separator + "Content.pdf");
@@ -424,11 +499,13 @@ sol.define("sol.common_document.as.Utils", {
     data.contents = [];
 
     sumPages = me.getOffsetSumPages(folderName, dstDirPath, config, pdfContents);
+
     pdfContents.forEach(function (pdfContent) {
       sumPages += pdfContent.pdfPages;
-      data.contents.push({ name: pdfContent.contentName, pageno: sumPages });
+      data.contents.push({ name: pdfContent.contentName, pageno: sumPages, type: pdfContent.contentType, mask: pdfContent.contentMask, hint: pdfContent.contentHint });
     });
 
+    data.contents = me.adjustContent(data.contents);
     fopRenderer = sol.create("sol.common.as.renderer.Fop", { templateId: templateId, toStream: true });
     result = fopRenderer.render("Content", data);
     pdfInputStream = me.convertOutputStreamToInputStream(result.outputStream);
