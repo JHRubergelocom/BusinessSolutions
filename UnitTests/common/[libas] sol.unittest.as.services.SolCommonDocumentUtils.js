@@ -4,7 +4,7 @@ describe("[libas] sol.unittest.as.services.SolCommonDocumentUtils", function () 
       dstDirPath, pdfName, templateId, ext, folderId, baseDstDirPath, 
       config, obSolCommonDocumentUtilsId, PdfExportSord, objId,
       objConvertPdfToPdfAId, pdfContents, dstPdfFile, isCover, 
-      pdfInputStream, pdfOutputStream;
+      pdfInputStream, pdfOutputStream, contents;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -31,6 +31,31 @@ describe("[libas] sol.unittest.as.services.SolCommonDocumentUtils", function () 
   });
   describe("Test Lib Functions", function () {
     describe("sol.common_document.as.Utils", function () {
+      it("adjustContent", function (done) {
+        expect(function () {
+          contents = [];
+          test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
+            action: "sol.unittest.as.services.ExecuteLib2",
+            config: {
+              className: "sol.common_document.as.Utils",
+              classConfig: {},
+              method: "adjustContent",
+              params: [contents]
+            }
+          }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") != -1) {
+              fail(jsonResult.content);
+            }
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("convertOutputStreamToInputStream", function (done) {
         expect(function () {
           outputStream = "outputStream1";
