@@ -232,6 +232,33 @@ describe("[libas] sol.unittest.as.services.SolHrFunctionsProvidePersonnelFileAcc
           );
         }).not.toThrow();
       });
+      it("excludeAllOptionHandler", function (done) {
+        expect(function () {
+          setInstructions = {};
+          target = "target1";
+          template = "template1";
+          test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
+            action: "sol.unittest.hr.as.services.ExecuteLib",
+            config: {
+              className: "sol.hr.as.functions.ProvidePersonnelFileAccess",
+              classConfig: {},
+              method: "excludeAllOptionHandler",
+              params: [setInstructions, target, template]
+            }
+          }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") != -1) {
+              fail(jsonResult.content);
+            }
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("excludeGRPFields", function (done) {
         expect(function () {
           setInstructions = {};
