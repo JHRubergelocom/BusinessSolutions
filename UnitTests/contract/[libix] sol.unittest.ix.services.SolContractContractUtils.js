@@ -1,6 +1,6 @@
 
 describe("[libix] sol.unittest.ix.services.SolContractContractUtils", function () {
-  var originalTimeout;
+  var originalTimeout, objId, wfName;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -25,6 +25,63 @@ describe("[libix] sol.unittest.ix.services.SolContractContractUtils", function (
             classConfig: {},
             method: "loadConfig",
             params: []
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("startCloseContractWorkflow", function (done) {
+        expect(function () {
+          objId = "objId1";
+          wfName = "wfName1";
+          test.Utils.execute("RF_sol_unittest_contract_service_ExecuteLib", {
+            className: "sol.contract.ix.ContractUtils",
+            classConfig: {},
+            method: "startCloseContractWorkflow",
+            params: [objId, wfName]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("startDeleteContractWorkflow", function (done) {
+        expect(function () {
+          objId = "objId1";
+          wfName = "wfName1";
+          test.Utils.execute("RF_sol_unittest_contract_service_ExecuteLib", {
+            className: "sol.contract.ix.ContractUtils",
+            classConfig: {},
+            method: "startDeleteContractWorkflow",
+            params: [objId, wfName]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("startOpenContractWorkflow", function (done) {
+        expect(function () {
+          objId = "objId1";
+          wfName = "wfName1";
+          test.Utils.execute("RF_sol_unittest_contract_service_ExecuteLib", {
+            className: "sol.contract.ix.ContractUtils",
+            classConfig: {},
+            method: "startOpenContractWorkflow",
+            params: [objId, wfName]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {

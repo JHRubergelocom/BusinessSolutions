@@ -83,6 +83,15 @@ sol.define("sol.unittest.contract.ix.services.ExecuteLib", {
           default:
         }
         break;
+      case "sol.contract.ix.ContractUtils":
+        switch (me.method) {
+          case "startCloseContractWorkflow":
+          case "startDeleteContractWorkflow":
+          case "startOpenContractWorkflow":
+            return result;
+          default:
+        }
+        break;
       default:
     }
 
