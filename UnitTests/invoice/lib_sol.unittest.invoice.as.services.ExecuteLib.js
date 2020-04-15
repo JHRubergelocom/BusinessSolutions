@@ -136,6 +136,13 @@ sol.define("sol.unittest.invoice.as.services.ExecuteLib", {
           default:
         }
         break;
+      case "sol.invoice_electronic.as.ExtractDataTest":
+        switch (me.method) {
+          case "processSord":
+            return result;
+          default:
+        }
+        break;
       default:
     }
 
