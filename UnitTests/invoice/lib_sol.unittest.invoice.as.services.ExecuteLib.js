@@ -136,10 +136,23 @@ sol.define("sol.unittest.invoice.as.services.ExecuteLib", {
           default:
         }
         break;
+
       case "sol.invoice_electronic.as.ExtractDataTest":
         switch (me.method) {
           case "processSord":
             return result;
+          default:
+        }
+        break;
+      case "sol.invoice_electronic.as.postProcessing.XRechnung":
+        switch (me.method) {
+          case "process":
+            me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
+            break;
+          case "setPaymentTerms":
+            me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
+            me.params[0] = sol.common.SordUtils.getTemplateSord(me.params[0]).sord;
+            break;
           default:
         }
         break;
