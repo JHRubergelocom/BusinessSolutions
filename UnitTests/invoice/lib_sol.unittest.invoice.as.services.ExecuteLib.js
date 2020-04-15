@@ -132,7 +132,7 @@ sol.define("sol.unittest.invoice.as.services.ExecuteLib", {
             break;
           case "startInvoiceWorkflow":
             me.params[0] = sol.create("sol.common.Config", { compose: "/invoice/Configuration/sol.invoice.config" }).config;
-            break;
+            return result;
           default:
         }
         break;

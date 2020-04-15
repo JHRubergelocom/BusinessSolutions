@@ -1,6 +1,6 @@
 
 describe("[libas] sol.unittest.as.services.SolInvoiceInvoiceXmlImporter", function () {
-  var originalTimeout, content;
+  var originalTimeout, content, invoiceConfig, objId;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -27,6 +27,32 @@ describe("[libas] sol.unittest.as.services.SolInvoiceInvoiceXmlImporter", functi
               classConfig: {},
               method: "run",
               params: []
+            }
+          }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") != -1) {
+              fail(jsonResult.content);
+            }
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("startInvoiceWorkflow", function (done) {
+        expect(function () {
+          invoiceConfig = {};
+          objId = "objId1";
+          test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
+            action: "sol.unittest.invoice.as.services.ExecuteLib",
+            config: {
+              className: "sol.invoice.as.InvoiceXmlImporter",
+              classConfig: {},
+              method: "startInvoiceWorkflow",
+              params: [invoiceConfig, objId]
             }
           }).then(function success(jsonResult) {
             content = jsonResult.content;
