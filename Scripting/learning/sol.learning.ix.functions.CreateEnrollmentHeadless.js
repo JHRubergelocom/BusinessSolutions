@@ -63,9 +63,12 @@ sol.define("sol.learning.ix.functions.CreateEnrollmentHeadless", {
     _workflowMessage: { config: "learning", prop: "entities.enrollment.actions.createheadless.const.workflowMessage", template: true }, // ""
     _userField: { config: "learning", prop: "entities.enrollment.actions.createheadless.const.userField" }, // ""
     _courseReferenceField: { config: "learning", prop: "entities.enrollment.actions.createheadless.const.courseReferenceField" }, // ""
+    _sessionReferenceField: { config: "learning", prop: "entities.enrollment.actions.createheadless.const.sessionReferenceField" }, // ""
     _enrollmentStatusField: { config: "learning", prop: "entities.enrollment.actions.createheadless.const.enrollmentStatusField" }, // ""
     _GRPFieldsFromUser: { config: "learning", prop: "entities.enrollment.actions.createheadless.const.GRPFieldsFromUser" }, // [""]
-    _enrollment: { config: "learning", prop: "entities.enrollment.actions.createheadless.findEnrollment" } // {}
+    _enrollment: { config: "learning", prop: "entities.enrollment.actions.createheadless.findEnrollment" }, // {}
+    _sessionEnrollments: { config: "learning", prop: "entities.enrollment.actions.createheadless.findSessionEnrollments" }, // {}
+    _session: { config: "learning", prop: "entities.enrollment.actions.createheadless.findSession" } // {}
   },
 
   determineCriterion: function (param, key, desc, throws) {
@@ -184,11 +187,21 @@ sol.define("sol.learning.ix.functions.CreateEnrollmentHeadless", {
     return sol.common.IxUtils.optimizedExecute("RF_sol_common_service_SordProvider", me._enrollment, me._optimize, "findExistingEnrollment", ["output"]).sords[0];
   },
 
+  isSessionFull: function (session) {
+    var me = this, participants, maxParticipants, sessionParam = { key: "SESSION_REFERENCE", value: [session] };
+    me._sessionEnrollments.search.push(sessionParam);
+    me._session.search.push(sessionParam);
+    participants = sol.common.IxUtils.optimizedExecute("RF_sol_common_service_SordProvider", me._sessionEnrollments, me._optimize, "sessionEnrollments", ["output"]).sords.length;
+    maxParticipants = +(((sol.common.IxUtils.optimizedExecute("RF_sol_common_service_SordProvider", me._session, me._optimize, "session", ["output"]).sords[0] || {}).maxParticipants) || 0);
+    return participants >= maxParticipants;
+  },
+
   process: function () {
-    var me = this, enrollmentId, user, course, metaData, throws = true;
+    var me = this, enrollmentId, user, course, session, metaData, throws = true;
 
     user = me.determineCriterion("user", me._userField, "user name", throws);
     course = me.determineCriterion("course", me._courseReferenceField, "course reference", throws);
+    session = me.determineCriterion("session", me._sessionReferenceField, "session reference", !throws) || "";
 
     enrollmentId = me.getEnrollment(user, course);
 
@@ -196,9 +209,14 @@ sol.define("sol.learning.ix.functions.CreateEnrollmentHeadless", {
       return { code: "duplicate", data: { objId: enrollmentId }, info: "Enrollment not created: already existed." };
     }
 
+    if (session && !me.allowOverbooking && me.isSessionFull(session)) {
+      return { code: "sessionfull", info: "This session has no more free seats!" };
+    }
+
     metaData = me.prepareMetaData({
       COURSE_ENROLLMENT_USER: user,
       COURSE_REFERENCE: course,
+      SESSION_REFERENCE: session,
       COURSE_ENROLLMENT_STATUS: me.determineCriterion("status", me._enrollmentStatusField, "status") || "ENROLLED"
     });
 
@@ -207,6 +225,52 @@ sol.define("sol.learning.ix.functions.CreateEnrollmentHeadless", {
     sol.common.WfUtils.startWorkflow(me._standardWorkflow, me._workflowMessage, enrollmentId);
 
     return { code: "success", data: { objId: enrollmentId }, info: "Enrollment created successfully" };
+  }
+});
+
+sol.define("sol.learning.ix.functions.CancelEnrollment", {
+  extend: "sol.common.ix.FunctionBase",
+
+  determineCriterion: function (param, key, desc, throws) {
+    var me = this, criterionMapping, criterion;
+    if (me[param]) {
+      criterion = me[param];
+    } else if (me.sordMetadata && me.sordMetadata.objKeys) {
+      criterion = me.sordMetadata.objKeys[key];
+    } else if (me.metadataMapping) {
+      me.metadataMapping
+        .some(function (mapping) {
+          return (mapping.target && (mapping.target.id === key)) && (criterionMapping = mapping);
+        });
+      if (criterionMapping) {
+        criterion = criterionMapping.target.value;
+      }
+    }
+
+    if (throws && !criterion) {
+      throw "Call did not contain a " + desc + "! (`" + param + "` paramenter)";
+    }
+
+    return criterion;
+  },
+
+  rfAsAdm: function (fct, params) {
+    var any = new (typeof Any !== "undefined" ? Any : de.elo.ix.client.Any);
+    any.type = ixConnect.CONST.ANY.TYPE_STRING;
+    any.stringValue = sol.common.JsonUtils.stringifyAll(params);
+    any = ((ixConnectAdmin === "undefined") ? ixConnect : ixConnectAdmin).ix().executeRegisteredFunction(fct, any);
+    return JSON.parse((any && any.stringValue) ? String(any.stringValue) : "{}");
+  },
+
+  process: function () {
+    var me = this, guid, user, course, session, throws = true;
+
+    guid = me.determineCriterion("guid", me._userField, "guid", !throws) || "";
+    user = me.determineCriterion("user", me._userField, "user name", !throws) || "";
+    course = me.determineCriterion("course", me._courseReferenceField, "course reference", !throws) || "";
+    session = me.determineCriterion("session", me._sessionReferenceField, "session reference", !throws) || "";
+
+    return me.rfAsAdm("RF_sol_learning_function_ManageEnrollment", { guid: guid, user: user, course: course, session: session, action: "cancelled" });
   }
 });
 
@@ -223,7 +287,11 @@ function onEnterNode(_clInfo, _userId, wfDiagram, nodeId) {
 
   params.objId = wfDiagram.objId;
   params.flowId = wfDiagram.id;
-  fun = sol.create("sol.learning.ix.functions.CreateEnrollmentHeadless", params);
+  if (params.cancel) {
+    fun = sol.create("sol.learning.ix.functions.CancelEnrollment", params);
+  } else {
+    fun = sol.create("sol.learning.ix.functions.CreateEnrollmentHeadless", params);
+  }
 
   fun.process();
 }
@@ -242,11 +310,14 @@ function onExitNode(_clInfo, _userId, wfDiagram, nodeId) {
   params.objId = wfDiagram.objId;
   params.flowId = wfDiagram.id;
 
-  fun = sol.create("sol.learning.ix.functions.CreateEnrollmentHeadless", params);
+  if (params.cancel) {
+    fun = sol.create("sol.learning.ix.functions.CancelEnrollment", params);
+  } else {
+    fun = sol.create("sol.learning.ix.functions.CreateEnrollmentHeadless", params);
+  }
 
   fun.process();
 }
-
 
 /**
  * @member sol.learning.ix.functions.CreateEnrollmentHeadless
@@ -280,6 +351,23 @@ function RF_sol_learning_function_CreateEnrollmentHeadlessStrict(iXSEContext, ar
   rfArgs.user = ixConnect.loginResult.user.name;
 
   fun = sol.create("sol.learning.ix.functions.CreateEnrollmentHeadless", rfArgs);
+
+  return JSON.stringify(fun.process());
+}
+
+/**
+ * @member sol.learning.ix.functions.CreateEnrollmentHeadlessStrict
+ * @method RF_sol_learning_function_CreateEnrollmentHeadlessStrict
+ * @static
+ * @inheritdoc sol.common.ix.FunctionBase#RF_FunctionName
+ */
+function RF_sol_learning_function_CancelEnrollment(iXSEContext, args) {
+  var rfArgs, fun;
+
+  rfArgs = sol.common.ix.RfUtils.parseAndCheckParams(iXSEContext, arguments.callee.name, args);
+  rfArgs.user = ixConnect.loginResult.user.name;
+
+  fun = sol.create("sol.learning.ix.functions.CancelEnrollment", rfArgs);
 
   return JSON.stringify(fun.process());
 }
