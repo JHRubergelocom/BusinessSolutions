@@ -17,11 +17,11 @@ describe("[function] sol.learning.as.functions.CreateCertificate", function () {
     }).not.toThrow();
   });
   describe("Tests AS Action", function () {
-    xdescribe("sol.learning.as.CreateCertificate", function () {
+    describe("sol.learning.as.CreateCertificate", function () {
       it("should not throw with empty config", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.learning.as.CreateCertificate",
+            action: "sol.learning.as.functions.CreateCertificate",
             config: {}
           }).then(function success(jsonResult) {
             done();
