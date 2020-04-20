@@ -7,7 +7,7 @@ importPackage(Packages.de.elo.ix.client);
  * Contact management utilities
  *
  * @author JHR, ELO Digital Office GmbH
- * @version 1.1
+ * @version 1.05.002
  *
  * @eloix
  * @eloas
@@ -105,7 +105,7 @@ sol.define("sol.contact.Utils", {
         sord,
         isCompany, isContactList;
 
-    sord = ixConnect.ix().checkoutSord(objId, SordC.mbAllIndex, LockC.NO),
+    sord = ixConnect.ix().checkoutSord(objId, SordC.mbAllIndex, LockC.NO);
     isCompany = me.isCompany(sord);
     isContactList = me.isContactList(sord);
 
@@ -360,6 +360,39 @@ sol.define("sol.contact.Utils", {
       name = sol.common.WfUtils.createServiceWfName(name);
     }
     return name;
+  },
+
+  /**
+   * Maps the data from the batch importer so it can be used by the existing createX RFs.
+   * @param {Object} templateSord
+   * @return {Object[]} An input object array for the {@link sol.common.SordUtils#updateSord updateSord} method.
+   */
+  mapData: function (templateSord) {
+    var result = [],
+        mapSubObj;
+
+    mapSubObj = function (obj, type) {
+      var key;
+      for (key in obj) {
+        if (obj.hasOwnProperty(key)) {
+          result.push({ key: key, type: type, value: obj[key] });
+        }
+      }
+    };
+
+    if (!templateSord) {
+      return result;
+    }
+
+    if (templateSord.objKeys) {
+      mapSubObj(templateSord.objKeys, "GRP");
+    }
+
+    if (templateSord.mapKeys) {
+      mapSubObj(templateSord.mapKeys, "MAP");
+    }
+
+    return result;
   }
 
 });

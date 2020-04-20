@@ -2,7 +2,8 @@
 describe("[lib] sol.unittest.ix.services.SolContactUtils", function () {
   var originalTimeout, companyType,
       fromService, contactType, params, sord, config, objId, regPrefix,
-      CompanySord, ContactSord, ContactListSord, obSolContactUtilsId;
+      CompanySord, ContactSord, ContactListSord, obSolContactUtilsId,
+      templateSord;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -432,6 +433,24 @@ describe("[lib] sol.unittest.ix.services.SolContactUtils", function () {
             params: [sord]
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual(true);
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("mapData", function (done) {
+        expect(function () {
+          templateSord = { objKeys: ["Field1", "Field2"], mapKeys: ["Map1", "Map2"] };
+          test.Utils.execute("RF_sol_unittest_productivity_service_ExecuteLib", {
+            className: "sol.contact.Utils",
+            classConfig: {},
+            method: "mapData",
+            params: [templateSord]
+          }).then(function success(jsonResult) {
             done();
           }, function error(err) {
             fail(err);
