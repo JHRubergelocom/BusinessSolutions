@@ -448,7 +448,7 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice3", function () {
         );
       }).not.toThrow();
     });
-    it("get active node 'Cost object approval' (id = 36) of Subworkflow 'sol.invoice.Base.Approval'", function (done) {
+    it("get active node 'Cost object approval' (id = 37) of Subworkflow 'sol.invoice.Base.Approval'", function (done) {
       expect(function () {
         test.Utils.getWorkflow(invoiceFlowId).then(function success(workflow) {
           subWfs = [];
@@ -470,8 +470,8 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice3", function () {
               }
             }
           }
-          userNodeId = 36;
-          expect(userNodeId).toEqual(36);
+          userNodeId = 37;
+          expect(userNodeId).toEqual(37);
           done();
         }, function error(err) {
           fail(err);
