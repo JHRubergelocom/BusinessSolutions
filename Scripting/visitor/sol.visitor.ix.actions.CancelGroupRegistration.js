@@ -1,0 +1,132 @@
+
+//@include lib_Class.js
+//@include lib_sol.common.Config.js
+//@include lib_sol.common.RepoUtils.js
+//@include lib_sol.common.Template.js
+//@include lib_sol.common.ix.ActionBase.js
+//@include lib_sol.visitor.ix.VisitorUtils.js
+
+var logger = sol.create("sol.Logger", { scope: "sol.visitor.ix.actions.CancelGroupRegistration" });
+
+/**
+ * Cancels a group registration.
+ *
+ * # Configuration
+ *
+ * |Property|Description|
+ * |:------|:------|
+ * |group.templateFolderId|Path or ID to the group template folder|
+ * |group.createWorkflowPrefixKey|The prefix for the workflow name|
+ * |group.createWorkflowNameTemplate|The template for the workflow name (in Handlebars syntax)|
+ *
+ * # Workflow name template
+ * Usable variables in the template for the workflow name
+ *
+ * - wfPrefix {String}
+ * - groupType {String}
+ *
+ * @eloix
+ * @requires sol.common.Config
+ * @requires sol.common.JsonUtils
+ * @requires sol.common.SordUtils
+ * @requires sol.common.IxUtils
+ * @requires sol.common.CounterUtils
+ * @requires sol.common.RepoUtils
+ * @requires sol.common.Template
+ * @requires sol.common.TranslateTerms
+ * @requires sol.common.WfUtils
+ * @requires sol.common.ix.RfUtils
+ * @requires sol.common.ix.ActionBase
+ * @requires sol.visitor.ix.VisitorUtils
+ */
+sol.define("sol.visitor.ix.actions.CancelGroupRegistration", {
+  extend: "sol.common.ix.ActionBase",
+
+  requiredConfig: ["ci", "user"],
+
+  /**
+   * @cfg {de.elo.ix.client.ClientInfo} ci (required)
+   */
+
+  /**
+   * @cfg {de.elo.ix.client.UserInfo} user (required)
+   */
+
+  /**
+   * @cfg {String} groupObjId
+   * Object ID of the group from archive selection. Either `groupObjId` or `choosenGroupObjId` has to be defined.
+   */
+
+  /**
+   * @cfg {String} choosenGroupObjId
+   * Object ID of the group from the selection dialog. Either `groupObjId` or `choosenGroupObjId` has to be defined.
+   */
+
+  initialize: function (config) {
+    var me = this;
+    me.$super("sol.common.ix.ActionBase", "initialize", [config]);
+    sol.ns("sol.visitor");
+    me.config = sol.visitor.ix.VisitorUtils.loadConfig();
+
+    if (!me.groupObjId && !me.choosenGroupObjId) {
+      throw "InitializationException: either 'groupObjId' or 'choosenGroupObjId' has to be defined";
+    }
+
+  },
+
+  getName: function () {
+    return "CancelGroupRegistration";
+  },
+
+  process: function () {
+    var me = this,
+        wfPrefix, wfNumber, wfName, lookupObjId, flowId, objId, sord, visitorStatusKey;
+
+    wfPrefix = me.getLocalizedString(me.ci, me.config.visitor.requestWorkflows.cancelGroupRegistration.workflowPrefixKey);
+    wfNumber = me.actionId;
+    wfName = sol.create("sol.common.Template", { source: me.config.visitor.requestWorkflowNameTemplate }).apply({ wfPrefix: wfPrefix, wfDate: new Date(), wfNumber: wfNumber });
+
+    lookupObjId = me.choosenGroupObjId || me.groupObjId;
+
+    objId = sol.common.RepoUtils.getValidParent(lookupObjId, "SOL_TYPE", me.config.visitor.solTypeVisitorGroup);
+
+    if (objId !== null) {
+      sord = sol.common.RepoUtils.getSord(objId);
+
+      me.requireUserRights(sord, { rights: "RW", language: me.ci });
+
+      visitorStatusKey = sol.common.SordUtils.getLocalizedKwlKey(sord, { type: "GRP", key: "VISITOR_STATUS" });
+      if (visitorStatusKey == "PR") {
+        flowId = sol.visitor.ix.VisitorUtils.startCancelGroupRegistrationWorkflow(objId, wfName);
+        me.addWfDialogEvent(flowId, { objId: objId, dialogId: me.getName() });
+        me.addRefreshEvent(objId, { type: "WF_STATUS", value: "CANCELREGISTRATION", flowId: flowId });
+      } else {
+        me.addErrorEvent("sol.visitor.ix.actions.CancelGroupRegistration.error.onlyPreregisteredGroupCanBeCanceled", null, null, me.ci);
+      }
+    } else {
+      me.addErrorEvent("sol.visitor.ix.actions.CheckInGroup.errorInvalidElement", null, null, me.ci);
+    }
+  }
+});
+
+/**
+ * @member sol.visitor.ix.actions.CancelGroupRegistration
+ * @method RF_sol_visitor_action_CancelGroupRegistration
+ * @static
+ * @inheritdoc sol.common.ix.ActionBase#RF_FunctionName
+ */
+function RF_sol_visitor_action_CancelGroupRegistration(ec, configAny) {
+  logger.enter("RF_sol_visitor_action_CancelGroupRegistration", configAny);
+  var rfUtils = sol.common.ix.RfUtils,
+      config = rfUtils.parseAndCheckParams(ec, arguments.callee.name, configAny),
+      cancelGroupRegistration, result;
+
+  config.ci = ec.ci;
+  config.user = ec.user;
+
+  cancelGroupRegistration = sol.create("sol.visitor.ix.actions.CancelGroupRegistration", config);
+  result = cancelGroupRegistration.execute();
+  logger.exit("RF_sol_visitor_action_CancelGroupRegistration", result);
+  return result;
+}
+

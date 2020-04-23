@@ -10,9 +10,7 @@
       "LONG_TERM_BADGE"
     ],
     "visitorDocumentMask": "Visitor Document",
-
     "pathRegistration": "ARCPATH:/Visitor Management/Visitors/{{#if sord.objKeys.VISITOR_ARRIVALDATE}}{{substring sord.objKeys.VISITOR_ARRIVALDATE 0 4}}/{{substring sord.objKeys.VISITOR_ARRIVALDATE 4 6}}{{else}}{{substring sord.objKeys.VISITOR_STARTDATE 0 4}}/{{substring sord.objKeys.VISITOR_STARTDATE 4 6}}{{/if}}",
-
     "rightsConfig": {
       "inherit": true,
       "users": [
@@ -73,7 +71,6 @@
     "checkinSingleVisitorWFText": "CheckinSingleVisitor",
     "checkoutSingleVisitorWF": "sol.visitor.visitor.checkoutsinglevisitor",
     "checkoutSingleVisitorWFText": "CheckoutSingleVisitor",
-
     "signatureVisitorWF": "sol.visitor.visitor.signdocument",
     "signatureVisitorWorkflowNameTemplate": "{{sord.objKeys.VISITOR_LASTNAME}}, {{sord.objKeys.VISITOR_FIRSTNAME}} ({{sord.objKeys.VISITOR_COMPANYNAME}})",
     "requestWorkflows": {
@@ -111,6 +108,10 @@
         "workflowTemplateName": "sol.visitor.visitor.cancelvisitorregistration",
         "workflowPrefixKey": "sol.visitor.ix.actions.CancelVisitorRegistration.wfPrefix"
       },
+      "cancelGroupRegistration": {
+        "workflowTemplateName": "sol.visitor.visitor.cancelgroupregistration",
+        "workflowPrefixKey": "sol.visitor.ix.actions.CancelGroupRegistration.wfPrefix"
+      },
       "captureVisitorPicture": {
         "workflowTemplateName": "sol.visitor.visitor.capturevisitorpicture",
         "workflowPrefixKey": "sol.visitor.ix.actions.CaptureVisitorPicture.wfPrefix"
@@ -121,6 +122,9 @@
       },
       "updateVisitor": {
         "workflowTemplateName": "sol.visitor.visitor.update"
+      },
+      "updateLongtermbadge": {
+        "workflowTemplateName": "sol.visitor.longtermbadge.update"
       }
     },
     "requestWorkflowNameTemplate": "{{wfPrefix}} (#{{wfNumber}}): {{formatDate 'YYYY-MM-DD' wfDate}}",
@@ -137,17 +141,30 @@
       }
     },
     "longtermbadge": {
+      "templateFolderId": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/visitor/Configuration/Long term badge templates",
       "referenceTemplateNameField": "LONGTERM_BADGE_REFERENCE_GEN",
       "referenceField": "LONGTERM_BADGE_REFERENCE",
       "nameTemplateField": "LONGTERM_BADGE_NAME_GEN",
       "wfNodes": {
         "move": {
           "path": "¶Besuchermanagement¶Dauerausweise¶{{substring sord.objKeys.VISITOR_LASTNAME 0 1 uppercase='true'}}"
+        },
+        "wfNodeUserStart": {
+          "fieldName": "",
+          "rightsConfig": {
+            "rights": {
+              "r": true,
+              "w": true,
+              "d": false,
+              "e": false,
+              "l": false
+            }
+          }
         }
       }
     },
     "securityClearance": {
-      "enabled": true,
+      "enabled": false,
       "wfNodeUserStart": {
         "fieldName": "",
         "rightsConfig": {
@@ -160,6 +177,9 @@
           }
         }
       }
+    },
+    "autoCheckOut": {
+      "offsetInDays": 1
     },
     "signatureGuidFieldName": "VISITOR_SIGNATURE_GUID",
     "signatureNameTemplate": "{{sord.objKeys.VISITOR_FIRSTNAME}} {{sord.objKeys.VISITOR_LASTNAME}}",
@@ -227,9 +247,26 @@
   },
   "readVisitorList": {
     "tableConfig": {
-      "startRowIndex": 8,
-      "startColumnIndex": 0,
-      "columnNames": ["lastName", "firstName"]
+      "startRowIndex": 5,
+      "startColumnIndex": 1,
+      "columns": [
+        {
+          "key": "lastName",
+          "type": "String"
+        },
+        {
+          "key": "firstName",
+          "type": "String"
+        },
+        {
+          "key": "dateOfBirth",
+          "type": "Date"
+        },
+        {
+          "key": "placeOfBirth",
+          "type": "String"
+        }
+      ]
     }
   }
 }

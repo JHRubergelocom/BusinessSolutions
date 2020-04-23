@@ -135,6 +135,18 @@ sol.define("sol.visitor.ix.VisitorUtils", {
   },
 
   /**
+   * Starts the workflow defined in the configuration: `visitor.requestWorkflows.cancelVisitorRegistration.workflowTemplateName`
+   * @param {String} objId The objId on which the workflow should be started
+   * @param {String} wfName The Name of the new workflow
+   * @return {String} The flowId of the new workflow
+   */
+  startCancelGroupRegistrationWorkflow: function (objId, wfName) {
+    var me = this;
+    me.loadConfig();
+    return ixConnect.ix().startWorkFlow(me.config.visitor.requestWorkflows.cancelGroupRegistration.workflowTemplateName, wfName, objId);
+  },
+
+  /**
    * Starts the workflow defined in the configuration: `visitor.requestWorkflows.captureVisitorPicture.workflowTemplateName`
    * @param {String} objId The objId on which the workflow should be started
    * @param {String} wfName The Name of the new workflow
