@@ -264,6 +264,18 @@ sol.define("sol.visitor.ix.services.CancelVisitorRegistrationPrecondition", {
     return (sol.common.SordUtils.getObjKeyValue(sord, "SOL_TYPE") == me.config.visitor.solTypeVisitorGroup);
   },
 
+  getTypeDescription: function (registration) {
+    var me = this,
+        sord;
+
+    sord = ixConnect.ix().checkoutSord(registration.id, SordC.mbAllIndex, LockC.NO);
+    if (sol.common.SordUtils.getObjKeyValue(sord, "SOL_TYPE") == me.config.visitor.solTypeVisitorGroup) {
+      return sol.common.TranslateTerms.translate("sol.visitor.ix.actions.PreRegisterGroup.name");
+    } else {
+      return sol.common.TranslateTerms.translate("sol.visitor.ix.actions.PreRegisterVisitor.name");
+    }
+  },
+
   getVisitorRegistrations: function () {
     var me = this,
         registrationsSearchResult, registrations;
@@ -288,7 +300,7 @@ sol.define("sol.visitor.ix.services.CancelVisitorRegistrationPrecondition", {
         return {
           objId: String(registration.id),
           name: registration.name,
-          desc: registration.desc
+          desc: me.getTypeDescription(registration)
         };
       });
     }

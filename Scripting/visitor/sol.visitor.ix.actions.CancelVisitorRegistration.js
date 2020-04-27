@@ -80,11 +80,7 @@ sol.define("sol.visitor.ix.actions.CancelVisitorRegistration", {
 
   process: function () {
     var me = this,
-        wfPrefix, wfNumber, wfName, lookupObjId, flowId, objId, sord, visitorStatusKey;
-
-    wfPrefix = me.getLocalizedString(me.ci, me.config.visitor.requestWorkflows.cancelVisitorRegistration.workflowPrefixKey);
-    wfNumber = me.actionId;
-    wfName = sol.create("sol.common.Template", { source: me.config.visitor.requestWorkflowNameTemplate }).apply({ wfPrefix: wfPrefix, wfDate: new Date(), wfNumber: wfNumber });
+        wfPrefix, wfNumber, wfName, lookupObjId, flowId, objId, sord, visitorStatusKey, solType;
 
     lookupObjId = me.choosenVisitorObjId || me.visitorObjId;
 
@@ -93,12 +89,28 @@ sol.define("sol.visitor.ix.actions.CancelVisitorRegistration", {
     if (objId !== null) {
       sord = sol.common.RepoUtils.getSord(objId);
 
+      solType = sol.common.SordUtils.getObjKeyValue(sord, "SOL_TYPE");
+      if (solType == me.config.visitor.solTypeVisitorGroup) {
+        wfPrefix = me.getLocalizedString(me.ci, me.config.visitor.requestWorkflows.cancelGroupRegistration.workflowPrefixKey);
+      } else {
+        wfPrefix = me.getLocalizedString(me.ci, me.config.visitor.requestWorkflows.cancelVisitorRegistration.workflowPrefixKey);
+      }
+
+      wfNumber = me.actionId;
+      wfName = sol.create("sol.common.Template", { source: me.config.visitor.requestWorkflowNameTemplate }).apply({ wfPrefix: wfPrefix, wfDate: new Date(), wfNumber: wfNumber });
+
       me.requireUserRights(sord, { rights: "RW", language: me.ci });
 
       visitorStatusKey = sol.common.SordUtils.getLocalizedKwlKey(sord, { type: "GRP", key: "VISITOR_STATUS" });
       if (visitorStatusKey == "PR") {
-        flowId = sol.visitor.ix.VisitorUtils.startCancelVisitorRegistrationWorkflow(objId, wfName);
+        if (solType == me.config.visitor.solTypeVisitorGroup) {
+          flowId = sol.visitor.ix.VisitorUtils.startCancelGroupRegistrationWorkflow(objId, wfName);
+        } else {
+          flowId = sol.visitor.ix.VisitorUtils.startCancelVisitorRegistrationWorkflow(objId, wfName);
+        }
+
         me.addWfDialogEvent(flowId, { objId: objId, dialogId: me.getName() });
+
         me.addRefreshEvent(objId, { type: "WF_STATUS", value: "CANCELREGISTRATION", flowId: flowId });
       } else {
         me.addErrorEvent("sol.visitor.ix.actions.CancelVisitorRegistration.error.onlyPreregisteredVisitCanBeCanceled", null, null, me.ci);
