@@ -256,6 +256,14 @@ sol.define("sol.visitor.ix.services.CancelVisitorRegistrationPrecondition", {
     return visitorRegistrationSelected;
   },
 
+  isMemberOfGroup: function (registration) {
+    var me = this, 
+        sord;
+
+    sord = ixConnect.ix().checkoutSord(registration.parentId, SordC.mbAllIndex, LockC.NO);
+    return (sol.common.SordUtils.getObjKeyValue(sord, "SOL_TYPE") == me.config.visitor.solTypeVisitorGroup);
+  },
+
   getVisitorRegistrations: function () {
     var me = this,
         registrationsSearchResult, registrations;
@@ -268,9 +276,11 @@ sol.define("sol.visitor.ix.services.CancelVisitorRegistrationPrecondition", {
     });
 
     if (registrationsSearchResult && (registrationsSearchResult.length > 0)) {
+
       registrationsSearchResult = registrationsSearchResult.filter(function (registration) {
-        return ((registration.ownerId == me.userInfo.id) || (sol.common.SordUtils.getObjKeyValue(registration, "VISITOR_RESPONSIBLEEMPLOYEE") == me.userInfo.name));
+        return (((registration.ownerId == me.userInfo.id) || (sol.common.SordUtils.getObjKeyValue(registration, "VISITOR_RESPONSIBLEEMPLOYEE") == me.userInfo.name)) && !me.isMemberOfGroup(registration));
       });
+
     }
 
     if (registrationsSearchResult && (registrationsSearchResult.length > 0)) {
