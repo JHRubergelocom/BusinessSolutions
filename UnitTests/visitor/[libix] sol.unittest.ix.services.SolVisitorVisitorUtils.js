@@ -80,6 +80,25 @@ describe("[libix] sol.unittest.ix.services.SolVisitorVisitorUtils", function () 
           );
         }).not.toThrow();
       });
+      it("startCancelGroupRegistrationWorkflow", function (done) {
+        expect(function () {
+          objId = obSolVisitorVisitorUtilsId;
+          wfName = "wfName1";
+          test.Utils.execute("RF_sol_unittest_visitor_service_ExecuteLib", {
+            className: "sol.visitor.ix.VisitorUtils",
+            classConfig: {},
+            method: "startCancelGroupRegistrationWorkflow",
+            params: [objId, wfName]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("startCancelVisitorRegistrationWorkflow", function (done) {
         expect(function () {
           objId = obSolVisitorVisitorUtilsId;
