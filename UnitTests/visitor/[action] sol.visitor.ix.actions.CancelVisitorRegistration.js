@@ -213,10 +213,10 @@ describe("[action] sol.visitor.ix.actions.CancelVisitorRegistration", function (
         }).not.toThrow();
       });
       it("wfInfo.flowId must be available", function () {
-        // expect(wfInfo.flowId).toBeDefined();
+        expect(wfInfo.flowId).toBeDefined();
       });
       it("wfInfo.nodeId must be available", function () {
-        // expect(wfInfo.nodeId).toBeDefined();
+        expect(wfInfo.nodeId).toBeDefined();
       });
       it("set cancel reason in visitor sord", function (done) {
         expect(function () {
@@ -458,10 +458,10 @@ describe("[action] sol.visitor.ix.actions.CancelVisitorRegistration", function (
         }).not.toThrow();
       });
       it("wfInfo.flowId must be available", function () {
-        // expect(wfInfo.flowId).toBeDefined();
+        expect(wfInfo.flowId).toBeDefined();
       });
       it("wfInfo.nodeId must be available", function () {
-        // expect(wfInfo.nodeId).toBeDefined();
+        expect(wfInfo.nodeId).toBeDefined();
       });
       it("set cancel reason in visitor sord", function (done) {
         expect(function () {
