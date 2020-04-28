@@ -44,8 +44,7 @@ sol.define("sol.visitor.forms.Utils", {
    * Init function for visitor Mask
    */
   initOnChange: function () {
-    var me = this,
-        checkedResponsible;
+    var me = this;
 
     me.setPartsVisible(null);
     $hide("TXT_TIMEFORMATINVALID");
@@ -83,11 +82,6 @@ sol.define("sol.visitor.forms.Utils", {
     if (me.checkif(me.identifier.checkout)) {
       me.setDate("IX_GRP_VISITOR_DEPARTUREDATE");
       me.setTime("IX_GRP_VISITOR_DEPARTURETIME");
-    }
-
-    checkedResponsible = document.querySelector("input[name^='VISITOR_GROUPRESPONSIBLE']:checked");
-    if (!checkedResponsible) {
-      $update("VISITOR_GROUPRESPONSIBLE1", "1");
     }
 
     me.loadVisitorGroupMembers();
@@ -700,9 +694,12 @@ sol.define("sol.visitor.forms.Utils", {
     "VISITOR_CHECKOUTVISITOR{i}": { type: "MAP", key: "VISITOR_CHECKOUTVISITOR" },
     "VISITOR_FIRSTNAME{i}": { type: "GRP", key: "VISITOR_FIRSTNAME" },
     "VISITOR_LASTNAME{i}": { type: "GRP", key: "VISITOR_LASTNAME" },
+    "VISITOR_DATE_OF_BIRTH{i}": { type: "GRP", key: "VISITOR_DATE_OF_BIRTH", dataType: "isoDate" },
+    "VISITOR_PLACE_OF_BIRTH{i}": { type: "GRP", key: "VISITOR_PLACE_OF_BIRTH" },
     "VISITOR_COMPANYNAME{i}": { type: "GRP", key: "VISITOR_COMPANYNAME" },
     "VISITOR_MAIL{i}": { type: "GRP", key: "VISITOR_MAIL" },
     "VISITOR_PHONE{i}": { type: "GRP", key: "VISITOR_PHONE" },
+    "VISITOR_SECURITY_CLEARANCE{i}": { type: "GRP", key: "VISITOR_SECURITY_CLEARANCE" },
     "VISITOR_GROUPRESPONSIBLE{i}": { type: "MAP", key: "VISITOR_GROUPRESPONSIBLE" },
     "VISITOR_INTERNALVISITOR{i}": { type: "MAP", key: "VISITOR_INTERNALVISITOR" },
     "VISITOR_OBJID{i}": { type: "SORD", key: "id" }
@@ -717,7 +714,15 @@ sol.define("sol.visitor.forms.Utils", {
 
     sol.common.IxUtils.execute("RF_sol_visitor_service_ReadVisitorGroupMembers", { visitorGroupObjId: ELO_PARAMS.ELO_OBJID },
       function (visitorGroupMembersObj) {
+        var checkedResponsible;
+
         me.insertVisitorGroupMembers(visitorGroupMembersObj);
+
+        // Set default responsible AFTER inserting all visitor data
+        checkedResponsible = document.querySelector("input[name^='VISITOR_GROUPRESPONSIBLE']:checked");
+        if (!checkedResponsible) {
+          $update("VISITOR_GROUPRESPONSIBLE1", "1");
+        }
       },
       function () {
         throw "Can't load visitor group members";
@@ -731,6 +736,8 @@ sol.define("sol.visitor.forms.Utils", {
     var me = this,
         visitorGroupMembers, i, visitorGroupMember, fieldNameTpl, fieldName, mapping, value,
         visitorStatusString, visitorStatus;
+
+    ELOF.showLoadingDiv();
 
     visitorGroupMembers = visitorGroupMembersObj.visitorGroupMembers;
     for (i = 0; i < visitorGroupMembers.length; i++) {
@@ -750,7 +757,20 @@ sol.define("sol.visitor.forms.Utils", {
             break;
         }
         fieldName = fieldNameTpl.replace("{i}", (i + 1));
-        $update(fieldName, value);
+
+        mapping.dataType = mapping.dataType || "String";
+
+        switch (mapping.dataType.toUpperCase()) {
+          case "ISODATE": {
+            sol.common.forms.Utils.setIsoDate(fieldName, value);
+            break;
+          }
+
+          default: {
+            $update(fieldName, value);
+            break;
+          }
+        }
       }
       visitorStatusString = visitorGroupMember.objKeys.VISITOR_STATUS || "";
       visitorStatus = visitorStatusString.substr(0, 2);
@@ -759,6 +779,8 @@ sol.define("sol.visitor.forms.Utils", {
         $update("VISITOR_CHECKEDIN" + (i + 1), "1");
       }
     }
+
+    ELOF.hideLoadingDiv();
   },
 
   /**
@@ -772,7 +794,7 @@ sol.define("sol.visitor.forms.Utils", {
   collectChangedTableData: function (config) {
     var data = {},
         objIdFieldName, objIdField, table, inputs, i, input, value, index, baseFieldName,
-        changed, keyName, updateObj, entry;
+        changed, keyName, updateObj, entry, dataType;
 
     config = config || {};
     config.mapping = config.mapping || {};
@@ -806,7 +828,16 @@ sol.define("sol.visitor.forms.Utils", {
       }
 
       data[index] = data[index] || {};
-      value = $val(input.name);
+
+      dataType = sol.common.forms.Utils.getInputDataType(input);
+      switch (dataType.toUpperCase()) {
+        case "ISODATE":
+          value = sol.common.forms.Utils.getIsoDate(input.name);
+          break;
+        default:
+          value = $val(input.name);
+          break;
+      }
 
       if (baseFieldName == config.objIdFieldName) {
         data[index].objId = value;
@@ -839,6 +870,7 @@ sol.define("sol.visitor.forms.Utils", {
         params = { visitorGroupObjId: ELO_PARAMS.ELO_OBJID, data: changedData };
         sol.common.IxUtils.execute("RF_sol_visitor_service_WriteVisitorGroupMembers", params,
           function () {
+            me.numberGroupMembers();
             resolve(true);
           },
           function () {
@@ -871,27 +903,135 @@ sol.define("sol.visitor.forms.Utils", {
     }
   },
 
-  insertGroupMembers: function (objId, firstLineNo) {
-    var lineNo, entries, i, entry, firstNameFieldName, lastNameFieldName;
+  insertGroupMembers: function (objId) {
+    var newEntries = [],
+        entries, i, entry, firstNameFieldName, lastNameFieldName, dateOfBirthFieldName, placeOfBirthFieldName,
+        rowNo, lastNameField, newEntry, lastInput, lineNo, addButton, lastLineNo, entryChecked;
 
-    lineNo = firstLineNo || 1;
+    sol.common.forms.Utils.forEachRow("VISITOR_LASTNAME", function (index) {
+      var input;
+      input = $var("VISITOR_LASTNAME" + index);
+      if (input) {
+        input.setAttribute("entryChecked", "");
+      }
+    });
 
     entries = sol.common.IxUtils.execute("RF_sol_visitor_service_ReadVisitorList", {
       objId: objId
     });
 
+    addButton = sol.common.forms.Utils.getJsAddLineButton("VISITOR_LASTNAME1");
+
     for (i = 0; i < entries.length; i++) {
       entry = entries[i];
+
+      rowNo = sol.visitor.forms.Utils.findGroupMemberRow({
+        VISITOR_LASTNAME: { value: entry.lastName },
+        VISITOR_FIRSTNAME: { value: entry.firstName },
+        VISITOR_DATE_OF_BIRTH: { value: entry.dateOfBirth, dataType: "isoDate" },
+        VISITOR_PLACE_OF_BIRTH: { value: entry.placeOfBirth }
+      });
+
+      if (rowNo > 0) {
+        lastNameField = $var("VISITOR_LASTNAME" + rowNo);
+        lastNameField.setAttribute("entryChecked", "true");
+        continue;
+      }
+
+      newEntries.push(entry);
+    }
+
+    lastInput = sol.common.forms.Utils.getLastInput("VISITOR_LASTNAME");
+    lineNo = sol.common.forms.Utils.getFieldNameIndex(lastInput.name);
+
+    for (i = 0; i < newEntries.length; i++) {
+      newEntry = newEntries[i];
+
+      if (!sol.common.forms.Utils.isRowEmpty("VISITOR_LASTNAME" + lineNo)) {
+        lineNo++;
+        $addLine(addButton, 1);
+      }
+
       firstNameFieldName = "VISITOR_FIRSTNAME" + lineNo;
       lastNameFieldName = "VISITOR_LASTNAME" + lineNo;
+      dateOfBirthFieldName = "VISITOR_DATE_OF_BIRTH" + lineNo;
+      placeOfBirthFieldName = "VISITOR_PLACE_OF_BIRTH" + lineNo;
 
-      sol.common.forms.Utils.ensureRowExists(firstNameFieldName);
-      $update(firstNameFieldName, entry.firstName);
-      $update(lastNameFieldName, entry.lastName);
+      $update(firstNameFieldName, newEntry.firstName);
+      $update(lastNameFieldName, newEntry.lastName);
+      sol.common.forms.Utils.setIsoDate(dateOfBirthFieldName, newEntry.dateOfBirth);
+      $update(placeOfBirthFieldName, newEntry.placeOfBirth);
 
       inputChanged($var(firstNameFieldName));
       inputChanged($var(lastNameFieldName));
-      lineNo++;
+      inputChanged($var(dateOfBirthFieldName));
+      inputChanged($var(placeOfBirthFieldName));
+
+      lastNameField = $var(lastNameFieldName);
+      lastNameField.setAttribute("entryChecked", "true");
     }
+
+    lastInput = sol.common.forms.Utils.getLastInput("VISITOR_LASTNAME");
+    lastLineNo = sol.common.forms.Utils.getFieldNameIndex(lastInput.name);
+
+    for (i = lastLineNo; i >= 1; i--) {
+      lastNameField = $var("VISITOR_LASTNAME" + i);
+      entryChecked = (lastNameField.getAttribute("entryChecked") == "true");
+      if (!entryChecked) {
+        $removeLine(addButton, i);
+      }
+    }
+
+    sol.visitor.forms.Utils.numberGroupMembers();
+  },
+
+  numberGroupMembers: function () {
+    sol.common.forms.Utils.forEachRow("VISITOR_LASTNAME", function (index) {
+      $update("VISITOR_GROUP_MEMBER_NO" + index, index + "");
+    });
+  },
+
+  findGroupMemberRow: function (comparisonData) {
+    var i, compare, lastNameField, alreadyListed;
+
+    for (i = 1; i < 2000; i++) {
+      lastNameField = $var("VISITOR_LASTNAME" + i);
+      alreadyListed = (lastNameField && lastNameField.getAttribute("alreadyListed") == "true");
+      if (alreadyListed) {
+        continue;
+      }
+      compare = sol.visitor.forms.Utils.compareGroupMemberRow(comparisonData, i);
+      if (compare) {
+        return i;
+      }
+    }
+
+    return -1;
+  },
+
+  compareGroupMemberRow: function (comparisonData, i) {
+    var key, field, comparisonElement, dataType, value,
+        fieldsExist = false;
+
+    for (key in comparisonData) {
+      comparisonElement = comparisonData[key];
+      field = $var(key + i);
+      if (field) {
+        fieldsExist = true;
+        dataType = comparisonElement.dataType || "String";
+        switch (dataType.toUpperCase()) {
+          case "ISODATE":
+            value = sol.common.forms.Utils.getIsoDate(key + i);
+            break;
+          default:
+            value = $val(key + i);
+        }
+        if (comparisonElement.value != value) {
+          return false;
+        }
+      }
+    }
+
+    return fieldsExist;
   }
 });
