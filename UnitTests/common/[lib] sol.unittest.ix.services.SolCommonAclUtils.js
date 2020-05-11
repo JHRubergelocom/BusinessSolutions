@@ -549,7 +549,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonAclUtils", function () {
             className: "sol.common.AclUtils",
             classConfig: {},
             method: "preprocessUsers",
-            params: [objId, users]
+            params: [objId, users, { flowId: 0 }]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
@@ -568,7 +568,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonAclUtils", function () {
             className: "sol.common.AclUtils",
             classConfig: {},
             method: "preprocessUsers",
-            params: [objId, users]
+            params: [objId, users, { flowId: 0 }]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
@@ -587,7 +587,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonAclUtils", function () {
             className: "sol.common.AclUtils",
             classConfig: {},
             method: "preprocessUsers",
-            params: [objId, users]
+            params: [objId, users, { flowId: 0 }]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
