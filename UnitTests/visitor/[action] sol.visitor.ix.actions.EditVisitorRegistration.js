@@ -221,7 +221,7 @@ describe("[action] sol.visitor.ix.actions.EditVisitorRegistration", function () 
       it("finish input forwarding workflow", function (done) {
         expect(function () {
           test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-            succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "Edit registration");
+            succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.visitor.wf.node.editVisitorRegistration");
             succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
             test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest finish input").then(function success1(forwardWorkflowTaskResult) {
               done();
@@ -441,12 +441,12 @@ describe("[action] sol.visitor.ix.actions.EditVisitorRegistration", function () 
       it("wfInfo.nodeId must be available", function () {
         expect(wfInfo.nodeId).toBeDefined();
       });
-      it("edit input forwarding workflow", function (done) {
+      it("cancel input forwarding workflow", function (done) {
         expect(function () {
           test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-            succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "Edit");
+            succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.common.wf.node.cancel");
             succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
-            test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest edit input").then(function success1(forwardWorkflowTaskResult) {
+            test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest cancel input").then(function success1(forwardWorkflowTaskResult) {
               done();
             }, function error(err) {
               fail(err);
@@ -455,7 +455,7 @@ describe("[action] sol.visitor.ix.actions.EditVisitorRegistration", function () 
             }
             );
           }, function error(err) {
-            // fail(err);
+            fail(err);
             console.error(err);
             done();
           }
@@ -650,12 +650,12 @@ describe("[action] sol.visitor.ix.actions.EditVisitorRegistration", function () 
       it("wfInfo.nodeId must be available", function () {
         expect(wfInfo.nodeId).toBeDefined();
       });
-      it("edit input forwarding workflow", function (done) {
+      it("cancel input forwarding workflow", function (done) {
         expect(function () {
           test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-            succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "Edit");
+            succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.common.wf.node.cancel");
             succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
-            test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest edit input").then(function success1(forwardWorkflowTaskResult) {
+            test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest cancel input").then(function success1(forwardWorkflowTaskResult) {
               done();
             }, function error(err) {
               fail(err);
@@ -864,7 +864,7 @@ describe("[action] sol.visitor.ix.actions.EditVisitorRegistration", function () 
       it("finish input forwarding workflow", function (done) {
         expect(function () {
           test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-            succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "Edit registration");
+            succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.visitor.wf.node.editVisitorRegistration");
             succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
             test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest finish input").then(function success1(forwardWorkflowTaskResult) {
               done();

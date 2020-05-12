@@ -196,6 +196,44 @@ describe("[libix] sol.unittest.ix.services.SolVisitorVisitorUtils", function () 
           );
         }).not.toThrow();
       });
+      it("startEditGroupRegistrationWorkflow", function (done) {
+        expect(function () {
+          objId = obSolVisitorVisitorUtilsId;
+          wfName = "wfName1";
+          test.Utils.execute("RF_sol_unittest_visitor_service_ExecuteLib", {
+            className: "sol.visitor.ix.VisitorUtils",
+            classConfig: {},
+            method: "startEditGroupRegistrationWorkflow",
+            params: [objId, wfName]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("startEditVisitorRegistrationWorkflow", function (done) {
+        expect(function () {
+          objId = obSolVisitorVisitorUtilsId;
+          wfName = "wfName1";
+          test.Utils.execute("RF_sol_unittest_visitor_service_ExecuteLib", {
+            className: "sol.visitor.ix.VisitorUtils",
+            classConfig: {},
+            method: "startEditVisitorRegistrationWorkflow",
+            params: [objId, wfName]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("startPreRegisterGroupWorkflow", function (done) {
         expect(function () {
           objId = GroupSord.id;
