@@ -4,7 +4,7 @@ describe("[function] sol.learning.as.functions.CreateCertificate", function () {
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
-    jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
       test.Utils.createTempSord("CreateCertificate").then(function success(obExecuteAsActionId) {
         done();
