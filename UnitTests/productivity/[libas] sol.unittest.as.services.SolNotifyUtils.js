@@ -2,8 +2,8 @@
 describe("[libas] sol.unittest.as.services.SolNotifyUtils", function () {
   var originalTimeout, content, templateNotification, titleReport,
       notifyTasks, notifyPosts, notifyEmpty, emptyIcon, userId, userPictures,
-      users, objGuid, sordMaps, text, type, sordInfo, node, withGroups, withDeputies,
-      withIndex, task, configReport, sordMap;
+      users, objGuid, sordMaps, text, type, sordInfo, node, notifyConfig, reportConfig,
+      task, reportConfig, sordMap;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -354,94 +354,18 @@ describe("[libas] sol.unittest.as.services.SolNotifyUtils", function () {
           );
         }).not.toThrow();
       });
-      it("loadReportFlags", function (done) {
-        expect(function () {
-          userId = "0";
-          test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.productivity.as.services.ExecuteLib",
-            config: {
-              className: "sol.notify.as.Utils",
-              classConfig: {},
-              method: "loadReportFlags",
-              params: [userId]
-            }
-          }).then(function success(jsonResult) {
-            content = jsonResult.content;
-            if (content.indexOf("exception") != -1) {
-              fail(jsonResult.content);
-            }
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }).not.toThrow();
-      });
-      it("loadUserLanguage", function (done) {
-        expect(function () {
-          userId = "0";
-          test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.productivity.as.services.ExecuteLib",
-            config: {
-              className: "sol.notify.as.Utils",
-              classConfig: {},
-              method: "loadUserLanguage",
-              params: [userId]
-            }
-          }).then(function success(jsonResult) {
-            content = jsonResult.content;
-            if (content.indexOf("exception") != -1) {
-              fail(jsonResult.content);
-            }
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }).not.toThrow();
-      });
-      it("loadUserTimeZone", function (done) {
-        expect(function () {
-          userId = "0";
-          test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.productivity.as.services.ExecuteLib",
-            config: {
-              className: "sol.notify.as.Utils",
-              classConfig: {},
-              method: "loadUserTimeZone",
-              params: [userId]
-            }
-          }).then(function success(jsonResult) {
-            content = jsonResult.content;
-            if (content.indexOf("exception") != -1) {
-              fail(jsonResult.content);
-            }
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }).not.toThrow();
-      });
       it("prepareFindTasksInfo", function (done) {
         expect(function () {
           userId = "0";
-          withGroups = true;
-          withDeputies = true;
-          withIndex = true;
+          notifyConfig = {};
+          reportConfig = { reportEndDays: 1, withDeputies: true, withGroups: true };
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.unittest.productivity.as.services.ExecuteLib",
             config: {
               className: "sol.notify.as.Utils",
               classConfig: {},
               method: "prepareFindTasksInfo",
-              params: [userId, withGroups, withDeputies, withIndex]
+              params: [userId, notifyConfig, reportConfig]
             }
           }).then(function success(jsonResult) {
             content = jsonResult.content;
@@ -461,14 +385,14 @@ describe("[libas] sol.unittest.as.services.SolNotifyUtils", function () {
         expect(function () {
           userId = "0";
           task = {};
-          configReport = {};
+          reportConfig = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.unittest.productivity.as.services.ExecuteLib",
             config: {
               className: "sol.notify.as.Utils",
               classConfig: {},
               method: "prepareTask",
-              params: [userId, task, configReport]
+              params: [userId, task, reportConfig]
             }
           }).then(function success(jsonResult) {
             content = jsonResult.content;
@@ -511,14 +435,14 @@ describe("[libas] sol.unittest.as.services.SolNotifyUtils", function () {
       it("processNotifyMail", function (done) {
         expect(function () {
           userId = "0";
-          configReport = {};
+          reportConfig = { reportEndDays: 1, withDeputies: true, withGroups: true };
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.unittest.productivity.as.services.ExecuteLib",
             config: {
               className: "sol.notify.as.Utils",
               classConfig: {},
               method: "processNotifyMail",
-              params: [userId, configReport]
+              params: [userId, reportConfig]
             }
           }).then(function success(jsonResult) {
             content = jsonResult.content;
@@ -538,14 +462,14 @@ describe("[libas] sol.unittest.as.services.SolNotifyUtils", function () {
         expect(function () {
           task = {};
           userId = "0";
-          configReport = {};
+          reportConfig = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.unittest.productivity.as.services.ExecuteLib",
             config: {
               className: "sol.notify.as.Utils",
               classConfig: {},
               method: "processTask",
-              params: [task, userId, configReport]
+              params: [task, userId, reportConfig]
             }
           }).then(function success(jsonResult) {
             content = jsonResult.content;
@@ -591,14 +515,14 @@ describe("[libas] sol.unittest.as.services.SolNotifyUtils", function () {
           userId = "0";
           notifyTasks = [];
           notifyPosts = [];
-          configReport = {};
+          reportConfig = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.unittest.productivity.as.services.ExecuteLib",
             config: {
               className: "sol.notify.as.Utils",
               classConfig: {},
               method: "sendNotifyMail",
-              params: [userId, notifyTasks, notifyPosts, configReport]
+              params: [userId, notifyTasks, notifyPosts, reportConfig]
             }
           }).then(function success(jsonResult) {
             content = jsonResult.content;

@@ -4,8 +4,8 @@
 /**
  * ELO Notification Services Library methods for the ELOas.
  *
- * @author JHR, ELO Digital Office GmbH
- * @version 1.00.000
+ * @author ELO Digital Office GmbH
+ * @version 1.06.001
  *
  * @eloas
  *
@@ -15,6 +15,7 @@
  * @requires sol.common.HttpUtils
  * @requires sol.common.WfUtils
  * @requires sol.common.Template
+ * @requires sol.common.UserProfile
  * @requires sol.common.ObjectFormatter.TemplateSord
  * @requires sol.common.ObjectFormatter.TemplateTask
  * @requires sol.common.as.functions.SendMail
@@ -82,20 +83,20 @@ sol.define("sol.notify.as.Utils", {
    */
   processUser: function (userId) {
     var me = this,
-        configReport = {},
+        reportConfig = {},
         day, isWeekend;
 
     me.logger.enter("processUser");
     me.logger.debug("Check Settings of user: " + userId);
     try {
-      configReport = me.loadReportFlags(userId);
-      if (!configReport.enableMail) {
+      reportConfig = sol.notify.Utils.readReportConfig(userId);
+      if (!reportConfig.enableMail) {
         me.logger.debug("EMail report disabled by user option");
         return;
       }
-      ixConnect.loginResult.clientInfo.language = me.loadUserLanguage(userId);
+      ixConnect.loginResult.clientInfo.language = reportConfig.language;
       me.logger.info("Start Process User Items of user: " + userId);
-      if (!configReport.withWeekend) {
+      if (!reportConfig.withWeekend) {
         day = new Date().getDay();
         isWeekend = (day == 6) || (day == 0);
         if (isWeekend) {
@@ -103,7 +104,7 @@ sol.define("sol.notify.as.Utils", {
           return;
         }
       }
-      me.processNotifyMail(userId, configReport);
+      me.processNotifyMail(userId, reportConfig);
     } catch (e) {
       me.logger.warn("Error processing Notification List: " + e);
     }
@@ -111,95 +112,21 @@ sol.define("sol.notify.as.Utils", {
   },
 
   /**
-   * Loads reporting flags for the specified user.
-   * @param {String} userId
-   * @return {Object} reporting flags
-   */
-  loadReportFlags: function (userId) {
-    var me = this,
-        configReport = {},
-        profile = new UserProfile(),
-        key = new KeyValue(),
-        i, opt;
-
-    key.key = me.cfgNotifyMail.optionKey;
-    profile.options = [key];
-    profile.userId = userId;
-    profile = ixConnect.ix().checkoutUserProfile(profile, LockC.NO);
-
-    if (!profile.options || (profile.options.length == 0)) {
-      return false;
-    }
-    for (i = 0; i < profile.options.length; i++) {
-      if (profile.options[i].key == me.cfgNotifyMail.optionKey) {
-        opt = Number(profile.options[i].value);
-
-        configReport.enableMail = (opt & sol.notify.Utils.flags.enableMail) != 0;
-        configReport.sendAlways = (opt & sol.notify.Utils.flags.sendAlways) != 0;
-        configReport.withGroups = (opt & sol.notify.Utils.flags.withGroups) != 0;
-        configReport.withDeputies = (opt & sol.notify.Utils.flags.withDeputies) != 0;
-        configReport.withWeekend = (opt & sol.notify.Utils.flags.withWeekend) != 0;
-        configReport.onlyOnce = (opt & sol.notify.Utils.flags.onlyOnce) != 0;
-        configReport.newsMyElo = (opt & sol.notify.Utils.flags.newsMyElo) != 0;
-
-        return configReport;
-      }
-    }
-    return {};
-  },
-
-  /**
-   * Loads language for the specified user.
-   * @param {String} userId
-   * @return {string} user language
-   */
-  loadUserLanguage: function (userId) {
-    var me = this,
-        userProfile, language;
-
-    userProfile = sol.create("sol.common.UserProfile", { userId: userId });
-    language = userProfile.getOption(me.cfgNotifyMail.language) || me.sessionLanguage;
-
-    return language;
-  },
-
-  /**
-   * Loads language for the specified user.
-   * @param {String} userId
-   * @return {string} Time zone
-   */
-  loadUserTimeZone: function (userId) {
-    var me = this,
-        userProfile, timeZone;
-
-    userProfile = sol.create("sol.common.UserProfile", { userId: userId });
-    timeZone = userProfile.getOption(me.cfgNotifyMail.timeZoneKey) || ixConnect.loginResult.clientInfo.timeZone;
-
-    return timeZone;
-  },
-
-  /**
    * Creates mail to the user.
    * @param {String} userId
-   * @param {Object} configReport
+   * @param {Object} reportConfig
    */
-  processNotifyMail: function (userId, configReport) {
+  processNotifyMail: function (userId, reportConfig) {
     var me = this,
         feedAggregation = {},
         notifyPosts = [],
         sordMaps = [],
         userPictures = [],
         sordInfo = {},
-        withGroups, withDeputies, withIndex,
         tasksInfo, findResult, notifyTasks, index,
         data, task, tasks, i, j, comments, timeZone, utcOffset, notifyPost, comment;
 
-    withGroups = Boolean(me.cfgNotifyMail.withGroups & configReport.withGroups);
-    withDeputies = Boolean(me.cfgNotifyMail.withDeputies & configReport.withDeputies);
-    withIndex = Boolean(me.cfgNotifyMail.withIndex);
-
-    // tasks
-    tasksInfo = me.prepareFindTasksInfo(userId, withGroups, withDeputies, withIndex);
+    tasksInfo = me.prepareFindTasksInfo(userId, me.cfgNotifyMail, reportConfig);
     findResult = ixConnect.ix().findFirstTasks(tasksInfo, 1000);
 
     notifyTasks = [];
@@ -209,8 +136,8 @@ sol.define("sol.notify.as.Utils", {
       me.logger.debug("Found: " + tasks.length);
       for (i = 0; i < tasks.length; i++) {
         task = tasks[i];
-        if (me.processTask(task, userId, configReport)) {
-          data = me.prepareTask(userId, task, configReport);
+        if (me.processTask(task, userId, reportConfig)) {
+          data = me.prepareTask(userId, task, reportConfig);
           notifyTasks.push(data);
         }
       }
@@ -223,10 +150,10 @@ sol.define("sol.notify.as.Utils", {
     ixConnect.ix().findClose(findResult.searchId);
 
     // feed aggregation posts
-    if (configReport.newsMyElo) {
+    if (reportConfig.newsMyElo) {
       feedAggregation = me.getFeedAggregation(userId);
 
-      timeZone = me.loadUserTimeZone(userId);
+      timeZone = reportConfig.timeZone;
       utcOffset = sol.common.SordUtils.getTimeZoneOffset(timeZone);
 
       notifyPosts = [];
@@ -270,29 +197,35 @@ sol.define("sol.notify.as.Utils", {
       }
     }
 
-    me.sendNotifyMail(userId, notifyTasks, notifyPosts, configReport);
+    me.sendNotifyMail(userId, notifyTasks, notifyPosts, reportConfig);
   },
 
   /**
    * Prepares find task infos.
-   * @param {String} userId
-   * @param {Boolean} withGroups Also include group term in the exam
-   * @param {Boolean} withDeputies Also include appointments in the exam
-   * @param {Boolean} withIndex The mail to be sent can also contain information about sord indexfields of the task
+   * @param {String} userId User ID
+   * @param {Object} notifyConfig Notify configuration
+   * @param {Boolean} reportConfig Report configuration
    * @return {Object} tasksInfo
    */
-  prepareFindTasksInfo: function (userId, withGroups, withDeputies, withIndex) {
-    var tasksInfo = new FindTasksInfo();
+  prepareFindTasksInfo: function (userId, notifyConfig, reportConfig) {
+    var tasksInfo, reportEndMoment, reportEndDateIso;
 
-    tasksInfo.inclDeputy = withDeputies;
-    tasksInfo.inclGroup = withGroups;
+    reportEndMoment = moment().add(reportConfig.reportEndDays, "d").endOf("d");
+    reportEndDateIso = sol.common.DateUtils.momentToIso(reportEndMoment);
+
+    tasksInfo = new FindTasksInfo();
+
+    tasksInfo.endDateIso = reportEndDateIso;
+
+    tasksInfo.inclDeputy = reportConfig.withDeputies;
+    tasksInfo.inclGroup = reportConfig.withGroups;
     tasksInfo.inclWorkflows = true;
     tasksInfo.inclOverTimeForSuperior = true;
     tasksInfo.lowestPriority = UserTaskPriorityC.LOWEST;
     tasksInfo.highestPriority = UserTaskPriorityC.HIGHEST;
     tasksInfo.userIds = [userId];
 
-    if (withIndex) {
+    if (notifyConfig.withIndex) {
       tasksInfo.sordZ = SordC.mbAllIndex;
     }
     return tasksInfo;
@@ -302,17 +235,17 @@ sol.define("sol.notify.as.Utils", {
    * Process task.
    * @param {Object} task
    * @param {String} userId
-   * @param {Object} configReport
+   * @param {Object} reportConfig
    * @return {Boolean} flags if processing task successful
    */
-  processTask: function (task, userId, configReport) {
+  processTask: function (task, userId, reportConfig) {
     var me = this,
         wfNode = task.wfNode,
         mapid, values, data, item;
 
     me.logger.debug(wfNode.nodeName);
 
-    if (configReport.onlyOnce) {
+    if (reportConfig.onlyOnce) {
       mapid = "NOTIFY_SENT_" + wfNode.nodeId + "_" + userId;
       values = ixConnect.ix().checkoutMap(MapDomainC.DOMAIN_WORKFLOW_ACTIVE, wfNode.flowId, [mapid], LockC.NO);
       if (values && values.items.length > 0) {
@@ -334,10 +267,10 @@ sol.define("sol.notify.as.Utils", {
    * Prepare task.
    * @param {String} userId
    * @param {Object} task
-   * @param {Object} configReport
+   * @param {Object} reportConfig
    * @return {Object}
    */
-  prepareTask: function (userId, task, configReport) {
+  prepareTask: function (userId, task, reportConfig) {
     var me = this,
         taskInfo = {},
         className;
@@ -399,9 +332,9 @@ sol.define("sol.notify.as.Utils", {
    * @param {String} userId
    * @param {Object} notifyTasks
    * @param {Object} notifyPosts
-   * @param {Object} configReport
+   * @param {Object} reportConfig
    */
-  sendNotifyMail: function (userId, notifyTasks, notifyPosts, configReport) {
+  sendNotifyMail: function (userId, notifyTasks, notifyPosts, reportConfig) {
     var me = this,
         htmlReport, mailAddress, sendMail, templateNotification, userName, notificationCount, subjectTemplate,
         titleReport, tpl, notifyEmpty, notifyConfig;
@@ -410,7 +343,7 @@ sol.define("sol.notify.as.Utils", {
 
     notifyConfig = sol.notify.Utils.loadNotifyConfig();
 
-    if ((notifyTasks.length > 0) || (notifyPosts.length > 0) || configReport.sendAlways) {
+    if ((notifyTasks.length > 0) || (notifyPosts.length > 0) || reportConfig.sendAlways) {
       me.logger.debug("notifyTasks Amount: " + notifyTasks.length);
       me.logger.debug("notifyPosts Amount: " + notifyPosts.length);
 
