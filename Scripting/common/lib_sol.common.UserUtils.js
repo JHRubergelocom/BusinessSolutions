@@ -317,6 +317,33 @@ sol.define("sol.common.UserUtils", {
   },
 
   /**
+   * Returns the supervisor of the specified level
+   * @param {String} userName User name
+   * @param {Number} level Level
+   * @return {String} Supervisor
+   */
+  getSupervisorOfLevel: function (userName, level) {
+    var me = this,
+        supervisors, supervisor;
+
+    if (!userName) {
+      me.logger.debug("Can't find supervisor: Username is empty");
+      return;
+    }
+
+    level = level || 0;
+
+    supervisors = me.getSupervisorHierarchy(userName);
+    if (!supervisors || (supervisors.length <= level)) {
+      me.logger.debug(["Can't find supervisor: userName={0}, supervisors={1}, level={2}", userName, supervisors, level]);
+      return;
+    }
+    supervisor = supervisors[level];
+
+    return supervisor;
+  },
+
+  /**
    * Returns the supervisior hierarchy
    * @param {String|Number} user User name or ID
    * @return {Array} Supervisiors
@@ -885,13 +912,13 @@ sol.define("sol.common.UserUtils", {
       userInfo.desc = params.desc;
     }
 
-    if (typeof params.id != "undefined") {
+    if ((typeof params.id != "undefined") && (params.id != "")) {
       if (!me.userExists(params.id)) {
         userInfo.id = params.id;
       }
     }
 
-    if (typeof params.guid != "undefined") {
+    if ((typeof params.guid != "undefined") && (params.guid != "")) {
       if (!me.userExists(params.guid)) {
         userInfo.guid = params.guid;
       }

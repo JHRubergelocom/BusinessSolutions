@@ -1,6 +1,6 @@
 
 describe("[lib] sol.unittest.ix.services.SolCommonUserUtils", function () {
-  var userName, userInfo, originalTimeout, userNames,
+  var userName, userInfo, originalTimeout, userNames, level,
       groupNames, flagNames, params, ticket, user, users, config, group;
 
   beforeAll(function (done) {
@@ -217,6 +217,25 @@ describe("[lib] sol.unittest.ix.services.SolCommonUserUtils", function () {
             classConfig: {},
             method: "getSupervisorHierarchy",
             params: [user]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("getSupervisorOfLevel", function (done) {
+        expect(function () {
+          userName = "Administrator";
+          level = 0;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.UserUtils",
+            classConfig: {},
+            method: "getSupervisorOfLevel",
+            params: [userName, level]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
