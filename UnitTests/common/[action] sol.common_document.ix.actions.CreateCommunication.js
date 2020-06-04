@@ -137,7 +137,7 @@ describe("[action] sol.common_document.ix.actions.CreateCommunication", function
           test.Utils.updateSord(sordCo1, [{ key: "name", value: "Unittest communication1" }, { key: "desc", value: "Unittest desc1" }]).then(function success1(updateSordResult) {
             keywording = {
               COMMUNICATION_SENDER: "EloService@elo.local", 
-              COMMUNICATION_RECIPIENT: "test@elo.local",
+              COMMUNICATION_RECIPIENT: "test-business-solutions@elo.local",
               COMMUNICATION_SUBJECT: "Unittest Subject"
             };
             test.Utils.updateKeywording(sordCo1, keywording, true).then(function success2(updateKeywordingResult) {
