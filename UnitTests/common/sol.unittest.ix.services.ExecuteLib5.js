@@ -8,6 +8,10 @@ importPackage(Packages.org.apache.commons.io);
 //@include lib_sol.common.ix.ServiceBase.js
 //@include lib_sol.common.XmlUtils.js
 //@include lib_sol.common.ZipUtils.js
+//@include lib_sol.common.Mail.js
+//@include lib_sol.common.RepoUtils.js
+//@include lib_sol.common.UserUtils.js
+//@include lib_sol.common.Config.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.ExecuteLib5" });
 
@@ -89,6 +93,14 @@ sol.define("sol.unittest.ix.services.ExecuteLib5", {
           case "unzip":
           case "zipFolder":
             return result;
+          default:
+        }
+        break;
+      case "sol.common.Mail":
+        switch (me.method) {
+          case "addBody":
+            me.params[0] = new MimeMultipart();
+            break;
           default:
         }
         break;
