@@ -32,7 +32,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonMail", function () {
       it("addBody", function (done) {
         expect(function () {
           multiPart = {};
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib5", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib6", {
             className: "sol.common.Mail",
             classConfig: {},
             method: "addBody",
@@ -50,7 +50,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonMail", function () {
       it("checkKey", function (done) {
         expect(function () {
           to = { key: "to" };
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib5", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib6", {
             className: "sol.common.Mail",
             classConfig: {},
             method: "checkKey",
@@ -80,7 +80,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonMail", function () {
       });
       it("checkWorkflowProps", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib5", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib6", {
             className: "sol.common.Mail",
             classConfig: { flowId: flowId },
             method: "checkWorkflowProps",
@@ -98,7 +98,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonMail", function () {
       it("getAttAsStream", function (done) {
         expect(function () {
           attConfig = { objId: MailSord.id };
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib5", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib6", {
             className: "sol.common.Mail",
             classConfig: {},
             method: "getAttAsStream",
@@ -115,7 +115,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonMail", function () {
       });
       it("getData", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib5", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib6", {
             className: "sol.common.Mail",
             classConfig: { objId: obSolCommonMailId, flowId: flowId, nodeId: "1" },
             method: "getData",
@@ -132,7 +132,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonMail", function () {
       });
       it("getPasswordAuthentication", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib5", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib6", {
             className: "sol.common.Mail",
             classConfig: {},
             method: "getPasswordAuthentication",
@@ -150,7 +150,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonMail", function () {
       it("getRecipient", function (done) {
         expect(function () {
           to = "test-business-solutions@elo.local";
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib5", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib6", {
             className: "sol.common.Mail",
             classConfig: {},
             method: "getRecipient",
@@ -168,7 +168,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonMail", function () {
       it("getSender", function (done) {
         expect(function () {
           from = "test-business-solutions@elo.local";
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib5", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib6", {
             className: "sol.common.Mail",
             classConfig: {},
             method: "getSender",
@@ -186,7 +186,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonMail", function () {
       it("getSubject", function (done) {
         expect(function () {
           subj = "Subject1";
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib5", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib6", {
             className: "sol.common.Mail",
             classConfig: {},
             method: "getSubject",
@@ -204,7 +204,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonMail", function () {
       it("getValue", function (done) {
         expect(function () {
           def = "def1";
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib5", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib6", {
             className: "sol.common.Mail",
             classConfig: {},
             method: "getValue",
@@ -221,7 +221,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonMail", function () {
       });
       it("getWorkflow", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib5", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib6", {
             className: "sol.common.Mail",
             classConfig: { flowId: flowId, nodeId: "1" },
             method: "getWorkflow",
@@ -238,7 +238,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonMail", function () {
       });
       it("initSession", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib5", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib6", {
             className: "sol.common.Mail",
             classConfig: {},
             method: "initSession",
@@ -256,7 +256,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonMail", function () {
       it("initialize", function (done) {
         expect(function () {
           config = {};
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib5", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib6", {
             className: "sol.common.Mail",
             classConfig: {},
             method: "initialize",
@@ -274,7 +274,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonMail", function () {
       it("loadMailConfig", function (done) {
         expect(function () {
           repoPath = "/Administration/Business Solutions/common/Configuration/mail.config";
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib5", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib6", {
             className: "sol.common.Mail",
             classConfig: {},
             method: "loadMailConfig",
@@ -291,7 +291,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonMail", function () {
       });
       it("logJavaMailInfo", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib5", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib6", {
             className: "sol.common.Mail",
             classConfig: {},
             method: "logJavaMailInfo",
@@ -308,9 +308,9 @@ describe("[lib] sol.unittest.ix.services.SolCommonMail", function () {
       });
       it("send", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib5", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib6", {
             className: "sol.common.Mail",
-            classConfig: { from: "test-business-solutions@elo.local", to: "test-business-solutions@elo.local" },
+            classConfig: { from: "test-business-solutions@elo.local", to: "test-business-solutions@elo.local", subject: "subject1" },
             method: "send",
             params: []
           }).then(function success(jsonResult) {
@@ -325,7 +325,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonMail", function () {
       });
       it("transferConfigs", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib5", {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib6", {
             className: "sol.common.Mail",
             classConfig: {},
             method: "transferConfigs",

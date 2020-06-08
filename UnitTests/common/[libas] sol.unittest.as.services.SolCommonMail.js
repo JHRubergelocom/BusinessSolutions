@@ -417,7 +417,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMail", function () {
             action: "sol.unittest.as.services.ExecuteLib",
             config: {
               className: "sol.common.as.Mail",
-              classConfig: { from: "test-business-solutions@elo.local", to: "test-business-solutions@elo.local" },
+              classConfig: { from: "test-business-solutions@elo.local", to: "test-business-solutions@elo.local", subject: "subject1" },
               method: "send",
               params: []
             }
