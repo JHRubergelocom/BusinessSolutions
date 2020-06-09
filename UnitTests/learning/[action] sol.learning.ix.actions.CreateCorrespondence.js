@@ -27,8 +27,8 @@ describe("[action] sol.learning.ix.actions.CreateCorrespondence", function () {
       );
     }).not.toThrow();
   });
-  describe("test create certificate", function () {
-    describe("test create certificate", function () {
+  describe("test create correspondence", function () {
+    describe("test create correspondence", function () {
       it("should not throw if executed without parameter", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_common_action_Standard", {
@@ -141,7 +141,7 @@ describe("[action] sol.learning.ix.actions.CreateCorrespondence", function () {
         expect(function () {
           test.Utils.getSord(wfInfo.objId).then(function success(sordCo) {
             objIdCo = wfInfo.objId;
-            test.Utils.updateKeywording(sordCo, { COMMUNICATION_SENDER: "Administrator", COMMUNICATION_RECIPIENT: "Administrator", COMMUNICATION_SUBJECT: "Solution Subject" }, true).then(function success1(updateKeywordingResult) {
+            test.Utils.updateKeywording(sordCo, { COMMUNICATION_SENDER: "test-business-solutions@elo.local", COMMUNICATION_RECIPIENT: "test-business-solutions@elo.local", COMMUNICATION_SUBJECT: "Solution Subject" }, true).then(function success1(updateKeywordingResult) {
               done();
             }, function error(err) {
               fail(err);
