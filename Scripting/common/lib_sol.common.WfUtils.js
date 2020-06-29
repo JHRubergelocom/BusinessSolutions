@@ -641,6 +641,10 @@ sol.define("sol.common.WfUtils", {
       }
     }
 
+    if (!originWorkflowTemplate) {
+      return;
+    }
+
     mergeWorkflowTemplates.sort();
 
     for (i = 0; i < mergeWorkflowTemplates.length; i++) {
@@ -649,10 +653,9 @@ sol.define("sol.common.WfUtils", {
       me.deleteWorkflowTemplate(mergeWorkflowTemplate.id);
     }
 
-    if (originWorkflowTemplate) {
-      originWorkflowTemplateName = originWorkflowTemplate.name + "";
-      return originWorkflowTemplateName;
-    }
+    originWorkflowTemplateName = originWorkflowTemplate.name + "";
+
+    return originWorkflowTemplateName;
   },
 
   /**
@@ -746,6 +749,10 @@ sol.define("sol.common.WfUtils", {
    *
    * Additionally this method supports parsing the configuration from a config file (see {@link sol.common.ConfigMixin#parseConfiguration}).
    *
+   * If $useTemplating: true is defined in the comment, the node's comment will be templated using handlebars.
+   *
+   * Should the workflow's sord be needed in templating, additionally, $useTemplateSord: true can be added to the comment.
+   *
    * In addition there can be a variable number of string arguments for mandatory properties. If the configuration is missing one of those properties, an exception will be thrown.
    *
    *     var config = sol.common.ix.WfUtils.parseAndCheckParams(wf, 23, "objId", ...);
@@ -757,7 +764,7 @@ sol.define("sol.common.WfUtils", {
   parseAndCheckParams: function (workflow, nodeId) {
     var me = this,
         emptyArray = [],
-        mandatoryProperties, node, configString, config, nodeComment;
+        mandatoryProperties, node, commentString, comment, config, nodeComment;
 
     mandatoryProperties = (arguments.length > 2) ? emptyArray.slice.call(arguments, 2) : emptyArray;
     node = me.getNode(workflow, nodeId);
@@ -765,14 +772,20 @@ sol.define("sol.common.WfUtils", {
     nodeComment = node.comment + "";
     nodeComment = ((nodeComment.length > 0) && (nodeComment.trim().charAt(0) == "{")) ? nodeComment : "";
 
-    configString = String(node.properties) || nodeComment || "{}";
+    commentString = String(node.properties) || nodeComment || "{}";
 
     try {
-      config = JSON.parse(configString);
-      config = sol.common.ConfigMixin.parseConfiguration(config, undefined, true).config;
+      comment = JSON.parse(commentString);
+
+      if (comment.$useTemplating) {
+        commentString = me.templateMixin(commentString, (comment.$useTemplateSord && workflow.objId), workflow.id);
+        comment = JSON.parse(commentString);
+      }
+
+      config = sol.common.ConfigMixin.parseConfiguration(comment, undefined, true).config;
     } catch (ex) {
-      me.logger.error(["error reading node config of node '{0}': {1}", node.name, configString], ex);
-      throw "configuration syntax error (node='" + node.name + "'): " + ex + " - config=" + configString;
+      me.logger.error(["error reading node config of node '{0}': {1}", node.name, commentString], ex);
+      throw "configuration syntax error (node='" + node.name + "'): " + ex + " - config=" + commentString;
     }
 
     mandatoryProperties.forEach(function (property) {
@@ -782,6 +795,30 @@ sol.define("sol.common.WfUtils", {
     });
 
     return config;
+  },
+
+   /**
+   * Applies handlebars template to mixin.
+   * @param {Object} mixinString The config mixin string
+   * @param {String} objId The WFDiagram's objId
+   * @param {String} flowId The WFDiagram's flowId
+   * @return {Object} Object which resulted from templating
+   */
+  templateMixin: function (mixinString, objId, flowId) {
+    var me = this, sord, templatingData = {};
+
+    if (!sol.common.TemplateUtils) {
+      throw "$useTemplating and $useTemplateSord can only be used with IX scripts which include lib_sol.common.Template";
+    }
+    if (objId) {
+      try {
+        sord = (typeof ixConnectAdmin !== "undefined" ? ixConnectAdmin : ixConnect).ix().checkoutSord(objId, SordC.mbAllIndex, LockC.NO);
+        templatingData.sord = me.getTemplateSord(sord, flowId, { formBlobs: true, asAdmin: true }).sord;
+      } catch (_) {
+        throw "could not create templatesord for templating workflowMixins.";
+      }
+    }
+    return sol.common.TemplateUtils.render(mixinString, templatingData, { emptyNonRendered: true });
   },
 
   /**
@@ -1124,7 +1161,9 @@ sol.define("sol.common.WfUtils", {
    * @param {Object[]} nodeEscalations Node escalations
    * @param {Object} nodeEscalations.user Node escalation user
    * @param {String} nodeEscalations.user.value Node escalation user name
+   * @param {Boolean} nodeEscalations.user.supervisor Escalate to the users supervisor
    * @param {Number} nodeEscalations.timeLimitMinutes Node escalation minutes
+   *
    * Example:
    *     [
    *       { "timeLimitMinutes": 1, "user": { "value": "User1" } }
@@ -1153,7 +1192,11 @@ sol.define("sol.common.WfUtils", {
         continue;
       }
 
-      userName = (typeof nodeEscalation.user != "undefined") ? nodeEscalation.user.value : defaultUserName;
+      userName = (nodeEscalation.user && (typeof nodeEscalation.user.value != "undefined")) ? nodeEscalation.user.value : defaultUserName;
+
+      if (nodeEscalation.user && (nodeEscalation.user.supervisor === true)) {
+        userName = sol.common.UserUtils.getSupervisor(userName);
+      }
 
       node.timeLimitEscalations[i].userId = -1;
       node.timeLimitEscalations[i].userName = userName;
@@ -1162,7 +1205,7 @@ sol.define("sol.common.WfUtils", {
         node.timeLimitEscalations[i].timeLimit = nodeEscalation.timeLimitMinutes;
       }
 
-      me.logger.debug(["Set escalation {0}: node.name={1}, userName={2}", i + "", node.name + "", nodeEscalation.userName + ""]);
+      me.logger.debug(["Set escalation {0}: node.name={1}, userName={2}", i + "", node.name + "", userName + ""]);
     }
   },
 

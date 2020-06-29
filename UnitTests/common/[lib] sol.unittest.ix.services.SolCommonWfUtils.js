@@ -7,7 +7,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
       destinationNodeIds, filter, wfCollectNode, nodeId, filterConfig, filterType, sord, options,
       nodes, key, workflowJson, iconName, template, workflowName, oldName, newName, startDocMaskWorkflows,
       values, status, templFlowId, node, obSolCommonWfUtilsId, workflow, succNodes, succNodesIds,
-      workflowTemplate, id, flow, flowName, nodeEscalations, defaultUserName;
+      workflowTemplate, id, flow, flowName, nodeEscalations, defaultUserName, mixinString;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -1366,6 +1366,26 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
             classConfig: {},
             method: "startWorkflow",
             params: [templFlowId, flowName, objId, prio]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("templateMixin", function (done) {
+        expect(function () {
+          mixinString = "{}";
+          objId = obSolCommonWfUtilsId;
+          flowId = flowId;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.WfUtils",
+            classConfig: {},
+            method: "templateMixin",
+            params: [mixinString, objId, flowId]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
