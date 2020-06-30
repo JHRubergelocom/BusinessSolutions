@@ -863,6 +863,280 @@ describe("[action] sol.recruiting.ix.actions.StaffingRequirement", function () {
       }).not.toThrow();
     });
   });
+  describe("test finish staffing requirement with DynAdHoc Approval 'Approve 'Completion reject", function () {
+    it("start action create workflow", function (done) {
+      expect(function () {
+        wfInfo = {};
+        test.Utils.executeIxActionHandler("RF_sol_common_action_Standard", configAction, []).then(function success(jsonResults) {
+          test.Utils.handleAllEvents(jsonResults).then(function success1(wfInfo1) {
+            wfInfo = wfInfo1;
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("wfInfo.flowId must be available", function () {
+      expect(wfInfo.flowId).toBeDefined();
+    });
+    it("wfInfo.nodeId must be available", function () {
+      expect(wfInfo.nodeId).toBeDefined();
+    });
+    it("wfInfo.objId must be available", function () {
+      expect(wfInfo.objId).toBeDefined();
+    });
+    it("fill staffing requirement sord", function (done) {
+      expect(function () {
+        test.Utils.getSord(wfInfo.objId).then(function success(sordSR) {
+          test.Utils.updateKeywording(sordSR, { RECRUITING_REQUISITION_NAME: "DBB", RECRUITING_REQUISITION_DESC: "Dünnbrettbohrer" }, true).then(function success1(updateKeywordingResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("set DynAdHoc Approval", function (done) {
+      expect(function () {
+        test.Utils.updateMapData(wfInfo.objId, { RECRUITING_REQUISITION_DYNADHOC_ACTIVE: 1, USER_ROLE_NAME: "REQUISITIONAPPROVAL" }).then(function success(updateMapDataResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("set hiring manager", function (done) {
+      expect(function () {
+        test.Utils.getSord(wfInfo.objId).then(function success(sordR) {
+          test.Utils.updateKeywording(sordR, { RECRUITING_REQUISITION_HIRINGMANAGER: "Administrator" }, true).then(function success1(updateKeywordingResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("finish input forwarding workflow", function (done) {
+      expect(function () {
+        test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
+          succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.common.wf.node.ok");
+          succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
+          test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest finish input").then(function success1(forwardWorkflowTaskResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("get active node 'Approval' (id = 3) of Subworkflow 'sol.recruiting.Requisition.DynAdHoc'", function (done) {
+      expect(function () {
+        test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
+          subWfs = [];
+          subWorkflows = workflow.subWorkflows;
+          for (key in subWorkflows) {
+            subWfs.push(subWorkflows[key]);
+          }
+          for (i = 0; i < subWfs.length; i++) {
+            if (subWfs[i].templateName == "sol.recruiting.Requisition.DynAdHoc") {
+              subWf = subWfs[i];
+              subWfFlowId = subWf.id;
+              nodes = test.Utils.getActiveUserNodes(subWf);
+              if (nodes.length > 0) {
+                for (j = 0; j < nodes.length; j++) {
+                  if (nodes[j].nameTranslationKey == "sol.recruiting.node.requisition.approval") {
+                    userNode = nodes[j];
+                    userNodeId = userNode.id;
+                  }
+                }
+                // alert("(userNode.name, userNode.id) = (" + userNode.name + "," + userNode.id + ")");
+              } else {
+                // alert("no userNodes available");
+              }
+            }
+          }
+          expect(userNodeId).toEqual(3);
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("'Approve' forwarding Subworkflow 'sol.recruiting.Requisition.DynAdHoc'", function (done) {
+      expect(function () {
+        test.Utils.getWorkflow(subWfFlowId).then(function success(workflow) {
+          succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.recruiting.node.approve");
+          succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
+          test.Utils.forwardWorkflowTask(subWfFlowId, userNodeId, succNodesIds, "Unittest 'Approve'", true).then(function success1(forwardWorkflowTaskResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("get active node 'Completion' (id = 54) of Workflow", function (done) {
+      expect(function () {
+        test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
+          nodes = test.Utils.getActiveUserNodes(workflow);
+          if (nodes.length > 0) {
+            userNode = nodes[0];
+            userNodeId = userNode.id;
+            // alert("(userNode.name, userNode.id) = (" + userNode.name + "," + userNode.id + ")");
+          } else {
+            // alert("no userNodes available");
+          }
+          expect(userNodeId).toEqual(54);
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("'Reject' forwarding Workflow", function (done) {
+      expect(function () {
+        test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
+          succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.recruiting.node.reject");
+          succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
+          test.Utils.forwardWorkflowTask(wfInfo.flowId, userNodeId, succNodesIds, "Unittest 'Reject'").then(function success1(forwardWorkflowTaskResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("get active node 'Requirement rejected' (id = 20) of Workflow", function (done) {
+      expect(function () {
+        test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
+          nodes = test.Utils.getActiveUserNodes(workflow);
+          if (nodes.length > 0) {
+            userNode = nodes[0];
+            userNodeId = userNode.id;
+            // alert("(userNode.name, userNode.id) = (" + userNode.name + "," + userNode.id + ")");
+          } else {
+            // alert("no userNodes available");
+          }
+          expect(userNodeId).toEqual(20);
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("'Confirm' forwarding Workflow", function (done) {
+      expect(function () {
+        test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
+          succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.recruiting.node.confirm");
+          succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
+          test.Utils.forwardWorkflowTask(wfInfo.flowId, userNodeId, succNodesIds, "Unittest 'Confirm'").then(function success1(forwardWorkflowTaskResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("remove workflows", function (done) {
+      expect(function () {
+        test.Utils.getFinishedWorkflows(wfInfo.objId).then(function success(wfs) {
+          test.Utils.removeFinishedWorkflows(wfs).then(function success1(removeFinishedWorkflowsResult) {
+            done();
+          }, function error(err) {
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("remove requirement object", function (done) {
+      expect(function () {
+        test.Utils.deleteSord(wfInfo.objId).then(function success(deleteResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+  });
   describe("test finish staffing requirement with DynAdHoc Approval 'Reject 'Requirement rejected", function () {
     it("start action create workflow", function (done) {
       expect(function () {
@@ -1007,48 +1281,6 @@ describe("[action] sol.recruiting.ix.actions.StaffingRequirement", function () {
           succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.recruiting.node.reject");
           succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
           test.Utils.forwardWorkflowTask(subWfFlowId, userNodeId, succNodesIds, "Unittest 'Reject'", true).then(function success1(forwardWorkflowTaskResult) {
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
-    it("get active node 'Completion' (id = 54) of Workflow", function (done) {
-      expect(function () {
-        test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-          nodes = test.Utils.getActiveUserNodes(workflow);
-          if (nodes.length > 0) {
-            userNode = nodes[0];
-            userNodeId = userNode.id;
-            // alert("(userNode.name, userNode.id) = (" + userNode.name + "," + userNode.id + ")");
-          } else {
-            // alert("no userNodes available");
-          }
-          expect(userNodeId).toEqual(54);
-          done();
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
-    it("'Reject' forwarding Workflow", function (done) {
-      expect(function () {
-        test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-          succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.recruiting.node.reject");
-          succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
-          test.Utils.forwardWorkflowTask(wfInfo.flowId, userNodeId, succNodesIds, "Unittest 'Reject'").then(function success1(forwardWorkflowTaskResult) {
             done();
           }, function error(err) {
             fail(err);
