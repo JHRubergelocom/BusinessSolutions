@@ -9,6 +9,8 @@
     </search>
     <interval>0H</interval>
     <includes>
+      <name>ix: IndexServer Functions</name>
+      <name>fu: File Utils</name>
       <name>lib_Class</name>
       <name>lib_handlebars</name>
       <name>lib_moment</name>
@@ -19,11 +21,14 @@
       <name>lib_sol.common.ObjectFormatter</name>
       <name>lib_sol.common.ObjectUtils</name>
       <name>lib_sol.common.RepoUtils</name>
+      <name>lib_sol.common.StringUtils</name>
       <name>lib_sol.common.SordUtils</name>
       <name>lib_sol.common.Template</name>
       <name>lib_sol.common.XmlUtils</name>
       <name>lib_sol.common.as.FunctionBase</name>
       <name>lib_sol.common.as.Utils</name>
+      <name>lib_sol.connector_dx.DXUtils</name>
+      <name>sol.connector_dx.as.functions.Export</name>
       <name>lib_sol.connector_xml.Converter</name>
       <name>lib_sol.connector_xml.DocumentImporter</name>
       <name>lib_sol.connector_xml.Utils</name>

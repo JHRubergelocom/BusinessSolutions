@@ -60,6 +60,20 @@ sol.define("sol.unittest.invoice.as.services.ExecuteLib", {
     func = cls[me.method];
 
     switch (me.className) {
+      case "sol.connector_dx.as.functions.Export":
+        switch (me.method) {
+          case "createTemplateSord":
+          case "createXml":
+          case "hasDxMask":
+          case "process":
+            me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
+            break;
+          case "exportFiles":
+            me.params[1] = ixConnect.ix().checkoutSord(me.params[1], new SordZ(SordC.mbAll), LockC.NO);
+            break;
+          default:
+        }
+        break;
       case "sol.invoice_datev.as.export.HtmlLog":
         switch (me.method) {
           case "saveExportLog":
@@ -166,6 +180,14 @@ sol.define("sol.unittest.invoice.as.services.ExecuteLib", {
     }
 
     switch (me.className) {
+      case "sol.connector_dx.as.functions.Export":
+        switch (me.method) {
+          case "exportFiles":
+            result = String(result);
+            break;
+          default:
+        }
+        break;
       case "sol.invoice_datev.as.functions.Export":
         switch (me.method) {
           case "process":
