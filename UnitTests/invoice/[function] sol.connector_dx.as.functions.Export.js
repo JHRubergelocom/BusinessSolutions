@@ -1,12 +1,13 @@
 
 describe("[function] sol.connector_dx.as.functions.Export", function () {
-  var originalTimeout, content;
+  var originalTimeout, content, obSolExportId;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
-      test.Utils.createTempSord("Export", null, null).then(function success(obSolExportId) {
+      test.Utils.createTempSord("Export", null, null).then(function success(obSolExportId1) {
+        obSolExportId = obSolExportId1;
         done();
       }, function error(err) {
         fail(err);
@@ -40,6 +41,7 @@ describe("[function] sol.connector_dx.as.functions.Export", function () {
     it("should not throw if executed", function (done) {
       expect(function () {
         test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
+          objId: obSolExportId,
           action: "sol.connector_dx.Export",
           config: {
             subsystem: "Invoice"
