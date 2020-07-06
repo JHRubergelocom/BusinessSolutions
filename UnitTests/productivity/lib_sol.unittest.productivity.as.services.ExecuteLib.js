@@ -76,11 +76,13 @@ sol.define("sol.unittest.productivity.as.services.ExecuteLib", {
             me.params[0].timeLimitEscalations = [];
             break;
           case "getFeedAggregation":
+          case "getNotifyWfBaseUrl":
           case "getPictureUrl":
           case "loadReportFlags":
           case "loadUserLanguage":
           case "loadUserTimeZone":
           case "processNotifyMail":
+            cls.notifyConfig = sol.notify.Utils.loadNotifyConfig();
             cls.cfgNotifyMail = sol.notify.Utils.loadNotifyConfig().email;
             break;
           case "processTask":

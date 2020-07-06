@@ -16,6 +16,7 @@
  * @requires sol.common.WfUtils
  * @requires sol.common.Template
  * @requires sol.common.UserProfile
+ * @requires sol.common.ExceptionUtils
  * @requires sol.common.ObjectFormatter.TemplateSord
  * @requires sol.common.ObjectFormatter.TemplateTask
  * @requires sol.common.as.functions.SendMail
@@ -39,8 +40,9 @@ sol.define("sol.notify.as.Utils", {
     me.sessionLanguage = ixConnect.loginResult.clientInfo.language;
     me.logger.debug("Save session login language: " + me.sessionLanguage);
     try {
-      if (!me.cfgNotifyMail) {
-        me.cfgNotifyMail = sol.notify.Utils.loadNotifyConfig().email;
+      if (!me.notifyConfig) {
+        me.notifyConfig = sol.notify.Utils.loadNotifyConfig();
+        me.cfgNotifyMail = me.notifyConfig.email;
       }
 
       findUserInfo = new FindUserInfo();
@@ -124,7 +126,10 @@ sol.define("sol.notify.as.Utils", {
         userPictures = [],
         sordInfo = {},
         tasksInfo, findResult, notifyTasks, index,
-        data, task, tasks, i, j, comments, timeZone, utcOffset, notifyPost, comment;
+        data, task, tasks, i, j, comments, timeZone, utcOffset, notifyPost, comment, delayMoment;
+
+    delayMoment = moment().add(reportConfig.delayDays, "d").endOf("d");
+    reportConfig.delayDateIso = sol.common.DateUtils.momentToIso(delayMoment);
 
     tasksInfo = me.prepareFindTasksInfo(userId, me.cfgNotifyMail, reportConfig);
     findResult = ixConnect.ix().findFirstTasks(tasksInfo, 1000);
@@ -241,9 +246,16 @@ sol.define("sol.notify.as.Utils", {
   processTask: function (task, userId, reportConfig) {
     var me = this,
         wfNode = task.wfNode,
-        mapid, values, data, item;
+        mapid, values, data, item, nodeDelayDateIso;
 
     me.logger.debug(wfNode.nodeName);
+
+    nodeDelayDateIso = wfNode.userDelayDateIso + "";
+
+    if (nodeDelayDateIso && (nodeDelayDateIso > reportConfig.delayDateIso)) {
+      me.logger.debug(["Task was postponed: flowId={0}, nodeId={1}, delayDays={2}, until={3}", wfNode.flowId, wfNode.nodeId, reportConfig.delayDays || 0, nodeDelayDateIso]);
+      return false;
+    }
 
     if (reportConfig.onlyOnce) {
       mapid = "NOTIFY_SENT_" + wfNode.nodeId + "_" + userId;
@@ -455,55 +467,76 @@ sol.define("sol.notify.as.Utils", {
   },
 
   /**
+   * Get Notify WF URL
+   * @return {String} WF URL
+   */
+  getNotifyWfBaseUrl: function () {
+    var me = this;
+
+    if (!me.notifyWfBaseUrl) {
+      me.notifyWfBaseUrl = me.notifyConfig.wfBaseUrl || me.notifyConfig.email.wfBaseUrl || sol.common.WfUtils.getWfBaseUrl();
+    }
+
+    return me.notifyWfBaseUrl;
+  },
+
+  /**
    * Get feed aggregation
    * @param {String} userId
    * @return {Object}
    */
   getFeedAggregation: function (userId) {
     var me = this,
-        responseObj, ixConnectUser, ticket, userName, today, isoDate, startUrl;
+        responseObj, ixConnectUser, ticket, userName, today, isoDate, wfBaseUrl, startUrl,
+        response, content, feedAggregationObj, exceptionText;
+
+    userName = me.getUserName(userId);
+    ixConnectUser = ixConnect.createConnectionForUser(userName);
+    ticket = ixConnectUser.loginResult.clientInfo.ticket;
+
+    me.logger.enter("createConnectionForUser", { ixConnectUser: ixConnectUser });
+
+    today = new Date();
+    today = sol.common.DateUtils.shift(today, -me.cfgNotifyMail.periodDays); // 1 Tag zurück
+    isoDate = sol.common.DateUtils.dateToIso(today, { withoutTime: true });
+
+    wfBaseUrl = me.getNotifyWfBaseUrl();
+
+    startUrl = wfBaseUrl + "/social/api/feed/aggregation/" + isoDate + "0000";
+
+    responseObj = sol.common.HttpUtils.sendRequest({
+      url: startUrl,
+      resolve: true,
+      method: "get",
+      contentType: "application/json;charset=UTF-8",
+      trustAllHosts: true,
+      trustAllCerts: true,
+      params: {
+        ticket: ticket,
+        lang: ixConnect.loginResult.clientInfo.language + ""
+      }
+    });
+
+    ixConnectUser.close();
+    me.logger.exit("createConnectionForUser", ixConnectUser);
+
+    if (responseObj.errorMessage) {
+      me.logger.warn("getFeedAggregation: Can't get feed aggregation: error=" + responseObj.errorMessage + ", wfBaseUrl=" + wfBaseUrl + ", url=" + startUrl);
+      return {};
+    }
 
     try {
-
-      userName = me.getUserName(userId);
-      ixConnectUser = ixConnect.createConnectionForUser(userName);
-      ticket = ixConnectUser.loginResult.clientInfo.ticket;
-
-      me.logger.enter("createConnectionForUser", { ixConnectUser: ixConnectUser });
-
-      today = new Date();
-      today = sol.common.DateUtils.shift(today, -me.cfgNotifyMail.periodDays); // 1 Tag zurück
-      isoDate = sol.common.DateUtils.dateToIso(today, { withoutTime: true });
-
-      startUrl = "{{eloWfBaseUrl}}/social/api/feed/aggregation/" + isoDate + "0000";
-      responseObj = sol.common.HttpUtils.sendRequest({
-        url: startUrl,
-        resolve: true,
-        method: "get",
-        contentType: "application/json;charset=UTF-8",
-        trustAllHosts: true,
-        trustAllCerts: true,
-        params: {
-          ticket: ticket,
-          lang: ixConnect.loginResult.clientInfo.language + ""
-        }
-      });
-
-      ixConnectUser.close();
-      me.logger.exit("createConnectionForUser", ixConnectUser);
-
+      response = JSON.stringify(responseObj);
+      me.logger.debug("getFeedAggregation: reponse=" + response);
+      content = responseObj.content;
+      feedAggregationObj = JSON.parse(content);
     } catch (ex) {
-      me.logger.error("Error getFeedAggregation: " + ex);
+      exceptionText = sol.common.ExceptionUtils.parseException(ex);
+      me.logger.warn("getFeedAggregation: Can't parse feed response: exception=" + exceptionText + ", content=" + content);
       return {};
     }
 
-    me.logger.debug(responseObj);
-    if (responseObj) {
-      return JSON.parse(responseObj.content);
-    } else {
-      me.logger.error("Error getFeedAggregation: responseObj missing");
-      return {};
-    }
+    return feedAggregationObj;
   },
 
   /**
@@ -531,7 +564,7 @@ sol.define("sol.notify.as.Utils", {
         pictureUrl = "No Picture found",
         wfBaseUrl, wfSocialUrl, i;
 
-    wfBaseUrl = me.cfgNotifyMail.wfBaseUrl || sol.common.WfUtils.getWfBaseUrl();
+    wfBaseUrl = me.getNotifyWfBaseUrl();
     wfSocialUrl = wfBaseUrl + "/social";
 
     for (i = 0; i < userPictures.length; i++) {

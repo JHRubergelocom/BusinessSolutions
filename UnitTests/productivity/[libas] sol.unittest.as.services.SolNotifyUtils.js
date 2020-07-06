@@ -101,6 +101,30 @@ describe("[libas] sol.unittest.as.services.SolNotifyUtils", function () {
           );
         }).not.toThrow();
       });
+      it("getNotifyWfBaseUrl", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
+            action: "sol.unittest.productivity.as.services.ExecuteLib",
+            config: {
+              className: "sol.notify.as.Utils",
+              classConfig: {},
+              method: "getNotifyWfBaseUrl",
+              params: []
+            }
+          }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") != -1) {
+              fail(jsonResult.content);
+            }
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("getPictureUrl", function (done) {
         expect(function () {
           userId = "0";
