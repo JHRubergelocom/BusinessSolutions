@@ -172,6 +172,22 @@ describe("[service] sol.knowledge.ix.services.CreatePost", function () {
             );
           }).not.toThrow();
         });
+        it("create post Guide", function (done) {
+          expect(function () {
+            test.Utils.execute("RF_sol_knowledge_service_Post_Create", {
+              type: "Guide",
+              subject: "Guide1",
+              spaceFolderId: objSpaceId
+            }).then(function success(jsonResult) {
+              done();
+            }, function error(err) {
+              fail(err);
+              console.error(err);
+              done();
+            }
+            );
+          }).not.toThrow();
+        });
         it("create post Question", function (done) {
           expect(function () {
             test.Utils.execute("RF_sol_knowledge_service_Post_Create", {
