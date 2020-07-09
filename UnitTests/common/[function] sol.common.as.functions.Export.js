@@ -1,6 +1,6 @@
 
 describe("[function] sol.common.as.functions.Export", function () {
-  var originalTimeout;
+  var originalTimeout, content;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -18,12 +18,16 @@ describe("[function] sol.common.as.functions.Export", function () {
   });
   describe("Tests AS Action", function () {
     describe("sol.common.Export", function () {
-      it("should not throw with empty config", function (done) {
+      it("should throw with empty config", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.common.Export",
             config: {}
           }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") == -1) {
+              fail(jsonResult.content);
+            }
             done();
           }, function error(err) {
             console.error(err);
@@ -40,9 +44,13 @@ describe("[function] sol.common.as.functions.Export", function () {
               exporterClassName: "sol.common.as.SimpleExporter",
               objId: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common [unit tests]/Resources/SignUnitTest",
               tplObjId: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common [unit tests]/Resources/unittest.export.xml",
-              dstDirPath: "c:/Temp/"
+              dstDirPath: "/"
             }
           }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") != -1) {
+              fail(jsonResult.content);
+            }
             done();
           }, function error(err) {
             console.error(err);

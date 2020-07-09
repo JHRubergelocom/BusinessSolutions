@@ -92,7 +92,7 @@ describe("[function] sol.common.ix.functions.ChangeWfName", function () {
         succNodes = test.Utils.getSuccessorNodes(workflow, "1", null, "node 2");
         succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
         test.Utils.forwardWorkflowTask(flowId, "1", succNodesIds, "Unittest finish input").then(function success1(forwardWorkflowTaskResult) {
-          test.Utils.getFinishedWorkflows(objChangeWfNameId).then(function success2(wfs) {
+          test.Utils.getFinishedWorkflows().then(function success2(wfs) {
             test.Utils.removeFinishedWorkflows(wfs).then(function success3(removeFinishedWorkflowsResult) {
               test.Utils.getTempfolder().then(function success4(tempfolder) {
                 test.Utils.deleteSord(tempfolder).then(function success5(deleteResult) {

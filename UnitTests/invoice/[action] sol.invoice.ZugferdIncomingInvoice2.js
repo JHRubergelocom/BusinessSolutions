@@ -394,7 +394,7 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice2", function () {
         );
       }).not.toThrow();
     });
-    it("get active node 'Cost object approval' (id = 12) of Subworkflow 'sol.invoice.Base.ApprovalLines'", function (done) {
+    it("get active node 'Cost object approval' (id = 12) of Subworkflow 'sol.invoice.Base.Approval'", function (done) {
       expect(function () {
         test.Utils.getWorkflow(invoiceFlowId).then(function success(workflow) {
           subWfs = [];
@@ -403,7 +403,7 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice2", function () {
             subWfs.push(subWorkflows[key]);
           }
           for (i = 0; i < subWfs.length; i++) {
-            if (subWfs[i].templateName == "sol.invoice.Base.ApprovalLines") {
+            if (subWfs[i].templateName == "sol.invoice.Base.Approval") {
               subWf = subWfs[i];
               subWfFlowId = subWf.id;
               nodes = test.Utils.getActiveUserNodes(subWf);
@@ -427,7 +427,7 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice2", function () {
         );
       }).not.toThrow();
     });
-    it("'Reject' forwarding Subworkflow 'sol.invoice.Base.ApprovalLines'", function (done) {
+    it("'Reject' forwarding Subworkflow 'sol.invoice.Base.Approval'", function (done) {
       expect(function () {
         test.Utils.getWorkflow(subWfFlowId).then(function success(workflow) {
           succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.invoice.wf.node.reject");
@@ -502,60 +502,6 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice2", function () {
         );
       }).not.toThrow();
     });
-    it("get active node 'Cost object approval' (id = 12) of Subworkflow 'sol.invoice.Base.ApprovalLines'", function (done) {
-      expect(function () {
-        test.Utils.getWorkflow(invoiceFlowId).then(function success(workflow) {
-          subWfs = [];
-          subWorkflows = workflow.subWorkflows;
-          for (key in subWorkflows) {
-            subWfs.push(subWorkflows[key]);
-          }
-          for (i = 0; i < subWfs.length; i++) {
-            if (subWfs[i].templateName == "sol.invoice.Base.ApprovalLines") {
-              subWf = subWfs[i];
-              subWfFlowId = subWf.id;
-              nodes = test.Utils.getActiveUserNodes(subWf);
-              if (nodes.length > 0) {
-                userNode = nodes[0];
-                userNodeId = userNode.id;
-                // alert("(userNode.name, userNode.id) = (" + userNode.name + "," + userNode.id + ")");
-              } else {
-                // alert("no userNodes available");
-              }
-            }
-          }
-          userNodeId = 12;
-          expect(userNodeId).toEqual(12);
-          done();
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
-    it("'Approve' forwarding Subworkflow 'sol.invoice.Base.ApprovalLines'", function (done) {
-      expect(function () {
-        test.Utils.getWorkflow(subWfFlowId).then(function success(workflow) {
-          succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.invoice.wf.node.approve");
-          succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
-          test.Utils.forwardWorkflowTask(subWfFlowId, userNodeId, succNodesIds, "Unittest 'Approve'", true).then(function success1(forwardWorkflowTaskResult) {
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
     it("get active node 'Cost object approval' (id = 12) of Subworkflow 'sol.invoice.Base.Approval'", function (done) {
       expect(function () {
         test.Utils.getWorkflow(invoiceFlowId).then(function success(workflow) {
@@ -580,60 +526,6 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice2", function () {
           }
           userNodeId = 12;
           expect(userNodeId).toEqual(12);
-          done();
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
-    it("'Approve' forwarding Subworkflow 'sol.invoice.Base.Approval'", function (done) {
-      expect(function () {
-        test.Utils.getWorkflow(subWfFlowId).then(function success(workflow) {
-          succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.invoice.wf.node.approve");
-          succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
-          test.Utils.forwardWorkflowTask(subWfFlowId, userNodeId, succNodesIds, "Unittest 'Approve'", true).then(function success1(forwardWorkflowTaskResult) {
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
-    it("get active node 'Cost object approval' (id = 36) of Subworkflow 'sol.invoice.Base.Approval'", function (done) {
-      expect(function () {
-        test.Utils.getWorkflow(invoiceFlowId).then(function success(workflow) {
-          subWfs = [];
-          subWorkflows = workflow.subWorkflows;
-          for (key in subWorkflows) {
-            subWfs.push(subWorkflows[key]);
-          }
-          for (i = 0; i < subWfs.length; i++) {
-            if (subWfs[i].templateName == "sol.invoice.Base.Approval") {
-              subWf = subWfs[i];
-              subWfFlowId = subWf.id;
-              nodes = test.Utils.getActiveUserNodes(subWf);
-              if (nodes.length > 0) {
-                userNode = nodes[0];
-                userNodeId = userNode.id;
-                // alert("(userNode.name, userNode.id) = (" + userNode.name + "," + userNode.id + ")");
-              } else {
-                // alert("no userNodes available");
-              }
-            }
-          }
-          userNodeId = 36;
-          expect(userNodeId).toEqual(36);
           done();
         }, function error(err) {
           fail(err);
@@ -977,17 +869,238 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice2", function () {
         );
       }).not.toThrow();
     });
-    it("remove invoice workflow", function (done) {
+    it("setTimeout (wait for elo as)", function (done) {
       expect(function () {
-        test.Utils.getFinishedWorkflows(objIncomingInvoiceId).then(function success(wfs) {
-          test.Utils.removeFinishedWorkflows(wfs).then(function success1(removeFinishedWorkflowsResult) {
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
         }, function error(err) {
           fail(err);
           console.error(err);

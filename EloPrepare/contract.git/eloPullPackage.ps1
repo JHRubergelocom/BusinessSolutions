@@ -1,0 +1,1 @@
+elo pull -workspace contract-only

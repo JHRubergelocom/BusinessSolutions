@@ -1,0 +1,66 @@
+{
+  "setupName": "sol.dev_internal",
+  "packageName": "dev_internal",
+
+  "refChildren": [
+    {
+    "source": "{{packageFolderPath}}/Java Client Scripting Base",
+    "destinations": [
+      "{{jcScriptingBaseFolderPath}}/business_solutions"
+    ]
+  },
+  {
+    "source": "{{packageFolderPath}}/Localization",
+    "destinations": [
+      "{{localizationBaseFolderPath}}/system"
+    ],
+    "ignoreSubfolders": false,
+    "refFolders": false
+  },   
+  {
+    "source": "{{packageFolderPath}}/IndexServer Scripting Base",
+    "destinations": [
+      "{{ixScriptingBaseFolderPath}}/_ALL/business_solutions"
+    ],
+    "ignoreSubfolders": true
+  }, 
+  {
+    "source": "{{packageFolderPath}}/License",
+    "destinations": [
+      "{{jcScriptingBaseFolderPath}}/business_solutions"
+    ]
+  }, 
+  {
+    "source": "{{packageFolderPath}}/ELOapps/Apps",
+    "destinations": [
+      "{{appsBaseFolderPath}}/Apps"
+    ],
+    "refFolders": true
+  }, 
+  {
+    "source": "{{packageFolderPath}}/ELOapps/ClientInfos",
+    "destinations": [
+      "{{appsBaseFolderPath}}/ClientInfos"
+    ]
+  }, 
+  {
+    "source": "{{packageFolderPath}}/ELOapps/Modules",
+    "destinations": [
+      "{{appsBaseFolderPath}}/Modules"
+    ],
+    "refFolders": true
+  }, 
+  {
+    "source": "{{packageFolderPath}}/IndexServer Scripting Base - ELOac",
+    "destinations": [
+      "{{ixScriptingBaseFolderPath}}/_ALL/_ELOAC"
+    ]
+  }
+],
+
+  "reloads": {
+    "apps": true
+  },
+
+  "instApps": true
+}

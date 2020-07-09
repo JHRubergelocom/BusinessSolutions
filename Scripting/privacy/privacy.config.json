@@ -1,0 +1,59 @@
+{
+  "entities": {
+    "processingActivity": {
+      "workflowMixins": {
+        "create": {
+          "setDates": {
+            "scriptProperties": {
+              "entries": [
+                {
+                  "type": "MAP",
+                  "key": "GDPR_DATE_INITIAL",
+                  "value": "{{formatDate 'YYYYMMDDHHmmss'}}",
+                  "useTemplating": true
+                },
+                {
+                  "type": "GRP",
+                  "key": "PROC_ACTIVITY_CHANGED_DATE",
+                  "value": "{{formatDate 'YYYYMMDDHHmmss'}}",
+                  "useTemplating": true
+                }
+              ]
+            }
+          },
+          "setReference": {
+            "scriptProperties": {
+              "entries": [
+                {
+                  "type": "GRP",
+                  "key": "PROC_ACTIVITY_NO",
+                  "value": "{{count 'PROCESSING_ACTIVITY_COUNTER' '000'}}",
+                  "useTemplating": true,
+                  "onlyIfEmpty": true
+                }
+              ]
+            }
+          },
+          "setName": {
+            "scriptProperties": {
+              "entries": [
+                {
+                  "type": "SORD",
+                  "key": "name",
+                  "value": "{{{sord.objKeys.PROC_ACTIVITY_NO}}} - {{{translate 'sol.gdpr.processingactivity.create.element.prefix'}}} - {{{sord.objKeys.PROC_ACTIVITY_RESPONSIBLE_DEPARTMENT}}} - {{{sord.objKeys.PROC_ACTIVITY_DESCRIPTION}}}",
+                  "useTemplating": true
+                }
+              ]
+            }
+          },
+          "move": {
+            "scriptProperties": {
+              "path": "¶Datenschutzhandbuch¶080 Verzeichnis der Verarbeitungstätigkeiten (nach Abteilungen)¶{{{sord.objKeys.PROC_ACTIVITY_RESPONSIBLE_DEPARTMENT}}}",
+              "rightsConfig": { "mode": "ADD", "inherit": true }
+            }
+          }
+        }
+      }
+    }
+  }
+}

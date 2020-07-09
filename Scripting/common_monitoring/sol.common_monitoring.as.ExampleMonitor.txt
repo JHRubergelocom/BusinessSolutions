@@ -1,0 +1,116 @@
+﻿<ruleset>
+  <base>
+    <name>sol.common_monitoring.as.ExampleMonitor</name>
+    <search>
+      <name>"DIRECT"</name>
+      <value>"1"</value>
+      <mask>(E10E1000-E100-E100-E100-E10E10E10E30)</mask>
+      <max>200</max>
+    </search>
+    <interval>0H</interval>
+    <includes>
+      <name>lib_Class</name>
+      <name>lib_moment</name>
+      <name>lib_sol.common.Cache</name>
+      <name>lib_sol.common.ObjectUtils</name>
+      <name>lib_sol.common.SordUtils</name>
+      <name>lib_sol.common.DateUtils</name>
+      <name>lib_sol.common.RepoUtils</name>
+      <name>lib_sol.common_monitoring.as.MonitorUtils</name>
+      <name>lib_sol.common_monitoring.as.Monitor</name>
+      <name>lib_sol.common_monitoring.as.collectors.NextRunCollector</name>
+      <name>lib_sol.common_monitoring.as.analyzers.RetentionAnalyzer</name>
+      <name>lib_sol.common_monitoring.as.executors.SimpleExecutor</name>
+    </includes>
+  </base>
+<rule>
+  <name>Monitoring</name>
+  <condition></condition>
+  <script>    
+    EM_WRITE_CHANGED = false;
+    
+    var logger = sol.create("sol.Logger", { scope: "sol.common_monitoring.as.ExampleMonitor" });
+    logger.enter("ExampleMonitor");
+    
+    var collector = sol.create("sol.common_monitoring.as.collectors.NextRunCollector", {
+      //mask: "Monitoring",
+      //retrospection: 0
+    });
+    
+    var analyzer = sol.create("sol.common_monitoring.as.analyzers.RetentionAnalyzer", {
+      retention: { value: 2, unit: "m" },
+      action: { type: "WORKFLOW", templateId: "TestMonitoring", user: "weiler" }
+      /*rules: [
+        {
+          action: { type: "WORKFLOW", templateId: "TestMonitoring" },
+          action: { type: "REMINDER", user: "zipfel" },
+          action: { type: "FUNCTION", modul: "custom.DoSomeStuff" },
+          date: { type: "GRP", key: "MY_DATE" },
+          execution: { type: "MAP", key: "MY_DATE_EXECUTION_WF" }
+        },
+        {
+          action: { type: "REMINDER" },
+          date: { type: "GRP", key: "MY_DATE" },
+          recur: { value: 10 },
+          recur: { value: 10, unit: "Y" },
+          recur: { type: "GRP", key: "MY_DATE" },
+          recur: { type: "GRP", key: "MY_DATE", unit: "Y" },
+          recur: { type: "GRP", key: "MY_DATE", unit: { type: "GRP", key: "MY_DATE" } },
+          execution: { type: "MAP", key: "MY_DATE_EXECUTION_RM" }
+        }
+      ]*/
+      /*rules: [
+        {
+          action: {type: "REMINDER"},
+          date: { type: "GRP", key: "MY_DATE" },
+          execution: { type: "MAP", key: "MY_DATE_EXECUTION_1" }
+        },
+        {
+          action: {type: "REMINDER"},
+          date: { type: "GRP", key: "MY_DATE" },
+          shift: { value: "2", unit: "w" },
+          execution: { type: "MAP", key: "MY_DATE_EXECUTION_2" }
+        },
+        {
+          action: {type: "REMINDER"},
+          date: { type: "GRP", key: "MY_DATE" },
+          recur: { type: "GRP", key: "MINIMAL_AGE_VALUE", unit: { type: "GRP", key: "MINIMAL_AGE_UNIT" } },
+          execution: { type: "MAP", key: "MY_DATE_EXECUTION_3" }
+        }
+      ]*/
+      /*rules: [
+        {
+          action: {type: "REMINDER"},
+          date: { type: "GRP", key: "MY_DATE" },
+          shift: { value: "-1", unit: "M" },
+          recur: { value: "5" },
+          execution: { type: "MAP", key: "REMINDER_CANCELATION" }
+        }
+      ]*/
+    });
+    
+    var executor = sol.create("sol.common_monitoring.as.executors.SimpleExecutor", {
+      user: "Administrator"
+    });
+    
+    var exampleCfg = {
+      collector: collector,
+      analyzer: analyzer,
+      executor: executor
+    };
+    
+    var exampleMonitor = sol.create("sol.common_monitoring.as.Monitor", exampleCfg);
+    exampleMonitor.run();
+    exampleMonitor.close();
+    
+    logger.exit("ExampleMonitor");
+  </script>
+</rule>
+<rule>
+  <name>Global Error Rule</name>
+  <condition>OnError</condition>
+  <script>    sol.common.ExceptionUtils.logAsException(EM_ERROR);
+
+  </script>
+</rule>
+</ruleset>

@@ -334,6 +334,7 @@ describe("[action] sol.invoice.IncomingInvoice1", function () {
               subWf = subWfs[i];
               subWfFlowId = subWf.id;
               nodes = test.Utils.getActiveUserNodes(subWf);
+
               if (nodes.length > 0) {
                 userNode = nodes[0];
                 userNodeId = userNode.id;
@@ -761,17 +762,238 @@ describe("[action] sol.invoice.IncomingInvoice1", function () {
         );
       }).not.toThrow();
     });
-    it("remove invoice workflow", function (done) {
+    it("setTimeout (wait for elo as)", function (done) {
       expect(function () {
-        test.Utils.getFinishedWorkflows(objIncomingInvoiceId).then(function success(wfs) {
-          test.Utils.removeFinishedWorkflows(wfs).then(function success1(removeFinishedWorkflowsResult) {
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
         }, function error(err) {
           fail(err);
           console.error(err);

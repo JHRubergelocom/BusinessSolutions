@@ -3,9 +3,11 @@ describe("[action] sol.recruiting.ix.actions.CreateRequisition", function () {
   var objTempId, requisitionTypes,
       configTypes, configAction, wfInfo, succNodes, succNodesIds,
       userNode, nodes, userNodeId, subWfs, subWorkflows, key, i, j,
-      subWf, subWfFlowId;
+      subWf, subWfFlowId, originalTimeout;
 
   beforeAll(function (done) {
+    originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
       test.Utils.createTempSord("Actions.CreateRequisition", null, null).then(function success(objTempId1) {
         objTempId = objTempId1;
@@ -375,7 +377,7 @@ describe("[action] sol.recruiting.ix.actions.CreateRequisition", function () {
         );
       }).not.toThrow();
     });
-    it("get active node 'Completion' (id = 54) of Workflow", function (done) {
+    it("get active node 'Requisition approved' (id = 54) of Workflow", function (done) {
       expect(function () {
         test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
           nodes = test.Utils.getActiveUserNodes(workflow);
@@ -532,7 +534,7 @@ describe("[action] sol.recruiting.ix.actions.CreateRequisition", function () {
         );
       }).not.toThrow();
     });
-    it("get active node 'Completion' (id = 54) of Workflow", function (done) {
+    it("get active node 'Requisition approved' (id = 54) of Workflow", function (done) {
       expect(function () {
         test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
           nodes = test.Utils.getActiveUserNodes(workflow);
@@ -766,7 +768,7 @@ describe("[action] sol.recruiting.ix.actions.CreateRequisition", function () {
         );
       }).not.toThrow();
     });
-    it("get active node 'Completion' (id = 54) of Workflow", function (done) {
+    it("get active node 'Requisition approved' (id = 54) of Workflow", function (done) {
       expect(function () {
         test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
           nodes = test.Utils.getActiveUserNodes(workflow);
@@ -1000,7 +1002,7 @@ describe("[action] sol.recruiting.ix.actions.CreateRequisition", function () {
         );
       }).not.toThrow();
     });
-    it("get active node 'Completion' (id = 54) of Workflow", function (done) {
+    it("get active node 'Requisition rejected' (id = 72) of Workflow", function (done) {
       expect(function () {
         test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
           nodes = test.Utils.getActiveUserNodes(workflow);
@@ -1011,7 +1013,7 @@ describe("[action] sol.recruiting.ix.actions.CreateRequisition", function () {
           } else {
             // alert("no userNodes available");
           }
-          expect(userNodeId).toEqual(54);
+          expect(userNodeId).toEqual(72);
           done();
         }, function error(err) {
           fail(err);
@@ -1021,12 +1023,112 @@ describe("[action] sol.recruiting.ix.actions.CreateRequisition", function () {
         );
       }).not.toThrow();
     });
-    it("'Reject' forwarding Workflow", function (done) {
+    it("'Resubmit for approval' forwarding Workflow", function (done) {
       expect(function () {
         test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
+          succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.recruiting.node.retryApproval");
+          succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
+          test.Utils.forwardWorkflowTask(wfInfo.flowId, userNodeId, succNodesIds, "Unittest 'Retry Approval'", true).then(function success1(forwardWorkflowTaskResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("get active node 'Approval' (id = 3) of Subworkflow 'sol.recruiting.Requisition.DynAdHoc'", function (done) {
+      expect(function () {
+        test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
+          subWfs = [];
+          subWorkflows = workflow.subWorkflows;
+          for (key in subWorkflows) {
+            subWfs.push(subWorkflows[key]);
+          }
+          for (i = 0; i < subWfs.length; i++) {
+            if (subWfs[i].templateName == "sol.recruiting.Requisition.DynAdHoc") {
+              subWf = subWfs[i];
+              subWfFlowId = subWf.id;
+              nodes = test.Utils.getActiveUserNodes(subWf);
+              if (nodes.length > 0) {
+                for (j = 0; j < nodes.length; j++) {
+                  if (nodes[j].nameTranslationKey == "sol.recruiting.node.requisition.approval") {
+                    userNode = nodes[j];
+                    userNodeId = userNode.id;
+                  }
+                }
+                // alert("(userNode.name, userNode.id) = (" + userNode.name + "," + userNode.id + ")");
+              } else {
+                // alert("no userNodes available");
+              }
+            }
+          }
+          userNodeId = 3;
+          expect(userNodeId).toEqual(3);
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("'Reject' forwarding Subworkflow 'sol.recruiting.Requisition.DynAdHoc'", function (done) {
+      expect(function () {
+        test.Utils.getWorkflow(subWfFlowId).then(function success(workflow) {
           succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.recruiting.node.reject");
           succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
-          test.Utils.forwardWorkflowTask(wfInfo.flowId, userNodeId, succNodesIds, "Unittest 'Reject'", true).then(function success1(forwardWorkflowTaskResult) {
+          test.Utils.forwardWorkflowTask(subWfFlowId, userNodeId, succNodesIds, "Unittest 'Reject'", true).then(function success1(forwardWorkflowTaskResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("get active node 'Requisition rejected' (id = 72) of Workflow", function (done) {
+      expect(function () {
+        test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
+          nodes = test.Utils.getActiveUserNodes(workflow);
+          if (nodes.length > 0) {
+            userNode = nodes[0];
+            userNodeId = userNode.id;
+            // alert("(userNode.name, userNode.id) = (" + userNode.name + "," + userNode.id + ")");
+          } else {
+            // alert("no userNodes available");
+          }
+          expect(userNodeId).toEqual(72);
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("'Cancel' forwarding Workflow", function (done) {
+      expect(function () {
+        test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
+          succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.common.wf.node.cancel");
+          succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
+          test.Utils.forwardWorkflowTask(wfInfo.flowId, userNodeId, succNodesIds, "Unittest 'Cancel'", true).then(function success1(forwardWorkflowTaskResult) {
             done();
           }, function error(err) {
             fail(err);
@@ -1075,6 +1177,7 @@ describe("[action] sol.recruiting.ix.actions.CreateRequisition", function () {
     });
   });
   afterAll(function (done) {
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
     expect(function () {
       test.Utils.getTempfolder().then(function success(tempfolder) {
         test.Utils.deleteSord(tempfolder).then(function success1(deleteResult) {

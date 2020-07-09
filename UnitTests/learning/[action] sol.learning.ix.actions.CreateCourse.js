@@ -35,7 +35,9 @@ describe("[action] sol.learning.ix.actions.CreateCourse", function () {
     it("courseTypes must be available", function (done) {
       configTypes = {
         $types: {
-          path: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/learning/Configuration/Course types"
+          path: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/learning/Configuration/Course types",
+          shortenDesc: true,
+          maxDescLength: 255
         }
       };
       test.Utils.execute("RF_sol_common_service_StandardTypes", configTypes).then(function success(courseTypes1) {
@@ -57,7 +59,7 @@ describe("[action] sol.learning.ix.actions.CreateCourse", function () {
           objId: objTempId,
           $new: {
             target: {
-              mode: "SELECTED"
+              mode: "DEFAULT"
             },
             template: {
               base: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/learning/Configuration/Course types",
@@ -67,7 +69,7 @@ describe("[action] sol.learning.ix.actions.CreateCourse", function () {
           },
           $name: "CreateCourse",
           $wf: {
-            name: "",
+            name: "sol.learning.course.workflow.create.message",
             template: {
               name: "sol.learning.course.create"
             }
@@ -81,7 +83,13 @@ describe("[action] sol.learning.ix.actions.CreateCourse", function () {
               id: "GOTO",
               onWfStatus: "CREATED"
             }
-          ]
+          ],
+          $metadata: {
+            solType: "COURSE",
+            owner: {
+              fromConnection: true
+            }
+          }
         };
         wfInfo = {};
         test.Utils.executeIxActionHandler("RF_sol_common_action_Standard", configAction, []).then(function success(jsonResults) {
@@ -115,7 +123,7 @@ describe("[action] sol.learning.ix.actions.CreateCourse", function () {
       expect(function () {
         test.Utils.getSord(wfInfo.objId).then(function success(sordCr) {
           objIdCr = wfInfo.objId;
-          test.Utils.updateKeywording(sordCr, { COURSE_NAME: "Unittest Kursname", COURSE_CATEGORY: "Kurs Kategorie", COURSE_TYPE: "Kurs Type" }, true).then(function success1(updateKeywordingResult) {
+          test.Utils.updateKeywording(sordCr, { COURSE_NAME: "Unittest Kursname" }, true).then(function success1(updateKeywordingResult) {
             done();
           }, function error(err) {
             fail(err);
@@ -175,36 +183,6 @@ describe("[action] sol.learning.ix.actions.CreateCourse", function () {
   describe("test cancel createcourse", function () {
     it("start action create workflow", function (done) {
       expect(function () {
-        configAction = {
-          objId: objTempId,
-          $new: {
-            target: {
-              mode: "SELECTED"
-            },
-            template: {
-              base: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/learning/Configuration/Course types",
-              name: courseTypes[0].name
-            },
-            name: "sol.learning.course.create.prefix"
-          },
-          $name: "CreateCourse",
-          $wf: {
-            name: "",
-            template: {
-              name: "sol.learning.course.create"
-            }
-          },
-          $events: [
-            {
-              id: "DIALOG",
-              onWfStatus: ""
-            },
-            {
-              id: "GOTO",
-              onWfStatus: "CREATED"
-            }
-          ]
-        };
         wfInfo = {};
         test.Utils.executeIxActionHandler("RF_sol_common_action_Standard", configAction, []).then(function success(jsonResults) {
           test.Utils.handleAllEvents(jsonResults).then(function success1(wfInfo1) {
@@ -236,7 +214,7 @@ describe("[action] sol.learning.ix.actions.CreateCourse", function () {
     it("fill course sord", function (done) {
       expect(function () {
         test.Utils.getSord(wfInfo.objId).then(function success(sordCr) {
-          test.Utils.updateKeywording(sordCr, { COURSE_NAME: "Unittest Kursname", COURSE_CATEGORY: "Kurs Kategorie", COURSE_TYPE: "Kurs Type" }, true).then(function success1(updateKeywordingResult) {
+          test.Utils.updateKeywording(sordCr, { COURSE_NAME: "Unittest Kursname" }, true).then(function success1(updateKeywordingResult) {
             done();
           }, function error(err) {
             fail(err);

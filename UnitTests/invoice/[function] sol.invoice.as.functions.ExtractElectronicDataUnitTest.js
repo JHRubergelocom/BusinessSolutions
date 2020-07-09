@@ -1,6 +1,6 @@
 
 describe("[function] sol.invoice.as.functions.ExtractElectronicDataUnitTest", function () {
-  var originalTimeout;
+  var originalTimeout, content;
 
   beforeAll(function () {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -10,15 +10,14 @@ describe("[function] sol.invoice.as.functions.ExtractElectronicDataUnitTest", fu
     it("start as functions ExtractElectronicDataUnitTest", function (done) {
       expect(function () {
         test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-          solution: "invoice",
           action: "sol.invoice_electronic.ExtractDataUnitTest",
           config: {
           }
-        }, function (data) {
-           // process result
-        }, function (err) {
-           // error handling
         }).then(function success(jsonResult) {
+          content = jsonResult.content;
+          if (content.indexOf("exception") != -1) {
+            fail(jsonResult.content);
+          }
           done();
         }, function error(err) {
           fail(err);

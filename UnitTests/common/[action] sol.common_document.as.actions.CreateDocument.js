@@ -2,7 +2,7 @@
 describe("[action] sol.common_document.as.actions.CreateDocument", function () {
   var originalTimeout, objTempId,
       succNodes, succNodesIds,
-      wfInfo, params;
+      wfInfo, params, content;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -27,6 +27,10 @@ describe("[action] sol.common_document.as.actions.CreateDocument", function () {
             action: "sol.common_document.as.actions.CreateDocument",
             config: {}
           }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") != -1) {
+              fail(jsonResult.content);
+            }
             done();
           }, function error(err) {
             fail(err);

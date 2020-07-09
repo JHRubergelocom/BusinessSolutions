@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<fo:root font-family="Arial,Helvetica" xmlns:fo="http://www.w3.org/1999/XSL/Format">
+  <fo:layout-master-set>
+    <fo:simple-page-master master-name="NameBadgeCard" page-height="50mm" page-width="88mm" margin-top="0.7cm" margin-bottom="0.4cm" margin-left="0.6cm" margin-right="0.6cm">
+      <fo:region-body />
+    </fo:simple-page-master>
+  </fo:layout-master-set>
+
+  <fo:page-sequence master-reference="NameBadgeCard">
+    <fo:flow flow-name="xsl-region-body">
+
+      <fo:block-container width="4.9cm" margin-top="3mm">
+          <fo:block font-size="11pt" margin-bottom="1mm">
+            {{#if CONTACT.objKeys.CONTACT_TITLE}}{{CONTACT.objKeys.CONTACT_TITLE}}{{/if}} {{CONTACT.objKeys.CONTACT_FIRSTNAME}} {{CONTACT.objKeys.CONTACT_LASTNAME}}
+          </fo:block>
+          {{#if CONTACT.objKeys.COMPANY_NAME}}
+            <fo:block font-size="11pt" margin-bottom="2mm">
+              {{CONTACT.objKeys.COMPANY_NAME}}
+            </fo:block>
+          {{/if}}
+          {{#if CONTACT.objKeys.ADDRESS_ADDITION}}
+            <fo:block font-size="9pt" margin-bottom="1mm">
+              {{CONTACT.objKeys.ADDRESS_ADDITION}}
+            </fo:block>
+          {{/if}}
+          <fo:block font-size="9pt" margin-bottom="1mm">
+              {{CONTACT.objKeys.ADDRESS_STREET}}
+          </fo:block>
+          <fo:block font-size="9pt" margin-bottom="1mm">
+              {{CONTACT.objKeys.ADDRESS_ZIP_CODE}} {{CONTACT.objKeys.ADDRESS_CITY}} 
+          </fo:block>
+          <fo:block font-size="9pt" margin-bottom="1mm">
+              {{CONTACT.objKeys.ADDRESS_COUNTRY}}
+          </fo:block>
+      </fo:block-container>
+    
+    <fo:block-container position="absolute" top="10.8mm" right="-2.2mm" width="31mm" height="31mm">
+        <fo:block font-size="11pt">
+		<fo:external-graphic width="100%"
+			content-height="31mm"
+			content-width="31mm"
+			scaling="uniform"
+			src="url('data:image/png;base64,{{base64Barcode content="elodms://{{CONTACT.guid}}" type="QR_CODE"}}')"/>
+        </fo:block>
+    </fo:block-container>
+    <fo:block-container position="absolute" top="1.5cm" right="0mm" width="2.3cm" height="2mm" reference-orientation="90">
+        <fo:block font-size="6pt" text-align-last="justify">
+          ELO link - www.elo.com
+          </fo:block>
+    </fo:block-container>
+    
+    </fo:flow>
+  </fo:page-sequence>
+
+</fo:root>

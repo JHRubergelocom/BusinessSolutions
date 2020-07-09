@@ -87,7 +87,7 @@ sol.define("sol.learning.ix.ReputationUtils", {
         }
 
         sol.common.SordUtils.setObjKeyValueAsNumber(userFolder, "REPUTATION", reputation);
-        ixConnectAdmin.ix().checkinSord(userFolder, SordC.mbAll, LockC.NO);
+        ixConnectAdmin.ix().checkinSord(userFolder, SordC.mbAllIndex, LockC.NO);
 
         me.writeStatistics(type, userName, countDown);
 

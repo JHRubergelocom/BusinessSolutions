@@ -109,12 +109,14 @@ sol.define("sol.knowledge.ix.services.GetConfig", {
 
       sords = me.getAllSolTypes("KNOWLEDGE_SPACE");
       spaces = me.convert(sords, {
-        subscriptionInfo: true
+        subscriptionInfo: true,
+        accessRights: true
       });
 
       sords = me.getAllSolTypes("KNOWLEDGE_BOARD");
       boards = me.convert(sords, {
-        subscriptionInfo: true
+        subscriptionInfo: true,
+        accessRights: true
       });
 
       labels = me.getLabels();
@@ -227,7 +229,7 @@ sol.define("sol.knowledge.ix.services.GetConfig", {
       if (!findResult.moreResults) {
         break;
       }
-      idx += findResult.sords.Length;
+      idx += findResult.sords.length;
       findResult = conn.ix().findNextSords(findResult.searchId, idx, 100, sordZ);
     }
     conn.ix().findClose(findResult.searchId);
@@ -356,11 +358,12 @@ sol.define("sol.knowledge.ix.services.GetConfig", {
             data: sord,
             config: {
               sordKeys: ["name", "id", "guid", "maskName", "desc"],
-              objKeys: ["KNOWLEDGE_SPACE_REFERENCE", "KNOWLEDGE_BOARD_REFERENCE", "KNOWLEDGE_CONTENT_TYPE", "KNOWLEDGE_DEFAULT_POSTTYPE", "KNOWLEDGE_PROVIDED_POSTTYPES"]
+              objKeys: ["KNOWLEDGE_SPACE_REFERENCE", "KNOWLEDGE_BOARD_REFERENCE", "KNOWLEDGE_CONTENT_TYPE", "KNOWLEDGE_DEFAULT_POSTTYPE", "KNOWLEDGE_PROVIDED_POSTTYPES", "KNOWLEDGE_PINNED"]
             }
           }
         });
         tplSord = tplSord.sord;
+        params.sord = sord;
         me.enrichTplSord(tplSord, params);
         converted.push(tplSord);
       });
@@ -398,6 +401,9 @@ sol.define("sol.knowledge.ix.services.GetConfig", {
         tplSord.subscription = {
           subscribed: sol.common.ix.SubscriptionUtils.hasSubscription(tplSord.guid)
         };
+      }
+      if (params.accessRights) {
+        tplSord.rights = sol.knowledge.ix.KnowledgeUtils.getAccessRights(params.sord);
       }
     }
   },

@@ -106,7 +106,7 @@ describe("[function] sol.common.ix.functions.ChangeRights", function () {
         );
       }).not.toThrow();
     });
-    it("ChangeRights(obChangeRightsId1, ['Unittest'], {r: true, w: true, d: false, e: true, l: false}, 'ADD')", function (done) {
+    it("ChangeRights(obChangeRightsId1, ['Unittest'], {r: true, w: true, d: false, e: true, l: false }, 'ADD')", function (done) {
       expect(function () {
         test.Utils.execute("RF_sol_function_ChangeRights", {
           objId: obChangeRightsId1,

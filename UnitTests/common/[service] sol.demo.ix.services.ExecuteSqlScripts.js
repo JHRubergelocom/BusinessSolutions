@@ -50,7 +50,21 @@ describe("[service] sol.demo.ix.services.ExecuteSqlScripts", function () {
     expect(function () {
       test.Utils.getTempfolder().then(function success(tempfolder) {
         test.Utils.deleteSord(tempfolder).then(function success1(deleteResult) {
-          done();
+          test.Utils.getFinishedWorkflows().then(function success2(wfs) {
+            test.Utils.removeFinishedWorkflows(wfs).then(function success3(removeFinishedWorkflowsResult) {
+              done();
+            }, function error(err) {
+              fail(err);
+              console.error(err);
+              done();
+            }
+            );
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
         }, function error(err) {
           fail(err);
           console.error(err);

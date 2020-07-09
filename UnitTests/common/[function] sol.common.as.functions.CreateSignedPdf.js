@@ -1,7 +1,7 @@
 
 describe("[function] sol.common.as.functions.CreateSignedPdf", function () {
   var objCreateSignedPdfId, objSignatureDocId, flowId, succNodes, succNodesIds,
-      originalTimeout;
+      originalTimeout, content;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -28,13 +28,17 @@ describe("[function] sol.common.as.functions.CreateSignedPdf", function () {
   });
   describe("Tests AS Action", function () {
     describe("sol.common.CreateSignedPdf", function () {
-      it("should not throw with empty config", function (done) {
+      it("should throw with empty config", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             solution: "common",
             action: "sol.common.CreateSignedPdf",
             config: {}
           }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") == -1) {
+              fail(jsonResult.content);
+            }
             done();
           }, function error(err) {
             console.error(err);
@@ -68,6 +72,10 @@ describe("[function] sol.common.as.functions.CreateSignedPdf", function () {
               dataNodeName: "[data] signature"
             }
           }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") != -1) {
+              fail(jsonResult.content);
+            }
             done();
           }, function error(err) {
             console.error(err);

@@ -180,13 +180,13 @@ describe("[action] sol.invoice.LoadInvoiceTemplate", function () {
         );
       }).not.toThrow();
     });
-    it("Start Extract Zugferd Data", function (done) {
+    it("Start Electronic Extract Data", function (done) {
       expect(function () {
         params = { objId: objIncomingInvoiceId,
                   statusFieldName: "INVOICE_DATACOLLECTION",
-                  statusFieldValue: "ZUGFeRD",
-                  timestampMapFieldName: "ZUGFERD_IMPORTED" };
-        test.Utils.executeASActionHandler("invoice", "sol.invoice_zugferd.extractZugferdData", params, []).then(function success(jsonResults) {
+                  statusFieldValue: "Electronic invoice",
+                  timestampMapFieldName: "ELECTRONIC_INVOICE_IMPORTED" };
+        test.Utils.executeASActionHandler("invoice", "sol.invoice_electronic.ExtractData", params, []).then(function success(jsonResults) {
           done();
         }, function error(err) {
           fail(err);

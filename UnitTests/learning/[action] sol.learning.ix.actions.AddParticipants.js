@@ -107,7 +107,7 @@ describe("[action] sol.learning.ix.actions.AddParticipants", function () {
         expect(function () {
           test.Utils.getSord(wfInfo.objId).then(function success(sordCr) {
             objIdCr = wfInfo.objId;
-            test.Utils.updateKeywording(sordCr, { COURSE_NAME: "Unittest Kursname" }, true).then(function success1(updateKeywordingResult) {
+            test.Utils.updateKeywording(sordCr, { COURSE_NAME: "Unittest Kursname", SOL_TYPE: "COURSE" }, true).then(function success1(updateKeywordingResult) {
               done();
             }, function error(err) {
               fail(err);
@@ -276,6 +276,25 @@ describe("[action] sol.learning.ix.actions.AddParticipants", function () {
         expect(function () {
           test.Utils.setTimeout(interval).then(function success(timeoutResult) {
             done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("remove workflows", function (done) {
+        expect(function () {
+          test.Utils.getFinishedWorkflows().then(function success(wfs) {
+            test.Utils.removeFinishedWorkflows(wfs).then(function success1(removeFinishedWorkflowsResult) {
+              done();
+            }, function error(err) {
+              fail(err);
+              console.error(err);
+              done();
+            }
+            );
           }, function error(err) {
             fail(err);
             console.error(err);

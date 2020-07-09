@@ -7,10 +7,15 @@
   "previewForms": [],
   "refChildren": [
     {
-      "source": "{{packageFolderPath}}/ELOapps/ClientInfos",
+      "source": "{{packageFolderPath}}/ELOas Base",
+      "destinations": ["{{asBaseFolderPath}}"]
+    },
+    {
+      "source": "{{packageFolderPath}}/IndexServer Scripting Base",
       "destinations": [
-        "{{appsBaseFolderPath}}/ClientInfos"
-      ]
+        "{{ixScriptingBaseFolderPath}}/_ALL/business_solutions"
+      ],
+      "ignoreSubfolders": true
     },
     {
       "source": "{{packageFolderPath}}/Unit Tests",

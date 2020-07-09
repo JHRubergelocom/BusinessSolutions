@@ -157,6 +157,64 @@ sol.define("sol.knowledge.ix.KnowledgeUtils", {
       throw "Permissions for Content Type '" + contentType + "' not available";
     }
     return configContentTypes[contentType].permissions;
+  },
+
+    /**
+   * Returns an object with the access rights of the current user on a sord.
+   * @param {de.elo.ix.client.Sord} sord
+   * @returns {Object}
+   */
+  getAccessRights: function (sord) {
+    var aclAccessInfo, accessCode, accessRights;
+
+    aclAccessInfo = new AclAccessInfo();
+    aclAccessInfo.aclItems = sord.aclItems;
+    accessCode = ixConnect.ix().getAclAccess(aclAccessInfo).access;
+
+    accessRights = {
+      r: sol.common.AclUtils.containsRights(accessCode, { r: true }),
+      w: sol.common.AclUtils.containsRights(accessCode, { w: true }),
+      d: sol.common.AclUtils.containsRights(accessCode, { d: true }),
+      e: sol.common.AclUtils.containsRights(accessCode, { e: true }),
+      l: sol.common.AclUtils.containsRights(accessCode, { l: true }),
+      p: sol.common.AclUtils.containsRights(accessCode, { p: true })
+    };
+
+    return accessRights;
+  },
+
+  /**
+   * Create references in post
+   * @param {Array} refIds Object IDs to insert as references in post
+   * @param {String} objId Object ID of post
+   */
+  createReferences: function (refIds, objId) {
+    if (!refIds) {
+      return;
+    }
+    refIds.forEach(function (refId) {
+      sol.common.IxUtils.execute("RF_sol_function_Move", {
+        objId: refId,
+        referenceIds: [objId]
+      });
+    });
+  },
+
+  /**
+   * Delete references in post
+   * @param {Array} refIds Object IDs to remove as references from post
+   * @param {String} objId Object ID of post
+   */
+  deleteReferences: function (refIds, objId) {
+    if (!refIds) {
+      return;
+    }
+    refIds.forEach(function (refId) {
+      sol.common.IxUtils.execute("RF_sol_function_Delete", {
+        objId: refId,
+        parentId: [objId]
+      });
+    });
   }
 
 });

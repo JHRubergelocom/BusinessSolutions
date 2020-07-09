@@ -44,7 +44,7 @@ sol.define("sol.notify.Utils", {
     var me = this,
         reportConfig = {},
         userProfile, option, flagName, bitMask,
-        language;
+        language, timeZoneKey, timeZone, connectionTimeZone;
 
     userId = (typeof userId != "undefined") ? userId : ixConnect.loginResult.user.id;
 
@@ -52,6 +52,11 @@ sol.define("sol.notify.Utils", {
     option = userProfile.getOption(me.loadNotifyConfig().email.optionKey) || 0;
     language = userProfile.getOption(me.notifyConfig.email.language) || ixConnect.loginResult.clientInfo.language;
     reportConfig.language = language;
+    timeZoneKey = me.notifyConfig.email.timeZoneKey || "ELOas.SendWfAsMail.timeZone";
+    connectionTimeZone = (ixConnect.loginResult.clientInfo.timeZone || "") + "";
+    timeZone = userProfile.getOption(timeZoneKey) || connectionTimeZone || me.notifyConfig.defaultTimeZone;
+    reportConfig.timeZone = timeZone;
+
     for (flagName in me.flags) {
       bitMask = me.flags[flagName];
       reportConfig[flagName] = sol.common.UserProfileUtils.isOptionBitSet(option, bitMask);
@@ -68,7 +73,7 @@ sol.define("sol.notify.Utils", {
   writeReportConfig: function (userId, reportConfig) {
     var me = this,
         optionValue = 0,
-        userProfile, flagName, bitMask, flag;
+        userProfile, flagName, bitMask, flag, timeZoneKey;
 
     userId = (typeof userId != "undefined") ? userId : ixConnect.loginResult.user.id;
     reportConfig = reportConfig || {};
@@ -87,6 +92,12 @@ sol.define("sol.notify.Utils", {
     if (reportConfig.language) {
       userProfile.setOption(me.notifyConfig.email.language, reportConfig.language);
     }
+
+    if (reportConfig.timeZone) {
+      timeZoneKey = me.notifyConfig.email.timeZoneKey || "ELOas.SendWfAsMail.timeZone";
+      userProfile.setOption(timeZoneKey, reportConfig.timeZone);
+    }
+
     userProfile.write();
   }
 });

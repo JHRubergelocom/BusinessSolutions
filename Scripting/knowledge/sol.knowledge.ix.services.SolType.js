@@ -111,7 +111,7 @@ sol.define("sol.knowledge.ix.services.SolType", {
 
 /**
  * @member sol.knowledge.ix.services.SolType
- * @method RF_sol_knowledge_service_SolType_AddTopic
+ * @method RF_sol_knowledge_service_SolType_GetInfo
  * @static
  * @inheritdoc sol.common.ix.ServiceBase#RF_ServiceBaseName
  */

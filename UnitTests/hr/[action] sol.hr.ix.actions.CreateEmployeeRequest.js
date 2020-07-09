@@ -20,13 +20,13 @@ describe("[action] sol.hr.ix.actions.CreateEmployeeRequest", function () {
     }).not.toThrow();
   });
   describe("test create employee request", function () {
-    it("should throw if executed without 'objId'", function (done) {
+    it("should not throw if executed without 'objId'", function (done) {
       expect(function () {
         test.Utils.execute("RF_sol_hr_personnel_action_CreateEmployeeRequest", {
         }).then(function success(jsonResult) {
-          fail(jsonResult);
           done();
         }, function error(err) {
+          fail(err);
           console.error(err);
           done();
         }

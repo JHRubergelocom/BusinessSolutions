@@ -1,0 +1,147 @@
+{
+  "setupName": "common_document",
+  "packageName": "common_document",
+  "createMasks": true,
+  "deleteSords": [],
+  "previewForms": [
+    {
+      "mask": "Correspondence",
+      "form": "common_document(105_create_communication_title,005_create_communication)"
+    }
+  ],
+  "refChildren": [
+    {
+      "source": "{{packageFolderPath}}/Java Client Scripting Base",
+      "destinations": [
+        "{{jcScriptingBaseFolderPath}}/business_solutions"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/ELOwf Base/Forms",
+      "destinations": [
+        "{{wfBaseFolderPath}}/Forms"
+      ],
+      "refFolders": true
+    },
+    {
+      "source": "{{packageFolderPath}}/Localization",
+      "destinations": [
+        "{{localizationBaseFolderPath}}/system"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/Action definitions",
+      "destinations": [
+        "{{bsFolderPath}}/_global/Action definitions"
+      ],
+      "ignoreSubfolders": false,
+      "refFolders": true
+    },    
+    {
+      "source": "{{packageFolderPath}}/ELOapps/ClientInfos",
+      "destinations": [
+        "{{appsBaseFolderPath}}/ClientInfos"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/ELOapps/Icons",
+      "destinations": [
+        "{{appsBaseFolderPath}}/Icons"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/ELOapps/Apps",
+      "destinations": [
+        "{{appsBaseFolderPath}}/Apps"
+      ],
+      "refFolders": true
+    },
+    {
+      "source": "{{packageFolderPath}}/ELOapps/Modules",
+      "destinations": [
+        "{{appsBaseFolderPath}}/Modules"
+      ],
+      "refFolders": true
+    },
+    {
+      "source": "{{packageFolderPath}}/ELOapps/Configuration",
+      "destinations": [
+        "{{appsBaseFolderPath}}/Configuration"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/ELOas Base/Direct",
+      "destinations": [
+        "{{asBaseFolderPath}}/Direct"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/ELOas Base/Rules",
+      "destinations": [
+        "{{asBaseFolderPath}}/Rules"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/ELOas Base/OptionalJsLibs",
+      "destinations": [
+        "{{asBaseFolderPath}}/OptionalJsLibs"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/IndexServer Scripting Base",
+      "destinations": [
+        "{{ixScriptingBaseFolderPath}}/_ALL/business_solutions"
+      ],
+      "ignoreSubfolders": true
+    },
+    {
+      "source": "{{packageFolderPath}}/Webclient Scripting Base",
+      "destinations": [
+        "{{webClientScriptingBaseFolderPath}}"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/All Rhino",
+      "destinations": [
+        "{{administrationFolderPath}}/ELOas Base/OptionalJsLibs",
+        "{{ixScriptingBaseFolderPath}}/_ALL/business_solutions",
+        "{{jcScriptingBaseFolderPath}}/business_solutions"
+      ],
+      "ignoreSubfolders": false,
+      "refFolders": false
+    }
+  ],
+  "ref": [
+    {
+      "source": "{{wfBaseFolderPath}}/Configuration/Frame",
+      "destinations": [
+        "{{wfBaseFolderPath}}/Forms/common_document"
+      ]
+    }
+  ],
+  "repoPaths": [
+    {
+      "path": "{{administrationFolderPath}}/Batch imports",
+      "rightsConfig": {
+        "users": [
+          {
+            "name": "0",
+            "rights": {
+              "r": true,
+              "w": false,
+              "e": false,
+              "d": false,
+              "l": true
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "reloads": {
+    "wfForms": true,
+    "apps": true
+  },
+  "instApps": true,
+  "users": []
+}

@@ -45,7 +45,6 @@ describe("[function] sol.hr.ix.functions.GenerateChartElementShortDesc", functio
             objId: sordChartElement.id,
             updateExisting: true
           }).then(function success(jsonResult) {
-            expect(jsonResult.identifier).toBeDefined();
             done();
           }, function error(err) {
             fail(err);

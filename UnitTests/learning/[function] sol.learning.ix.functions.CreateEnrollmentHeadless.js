@@ -64,7 +64,6 @@ describe("[function] sol.learning.ix.functions.CreateEnrollmentHeadless", functi
             }
           }).then(function success(jsonResult) {
             expect(jsonResult.data.objId).toBeDefined();
-            expect(jsonResult.data.flowId).toBeDefined();
             objIdEnr1 = jsonResult.data.objId;
             done();
           }, function error(err) {
@@ -169,7 +168,6 @@ describe("[function] sol.learning.ix.functions.CreateEnrollmentHeadless", functi
             }
           }).then(function success(jsonResult) {
             expect(jsonResult.data.objId).toBeDefined();
-            expect(jsonResult.data.flowId).toBeDefined();
             objIdEnr2 = jsonResult.data.objId;
             done();
           }, function error(err) {

@@ -1,6 +1,6 @@
 
 describe("[function] sol.common.as.functions.OfficeConverter", function () {
-  var originalTimeout;
+  var originalTimeout, content;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -17,13 +17,17 @@ describe("[function] sol.common.as.functions.OfficeConverter", function () {
     }).not.toThrow();
   });
   describe("Tests AS Action", function () {
-    xdescribe("sol.common.as.OfficeConverter", function () {
-      it("should not throw with empty config", function (done) {
+    describe("sol.common.as.OfficeConverter", function () {
+      it("should throw with empty config", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.common.as.OfficeConverter",
             config: {}
           }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") == -1) {
+              fail(jsonResult.content);
+            }
             done();
           }, function error(err) {
             fail(err);
@@ -48,6 +52,10 @@ describe("[function] sol.common.as.functions.OfficeConverter", function () {
               }
             }
           }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") != -1) {
+              fail(jsonResult.content);
+            }
             done();
           }, function error(err) {
             fail(err);
