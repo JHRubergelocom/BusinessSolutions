@@ -495,7 +495,7 @@ describe("[action] sol.recruiting.ix.actions.RateCandidate", function () {
                 nodes = test.Utils.getActiveUserNodes(subWf);
                 if (nodes.length > 0) {
                   for (j = 0; j < nodes.length; j++) {
-                    if (nodes[j].nameTranslationKey == "sol.recruiting.node.rating.rate") {
+                    if (nodes[j].nameTranslationKey == "sol.recruiting.wf.user.candidate.rating.sub.rate") {
                       userNode = nodes[j];
                       userNodeId = userNode.id;
                     }
@@ -852,19 +852,19 @@ describe("[action] sol.recruiting.ix.actions.RateCandidate", function () {
                 console.error(err);
                 done();
               }
-            );
+              );
             }, function error(err) {
               fail(err);
               console.error(err);
               done();
             }
-          );
+            );
           }, function error(err) {
             fail(err);
             console.error(err);
             done();
           }
-        );
+          );
         }, function error(err) {
           fail(err);
           console.error(err);
