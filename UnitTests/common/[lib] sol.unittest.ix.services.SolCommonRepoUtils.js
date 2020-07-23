@@ -617,7 +617,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
       it("findInHierarchy", function (done) {
         expect(function () {
           objId = "2";
-          config = { sordTypeNames: ["Filing cabinet"] };
+          config = { sordTypeNames: ["Folder"] };
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},

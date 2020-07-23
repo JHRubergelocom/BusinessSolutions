@@ -104,6 +104,9 @@ sol.define("sol.unittest.invoice.ix.services.ExecuteLib", {
           case "EMPTY":
             func = cls.fct[me.method];
             break;
+          case "findLineApproverNames":
+          case "getApproverSet":
+            return result;
           case "setLineApproved":
             me.params[0] = cls.wfMap;
             break;

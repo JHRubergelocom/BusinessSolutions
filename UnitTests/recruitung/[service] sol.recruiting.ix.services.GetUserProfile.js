@@ -18,13 +18,14 @@ describe("[service] sol.recruiting.ix.services.GetUserProfile", function () {
   });
   describe("Tests Registered Functions", function () {
     describe("RF_sol_recruiting_service_GetUserProfile", function () {
-      it("should throw without parameter", function (done) {
+      it("should not throw without parameter", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_recruiting_service_GetUserProfile", {
           }).then(function success(jsonResult) {
-            fail(jsonResult);
+            expect(jsonResult).toBeDefined();
             done();
           }, function error(err) {
+            fail(err);
             console.error(err);
             done();
           }

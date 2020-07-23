@@ -188,7 +188,7 @@ describe("[lib] sol.unittest.ix.services.SolRecruitingRatingUtils", function () 
                 nodes = test.Utils.getActiveUserNodes(subWf);
                 if (nodes.length > 0) {
                   for (j = 0; j < nodes.length; j++) {
-                    if (nodes[j].nameTranslationKey == "sol.recruiting.node.rating.rate") {
+                    if (nodes[j].nameTranslationKey == "sol.recruiting.wf.user.candidate.rating.sub.rate") {
                       userNode = nodes[j];
                       userNodeId = userNode.id;
                     }

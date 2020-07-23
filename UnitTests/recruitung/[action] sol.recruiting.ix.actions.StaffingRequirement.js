@@ -706,7 +706,7 @@ describe("[action] sol.recruiting.ix.actions.StaffingRequirement", function () {
               nodes = test.Utils.getActiveUserNodes(subWf);
               if (nodes.length > 0) {
                 for (j = 0; j < nodes.length; j++) {
-                  if (nodes[j].nameTranslationKey == "sol.recruiting.node.requisition.approval") {
+                  if (nodes[j].nameTranslationKey == "sol.recruiting.wf.user.requisition.dynadhoc.approval") {
                     userNode = nodes[j];
                     userNodeId = userNode.id;
                   }
@@ -980,7 +980,7 @@ describe("[action] sol.recruiting.ix.actions.StaffingRequirement", function () {
               nodes = test.Utils.getActiveUserNodes(subWf);
               if (nodes.length > 0) {
                 for (j = 0; j < nodes.length; j++) {
-                  if (nodes[j].nameTranslationKey == "sol.recruiting.node.requisition.approval") {
+                  if (nodes[j].nameTranslationKey == "sol.recruiting.wf.user.requisition.dynadhoc.approval") {
                     userNode = nodes[j];
                     userNodeId = userNode.id;
                   }
@@ -1254,7 +1254,7 @@ describe("[action] sol.recruiting.ix.actions.StaffingRequirement", function () {
               nodes = test.Utils.getActiveUserNodes(subWf);
               if (nodes.length > 0) {
                 for (j = 0; j < nodes.length; j++) {
-                  if (nodes[j].nameTranslationKey == "sol.recruiting.node.requisition.approval") {
+                  if (nodes[j].nameTranslationKey == "sol.recruiting.wf.user.requisition.dynadhoc.approval") {
                     userNode = nodes[j];
                     userNodeId = userNode.id;
                   }

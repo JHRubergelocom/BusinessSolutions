@@ -988,7 +988,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
             method: "apply",
             params: []
           }).then(function success(jsonResult) {
-            expect(jsonResult.string).toEqual("Mai");
+            expect(jsonResult).toEqual("Mai");
             done();
           }, function error(err) {
             fail(err);
