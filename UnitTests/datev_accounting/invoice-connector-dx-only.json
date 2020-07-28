@@ -1,0 +1,12 @@
+{
+    "dependencies": [
+        {
+            "folder": "../invoice.git/Business Solutions/connector_dx",
+            "elo": "/Business Solutions/connector_dx"
+        },
+        {
+            "folder": "../invoice.git/Business Solutions Custom/connector_dx",
+            "elo": "/Business Solutions Custom/connector_dx"
+        }
+    ]
+}
