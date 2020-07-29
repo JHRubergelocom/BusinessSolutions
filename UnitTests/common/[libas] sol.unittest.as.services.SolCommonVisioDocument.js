@@ -116,7 +116,7 @@ describe("[libas] sol.unittest.as.services.SolCommonVisioDocument", function () 
             }
           }).then(function success(jsonResult) {
             content = jsonResult.content;
-            if (content.indexOf("exception") == -1) {
+            if (content.indexOf("exception") != -1) {
               fail(jsonResult.content);
             }
             done();
