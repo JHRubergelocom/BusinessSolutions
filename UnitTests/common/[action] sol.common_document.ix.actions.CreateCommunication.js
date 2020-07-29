@@ -165,7 +165,7 @@ describe("[action] sol.common_document.ix.actions.CreateCommunication", function
     it("finish input forwarding workflow", function (done) {
       expect(function () {
         test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-          succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.common_document.communication.create.node.send");
+          succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.common.wf.node.ok");
           succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
           test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest finish input").then(function success1(forwardWorkflowTaskResult) {
             done();
