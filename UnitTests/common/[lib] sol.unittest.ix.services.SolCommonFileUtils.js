@@ -10,7 +10,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonFileUtils", function () {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
       test.Utils.createTempSord("SolCommonFileUtils").then(function success(obSolCommonFileUtilsId) {
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/FileUtils").then(function success1(FileUtilsSord1) {
+        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/ActionBase").then(function success1(FileUtilsSord1) {
           FileUtilsSord = FileUtilsSord1;
           done();
         }, function error(err) {

@@ -1,5 +1,5 @@
 
-describe("[lib] sol.unittest.ix.services.solcommonObjectFormatter", function () {
+describe("[lib] sol.unittest.ix.services.SolCommonObjectFormatter", function () {
   var ObjectFormatterSord, originalTimeout,
       config, partName, configPart, result, params, originalSord, toObj, sord,
       maskName, objKeys, prefix, key, value, flowId, objId, sordObjKey, mask,
@@ -11,7 +11,7 @@ describe("[lib] sol.unittest.ix.services.solcommonObjectFormatter", function () 
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
       test.Utils.createTempSord("solcommonObjectFormatter").then(function success(obsolcommonObjectFormatterId) {
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/ObjectFormatter").then(function success1(ObjectFormatterSord1) {
+        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/Map").then(function success1(ObjectFormatterSord1) {
           ObjectFormatterSord = ObjectFormatterSord1;
           done();
         }, function error(err) {

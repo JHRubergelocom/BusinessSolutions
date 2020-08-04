@@ -9,7 +9,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
       test.Utils.createTempSord("SolCommonTemplate").then(function success(obSolCommonTemplateId) {
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/Template").then(function success1(templateSord1) {
+        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/ActionBase").then(function success1(templateSord1) {
           templateSord = templateSord1;
           objTemplateId = templateSord.id;
           test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/Smiley1").then(function success2(smiley1Sord1) {
@@ -91,7 +91,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonTemplate", function () {
             method: "applySord",
             params: [objTemplateId]
           }).then(function success(jsonResult) {
-            expect(jsonResult).toEqual("Name: Template Mapfield: 123");
+            expect(jsonResult).toEqual("Name: ActionBase Mapfield: 123");
             done();
           }, function error(err) {
             fail(err);

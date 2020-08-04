@@ -1,6 +1,6 @@
 
 describe("[lib] sol.unittest.ix.services.SolCommonMap", function () {
-  var MapSord, mapData, originalTimeout, endOfTableIndicatorColumnName, func, ctx, key, separator, config, keynames, value, map;
+  var MapSord, mapData, originalTimeout, endOfTableIndicatorColumnName, key, separator, config, keynames, value, map;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;

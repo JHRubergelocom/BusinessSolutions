@@ -8,7 +8,7 @@ describe("[lib] sol.unittest.ix.services.SolDevDateShiftUtils", function () {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
       test.Utils.createTempSord("SolDevDateShiftUtils").then(function success(obSolDevDateShiftUtilsId) {
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/DateShiftUtils").then(function success1(DateShiftUtilsSord1) {
+        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/ActionBase").then(function success1(DateShiftUtilsSord1) {
           DateShiftUtilsSord = DateShiftUtilsSord1;
           done();
         }, function error(err) {

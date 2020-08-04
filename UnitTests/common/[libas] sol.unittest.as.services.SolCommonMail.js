@@ -10,7 +10,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMail", function () {
     expect(function () {
       test.Utils.createTempSord("SolCommonMail").then(function success(obSolCommonMailId1) {
         obSolCommonMailId = obSolCommonMailId1;
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/Mail").then(function success1(MailSord1) {
+        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/WordDocument").then(function success1(MailSord1) {
           MailSord = MailSord1;
           done();
         }, function error(err) {

@@ -7,7 +7,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRoles", function () {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
       test.Utils.createTempSord("SolCommonRoles").then(function success(obSolCommonRolesId) {
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/Roles").then(function success1(RolesSord1) {
+        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/ActionBase").then(function success1(RolesSord1) {
           RolesSord = RolesSord1;
           done();
         }, function error(err) {

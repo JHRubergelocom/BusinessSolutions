@@ -8,7 +8,7 @@ describe("[libas] sol.unittest.as.services.SolCommonDocumentActionsPrepareDocume
     expect(function () {
       test.Utils.createTempSord("SolCommonDocumentActionsPrepareDocument").then(function success(obSolCommonDocumentActionsPrepareDocumentId1) {
         obSolCommonDocumentActionsPrepareDocumentId = obSolCommonDocumentActionsPrepareDocumentId1;
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/ActionsPrepareDocument").then(function success1(ActionsPrepareDocumentSord1) {
+        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/ActionsCreateDocument").then(function success1(ActionsPrepareDocumentSord1) {
           ActionsPrepareDocumentSord = ActionsPrepareDocumentSord1;
           done();
         }, function error(err) {

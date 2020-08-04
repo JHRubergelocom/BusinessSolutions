@@ -9,7 +9,7 @@ describe("[libas] sol.unittest.as.services.SolCommonRendererExcel", function () 
     expect(function () {
       test.Utils.createTempSord("SolCommonRendererExcel").then(function success(obSolCommonRendererExcelId1) {
         obSolCommonRendererExcelId = obSolCommonRendererExcelId1;
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/RendererExcel").then(function success1(RendererExcelSord1) {
+        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/ReadExcelTable").then(function success1(RendererExcelSord1) {
           RendererExcelSord = RendererExcelSord1;
           done();
         }, function error(err) {

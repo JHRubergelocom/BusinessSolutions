@@ -10,7 +10,7 @@ describe("[lib] sol.unittest.ix.services.SolConnectorXmlDocumentImporter", funct
     expect(function () {
       test.Utils.createTempSord("SolConnectorXmlDocumentImporter").then(function success(obSolConnectorXmlDocumentImporterId1) {
         obSolConnectorXmlDocumentImporterId = obSolConnectorXmlDocumentImporterId1;
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/XmlDocumentImporter").then(function success1(XmlDocumentImporterSord1) {
+        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/XmlImporter").then(function success1(XmlDocumentImporterSord1) {
           XmlDocumentImporterSord = XmlDocumentImporterSord1;
           done();
         }, function error(err) {

@@ -11,7 +11,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonAclUtils", function () {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
       test.Utils.createTempSord("SolCommonAclUtils").then(function success(obSolCommonAclUtilsId) {
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/AclUtils").then(function success1(aclUtilsSord1) {
+        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/ActionBase").then(function success1(aclUtilsSord1) {
           aclUtilsSord = aclUtilsSord1;
           userName = test.Utils.getCurrentUserName();
           test.Utils.getUserInfo(userName).then(function success3(userInfo1) {
