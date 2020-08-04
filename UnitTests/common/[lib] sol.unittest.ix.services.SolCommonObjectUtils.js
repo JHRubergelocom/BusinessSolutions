@@ -3,7 +3,8 @@ describe("[lib] sol.unittest.ix.services.SolCommonObjectUtils", function () {
   var originalTimeout, arr, cb, a, custom,
       o, val, customProp, customCallback, callback, context, keyPropName,
       object, path, customPropName, include, exclude, base, log, assignCallback,
-      recursionCheck, mergeList, preserveCustom, columnIndex, jsArray, params, should;
+      recursionCheck, mergeList, preserveCustom, columnIndex, jsArray, params, should,
+      value, overwrite;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -428,6 +429,29 @@ describe("[lib] sol.unittest.ix.services.SolCommonObjectUtils", function () {
             params: [base, mergeList, preserveCustom, path, assignCallback, recursionCheck]
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual({ a: "hello", b: "developer", c: "foobar" });
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("setProp", function (done) {
+        expect(function () {
+          object = { x: [{ __ID: "test", myniceprop: 42 }] };
+          path = "x.test.myniceprop";
+          value = 43;
+          overwrite = true;
+          customPropName = "__ID";
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib1", {
+            className: "sol.common.ObjectUtils",
+            classConfig: {},
+            method: "setProp",
+            params: [object, path, value, overwrite, customPropName]
+          }).then(function success(jsonResult) {
+            expect(jsonResult.myniceprop).toEqual(43);
             done();
           }, function error(err) {
             fail(err);
