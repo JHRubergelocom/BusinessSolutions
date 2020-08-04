@@ -1,4 +1,4 @@
-﻿
+
 //@include lib_Class.js
 
 /**
@@ -342,15 +342,7 @@ sol.define("sol.common.ObjectUtils", {
     return resultArr;
   },
 
-  /**
-  * Returns the first object of an array whose property "id" has the value val.
-  * @param {Array} arr array containing the objects
-  * @param {Any} cb value to search for
-  * @param {String} customProp  custom property name, if the property is not "id"
-  * @param {Function} customCallback custom callback for Array.find function
-  * @return {Object} found object or undefined. false if a is not an Array
-  * Rhino 1.7R5 does not implement Array.prototype.find. arrayFind takes is place in this case
-  */
+  // Polyfill for Array.prototype.find (Rhino <= 1.7R5)
   arrayFind: function (arr, cb) {
     var list = arr, length = list.length, value, i;
 
@@ -363,6 +355,15 @@ sol.define("sol.common.ObjectUtils", {
     return undefined;
   },
 
+  /**
+  * Returns the first object of an array whose property "id" has the value val.
+  * @param {Array} a array containing the objects
+  * @param {Any} val value to search for
+  * @param {String} customProp  custom property name, if the property is not "id"
+  * @param {Function} customCallback custom callback for Array.find function
+  * @return {Object} found object or undefined. false if a is not an Array
+  * Rhino 1.7R5 does not implement Array.prototype.find. arrayFind takes is place in this case
+  */
   findObjInArray: function (a, val, customProp, customCallback) {
     var me = this,
         cb = function (ae) {
@@ -438,6 +439,54 @@ sol.define("sol.common.ObjectUtils", {
     } else if (path === "" || path === undefined) {
       curr = object;
     }
+    return curr;
+  },
+
+  /**
+   * sets a property of an `object` by traversing the passed `path`.
+   * the last part of the path is the target property name.
+   * if a property is inside an object which is inside an array, the array must contain
+   * a property called `id` containing the corresponding part of the `path`.
+   * The function can then traverse the array and create an empty object if necessary.
+   *
+   * @param {Object} object Object
+   * @param {String} path Path
+   * @param {String} value Value to be set
+   * @param {Boolean} overwrite Overwrite path property if it is not an object yet
+   * @param {String} customPropName Custom property name
+   * @returns {Object}
+   */
+  setProp: function (object, path, value, overwrite, customPropName) {
+    var me = this, arr = (typeof path === "string") && path.split("."),
+        targetProp = arr.pop(), curr = undefined;
+    if (arr.length > 0) {
+      curr = object;
+      arr.forEach(function (key) {
+        var val = curr[key], arrObj;
+        if (me.type(val, "object")) {
+          curr = val;
+        } else if (Array.isArray(val)) {
+          if (!(arrObj = sol.common.ObjectUtils.findObjInArray(val, key, customPropName))) {
+            arrObj = {};
+            arrObj[customPropName || id] = key;
+            val.push(arrObj);
+          }
+          curr = arrObj;
+        } else if (val == null || overwrite) {
+          curr = (curr[key] = {});
+        } else {
+          throw "path part `" + key + "` was not an object. Set overwrite to true to perform this action ..."
+        }
+      });
+      curr[targetProp] = value;
+    } else if (targetProp !== "") {
+        object[targetProp] = value;
+    }
+
+     else if (path === "" || path === undefined) {
+      throw "path must be defined in setProp"
+    }
+
     return curr;
   },
 
