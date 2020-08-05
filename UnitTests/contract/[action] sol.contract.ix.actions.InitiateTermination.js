@@ -4,7 +4,7 @@ describe("[action] sol.contract.ix.actions.InitiateTermination", function () {
       flowId, nodeId, configAction,
       succNodes, succNodesIds,
       userNodes, nodeIdUserProcessing,
-      acceptNodeName = "Accept",
+      acceptNodeName = "sol.contract.node.accept",
       wfInfo, originalTimeout;
 
   beforeAll(function (done) {
@@ -96,7 +96,7 @@ describe("[action] sol.contract.ix.actions.InitiateTermination", function () {
     it("finish workflow", function (done) {
       expect(function () {
         test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-          succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "Create");
+          succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.common.wf.node.ok");
           succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
           test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest finish input").then(function success1(forwardWorkflowTaskResult) {
             done();
@@ -209,7 +209,7 @@ describe("[action] sol.contract.ix.actions.InitiateTermination", function () {
     it("finish workflow", function (done) {
       expect(function () {
         test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-          succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "Create");
+          succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.common.wf.node.ok");
           succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
           test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest finish input").then(function success1(forwardWorkflowTaskResult) {
             done();
@@ -266,6 +266,7 @@ describe("[action] sol.contract.ix.actions.InitiateTermination", function () {
         configAction = {
           objId: objIdCr1
         };
+        wfInfo = {};
         test.Utils.executeIxActionHandler("RF_sol_contract_action_TerminateContract", configAction, []).then(function success(jsonResults) {
           test.Utils.handleAllEvents(jsonResults).then(function success1(wfInfo1) {
             wfInfo = wfInfo1;
@@ -373,6 +374,7 @@ describe("[action] sol.contract.ix.actions.InitiateTermination", function () {
         configAction = {
           objId: objIdCr2
         };
+        wfInfo = {};
         test.Utils.executeIxActionHandler("RF_sol_contract_action_TerminateContract", configAction, []).then(function success(jsonResults) {
           test.Utils.handleAllEvents(jsonResults).then(function success1(wfInfo1) {
             wfInfo = wfInfo1;

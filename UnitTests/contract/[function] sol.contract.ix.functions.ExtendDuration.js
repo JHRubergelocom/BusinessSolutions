@@ -1,6 +1,6 @@
 
 describe("[function] sol.contract.ix.functions.ExtendDuration", function () {
-  var objIdCr, contractTypes, dateEndContract,
+  var objIdCr, contractTypes,
       configAction, succNodes, succNodesIds,
       wfInfo, originalTimeout;
 
@@ -93,7 +93,7 @@ describe("[function] sol.contract.ix.functions.ExtendDuration", function () {
     it("finish workflow", function (done) {
       expect(function () {
         test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-          succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "Create");
+          succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.common.wf.node.ok");
           succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
           test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest finish input").then(function success1(forwardWorkflowTaskResult) {
             done();
@@ -176,7 +176,7 @@ describe("[function] sol.contract.ix.functions.ExtendDuration", function () {
     it("check new end of contract", function (done) {
       expect(function () {
         test.Utils.getSord(objIdCr).then(function success(sordCr) {
-          dateEndContract = test.Utils.getObjKeyValue(sordCr, "CONTRACT_END");
+          test.Utils.getObjKeyValue(sordCr, "CONTRACT_END");
           done();
         }, function error(err) {
           fail(err);

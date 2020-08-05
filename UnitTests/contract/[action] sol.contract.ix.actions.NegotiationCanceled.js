@@ -93,7 +93,7 @@ describe("[action] sol.contract.ix.actions.NegotiationCanceled", function () {
     it("finish workflow", function (done) {
       expect(function () {
         test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-          succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "Create");
+          succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.common.wf.node.ok");
           succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
           test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest finish input").then(function success1(forwardWorkflowTaskResult) {
             done();
