@@ -430,7 +430,7 @@ describe("[action] sol.invoice.IncomingInvoice2", function () {
     it("'Approve' forwarding Subworkflow 'sol.invoice.Base.Approval'", function (done) {
       expect(function () {
         test.Utils.getWorkflow(subWfFlowId).then(function success(workflow) {
-          succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.invoice.wf.node.approve");
+          succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.common.wf.node.approve");
           succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
           test.Utils.forwardWorkflowTask(subWfFlowId, userNodeId, succNodesIds, "Unittest 'Approve'", true).then(function success1(forwardWorkflowTaskResult) {
             done();
@@ -538,7 +538,7 @@ describe("[action] sol.invoice.IncomingInvoice2", function () {
     it("'Back to approval' forwarding Subworkflow 'sol.invoice.Base.Clearing'", function (done) {
       expect(function () {
         test.Utils.getWorkflow(subWfFlowId).then(function success(workflow) {
-          succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.invoice.wf.node.backToApproval");
+          succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.invoice.wf.node.clearing.backToApproval");
           succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
           test.Utils.forwardWorkflowTask(subWfFlowId, userNodeId, succNodesIds, "Unittest 'Back to approval'", true).then(function success1(forwardWorkflowTaskResult) {
             done();
@@ -592,7 +592,7 @@ describe("[action] sol.invoice.IncomingInvoice2", function () {
     it("'Approve' forwarding Subworkflow 'sol.invoice.Base.Approval'", function (done) {
       expect(function () {
         test.Utils.getWorkflow(subWfFlowId).then(function success(workflow) {
-          succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.invoice.wf.node.approve");
+          succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.common.wf.node.approve");
           succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
           test.Utils.forwardWorkflowTask(subWfFlowId, userNodeId, succNodesIds, "Unittest 'Approve'", true).then(function success1(forwardWorkflowTaskResult) {
             done();

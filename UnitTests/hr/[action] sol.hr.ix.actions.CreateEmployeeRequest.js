@@ -235,12 +235,12 @@ describe("[action] sol.hr.ix.actions.CreateEmployeeRequest", function () {
               );
             }).not.toThrow();
           });
-          it("'Approve' forwarding Workflow", function (done) {
+          it("'Confirm' forwarding Workflow", function (done) {
             expect(function () {
               test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-                succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.common.wf.node.approve");
+                succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.common.wf.node.confirm");
                 succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
-                test.Utils.forwardWorkflowTask(wfInfo.flowId, userNodeId, succNodesIds, "Unittest 'Approve'").then(function success1(forwardWorkflowTaskResult) {
+                test.Utils.forwardWorkflowTask(wfInfo.flowId, userNodeId, succNodesIds, "Unittest 'Confirm'").then(function success1(forwardWorkflowTaskResult) {
                   done();
                 }, function error(err) {
                   fail(err);
