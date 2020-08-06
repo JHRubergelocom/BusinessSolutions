@@ -286,7 +286,7 @@ describe("[action] sol.hr.ix.actions.StartOnboarding", function () {
         it("'Approval' forwarding Workflow", function (done) {
           expect(function () {
             test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-              succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.hr.personnel.node.employeerequest.approve");
+              succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.common.wf.node.approve");
               succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
               test.Utils.forwardWorkflowTask(wfInfo.flowId, userNodeId, succNodesIds, "Unittest 'Approval'").then(function success1(forwardWorkflowTaskResult) {
                 done();
@@ -602,7 +602,7 @@ describe("[action] sol.hr.ix.actions.StartOnboarding", function () {
         it("'Reject' forwarding Workflow", function (done) {
           expect(function () {
             test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-              succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.hr.personnel.node.employeerequest.reject");
+              succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.common.wf.node.reject");
               succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
               test.Utils.forwardWorkflowTask(wfInfo.flowId, userNodeId, succNodesIds, "Unittest 'Reject'").then(function success1(forwardWorkflowTaskResult) {
                 done();

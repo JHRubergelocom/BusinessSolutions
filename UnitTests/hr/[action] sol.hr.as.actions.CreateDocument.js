@@ -173,7 +173,7 @@ describe("[action] sol.hr.as.actions.CreateDocument", function () {
       it("finish input forwarding workflow", function (done) {
         expect(function () {
           test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-            succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.common_document.document.create.node.create");
+            succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.common.wf.node.ok");
             succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
             test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest finish input").then(function success1(forwardWorkflowTaskResult) {
               done();
