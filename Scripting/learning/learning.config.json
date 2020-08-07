@@ -30,7 +30,7 @@
           ],
           "tableTitle": "{{translate 'sol.learning.dynkwl.course.tableTitle'}}",
           "tableHeaders": [
-            "{{translate 'sol.learning.mask.course.name'}}",
+            "{{translate 'sol.learning.mask.course'}}",
             null
           ],
           "tableKeyNames": [
@@ -110,9 +110,37 @@
         }
       },
       "services": {
+        "getcoursetypes": {
+          "cmdLink": {
+            "output": [
+              { "source": { "type": "SORD" , "key": "id" }, "target": { "prop": "objId" } },
+              { "source": { "type": "SORD" , "key": "name" }, "target": { "prop": "name" } },
+              { "source": { "type": "SORD" , "key": "desc" }, "target": { "prop": "desc" } },
+              { "source": { "type": "MAP" , "key": "LOCALE_COURSE_TYPE" }, "target": { "prop": "locale_name" } },
+              { "source": { "type": "MAP" , "key": "LOCALE_COURSE_DESC" }, "target": { "prop": "locale_desc" } }
+            ]
+          },
+          "infos": {
+            "output": [
+              { "source": { "type": "SORD" , "key": "id" }, "target": { "prop": "id" } },
+              { "source": { "type": "SORD" , "key": "guid" }, "target": { "prop": "guid" } },
+              { "source": { "type": "SORD" , "key": "name" }, "target": { "prop": "name" } },
+              { "source": { "type": "SORD" , "key": "desc" }, "target": { "prop": "desc" } },
+              { "source": { "type": "GRP" , "key": "COURSE_TYPE" }, "target": { "prop": "courseType" } },
+              { "source": { "type": "GRP" , "key": "LEARNING_SPACE_REFERENCE" }, "target": { "prop": "LEARNING_SPACE_REFERENCE" } },
+              { "source": { "type": "GRP" , "key": "LEARNING_CONTENT_TYPE" }, "target": { "prop": "LEARNING_CONTENT_TYPE" } },
+              { "source": { "type": "MAP" , "key": "LOCALE_COURSE_DESC" }, "target": { "prop": "locale_desc" } },
+              { "source": { "type": "MAP" , "key": "LOCALE_*" }, "target": { "prop": "*" } },
+              { "source": { "type": "MAP" , "key": "SETTING_*" }, "target": { "prop": "*" } }
+            ],
+            "options": {
+              "formatAsTemplateSord": true
+            }
+          }
+        },
         "getcourses": {
           "courses": {
-            "masks": ["Course"],
+            "masks": [""],
             "search": [
               { "key": "SOL_TYPE", "value": ["COURSE"] },
               { "key": "COURSE_VISIBILITY", "value": ["CATALOG"] }
@@ -124,6 +152,7 @@
               { "source": { "type": "GRP" , "key": "COURSE_CATEGORY" }, "target": { "prop": "COURSE_CATEGORY" } },
               { "source": { "type": "GRP" , "key": "COURSE_DESCRIPTION" }, "target": { "prop": "COURSE_DESCRIPTION" } },
               { "source": { "type": "GRP" , "key": "COURSE_TYPE" }, "target": { "prop": "COURSE_TYPE" } },
+              { "source": { "type": "GRP" , "key": "SPECIFIC_COURSE_TYPE" }, "target": { "prop": "SPECIFIC_COURSE_TYPE" } },
               { "source": { "type": "GRP" , "key": "COURSE_STATUS" }, "target": { "prop": "COURSE_STATUS" } },
               { "source": { "type": "GRP" , "key": "COURSE_LANGUAGE" }, "target": { "prop": "COURSE_LANGUAGE" } },
               { "source": { "type": "GRP" , "key": "COURSE_DIFFICULTY" }, "target": { "prop": "COURSE_DIFFICULTY" } },
@@ -138,7 +167,7 @@
             "coverImageSize": "tiny"
           },
           "coursesMinReq": {
-            "masks": ["Course"],
+            "masks": [""],
             "search": [
               { "key": "SOL_TYPE", "value": ["COURSE"] }
             ],
@@ -153,7 +182,7 @@
             "coverImageSize": "tiny"
           },
           "enrollments": {
-            "masks": ["Course enrollment"],
+            "masks": [""],
             "search": [
               { "key": "SOL_TYPE", "value": ["COURSE_ENROLLMENT"] },
               { "key": "COURSE_ENROLLMENT_INTERNAL_STATUS", "value": ["ACTIVE"] }
@@ -171,7 +200,7 @@
             }
           },
           "enrollmentsMin": {
-            "masks": ["Course enrollment"],
+            "masks": [""],
             "search": [
               { "key": "SOL_TYPE", "value": ["COURSE_ENROLLMENT"] },
               { "key": "COURSE_ENROLLMENT_INTERNAL_STATUS", "value": ["ACTIVE"] }
@@ -221,7 +250,7 @@
         },
         "getenrolledcourses": {
           "courses": {
-            "masks": ["Course"],
+            "masks": [""],
             "search": [
               { "key": "SOL_TYPE", "value": ["COURSE"] },
               { "key": "COURSE_VISIBILITY", "value": ["MYCOURSES"] }
@@ -233,6 +262,7 @@
               { "source": { "type": "GRP" , "key": "COURSE_CATEGORY" }, "target": { "prop": "COURSE_CATEGORY" } },
               { "source": { "type": "GRP" , "key": "COURSE_DESCRIPTION" }, "target": { "prop": "COURSE_DESCRIPTION" } },
               { "source": { "type": "GRP" , "key": "COURSE_TYPE" }, "target": { "prop": "COURSE_TYPE" } },
+              { "source": { "type": "GRP" , "key": "SPECIFIC_COURSE_TYPE" }, "target": { "prop": "SPECIFIC_COURSE_TYPE" } },
               { "source": { "type": "GRP" , "key": "COURSE_STATUS" }, "target": { "prop": "COURSE_STATUS" } },
               { "source": { "type": "GRP" , "key": "COURSE_LANGUAGE" }, "target": { "prop": "COURSE_LANGUAGE" } },
               { "source": { "type": "GRP" , "key": "COURSE_DIFFICULTY" }, "target": { "prop": "COURSE_DIFFICULTY" } },
@@ -246,7 +276,7 @@
             "coverImageSize": "tiny"
           },
           "enrollments": {
-            "masks": ["Course enrollment"],
+            "masks": [""],
             "search": [
               { "key": "SOL_TYPE", "value": ["COURSE_ENROLLMENT"] },
               { "key": "COURSE_ENROLLMENT_INTERNAL_STATUS", "value": ["ACTIVE"] },
@@ -259,6 +289,7 @@
               { "source": { "type": "GRP" , "key": "COURSE_ENROLLMENT_DURATION" }, "target": { "prop": "COURSE_ENROLLMENT_DURATION" } }
             ],
             "options": {
+              "allowEmptyMask": true,
               "formatAsTemplateSord": false
             }
           }
@@ -301,7 +332,7 @@
             }
           },
           "enrollment": {
-            "masks": ["Course enrollment"],
+            "masks": [""],
             "search": [
               { "key": "SOL_TYPE", "value": ["COURSE_ENROLLMENT"] },
               { "key": "COURSE_ENROLLMENT_INTERNAL_STATUS", "value": ["ACTIVE"] }
@@ -323,7 +354,7 @@
           }
         },
         "getcertificates": {
-          "masks": ["Course certificate"],
+          "masks": [""],
           "search": [
             { "key": "SOL_TYPE", "value": ["COURSE_CERTIFICATE"] }
           ],
@@ -335,6 +366,7 @@
             { "source": { "type": "GRP" , "key": "COURSE_CATEGORY" }, "target": { "prop": "COURSE_CATEGORY" } },
             { "source": { "type": "GRP" , "key": "COURSE_DESCRIPTION" }, "target": { "prop": "COURSE_DESCRIPTION" } },
             { "source": { "type": "GRP" , "key": "COURSE_TYPE" }, "target": { "prop": "COURSE_TYPE" } },
+            { "source": { "type": "GRP" , "key": "SPECIFIC_COURSE_TYPE" }, "target": { "prop": "SPECIFIC_COURSE_TYPE" } },
             { "source": { "type": "GRP" , "key": "COURSE_STATUS" }, "target": { "prop": "COURSE_STATUS" } },
             { "source": { "type": "GRP" , "key": "COURSE_DIFFICULTY" }, "target": { "prop": "COURSE_DIFFICULTY" } }
           ],
@@ -357,7 +389,7 @@
       },
       "monitoring": {
         "instances": {
-          "filecassation": {
+          "courserelease": {
             "collector": {
               "retrospection": 365,
               "nextRunField": "COURSE_RELEASE_DATE",
@@ -387,7 +419,7 @@
         "create": {
           "move": {
             "scriptProperties": {
-              "path": "ARCPATH:/Kursverwaltung/Kurse"
+              "path": "ARCPATH:/Course Management/Courses"
             }
           },
           "changerights": {
@@ -432,6 +464,53 @@
               ],
               "recursive": false,
               "mode": "SET"
+            }
+          },
+          "set": {
+            "scriptProperties": {
+              "entries": [
+                { "type": "MAP", "value": "", "key": "LOCALE_CERTIFICATE_COURSE_TITLE" },
+                { "type": "MAP", "value": "", "key": "LOCALE_CERTIFICATE_FOR_COURSE" },
+                { "type": "MAP", "value": "", "key": "LOCALE_CERTIFICATE_TITLE" },
+                { "type": "MAP", "value": "", "key": "LOCALE_COURSE_FULL" },
+                { "type": "MAP", "value": "", "key": "LOCALE_COURSE_FULL_DESCRIPTION" },
+                { "type": "MAP", "value": "", "key": "LOCALE_COURSE_HEADER_BTN_CONTINUE" },
+                { "type": "MAP", "value": "", "key": "LOCALE_COURSE_HEADER_BTN_ENROLL" },
+                { "type": "MAP", "value": "", "key": "LOCALE_COURSE_HEADER_BTN_JOIN" },
+                { "type": "MAP", "value": "", "key": "LOCALE_COURSE_HEADER_BTN_PICKSESSION" },
+                { "type": "MAP", "value": "", "key": "LOCALE_COURSE_HEADER_BTN_REPEAT" },
+                { "type": "MAP", "value": "", "key": "LOCALE_COURSE_HEADER_BTN_START" },
+                { "type": "MAP", "value": "", "key": "LOCALE_COURSE_HEADER_BTN_TOOLTIP_LOCK" },
+                { "type": "MAP", "value": "", "key": "LOCALE_COURSE_HEADER_BTN_TOOLTIP_UNAVAILABLE" },
+                { "type": "MAP", "value": "", "key": "LOCALE_COURSE_HEADER_BTN_UNENROLL" },
+                { "type": "MAP", "value": "", "key": "LOCALE_COURSE_HEADER_CATEGORY" },
+                { "type": "MAP", "value": "", "key": "LOCALE_COURSE_HEADER_DIFFICULTY" },
+                { "type": "MAP", "value": "", "key": "LOCALE_COURSE_HEADER_ESTIMATED" },
+                { "type": "MAP", "value": "", "key": "LOCALE_COURSE_HEADER_INFORMATION" },
+                { "type": "MAP", "value": "", "key": "LOCALE_COURSE_HEADER_TYPE" },
+                { "type": "MAP", "value": "", "key": "LOCALE_COURSE_STATUS_COMPLETED" },
+                { "type": "MAP", "value": "", "key": "LOCALE_COURSE_STATUS_ENROLLED" },
+                { "type": "MAP", "value": "", "key": "LOCALE_COURSE_STATUS_RUNNING" },
+                { "type": "MAP", "value": "", "key": "LOCALE_COURSE_TYPE" },
+                { "type": "MAP", "value": "", "key": "LOCALE_INSTRUCTOR_TITLE" },
+                { "type": "MAP", "value": "", "key": "LOCALE_KNOWLEDGEBOARD_BUTTON" },
+                { "type": "MAP", "value": "", "key": "LOCALE_KNOWLEDGEBOARD_TITLE" },
+                { "type": "MAP", "value": "", "key": "LOCALE_LOCAL_TIME" },
+                { "type": "MAP", "value": "", "key": "LOCALE_MODAL_BUTTON_CANCEL" },
+                { "type": "MAP", "value": "", "key": "LOCALE_MODAL_BUTTON_CONFIRM" },
+                { "type": "MAP", "value": "", "key": "LOCALE_PAGE_COURSE_COMMUNITY" },
+                { "type": "MAP", "value": "", "key": "LOCALE_PAGE_COURSE_REQUIREMENTS" },
+                { "type": "MAP", "value": "", "key": "LOCALE_PAGE_WBT_COMMUNITY" },
+                { "type": "MAP", "value": "", "key": "LOCALE_PAGE_WBT_EXIT_COURSE" },
+                { "type": "MAP", "value": "", "key": "LOCALE_PAGE_WBT_MATERIALS" },
+                { "type": "MAP", "value": "", "key": "LOCALE_RELATES_COURSES_EMPTY" },
+                { "type": "MAP", "value": "", "key": "LOCALE_RELATES_COURSES_TITLE" },
+                { "type": "MAP", "value": "", "key": "LOCALE_SESSIONS_LIST_DESCR" },
+                { "type": "MAP", "value": "", "key": "LOCALE_SESSIONS_LIST_NOTHINGFOUND" },
+                { "type": "MAP", "value": "", "key": "LOCALE_SESSIONS_LIST_TITLE" },
+                { "type": "MAP", "value": "", "key": "LOCALE_SESSION_LOCATION_TITLE" },
+                { "type": "MAP", "value": "", "key": "LOCALE_SESSION_TITLE" }
+              ]
             }
           }
         },
@@ -542,6 +621,21 @@
               "maxResults": 1
             }
           },
+          "findCourse": {
+            "masks": [""],
+            "search": [
+              { "key": "SOL_TYPE", "value": ["COURSE"] }
+            ],
+            "output": [
+              { "source": { "type": "GRP" , "key": "COURSE_TYPE" }, "target": { "prop": "courseType" } }
+            ],
+            "options": {
+              "findDirect": false,
+              "formatAsTemplateSord": false,
+              "allowEmptyMask": true,
+              "maxResults": 1
+            }
+          },
           "findSessionEnrollments": {
             "masks": [""],
             "search": [
@@ -580,8 +674,9 @@
             "userField": "COURSE_ENROLLMENT_USER",
             "courseReferenceField": "COURSE_REFERENCE",
             "sessionReferenceField": "SESSION_REFERENCE",
+            "enrollmentStatusField": "COURSE_ENROLLMENT_STATUS",
             "courseStatusField": "COURSE_STATUS",
-            "GRPFieldsFromUser": ["ELOUSERGUID", "ELOTITLE", "ELOFULLNAME", "ELODEGREE", "ELOUSERPOSITION", "ELODEPARTMENT", "ELOCOMPANY", "ELOLOCATION", "ELOOFFICE"]
+            "GRPFieldsFromUser": ["ELOUSERGUID", "ELOMAILADDRESS", "ELOTITLE", "ELOFULLNAME", "ELODEGREE", "ELOUSERPOSITION", "ELODEPARTMENT", "ELOCOMPANY", "ELOLOCATION", "ELOOFFICE"]
           },
           "mandatoryFields": [
             { "type": "GRP", "id": "COURSE_REFERENCE" },
@@ -735,9 +830,9 @@
           "const": {
             "name": "{{sord.objKeys.COURSE_ENROLLMENT_USER}} - {{sord.objKeys.COURSE_NAME}}",
             "target": "{{sord.id}}",
-            "storagePath": "ARCPATH:/Kursverwaltung/Zertifikate/{{{substring sord.objKeys.COURSE_ENROLLMENT_USER 0 1 uppercase='true'}}}/{{sord.objKeys.COURSE_ENROLLMENT_USER}}",
+            "storagePath": "ARCPATH:/Course Management/Certificates/{{{substring sord.objKeys.COURSE_ENROLLMENT_USER 0 1 uppercase='true'}}}/{{sord.objKeys.COURSE_ENROLLMENT_USER}}",
             "templatePath": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/learning/Configuration/Certificate types",
-            "templateId": "Musterdokument"
+            "templateId": "Draft"
           }
         },
         "generateenrollmentshortdescription": {
@@ -799,6 +894,17 @@
           }
         },
         "createheadless": {
+          "setsoltype": {
+            "scriptProperties": {
+              "entries": [
+               {
+                 "key": "SOL_TYPE",
+                 "type": "GRP",
+                 "value": "COURSE_ENROLLMENT"
+               }
+              ]
+            }
+          },
           "setstatus": {
             "scriptProperties": {
               "entries": [
@@ -808,6 +914,115 @@
                   "value": "ENROLLED"
                 }
               ]
+            }
+          }
+        },
+        "cancelheadless": {
+          "move": {
+            "scriptProperties": {
+              "path": "/{{sord.objKeys.COURSE_ENROLLMENT_INTERNAL_STATUS}}/{{{sord.objKeys.COURSE_ENROLLMENT_USER}}}",
+              "relative": true
+            }
+          }
+        },
+        "createcommunication": {
+          "renderTemplate": {
+            "scriptProperties": {
+              "templateFields": [
+                { "type": "MAP", "key": "COMMUNICATION_SENDERNAME"},
+                { "type": "GRP", "key": "COMMUNICATION_SENDER"},
+                { "type": "GRP", "key": "COMMUNICATION_RECIPIENT"},
+                { "type": "GRP", "key": "COMMUNICATION_SUBJECT" },
+                { "type": "SORD", "key": "desc" }
+              ],
+              "searches": {
+                "COURSE": {
+                  "const": { "checkSordValues": ["objKeys.COURSE_REFERENCE"] },
+                  "masks": [""],
+                  "search": [
+                    { "key": "COURSE_REFERENCE", "value": "{{sord.objKeys.COURSE_REFERENCE}}" },
+                    { "key": "SOL_TYPE", "value": "COURSE" }
+                  ],
+                  "options": {
+                    "allowEmptyMask": true
+                  }
+                },
+                "SESSION": {
+                  "const": { "checkSordValues": ["objKeys.COURSE_REFERENCE", "objKeys.SESSION_REFERENCE"], "optional": true },
+                  "masks": [""],
+                  "search": [
+                    { "key": "COURSE_REFERENCE", "value": "{{sord.objKeys.COURSE_REFERENCE}}" },
+                    { "key": "SESSION_REFERENCE", "value": "{{sord.objKeys.SESSION_REFERENCE}}" },
+                    { "key": "SOL_TYPE", "value": "SESSION" }
+                  ],
+                  "options": {
+                    "allowEmptyMask": true
+                  }
+                },
+                "ENROLLMENT": {
+                  "const": { "checkSordValues": ["objKeys.COURSE_REFERENCE", "objKeys.COURSE_ENROLLMENT_USER"] },
+                  "masks": [""],
+                  "search": [
+                    { "key": "COURSE_REFERENCE", "value": "{{sord.objKeys.COURSE_REFERENCE}}" },
+                    { "key": "SESSION_REFERENCE", "value": "{{sord.objKeys.SESSION_REFERENCE}}", "optional": true },
+                    { "key": "COURSE_ENROLLMENT_USER", "value": "{{sord.objKeys.COURSE_ENROLLMENT_USER}}" },
+                    { "key": "COURSE_ENROLLMENT_INTERNAL_STATUS", "value": "ACTIVE" },
+                    { "key": "SOL_TYPE", "value": "COURSE_ENROLLMENT" }
+                  ],
+                  "options": {
+                    "allowEmptyMask": true
+                  }
+                }
+              },
+              "sordIsAlso": "MESSAGE",
+              "redactor": {
+                "storeInBlob": "REDACTOR_CLIPS",
+                "clips": [
+                  { "desc": "{{translate 'sol.common_document.redactor.user.company'}}", "value": "{{ENROLLMENT.objKeys.ELOCOMPANY}}" },
+                  { "desc": "{{translate 'sol.common_document.redactor.user.department'}}", "value": "{{ENROLLMENT.objKeys.ELODEPARTMENT}}" },
+                  { "desc": "{{translate 'sol.common_document.redactor.user.fullname'}}", "value": "{{ENROLLMENT.objKeys.ELOFULLNAME}}" },
+                  { "desc": "{{translate 'sol.common_document.redactor.user.location'}}", "value": "{{ENROLLMENT.objKeys.ELOLOCATION}}" },
+                  { "desc": "{{translate 'sol.common_document.redactor.user.office'}}", "value": "{{ENROLLMENT.objKeys.ELOOFFICE}}" },
+                  { "desc": "{{translate 'sol.common_document.redactor.user.title'}}", "value": "{{ENROLLMENT.objKeys.ELOTITLE}}" },
+                  { "desc": "{{translate 'sol.common_document.redactor.user.mailaddress'}}", "value": "{{ENROLLMENT.objKeys.ELOMAILADDRESS}}" },
+                  { "desc": "{{translate 'sol.common_document.redactor.user.phonenumber'}}", "value": "{{ENROLLMENT.objKeys.ELOPHONENUMBER}}" },
+                  { "desc": "{{translate 'sol.common_document.redactor.user.mobilenumber'}}", "value": "{{ENROLLMENT.objKeys.ELOMOBILENUMBER}}" },
+                  { "desc": "{{translate 'sol.common_document.redactor.user.faxnumber'}}", "value": "{{ENROLLMENT.objKeys.ELOFAXNUMBER}}" },
+                  { "desc": "{{translate 'sol.learning.form.courseReference'}}", "value": "{{COURSE.objKeys.COURSE_REFERENCE}}" },
+                  { "desc": "{{translate 'sol.learning.form.courseName'}}", "value": "{{COURSE.objKeys.COURSE_NAME}}" },
+                  { "desc": "{{translate 'sol.learning.form.courseCategory'}}", "value": "{{COURSE.objKeys.COURSE_CATEGORY}}" },
+                  { "desc": "{{translate 'sol.learning.form.courseInstructor'}}", "value": "{{COURSE.objKeys.COURSE_INSTRUCTOR}}" },
+                  { "desc": "{{translate 'sol.learning.form.sessionReference'}}", "value": "{{SESSION.objKeys.SESSION_REFERENCE}}" },
+                  { "desc": "{{translate 'sol.learning.form.sessionName'}}", "value": "{{SESSION.objKeys.SESSION_NAME}}" },
+                  { "desc": "{{translate 'sol.learning.form.sessionInstructor'}}", "value": "{{SESSION.objKeys.SESSION_INSTRUCTOR}}" },
+                  { "desc": "{{translate 'sol.learning.form.sessionStartDate'}}", "value": "{{SESSION.mapKeys.SESSION_STARTDATE}}" },
+                  { "desc": "{{translate 'sol.learning.form.sessionStartTime'}}", "value": "{{SESSION.objKeys.SESSION_STARTTIME}}" },
+                  { "desc": "{{translate 'sol.learning.form.sessionEndTime'}}", "value": "{{SESSION.mapKeys.SESSION_ENDTIME}}" },
+                  { "desc": "{{translate 'sol.learning.form.sessionLocation'}}", "value": "{{SESSION.objKeys.SESSION_LOCATION}}" },
+                  { "desc": "{{translate 'sol.learning.form.sessionAddress'}}", "value": "{{SESSION.objKeys.SESSION_FULL_ADDRESS}}" }
+                ]
+              }
+            }
+          },
+          "notify": {
+            "scriptProperties": {
+              "mode": "get",
+              "from": {
+                "type": "GRP",
+                "key": "COMMUNICATION_SENDER"
+              },
+              "to": {
+                "type": "GRP",
+                "key": "COMMUNICATION_RECIPIENT"
+              },
+              "subject": {
+                "type": "GRP",
+                "key": "COMMUNICATION_SUBJECT"
+              },
+              "body": {
+                "type": "html",
+                "tplObjId": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common_document/Configuration/Mail"
+              }
             }
           }
         },
@@ -828,24 +1043,23 @@
         }
       }
     },
+    "communication": {
+      "functions": {
+        "generatecommunicationshortdescription": {
+          "type": "generator",
+          "generatorConfig": {
+            "generatorTemplateField": "COMMUNICATION_SHORT_DESC_GEN",
+            "templatesFolder": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/learning/Configuration/Generators/Communication short description"
+          },
+          "kwlConfig": {
+            "tableTitle": "{{translate 'sol.learning.dynkwl.generators.communicationShortDesc.tableTitle'}}"
+          }
+        }
+      }
+    },
     "webapp": {
       "services": {
         "config": {
-          "getTemplates": {
-            "output": [
-              { "source": { "type": "SORD" , "key": "guid" }, "target": { "prop": "guid" } },
-              { "source": { "type": "SORD" , "key": "id" }, "target": { "prop": "id" } },
-              { "source": { "type": "SORD" , "key": "name" }, "target": { "prop": "name" } },
-              { "source": { "type": "SORD" , "key": "desc" }, "target": { "prop": "desc" } },
-              { "source": { "type": "GRP" , "key": "LEARNING_SPACE_REFERENCE" }, "target": { "prop": "LEARNING_SPACE_REFERENCE" } },
-              { "source": { "type": "GRP" , "key": "LEARNING_CONTENT_TYPE" }, "target": { "prop": "LEARNING_CONTENT_TYPE" } },
-              { "source": { "type": "MAP" , "key": "LOCALE_*" }, "target": { "prop": "LOCALE_*" } },
-              { "source": { "type": "MAP" , "key": "SETTING_*" }, "target": { "prop": "LOCALE_*" } }
-            ],
-            "options": {
-              "formatAsTemplateSord": true
-            }
-          },
           "enabledFeatures" : {
             "courseCatalog": true,
             "learningPaths": true,
@@ -1037,6 +1251,19 @@
               ],
               "recursive": false,
               "mode": "SET"
+            }
+          }
+        },
+        "createheadless": {
+          "setsoltype": {
+            "scriptProperties": {
+              "entries": [
+               {
+                 "key": "SOL_TYPE",
+                 "type": "GRP",
+                 "value": "SESSION"
+               }
+              ]
             }
           }
         },

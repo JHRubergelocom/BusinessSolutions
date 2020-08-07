@@ -173,8 +173,8 @@ describe("[action] sol.learning.ix.actions.UploadCoverPicture", function () {
         }).not.toThrow();
       });
     });
-    xdescribe("test 'Upload cover picture' uploadcoverpicture", function () {
-      it("load candidate picture", function (done) {
+    describe("test 'Upload cover picture' uploadcoverpicture", function () {
+      it("load cover picture", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_DownloadFileContent", {
             objId: objCoverImageBase64Id
@@ -258,7 +258,7 @@ describe("[action] sol.learning.ix.actions.UploadCoverPicture", function () {
       it("pictureName must be available", function () {
         expect(pictureName).toBeDefined();
       });
-      it("upload course picture", function (done) {
+      it("upload cover picture", function (done) {
         expect(function () {
           base64Content = base64Content.replace(/^data:image\/(jpeg|png|gif|bmp);base64,/, "");
           test.Utils.execute("RF_sol_common_document_service_UploadFile", {
@@ -301,7 +301,7 @@ describe("[action] sol.learning.ix.actions.UploadCoverPicture", function () {
       it("'Upload cover picture' forwarding workflow", function (done) {
         expect(function () {
           test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-            succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.learning.workflow.uploadcoverpicture.save");
+            succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.common.wf.node.ok");
             succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
             test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest save picture").then(function success1(forwardWorkflowTaskResult) {
               done();
@@ -469,7 +469,7 @@ describe("[action] sol.learning.ix.actions.UploadCoverPicture", function () {
         }).not.toThrow();
       });
     });
-    xdescribe("test cancel uploadcoverpicture", function () {
+    describe("test cancel uploadcoverpicture", function () {
       it("start action create workflow", function (done) {
         expect(function () {
           configAction = {

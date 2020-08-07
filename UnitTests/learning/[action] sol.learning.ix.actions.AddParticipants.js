@@ -62,7 +62,7 @@ describe("[action] sol.learning.ix.actions.AddParticipants", function () {
               },
               template: {
                 base: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/learning/Configuration/Course types",
-                name: courseTypes[0].name
+                name: courseTypes[1].name
               },
               name: "sol.learning.course.create.prefix"
             },
@@ -240,6 +240,78 @@ describe("[action] sol.learning.ix.actions.AddParticipants", function () {
               done();
             }
             );
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("setTimeout (wait for elo as)", function (done) {
+        expect(function () {
+          test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("setTimeout (wait for elo as)", function (done) {
+        expect(function () {
+          test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("setTimeout (wait for elo as)", function (done) {
+        expect(function () {
+          test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("setTimeout (wait for elo as)", function (done) {
+        expect(function () {
+          test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("setTimeout (wait for elo as)", function (done) {
+        expect(function () {
+          test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("setTimeout (wait for elo as)", function (done) {
+        expect(function () {
+          test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+            done();
           }, function error(err) {
             fail(err);
             console.error(err);
