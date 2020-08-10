@@ -135,7 +135,7 @@ describe("[action] sol.privacy.ix.actions.Approve", function () {
         it("finish workflow", function (done) {
           expect(function () {
             test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-              succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.gdpr.wf.node.create");
+              succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.common.wf.node.ok");
               succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
               test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest finish input").then(function success1(forwardWorkflowTaskResult) {
                 done();
@@ -225,7 +225,7 @@ describe("[action] sol.privacy.ix.actions.Approve", function () {
         it("finish input forwarding workflow", function (done) {
           expect(function () {
             test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-              succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.gdpr.wf.node.approve");
+              succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.common.wf.node.approve");
               succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
               test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest finish input").then(function success1(forwardWorkflowTaskResult) {
                 done();
@@ -393,7 +393,7 @@ describe("[action] sol.privacy.ix.actions.Approve", function () {
               userNodes = test.Utils.getActiveUserNodes(workflow);
               if (userNodes.length > 0) {
                 nodeIdUserProcessing = userNodes[0].id;
-                succNodes = test.Utils.getSuccessorNodes(workflow, nodeIdUserProcessing, null, "sol.gdpr.processingactivity.wf.node.confirm");
+                succNodes = test.Utils.getSuccessorNodes(workflow, nodeIdUserProcessing, null, "sol.common.wf.node.confirm");
                 succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
                 test.Utils.forwardWorkflowTask(wfInfo.flowId, nodeIdUserProcessing, succNodesIds, "Unittest approve").then(function success3(forwardWorkflowTaskResult1) {
                   done();
@@ -527,7 +527,7 @@ describe("[action] sol.privacy.ix.actions.Approve", function () {
         it("finish workflow", function (done) {
           expect(function () {
             test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-              succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.gdpr.wf.node.create");
+              succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.common.wf.node.ok");
               succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
               test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest finish input").then(function success1(forwardWorkflowTaskResult) {
                 done();
@@ -617,7 +617,7 @@ describe("[action] sol.privacy.ix.actions.Approve", function () {
         it("cancel input forwarding workflow", function (done) {
           expect(function () {
             test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-              succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.gdpr.wf.node.reject");
+              succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.common.wf.node.reject");
               succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
               test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest cancel input").then(function success1(forwardWorkflowTaskResult) {
                 done();
@@ -641,7 +641,7 @@ describe("[action] sol.privacy.ix.actions.Approve", function () {
               userNodes = test.Utils.getActiveUserNodes(workflow);
               if (userNodes.length > 0) {
                 nodeIdUserProcessing = userNodes[0].id;
-                succNodes = test.Utils.getSuccessorNodes(workflow, nodeIdUserProcessing, null, "sol.gdpr.processingactivity.wf.node.confirm");
+                succNodes = test.Utils.getSuccessorNodes(workflow, nodeIdUserProcessing, null, "sol.common.wf.node.confirm");
                 succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
                 test.Utils.forwardWorkflowTask(wfInfo.flowId, nodeIdUserProcessing, succNodesIds, "Unittest reject").then(function success3(forwardWorkflowTaskResult1) {
                   done();

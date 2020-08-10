@@ -134,7 +134,7 @@ describe("[action] sol.privacy.ix.actions.Delegate", function () {
         it("finish workflow", function (done) {
           expect(function () {
             test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-              succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.gdpr.wf.node.create");
+              succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.common.wf.node.ok");
               succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
               test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest finish input").then(function success1(forwardWorkflowTaskResult) {
                 done();
@@ -237,7 +237,7 @@ describe("[action] sol.privacy.ix.actions.Delegate", function () {
         it("finish input forwarding workflow", function (done) {
           expect(function () {
             test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-              succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.gdpr.processingactivity.wf.node.delegate");
+              succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.common.wf.node.ok");
               succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
               test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest finish input").then(function success1(forwardWorkflowTaskResult) {
                 done();
@@ -284,7 +284,7 @@ describe("[action] sol.privacy.ix.actions.Delegate", function () {
         it("delegate finished delegated workflow", function (done) {
           expect(function () {
             test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-              succNodes = test.Utils.getSuccessorNodes(workflow, 10, null, "sol.gdpr.processingactivity.wf.node.confirm");
+              succNodes = test.Utils.getSuccessorNodes(workflow, 10, null, "sol.common.wf.node.confirm");
               succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
               test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest delegate confirm").then(function success1(forwardWorkflowTaskResult) {
                 done();
@@ -435,7 +435,7 @@ describe("[action] sol.privacy.ix.actions.Delegate", function () {
         it("finish workflow", function (done) {
           expect(function () {
             test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-              succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.gdpr.wf.node.create");
+              succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.common.wf.node.ok");
               succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
               test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest finish input").then(function success1(forwardWorkflowTaskResult) {
                 done();
