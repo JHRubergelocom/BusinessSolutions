@@ -401,7 +401,7 @@ describe("[action] sol.recruiting.ix.actions.CreateRequisition", function () {
     it("'Confirm' forwarding Workflow", function (done) {
       expect(function () {
         test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-          succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.recruiting.node.confirm");
+          succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.common.wf.node.confirm");
           succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
           test.Utils.forwardWorkflowTask(wfInfo.flowId, userNodeId, succNodesIds, "Unittest 'Confirm'", true).then(function success1(forwardWorkflowTaskResult) {
             done();
@@ -558,7 +558,7 @@ describe("[action] sol.recruiting.ix.actions.CreateRequisition", function () {
     it("'Reject' forwarding Workflow", function (done) {
       expect(function () {
         test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-          succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.recruiting.node.reject");
+          succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.common.wf.node.reject");
           succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
           test.Utils.forwardWorkflowTask(wfInfo.flowId, userNodeId, succNodesIds, "Unittest 'Reject'", true).then(function success1(forwardWorkflowTaskResult) {
             done();
@@ -750,7 +750,7 @@ describe("[action] sol.recruiting.ix.actions.CreateRequisition", function () {
     it("'Approve' forwarding Subworkflow 'sol.recruiting.Requisition.DynAdHoc'", function (done) {
       expect(function () {
         test.Utils.getWorkflow(subWfFlowId).then(function success(workflow) {
-          succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.recruiting.node.approve");
+          succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.common.wf.node.approve");
           succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
           test.Utils.forwardWorkflowTask(subWfFlowId, userNodeId, succNodesIds, "Unittest 'Approve'", true).then(function success1(forwardWorkflowTaskResult) {
             done();
@@ -792,7 +792,7 @@ describe("[action] sol.recruiting.ix.actions.CreateRequisition", function () {
     it("'Confirm' forwarding Workflow", function (done) {
       expect(function () {
         test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-          succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.recruiting.node.confirm");
+          succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.common.wf.node.confirm");
           succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
           test.Utils.forwardWorkflowTask(wfInfo.flowId, userNodeId, succNodesIds, "Unittest 'Confirm'", true).then(function success1(forwardWorkflowTaskResult) {
             done();
@@ -984,7 +984,7 @@ describe("[action] sol.recruiting.ix.actions.CreateRequisition", function () {
     it("'Reject' forwarding Subworkflow 'sol.recruiting.Requisition.DynAdHoc'", function (done) {
       expect(function () {
         test.Utils.getWorkflow(subWfFlowId).then(function success(workflow) {
-          succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.recruiting.node.reject");
+          succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.common.wf.node.reject");
           succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
           test.Utils.forwardWorkflowTask(subWfFlowId, userNodeId, succNodesIds, "Unittest 'Reject'", true).then(function success1(forwardWorkflowTaskResult) {
             done();
@@ -1084,7 +1084,7 @@ describe("[action] sol.recruiting.ix.actions.CreateRequisition", function () {
     it("'Reject' forwarding Subworkflow 'sol.recruiting.Requisition.DynAdHoc'", function (done) {
       expect(function () {
         test.Utils.getWorkflow(subWfFlowId).then(function success(workflow) {
-          succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.recruiting.node.reject");
+          succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.common.wf.node.reject");
           succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
           test.Utils.forwardWorkflowTask(subWfFlowId, userNodeId, succNodesIds, "Unittest 'Reject'", true).then(function success1(forwardWorkflowTaskResult) {
             done();

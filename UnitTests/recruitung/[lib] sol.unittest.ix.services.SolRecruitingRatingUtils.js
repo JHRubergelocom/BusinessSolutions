@@ -155,7 +155,7 @@ describe("[lib] sol.unittest.ix.services.SolRecruitingRatingUtils", function () 
       it("'Start rating' forwarding Workflow", function (done) {
         expect(function () {
           test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-            succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.recruiting.node.rating.start");
+            succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.common.wf.node.ok");
             succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
             test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest 'Start rating'").then(function success1(forwardWorkflowTaskResult) {
               done();
@@ -442,7 +442,7 @@ describe("[lib] sol.unittest.ix.services.SolRecruitingRatingUtils", function () 
       it("'Submit rating' forwarding Subworkflow 'sol.recruiting.Candidate.Rating.Sub'", function (done) {
         expect(function () {
           test.Utils.getWorkflow(subWfFlowId).then(function success(workflow) {
-            succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.recruiting.node.rating.forward");
+            succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.common.wf.node.ok");
             succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
             test.Utils.forwardWorkflowTask(subWfFlowId, userNodeId, succNodesIds, "Unittest 'Rating forward'", true).then(function success1(forwardWorkflowTaskResult) {
               done();

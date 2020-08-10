@@ -538,7 +538,7 @@ describe("[action] sol.recruiting.ix.actions.CaptureCandidatePicture", function 
       it("'Save picture' forwarding workflow", function (done) {
         expect(function () {
           test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-            succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.recruiting.workflow.candidatepicture.save");
+            succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.common.wf.node.ok");
             succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
             test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest save picture").then(function success1(forwardWorkflowTaskResult) {
               done();
