@@ -1,0 +1,13 @@
+{
+  "setupName": "sol.datev.accounting [unit tests]",
+
+  "fileNamePrefix": "70",
+
+  "workflowTemplates": [
+  ],
+
+  "sordTypes": [
+  ],
+
+  "gitPackagePath": "C:/Git/solutions/datev_accounting.git/Business Solutions/Unit Tests"
+}
