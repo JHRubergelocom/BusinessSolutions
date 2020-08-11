@@ -250,7 +250,7 @@ describe("[function] sol.visitor.ix.functions.CreateDocumentToSign", function ()
       it("Sign document", function (done) {
         expect(function () {
           test.Utils.getWorkflow(flowId).then(function success(workflow) {
-            succNodes = test.Utils.getSuccessorNodes(workflow, "1", null, "sol.visitor.wf.node.signDocument");
+            succNodes = test.Utils.getSuccessorNodes(workflow, "1", null, "sol.common.wf.node.ok");
             succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
             test.Utils.forwardWorkflowTask(flowId, "1", succNodesIds, "Sign document").then(function success2(forwardWorkflowTaskResult) {
               done();

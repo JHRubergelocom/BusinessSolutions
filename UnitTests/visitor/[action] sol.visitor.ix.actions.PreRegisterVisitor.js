@@ -4,8 +4,6 @@ describe("[action] sol.visitor.ix.actions.PreRegisterVisitor", function () {
       visitorTypes, config, wfInfo, succNodes, succNodesIds,
       nowDateTime, keywording,
       objContactId, firstName, lastName, companyName, contactReference,
-      userNode, nodes, userNodeId, subWfs, subWorkflows, key, i, j,
-      subWf, subWfFlowId,
       originalTimeout;
 
   beforeAll(function (done) {
@@ -177,7 +175,7 @@ describe("[action] sol.visitor.ix.actions.PreRegisterVisitor", function () {
     it("finish workflow", function (done) {
       expect(function () {
         test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-          succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.visitor.wf.node.preregisterVisitor");
+          succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.common.wf.node.ok");
           succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
           test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest finish input", true).then(function success1(forwardWorkflowTaskResult) {
             done();
@@ -189,63 +187,6 @@ describe("[action] sol.visitor.ix.actions.PreRegisterVisitor", function () {
           );
         }, function error(err) {
           fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
-    it("get active node 'Check' (id = 9) of Subworkflow 'sol.visitor.visitor.preregister.securityclearance'", function (done) {
-      expect(function () {
-        test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-          subWfs = [];
-          subWorkflows = workflow.subWorkflows;
-          for (key in subWorkflows) {
-            subWfs.push(subWorkflows[key]);
-          }
-          for (i = 0; i < subWfs.length; i++) {
-            if (subWfs[i].templateName == "sol.visitor.visitor.preregister.securityclearance") {
-              subWf = subWfs[i];
-              subWfFlowId = subWf.id;
-              nodes = test.Utils.getActiveUserNodes(subWf);
-              if (nodes.length > 0) {
-                for (j = 0; j < nodes.length; j++) {
-                  if (nodes[j].nameTranslationKey == "sol.visitor.wf.node.checkPreregistration") {
-                    userNode = nodes[j];
-                    userNodeId = userNode.id;
-                  }
-                }
-                // alert("(userNode.name, userNode.id) = (" + userNode.name + "," + userNode.id + ")");
-              } else {
-                // alert("no userNodes available");
-              }
-            }
-          }
-          // expect(userNodeId).toEqual(9);
-          done();
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
-    it("'Submit rating' forwarding Subworkflow 'sol.visitor.visitor.preregister.securityclearance'", function (done) {
-      expect(function () {
-        test.Utils.getWorkflow(subWfFlowId).then(function success(workflow) {
-          succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.visitor.wf.node.checkPreregistration.approve");
-          succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
-          test.Utils.forwardWorkflowTask(subWfFlowId, userNodeId, succNodesIds, "Unittest 'Rating forward'", true).then(function success1(forwardWorkflowTaskResult) {
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }, function error(err) {
-          // fail(err);
           console.error(err);
           done();
         }

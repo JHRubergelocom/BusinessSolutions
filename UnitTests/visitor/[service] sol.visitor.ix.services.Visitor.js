@@ -135,15 +135,9 @@ describe("[service] sol.visitor.ix.services.Visitor", function () {
       it("should not throw if executed without Parameter", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_visitor_service_CancelVisitorRegistrationPrecondition", {
-            targetId: 1
           }).then(function success(jsonResult) {
             expect(jsonResult.valid).toBeDefined();
             expect(jsonResult.valid).toEqual(true);
-            expect(jsonResult.types).toBeDefined();
-            expect(jsonResult.types.length).toBeGreaterThan(0);
-            expect(jsonResult.types[0].objId).toBeDefined();
-            expect(jsonResult.types[0].name).toBeDefined();
-            expect(jsonResult.types[0].desc).toBeDefined();
             done();
           }, function error(err) {
             fail(err);

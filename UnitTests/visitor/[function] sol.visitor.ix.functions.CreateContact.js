@@ -229,7 +229,7 @@ describe("[function] sol.visitor.ix.functions.CreateContact", function () {
       it("finish capture picture workflow", function (done) {
         expect(function () {
           test.Utils.getWorkflow(wfCapturePictureInfo.flowId).then(function success(workflow) {
-            succNodes = test.Utils.getSuccessorNodes(workflow, wfCapturePictureInfo.nodeId, null, "Capture visitor photo");
+            succNodes = test.Utils.getSuccessorNodes(workflow, wfCapturePictureInfo.nodeId, null, "sol.common.wf.node.ok");
             succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
             test.Utils.forwardWorkflowTask(wfCapturePictureInfo.flowId, wfCapturePictureInfo.nodeId, succNodesIds, "Unittest finish input").then(function success1(forwardWorkflowTaskResult) {
               done();
@@ -250,7 +250,7 @@ describe("[function] sol.visitor.ix.functions.CreateContact", function () {
       it("finish register workflow", function (done) {
         expect(function () {
           test.Utils.getWorkflow(wfRegisterInfo.flowId).then(function success(workflow) {
-            succNodes = test.Utils.getSuccessorNodes(workflow, wfRegisterInfo.nodeId, null, "Create and check in visitor");
+            succNodes = test.Utils.getSuccessorNodes(workflow, wfRegisterInfo.nodeId, null, "sol.common.wf.node.ok");
             succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
             test.Utils.forwardWorkflowTask(wfRegisterInfo.flowId, wfRegisterInfo.nodeId, succNodesIds, "Unittest finish input").then(function success1(forwardWorkflowTaskResult) {
               done();

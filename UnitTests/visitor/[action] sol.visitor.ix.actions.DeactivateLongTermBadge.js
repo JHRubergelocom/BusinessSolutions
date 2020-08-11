@@ -115,7 +115,7 @@ describe("[action] sol.recruiting.ix.actions.DeactivateLongTermBadge", function 
     it("forwarding workflow", function (done) {
       expect(function () {
         test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-          succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.visitor.wf.node.preregisterLongtermBadge");
+          succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.common.wf.node.ok");
           succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
           test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest finish input").then(function success1(forwardWorkflowTaskResult) {
             done();
@@ -221,7 +221,7 @@ describe("[action] sol.recruiting.ix.actions.DeactivateLongTermBadge", function 
     it("finish input forwarding workflow", function (done) {
       expect(function () {
         test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-          succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.visitor.wf.node.deactivate");
+          succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.common.wf.node.ok");
           succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
           test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest finish input").then(function success1(forwardWorkflowTaskResult) {
             done();
@@ -242,7 +242,7 @@ describe("[action] sol.recruiting.ix.actions.DeactivateLongTermBadge", function 
     it("Check deactiviation", function (done) {
       expect(function () {
         test.Utils.getWorkflow(wfInfo.flowId).then(function success1(workflow) {
-          succNodes = test.Utils.getSuccessorNodes(workflow, "9", null, "sol.visitor.wf.node.checked");
+          succNodes = test.Utils.getSuccessorNodes(workflow, "9", null, "sol.common.wf.node.confirm");
           succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
           test.Utils.forwardWorkflowTask(wfInfo.flowId, "9", succNodesIds, "Check deactiviation").then(function success2(forwardWorkflowTaskResult) {
             done();
