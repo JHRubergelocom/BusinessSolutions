@@ -75,6 +75,10 @@
         {
             "folder": "./Business Solutions Custom/sol.datev.accounting",
             "elo": "/Business Solutions Custom/sol.datev.accounting"
+        },
+        {
+            "folder": "./Business Solutions/Unit Tests",
+            "elo": "/Business Solutions/sol.datev.accounting [unit tests]"
         }
     ]
 }
