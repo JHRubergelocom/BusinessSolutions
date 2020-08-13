@@ -2,8 +2,6 @@
 describe("[action] sol.datev.accounting.ix.actions.LockAndUnlockInvoice", function () {
   var checkResult, objCSId,
       config, wfInfo, succNodes, succNodesIds,
-      nowDateTime, keywording,
-      firstName, lastName, companyName, contactReference,
       originalTimeout;
 
   beforeAll(function (done) {
