@@ -1,6 +1,6 @@
 
 describe("[action] sol.datev.accounting.ix.actions.LockAndUnlockInvoice", function () {
-  var objTempId, checkResult,
+  var checkResult, objCSId,
       config, wfInfo, succNodes, succNodesIds,
       nowDateTime, keywording,
       firstName, lastName, companyName, contactReference,
@@ -10,9 +10,16 @@ describe("[action] sol.datev.accounting.ix.actions.LockAndUnlockInvoice", functi
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
-      test.Utils.createTempSord("Actions.LockAndUnlockInvoice", null, null).then(function success(objTempId1) {
-        objTempId = objTempId1;
-        done();
+      test.Utils.createTempSord("Actions.LockAndUnlockInvoice", null, null).then(function success(objTempId) {
+        test.Utils.createSord(objTempId, "Company Search", "TestCompanySearch").then(function success1(objCSId1) {
+          objCSId = objCSId1;
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
       }, function error(err) {
         fail(err);
         console.error(err);
@@ -39,7 +46,7 @@ describe("[action] sol.datev.accounting.ix.actions.LockAndUnlockInvoice", functi
   describe("test lock lock and unlock Invoice", function () {
     it("check preconditions should not throw", function (done) {
       expect(function () {
-        test.Utils.execute("RF_sol_accounting_function_CheckLockPreCondition", { targetId: objTempId }).then(function success(checkResult1) {
+        test.Utils.execute("RF_sol_accounting_function_CheckLockPreCondition", { targetId: objCSId }).then(function success(checkResult1) {
           checkResult = checkResult1;
           done();
         }, function error(err) {
@@ -56,7 +63,7 @@ describe("[action] sol.datev.accounting.ix.actions.LockAndUnlockInvoice", functi
     it("start action create workflow", function (done) {
       expect(function () {
         config = {
-          sordId: objTempId, 
+          sordId: objCSId, 
           template: "sol.datev.accounting.Base.SetLock", 
           title: "sol.datev.accounting.action.title", 
           workflowName: "sol.datev.accounting.action.title"
@@ -85,56 +92,6 @@ describe("[action] sol.datev.accounting.ix.actions.LockAndUnlockInvoice", functi
     });
     it("wfInfo.nodeId must be available", function () {
       expect(wfInfo.nodeId).toBeDefined();
-    });
-    it("wfInfo.objId must be available", function () {
-      expect(wfInfo.objId).toBeDefined();
-    });
-    xit("fill datev.accounting sord", function (done) {
-      expect(function () {
-        test.Utils.getSord(wfInfo.objId).then(function success(sordVs1) {
-          keywording = {
-            DATEV_ACCOUNTING_FIRSTNAME: firstName,
-            DATEV_ACCOUNTING_LASTNAME: lastName,
-            DATEV_ACCOUNTING_COMPANYNAME: companyName,
-            DATEV_ACCOUNTING_VISITPURPOSE: "Unittest",
-            DATEV_ACCOUNTING_STARTDATE: nowDateTime.date,
-            DATEV_ACCOUNTING_STARTTIME: nowDateTime.time,
-            DATEV_ACCOUNTING_SECURITY_CLEARANCE: "IP"
-          };
-          test.Utils.updateKeywording(sordVs1, keywording, true).then(function success1(updateKeywordingResult) {
-            test.Utils.updateSord(sordVs1, [{ key: "desc", value: "Unittest desc1" }]).then(function success2(updateSordResult) {
-              done();
-            }, function error(err) {
-              fail(err);
-              console.error(err);
-              done();
-            }
-            );
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
-    xit("set total datev.accountings and contactreference in datev.accounting sord", function (done) {
-      expect(function () {
-        test.Utils.updateMapData(objTempId, { DATEV_ACCOUNTING_TOTALDATEV_ACCOUNTINGS: 1, DATEV_ACCOUNTING_CONTACT_REFERENCE: contactReference }).then(function success(updateMapDataResult) {
-          done();
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
     });
     it("lock forwarding workflow", function (done) {
       expect(function () {
@@ -176,30 +133,11 @@ describe("[action] sol.datev.accounting.ix.actions.LockAndUnlockInvoice", functi
         );
       }).not.toThrow();
     });
-    xit("remove workflow", function (done) {
-      expect(function () {
-        test.Utils.getActiveWorkflows().then(function success(wfs) {
-          test.Utils.removeActiveWorkflows(wfs).then(function success1(removeFinishedWorkflowsResult) {
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
   });
   describe("test unlock lock and unlock Invoice", function () {
     it("check preconditions should not throw", function (done) {
       expect(function () {
-        test.Utils.execute("RF_sol_accounting_function_CheckLockPreCondition", { targetId: objTempId }).then(function success(checkResult1) {
+        test.Utils.execute("RF_sol_accounting_function_CheckLockPreCondition", { targetId: objCSId }).then(function success(checkResult1) {
           checkResult = checkResult1;
           done();
         }, function error(err) {
@@ -216,7 +154,7 @@ describe("[action] sol.datev.accounting.ix.actions.LockAndUnlockInvoice", functi
     it("start action create workflow", function (done) {
       expect(function () {
         config = {
-          sordId: objTempId, 
+          sordId: objCSId, 
           template: "sol.datev.accounting.Base.SetLock", 
           title: "sol.datev.accounting.action.title", 
           workflowName: "sol.datev.accounting.action.title"
@@ -245,55 +183,6 @@ describe("[action] sol.datev.accounting.ix.actions.LockAndUnlockInvoice", functi
     });
     it("wfInfo.nodeId must be available", function () {
       expect(wfInfo.nodeId).toBeDefined();
-    });
-    it("wfInfo.objId must be available", function () {
-      expect(wfInfo.objId).toBeDefined();
-    });
-    xit("fill datev.accounting sord", function (done) {
-      expect(function () {
-        test.Utils.getSord(wfInfo.objId).then(function success(sordVs2) {
-          keywording = {
-            DATEV_ACCOUNTING_FIRSTNAME: "Nils", DATEV_ACCOUNTING_LASTNAME: "Armstrong",
-            DATEV_ACCOUNTING_COMPANYNAME: "Freier Astronaut",
-            DATEV_ACCOUNTING_VISITPURPOSE: "Raumflug",
-            DATEV_ACCOUNTING_STARTDATE: nowDateTime.date,
-            DATEV_ACCOUNTING_STARTTIME: nowDateTime.time,
-            DATEV_ACCOUNTING_SECURITY_CLEARANCE: "NC"
-          };
-          test.Utils.updateKeywording(sordVs2, keywording, true).then(function success1(updateKeywordingResult) {
-            test.Utils.updateSord(sordVs2, [{ key: "desc", value: "Unittest desc2" }]).then(function success2(updateSordResult) {
-              done();
-            }, function error(err) {
-              fail(err);
-              console.error(err);
-              done();
-            }
-            );
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
-    xit("set total datev.accountings in datev.accounting sord", function (done) {
-      expect(function () {
-        test.Utils.updateMapData(objTempId, { DATEV_ACCOUNTING_TOTALDATEV_ACCOUNTINGS: 1 }).then(function success(updateMapDataResult) {
-          done();
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
     });
     it("unlock forwarding workflow", function (done) {
       expect(function () {
@@ -339,7 +228,7 @@ describe("[action] sol.datev.accounting.ix.actions.LockAndUnlockInvoice", functi
   describe("test cancel lock and unlock Invoice", function () {
     it("check preconditions should not throw", function (done) {
       expect(function () {
-        test.Utils.execute("RF_sol_accounting_function_CheckLockPreCondition", { targetId: objTempId }).then(function success(checkResult1) {
+        test.Utils.execute("RF_sol_accounting_function_CheckLockPreCondition", { targetId: objCSId }).then(function success(checkResult1) {
           checkResult = checkResult1;
           done();
         }, function error(err) {
@@ -356,7 +245,7 @@ describe("[action] sol.datev.accounting.ix.actions.LockAndUnlockInvoice", functi
     it("start action create workflow", function (done) {
       expect(function () {
         config = {
-          sordId: objTempId, 
+          sordId: objCSId, 
           template: "sol.datev.accounting.Base.SetLock", 
           title: "sol.datev.accounting.action.title", 
           workflowName: "sol.datev.accounting.action.title"
@@ -385,55 +274,6 @@ describe("[action] sol.datev.accounting.ix.actions.LockAndUnlockInvoice", functi
     });
     it("wfInfo.nodeId must be available", function () {
       expect(wfInfo.nodeId).toBeDefined();
-    });
-    it("wfInfo.objId must be available", function () {
-      expect(wfInfo.objId).toBeDefined();
-    });
-    xit("fill datev.accounting sord", function (done) {
-      expect(function () {
-        test.Utils.getSord(wfInfo.objId).then(function success(sordVs2) {
-          keywording = {
-            DATEV_ACCOUNTING_FIRSTNAME: "Nils", DATEV_ACCOUNTING_LASTNAME: "Armstrong",
-            DATEV_ACCOUNTING_COMPANYNAME: "Freier Astronaut",
-            DATEV_ACCOUNTING_VISITPURPOSE: "Raumflug",
-            DATEV_ACCOUNTING_STARTDATE: nowDateTime.date,
-            DATEV_ACCOUNTING_STARTTIME: nowDateTime.time,
-            DATEV_ACCOUNTING_SECURITY_CLEARANCE: "NC"
-          };
-          test.Utils.updateKeywording(sordVs2, keywording, true).then(function success1(updateKeywordingResult) {
-            test.Utils.updateSord(sordVs2, [{ key: "desc", value: "Unittest desc2" }]).then(function success2(updateSordResult) {
-              done();
-            }, function error(err) {
-              fail(err);
-              console.error(err);
-              done();
-            }
-            );
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
-    xit("set total datev.accountings in datev.accounting sord", function (done) {
-      expect(function () {
-        test.Utils.updateMapData(objTempId, { DATEV_ACCOUNTING_TOTALDATEV_ACCOUNTINGS: 1 }).then(function success(updateMapDataResult) {
-          done();
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
     });
     it("cancel forwarding workflow", function (done) {
       expect(function () {
