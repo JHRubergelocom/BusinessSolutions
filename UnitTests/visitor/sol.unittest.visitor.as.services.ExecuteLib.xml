@@ -16,6 +16,7 @@
       <name>lib_sol.common.ActionBase</name>
       <name>lib_sol.common.Config</name>
       <name>lib_sol.common.CounterUtils</name>
+      <name>lib_sol.common.DateUtils</name>
       <name>lib_sol.common.ObjectUtils</name>
       <name>lib_sol.common.ExceptionUtils</name>
       <name>lib_sol.common.IxUtils</name>
