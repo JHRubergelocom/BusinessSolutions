@@ -1,0 +1,7 @@
+{
+  "wlcode":{
+	"path":"ARCPATH:/Administration/Business Solutions Custom/",
+	"package":"sol.datev.accounting",
+	"source":"Configuration/sol.datev.accounting.WLCode.config"
+  }
+}
