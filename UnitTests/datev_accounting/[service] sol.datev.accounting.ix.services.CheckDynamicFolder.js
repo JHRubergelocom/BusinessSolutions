@@ -44,6 +44,8 @@ describe("[service] sol.datev.accounting.ix.services.CheckDynamicFolder", functi
             keys: [],
             mask: "Company Search"
           }).then(function success(jsonResult) {
+            expect(jsonResult.dynamicFolderExists).toBeDefined();
+            expect(jsonResult.dynamicFolderExists).toEqual(true);
             done();
           }, function error(err) {
             fail(err);

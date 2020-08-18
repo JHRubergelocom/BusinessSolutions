@@ -18,7 +18,7 @@ describe("[service] sol.datev.accounting.ix.services.GetTermOfPayments", functio
   });
   describe("Tests Registered Functions", function () {
     describe("RF_sol_datev_accounting_service_GetTermOfPayments", function () {
-      it("get document types", function (done) {
+      it("get term of payments", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_datev_accounting_service_GetTermOfPayments", {
           }).then(function success(jsonResult) {

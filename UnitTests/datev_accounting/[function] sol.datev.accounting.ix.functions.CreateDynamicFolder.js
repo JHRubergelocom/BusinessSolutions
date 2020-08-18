@@ -39,7 +39,7 @@ describe("[function] sol.datev.accounting.ix.functions.CreateDynamicFolder", fun
           );
         }).not.toThrow();
       });
-      it("check dynamic folder", function (done) {
+      it("create dynamic folder", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_accounting_functions_CreateDynamicFolder", {
             objId: objRDId

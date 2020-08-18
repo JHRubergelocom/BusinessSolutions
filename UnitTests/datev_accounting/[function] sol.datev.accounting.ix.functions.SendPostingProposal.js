@@ -7,14 +7,7 @@ describe("[function] sol.datev.accounting.ix.functions.SendPostingProposal", fun
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
       test.Utils.createTempSord("SendPostingProposal").then(function success(objTempId) {
-        test.Utils.createSord(objTempId, "Receipt Document", "TestReceiptDocument").then(function success1(objRDId) {
-          done();
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
+        done();
       }, function error(err) {
         fail(err);
         console.error(err);
