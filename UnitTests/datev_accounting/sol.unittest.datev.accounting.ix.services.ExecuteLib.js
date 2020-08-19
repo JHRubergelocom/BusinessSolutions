@@ -74,6 +74,7 @@ sol.define("sol.unittest.datev.accounting.ix.services.ExecuteLib", {
     switch (me.className) {
       case "sol.datev.accounting.mixins.ApiRequest":
       case "sol.datev.accounting.mixins.LocalizedKwlList":
+      case "sol.invoice.ix.LineApprovalMixin":
         return result;
       case "sol.invoice.ix.Invoice":
         me.classConfig.sord = ixConnect.ix().checkoutSord(me.classConfig.sord, new SordZ(SordC.mbAll), LockC.NO);
