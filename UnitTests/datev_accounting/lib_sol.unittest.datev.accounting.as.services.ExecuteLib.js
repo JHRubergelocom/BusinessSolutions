@@ -54,7 +54,7 @@ sol.define("sol.unittest.datev.accounting.as.services.ExecuteLib", {
   process: function () {
     var me = this,
         result = {},
-        cls, func;
+        cls, func, invoiceConfig, dir;
 
     switch (me.className) {
       case "sol.datev.accounting.as.StartInvoiceWorkflow":
@@ -65,6 +65,22 @@ sol.define("sol.unittest.datev.accounting.as.services.ExecuteLib", {
           default:
         }
         break;  
+      case "sol.invoice.as.InvoiceXmlImporter":
+        switch (me.method) {
+          case "run":
+            invoiceConfig = sol.create("sol.common.Config", { compose: "/sol.datev.accounting/Configuration/sol.invoice.config" }).config;
+            dir = new File(invoiceConfig.importXML.importDirectory.value);
+            if (dir.exists()) {
+              dir.delete();
+            }
+            dir.mkdirs();
+            break;
+          case "startInvoiceWorkflow":
+            me.params[0] = sol.create("sol.common.Config", { compose: "/sol.datev.accounting/Configuration/sol.invoice.config" }).config;
+            return result;
+          default:
+        }
+        break;
       default:
     }        
             

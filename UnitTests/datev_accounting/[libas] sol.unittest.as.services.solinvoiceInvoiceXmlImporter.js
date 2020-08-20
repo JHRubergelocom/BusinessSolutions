@@ -1,30 +1,13 @@
 
-describe("[libas] sol.unittest.as.services.solinvoiceInvoiceXmlImporter", function () {
-  var InvoiceXmlImporterSord, userName, userInfo, originalTimeout, content, file, invoiceConfig, objId;
+describe("[libas] sol.unittest.as.services.SolInvoiceInvoiceXmlImporter", function () {
+  var originalTimeout, content, invoiceConfig, objId;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
-      test.Utils.createTempSord("solinvoiceInvoiceXmlImporter").then(function success(obsolinvoiceInvoiceXmlImporterId) {
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/invoice [unit tests]/Resources/InvoiceXmlImporter").then(function success1(InvoiceXmlImporterSord1) {
-          InvoiceXmlImporterSord = InvoiceXmlImporterSord1;
-          userName = test.Utils.getCurrentUserName();
-          test.Utils.getUserInfo(userName).then(function success3(userInfo1) {
-            userInfo = userInfo1;
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
+      test.Utils.createTempSord("SolInvoiceInvoiceXmlImporter").then(function success(obSolInvoiceInvoiceXmlImporterId) {
+        done();
       }, function error(err) {
         fail(err);
         console.error(err);
@@ -34,36 +17,11 @@ describe("[libas] sol.unittest.as.services.solinvoiceInvoiceXmlImporter", functi
     }).not.toThrow();
   });
   describe("Test Lib Functions", function () {
-    describe("sol.invoice.InvoiceXmlImporter", function () {
-      xit("accept", function (done) {
-        expect(function () {
-          file = PVALUE;
-          test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.as.services.ExecuteLib",
-            config: {
-              className: "sol.invoice.as.InvoiceXmlImporter",
-              classConfig: {},
-              method: "accept",
-              params: [file]
-            }
-          }).then(function success(jsonResult) {
-            content = jsonResult.content;
-            if (content.indexOf("exception") != -1) {
-              fail(jsonResult.content);
-            }
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }).not.toThrow();
-      });
-      xit("run", function (done) {
+    describe("sol.invoice.as.InvoiceXmlImporter", function () {
+      it("run", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.as.services.ExecuteLib",
+            action: "sol.unittest.datev.accounting.as.services.ExecuteLib",
             config: {
               className: "sol.invoice.as.InvoiceXmlImporter",
               classConfig: {},
@@ -84,12 +42,12 @@ describe("[libas] sol.unittest.as.services.solinvoiceInvoiceXmlImporter", functi
           );
         }).not.toThrow();
       });
-      xit("startInvoiceWorkflow", function (done) {
+      it("startInvoiceWorkflow", function (done) {
         expect(function () {
-          invoiceConfig = PVALUE;
-          objId = PVALUE;
+          invoiceConfig = {};
+          objId = "objId1";
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.as.services.ExecuteLib",
+            action: "sol.unittest.datev.accounting.as.services.ExecuteLib",
             config: {
               className: "sol.invoice.as.InvoiceXmlImporter",
               classConfig: {},
@@ -119,7 +77,19 @@ describe("[libas] sol.unittest.as.services.solinvoiceInvoiceXmlImporter", functi
         test.Utils.deleteSord(tempfolder).then(function success1(deleteResult) {
           test.Utils.getFinishedWorkflows().then(function success2(wfs) {
             test.Utils.removeFinishedWorkflows(wfs).then(function success3(removeFinishedWorkflowsResult) {
-              done();
+              test.Utils.getActiveWorkflows().then(function success4(wfs1) {
+                test.Utils.removeActiveWorkflows(wfs1).then(function success5(removeFinishedWorkflowsResult1) {
+                  done();
+                }, function error(err) {
+                  console.error(err);
+                  done();
+                }
+                );
+              }, function error(err) {
+                console.error(err);
+                done();
+              }
+              );
             }, function error(err) {
               fail(err);
               console.error(err);
