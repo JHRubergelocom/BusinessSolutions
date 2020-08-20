@@ -17,6 +17,7 @@
       <name>lib_sol.common.ObjectFormatter</name>
       <name>lib_sol.common.ObjectUtils</name>
       <name>lib_sol.common.ExceptionUtils</name>
+      <name>lib_sol.common.IxUtils</name>
       <name>lib_sol.common.RepoUtils</name>
       <name>lib_sol.common.SordUtils</name>
       <name>lib_sol.common.Template</name>
