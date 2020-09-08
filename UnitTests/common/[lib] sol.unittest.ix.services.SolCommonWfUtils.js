@@ -15,7 +15,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
     expect(function () {
       test.Utils.createTempSord("SolCommonWfUtils").then(function success(obSolCommonWfUtilsId1) {
         obSolCommonWfUtilsId = obSolCommonWfUtilsId1;
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/WfUtils").then(function success1(WfUtilsSord1) {
+        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/FileUtils").then(function success1(WfUtilsSord1) {
           WfUtilsSord = WfUtilsSord1;
           done();
         }, function error(err) {

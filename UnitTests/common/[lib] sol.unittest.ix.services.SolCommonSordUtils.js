@@ -22,7 +22,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
     describe("sol.common.SordUtils", function () {
       it("copysord", function (done) {
         expect(function () {
-          test.Utils.copySord("ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common [unit tests]/Resources/SordUtils").then(function success(objSordUtilsId1) {
+          test.Utils.copySord("ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common [unit tests]/Resources/FileUtils").then(function success(objSordUtilsId1) {
             objSordUtilsId = objSordUtilsId1;
             done();
           }, function error(err) {

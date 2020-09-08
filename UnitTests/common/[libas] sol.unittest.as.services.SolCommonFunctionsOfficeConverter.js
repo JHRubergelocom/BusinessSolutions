@@ -7,7 +7,7 @@ describe("[libas] sol.unittest.as.services.SolCommonFunctionsOfficeConverter", f
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
       test.Utils.createTempSord("SolCommonFunctionsOfficeConverter").then(function success(obSolCommonFunctionsOfficeConverterId) {
-        test.Utils.copySord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/FunctionsOfficeConverter").then(function success1(objFunctionsOfficeConverterId1) {
+        test.Utils.copySord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/ReadExcelTable").then(function success1(objFunctionsOfficeConverterId1) {
           objFunctionsOfficeConverterId = objFunctionsOfficeConverterId1;
           done();
         }, function error(err) {
