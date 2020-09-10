@@ -1,21 +1,14 @@
 
 describe("[libas] sol.unittest.as.services.SolCommonMonitoringExecutorsSimpleExecutor", function () {
-  var ExecutorsSimpleExecutorSord, originalTimeout, content, sord, action, ctx, nameTemplate, value, results, user, config;
+  var obSolCommonMonitoringExecutorsSimpleExecutorId, originalTimeout, content, sord, action, ctx, nameTemplate, value, results, user, config;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
-      test.Utils.createTempSord("SolCommonMonitoringExecutorsSimpleExecutor").then(function success(obSolCommonMonitoringExecutorsSimpleExecutorId) {
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/ExecutorsSimpleExecutor").then(function success1(ExecutorsSimpleExecutorSord1) {
-          ExecutorsSimpleExecutorSord = ExecutorsSimpleExecutorSord1;
-          done();
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
+      test.Utils.createTempSord("SolCommonMonitoringExecutorsSimpleExecutor").then(function success(obSolCommonMonitoringExecutorsSimpleExecutorId1) {
+        obSolCommonMonitoringExecutorsSimpleExecutorId = obSolCommonMonitoringExecutorsSimpleExecutorId1;
+        done();
       }, function error(err) {
         fail(err);
         console.error(err);
@@ -28,7 +21,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringExecutorsSimpleExe
     describe("sol.common_monitoring.as.executors.SimpleExecutor", function () {
       it("FUNCTION", function (done) {
         expect(function () {
-          sord = ExecutorsSimpleExecutorSord.id;
+          sord = obSolCommonMonitoringExecutorsSimpleExecutorId;
           action = { type: "FUNCTION", module: "sol.unittest.as.executors.SimpleExecutor" };
           ctx = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
@@ -55,7 +48,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringExecutorsSimpleExe
       });
       it("REMINDER", function (done) {
         expect(function () {
-          sord = ExecutorsSimpleExecutorSord.id;
+          sord = obSolCommonMonitoringExecutorsSimpleExecutorId;
           action = { type: "REMINDER", user: "Administrator" };
           ctx = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
@@ -82,7 +75,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringExecutorsSimpleExe
       });
       it("TECHNICAL_WORKFLOW", function (done) {
         expect(function () {
-          sord = ExecutorsSimpleExecutorSord.id;
+          sord = obSolCommonMonitoringExecutorsSimpleExecutorId;
           action = { type: "TECHNICAL_WORKFLOW", templateId: "UnittestStandardWF" };
           ctx = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
@@ -109,7 +102,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringExecutorsSimpleExe
       });
       it("WORKFLOW", function (done) {
         expect(function () {
-          sord = ExecutorsSimpleExecutorSord.id;
+          sord = obSolCommonMonitoringExecutorsSimpleExecutorId;
           action = { type: "WORKFLOW", templateId: "UnittestStandardWF" };
           ctx = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
@@ -136,7 +129,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringExecutorsSimpleExe
       });
       it("buildName", function (done) {
         expect(function () {
-          sord = ExecutorsSimpleExecutorSord.id;
+          sord = obSolCommonMonitoringExecutorsSimpleExecutorId;
           ctx = {};
           nameTemplate = null;
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
@@ -188,7 +181,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringExecutorsSimpleExe
       it("eveluateActionProperty", function (done) {
         expect(function () {
           value = "value1";
-          sord = ExecutorsSimpleExecutorSord.id;
+          sord = obSolCommonMonitoringExecutorsSimpleExecutorId;
           ctx = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.unittest.as.services.ExecuteLib2",
@@ -214,7 +207,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringExecutorsSimpleExe
       });
       it("execute", function (done) {
         expect(function () {
-          sord = ExecutorsSimpleExecutorSord.id;
+          sord = obSolCommonMonitoringExecutorsSimpleExecutorId;
           results = [];
           ctx = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
@@ -241,7 +234,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringExecutorsSimpleExe
       });
       it("executeAction 'WORKFLOW'", function (done) {
         expect(function () {
-          sord = ExecutorsSimpleExecutorSord.id;
+          sord = obSolCommonMonitoringExecutorsSimpleExecutorId;
           action = { type: "WORKFLOW", templateId: "UnittestStandardWF" };
           ctx = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
@@ -268,7 +261,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringExecutorsSimpleExe
       });
       it("executeAction 'TECHNICAL_WORKFLOW'", function (done) {
         expect(function () {
-          sord = ExecutorsSimpleExecutorSord.id;
+          sord = obSolCommonMonitoringExecutorsSimpleExecutorId;
           action = { type: "TECHNICAL_WORKFLOW", templateId: "UnittestStandardWF" };
           ctx = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
@@ -295,7 +288,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringExecutorsSimpleExe
       });
       it("executeAction 'REMINDER'", function (done) {
         expect(function () {
-          sord = ExecutorsSimpleExecutorSord.id;
+          sord = obSolCommonMonitoringExecutorsSimpleExecutorId;
           action = { type: "REMINDER", user: "Administrator" };
           ctx = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
@@ -322,7 +315,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringExecutorsSimpleExe
       });
       it("executeAction 'FUNCTION'", function (done) {
         expect(function () {
-          sord = ExecutorsSimpleExecutorSord.id;
+          sord = obSolCommonMonitoringExecutorsSimpleExecutorId;
           action = { type: "FUNCTION", module: "sol.unittest.as.executors.SimpleExecutor" };
           ctx = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {

@@ -7,7 +7,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonMapTable", function () {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
       test.Utils.createTempSord("SolCommonMapTable").then(function success(obSolCommonMapTableId) {
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/MapTable").then(function success1(MapTableSord1) {
+        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/FileUtils").then(function success1(MapTableSord1) {
           MapTableSord = MapTableSord1;
           mapData = {
             UNITTEST_MAPFIELDA1: "A1",

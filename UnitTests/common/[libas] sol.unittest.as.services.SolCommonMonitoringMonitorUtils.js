@@ -1,6 +1,6 @@
 
 describe("[libas] sol.unittest.as.services.SolCommonMonitoringMonitorUtils", function () {
-  var MonitorUtilsSord, obSolCommonMonitoringMonitorUtilsId, originalTimeout, content, sord, config, str, objId, wfTemplate;
+  var obSolCommonMonitoringMonitorUtilsId, originalTimeout, content, sord, config, str, objId, wfTemplate;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -8,15 +8,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringMonitorUtils", fun
     expect(function () {
       test.Utils.createTempSord("SolCommonMonitoringMonitorUtils").then(function success(obSolCommonMonitoringMonitorUtilsId1) {
         obSolCommonMonitoringMonitorUtilsId = obSolCommonMonitoringMonitorUtilsId1;
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/MonitorUtils").then(function success1(MonitorUtilsSord1) {
-          MonitorUtilsSord = MonitorUtilsSord1;
-          done();
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
+        done();
       }, function error(err) {
         fail(err);
         console.error(err);
@@ -29,7 +21,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringMonitorUtils", fun
     describe("sol.common_monitoring.as.MonitorUtils", function () {
       it("evalDateUnitConfig", function (done) {
         expect(function () {
-          sord = MonitorUtilsSord.id;
+          sord = obSolCommonMonitoringMonitorUtilsId;
           config = { value: 10, unit: "Y" };
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.unittest.as.services.ExecuteLib1",

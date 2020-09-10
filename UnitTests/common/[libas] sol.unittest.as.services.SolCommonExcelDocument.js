@@ -9,7 +9,7 @@ describe("[libas] sol.unittest.as.services.SolCommonExcelDocument", function () 
     expect(function () {
       test.Utils.createTempSord("SolCommonExcelDocument").then(function success(obSolCommonExcelDocumentId1) {
         obSolCommonExcelDocumentId = obSolCommonExcelDocumentId1;
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/ExcelDocument").then(function success1(ExcelDocumentSord1) {
+        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/ReadExcelTable").then(function success1(ExcelDocumentSord1) {
           ExcelDocumentSord = ExcelDocumentSord1;
           done();
         }, function error(err) {

@@ -1,21 +1,14 @@
 
 describe("[libas] sol.unittest.as.services.SolCommonMonitoringAnalyzersValueAnalyzer", function () {
-  var AnalyzersValueAnalyzerSord, originalTimeout, content, sord, ctx, value, referenceValue, comparator, valueCfg, config;
+  var obSolCommonMonitoringAnalyzersValueAnalyzerId, originalTimeout, content, sord, ctx, value, referenceValue, comparator, valueCfg, config;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
-      test.Utils.createTempSord("SolCommonMonitoringAnalyzersValueAnalyzer").then(function success(obSolCommonMonitoringAnalyzersValueAnalyzerId) {
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/AnalyzersValueAnalyzer").then(function success1(AnalyzersValueAnalyzerSord1) {
-          AnalyzersValueAnalyzerSord = AnalyzersValueAnalyzerSord1;
-          done();
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
+      test.Utils.createTempSord("SolCommonMonitoringAnalyzersValueAnalyzer").then(function success(obSolCommonMonitoringAnalyzersValueAnalyzerId1) {
+        obSolCommonMonitoringAnalyzersValueAnalyzerId = obSolCommonMonitoringAnalyzersValueAnalyzerId1;
+        done();
       }, function error(err) {
         fail(err);
         console.error(err);
@@ -28,7 +21,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringAnalyzersValueAnal
     describe("sol.common_monitoring.as.analyzers.ValueAnalyzer", function () {
       it("analyze", function (done) {
         expect(function () {
-          sord = AnalyzersValueAnalyzerSord.id;
+          sord = obSolCommonMonitoringAnalyzersValueAnalyzerId;
           ctx = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.unittest.as.services.ExecuteLib1",
@@ -54,7 +47,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringAnalyzersValueAnal
       });
       it("checkReferenceValues", function (done) {
         expect(function () {
-          sord = AnalyzersValueAnalyzerSord.id;
+          sord = obSolCommonMonitoringAnalyzersValueAnalyzerId;
           value = {};
           ctx = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
@@ -108,7 +101,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringAnalyzersValueAnal
       });
       it("exists", function (done) {
         expect(function () {
-          sord = AnalyzersValueAnalyzerSord.id;
+          sord = obSolCommonMonitoringAnalyzersValueAnalyzerId;
           value = "123";
           ctx = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
@@ -135,7 +128,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringAnalyzersValueAnal
       });
       it("getValue", function (done) {
         expect(function () {
-          sord = AnalyzersValueAnalyzerSord.id;
+          sord = obSolCommonMonitoringAnalyzersValueAnalyzerId;
           valueCfg = "123";
           ctx = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
@@ -187,7 +180,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringAnalyzersValueAnal
       });
       it("isEmpty", function (done) {
         expect(function () {
-          sord = AnalyzersValueAnalyzerSord.id;
+          sord = obSolCommonMonitoringAnalyzersValueAnalyzerId;
           value = "123";
           ctx = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
@@ -238,7 +231,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringAnalyzersValueAnal
       });
       it("notEmpty", function (done) {
         expect(function () {
-          sord = AnalyzersValueAnalyzerSord.id;
+          sord = obSolCommonMonitoringAnalyzersValueAnalyzerId;
           value = "123";
           ctx = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {

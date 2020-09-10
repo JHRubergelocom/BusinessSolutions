@@ -1,7 +1,6 @@
 
 describe("[libas] sol.unittest.as.services.SolCommonSigFunctionsCreateDocumentToSign", function () {
   var objFunctionsCreateDocumentToSignId, originalTimeout,
-      flowId, succNodes, succNodesIds,
       content, sord, documentType, basePath, config;
 
   beforeAll(function (done) {
@@ -9,7 +8,7 @@ describe("[libas] sol.unittest.as.services.SolCommonSigFunctionsCreateDocumentTo
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
       test.Utils.createTempSord("SolCommonSigFunctionsCreateDocumentToSign").then(function success(obSolCommonSigFunctionsCreateDocumentToSignId) {
-        test.Utils.copySord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/FunctionsCreateDocumentToSign").then(function success1(objFunctionsCreateDocumentToSignId1) {
+        test.Utils.copySord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/TemplateDocument").then(function success1(objFunctionsCreateDocumentToSignId1) {
           objFunctionsCreateDocumentToSignId = objFunctionsCreateDocumentToSignId1;
           done();
         }, function error(err) {
@@ -60,7 +59,7 @@ describe("[libas] sol.unittest.as.services.SolCommonSigFunctionsCreateDocumentTo
       });
       it("getTemplateArcPath", function (done) {
         expect(function () {
-          documentType = "FunctionsCreateDocumentToSign";
+          documentType = "TemplateDocument";
           basePath = "ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources";
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.unittest.as.services.ExecuteLib2",

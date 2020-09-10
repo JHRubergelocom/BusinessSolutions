@@ -9,7 +9,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonStringUtils", function () {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
       test.Utils.createTempSord("SolCommonStringUtils").then(function success(obSolCommonStringUtilsId) {
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/StringUtils").then(function success1(StringUtilsSord1) {
+        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/IniFile").then(function success1(StringUtilsSord1) {
           StringUtilsSord = StringUtilsSord1;
           done();
         }, function error(err) {

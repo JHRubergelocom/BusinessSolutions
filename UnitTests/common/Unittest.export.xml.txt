@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<unittest>
+  <name>{{name}}</name>
+  <id>{{id}}</id>
+  <guid>{{guid}}</guid>
+  <UNITTEST_FIELD1>{{objKeys.UNITTEST_FIELD1}}</UNITTEST_FIELD1>
+  <UNITTEST_FIELD2>{{objKeys.UNITTEST_FIELD2}}</UNITTEST_FIELD2>
+  <UNITTEST_FIELD3>{{objKeys.UNITTEST_FIELD3}}</UNITTEST_FIELD3>
+</unittest>

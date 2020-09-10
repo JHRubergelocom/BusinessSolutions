@@ -43,7 +43,7 @@ describe("[function] sol.common.as.functions.Export", function () {
             config: {
               exporterClassName: "sol.common.as.SimpleExporter",
               objId: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common [unit tests]/Resources/SignUnitTest",
-              tplObjId: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common [unit tests]/Resources/unittest.export.xml",
+              tplObjId: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common [unit tests]/Resources/Unittest.export.xml",
               dstDirPath: "/"
             }
           }).then(function success(jsonResult) {

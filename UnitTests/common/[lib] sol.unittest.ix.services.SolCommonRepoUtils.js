@@ -16,7 +16,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
     expect(function () {
       test.Utils.createTempSord("SolCommonRepoUtils").then(function success(obSolCommonRepoUtilsId1) {
         obSolCommonRepoUtilsId = obSolCommonRepoUtilsId1;
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/RepoUtils").then(function success1(RepoUtilsSord1) {
+        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/FileUtils").then(function success1(RepoUtilsSord1) {
           RepoUtilsSord = RepoUtilsSord1;
           done();
         }, function error(err) {
@@ -74,7 +74,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
       });
       it("changePathSeparator", function (done) {
         expect(function () {
-          path = "ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/RepoUtils";
+          path = "ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/FileUtils";
           newSeparator = "#";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
@@ -82,7 +82,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
             method: "changePathSeparator",
             params: [path, newSeparator]
           }).then(function success(jsonResult) {
-            expect(jsonResult).toEqual("ARCPATH:#Administration#Business Solutions#common [unit tests]#Resources#RepoUtils");
+            expect(jsonResult).toEqual("ARCPATH:#Administration#Business Solutions#common [unit tests]#Resources#FileUtils");
             done();
           }, function error(err) {
             fail(err);
@@ -94,7 +94,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
       });
       it("checkRepoPath", function (done) {
         expect(function () {
-          repoPath = "ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/RepoUtils";
+          repoPath = "ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/FileUtils";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
@@ -112,7 +112,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
       });
       it("checkRepoPath 'empty path'", function (done) {
         expect(function () {
-          repoPath = "ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources//RepoUtils";
+          repoPath = "ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources//FileUtils";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
@@ -305,7 +305,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
       });
       it("copysord", function (done) {
         expect(function () {
-          test.Utils.copySord("ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common [unit tests]/Resources/RepoUtils").then(function success(objCopyRepoUtilsId1) {
+          test.Utils.copySord("ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common [unit tests]/Resources/FileUtils").then(function success(objCopyRepoUtilsId1) {
             objCopyRepoUtilsId = objCopyRepoUtilsId1;
             done();
           }, function error(err) {
@@ -539,7 +539,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
       });
       it("exists", function (done) {
         expect(function () {
-          repoPath = "ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/RepoUtils";
+          repoPath = "ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/FileUtils";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
@@ -798,14 +798,14 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
       });
       it("getNameFromPath", function (done) {
         expect(function () {
-          repoPath = "ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/RepoUtils";
+          repoPath = "ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/FileUtils";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
             method: "getNameFromPath",
             params: [repoPath]
           }).then(function success(jsonResult) {
-            expect(jsonResult).toEqual("RepoUtils");
+            expect(jsonResult).toEqual("FileUtils");
             done();
           }, function error(err) {
             fail(err);
@@ -817,7 +817,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
       });
       it("getObjId", function (done) {
         expect(function () {
-          path = "ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/RepoUtils";
+          path = "ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/FileUtils";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
@@ -835,7 +835,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
       });
       it("copysord", function (done) {
         expect(function () {
-          test.Utils.copySord("ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common [unit tests]/Resources/RepoUtils").then(function success(objCopyRepoUtilsId1) {
+          test.Utils.copySord("ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common [unit tests]/Resources/FileUtils").then(function success(objCopyRepoUtilsId1) {
             objCopyRepoUtilsId = objCopyRepoUtilsId1;
             done();
           }, function error(err) {
@@ -909,7 +909,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
       it("getObjIdFromRelativePath", function (done) {
         expect(function () {
           startFolderId = "ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources";
-          relativePath = "/RepoUtils";
+          relativePath = "/FileUtils";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
@@ -927,7 +927,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
       });
       it("getParentPath", function (done) {
         expect(function () {
-          repoPath = "ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/RepoUtils";
+          repoPath = "ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/FileUtils";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
@@ -974,7 +974,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
             method: "getPathFromObjId",
             params: [objId, config]
           }).then(function success(jsonResult) {
-            expect(jsonResult).toEqual("/Administration/Business Solutions/common [unit tests]/Resources/RepoUtils");
+            expect(jsonResult).toEqual("/Administration/Business Solutions/common [unit tests]/Resources/FileUtils");
             done();
           }, function error(err) {
             fail(err);
@@ -986,7 +986,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
       });
       it("getPathSeparator", function (done) {
         expect(function () {
-          repoPath = "ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/RepoUtils";
+          repoPath = "ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/FileUtils";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
             classConfig: {},
@@ -1155,7 +1155,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
       });
       it("copysord", function (done) {
         expect(function () {
-          test.Utils.copySord("ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common [unit tests]/Resources/RepoUtils").then(function success(objCopyRepoUtilsId1) {
+          test.Utils.copySord("ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common [unit tests]/Resources/FileUtils").then(function success(objCopyRepoUtilsId1) {
             objCopyRepoUtilsId = objCopyRepoUtilsId1;
             done();
           }, function error(err) {
@@ -1246,7 +1246,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
       });
       it("normalizePath", function (done) {
         expect(function () {
-          repoPath = "/Administration/Business Solutions/common [unit tests]/Resources/RepoUtils";
+          repoPath = "/Administration/Business Solutions/common [unit tests]/Resources/FileUtils";
           withPrefix = true;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.RepoUtils",
@@ -1254,7 +1254,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
             method: "normalizePath",
             params: [repoPath, withPrefix]
           }).then(function success(jsonResult) {
-            expect(jsonResult).toEqual("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/RepoUtils");
+            expect(jsonResult).toEqual("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/FileUtils");
             done();
           }, function error(err) {
             fail(err);

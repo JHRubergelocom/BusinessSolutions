@@ -7,7 +7,7 @@ describe("[libas] sol.unittest.as.services.SolCommonDocumentActionsPrepareBatchI
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
       test.Utils.createTempSord("SolCommonDocumentActionsPrepareBatchImport").then(function success(obSolCommonDocumentActionsPrepareBatchImportId) {
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/ActionsPrepareBatchImport").then(function success1(ActionsPrepareBatchImportSord1) {
+        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/CsvParser").then(function success1(ActionsPrepareBatchImportSord1) {
           ActionsPrepareBatchImportSord = ActionsPrepareBatchImportSord1;
           done();
         }, function error(err) {

@@ -8,7 +8,7 @@ describe("[libas] sol.unittest.as.services.SolCommonSimpleExporter", function ()
     expect(function () {
       test.Utils.createTempSord("SolCommonSimpleExporter").then(function success(obSolCommonSimpleExporterId1) {
         obSolCommonSimpleExporterId = obSolCommonSimpleExporterId1;
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/SimpleExporter").then(function success1(SimpleExporterSord1) {
+        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/FileUtils").then(function success1(SimpleExporterSord1) {
           SimpleExporterSord = SimpleExporterSord1;
           done();
         }, function error(err) {

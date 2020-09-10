@@ -7,7 +7,7 @@ describe("[libas] sol.unittest.as.services.SolCommonDocumentAsFunctionsReadExcel
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
       test.Utils.createTempSord("SolCommonDocumentAsFunctionsReadExcelTable").then(function success(obSolCommonDocumentAsFunctionsReadExcelTableId) {
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/AsFunctionsReadExcelTable").then(function success1(AsFunctionsReadExcelTableSord1) {
+        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/ReadExcelTable").then(function success1(AsFunctionsReadExcelTableSord1) {
           AsFunctionsReadExcelTableSord = AsFunctionsReadExcelTableSord1;
           done();
         }, function error(err) {

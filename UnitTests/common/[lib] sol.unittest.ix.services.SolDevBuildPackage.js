@@ -10,7 +10,7 @@ describe("[lib] sol.unittest.ix.services.SolDevBuildPackage", function () {
     expect(function () {
       test.Utils.createTempSord("SolDevBuildPackage").then(function success(obSolDevBuildPackageId1) {
         obSolDevBuildPackageId = obSolDevBuildPackageId1;
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/BuildPackage").then(function success1(BuildPackageSord1) {
+        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/FileUtils").then(function success1(BuildPackageSord1) {
           BuildPackageSord = BuildPackageSord1;
           done();
         }, function error(err) {

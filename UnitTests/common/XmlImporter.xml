@@ -1,0 +1,10 @@
+﻿<?xml version="1.0"?>
+<import>
+  <file>
+    <path>C:\Temp\InvoiceScans\import01.pdf</path>
+    <mask>Incoming Invoice</mask>
+    <name>Rechnung 01</name>
+    <comment>Rechnungskommentar 01</comment>
+    <version>0.1</version>
+  </file>
+</import>

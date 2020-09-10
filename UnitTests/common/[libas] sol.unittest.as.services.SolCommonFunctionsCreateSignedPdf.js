@@ -9,7 +9,7 @@ describe("[libas] sol.unittest.as.services.SolCommonFunctionsCreateSignedPdf", f
     expect(function () {
       test.Utils.createTempSord("SolCommonFunctionsCreateSignedPdf").then(function success(obSolCommonFunctionsCreateSignedPdfId1) {
         obSolCommonFunctionsCreateSignedPdfId = obSolCommonFunctionsCreateSignedPdfId1;
-        test.Utils.copySord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/FunctionsCreateSignedPdf").then(function success1(objFunctionsCreateSignedPdfId1) {
+        test.Utils.copySord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/SignatureDocument").then(function success1(objFunctionsCreateSignedPdfId1) {
           objFunctionsCreateSignedPdfId = objFunctionsCreateSignedPdfId1;
           templateId = "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common [unit tests]/Resources/Signature";
           done();

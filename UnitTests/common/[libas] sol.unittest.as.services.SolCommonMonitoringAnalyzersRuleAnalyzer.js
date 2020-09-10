@@ -1,21 +1,14 @@
 
 describe("[libas] sol.unittest.as.services.SolCommonMonitoringAnalyzersRuleAnalyzer", function () {
-  var AnalyzersRuleAnalyzerSord, originalTimeout, content, sord, rule, execution, results, config, isoDate, verificationDate, params, date;
+  var obSolCommonMonitoringAnalyzersRuleAnalyzerId, originalTimeout, content, sord, rule, execution, results, config, isoDate, verificationDate, params, date;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
-      test.Utils.createTempSord("SolCommonMonitoringAnalyzersRuleAnalyzer").then(function success(obSolCommonMonitoringAnalyzersRuleAnalyzerId) {
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/AnalyzersRuleAnalyzer").then(function success1(AnalyzersRuleAnalyzerSord1) {
-          AnalyzersRuleAnalyzerSord = AnalyzersRuleAnalyzerSord1;
-          done();
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
+      test.Utils.createTempSord("SolCommonMonitoringAnalyzersRuleAnalyzer").then(function success(obSolCommonMonitoringAnalyzersRuleAnalyzerId1) {
+        obSolCommonMonitoringAnalyzersRuleAnalyzerId = obSolCommonMonitoringAnalyzersRuleAnalyzerId1;
+        done();
       }, function error(err) {
         fail(err);
         console.error(err);
@@ -28,7 +21,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringAnalyzersRuleAnaly
     describe("sol.common_monitoring.as.analyzers.RuleAnalyzer", function () {
       it("analyze", function (done) {
         expect(function () {
-          sord = AnalyzersRuleAnalyzerSord.id;
+          sord = obSolCommonMonitoringAnalyzersRuleAnalyzerId;
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.unittest.as.services.ExecuteLib1",
             config: {
@@ -53,7 +46,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringAnalyzersRuleAnaly
       });
       it("analyzeRule", function (done) {
         expect(function () {
-          sord = AnalyzersRuleAnalyzerSord.id;
+          sord = obSolCommonMonitoringAnalyzersRuleAnalyzerId;
           rule = { action: { type: "REMINDER", user: "Administrator" }, date: { type: "GRP", key: "MY_DATE" }, shift: { value: -2, unit: "M" }, execution: { type: "MAP", key: "MY_DATE_EXECUTION" } };
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.unittest.as.services.ExecuteLib1",
@@ -79,7 +72,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringAnalyzersRuleAnaly
       });
       it("checkExecution", function (done) {
         expect(function () {
-          sord = AnalyzersRuleAnalyzerSord.id;
+          sord = obSolCommonMonitoringAnalyzersRuleAnalyzerId;
           execution = null;
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.unittest.as.services.ExecuteLib1",
@@ -181,7 +174,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringAnalyzersRuleAnaly
       });
       it("shiftIso", function (done) {
         expect(function () {
-          sord = AnalyzersRuleAnalyzerSord.id;
+          sord = obSolCommonMonitoringAnalyzersRuleAnalyzerId;
           isoDate = "20180101";
           params = { value: 10, unit: "y" };
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
@@ -208,7 +201,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringAnalyzersRuleAnaly
       });
       it("updateExecution", function (done) {
         expect(function () {
-          sord = AnalyzersRuleAnalyzerSord.id;
+          sord = obSolCommonMonitoringAnalyzersRuleAnalyzerId;
           execution = { type: "MAP", key: "MY_DATE_EXECUTION" };
           date = "20180101";
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {

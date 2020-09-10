@@ -8,7 +8,7 @@ describe("[libas] sol.unittest.as.services.SolCommonFunctionsExport", function (
     expect(function () {
       test.Utils.createTempSord("SolCommonFunctionsExport").then(function success(obSolCommonFunctionsExportId1) {
         obSolCommonFunctionsExportId = obSolCommonFunctionsExportId1;
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/FunctionsBatchExport").then(function success1(FunctionsExportSord1) {
+        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/FileUtils").then(function success1(FunctionsExportSord1) {
           FunctionsExportSord = FunctionsExportSord1;
           done();
         }, function error(err) {

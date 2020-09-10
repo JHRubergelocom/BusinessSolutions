@@ -1,21 +1,14 @@
 
 describe("[libas] sol.unittest.as.services.SolCommonMonitoringAnalyzersRetentionAnalyzer", function () {
-  var AnalyzersRetentionAnalyzerSord, originalTimeout, content, sord, latestChange, resultWithoutTime, config;
+  var obSolCommonMonitoringAnalyzersRetentionAnalyzerId, originalTimeout, content, sord, latestChange, resultWithoutTime, config;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
-      test.Utils.createTempSord("SolCommonMonitoringAnalyzersRetentionAnalyzer").then(function success(obSolCommonMonitoringAnalyzersRetentionAnalyzerId) {
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/AnalyzersRetentionAnalyzer").then(function success1(AnalyzersRetentionAnalyzerSord1) {
-          AnalyzersRetentionAnalyzerSord = AnalyzersRetentionAnalyzerSord1;
-          done();
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
+      test.Utils.createTempSord("SolCommonMonitoringAnalyzersRetentionAnalyzer").then(function success(obSolCommonMonitoringAnalyzersRetentionAnalyzerId1) {
+        obSolCommonMonitoringAnalyzersRetentionAnalyzerId = obSolCommonMonitoringAnalyzersRetentionAnalyzerId1;
+        done();
       }, function error(err) {
         fail(err);
         console.error(err);
@@ -28,7 +21,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringAnalyzersRetention
     describe("sol.common_monitoring.as.analyzers.RetentionAnalyzer", function () {
       it("analyze", function (done) {
         expect(function () {
-          sord = AnalyzersRetentionAnalyzerSord.id;
+          sord = obSolCommonMonitoringAnalyzersRetentionAnalyzerId;
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.unittest.as.services.ExecuteLib1",
             config: {
@@ -53,7 +46,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringAnalyzersRetention
       });
       it("calculateNextCheck", function (done) {
         expect(function () {
-          sord = AnalyzersRetentionAnalyzerSord.id;
+          sord = obSolCommonMonitoringAnalyzersRetentionAnalyzerId;
           latestChange = "20180622";
           resultWithoutTime = true;
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
@@ -105,7 +98,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringAnalyzersRetention
       });
       it("isObsolete", function (done) {
         expect(function () {
-          sord = AnalyzersRetentionAnalyzerSord.id;
+          sord = obSolCommonMonitoringAnalyzersRetentionAnalyzerId;
           latestChange = "20180622";
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.unittest.as.services.ExecuteLib1",
@@ -131,7 +124,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringAnalyzersRetention
       });
       it("retrieveChangedDate", function (done) {
         expect(function () {
-          sord = AnalyzersRetentionAnalyzerSord.id;
+          sord = obSolCommonMonitoringAnalyzersRetentionAnalyzerId;
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.unittest.as.services.ExecuteLib1",
             config: {
@@ -156,7 +149,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringAnalyzersRetention
       });
       it("retrieveOldestChildrenChangedDate", function (done) {
         expect(function () {
-          sord = AnalyzersRetentionAnalyzerSord.id;
+          sord = obSolCommonMonitoringAnalyzersRetentionAnalyzerId;
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.unittest.as.services.ExecuteLib1",
             config: {

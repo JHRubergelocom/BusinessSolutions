@@ -7,7 +7,7 @@ describe("[libas] sol.unittest.as.services.SolCommonFunctionsBatchExport", funct
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
       test.Utils.createTempSord("SolCommonFunctionsBatchExport").then(function success(obSolCommonFunctionsBatchExportId) {
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/FunctionsBatchExport").then(function success1(FunctionsBatchExportSord1) {
+        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/FileUtils").then(function success1(FunctionsBatchExportSord1) {
           FunctionsBatchExportSord = FunctionsBatchExportSord1;
           done();
         }, function error(err) {

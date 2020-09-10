@@ -116,7 +116,7 @@ describe("[function] sol.common.ix.functions.CreateFromTemplate", function () {
       }).not.toThrow();
     });
     it("strTestB should be equal resultB", function () {
-      expect(strTestB).not.toEqual(resultB);
+      expect(strTestB).toEqual(resultB);
     });
   });
   afterAll(function (done) {

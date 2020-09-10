@@ -8,7 +8,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonDocumentBatchImportData", func
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
       test.Utils.createTempSord("SolCommonDocumentBatchImportData").then(function success(obSolCommonDocumentBatchImportDataId) {
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/BatchImportData").then(function success1(BatchImportDataSord1) {
+        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/FileUtils").then(function success1(BatchImportDataSord1) {
           BatchImportDataSord = BatchImportDataSord1;
           done();
         }, function error(err) {

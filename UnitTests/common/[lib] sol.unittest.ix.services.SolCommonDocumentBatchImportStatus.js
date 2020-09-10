@@ -8,7 +8,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonDocumentBatchImportStatus", fu
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
       test.Utils.createTempSord("SolCommonDocumentBatchImportStatus").then(function success(obSolCommonDocumentBatchImportStatusId) {
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/BatchImportStatus").then(function success1(BatchImportStatusSord1) {
+        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/FileUtils").then(function success1(BatchImportStatusSord1) {
           BatchImportStatusSord = BatchImportStatusSord1;
           done();
         }, function error(err) {

@@ -7,7 +7,7 @@ describe("[service] sol.common_document.ix.services.BatchImport", function () {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
       test.Utils.createTempSord("BatchImport").then(function success(obBatchImportId) {
-        test.Utils.copySord("ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common [unit tests]/Resources/Unittest").then(function success1(objBatchImportContentId1) {
+        test.Utils.copySord("ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common [unit tests]/Resources/CsvParser").then(function success1(objBatchImportContentId1) {
           objBatchImportContentId = objBatchImportContentId1;
           done();
         }, function error(err) {

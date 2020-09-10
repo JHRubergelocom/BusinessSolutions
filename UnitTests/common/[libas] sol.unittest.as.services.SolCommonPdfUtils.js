@@ -7,7 +7,7 @@ describe("[libas] sol.unittest.as.services.SolCommonPdfUtils", function () {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
       test.Utils.createTempSord("SolCommonPdfUtils").then(function success(obSolCommonPdfUtilsId) {
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/PdfUtils").then(function success1(PdfUtilsSord1) {
+        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/SignatureDocument").then(function success1(PdfUtilsSord1) {
           PdfUtilsSord = PdfUtilsSord1;
           done();
         }, function error(err) {

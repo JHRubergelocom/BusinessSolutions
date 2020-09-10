@@ -1,6 +1,6 @@
 
 describe("[libas] sol.unittest.as.services.SolCommonMonitoringCollectorsChildrenCollector", function () {
-  var CollectorsChildrenCollectorSord, obSolCommonMonitoringCollectorsChildrenCollectorId, originalTimeout, content, sord, config, results, ctx;
+  var obSolCommonMonitoringCollectorsChildrenCollectorId, originalTimeout, content, sord, config, results, ctx;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -8,15 +8,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringCollectorsChildren
     expect(function () {
       test.Utils.createTempSord("SolCommonMonitoringCollectorsChildrenCollector").then(function success(obSolCommonMonitoringCollectorsChildrenCollectorId1) {
         obSolCommonMonitoringCollectorsChildrenCollectorId = obSolCommonMonitoringCollectorsChildrenCollectorId1;
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/CollectorsChildrenCollector").then(function success1(CollectorsChildrenCollectorSord1) {
-          CollectorsChildrenCollectorSord = CollectorsChildrenCollectorSord1;
-          done();
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
+        done();
       }, function error(err) {
         fail(err);
         console.error(err);
@@ -29,7 +21,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringCollectorsChildren
     describe("sol.common_monitoring.as.collectors.ChildrenCollector", function () {
       it("cleanupMap", function (done) {
         expect(function () {
-          sord = CollectorsChildrenCollectorSord.id;
+          sord = obSolCommonMonitoringCollectorsChildrenCollectorId;
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.unittest.as.services.ExecuteLib1",
             config: {
@@ -54,7 +46,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringCollectorsChildren
       });
       it("deleteReference", function (done) {
         expect(function () {
-          sord = CollectorsChildrenCollectorSord.id;
+          sord = obSolCommonMonitoringCollectorsChildrenCollectorId;
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.unittest.as.services.ExecuteLib1",
             config: {
@@ -224,7 +216,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringCollectorsChildren
       });
       it("postProcess", function (done) {
         expect(function () {
-          sord = CollectorsChildrenCollectorSord.id;
+          sord = obSolCommonMonitoringCollectorsChildrenCollectorId;
           results = [];
           ctx = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {

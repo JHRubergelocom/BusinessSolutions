@@ -42,7 +42,7 @@ describe("[function] sol.common.as.functions.BatchExport", function () {
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.common.BatchExport",
             config: {
-              exportConfigObjId: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common [unit tests]/Resources/unittestbatchexport",
+              exportConfigObjId: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common [unit tests]/Resources/Unittestbatchexport",
               objIds: ["ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common [unit tests]/Resources/SignUnitTest"]
             }
           }).then(function success(jsonResult) {

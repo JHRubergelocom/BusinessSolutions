@@ -8,7 +8,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfMap", function () {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
       test.Utils.createTempSord("SolCommonWfMap").then(function success(obSolCommonWfMapId) {
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/WfMap").then(function success1(WfMapSord1) {
+        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/FileUtils").then(function success1(WfMapSord1) {
           WfMapSord = WfMapSord1;
           done();
         }, function error(err) {

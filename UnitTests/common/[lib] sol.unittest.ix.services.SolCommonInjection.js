@@ -9,7 +9,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonInjection", function () {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
       test.Utils.createTempSord("SolCommonInjection").then(function success(obSolCommonInjectionId) {
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/Injection").then(function success1(InjectionSord1) {
+        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/IniFile").then(function success1(InjectionSord1) {
           InjectionSord = InjectionSord1;
           done();
         }, function error(err) {

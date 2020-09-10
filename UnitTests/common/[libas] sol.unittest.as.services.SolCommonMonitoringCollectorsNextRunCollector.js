@@ -1,21 +1,14 @@
 
 describe("[libas] sol.unittest.as.services.SolCommonMonitoringCollectorsNextRunCollector", function () {
-  var CollectorsNextRunCollectorSord, originalTimeout, content, config, sord, results;
+  var obSolCommonMonitoringCollectorsNextRunCollectorId, originalTimeout, content, config, sord, results;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
-      test.Utils.createTempSord("SolCommonMonitoringCollectorsNextRunCollector").then(function success(obSolCommonMonitoringCollectorsNextRunCollectorId) {
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/CollectorsNextRunCollector").then(function success1(CollectorsNextRunCollectorSord1) {
-          CollectorsNextRunCollectorSord = CollectorsNextRunCollectorSord1;
-          done();
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
+      test.Utils.createTempSord("SolCommonMonitoringCollectorsNextRunCollector").then(function success(obSolCommonMonitoringCollectorsNextRunCollectorId1) {
+        obSolCommonMonitoringCollectorsNextRunCollectorId = obSolCommonMonitoringCollectorsNextRunCollectorId1;
+        done();
       }, function error(err) {
         fail(err);
         console.error(err);
@@ -173,7 +166,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringCollectorsNextRunC
       });
       it("postProcess", function (done) {
         expect(function () {
-          sord = CollectorsNextRunCollectorSord.id;
+          sord = obSolCommonMonitoringCollectorsNextRunCollectorId;
           results = [];
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.unittest.as.services.ExecuteLib1",

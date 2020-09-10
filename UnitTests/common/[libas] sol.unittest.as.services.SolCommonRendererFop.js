@@ -8,7 +8,7 @@ describe("[libas] sol.unittest.as.services.SolCommonRendererFop", function () {
     expect(function () {
       test.Utils.createTempSord("SolCommonRendererFop").then(function success(obSolCommonRendererFopId1) {
         obSolCommonRendererFopId = obSolCommonRendererFopId1;
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/RendererFop").then(function success1(RendererFopSord1) {
+        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common [unit tests]/Resources/Signature").then(function success1(RendererFopSord1) {
           RendererFopSord = RendererFopSord1;
           done();
         }, function error(err) {
