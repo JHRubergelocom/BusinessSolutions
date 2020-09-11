@@ -83,6 +83,23 @@ describe("[lib] sol.unittest.ix.services.SolDevBuildPackage", function () {
           );
         }).not.toThrow();
       });
+      it("copyIxPlugins", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib1", {
+            className: "sol.dev.BuildPackage",
+            classConfig: { buildConfig: {} },
+            method: "copyIxPlugins",
+            params: []
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("createManifestFile", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib1", {

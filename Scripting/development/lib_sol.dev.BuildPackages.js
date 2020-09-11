@@ -134,7 +134,9 @@ sol.define("sol.dev.BuildPackage", {
         transportFileNamePart = "",
         sordZ, buildNo, setupNameSuffix, repoDataFile, dstFile, debugOnFile,
         datePos, installConfigFilePath, installConfig,
-        repoDataFilePath, expInfoContent, expInfoIni, i, maskName, systemMasks;
+        repoDataFilePath, expInfoContent, expInfoIni, i, maskName, systemMasks,
+        workflowTemplateNames, workflowTemplateName, workflowJson,
+        workflowTemplateNamesWithinJson, j, workflowTemplateNameWithinJson, workflowNameIndex;
 
     if (!me.objId) {
       throw "Object ID of the package folder is empty";
@@ -266,9 +268,28 @@ sol.define("sol.dev.BuildPackage", {
 
     if (me.buildConfig.workflowTemplates) {
       me.buildConfig.workflowTemplatesDir.mkdirs();
-      me.buildConfig.workflowTemplates.forEach(function (workflowTemplateName) {
+
+      workflowTemplateNames = me.buildConfig.workflowTemplates;
+
+      for (i = 0; i < workflowTemplateNames.length; i++) {
+        workflowTemplateName = workflowTemplateNames[i];
+        workflowJson = sol.common.WfUtils.getWorkflowAsJson(workflowTemplateName);
+        workflowTemplateNamesWithinJson = sol.common.WfUtils.getAllWorkflowNamesFromJson(workflowJson);
+        for (j = 0; j < workflowTemplateNamesWithinJson.length; j++) {
+          workflowTemplateNameWithinJson = workflowTemplateNamesWithinJson[j];
+          if (workflowTemplateNameWithinJson != workflowTemplateName) {
+            workflowNameIndex = workflowTemplateNames.indexOf(workflowTemplateNameWithinJson);
+            if (workflowNameIndex > -1) {
+              workflowTemplateNames.splice(workflowNameIndex, 1);
+            }
+          }
+        }
+      }
+
+      for (i = 0; i < workflowTemplateNames.length; i++) {
+        workflowTemplateName = workflowTemplateNames[i];
         me.processWorkflowTemplateExport(workflowTemplateName);
-      });
+      }
     }
 
     if (me.buildConfig.sordTypes) {
@@ -327,6 +348,7 @@ sol.define("sol.dev.BuildPackage", {
     }
 
     me.downloadIxPlugins();
+    me.copyIxPlugins();
 
     me.zipFile = new File(me.zipDirPath + ".eloinst");
     sol.common.ZipUtils.zipFolder(me.zipDir, me.zipFile);
@@ -670,6 +692,35 @@ sol.define("sol.dev.BuildPackage", {
 
   /**
    * @private
+   * Copy IX plug-ins
+   */
+  copyIxPlugins: function () {
+    var me = this,
+        i, ixPluginDirPath, ixPluginDir, jarCollection, jarIterator, jarFile;
+
+    if (me.buildConfig.ixPluginDirs) {
+      me.buildConfig.ixPluginsDir.mkdirs();
+
+      for (i = 0; i < me.buildConfig.ixPluginDirs.length; i++) {
+        ixPluginDirPath = me.buildConfig.ixPluginDirs[i];
+        ixPluginDir = new java.io.File(ixPluginDirPath);
+        if (!ixPluginDir.exists()) {
+          continue;
+        }
+        jarCollection = Packages.org.apache.commons.io.FileUtils.listFiles(ixPluginDir,
+          new Packages.org.apache.commons.io.filefilter.SuffixFileFilter(["jar"], Packages.org.apache.commons.io.IOCase.INSENSITIVE),
+          Packages.org.apache.commons.io.filefilter.FalseFileFilter.INSTANCE);
+        jarIterator = jarCollection.iterator();
+        while (jarIterator.hasNext()) {
+          jarFile = jarIterator.next();
+          Packages.org.apache.commons.io.FileUtils.copyFileToDirectory(jarFile, me.buildConfig.ixPluginsDir);
+        }
+      }
+    }
+  },
+
+  /**
+   * @private
    * Downloads IX plug-ins
    */
   downloadIxPlugins: function () {
@@ -678,7 +729,7 @@ sol.define("sol.dev.BuildPackage", {
 
     if (me.buildConfig.ixPlugins) {
       for (i = 0; i < me.buildConfig.ixPlugins.length; i++) {
-        pluginName = me.buildConfig.ixPlugins;
+        pluginName = me.buildConfig.ixPlugins[i];
         me.downloadIxPlugin(pluginName);
       }
     }
