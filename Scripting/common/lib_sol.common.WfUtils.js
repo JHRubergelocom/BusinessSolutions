@@ -162,7 +162,8 @@ sol.define("sol.common.WfUtils", {
    */
   getWorkflowAsJson: function (flowId, config) {
     var me = this,
-        fileData, workflowExportOptions, jsonData, dataObject, lastTypeId;
+        fileData, workflowExportOptions, jsonData, dataObject, lastTypeId,
+        workflowNames;
 
     config = config || {};
 
@@ -176,6 +177,11 @@ sol.define("sol.common.WfUtils", {
     workflowExportOptions.format = WorkflowExportOptionsC.FORMAT_JSON;
     fileData = ixConnect.ix().exportWorkflow(workflowExportOptions);
     jsonData = String(new java.lang.String(fileData.data, "UTF-8"));
+
+    workflowNames = me.getAllWorkflowNamesFromJson(jsonData);
+    if (workflowNames.length > 1) {
+      config.nameSubWorkflowTemplates = false;
+    }
 
     lastTypeId = 0;
     dataObject = JSON.parse(jsonData);
@@ -213,6 +219,7 @@ sol.define("sol.common.WfUtils", {
   getWfNameFromJson: function (workflowJson) {
     var me = this,
         workflowObj, objectTable, i, obj, typeId;
+
     if (!workflowJson) {
       throw "Workflow JSON content is empty";
     }
@@ -227,6 +234,32 @@ sol.define("sol.common.WfUtils", {
         }
       }
     }
+  },
+
+  /**
+   * Returns the workflow names
+   * @param {String} workflowJson Workflow JSON
+   * @return {Array} Workflow names
+   */
+  getAllWorkflowNamesFromJson: function (workflowJson) {
+    var me = this,
+        workflowNames = [], lastTypeId;
+
+    if (!workflowJson) {
+      throw "Workflow JSON content is empty";
+    }
+
+    JSON.parse(workflowJson, function (key, value) {
+      if (key == "_typeId") {
+        lastTypeId = value;
+      }
+
+      if ((lastTypeId == me.wfDiagramTypeId) && (key == "name") && value && (sol.common.ObjectUtils.isString(value))) {
+        workflowNames.push(value);
+      }
+    });
+
+    return workflowNames;
   },
 
   /**
@@ -443,12 +476,25 @@ sol.define("sol.common.WfUtils", {
    * @return {de.elo.ix.client.WFDiagram[]}
    */
   getTemplates: function (params) {
-    var me = this,
+    var me = this, ixConn, result, originalProperty,
         info;
     params = params || {};
     info = new FindWorkflowInfo();
     info.type = WFTypeC.TEMPLATE;
-    return me.findWorkflows(info, params.wfDiagramZ);
+
+    //  we need to change the connection to avoid translated workflow templates
+    ixConn = (typeof ixConnectAdmin === "undefined") ? ixConnect : ixConnectAdmin;
+    originalProperty = ixConn.getSessionOptions().getProperty(SessionOptionsC.TRANSLATE_TERMS);
+    ixConn.getSessionOptions().setProperty(SessionOptionsC.TRANSLATE_TERMS, "false");
+    ixConn.getSessionOptions().update();
+
+    result = me.findWorkflows(info, params.wfDiagramZ, ixConn);
+
+    // and now we'll change the option back to avoid untranslated terms in all the other requests
+    ixConn.getSessionOptions().setProperty(SessionOptionsC.TRANSLATE_TERMS, String(originalProperty));
+    ixConn.getSessionOptions().update();
+
+    return result;
   },
 
   /**
@@ -485,13 +531,16 @@ sol.define("sol.common.WfUtils", {
    * @param {java.io.File} file Export file
    * @param {Object} config Configuration
    * @param {Boolean} clearAdminName Clear the administrator user name
+   * @return {Array} Exported workflow template names
    */
   exportWorkflowTemplate: function (workflowTemplateName, file, config) {
     var me = this,
-        workflowTemplateId;
+        workflowTemplateId, exportedWorkflowTemplateNames;
 
     workflowTemplateId = me.getWorkflowTemplateId(workflowTemplateName);
-    me.exportWorkflow(workflowTemplateId, file, config);
+    exportedWorkflowTemplateNames = me.exportWorkflow(workflowTemplateId, file, config);
+
+    return exportedWorkflowTemplateNames;
   },
 
   /**
@@ -500,13 +549,18 @@ sol.define("sol.common.WfUtils", {
    * @param {java.io.File} file Export file
    * @param {Object} config Configuration
    * @param {Boolean} clearAdminName Clear the administrator user name
+   * @return {workflowNames} Exported workflow names
    */
   exportWorkflow: function (workflowId, file, config) {
     var me = this,
-        workflowJson;
+        workflowJson, exportedWorkflowNames;
 
     workflowJson = me.getWorkflowAsJson(workflowId, config);
     Packages.org.apache.commons.io.FileUtils.writeStringToFile(file, workflowJson, "UTF-8");
+
+    exportedWorkflowNames = me.getAllWorkflowNamesFromJson(workflowJson);
+
+    return exportedWorkflowNames;
   },
 
   /**
@@ -887,7 +941,7 @@ sol.define("sol.common.WfUtils", {
    * If the node name is not unique, the first found node will be returned.
    * @param {de.elo.ix.client.WFDiagram} workflow The WFDiagram containing the workflow description
    * @param {String} name The name of the node
-   * @param {String} cycleNo Cycle number
+   * @param {String}  (optional) Cycle number
    * @return {de.elo.ix.client.WFNode} The node or null, if no node was found with the name
    */
   getNodeByName: function (workflow, name, cycleNo) {

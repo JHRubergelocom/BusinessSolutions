@@ -993,6 +993,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
             method: "getWorkflowAsJson",
             params: [templFlowId, config]
           }).then(function success(jsonResult) {
+            workflowJson = jsonResult; 
             done();
           }, function error(err) {
             fail(err);
@@ -1002,6 +1003,23 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
           );
         }).not.toThrow();
       });
+      it("getAllWorkflowNamesFromJson", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.WfUtils",
+            classConfig: {},
+            method: "getAllWorkflowNamesFromJson",
+            params: [workflowJson]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });      
       it("getWorkflowIconGuid", function (done) {
         expect(function () {
           iconName = "Icon1";
