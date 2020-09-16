@@ -631,11 +631,11 @@ sol.define("sol.common.WfUtils", {
    * Renames workflow templates
    * @param {String} oldName Old name
    * @param {String} newName New name
-   * @return {Boolean}
+   * @return {Object} Result object
    */
   renameWorkflowTemplate: function (oldName, newName) {
     var me = this,
-        wfDiag;
+        wfDiag, result;
 
     if (!oldName) {
       throw "Old workflow template name is empty";
@@ -648,13 +648,19 @@ sol.define("sol.common.WfUtils", {
     try {
       wfDiag = me.getWorkflowTemplate(oldName);
     } catch (ex) {
-      return false;
+      return;
     }
 
     wfDiag.name = newName;
     ixConnect.ix().checkinWorkflowTemplate(wfDiag, WFDiagramC.mbAll, LockC.NO);
 
-    return true;
+    result = {
+      wfTplId: wfDiag.id + "",
+      oldName: oldName,
+      newName: newName
+    };
+
+    return result;
   },
 
   /**
@@ -662,20 +668,12 @@ sol.define("sol.common.WfUtils", {
    * After the workflow templateshave been imported via JSON with a timestamp suffix, they will be stored as a new working
    * version of the origin workflow and than the imported workflow will be deleted.
    * @param {String} workflowTemplateName Workflow template name
-   * @param {Object} params Parameters
-   * @param {String} params.mergeWorkflowTemplateSeparator Merge workflow separator
-   * @return {String} Merged workflow template name
+   * @return {Object} Result object
    */
-  mergeWorkflowTemplate: function (workflowTemplateName, params) {
+  mergeWorkflowTemplate: function (workflowTemplateName) {
     var me = this,
-        mergeWorkflowTemplates = [],
-        i, workflowTemplates, workflowTemplate, originWorkflowTemplate, originWorkflowTemplateName,
-        currentWorkflowTemplateName, mergeWorkflowTemplateNamePrefix, mergeWorkflowTemplateSeparator,
-        mergeWorkflowTemplate;
-
-    params = params || {};
-
-    mergeWorkflowTemplateSeparator = params.mergeWorkflowTemplateSeparator || " | ";
+        i, workflowTemplates, workflowTemplate, originWorkflowTemplate, originWorkflowTemplateNamePrefix,
+        currentWorkflowTemplateName, updateWorkflowTemplate, updateWorkflowTemplateId, result;
 
     if (!workflowTemplateName) {
       throw "Workflow template name is empty";
@@ -685,64 +683,81 @@ sol.define("sol.common.WfUtils", {
     for (i = 0; i < workflowTemplates.length; i++) {
       workflowTemplate = workflowTemplates[i];
       currentWorkflowTemplateName = workflowTemplate.name + "";
-      if (workflowTemplateName == currentWorkflowTemplateName) {
+      originWorkflowTemplateNamePrefix = workflowTemplateName + " | origin -";
+
+      if (currentWorkflowTemplateName.indexOf(originWorkflowTemplateNamePrefix) == 0) {
         originWorkflowTemplate = workflowTemplate;
-      } else {
-        mergeWorkflowTemplateNamePrefix = workflowTemplateName + mergeWorkflowTemplateSeparator;
-        if (currentWorkflowTemplateName.indexOf(mergeWorkflowTemplateNamePrefix) == 0) {
-          mergeWorkflowTemplates.push(workflowTemplate);
-        }
+        originWorkflowTemplate.name = workflowTemplateName;
+      }
+
+      if (currentWorkflowTemplateName == workflowTemplateName) {
+        updateWorkflowTemplate = workflowTemplate;
+        updateWorkflowTemplateId = updateWorkflowTemplate.id;
       }
     }
 
-    if (!originWorkflowTemplate) {
+    if (!originWorkflowTemplate || !updateWorkflowTemplate) {
       return;
     }
 
-    mergeWorkflowTemplates.sort();
+    me.addWorkflowTemplateWorkingVersion(updateWorkflowTemplate, originWorkflowTemplate);
+    me.deleteWorkflowTemplate(updateWorkflowTemplateId);
 
-    for (i = 0; i < mergeWorkflowTemplates.length; i++) {
-      mergeWorkflowTemplate = mergeWorkflowTemplates[i];
-      me.addWorkflowTemplateVersions(mergeWorkflowTemplate, originWorkflowTemplate);
-      me.deleteWorkflowTemplate(mergeWorkflowTemplate.id);
-    }
+    result = {
+      wfTplName: workflowTemplateName,
+      wfTplId: originWorkflowTemplate.id + "",
+      originWorkflow: {
+        name: originWorkflowTemplate.name + "",
+        wfTplId: originWorkflowTemplate.id + ""
+      },
+      updateWorkflow: {
+        name: updateWorkflowTemplate.name + "",
+        wfTplId: updateWorkflowTemplateId,
+        deleted: true
+      }
+    };
 
-    originWorkflowTemplateName = originWorkflowTemplate.name + "";
-
-    return originWorkflowTemplateName;
+    return result;
   },
 
   /**
-   * Save a workflow template as a workflow template version
-   * @param  {de.elo.ix.client.WFDiagram} mergeWorkflowTemplate Merge workflow template
-   * @param  {de.elo.ix.client.WFDiagram} originWorkflowTemplate Origin workflow template
+   * @deprecated
+   * @param  {de.elo.ix.client.WFDiagram} fromWorkflowTemplate Source workflow template
+   * @param  {de.elo.ix.client.WFDiagram} toWorkflowTemplate Destination workflow template
    */
-  addWorkflowTemplateVersions: function (mergeWorkflowTemplate, originWorkflowTemplate) {
+  addWorkflowTemplateVersions: function (fromWorkflowTemplate, toWorkflowTemplate) {
+    var me = this;
+    me.addWorkflowTemplateWorkingVersion(fromWorkflowTemplate, toWorkflowTemplate);
+  },
+
+  /**
+   * Add the working version of a workflow template as working version of another workflow template
+   * @param  {de.elo.ix.client.WFDiagram} fromWorkflowTemplate Source workflow template
+   * @param  {de.elo.ix.client.WFDiagram} toWorkflowTemplate Destination workflow template
+   */
+  addWorkflowTemplateWorkingVersion: function (fromWorkflowTemplate, toWorkflowTemplate) {
     var me = this,
-        mergeWorkflowTemplateVersions, i, mergeWorkflowTemplateVersion, nextWorkflowVersionNo, mergeWorkflowVersionTemplate;
+        nextWorkflowVersionNo;
 
-    if (!mergeWorkflowTemplate) {
-      throw "Merge workflow template is empty";
-    }
-    if (!originWorkflowTemplate) {
-      throw "Origin workflow template is empty";
+    if (!fromWorkflowTemplate) {
+      throw "Source workflow template is empty";
     }
 
-    nextWorkflowVersionNo = me.getNextWorkflowVersionNo(originWorkflowTemplate);
-
-    mergeWorkflowTemplateVersions = ixConnect.ix().getWorkflowTemplateVersions(mergeWorkflowTemplate.id + "", false);
-
-    for (i = 0; i < mergeWorkflowTemplateVersions.length; i++) {
-      mergeWorkflowTemplateVersion = mergeWorkflowTemplateVersions[i];
-
-      mergeWorkflowVersionTemplate = ixConnect.ix().checkoutWorkflowTemplate(mergeWorkflowTemplate.id + "", mergeWorkflowTemplateVersion.id + "", WFDiagramC.mbAll, LockC.NO);
-      mergeWorkflowVersionTemplate.id = originWorkflowTemplate.id;
-      mergeWorkflowVersionTemplate.version.id = -1;
-      mergeWorkflowVersionTemplate.version.version = nextWorkflowVersionNo + ".0";
-
-      ixConnect.ix().checkinWorkflowTemplate(mergeWorkflowVersionTemplate, WFDiagramC.mbAll, LockC.NO);
-      nextWorkflowVersionNo++;
+    if (!toWorkflowTemplate) {
+      throw "Destination workflow template is empty";
     }
+
+    nextWorkflowVersionNo = me.getNextWorkflowVersionNo(toWorkflowTemplate);
+
+    // save old workflow version
+    toWorkflowTemplate.version.id = -1;
+    ixConnect.ix().checkinWorkflowTemplate(toWorkflowTemplate, WFDiagramC.mbAll, LockC.NO);
+
+    // set update workflow as new working version
+    fromWorkflowTemplate.id = toWorkflowTemplate.id;
+    fromWorkflowTemplate.version.id = 0;
+    fromWorkflowTemplate.version.version = nextWorkflowVersionNo + ".0";
+    ixConnect.ix().checkinWorkflowTemplate(fromWorkflowTemplate, WFDiagramC.mbAll, LockC.NO);
   },
 
   /**
@@ -851,7 +866,7 @@ sol.define("sol.common.WfUtils", {
     return config;
   },
 
-   /**
+  /**
    * Applies handlebars template to mixin.
    * @param {Object} mixinString The config mixin string
    * @param {String} objId The WFDiagram's objId
