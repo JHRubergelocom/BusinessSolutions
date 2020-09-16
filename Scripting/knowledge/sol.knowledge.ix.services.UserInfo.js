@@ -58,6 +58,12 @@ sol.define("sol.knowledge.ix.services.UserInfo", {
    * @cfg {String} fields.company (optional)
    */
 
+  /** 
+   * @cfg {String} lang (opional) 
+   * If set with a language abbreviation, that language will be used. The login language is the default.
+   * The length has to be 2.
+   */
+
   /**
    * @property
    * @private
@@ -84,6 +90,13 @@ sol.define("sol.knowledge.ix.services.UserInfo", {
         user = {},
         result;
 
+    me._lang = ixConnect.loginResult.clientInfo.language;
+    if (me.lang && (me.lang.length === 2)) {
+      ixConnect.loginResult.clientInfo.language = me.lang;
+    }
+    
+    sol.common.TranslateTerms.require("sol.knowledge");
+
     user.name = (me.userFolder.name || "") + "";
     user.id = (typeof me.userInfo.id !== "undefined") ? String(me.userInfo.id) : "";
     user.guid = (me.userInfo.guid || "") + "";
@@ -94,6 +107,8 @@ sol.define("sol.knowledge.ix.services.UserInfo", {
     user.reputation = (sol.common.SordUtils.getObjKeyValueAsNumber(me.userFolder, "REPUTATION") || "") + "";
     user.type = me.getType() + "";
     user.badges = me.getBadges();
+
+    ixConnect.loginResult.clientInfo.language = me._lang;
 
     result = { success: true, user: user };
 
@@ -194,11 +209,9 @@ function RF_sol_knowledge_service_UserInfo_Get(iXSEContext, args) {
   config = sol.common.ix.RfUtils.parseAndCheckParams(iXSEContext, arguments.callee.name, args, "user");
 
   service = sol.create("sol.knowledge.ix.services.UserInfo", config);
-
   result = sol.common.ix.RfUtils.stringify(service.getUserInfo());
 
   logger.exit("RF_sol_knowledge_service_UserInfo_Get", result);
-
   return result;
 }
 
@@ -219,7 +232,6 @@ function RF_sol_knowledge_service_UserInfo_Set(iXSEContext, args) {
   result = sol.common.ix.RfUtils.stringify(service.setUserInfo());
 
   logger.exit("RF_sol_knowledge_service_UserInfo_Set", result);
-
   return result;
 }
 

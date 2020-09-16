@@ -88,6 +88,7 @@ sol.define("sol.knowledge.ix.BadgesUtils", {
 
   /**
    * Get Categoy Badges Array from JSON-Structure
+   * @param {String} language
    * @return {Object[]}
    */
   getCategoryBadges: function () {
