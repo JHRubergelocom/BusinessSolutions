@@ -136,7 +136,7 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
         i, bytes, byte, string, strings, sordMap,
         findInfo, findChildren, findByType,
         fileData1, fileData2, fileData3, wf1, wf2,
-        wfFindInfo, defaultAccessCode;
+        wf1name, wfFindInfo, defaultAccessCode;
 
     switch (me.className) {
       case "sol.common.MapTable":
@@ -450,6 +450,8 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
       case "sol.common.WfUtils":
         switch (me.method) {
           case "addWorkflowTemplateVersions":
+          case "addWorkflowTemplateWorkingVersion":
+            wf1name = me.params[0];
             wf1 = me.createWorkflowTemplate(me.params[0]);
             me.params[0] = wf1;
             wf2 = me.createWorkflowTemplate(me.params[1]);
@@ -560,8 +562,9 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
       case "sol.common.WfUtils":
         switch (me.method) {
           case "addWorkflowTemplateVersions":
-            ixConnect.ix().deleteWorkflowTemplate(wf1.id, 0, LockC.NO);
-            ixConnect.ix().deleteWorkflowTemplate(wf2.id, 0, LockC.NO);
+          case "addWorkflowTemplateWorkingVersion":
+            ixConnect.ix().deleteWorkflowTemplate(wf1name + "", "", LockC.NO);
+            ixConnect.ix().deleteWorkflowTemplate(wf1name + "", "", LockC.NO);
             break;
           case "createReminder":
             strings = [];

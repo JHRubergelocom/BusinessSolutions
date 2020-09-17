@@ -1,7 +1,7 @@
 
 describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
-  var WfUtilsSord, originalTimeout, assocs, mergeWorkflowTemplate,
-      originWorkflowTemplate, nodeName, cycleNo, comment, override, flowId, force, name,
+  var WfUtilsSord, originalTimeout, assocs, fromWorkflowTemplate,
+      toWorkflowTemplate, nodeName, cycleNo, comment, override, flowId, force, name,
       user, params, prio, wfDiagram, objId, wfName, workflowTemplateId, workflowId, file,
       config, workflowTemplateName, findWorkflowInfo, checkoutOptions, ixConn, currentNodeId,
       destinationNodeIds, filter, wfCollectNode, nodeId, filterConfig, filterType, sord, options,
@@ -54,13 +54,32 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
       });
       it("addWorkflowTemplateVersions", function (done) {
         expect(function () {
-          mergeWorkflowTemplate = "UnittestTemplate1WF";
-          originWorkflowTemplate = "UnittestTemplate2WF";
+          fromWorkflowTemplate = "UnittestTemplate1WF";
+          toWorkflowTemplate = "UnittestTemplate2WF";
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.WfUtils",
             classConfig: {},
             method: "addWorkflowTemplateVersions",
-            params: [mergeWorkflowTemplate, originWorkflowTemplate]
+            params: [fromWorkflowTemplate, toWorkflowTemplate]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("addWorkflowTemplateWorkingVersion", function (done) {
+        expect(function () {
+          fromWorkflowTemplate = "UnittestTemplate1WF";
+          toWorkflowTemplate = "UnittestTemplate2WF";
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.WfUtils",
+            classConfig: {},
+            method: "addWorkflowTemplateWorkingVersion",
+            params: [fromWorkflowTemplate, toWorkflowTemplate]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
