@@ -720,25 +720,6 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
           );
         }).not.toThrow();
       });
-      it("createObjKeys", function (done) {
-        expect(function () {
-          searchfields = [{ key: "key1", value: "value1" }, { key: "key2", value: "value2" }];
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib4", {
-            className: "sol.common.SordProvider",
-            classConfig: {},
-            method: "createObjKeys",
-            params: [searchfields]
-          }).then(function success(jsonResult) {
-            expect(jsonResult).toEqual(["[0,key1=value1]", "[0,key2=value2]"]);
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }).not.toThrow();
-      });
       it("createSordZ", function (done) {
         expect(function () {
           mbs = [3, 5];
@@ -848,6 +829,25 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
             params: [query]
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual(" (*)  (query1) ");
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("extractSearchOpts", function (done) {
+        expect(function () {
+          fields = [{ key: "key1", value: "value1" }, { key: "key2", value: "value2" }, { key: "XDATEISO", value: "20200101" }, { key: "IDATEISO", value: "20200202" }];
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib4", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "extractSearchOpts",
+            params: [fields]
+          }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual({ xDateIso: "20200101", iDateIso: "20200202", objKeys: ["[0,key1=value1]", "[0,key2=value2]"] });
             done();
           }, function error(err) {
             fail(err);

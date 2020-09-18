@@ -44,6 +44,8 @@ importPackage(Packages.de.elo.ix.client);
  *       { "key": "RETRIEVAL_DATE", "value": "-0000-00-30...+0000-00-00", "type": "date" }  // range using offset (-30days to today)
  *     ]
  *
+ * If you need to search for an xDateIso or iDateIso, simply define XDATEISO or IDATEISO as the search-key.
+ *
  * Date searches are only implemented for FindByIndex searches. Fuzzy/FindDirect searches will not work!
  *
  * #### Fuzzy Search (getContextTerms)
@@ -467,6 +469,10 @@ importPackage(Packages.de.elo.ix.client);
  *       ]
  *     }
  *
+ * @elojc
+ * @eloas
+ * @eloix
+ *
  * @author ESt, ELO Digital Office GmbH
  *
  */
@@ -859,28 +865,41 @@ sol.define("sol.common.SordProvider", {
       }, "");
   },
 
-  createObjKeys: function (searchfields) {
-    var me = this;
-    if (!Array.isArray(searchfields)) {
+  extractSearchOpts: function (fields) {
+    var me = this, opts = {}, objKeys = [];
+    if (!Array.isArray(fields)) {
       throw "SordProvider: searchfields must be an array of objects!";
     }
-    return searchfields.map(function (searchfield) {
-      if ((typeof searchfield !== "object") || (typeof searchfield.key !== "string" && searchfield.key) || ((typeof searchfield.value !== "string") && (!Array.isArray(searchfield.value)))) {
+    fields.forEach(function (field) {
+      if ((typeof field !== "object") || (typeof field.key !== "string" && field.key) || ((typeof field.value !== "string") && (!Array.isArray(field.value)))) {
         throw "SordProvider: searchfield is no object, or key or value not suited for searching";
       }
-      if (Array.isArray(searchfield.value) && !searchfield.value.length) {
-        throw "SordProvider: " + searchfield.key + ": it is not allowed to use empty arrays as a search value.";
+      if (Array.isArray(field.value) && !field.value.length) {
+        throw "SordProvider: " + field.key + ": it is not allowed to use empty arrays as a search value.";
       }
-      return me.createObjKey(searchfield.key, me.parseSearchValue(searchfield.value));
+      if (field.key === "XDATEISO") {
+        opts.xDateIso = field.value;
+      } else if (field.key === "IDATEISO") {
+        opts.iDateIso = field.value;
+      } else {
+        objKeys.push(me.createObjKey(field.key, me.parseSearchValue(field.value)));
+      }
     });
+    if (!(objKeys.length || opts.xDateIso || opts.iDateIso)) {
+      throw "SordProvider: no search criteria defined!";
+    }
+    objKeys.length && (opts.objKeys = objKeys);
+    return opts;
   },
 
   buildFindByIndex: function (masks, searchfields) {
-    var me = this, findByIndex = new FindByIndex();
-    if (searchfields !== undefined) {
-      findByIndex.objKeys = me.createObjKeys(searchfields);
-    }
+    var me = this, findByIndex = new FindByIndex(), opts = me.extractSearchOpts(searchfields);
+
+    opts.objKeys && (findByIndex.objKeys = opts.objKeys);
+    opts.xDateIso && (findByIndex.XDateIso = opts.xDateIso);
+    opts.iDateIso && (findByIndex.IDateIso = opts.iDateIso);
     findByIndex.maskIds = masks;
+
     return findByIndex;
   },
 
@@ -1857,6 +1876,9 @@ sol.define("sol.common.SordProvider", {
  * The passed config will be stringified and parsed to create a copy of it. This reduces
  * bugs. If you already pass a copied configuration into this function, you can disable
  * the copy mechanism by defining { copy: false } as the fourth parameter.
+ * @elojc
+ * @eloas
+ * @eloix
  */
 sol.define("sol.common.SordProviderUtils", {
   singleton: true,

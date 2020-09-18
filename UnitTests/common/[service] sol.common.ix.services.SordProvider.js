@@ -55,10 +55,11 @@ describe("[service] sol.common.ix.services.SordProvider", function () {
           test.Utils.execute("RF_sol_common_service_SordProvider", {
             ids: [objUnittestId],
             output: [
-              { source: {
-                type: "SORD", key: "guid"
+              { 
+                source: {
+                  type: "SORD", key: "guid"
+                }
               }
-            }
             ]
           }).then(function success(jsonResult) {
             expect(jsonResult.sords).toBeDefined();
@@ -75,10 +76,10 @@ describe("[service] sol.common.ix.services.SordProvider", function () {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_SordProvider", {
             masks: ["UnitTest"],
-            search: [],
+            search: [{ key: "UNITTEST_FIELD1", value: "Unittest" }],
             output: [
-               { source: { type: "SORD", key: "guid" }, target: { prop: "guid" } },
-               { source: { type: "SORD", key: "name" }, target: { prop: "name" } }
+              { source: { type: "SORD", key: "guid" }, target: { prop: "guid" } },
+              { source: { type: "SORD", key: "name" }, target: { prop: "name" } }
             ]
           }).then(function success(jsonResult) {
             expect(jsonResult.sords).toBeDefined();
@@ -100,8 +101,8 @@ describe("[service] sol.common.ix.services.SordProvider", function () {
               { key: "UNITTEST_FIELD2", value: "A*" }
             ],
             output: [
-               { source: { type: "SORD", key: "guid" }, target: { prop: "guid" } },
-               { source: { type: "SORD", key: "name" }, target: { prop: "name" } }
+              { source: { type: "SORD", key: "guid" }, target: { prop: "guid" } },
+              { source: { type: "SORD", key: "name" }, target: { prop: "name" } }
             ]
           }).then(function success(jsonResult) {
             expect(jsonResult.sords).toBeDefined();
@@ -119,12 +120,12 @@ describe("[service] sol.common.ix.services.SordProvider", function () {
           test.Utils.execute("RF_sol_common_service_SordProvider", {
             masks: [""],
             search: [
-                   { key: "UNITTEST_FIELD2", value: objUnittestField2 }
+              { key: "UNITTEST_FIELD2", value: objUnittestField2 }
             ],
             output: [
-                   { source: { type: "SORD", key: "guid" }, target: { prop: "guid" } },
-                   { source: { type: "GRP", key: "UNITTEST_FIELD1" }, target: { prop: "Unittest Feld1" } },
-                   { source: { type: "GRP", key: "UNITTEST_FIELD2" }, target: { prop: "Unittest Feld2" } }
+              { source: { type: "SORD", key: "guid" }, target: { prop: "guid" } },
+              { source: { type: "GRP", key: "UNITTEST_FIELD1" }, target: { prop: "Unittest Feld1" } },
+              { source: { type: "GRP", key: "UNITTEST_FIELD2" }, target: { prop: "Unittest Feld2" } }
             ],
             options: {
               allowEmptyMask: true,
@@ -145,7 +146,7 @@ describe("[service] sol.common.ix.services.SordProvider", function () {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_SordProvider", {
             masks: ["UnitTest"],
-            search: [],
+            search: [{ key: "UNITTEST_FIELD1", value: "Unittest" }],
             output: [
               { source: { type: "SORD", key: "guid" }, target: { prop: "guid" } },
               { source: { type: "SORD", key: "name" }, target: { prop: "name" } }
@@ -168,7 +169,7 @@ describe("[service] sol.common.ix.services.SordProvider", function () {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_SordProvider", {
             masks: ["UnitTest"],
-            search: [],
+            search: [{ key: "UNITTEST_FIELD1", value: "Unittest" }],
             output: [
               { source: { type: "SORD", key: "guid" }, target: { prop: "guid" } },
               { source: { type: "SORD", key: "name" }, target: { prop: "name" } }
@@ -191,7 +192,7 @@ describe("[service] sol.common.ix.services.SordProvider", function () {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_SordProvider", {
             masks: ["UnitTest"],
-            search: [],
+            search: [{ key: "UNITTEST_FIELD1", value: "Unittest" }],
             output: [
               { source: { type: "SORD", key: "guid" }, target: { prop: "guid" } },
               { source: { type: "SORD", key: "name" }, target: { prop: "name" } }
@@ -214,7 +215,7 @@ describe("[service] sol.common.ix.services.SordProvider", function () {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_SordProvider", {
             masks: [],
-            search: [],
+            search: [{ key: "UNITTEST_FIELD1", value: "Unittest" }],
             output: [
               { source: { type: "SORD", key: "guid" }, target: { prop: "guid" } },
               { source: { type: "SORD", key: "name" }, target: { prop: "name" } }
@@ -249,12 +250,14 @@ describe("[service] sol.common.ix.services.SordProvider", function () {
             ],
             options: {
               searchId: searchId,
-              pageSize: 3
+              pageSize: 2
             }
           }).then(function success(jsonResult) {
             expect(jsonResult.moreResults).toBeDefined();
             expect(jsonResult.sords).toBeDefined();
-            expect(jsonResult.sords.length).toEqual(3);
+            expect(jsonResult.sords.length).toEqual(2);
+            expect(jsonResult.searchId).toBeDefined();
+            searchId = jsonResult.searchId;
             done();
           }, function error(err) {
             fail(err);
@@ -264,23 +267,24 @@ describe("[service] sol.common.ix.services.SordProvider", function () {
           );
         }).not.toThrow();
       });
-      it("Define the following, to retrieve 10 search results starting from the 3rd result", function (done) {
+      it("Define the following, to retrieve 5 search results starting from the 2rd result", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_SordProvider", {
             masks: [""],
+            search: [{ key: "UNITTEST_FIELD1", value: "Unittest" }],
             output: [
               { source: { type: "SORD", key: "guid" }, target: { prop: "guid" } },
               { source: { type: "SORD", key: "name" }, target: { prop: "name" } }
             ],
             options: {
               searchId: searchId,
-              startPagingFrom: 2,
-              pageSize: 10
+              startPagingFrom: 1,
+              pageSize: 5
             }
           }).then(function success(jsonResult) {
             expect(jsonResult.moreResults).toBeDefined();
             expect(jsonResult.sords).toBeDefined();
-            expect(jsonResult.sords.length).toEqual(10);
+            expect(jsonResult.sords.length).toEqual(5);
             done();
           }, function error(err) {
             fail(err);
@@ -318,7 +322,7 @@ describe("[service] sol.common.ix.services.SordProvider", function () {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_SordProvider", {
             masks: ["UnitTest"],
-            search: [],
+            search: [{ key: "UNITTEST_FIELD1", value: "Unittest" }],
             output: [
               { source: { type: "SORD", key: "guid" }, target: { prop: "guid" } },
               { source: { type: "SORD", key: "name" }, target: { prop: "name" } },
@@ -341,7 +345,7 @@ describe("[service] sol.common.ix.services.SordProvider", function () {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_SordProvider", {
             masks: ["UnitTest"],
-            search: [],
+            search: [{ key: "UNITTEST_FIELD1", value: "Unittest" }],
             output: [
               { source: { type: "SORD", key: "guid" }, target: { prop: "guid" } },
               { source: { type: "SORD", key: "name" }, target: { prop: "name" } }
@@ -365,7 +369,7 @@ describe("[service] sol.common.ix.services.SordProvider", function () {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_SordProvider", {
             masks: ["UnitTest"],
-            search: [],
+            search: [{ key: "UNITTEST_FIELD1", value: "Unittest" }],
             output: [
               { source: { type: "SORD", key: "guid" }, target: { prop: "xxxx" } },
               { source: { type: "SORD", key: "name" }, target: { prop: "yyyy" } }
@@ -390,7 +394,7 @@ describe("[service] sol.common.ix.services.SordProvider", function () {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_SordProvider", {
             masks: ["UnitTest"],
-            search: [],
+            search: [{ key: "UNITTEST_FIELD1", value: "Unittest" }],
             output: [
               { source: { type: "SORD", key: "guid" }, target: { prop: "xxxx" } },
               { source: { type: "SORD", key: "name" }, target: { prop: "yyyy" } }
@@ -416,7 +420,7 @@ describe("[service] sol.common.ix.services.SordProvider", function () {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_SordProvider", {
             masks: ["UnitTest"],
-            search: [],
+            search: [{ key: "UNITTEST_FIELD1", value: "Unittest" }],
             output: [
               { source: { type: "SORD", key: "name" }, target: { prop: "name" } },
               { source: { type: "MAP", key: "U*" }, target: { prop: "*" } }
@@ -437,7 +441,7 @@ describe("[service] sol.common.ix.services.SordProvider", function () {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_SordProvider", {
             masks: ["UnitTest"],
-            search: [],
+            search: [{ key: "UNITTEST_FIELD1", value: "Unittest" }],
             output: [
               { source: { type: "SORD", key: "name" }, target: { prop: "name" } },
               { source: { type: "SORD", key: "desc" }, target: { prop: "desc" } }
@@ -459,12 +463,33 @@ describe("[service] sol.common.ix.services.SordProvider", function () {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_SordProvider", {
             masks: [],
-            search: [],
+            search: [{ key: "UNITTEST_FIELD1", value: "Unittest" }],
             output: [
               { source: { type: "SORD", key: "name" }, target: { prop: "name" } },
               { source: { type: "SORD", key: "desc" }, target: { prop: "desc" } }
             ],
             options: { allowEmptyMask: true }
+          }).then(function success(jsonResult) {
+            expect(jsonResult.sords).toBeDefined();
+            expect(jsonResult.sords.length).toBeGreaterThan(0);
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("Search for an xDateIso and iDateIso", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_common_service_SordProvider", {
+            masks: [],
+            search: [{ key: "XDATEISO", value: "20180101...20200101" }, { key: "IDATEISO", value: "20180101...20190101" }],
+            output: [
+              { source: { type: "SORD", key: "name" }, target: { prop: "name" } },
+              { source: { type: "SORD", key: "desc" }, target: { prop: "desc" } }
+            ]
           }).then(function success(jsonResult) {
             expect(jsonResult.sords).toBeDefined();
             expect(jsonResult.sords.length).toBeGreaterThan(0);
