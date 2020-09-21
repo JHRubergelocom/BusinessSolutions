@@ -1,0 +1,3 @@
+﻿tabs¶document_form
+210_document,220_general_readonly,230_company_readonly,240_contract_data_readonly,250_partner_readonly¶sol.contract.form.documentData¶
+310_additional_info,320_email_info¶sol.contract.form.document.additionalinfo¶
