@@ -1,5 +1,5 @@
 
-describe("[action] sol.hr.ix.actions.okPersonnelFileAccess", function () {
+describe("[action] sol.hr.ix.actions.InquirePersonnelFileAccess", function () {
   var personnelFileTypes, objIdHr,
       configAction, wfInfo, succNodes, succNodesIds, interval,
       userNode, nodes, userNodeId,
