@@ -719,7 +719,7 @@ describe("[action] sol.recruiting.ix.actions.CreateRequisition", function () {
             subWfs.push(subWorkflows[key]);
           }
           for (i = 0; i < subWfs.length; i++) {
-            if (subWfs[i].templateName == "sol.recruiting.Requisition.DynAdHoc") {
+            if (subWfs[i].templateName == "sol.recruiting.Requisition.DynAdHoc_20200916151743175") {
               subWf = subWfs[i];
               subWfFlowId = subWf.id;
               nodes = test.Utils.getActiveUserNodes(subWf);
@@ -953,7 +953,7 @@ describe("[action] sol.recruiting.ix.actions.CreateRequisition", function () {
             subWfs.push(subWorkflows[key]);
           }
           for (i = 0; i < subWfs.length; i++) {
-            if (subWfs[i].templateName == "sol.recruiting.Requisition.DynAdHoc") {
+            if (subWfs[i].templateName == "sol.recruiting.Requisition.DynAdHoc_20200916151743175") {
               subWf = subWfs[i];
               subWfFlowId = subWf.id;
               nodes = test.Utils.getActiveUserNodes(subWf);
@@ -1053,7 +1053,7 @@ describe("[action] sol.recruiting.ix.actions.CreateRequisition", function () {
             subWfs.push(subWorkflows[key]);
           }
           for (i = 0; i < subWfs.length; i++) {
-            if (subWfs[i].templateName == "sol.recruiting.Requisition.DynAdHoc") {
+            if (subWfs[i].templateName == "sol.recruiting.Requisition.DynAdHoc_20200916151743175") {
               subWf = subWfs[i];
               subWfFlowId = subWf.id;
               nodes = test.Utils.getActiveUserNodes(subWf);
