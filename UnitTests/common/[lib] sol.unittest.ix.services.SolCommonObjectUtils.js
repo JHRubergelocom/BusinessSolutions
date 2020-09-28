@@ -1,6 +1,6 @@
 
 describe("[lib] sol.unittest.ix.services.SolCommonObjectUtils", function () {
-  var originalTimeout, arr, cb, a, custom,
+  var originalTimeout, arr, cb, a, custom, wc, str, ignoreCase,
       o, val, customProp, customCallback, callback, context, keyPropName,
       object, path, customPropName, include, exclude, base, log, assignCallback,
       recursionCheck, mergeList, preserveCustom, columnIndex, jsArray, params, should,
@@ -31,6 +31,25 @@ describe("[lib] sol.unittest.ix.services.SolCommonObjectUtils", function () {
             classConfig: {},
             method: "arrayFind",
             params: [arr, cb]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("arrayToRegExp", function (done) {
+        expect(function () {
+          arr = ["value1", "value2"];
+          wc = 2;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib1", {
+            className: "sol.common.ObjectUtils",
+            classConfig: {},
+            method: "arrayToRegExp",
+            params: [arr, wc]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
@@ -472,6 +491,26 @@ describe("[lib] sol.unittest.ix.services.SolCommonObjectUtils", function () {
             params: [arr, columnIndex]
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual([[2, 9], [3, 4], [7, 2]]);
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("stringToRegExp", function (done) {
+        expect(function () {
+          str = "Text1";
+          wc = 2;
+          ignoreCase = false;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib1", {
+            className: "sol.common.ObjectUtils",
+            classConfig: {},
+            method: "stringToRegExp",
+            params: [str, wc, ignoreCase]
+          }).then(function success(jsonResult) {
             done();
           }, function error(err) {
             fail(err);

@@ -468,22 +468,20 @@ sol.define("sol.common.ObjectUtils", {
         } else if (Array.isArray(val)) {
           if (!(arrObj = sol.common.ObjectUtils.findObjInArray(val, key, customPropName))) {
             arrObj = {};
-            arrObj[customPropName || id] = key;
+            arrObj[customPropName || "id"] = key;
             val.push(arrObj);
           }
           curr = arrObj;
         } else if (val == null || overwrite) {
           curr = (curr[key] = {});
         } else {
-          throw "path part `" + key + "` was not an object. Set overwrite to true to perform this action ..."
+          throw "path part `" + key + "` was not an object. Pass true as 'overwrite' parameter to perform this action ..."
         }
       });
       curr[targetProp] = value;
     } else if (targetProp !== "") {
         object[targetProp] = value;
-    }
-
-     else if (path === "" || path === undefined) {
+    } else if (path === "" || path === undefined) {
       throw "path must be defined in setProp"
     }
 
@@ -540,6 +538,68 @@ sol.define("sol.common.ObjectUtils", {
     }
 
     return javaArray;
+  },
+
+  /**
+   *
+   * @param {*} arr
+   * @param {*} wc
+   */
+  arrayToRegExp: function (arr, wc) {
+    var compl, len = arr.length,
+        addBitwiseOR = function (query, index, length) {
+          return ((index + 1 < length) && (query += "|")), query;
+        };
+
+    compl = arr.reduce(function (acc, str, i) {
+      if (typeof str !== "string") {
+        throw "filter: only string elements are allowed for filter criteria arrays";
+      }
+      return acc + addBitwiseOR("^" + str + "$", i, len);
+    }, "");
+
+    return new RegExp(compl.replace(new RegExp("\\" + wc, "g"), "." + wc));
+  },
+
+  /**
+   * @param {*} str
+   * @param {*} wc
+   * @param {*} ignoreCase
+   */
+  stringToRegExp: function (str, wc, ignoreCase) {
+    return new RegExp("^" + str.replace(new RegExp("\\" + wc, "g"), "." + wc), (ignoreCase ? "i" : ""));
+  },
+});
+
+sol.define("sol.common.mixins.ObjectFilter", {
+  mixin: true,
+
+  generateFilter: function (filter) {
+    if (!Array.isArray(filter)) {
+      throw "filter must be an array of objects!";
+    }
+
+    filter.forEach(function (criterion) {
+      if ((typeof criterion !== "object") || (typeof criterion.prop !== "string" && criterion.prop) || ((typeof criterion.value !== "string") && (!Array.isArray(criterion.value)))) {
+        throw "filter criterion is no object, or prop or value not suited for filtering";
+      }
+      criterion.value = (typeof criterion.value === "string" 
+        ? sol.common.ObjectUtils.stringToRegExp 
+        : sol.common.ObjectUtils.arrayToRegExp
+      )(criterion.value, "*");
+    });
+
+    return filter;
+  },
+
+  matchObject: function (filter, obj) {
+    var k = 0, kLen = filter.length, curFil,
+        match = true;
+
+    while (k < kLen && (match = (curFil = filter[k]).value.test(sol.common.ObjectUtils.getProp(obj, curFil.prop)))) {
+      k++;
+    }
+    return match;
   }
 });
 
