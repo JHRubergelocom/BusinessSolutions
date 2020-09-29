@@ -1,0 +1,13 @@
+{
+  "setupName": "sol.meeting [unit tests]",
+
+  "fileNamePrefix": "70",
+
+  "workflowTemplates": [
+  ],
+
+  "sordTypes": [
+  ],
+
+  "gitPackagePath": "C:/Git/solutions/meeting.git/Business Solutions/Unit Tests"
+}

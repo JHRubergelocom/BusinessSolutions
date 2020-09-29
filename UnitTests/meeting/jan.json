@@ -33,6 +33,10 @@
         {
             "folder": "../demo.git/Business Solutions/common",
             "elo": "/Business Solutions/demo"
-        }
+        },
+        {
+            "folder": "./Business Solutions/Unit Tests",
+            "elo": "/Business Solutions/meeting [unit tests]"
+        }        
     ]
 }
