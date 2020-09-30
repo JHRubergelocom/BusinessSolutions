@@ -60,7 +60,38 @@ describe("[function] sol.common.ix.functions.ForEach", function () {
     }).not.toThrow();
   });
   describe("test cases foreach", function () {
-    it("option dryRun true", function (done) {
+    it("option dryRun true, test filter without callback function", function (done) {
+      expect(function () {
+        test.Utils.execute("RF_sol_common_function_ForEach", {
+          objId: objForEachId,
+          columns: { map: ["COL"] },
+          options: {
+            elementArg: "sordMetadata",
+            elementAsTemplateSord: true,
+            filter: [{ prop: "sordMetadata.mapKeys.COL", value: "*2" }],
+            deleteAfterUse: true,
+            dryRun: true
+          },
+          callback: {
+            name: "RF_"
+          }      
+        }).then(function success(jsonResult) {
+          expect(jsonResult.data.length).toEqual(1);
+          expect(jsonResult.data[0].sordMetadata.mapKeys.COL).toEqual("Value2");
+          expect(jsonResult.data[0].$rowIndex).toEqual(2);
+          expect(jsonResult.deleteInstructions[0].type).toEqual("MAP");
+          expect(jsonResult.deleteInstructions[0].key).toEqual("COL2");
+          expect(jsonResult.deleteInstructions[0].value).toEqual("");
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("option dryRun true, test callback function parameter", function (done) {
       expect(function () {
         test.Utils.execute("RF_sol_common_function_ForEach", {
           objId: objForEachId,
@@ -74,14 +105,14 @@ describe("[function] sol.common.ix.functions.ForEach", function () {
           },
           callback: {
             name: "RF_sol_function_Set",
-            args: { objId: objForEachId, entries: [{ type: "MAP", key: "MAP_VALUE1", value: "mapValue1" }] }
+            args: { objId: objForEachId, entries: [{ type: "MAP", key: "MAP_VALUE1", value: "{{sord.mapKeys.COL2}}" }] }
           }      
         }).then(function success(jsonResult) {
           expect(jsonResult.data[0].sordMetadata.mapKeys.COL).toEqual("Value2");
           expect(jsonResult.data[0].$rowIndex).toEqual(2);
           expect(jsonResult.data[0].entries[0].type).toEqual("MAP");
           expect(jsonResult.data[0].entries[0].key).toEqual("MAP_VALUE1");
-          expect(jsonResult.data[0].entries[0].value).toEqual("mapValue1");
+          expect(jsonResult.data[0].entries[0].value).toEqual("Value2");
           expect(jsonResult.deleteInstructions[0].type).toEqual("MAP");
           expect(jsonResult.deleteInstructions[0].key).toEqual("COL2");
           expect(jsonResult.deleteInstructions[0].value).toEqual("");
@@ -94,7 +125,8 @@ describe("[function] sol.common.ix.functions.ForEach", function () {
         );
       }).not.toThrow();
     });
-    it("option dryRun omitted", function (done) {
+
+    it("option dryRun false", function (done) {
       expect(function () {
         test.Utils.execute("RF_sol_common_function_ForEach", {
           objId: objForEachId,
@@ -103,11 +135,12 @@ describe("[function] sol.common.ix.functions.ForEach", function () {
             elementArg: "sordMetadata",
             elementAsTemplateSord: true,
             filter: [{ prop: "sordMetadata.mapKeys.COL", value: "*2" }],
-            deleteAfterUse: true
+            deleteAfterUse: true,
+            dryRun: false
           },
           callback: {
             name: "RF_sol_function_Set",
-            args: { objId: objForEachId, entries: [{ type: "MAP", key: "MAP_VALUE1", value: "mapValue1" }] }
+            args: { objId: objForEachId, entries: [{ type: "MAP", key: "MAP_VALUE1", value: "{{sord.mapKeys.COL2}}" }] }
           }      
         }).then(function success(jsonResult) {
           done();
@@ -122,7 +155,7 @@ describe("[function] sol.common.ix.functions.ForEach", function () {
     it("Compare Values", function (done) {
       test.Utils.getSord(objForEachId).then(function success(sordForEach) {
         test.Utils.getMapValue(objForEachId, "MAP_VALUE1").then(function success1(mapValue1) {
-          expect("mapValue1").toEqual(mapValue1);
+          expect("Value2").toEqual(mapValue1);
           done();
         }, function error(err) {
           fail(err);
