@@ -1,13 +1,14 @@
 
-describe("[action] sol.meeting.ix.actions.CreateMeeting", function () {
-  var objTempId, configAction, wfInfo, succNodes, succNodesIds, objIdM1,
-      originalTimeout, configTypes, meetingTypes;
+describe("[action] sol.meeting.ix.actions.AddParticipants", function () {
+  var objTempId, configAction, wfInfo, succNodes, succNodesIds, objIdM,
+      originalTimeout, configTypes, meetingTypes, interval;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
-      test.Utils.createTempSord("Actions.CreateMeeting", null, null).then(function success(objTempId1) {
+      test.Utils.createTempSord("Actions.AddParticipants", null, null).then(function success(objTempId1) {
+        interval = 4000;
         objTempId = objTempId1;
         done();
       }, function error(err) {
@@ -18,7 +19,7 @@ describe("[action] sol.meeting.ix.actions.CreateMeeting", function () {
       );
     }).not.toThrow();
   });
-  describe("test create meeting", function () {
+  describe("test add participants", function () {
     it("should not throw if executed without parameter", function (done) {
       expect(function () {
         test.Utils.execute("RF_sol_common_action_Standard", {
@@ -109,19 +110,10 @@ describe("[action] sol.meeting.ix.actions.CreateMeeting", function () {
         );
       }).not.toThrow();
     });
-    it("wfInfo.objId must be available", function () {
-      expect(wfInfo.objId).toBeDefined();
-    });
-    it("wfInfo.flowId must be available", function () {
-      expect(wfInfo.flowId).toBeDefined();
-    });
-    it("wfInfo.nodeId must be available", function () {
-      expect(wfInfo.nodeId).toBeDefined();
-    });
     it("fill meeting sord", function (done) {
       expect(function () {
         test.Utils.getSord(wfInfo.objId).then(function success(sordM1) {
-          objIdM1 = wfInfo.objId;
+          objIdM = wfInfo.objId;
           test.Utils.updateKeywording(sordM1, { 
             MEETING_NAME: "Testmeeting", 
             MEETING_LOCATION: "Musterstadt",
@@ -129,7 +121,7 @@ describe("[action] sol.meeting.ix.actions.CreateMeeting", function () {
             MEETING_ENDDATE: "202005071800"
           }, true).then(function success1(updateKeywordingResult) {
             test.Utils.updateSord(sordM1, [{ key: "desc", value: "Unittest Testmeeting" }]).then(function success2(updateSordResult) {
-              test.Utils.updateMapData(objIdM1, { 
+              test.Utils.updateMapData(objIdM, { 
                 MEETING_TIMESLOT_DAY1: "20200505",
                 MEETING_TIMESLOT_START1: "1300", 
                 MEETING_TIMESLOT_END1: "1700",
@@ -140,20 +132,7 @@ describe("[action] sol.meeting.ix.actions.CreateMeeting", function () {
                 MEETING_TIMESLOT_START3: "1500", 
                 MEETING_TIMESLOT_END3: "1800"
               }).then(function success3(updateMapDataResult) {
-                test.Utils.updateWfMapData(wfInfo.flowId, objIdM1, { 
-                  MEETING_PARTICIPANT_LASTNAME1: "Administrator",
-                  MEETING_PARTICIPANT_FIRSTNAME1: "Administrator",
-                  MEETING_PARTICIPANT_EMAIL1: "Administrator@elo.com",
-                  MEETING_PARTICIPANT_ELOUSER1: "0",
-                  MEETING_INVITATION_STATUS1: "INVITED"
-                }).then(function success4(updateWfMapDataResult) {
-                  done();
-                }, function error(err) {
-                  fail(err);
-                  console.error(err);
-                  done();
-                }
-                );
+                done();
               }, function error(err) {
                 fail(err);
                 console.error(err);
@@ -221,51 +200,17 @@ describe("[action] sol.meeting.ix.actions.CreateMeeting", function () {
       }).not.toThrow();
     });
   });
-  describe("test cancel createmeeting", function () {
-    it("meetingTypes must be available", function (done) {
-      configTypes = {
-        $types: { 
-          path: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/meeting/Configuration/Meeting types", 
-          maxDescLength: 255 
-        } 
-      };
-      test.Utils.execute("RF_sol_meeting_service_GetMeetingTypes", configTypes).then(function success(meetingTypes1) {
-        meetingTypes = meetingTypes1;
-        expect(meetingTypes).toBeDefined();
-        done();
-      }, function error(err) {
-        fail(err);
-        console.error(err);
-        done();
-      }
-      );
-    });
+  describe("test finish addparticipants", function () {
     it("start action create workflow", function (done) {
       expect(function () {
         configAction = {
-          objId: objTempId,
-          $new: {
-            target: {
-              mode: "DEFAULT"
-            },
-            name: meetingTypes[0].name,
-            template: {
-              base: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/meeting/Configuration/Meeting types",
-              name: meetingTypes[0].specificMeetingType
-            }
-          },
-          $name: "CreateMeeting",
-          $metadata: {
-            solType: "MEETING",
-            owner: {
-              fromConnection: true
-            }
-          },
+          objId: objIdM,
+          $name: "AddParticipants",
           $wf: {
             template: {
-              name: "sol.meeting.CreateMeeting"
+              name: "sol.meeting.AddParticipants"
             },
-            name: "{{translate 'sol.meeting.create.prefix'}}-{{formatDate 'YYYYMMDDHHmmss'}}"
+            name: "{{translate 'sol.meeting.addParticipants.prefix'}}-{{formatDate 'YYYYMMDDHHmmss'}}"
           },
           $events: [
             {
@@ -275,8 +220,188 @@ describe("[action] sol.meeting.ix.actions.CreateMeeting", function () {
             {
               id: "GOTO",
               onWfStatus: "CREATED"
+            },
+            {
+              id: "FEEDBACK",
+              onWfStatus: "CREATE",
+              message: "{{translate 'sol.meeting.client.addParticipants.feedback.create'}}"
             }
-          ]
+          ]          
+        };
+        wfInfo = {};
+        test.Utils.executeIxActionHandler("RF_sol_common_action_Standard", configAction, []).then(function success(jsonResults) {
+          test.Utils.handleAllEvents(jsonResults).then(function success1(wfInfo1) {
+            wfInfo = wfInfo1;
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("wfInfo.objId must be available", function () {
+      expect(wfInfo.objId).toBeDefined();
+    });
+    it("wfInfo.flowId must be available", function () {
+      expect(wfInfo.flowId).toBeDefined();
+    });
+    it("wfInfo.nodeId must be available", function () {
+      expect(wfInfo.nodeId).toBeDefined();
+    });
+    it("fill participants", function (done) {
+      expect(function () {
+        test.Utils.updateWfMapData(wfInfo.flowId, wfInfo.objId, { 
+          MEETING_PARTICIPANT_LASTNAME1: "Administrator",
+          MEETING_PARTICIPANT_FIRSTNAME1: "Administrator",
+          MEETING_PARTICIPANT_EMAIL1: "Administrator@elo.com",
+          MEETING_PARTICIPANT_ELOUSER1: "0",
+          MEETING_INVITATION_STATUS1: "INVITED"
+        }).then(function success(updateWfMapDataResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("finish input forwarding workflow", function (done) {
+      expect(function () {
+        test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
+          succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.common.wf.node.ok");
+          succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
+          test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest finish input").then(function success1(forwardWorkflowTaskResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("remove workflows", function (done) {
+      expect(function () {
+        test.Utils.getFinishedWorkflows().then(function success(wfs) {
+          test.Utils.removeFinishedWorkflows(wfs).then(function success1(removeFinishedWorkflowsResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+  });
+  describe("test cancel addparticipants", function () {
+    it("start action create workflow", function (done) {
+      expect(function () {
+        configAction = {
+          objId: objIdM,
+          $name: "AddParticipants",
+          $wf: {
+            template: {
+              name: "sol.meeting.AddParticipants"
+            },
+            name: "{{translate 'sol.meeting.addParticipants.prefix'}}-{{formatDate 'YYYYMMDDHHmmss'}}"
+          },
+          $events: [
+            {
+              id: "DIALOG",
+              onWfStatus: ""
+            },
+            {
+              id: "GOTO",
+              onWfStatus: "CREATED"
+            },
+            {
+              id: "FEEDBACK",
+              onWfStatus: "CREATE",
+              message: "{{translate 'sol.meeting.client.addParticipants.feedback.create'}}"
+            }
+          ]          
         };
         wfInfo = {};
         test.Utils.executeIxActionHandler("RF_sol_common_action_Standard", configAction, []).then(function success(jsonResults) {
@@ -352,8 +477,22 @@ describe("[action] sol.meeting.ix.actions.CreateMeeting", function () {
     expect(function () {
       test.Utils.getTempfolder().then(function success(tempfolder) {
         test.Utils.deleteSord(tempfolder).then(function success1(deleteResult) {
-          test.Utils.deleteSord(objIdM1).then(function success2(deleteResult1) {
-            done();
+          test.Utils.deleteSord(objIdM).then(function success2(deleteResult1) {
+            test.Utils.getFinishedWorkflows().then(function success3(wfs) {
+              test.Utils.removeFinishedWorkflows(wfs).then(function success4(removeFinishedWorkflowsResult) {
+                done();
+              }, function error(err) {
+                fail(err);
+                console.error(err);
+                done();
+              }
+              );
+            }, function error(err) {
+              fail(err);
+              console.error(err);
+              done();
+            }
+            );
           }, function error(err) {
             fail(err);
             console.error(err);
