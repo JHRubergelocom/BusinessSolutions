@@ -1,14 +1,13 @@
 
-describe("[action] sol.meeting.ix.actions.AddParticipants", function () {
-  var objTempId, configAction, wfInfo, succNodes, succNodesIds, objIdM,
-      originalTimeout, configTypes, meetingTypes, interval;
+describe("[action] sol.meeting.ix.actions.ItemCreate", function () {
+  var objTempId, configAction, wfInfo, succNodes, succNodesIds, objIdM, objIdMI1,
+      originalTimeout, configTypes, meetingTypes, meetingItemTypes;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
-      test.Utils.createTempSord("Actions.AddParticipants", null, null).then(function success(objTempId1) {
-        interval = 4000;
+      test.Utils.createTempSord("Actions.ItemCreate", null, null).then(function success(objTempId1) {
         objTempId = objTempId1;
         done();
       }, function error(err) {
@@ -19,7 +18,7 @@ describe("[action] sol.meeting.ix.actions.AddParticipants", function () {
       );
     }).not.toThrow();
   });
-  describe("test add participants", function () {
+  describe("test item create", function () {
     it("should not throw if executed without parameter", function (done) {
       expect(function () {
         test.Utils.execute("RF_sol_common_action_Standard", {
@@ -200,17 +199,67 @@ describe("[action] sol.meeting.ix.actions.AddParticipants", function () {
       }).not.toThrow();
     });
   });
-  describe("test finish addparticipants", function () {
+  describe("test finish itemcreate meeting reference assigned", function () {
+    it("meetingItemTypes must be available", function (done) {
+      configTypes = {
+        $types: { 
+          path: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/meeting/Configuration/Meeting item types", 
+          maxDescLength: 255 
+        } 
+      };
+      test.Utils.execute("RF_sol_meeting_service_GetMeetingItemTypes", configTypes).then(function success(meetingItemTypes1) {
+        meetingItemTypes = meetingItemTypes1;
+        expect(meetingItemTypes).toBeDefined();
+        done();
+      }, function error(err) {
+        fail(err);
+        console.error(err);
+        done();
+      }
+      );
+    });
     it("start action create workflow", function (done) {
       expect(function () {
         configAction = {
           objId: objIdM,
-          $name: "AddParticipants",
+          $new: {
+            target: {
+              mode: "DEFAULT"
+            },
+            name: meetingItemTypes[0].name,
+            template: {
+              base: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/meeting/Configuration/Meeting item types",
+              name: meetingItemTypes[0].specificMeetingItemType
+            }
+          },
+          $name: "CreateMeetingItem",
+          $metadata: {
+            solType: "MEETING_ITEM",
+            owner: {
+              fromConnection: true
+            },
+            objKeys: [
+              {
+                key: "MEETING_REFERENCE",
+                value: "{{#ifCond sord.objKeys.SOL_TYPE '==' \"MEETING\"}}{{{sord.objKeys.MEETING_REFERENCE}}}{{/ifCond}}"
+              },
+              {
+                key: "MEETING_NAME",
+                value: "{{#ifCond sord.objKeys.SOL_TYPE '==' \"MEETING\"}}{{{sord.objKeys.MEETING_NAME}}}{{/ifCond}}"
+              }
+            ],
+            mapItems: [
+              {
+                key: "MEETING_GUID",
+                value: "{{#ifCond sord.objKeys.SOL_TYPE '==' \"MEETING\"}}{{{sord.guid}}}{{/ifCond}}"
+              }
+            ]
+          },
           $wf: {
             template: {
-              name: "sol.meeting.AddParticipants"
+              name: "sol.meeting.item.create"
             },
-            name: "{{translate 'sol.meeting.addParticipants.prefix'}}-{{formatDate 'YYYYMMDDHHmmss'}}"
+            name: "{{translate 'sol.meeting.item.create.prefix'}}-{{formatDate 'YYYYMMDDHHmmss'}}"
           },
           $events: [
             {
@@ -220,11 +269,6 @@ describe("[action] sol.meeting.ix.actions.AddParticipants", function () {
             {
               id: "GOTO",
               onWfStatus: "CREATED"
-            },
-            {
-              id: "FEEDBACK",
-              onWfStatus: "CREATE",
-              message: "{{translate 'sol.meeting.client.addParticipants.feedback.create'}}"
             }
           ]          
         };
@@ -256,16 +300,29 @@ describe("[action] sol.meeting.ix.actions.AddParticipants", function () {
     it("wfInfo.nodeId must be available", function () {
       expect(wfInfo.nodeId).toBeDefined();
     });
-    it("fill participants", function (done) {
+    it("fill item", function (done) {
       expect(function () {
-        test.Utils.updateWfMapData(wfInfo.flowId, wfInfo.objId, { 
-          MEETING_PARTICIPANT_LASTNAME1: "Administrator",
-          MEETING_PARTICIPANT_FIRSTNAME1: "Administrator",
-          MEETING_PARTICIPANT_EMAIL1: "Administrator@elo.com",
-          MEETING_PARTICIPANT_ELOUSER1: "0",
-          MEETING_INVITATION_STATUS1: "INVITED"
-        }).then(function success(updateWfMapDataResult) {
-          done();
+        test.Utils.getSord(wfInfo.objId).then(function success(sordMI1) {
+          test.Utils.updateKeywording(sordMI1, { 
+            MEETING_ITEM_TITLE: "Tagesordnungspunkt Unittest",
+            MEETING_ITEM_DURATION: "30",
+            MEETING_ITEM_RESPONSIBLE_PERSON: "Administrator",
+            MEETING_ITEM_SPEAKER: "Administrator"
+          }, true).then(function success1(updateKeywordingResult) {
+            test.Utils.updateSord(sordMI1, [{ key: "desc", value: "Unittest Tagesordnungspunkt" }]).then(function success2(updateSordResult) {
+              done();
+            }, function error(err) {
+              fail(err);
+              console.error(err);
+              done();
+            }
+            );
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
         }, function error(err) {
           fail(err);
           console.error(err);
@@ -295,10 +352,17 @@ describe("[action] sol.meeting.ix.actions.AddParticipants", function () {
         );
       }).not.toThrow();
     });
-    it("setTimeout (wait for elo as)", function (done) {
+    it("remove workflows", function (done) {
       expect(function () {
-        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
-          done();
+        test.Utils.getFinishedWorkflows().then(function success(wfs) {
+          test.Utils.removeFinishedWorkflows(wfs).then(function success1(removeFinishedWorkflowsResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
         }, function error(err) {
           fail(err);
           console.error(err);
@@ -307,10 +371,91 @@ describe("[action] sol.meeting.ix.actions.AddParticipants", function () {
         );
       }).not.toThrow();
     });
-    it("setTimeout (wait for elo as)", function (done) {
+  });
+  describe("test finish itemcreate meeting reference not assigned", function () {
+    it("meetingItemTypes must be available", function (done) {
+      configTypes = {
+        $types: { 
+          path: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/meeting/Configuration/Meeting item types", 
+          maxDescLength: 255 
+        } 
+      };
+      test.Utils.execute("RF_sol_meeting_service_GetMeetingItemTypes", configTypes).then(function success(meetingItemTypes1) {
+        meetingItemTypes = meetingItemTypes1;
+        expect(meetingItemTypes).toBeDefined();
+        done();
+      }, function error(err) {
+        fail(err);
+        console.error(err);
+        done();
+      }
+      );
+    });
+    it("start action create workflow", function (done) {
       expect(function () {
-        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
-          done();
+        configAction = {
+          objId: objTempId,
+          $new: {
+            target: {
+              mode: "DEFAULT"
+            },
+            name: meetingItemTypes[0].name,
+            template: {
+              base: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/meeting/Configuration/Meeting item types",
+              name: meetingItemTypes[0].specificMeetingItemType
+            }
+          },
+          $name: "CreateMeetingItem",
+          $metadata: {
+            solType: "MEETING_ITEM",
+            owner: {
+              fromConnection: true
+            },
+            objKeys: [
+              {
+                key: "MEETING_REFERENCE",
+                value: "{{#ifCond sord.objKeys.SOL_TYPE '==' \"MEETING\"}}{{{sord.objKeys.MEETING_REFERENCE}}}{{/ifCond}}"
+              },
+              {
+                key: "MEETING_NAME",
+                value: "{{#ifCond sord.objKeys.SOL_TYPE '==' \"MEETING\"}}{{{sord.objKeys.MEETING_NAME}}}{{/ifCond}}"
+              }
+            ],
+            mapItems: [
+              {
+                key: "MEETING_GUID",
+                value: "{{#ifCond sord.objKeys.SOL_TYPE '==' \"MEETING\"}}{{{sord.guid}}}{{/ifCond}}"
+              }
+            ]
+          },
+          $wf: {
+            template: {
+              name: "sol.meeting.item.create"
+            },
+            name: "{{translate 'sol.meeting.item.create.prefix'}}-{{formatDate 'YYYYMMDDHHmmss'}}"
+          },
+          $events: [
+            {
+              id: "DIALOG",
+              onWfStatus: ""
+            },
+            {
+              id: "GOTO",
+              onWfStatus: "CREATED"
+            }
+          ]          
+        };
+        wfInfo = {};
+        test.Utils.executeIxActionHandler("RF_sol_common_action_Standard", configAction, []).then(function success(jsonResults) {
+          test.Utils.handleAllEvents(jsonResults).then(function success1(wfInfo1) {
+            wfInfo = wfInfo1;
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
         }, function error(err) {
           fail(err);
           console.error(err);
@@ -319,10 +464,39 @@ describe("[action] sol.meeting.ix.actions.AddParticipants", function () {
         );
       }).not.toThrow();
     });
-    it("setTimeout (wait for elo as)", function (done) {
+    it("wfInfo.objId must be available", function () {
+      expect(wfInfo.objId).toBeDefined();
+    });
+    it("wfInfo.flowId must be available", function () {
+      expect(wfInfo.flowId).toBeDefined();
+    });
+    it("wfInfo.nodeId must be available", function () {
+      expect(wfInfo.nodeId).toBeDefined();
+    });
+    it("fill item", function (done) {
       expect(function () {
-        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
-          done();
+        objIdMI1 = wfInfo.objId;
+        test.Utils.getSord(wfInfo.objId).then(function success(sordMI1) {
+          test.Utils.updateKeywording(sordMI1, { 
+            MEETING_ITEM_TITLE: "Tagesordnungspunkt Unittest",
+            MEETING_ITEM_DURATION: "30",
+            MEETING_ITEM_RESPONSIBLE_PERSON: "Administrator",
+            MEETING_ITEM_SPEAKER: "Administrator"
+          }, true).then(function success1(updateKeywordingResult) {
+            test.Utils.updateSord(sordMI1, [{ key: "desc", value: "Unittest Tagesordnungspunkt" }]).then(function success2(updateSordResult) {
+              done();
+            }, function error(err) {
+              fail(err);
+              console.error(err);
+              done();
+            }
+            );
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
         }, function error(err) {
           fail(err);
           console.error(err);
@@ -331,22 +505,19 @@ describe("[action] sol.meeting.ix.actions.AddParticipants", function () {
         );
       }).not.toThrow();
     });
-    it("setTimeout (wait for elo as)", function (done) {
+    it("finish input forwarding workflow", function (done) {
       expect(function () {
-        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
-          done();
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
-    it("setTimeout (wait for elo as)", function (done) {
-      expect(function () {
-        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
-          done();
+        test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
+          succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.common.wf.node.ok");
+          succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
+          test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest finish input").then(function success1(forwardWorkflowTaskResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
         }, function error(err) {
           fail(err);
           console.error(err);
@@ -375,17 +546,67 @@ describe("[action] sol.meeting.ix.actions.AddParticipants", function () {
       }).not.toThrow();
     });
   });
-  describe("test cancel addparticipants", function () {
+  describe("test cancel itemcreate", function () {
+    it("meetingItemTypes must be available", function (done) {
+      configTypes = {
+        $types: { 
+          path: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/meeting/Configuration/Meeting item types", 
+          maxDescLength: 255 
+        } 
+      };
+      test.Utils.execute("RF_sol_meeting_service_GetMeetingItemTypes", configTypes).then(function success(meetingItemTypes1) {
+        meetingItemTypes = meetingItemTypes1;
+        expect(meetingItemTypes).toBeDefined();
+        done();
+      }, function error(err) {
+        fail(err);
+        console.error(err);
+        done();
+      }
+      );
+    });
     it("start action create workflow", function (done) {
       expect(function () {
         configAction = {
           objId: objIdM,
-          $name: "AddParticipants",
+          $new: {
+            target: {
+              mode: "DEFAULT"
+            },
+            name: meetingItemTypes[0].name,
+            template: {
+              base: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/meeting/Configuration/Meeting item types",
+              name: meetingItemTypes[0].specificMeetingItemType
+            }
+          },
+          $name: "CreateMeetingItem",
+          $metadata: {
+            solType: "MEETING_ITEM",
+            owner: {
+              fromConnection: true
+            },
+            objKeys: [
+              {
+                key: "MEETING_REFERENCE",
+                value: "{{#ifCond sord.objKeys.SOL_TYPE '==' \"MEETING\"}}{{{sord.objKeys.MEETING_REFERENCE}}}{{/ifCond}}"
+              },
+              {
+                key: "MEETING_NAME",
+                value: "{{#ifCond sord.objKeys.SOL_TYPE '==' \"MEETING\"}}{{{sord.objKeys.MEETING_NAME}}}{{/ifCond}}"
+              }
+            ],
+            mapItems: [
+              {
+                key: "MEETING_GUID",
+                value: "{{#ifCond sord.objKeys.SOL_TYPE '==' \"MEETING\"}}{{{sord.guid}}}{{/ifCond}}"
+              }
+            ]
+          },
           $wf: {
             template: {
-              name: "sol.meeting.AddParticipants"
+              name: "sol.meeting.item.create"
             },
-            name: "{{translate 'sol.meeting.addParticipants.prefix'}}-{{formatDate 'YYYYMMDDHHmmss'}}"
+            name: "{{translate 'sol.meeting.item.create.prefix'}}-{{formatDate 'YYYYMMDDHHmmss'}}"
           },
           $events: [
             {
@@ -395,13 +616,8 @@ describe("[action] sol.meeting.ix.actions.AddParticipants", function () {
             {
               id: "GOTO",
               onWfStatus: "CREATED"
-            },
-            {
-              id: "FEEDBACK",
-              onWfStatus: "CREATE",
-              message: "{{translate 'sol.meeting.client.addParticipants.feedback.create'}}"
             }
-          ]          
+          ]                 
         };
         wfInfo = {};
         test.Utils.executeIxActionHandler("RF_sol_common_action_Standard", configAction, []).then(function success(jsonResults) {
@@ -478,9 +694,17 @@ describe("[action] sol.meeting.ix.actions.AddParticipants", function () {
       test.Utils.getTempfolder().then(function success(tempfolder) {
         test.Utils.deleteSord(tempfolder).then(function success1(deleteResult) {
           test.Utils.deleteSord(objIdM).then(function success2(deleteResult1) {
-            test.Utils.getFinishedWorkflows().then(function success3(wfs) {
-              test.Utils.removeFinishedWorkflows(wfs).then(function success4(removeFinishedWorkflowsResult) {
-                done();
+            test.Utils.deleteSord(objIdMI1).then(function success3(deleteResult2) {
+              test.Utils.getFinishedWorkflows().then(function success4(wfs) {
+                test.Utils.removeFinishedWorkflows(wfs).then(function success5(removeFinishedWorkflowsResult) {
+                  done();
+                }, function error(err) {
+                  fail(err);
+                  console.error(err);
+                  done();
+                }
+                );
+  
               }, function error(err) {
                 fail(err);
                 console.error(err);
