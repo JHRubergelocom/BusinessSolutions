@@ -198,19 +198,177 @@ describe("[action] sol.meeting.ix.actions.ItemRegister", function () {
         );
       }).not.toThrow();
     });
+  });  
+  describe("create meeting item", function () {
+    it("meetingItemTypes must be available", function (done) {
+      configTypes = {
+        $types: { 
+          path: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/meeting/Configuration/Meeting item types", 
+          maxDescLength: 255 
+        } 
+      };
+      test.Utils.execute("RF_sol_meeting_service_GetMeetingItemTypes", configTypes).then(function success(meetingItemTypes1) {
+        meetingItemTypes = meetingItemTypes1;
+        expect(meetingItemTypes).toBeDefined();
+        done();
+      }, function error(err) {
+        fail(err);
+        console.error(err);
+        done();
+      }
+      );
+    });
+    it("start action create workflow", function (done) {
+      expect(function () {
+        configAction = {
+          objId: objIdM,
+          $new: {
+            target: {
+              mode: "DEFAULT"
+            },
+            name: meetingItemTypes[0].name,
+            template: {
+              base: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/meeting/Configuration/Meeting item types",
+              name: meetingItemTypes[0].specificMeetingItemType
+            }
+          },
+          $name: "CreateMeetingItem",
+          $metadata: {
+            solType: "MEETING_ITEM",
+            owner: {
+              fromConnection: true
+            },
+            objKeys: [
+              {
+                key: "MEETING_REFERENCE",
+                value: "{{#ifCond sord.objKeys.SOL_TYPE '==' \"MEETING\"}}{{{sord.objKeys.MEETING_REFERENCE}}}{{/ifCond}}"
+              },
+              {
+                key: "MEETING_NAME",
+                value: "{{#ifCond sord.objKeys.SOL_TYPE '==' \"MEETING\"}}{{{sord.objKeys.MEETING_NAME}}}{{/ifCond}}"
+              }
+            ],
+            mapItems: [
+              {
+                key: "MEETING_GUID",
+                value: "{{#ifCond sord.objKeys.SOL_TYPE '==' \"MEETING\"}}{{{sord.guid}}}{{/ifCond}}"
+              }
+            ]
+          },
+          $wf: {
+            template: {
+              name: "sol.meeting.item.create"
+            },
+            name: "{{translate 'sol.meeting.item.create.prefix'}}-{{formatDate 'YYYYMMDDHHmmss'}}"
+          },
+          $events: [
+            {
+              id: "DIALOG",
+              onWfStatus: ""
+            },
+            {
+              id: "GOTO",
+              onWfStatus: "CREATED"
+            }
+          ]          
+        };
+        wfInfo = {};
+        test.Utils.executeIxActionHandler("RF_sol_common_action_Standard", configAction, []).then(function success(jsonResults) {
+          test.Utils.handleAllEvents(jsonResults).then(function success1(wfInfo1) {
+            wfInfo = wfInfo1;
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("fill meeting item", function (done) {
+      expect(function () {
+        objIdMI = wfInfo.objId;
+        test.Utils.getSord(wfInfo.objId).then(function success(sordMI1) {
+          test.Utils.updateKeywording(sordMI1, { 
+            MEETING_ITEM_TITLE: "Tagesordnungspunkt Unittest",
+            MEETING_ITEM_DURATION: "30",
+            MEETING_ITEM_RESPONSIBLE_PERSON: "Administrator",
+            MEETING_ITEM_SPEAKER: "Administrator"
+          }, true).then(function success1(updateKeywordingResult) {
+            test.Utils.updateSord(sordMI1, [{ key: "desc", value: "Unittest Tagesordnungspunkt" }]).then(function success2(updateSordResult) {
+              done();
+            }, function error(err) {
+              fail(err);
+              console.error(err);
+              done();
+            }
+            );
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+        done();
+      }).not.toThrow();
+    });
+    it("finish input forwarding workflow", function (done) {
+      expect(function () {
+        test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
+          succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.common.wf.node.ok");
+          succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
+          test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest finish input").then(function success1(forwardWorkflowTaskResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("remove workflows", function (done) {
+      expect(function () {
+        test.Utils.getFinishedWorkflows().then(function success(wfs) {
+          test.Utils.removeFinishedWorkflows(wfs).then(function success1(removeFinishedWorkflowsResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
   });
-  
-  // TODO create meeting item
-
-  // TODO create meeting item
-  
-  
   describe("test finish itemregister", function () {
     it("check precondition register meeting item", function (done) {
       expect(function () {
         test.Utils.execute("RF_sol_meeting_service_RegisterMeetingItemPrecondition", { targetId: objIdMI }).then(function success(checkResult) {
-          expect(checkResult.valid).toBeDefined();
-          expect(checkResult.valid).toEqual(true);
           done();
         }, function error(err) {
           fail(err);
@@ -274,30 +432,16 @@ describe("[action] sol.meeting.ix.actions.ItemRegister", function () {
     it("wfInfo.nodeId must be available", function () {
       expect(wfInfo.nodeId).toBeDefined();
     });
-    // TODO
     it("fill register item", function (done) {
       expect(function () {
-        test.Utils.getSord(wfInfo.objId).then(function success(sordMI1) {
-          test.Utils.updateKeywording(sordMI1, { 
-            MEETING_ITEM_TITLE: "Tagesordnungspunkt Unittest",
-            MEETING_ITEM_DURATION: "30",
-            MEETING_ITEM_RESPONSIBLE_PERSON: "Administrator",
-            MEETING_ITEM_SPEAKER: "Administrator"
-          }, true).then(function success1(updateKeywordingResult) {
-            test.Utils.updateSord(sordMI1, [{ key: "desc", value: "Unittest Tagesordnungspunkt" }]).then(function success2(updateSordResult) {
-              done();
-            }, function error(err) {
-              fail(err);
-              console.error(err);
-              done();
-            }
-            );
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
+        test.Utils.updateWfMapData(wfInfo.flowId, wfInfo.objId, { 
+          MEETING_PARTICIPANT_LASTNAME1: "Administrator",
+          MEETING_PARTICIPANT_FIRSTNAME1: "Administrator",
+          MEETING_PARTICIPANT_EMAIL1: "Administrator@elo.com",
+          MEETING_PARTICIPANT_ROLE1: "Administrator Role",
+          MEETING_PARTICIPANT_INVITATIONS_STATUS1: "INVITED"
+        }).then(function success(updateWfMapDataResult) {
+          done();
         }, function error(err) {
           fail(err);
           console.error(err);
@@ -306,7 +450,6 @@ describe("[action] sol.meeting.ix.actions.ItemRegister", function () {
         );
       }).not.toThrow();
     });
-    // TODO
     it("finish input forwarding workflow", function (done) {
       expect(function () {
         test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
@@ -352,8 +495,6 @@ describe("[action] sol.meeting.ix.actions.ItemRegister", function () {
     it("check precondition register meeting item", function (done) {
       expect(function () {
         test.Utils.execute("RF_sol_meeting_service_RegisterMeetingItemPrecondition", { targetId: objIdMI }).then(function success(checkResult) {
-          expect(checkResult.valid).toBeDefined();
-          expect(checkResult.valid).toEqual(true);
           done();
         }, function error(err) {
           fail(err);
@@ -464,23 +605,16 @@ describe("[action] sol.meeting.ix.actions.ItemRegister", function () {
       test.Utils.getTempfolder().then(function success(tempfolder) {
         test.Utils.deleteSord(tempfolder).then(function success1(deleteResult) {
           test.Utils.deleteSord(objIdM).then(function success2(deleteResult1) {
-            test.Utils.deleteSord(objIdMI1).then(function success3(deleteResult2) {
-              test.Utils.getFinishedWorkflows().then(function success4(wfs) {
-                test.Utils.removeFinishedWorkflows(wfs).then(function success5(removeFinishedWorkflowsResult) {
-                  done();
-                }, function error(err) {
-                  fail(err);
-                  console.error(err);
-                  done();
-                }
-                );
-  
+            test.Utils.getFinishedWorkflows().then(function success4(wfs) {
+              test.Utils.removeFinishedWorkflows(wfs).then(function success5(removeFinishedWorkflowsResult) {
+                done();
               }, function error(err) {
                 fail(err);
                 console.error(err);
                 done();
               }
               );
+
             }, function error(err) {
               fail(err);
               console.error(err);
