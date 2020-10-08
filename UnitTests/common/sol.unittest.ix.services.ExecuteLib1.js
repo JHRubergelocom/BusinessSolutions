@@ -127,6 +127,9 @@ sol.define("sol.unittest.ix.services.ExecuteLib1", {
           case "isRegExp":
             me.params[0] = new RegExp("ab+c", "i");
             break;
+          case "traverse":
+            me.params[1] = function (key, obj) {
+            };
           default:
         }
         break;

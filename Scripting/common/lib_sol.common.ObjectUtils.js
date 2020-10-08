@@ -569,6 +569,25 @@ sol.define("sol.common.ObjectUtils", {
   stringToRegExp: function (str, wc, ignoreCase) {
     return new RegExp("^" + str.replace(new RegExp("\\" + wc, "g"), "." + wc), (ignoreCase ? "i" : ""));
   },
+
+  /**
+   * Traverses all nodes of an object tree
+   * @param {Object} obj Object
+   * @param {Function} func Function
+   */
+  traverse: function (obj, func) {
+    var me = this,
+        key;
+
+    for (key in obj) {
+      if (obj[key] != null) {
+        func.apply(this, [key, obj[key]]);
+        if (typeof (obj[key]) == "object") {
+          me.traverse(obj[key], func);
+        }
+      }
+    }
+  }
 });
 
 sol.define("sol.common.mixins.ObjectFilter", {
@@ -583,8 +602,8 @@ sol.define("sol.common.mixins.ObjectFilter", {
       if ((typeof criterion !== "object") || (typeof criterion.prop !== "string" && criterion.prop) || ((typeof criterion.value !== "string") && (!Array.isArray(criterion.value)))) {
         throw "filter criterion is no object, or prop or value not suited for filtering";
       }
-      criterion.value = (typeof criterion.value === "string" 
-        ? sol.common.ObjectUtils.stringToRegExp 
+      criterion.value = (typeof criterion.value === "string"
+        ? sol.common.ObjectUtils.stringToRegExp
         : sol.common.ObjectUtils.arrayToRegExp
       )(criterion.value, "*");
     });

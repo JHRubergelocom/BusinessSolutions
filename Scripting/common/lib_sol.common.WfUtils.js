@@ -155,60 +155,72 @@ sol.define("sol.common.WfUtils", {
    * Returns workflow diagram as JSON string
    * @param {String} flowId Workflow ID
    * @param {String} config Configuration
-   * @param {String} config.flowVersId Workflow version ID
-   * @param {Boolean} config.clearUsers Clears the owner name of the template
-   * @param {Boolean} config.nameSubWorkflowTemplates Clears the owner name of the template
+   * @param {Boolean} [config.clearUsers=false] Clear the owner names of the template
+   * @param {Boolean} [config.addSubTemplateInfo=false] Add sub template information
    * @return {String} JSON representation of the workflow diagram
    */
   getWorkflowAsJson: function (flowId, config) {
     var me = this,
-        fileData, workflowExportOptions, jsonData, dataObject, lastTypeId,
-        workflowNames;
+        fileData, workflowExportOptions, workflowTplJson, workflowTplObj;
 
     config = config || {};
+
+    if (config.addSubTemplateInfo) {
+      me.addSubTemplateInfo(flowId);
+    }
 
     workflowExportOptions = new WorkflowExportOptions();
     workflowExportOptions.flowId = flowId;
 
-    if (typeof config.flowVersId != "undefined") {
-      workflowExportOptions.flowVersId = config.flowVersId;
-    }
-
     workflowExportOptions.format = WorkflowExportOptionsC.FORMAT_JSON;
+    workflowExportOptions.flowVersId = "0";
+
     fileData = ixConnect.ix().exportWorkflow(workflowExportOptions);
-    jsonData = String(new java.lang.String(fileData.data, "UTF-8"));
+    workflowTplJson = String(new java.lang.String(fileData.data, "UTF-8"));
 
-    workflowNames = me.getAllWorkflowNamesFromJson(jsonData);
-    if (workflowNames.length > 1) {
-      config.nameSubWorkflowTemplates = false;
-    }
+    workflowTplObj = JSON.parse(workflowTplJson);
 
-    lastTypeId = 0;
-    dataObject = JSON.parse(jsonData);
-    jsonData = JSON.stringify(dataObject, function (key, value) {
-      if (key == "_typeId") {
-        lastTypeId = value;
+    sol.common.ObjectUtils.traverse(workflowTplObj, function (key, obj) {
+      if (config.clearUsers && (obj._typeId == me.wfVersionTypeId)) {
+        obj.userId = 0;
+        obj.userName = "";
       }
-
-      if (config.clearUsers) {
-        if ((lastTypeId == me.wfVersionTypeId) && (key == "userId")) {
-          return 0;
-        }
-        if ((lastTypeId == me.wfVersionTypeId) && (key == "userName")) {
-          return "";
-        }
-      }
-
-      if (config.nameSubWorkflowTemplates) {
-        if ((lastTypeId == me.wfNodeTypeId) && (key == "subTemplateId") && value) {
-          value = me.getWorkflowTemplateName(value);
-        }
-      }
-
-      return value;
     });
 
-    return jsonData;
+    workflowTplJson = JSON.stringify(workflowTplObj);
+
+    return workflowTplJson;
+  },
+
+  /**
+   * Adds sub template info
+   * @param {Integer} flowId Flow ID
+   */
+  addSubTemplateInfo: function (flowId) {
+    var me = this,
+        propertiesObj = {},
+        wfDiag, i, node;
+
+    wfDiag = ixConnect.ix().checkoutWorkflowTemplate(flowId, "", WFDiagramC.mbAll, LockC.NO);
+
+    for (i = 0; i < wfDiag.nodes.length; i++) {
+      node = wfDiag.nodes[i];
+
+      if (node.type != WFNodeC.TYPE_CALL_SUB_WORKFLOW) {
+        continue;
+      }
+
+      try {
+        propertiesObj = JSON.parse(node.properties);
+      } catch (ignore) {
+        // ignore
+      }
+      propertiesObj.subTemplateName = me.getWorkflowTemplateName(node.subTemplateId);
+
+      node.properties = JSON.stringify(propertiesObj, "", 2);
+    }
+
+    ixConnect.ix().checkinWorkFlow(wfDiag, WFDiagramC.mbAll, LockC.NO);
   },
 
   /**
@@ -243,19 +255,17 @@ sol.define("sol.common.WfUtils", {
    */
   getAllWorkflowNamesFromJson: function (workflowJson) {
     var me = this,
-        workflowNames = [], lastTypeId;
+        workflowNames = [], workflowTplObj;
 
     if (!workflowJson) {
       throw "Workflow JSON content is empty";
     }
 
-    JSON.parse(workflowJson, function (key, value) {
-      if (key == "_typeId") {
-        lastTypeId = value;
-      }
+    workflowTplObj = JSON.parse(workflowJson);
 
-      if ((lastTypeId == me.wfDiagramTypeId) && (key == "name") && value && (sol.common.ObjectUtils.isString(value))) {
-        workflowNames.push(value);
+    sol.common.ObjectUtils.traverse(workflowTplObj, function (key, obj) {
+      if (obj._typeId == me.wfDiagramTypeId) {
+        workflowNames.push(obj.name);
       }
     });
 
@@ -569,11 +579,13 @@ sol.define("sol.common.WfUtils", {
    * @param {java.io.File} file Import file
    * @param {Object} params Parameters
    * @param {Boolean} [params.replaceMissingUserByUserId=0] Replace a missing user by this user ID
-   * @return {String} Flow ID
+   * @return {Object} importResult Import result
+   * @return {Array} importResult.replacedSubTemplateIds Replaced sub template IDs
+   * @return {Integer} importResult.flowId Workflow ID
    */
   importWorkflow: function (workflowName, file, params) {
-    var me = this,
-        workflowJson, workflowData, workflowImportOptions, flowId;
+    var importResult = {},
+        workflowData, workflowImportOptions, workflowTemplateJson;
 
     if (!workflowName) {
       throw "Workflow name is empty";
@@ -589,42 +601,12 @@ sol.define("sol.common.WfUtils", {
     workflowImportOptions = new WorkflowImportOptions();
     workflowImportOptions.replaceMissingUserByUserId = params.replaceMissingUserByUserId;
 
-    workflowJson = Packages.org.apache.commons.io.FileUtils.readFileToString(file, "UTF-8") + "";
+    workflowTemplateJson = Packages.org.apache.commons.io.FileUtils.readFileToString(file, "UTF-8") + "";
 
-    if (params.replaceSubTemplateNames) {
-      workflowJson = me.replaceSubTemplateNamesInWorkflowJson(workflowJson);
-    }
+    workflowData = (new java.lang.String(workflowTemplateJson)).getBytes("UTF-8");
 
-    workflowData = (new java.lang.String(workflowJson)).getBytes("UTF-8");
-
-    flowId = ixConnect.ix().importWorkFlow2(workflowName, workflowData, workflowImportOptions);
-    return flowId;
-  },
-
-  /**
-   * Replaces the sub workflow names by the sub workflow IDs
-   * @param {String} workflowJson Workflow JSON
-   * @return {String} Workflow JSON with replaced sub workflow names
-   */
-  replaceSubTemplateNamesInWorkflowJson: function (workflowJson) {
-    var me = this,
-        workflowData, lastTypeId;
-
-    workflowData = JSON.parse(workflowJson);
-
-    workflowJson = JSON.stringify(workflowData, function (key, value) {
-      if (key == "_typeId") {
-        lastTypeId = value;
-      }
-
-      if ((lastTypeId == me.wfNodeTypeId) && (key == "subTemplateId") && value && (sol.common.ObjectUtils.isString(value))) {
-        value = me.getWorkflowTemplateId(value);
-      }
-
-      return value;
-    });
-
-    return workflowJson;
+    importResult.flowId = ixConnect.ix().importWorkFlow2(workflowName, workflowData, workflowImportOptions);
+    return importResult;
   },
 
   /**

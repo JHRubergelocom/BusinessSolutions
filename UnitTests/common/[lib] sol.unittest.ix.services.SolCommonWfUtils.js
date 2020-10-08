@@ -52,6 +52,24 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
           );
         }).not.toThrow();
       });
+      it("addSubTemplateInfo", function (done) {
+        expect(function () {
+          flowId = "UnittestTemplate1WF";
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.WfUtils",
+            classConfig: {},
+            method: "addSubTemplateInfo",
+            params: [flowId]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("addWorkflowTemplateVersions", function (done) {
         expect(function () {
           fromWorkflowTemplate = "UnittestTemplate1WF";
@@ -1267,24 +1285,6 @@ describe("[lib] sol.unittest.ix.services.SolCommonWfUtils", function () {
             classConfig: {},
             method: "renameWorkflowTemplate",
             params: [oldName, newName]
-          }).then(function success(jsonResult) {
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }).not.toThrow();
-      });
-      it("replaceSubTemplateNamesInWorkflowJson", function (done) {
-        expect(function () {
-          workflowJson = "{\"objectTable\": []}";
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
-            className: "sol.common.WfUtils",
-            classConfig: {},
-            method: "replaceSubTemplateNamesInWorkflowJson",
-            params: [workflowJson]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {

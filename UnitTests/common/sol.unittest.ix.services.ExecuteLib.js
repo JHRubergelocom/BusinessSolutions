@@ -449,6 +449,10 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
         break;
       case "sol.common.WfUtils":
         switch (me.method) {
+          case "addSubTemplateInfo":
+            wf1name = me.params[0];
+            me.createWorkflowTemplate(me.params[0]);
+            break;
           case "addWorkflowTemplateVersions":
           case "addWorkflowTemplateWorkingVersion":
             wf1name = me.params[0];
@@ -480,6 +484,7 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
             me.params[0] = wf1;
             break;
           case "importWorkflow":
+            wf1name = me.params[0];
             new File(me.params[1]).createNewFile();
             me.params[1] = new File(me.params[1]);
             cls.exportWorkflow(me.classConfig.workflowId, me.params[1]);
@@ -561,6 +566,9 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
         break;
       case "sol.common.WfUtils":
         switch (me.method) {
+          case "addSubTemplateInfo":
+            ixConnect.ix().deleteWorkflowTemplate(wf1name + "", "", LockC.NO);
+            break;
           case "addWorkflowTemplateVersions":
           case "addWorkflowTemplateWorkingVersion":
             ixConnect.ix().deleteWorkflowTemplate(wf1name + "", "", LockC.NO);
@@ -579,7 +587,7 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
             ixConnect.ix().deleteWorkflowTemplate(wf1.id, 0, LockC.NO);
             break;
           case "importWorkflow":
-            ixConnect.ix().deleteWorkflowTemplate(result, 0, LockC.NO);
+            ixConnect.ix().deleteWorkflowTemplate(wf1name + "", "", LockC.NO);
             break;
           default:
         }

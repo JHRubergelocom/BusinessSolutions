@@ -15,10 +15,12 @@ importPackage(Packages.de.elo.ix.client);
 
 
 /**
- * Iterates over a sord's MapTable(s) and calls a registered function for each table row.
+ * Iterates over a sord's MapTable(s) or elements provided via parameter or a service call and calls a registered function for each element.
  *
- * Each row is passed to the function as parameter. The parameter name must be defined
+ * Each row/element is passed to the function as parameter. The parameter name must be defined
  * as options.elementArg and could be called "sordMetadata".
+ *
+ * Scroll down for an example using a service as data source instead of a MAPTABLE.
  *
  * ### Example: Short Intro
  *
@@ -195,33 +197,33 @@ importPackage(Packages.de.elo.ix.client);
  *
  * ### Filtering
  * If you want that only specific rows would be passed to the callback, you can define filter rules in
- * the options. For each row, all of the given filter will be applied and only matching objects will 
+ * the options. For each row, all of the given filter will be applied and only matching objects will
  * be kept and passed to the callback function. It doesn't matter if you're using map table or wfMap table.
  * The crucial point ist, that your filter prop path is matching a object path of the result object.
  * The output format is depending on elementAsTemplateSord option or your moveValues operations.
- * 
+ *
  * The filter will be applied after the moveValue operation.
- * 
+ *
  *
  * #### Applying a filter with single filter value
  *
- *  {
- *      "options": {
+ *     {
+ *       "options": {
  *         "filter": [
- *            { "prop" : "sordMetadata.mapKeys.SOLUTION_FIELD", value: "A -*"}
- *
+ *           { "prop" : "sordMetadata.mapKeys.SOLUTION_FIELD", value: "A -*"}
  *         ]
- *      }
- *  }
+ *       }
+ *     }
+ *
  * #### Applying a filter with multiple filter values
- *   {
- *      "options": {
- *         "filter": [
- *            { "prop" : "sordMetadata.mapKeys.SOLUTION_FIELD", value: ["A -*", "B -*"]}
- *         ]
- *      }
- *   }
  *
+ *     {
+ *       "options": {
+ *         "filter": [
+ *           { "prop" : "sordMetadata.mapKeys.SOLUTION_FIELD", value: ["A -*", "B -*"]}
+ *         ]
+ *       }
+ *     }
  *
  * #### Returns
  *
@@ -229,6 +231,71 @@ importPackage(Packages.de.elo.ix.client);
  * would have been sent during each function call if `options.dryRun` is set to true.
  *
  *     { data: [{ objId: "12345", flowId: "33" }] }
+ *
+ *
+ * ### Complete Example: Use service results (e.g. sords) as data source
+ *
+ * If your data is not contained in a MAPTABLE, you can also use an external service to provide e.g. sords.
+ *
+ * In this example, we want to find all courses in the archive using the RF_sol_common_service_SordProvider as `elementService`.
+ * Then, we want to prepend "POPULAR" to each course's name, when the course has a 5 star rating, using the RF_sol_function_Set function.
+ *
+ * To enable access to the element's data when the callback is prepared for execution, we define `renderArgsWithElement": true`.
+ * This enables the use of the element's data in the `callback.args` object's strings.
+ *
+ *     {
+ *       "elementService": {
+ *         "name": "RF_sol_common_service_SordProvider",
+ *         "args": {
+ *           "masks": ["Course"],
+ *           "search": [{ "key": "SOL_TYPE", "value": ["COURSE"] }],
+ *           "output": [
+ *             { "source": { "type": "SORD", "key": "id" }, "target": { "prop": "id" } },
+ *             { "source": { "type": "GRP", "key": "COURSE_NAME" }, "target": { "prop": "name" } },
+ *             { "source": { "type": "MAP", "key": "COURSE_STAR_SCORE" }, "target": { "prop": "stars" } }
+ *           ]
+ *         }
+ *       },
+ *       "options": {
+ *         "elementArg": "data",
+ *         "moveValues": { "id": "objId" }, // the SET-function we use in the callback needs an objId.
+ *         "renderArgsWithElement": true,
+ *         "filter": [ { "prop": "data.stars", "value": "5" } ], // since SordProvider supports filtering too, we could have filtered above instead of here
+ *         "dryRun": true // set this to false to actually execute the SET function in the end
+ *       },
+ *       "callback": {
+ *         "name": "RF_sol_function_Set",
+ *         "args": {
+ *           "entries": [ { "type": "GRP", "key": "COURSE_NAME", "value": "POPULAR: {{{element.data.name}}}" }]
+ *         }
+ *       }
+ *     }
+ *
+ * Info: instead of moving the `id` to `objId` using the `moveValues` option, we also could have defined `objId: "{{element.data.id}}"`
+ * in the `callback.args` object.
+ *
+ * Attention: Only services which return an array of objects as the `sords` or `elements` property can be used with the ForEach function.
+ *
+ * #### Result
+ *
+ *     {
+ *       "args": [
+ *         {
+ *           "data": { "name": "BS ELO Contract", "stars": "5" } }
+ *           "objId": "5204",
+ *           "entries": [ { "type": "GRP", "key": "COURSE_NAME", "value": "POPULAR: BS ELO Contract" } ]
+ *         },
+ *         {
+ *           "data": { "name": "BS ELO Learning", "stars": "5" } }
+ *           "objId": "5442",
+ *           "entries": [ { "type": "GRP", "key": "COURSE_NAME", "value": "POPULAR: BS ELO Learning" } ]
+ *         }
+ *       ],
+ *       "excluded": 7  // number of elements which did not match the filter criteria
+ *     }
+ *
+ * If `dryRun` is set to false, the SET-function will be called with each of the two objects in the `args` array.
+ *
  *
  * @author ESt, ELO Digital Office GmbH
  * @version 1.0
@@ -251,10 +318,11 @@ sol.define("sol.common.ix.functions.ForEach", {
 
   mixins: ["sol.common.mixins.Inject", "sol.common.mixins.ObjectFilter"],
 
-  requiredConfig: ["objId", "columns", "callback"],
+  requiredConfig: ["callback"],
 
   inject: {
-    sord: { sordIdFromProp: "objId", flowIdFromProp: "flowId" },
+    sord: { sordIdFromProp: "objId", flowIdFromProp: "flowId", optional: true },
+    originalConfig: { jsonFromProp: "configStr", forTemplating: false, template: false },
     config: { jsonFromProp: "configStr", forTemplating: false, template: true },
     flowId: { prop: "flowId", forTemplating: true }
   },
@@ -274,6 +342,9 @@ sol.define("sol.common.ix.functions.ForEach", {
   * @cfg {Boolean}[options.deleteAfterUse = false] (optional) if set it to true, all applied rows to the callback function will be deleted. If dryRun = true, deleteInstructions will only be returned.
   * @cfg {Object[]} options.filter filter rules which will be applied to each row
   * @cfg {String} options.protectedFields.Object.* property names are the source paths, property values are the target paths for moving values in the parame
+  * @cfg {Object} elementService
+  * @cfg {String} elementService.name name of RF service (e.g. "RF_sol_common_service_SordProvider")
+  * @cfg {Object} elementService.args additional arguments for the service
   */
 
   /**
@@ -307,7 +378,6 @@ sol.define("sol.common.ix.functions.ForEach", {
   /**
    * Helpers
    */
-
   buildTable: function (columns, sord) {
     var me = this, mapTypes = Object.keys(columns);
     function createEmptyTable() {
@@ -354,7 +424,7 @@ sol.define("sol.common.ix.functions.ForEach", {
 
   convertToElements: function (table, opt) {
     var me = this, elementArg = opt.elementArg, asTemplateSord = opt.elementAsTemplateSord,
-        moveDef = opt.moveValues, data = table.data, info = table.info,
+        data = table.data, info = table.info,
         columns = Object.keys(data), elements;
 
     function createBlankElementsArray () {
@@ -378,7 +448,7 @@ sol.define("sol.common.ix.functions.ForEach", {
       }, {});
 
       element[elementArg] = tmp;
-
+      element.$rowIndex = rowNo;  // we need the index later for the deleteInstructions
       return notEmpty && element;
     }
 
@@ -390,17 +460,12 @@ sol.define("sol.common.ix.functions.ForEach", {
       }, { mapKeys: {}, wfMapKeys: {} });
 
       element[elementArg] = tmp;
+      element.$rowIndex = rowNo;  // we need the index later for the deleteInstructions
       return notEmpty && element;
     }
 
     function truthy (o) {
       return o[elementArg];
-    }
-
-    function mv (mvKeys, element) {
-      return mvKeys.forEach(function (source) {
-        me.moveVal(element[elementArg], element, source, moveDef[source]);
-      }) || element;
     }
 
     me.logger.info("Converting table to elements. Columns: " + columns);
@@ -411,14 +476,13 @@ sol.define("sol.common.ix.functions.ForEach", {
 
     me.logger.info("Extracted " + elements.length + " elements from table");
 
-    return moveDef
-      ? elements.map(mv.bind(null, Object.keys(moveDef)))
-      : elements
+    return elements;
   },
 
   forEachElement: function (elements, opts, cbOpts) {
-    var me = this, preparedArgs;
-    function prepareCallbackArgs (args, curIndex) {
+    var me = this, preparedArgs, args = cbOpts.args;
+    function prepareCallbackArg (element) {
+      var freshArgs = args;
       function deepMerge (a, b) {
         return Object.keys(b).forEach(function (p) {
           a[p] = (me.isObj(a[p]) && me.isObj(b[p]))
@@ -426,30 +490,32 @@ sol.define("sol.common.ix.functions.ForEach", {
             : b[p];
         }) || a;
       }
-      args.$rowIndex = curIndex + 1;  // we need the index later for the deleteInstructions
-      return deepMerge(args, cbOpts.args);
+      if (opts.renderArgsWithElement) {
+        me.$templatingData.element = element;
+        freshArgs = JSON.parse(sol.common.TemplateUtils.render(freshArgs, me.$templatingData));
+      }
+      return deepMerge(element, freshArgs);
     }
 
-    function executeCb (args) {
+    function executeCb (params) {
       var rfName = cbOpts.name;
-      return me.executeCallback(rfName, args);
+      return me.executeCallback(rfName, params);
     }
 
     me.logger.info("Preparing arguments for callbacks");
 
     preparedArgs = elements
-      .map(prepareCallbackArgs)
-      .filter(me.matchObject.bind(null, opts.filter)); // apply all passed filter
+      .map(prepareCallbackArg)
+      .filter(me.matchObject.bind(null, opts.filter));
 
     me.logger.info("Callbacks will be executed for " + preparedArgs.length + " elements");
     return opts.dryRun
-      ? (me.logger.info("Dry run: No callback executed. Returning args"), preparedArgs)
-      : preparedArgs.map(executeCb);
-
+      ? (me.logger.info("Dry run: No callback executed. Returning args"), { args: preparedArgs })
+      : { args: preparedArgs, results: preparedArgs.map(executeCb) };
   },
 
-  sanitizeConfig: function (cfg) {
-    var me = this;
+  sanitizeConfig: function (cfg, sordsProvided) {
+    var me = this, result = {};
     function filterArrayStrings (arr) {
       return arr.map(me.validStr).filter(me.validStr);
     }
@@ -481,6 +547,18 @@ sol.define("sol.common.ix.functions.ForEach", {
       return { name: name, args: args }
     }
 
+    function elementService (opt) {
+      var name = opt.name, args = opt.args || {};
+      if (!((name = me.validStr(name)) && name.indexOf("RF_") === 0)) {
+        throw "`elementService.name` must be a string starting with 'RF_' (a valid registered service)`: " + name;
+      }
+      if (args && !me.isObj(args)) {
+        throw "`elementService.args` must be an object if it is defined. current type: " + typeof args;
+      }
+      me.logger.info("elementService config ok");
+      return { name: name, args: args }
+    }
+
     function options (opt) {
       var elArg = opt.elementArg, mvVals = opt.moveValues, filters, mvKeys = [];
 
@@ -491,6 +569,7 @@ sol.define("sol.common.ix.functions.ForEach", {
       if (mvVals && !(me.isObj(mvVals) && (mvKeys = filterArrayStrings(Object.keys(mvVals))).length)) {
         throw "`options.moveValues` must be an object containing min. 1 property with a string value if it is defined. current type: " + typeof mvVals;
       }
+
       mvKeys.length && (mvVals = (mvKeys || []).reduce(function (acc, key) {
         var val = me.validStr(mvVals[key]);
         if (!val) {
@@ -503,83 +582,143 @@ sol.define("sol.common.ix.functions.ForEach", {
       filters = me.generateFilter(me.options.filter || []);
 
       me.logger.info("options ok");
+
       return {
         elementArg: elArg,
         elementAsTemplateSord: opt.elementAsTemplateSord,
-        deleteAfterUse: opt.deleteAfterUse || false,
+        deleteAfterUse: opt.deleteAfterUse,
+        renderArgsWithElement: opt.renderArgsWithElement,
         moveValues: mvVals,
         filter: filters,
         dryRun: opt.dryRun
       }
     }
-
     me.logger.info("sanitizing config");
-    return {
-      columns: columns(cfg.columns),
-      callback: callback(cfg.callback),
-      options: options(cfg.options)
+
+    me.isObj(cfg.elementService) && (result.elementService = elementService(cfg.elementService));
+
+    if ((sordsProvided || (sordsProvided = !!result.elementService)) && cfg.options.deleteAfterUse) {
+      throw "`An `elementService` or `sords` were defined. `deleteAfterUse` option can only be used on MAPTABLES`.";
     }
-  },
+    result.sordsProvided = sordsProvided;
 
-  process: function () {
-    var me = this, config, table, elements, data, deleteInstructions;
+    !sordsProvided && (result.columns = columns(cfg.columns));
+    result.options = options(cfg.options);
+    result.callback = callback(cfg.callback);
 
-    config = me.sanitizeConfig(me.config);
-    table = me.buildTable(config.columns, me.sord)
-    elements = me.convertToElements(table, config.options);
-    data = me.forEachElement(elements, config.options, config.callback);
+    if (result.options.renderArgsWithElement) {
+      result.callback.args = sol.common.JsonUtils.stringifyQuick(me.originalConfig.callback.args);
+    }
 
-    // we generate deleteInstructions here, so we can print it in dryRun mode
-    deleteInstructions = config.options.deleteAfterUse 
-      ? me.generateDeleteInstructions(data, table) 
-      : [];
 
-    !config.options.dryRun 
-        && config.options.deleteAfterUse 
-        && me.executeDeleteInstructions(deleteInstructions)
-
-    return { data: data, deleteInstructions: deleteInstructions || [] };
+    return result;
   },
 
   executeDeleteInstructions: function(deleteInstructions) {
     var me = this;
-    if (deleteInstructions 
-        && sol.common.ObjectUtils.isArray(deleteInstructions) 
-        && deleteInstructions.length > 0){
+    if (deleteInstructions.length){
       me.logger.info("used table rows will be unset")
-      sol.common.IxUtils.execute("RF_sol_function_Set", {
+      me.executeCallback("RF_sol_function_Set", {
         objId: me.objId,
+        flowId: me.flowId,
         entries: deleteInstructions
       });
-
     } else {
       me.logger.info("nothing to delete. DeleteInstructions are empty");
     }
   },
 
-  /**
-   * 
-   * @param {*} columns 
-   */
-  generateDeleteInstructions: function(data, table) {
-     var typeMapping = {mapKeys: "MAP", wfMapKeys: "WFMAP"}, deleteInstructions = [], allAppliedRowIndicies;
+  generateDeleteInstructions: function(elements, table) {
+    var type, typeMapping = { mapKeys: "MAP", wfMapKeys: "WFMAP" },
+        deleteInstructions = [], appliedRowIndices = [];
 
-     allAppliedRowIndicies = // returns [2,4,5] all rows which will apply to the callback
-        data.map(function(el){ return el.$rowIndex; }); 
+    elements.forEach(function(el) {  // build lookup array: rows for which the callback was executed
+      appliedRowIndices[el.$rowIndex] = true;
+    });
 
-     for (var columnName in table.data) {
-        deleteInstructions = table.data[columnName].reduce(function(acc,_, curIndex){
-          var fieldIndex = curIndex + 1;
-          // notice {table: {info: SOLUTION_FIELD: "mapKeys"}}
-          allAppliedRowIndicies.indexOf(fieldIndex) >= 0 // we can't seperate to a array filter function because we would lost the index info
-            ? acc.push({type: typeMapping[table.info[columnName]], key: columnName + fieldIndex, value: ""}) // If we set it to empty, the whole key will be deleted
-            : undefined
-          return acc;
-        }, deleteInstructions);
-     }
+    Object.keys(table.data).forEach(function (columnName) {
+      type = typeMapping[table.info[columnName]]; // {table: {info: SOLUTION_FIELD: "mapKeys"}} => "MAP"
 
-     return deleteInstructions;
-  }
+      table.data[columnName].forEach(function(_, curIndex){
+        appliedRowIndices[curIndex]
+          && deleteInstructions.push({ type: type, key: columnName + (curIndex + 1), value: "" });
+      });
+    });
+
+    return deleteInstructions;
+  },
+
+  mv: function (opts, element) {
+    var me = this, elementArg = opts.elementArg,
+        moveDef = opts.moveValues, mvKeys = Object.keys(moveDef);
+    return mvKeys.forEach(function (source) {
+      me.moveVal(element[elementArg], element, source, moveDef[source]);
+    }) || element;
+  },
+
+  sordsToElements: function (sords, opt) {
+    var me = this, elementArg = opt.elementArg, elements;
+
+    function toElement (sord) {
+      var element = {};
+      element[elementArg] = sord;
+      return element;
+    }
+
+    elements = sords.map(toElement);
+
+    me.logger.info("Created " + elements.length + " elements from sords");
+
+    return elements;
+  },
+
+  executeElementService: function (cfg) {
+    var me = this, elements;
+    elements = (me.executeCallback(cfg.name, cfg.args || {}) || {});
+    elements = elements.sords || elements.elements;
+    if (!Array.isArray(elements)) {
+      throw "The RF defined as `elementService` must return an object containing a property `sords` or `elements` which contains an array (of objects)";
+    }
+    return elements;
+  },
+
+  process: function () {
+    var me = this, config, table, elements, data, deleteInstructions,
+        sords = me.sords || me.elements, result = {};
+
+    config = me.sanitizeConfig(me.config, Array.isArray(sords));
+
+    if (config.sordsProvided) {
+      config.elementService
+        && (sords = me.executeElementService(config.elementService));
+      elements = me.sordsToElements(sords, config.options);
+    } else {
+      table = me.buildTable(config.columns, me.sord);
+      elements = me.convertToElements(table, config.options);
+    }
+
+    config.options.moveValues
+      && (elements = elements.map(me.mv.bind(me, config.options)));
+
+    data = me.forEachElement(elements, config.options, config.callback);
+
+    if (config.options.deleteAfterUse) {
+      deleteInstructions = me.generateDeleteInstructions(data.args, table)
+      if (config.options.dryRun) {
+        result.deleteInstructions = deleteInstructions;
+      } else {
+        me.executeDeleteInstructions(deleteInstructions)
+      }
+    }
+
+    if (config.options.dryRun) {
+      result.args = data.args;
+      result.excluded = elements.length - data.args.length;
+    }
+    result.data = data.results;
+
+    return result;
+  },
 });
 
 /**

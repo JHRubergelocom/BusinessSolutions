@@ -4,7 +4,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonObjectUtils", function () {
       o, val, customProp, customCallback, callback, context, keyPropName,
       object, path, customPropName, include, exclude, base, log, assignCallback,
       recursionCheck, mergeList, preserveCustom, columnIndex, jsArray, params, should,
-      value, overwrite;
+      value, overwrite, obj, func;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -529,6 +529,25 @@ describe("[lib] sol.unittest.ix.services.SolCommonObjectUtils", function () {
             classConfig: {},
             method: "toJavaArray",
             params: [jsArray, params]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("traverse", function (done) {
+        expect(function () {
+          obj = { key1: "value1", key2: { key3: "value3" } };
+          func = "function1";
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib1", {
+            className: "sol.common.ObjectUtils",
+            classConfig: {},
+            method: "traverse",
+            params: [obj, func]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
