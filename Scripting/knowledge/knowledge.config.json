@@ -268,6 +268,8 @@
     "boardName": "ELO Community",
     "cacheReloadInSeconds": 5,
     "earliestReloadCacheInMinutes": 1,
+    "allowEditReplyBeforeChangeToComment": false,
+    "getDefaultFlagForUpdateDateOnMove": false,
     "additionalPostInfo": {
       "maxUsers": 10,
       "maxRelatedPosts": 8

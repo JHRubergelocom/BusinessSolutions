@@ -61,6 +61,18 @@ sol.define("sol.knowledge.ix.services.MovePost", {
    * Target Space
    */
 
+  /**
+   * @cfg {String} [comment=""] (optional)
+   * Comment
+   */
+  comment: "",
+
+  /**
+   * @cfg {Boolean} [changeDate=true] (optional)
+   * If `true`, the date will be changed
+   */
+  changeDate: true,
+
   initialize: function (params) {
     var me = this;
     me.$super("sol.common.ix.ServiceBase", "initialize", [params]);
@@ -74,7 +86,7 @@ sol.define("sol.knowledge.ix.services.MovePost", {
    */
   movePost: function () {
     var me = this,
-        space, post, postId, flowName, flowNameData;
+        space, post, postId, flowName, flowNameData, XDateIsoOld;
 
     if (!me.postGuid) {
       throw "InitializationException: 'postGuid' has to be defined";
@@ -112,15 +124,36 @@ sol.define("sol.knowledge.ix.services.MovePost", {
     });
 
     post = ixConnect.ix().checkoutSord(me.postGuid, SordC.mbAllIndex, LockC.NO);
+    XDateIsoOld = post.XDateIso;
 
     if (me.containsClassName(me.knowledgeConfig.updateXDateServices)) {
       post.XDateIso = sol.common.SordUtils.nowIsoForConnection();
     }
+
+    if (me.changeDate === false) {
+      post.XDateIso = XDateIsoOld;
+    }
+
     postId = ixConnect.ix().checkinSord(post, SordC.mbAllIndex, LockC.NO);
 
     flowNameData = { sordName: String(post.name) };
     flowName = sol.create("sol.common.Template", { source: me.knowledgeConfig.workflows.movePost.workflowNameTemplate }).apply(flowNameData);
     sol.common.WfUtils.startWorkflow(me.knowledgeConfig.workflows.movePost.workflowTemplate, flowName, post.id);
+
+    if (!me.comment.equals("")) {
+      sol.common.IxUtils.execute("RF_sol_function_FeedComment", {
+        objId: postId,
+        text: me.comment,
+        data: []
+      });
+    }
+
+    if (me.changeDate === true) {
+      sol.common.IxUtils.execute("RF_sol_function_IsoDate", {
+        objId: postId,
+        group: me.knowledgeConfig.workflows.movePost.nodes.editedDate
+      });    
+    }    
 
     me.registerUpdates(post);
 
