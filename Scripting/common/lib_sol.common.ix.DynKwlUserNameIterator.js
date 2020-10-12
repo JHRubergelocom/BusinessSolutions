@@ -90,6 +90,7 @@ sol.define("sol.common.ix.DynKwlUserNameIterator", {
 
     me.tableTitle = config.tableTitle || me.tableTitle || terms.translate("sol.common.dynkwl.userNames.tableTitle");
     me.tableHeaders = config.tableHeaders || me.tableHeaders || [null, terms.translate("sol.common.dynkwl.userNames.header.name")];
+    me.userIdFieldName = config.userIdFieldName;
 
     me.errorMessage = "";
     me.log.exit("initialize");

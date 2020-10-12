@@ -198,8 +198,6 @@ sol.define("sol.knowledge.ix.services.Comment", {
       action.userId = userInfoReply.id;
       action.userGuid = userInfoReply.guid;
       action.userName = userInfoReply.name;
-      action.createDateIso = sordReply.XDateIso;
-      action.updateDateIso = sol.common.SordUtils.nowIsoForConnection();
       feedActionId = ixConnectAdmin.feedService.checkinAction(action, ActionC.mbAll);
     }
 

@@ -86,7 +86,8 @@ sol.define("sol.knowledge.ix.services.MovePost", {
    */
   movePost: function () {
     var me = this,
-        space, post, postId, flowName, flowNameData, XDateIsoOld;
+        space, post, postId, flowName, flowNameData, XDateIsoOld, action,
+        formatter, date, isoString;
 
     if (!me.postGuid) {
       throw "InitializationException: 'postGuid' has to be defined";
@@ -134,6 +135,13 @@ sol.define("sol.knowledge.ix.services.MovePost", {
       post.XDateIso = XDateIsoOld;
     }
 
+    if (me.changeDate === true) {    
+      formatter = new java.text.SimpleDateFormat("yyyyMMddHHmmss");
+      date = new Date();
+      isoString = formatter.format(date);
+      sol.common.SordUtils.setObjKeyValue(post, "KNOWLEDGE_LAST_EDITED_DATE", isoString);      
+    }              
+
     postId = ixConnect.ix().checkinSord(post, SordC.mbAllIndex, LockC.NO);
 
     flowNameData = { sordName: String(post.name) };
@@ -141,19 +149,10 @@ sol.define("sol.knowledge.ix.services.MovePost", {
     sol.common.WfUtils.startWorkflow(me.knowledgeConfig.workflows.movePost.workflowTemplate, flowName, post.id);
 
     if (!me.comment.equals("")) {
-      sol.common.IxUtils.execute("RF_sol_function_FeedComment", {
-        objId: postId,
-        text: me.comment,
-        data: []
-      });
+      action = ixConnect.feedService.createAction(EActionType.UserComment, post.id);
+      action.text = me.comment;
+      ixConnect.feedService.checkinAction(action, ActionC.mbAll);
     }
-
-    if (me.changeDate === true) {
-      sol.common.IxUtils.execute("RF_sol_function_IsoDate", {
-        objId: postId,
-        group: me.knowledgeConfig.workflows.movePost.nodes.editedDate
-      });    
-    }    
 
     me.registerUpdates(post);
 
