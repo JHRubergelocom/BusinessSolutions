@@ -86,8 +86,7 @@ sol.define("sol.knowledge.ix.services.MovePost", {
    */
   movePost: function () {
     var me = this,
-        space, post, postId, flowName, flowNameData, XDateIsoOld, action,
-        formatter, date, isoString;
+        space, post, postId, flowName, flowNameData, XDateIsoOld, action, isoString;
 
     if (!me.postGuid) {
       throw "InitializationException: 'postGuid' has to be defined";
@@ -136,9 +135,7 @@ sol.define("sol.knowledge.ix.services.MovePost", {
     }
 
     if (me.changeDate === true) {    
-      formatter = new java.text.SimpleDateFormat("yyyyMMddHHmmss");
-      date = new Date();
-      isoString = formatter.format(date);
+      isoString = sol.common.DateUtils.nowIso({ utcOffset: 0 });
       sol.common.SordUtils.setObjKeyValue(post, "KNOWLEDGE_LAST_EDITED_DATE", isoString);      
     }              
 
