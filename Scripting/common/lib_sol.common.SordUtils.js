@@ -761,8 +761,9 @@ sol.define("sol.common.SordUtils", {
   /**
    * Reads document mask names
    * @param {Object} params Parameters
-   * @param {Object} params.filter Filters
-   * @param {String} params.filter.nameTranslationKeyPrefix Name translation key prefix filter
+   * @param {Object} params.allMasks if true, return all docmasks
+   * @param {Object} params.filters Filters
+   * @param {String} params.filters.nameTranslationKeyPrefix Name translation key prefix filter
    * @return {de.elo.ix.client.MaskName[]}
    */
   getDocMaskNames: function (params) {
@@ -772,7 +773,7 @@ sol.define("sol.common.SordUtils", {
     params = params || {};
 
     editInfoZ = new EditInfoZ(EditInfoC.mbMaskNames, new SordZ());
-    editInfo = ixConnect.ix().createSord("1", "", editInfoZ);
+    editInfo = ixConnect.ix().createSord(params.allMasks === true ? null : "1", "", editInfoZ);
     for (i = 0; i < editInfo.maskNames.length; i++) {
       maskName = editInfo.maskNames[i];
       if (params.filters) {
@@ -1196,8 +1197,10 @@ sol.define("sol.common.SordUtils", {
         if (objKeyName == "" || (params.objKeyNames && (params.objKeyNames.indexOf(objKeyName) < 0))) {
           continue;
         }
-        values = me.getObjKeyValues(srcSord, objKeyName);
-        me.setObjKeyValues(dstSord, objKeyName, values);
+        if (objKeyName != "") {
+          values = me.getObjKeyValues(srcSord, objKeyName);
+          me.setObjKeyValues(dstSord, objKeyName, values);
+        }
       }
     }
 
