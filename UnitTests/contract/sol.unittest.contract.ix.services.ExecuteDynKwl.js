@@ -5,6 +5,12 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_Class.js
 //@include lib_sol.common.ix.ServiceBase.js
 //@include lib_sol.common.ix.GenericDynKwl.js
+//@include sol.contract.ix.localizedKwl.CalendarUnit.js
+//@include sol.contract.ix.localizedKwl.CashflowRecurring.js
+//@include sol.contract.ix.localizedKwl.Relation.js
+//@include sol.contract.ix.localizedKwl.RiskClassification.js
+//@include sol.contract.ix.localizedKwl.Status.js
+//@include sol.contract.ix.localizedKwl.TerminationPoint.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.contract.ix.services.ExecuteDynKwl" });
 
