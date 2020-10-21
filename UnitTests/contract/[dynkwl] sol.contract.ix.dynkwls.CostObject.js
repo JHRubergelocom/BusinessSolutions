@@ -25,6 +25,7 @@ describe("[dynkwl] sol.contract.ix.dynkwls.CostObject", function () {
             objId: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/contract/Configuration/kwl.config"
           }).then(function success(configResult) {
             kwlConfig = configResult.config["Cost objects"];
+            kwlConfig.searchParams = ["1000", "C", "C"];
             done();
           }, function error(err) {
             fail(err);
