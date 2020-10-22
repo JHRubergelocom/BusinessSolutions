@@ -8,9 +8,11 @@ importPackage(Packages.de.elo.ix.client);
 //@include sol.hr.ix.dynkwl.AuthorityIterator.js
 //@include sol.hr.ix.dynkwl.CostCenter.js
 //@include sol.hr.ix.dynkwl.DeputyIterator.js
+//@include sol.hr.ix.dynkwl.generators.ChartElementShortDesc.js
 //@include sol.hr.ix.dynkwl.generators.FileShortDesc.js
 //@include sol.hr.ix.dynkwl.generators.PersonnelNo.js
 //@include sol.hr.ix.dynkwl.MentorIterator.js
+//@include sol.hr.ix.dynkwl.OrganizationalStructuresIterator.js
 //@include sol.hr.ix.dynkwl.PersonnelFileIterator.js
 //@include sol.hr.ix.dynkwl.SuperiorIterator.js
 //@include sol.hr.ix.dynkwl.SuperiorNewIterator.js
