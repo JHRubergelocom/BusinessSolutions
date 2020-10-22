@@ -1,13 +1,13 @@
 
-describe("[dynkwl] sol.hr.ix.dynkwls.Tenant", function () {
-  var originalTimeout, objTenantId;
+describe("[dynkwl] sol.hr.ix.localizedKwl.PersonnelStatus", function () {
+  var originalTimeout, objPersonnelStatusId;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
-      test.Utils.createTempSord("Tenant").then(function success(objTenantId1) {
-        objTenantId = objTenantId1;
+      test.Utils.createTempSord("PersonnelStatus").then(function success(objPersonnelStatusId1) {
+        objPersonnelStatusId = objPersonnelStatusId1;
         done();
       }, function error(err) {
         fail(err);
@@ -18,7 +18,7 @@ describe("[dynkwl] sol.hr.ix.dynkwls.Tenant", function () {
     }).not.toThrow();
   });
   describe("Tests Dynamic Keyword lists", function () {
-    describe("sol.hr.ix.dynkwl.Tenant", function () {
+    describe("sol.hr.ix.dynkwl.PersonnelStatus", function () {
       it("should throw if executed without 'objId'", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_unittest_hr_service_ExecuteDynKwl", {
@@ -35,7 +35,7 @@ describe("[dynkwl] sol.hr.ix.dynkwls.Tenant", function () {
       it("should throw if executed without 'dynkwl'", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_unittest_hr_service_ExecuteDynKwl", {
-            objId: objTenantId
+            objId: objPersonnelStatusId
           }).then(function success(jsonResult) {
             fail(jsonResult);
             done();
@@ -49,8 +49,8 @@ describe("[dynkwl] sol.hr.ix.dynkwls.Tenant", function () {
       it("should throw if executed without 'providerConfig'", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_unittest_hr_service_ExecuteDynKwl", {
-            objId: objTenantId,
-            dynKwl: "sol.hr.ix.dynkwl.Tenant"
+            objId: objPersonnelStatusId,
+            dynKwl: "sol.hr.ix.localizedKwl.PersonnelStatus"
           }).then(function success(jsonResult) {
             fail(jsonResult);
             done();
@@ -64,8 +64,8 @@ describe("[dynkwl] sol.hr.ix.dynkwls.Tenant", function () {
       it("should throw if executed without 'inputFieldName'", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_unittest_hr_service_ExecuteDynKwl", {
-            objId: objTenantId,
-            dynKwl: "sol.hr.ix.dynkwl.Tenant",
+            objId: objPersonnelStatusId,
+            dynKwl: "sol.hr.ix.localizedKwl.PersonnelStatus",
             providerConfig: {}
           }).then(function success(jsonResult) {
             fail(jsonResult);
@@ -80,8 +80,8 @@ describe("[dynkwl] sol.hr.ix.dynkwls.Tenant", function () {
       it("should not throw", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_unittest_hr_service_ExecuteDynKwl", {
-            objId: objTenantId,
-            dynKwl: "sol.hr.ix.dynkwl.Tenant",
+            objId: objPersonnelStatusId,
+            dynKwl: "sol.hr.ix.localizedKwl.PersonnelStatus",
             providerConfig: {},
             inputFieldName: "UNITTEST_FIELD2"
           }).then(function success(jsonResult) {   
