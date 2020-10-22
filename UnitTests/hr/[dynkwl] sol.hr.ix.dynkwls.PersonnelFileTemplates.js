@@ -103,14 +103,6 @@ describe("[dynkwl] sol.hr.ix.dynkwls.PersonnelFileTemplates", function () {
             providerConfig: kwlConfig,
             inputFieldName: "UNITTEST_FIELD2"
           }).then(function success(jsonResult) {   
-            if (jsonResult.error) {
-              fail(jsonResult.error);
-            } else {
-              expect(jsonResult.keynames).toBeDefined();
-              expect(jsonResult.header).toBeDefined();
-              expect(jsonResult.title).toBeDefined();
-              expect(jsonResult.data).toBeDefined();  
-            }
             done();
           }, function error(err) {
             fail(err);

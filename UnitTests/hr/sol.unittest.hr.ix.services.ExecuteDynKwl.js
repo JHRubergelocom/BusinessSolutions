@@ -13,6 +13,7 @@ importPackage(Packages.de.elo.ix.client);
 //@include sol.hr.ix.dynkwl.MentorIterator.js
 //@include sol.hr.ix.dynkwl.PersonnelFileIterator.js
 //@include sol.hr.ix.dynkwl.SuperiorIterator.js
+//@include sol.hr.ix.dynkwl.SuperiorNewIterator.js
 //@include sol.hr.ix.dynkwl.Tenant.js
 //@include sol.hr.ix.localizedKwl.CalendarUnit.js
 //@include sol.hr.ix.localizedKwl.CivilStatus.js
