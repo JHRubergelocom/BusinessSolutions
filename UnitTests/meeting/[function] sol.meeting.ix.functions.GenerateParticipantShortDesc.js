@@ -45,7 +45,8 @@ describe("[function] sol.meeting.ix.functions.GenerateParticipantShortDesc", fun
             objId: sordParticipant.id,
             updateExisting: true
           }).then(function success(jsonResult) {
-            expect(jsonResult.identifier).toBeDefined();
+            expect(jsonResult.code).toBeDefined();
+            expect(jsonResult.info).toBeDefined();
             done();
           }, function error(err) {
             fail(err);

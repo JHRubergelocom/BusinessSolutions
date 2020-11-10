@@ -50,12 +50,12 @@ sol.define("sol.meeting.ix.functions.generators.ParticipantShortDesc", {
   /**
    * @inheritdoc sol.common.ix.functions.GenerateIdentifier#process
    */
-  process: function(){
+  process: function () {
     var me = this;
 
     me.$super("sol.common.ix.functions.GenerateIdentifier", "process", []);
     
-    return { code: 'success', info: 'short description generated' }
+    return { code: "success", info: "short description generated" };
   },
 
   /**
@@ -121,21 +121,21 @@ function onExitNode(info, userId, diagram, nodeId) {
 }
 
 /**
- * @member sol.common.ix.functions.generators.ParticipantShortDesc
- * @method RF_sol_learning_function_generateCourseShortDesc
+ * @member sol.meeting.ix.functions.generators.ParticipantShortDesc
+ * @method RF_sol_meeting_function_generateParticipantShortDesc
  * @static
  * @inheritdoc sol.common.ix.FunctionBase#RF_FunctionName
  */
 function RF_sol_meeting_function_generateParticipantShortDesc(context, args) {
-  logger.enter("RF_sol_common_function_generateParticipantShortDesc", args);
+  logger.enter("RF_sol_meeting_function_generateParticipantShortDesc", args);
   var params = sol.common.ix.RfUtils.parseAndCheckParams(context, arguments.callee.name, args, "objId"),
-      generator = sol.create("sol.meeting.ix.functions.generators.GenParticipantShortDesc", params),
+      generator = sol.create("sol.meeting.ix.functions.generators.ParticipantShortDesc", params),
       result;
 
   result = generator.process();
 
-  logger.exit("RF_sol_common_function_generateParticipantShortDesc");
-  return JSON.stringify(result) 
+  logger.exit("RF_sol_meeting_function_generateParticipantShortDesc");
+  return JSON.stringify(result); 
 }
 
 

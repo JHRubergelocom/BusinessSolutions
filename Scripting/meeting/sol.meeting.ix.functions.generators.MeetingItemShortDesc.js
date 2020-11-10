@@ -111,19 +111,19 @@ function onExitNode(_clInfo, _userId, wFDiagram, nodeId) {
 
 /**
  * @member sol.common.ix.functions.Generators
- * @method RF_sol_learning_function_generateCourseShortDesc
+ * @method RF_sol_meeting_function_generateMeetingItemShortDesc
  * @static
  * @inheritdoc sol.common.ix.FunctionBase#RF_FunctionName
  */
-function RF_sol_meeting_function_generateMeetingShortDesc(iXSEContext, args) {
-  logger.enter("RF_sol_common_function_generateMeetingShortDesc", args);
+function RF_sol_meeting_function_generateMeetingItemShortDesc(iXSEContext, args) {
+  logger.enter("RF_sol_meeting_function_generateMeetingItemShortDesc", args);
   var params = sol.common.ix.RfUtils.parseAndCheckParams(iXSEContext, arguments.callee.name, args, "objId"),
       generator = sol.create("sol.meeting.ix.functions.generators.MeetingItemShortDesc", params),
       result;
 
   result = generator.process();
 
-  logger.exit("RF_sol_common_function_generateMeetingShortDesc");
+  logger.exit("RF_sol_meeting_function_generateMeetingItemShortDesc");
   return result;
 }
 
