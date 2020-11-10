@@ -11,7 +11,7 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_sol.meeting.mixins.Configuration.js
 //@include lib_sol.common.Injection.js
 
-var logger = sol.create("sol.Logger", {scope: "sol.meeting.ix.functions.FindParticipantGroups"});
+var logger = sol.create("sol.Logger", { scope: "sol.meeting.ix.functions.FindParticipantGroups" });
 
 
 
@@ -40,7 +40,7 @@ sol.define("sol.meeting.ix.functions.FindParticipantGroups", {
   mixins: ["sol.meeting.mixins.Configuration", "sol.common.mixins.Inject"],
 
   inject: {
-     sord: {sordIdFromProp: "objId", flowIdFromProp: "flowId"}
+    sord: { sordIdFromProp: "objId", flowIdFromProp: "flowId" }
   },
 
 
@@ -53,69 +53,69 @@ sol.define("sol.meeting.ix.functions.FindParticipantGroups", {
       me.logger.info(["Find partgroups {0}", JSON.stringify(result)]);
       return me.executeSet(me.prepareSetFunction(result));
     } catch (e) {
-      if (e.code === "NO_PARTICIPANTS"){
-         me.logger.info([e.message]);
+      if (e.code === "NO_PARTICIPANTS") {
+        me.logger.info([e.message]);
       } else {
         throw e;
       }
     }
   },
 
-  prepareFindParticipantGroupsSearch: function(){
-    var me = this, searchConfig, searchValues = [];
+  prepareFindParticipantGroupsSearch: function () {
+    var me = this, searchConfig, searchValues = [], key;
 
     // prepare search values
-    for (var key in me.sord.mapKeys) {
+    for (key in me.sord.mapKeys) {
       key.startsWith("PARTICIPANTGROUP_REFERENCE")
-          && searchValues.push(me.sord.mapKeys[key])
+          && searchValues.push(me.sord.mapKeys[key]);
     }
 
-    if (searchValues.length === 0){
-      throw {code: "NO_PARTICIPANTS", message: 'no participants groups was added. Skipping function'}
+    if (searchValues.length === 0) {
+      throw { code: "NO_PARTICIPANTS", message: "no participants groups was added. Skipping function" };
     }
 
     me.logger.info(["searchValues {0}", JSON.stringify(searchValues)]);
     
     // TODO: should be refactor to config
     searchConfig = {
-      "masks": ["Meeting ParticipantGroup"],
-      "search": [
-        { "key": "MEETING_PARTICIPANTGROUP_REFERENCE", "value": searchValues }
+      masks: ["Meeting ParticipantGroup"],
+      search: [
+        { key: "MEETING_PARTICIPANTGROUP_REFERENCE", value: searchValues }
       ],
-      "output": [
-        { "source": { "type": "SORD" , "key": "guid" }, "target": { "prop": "guid" } },
-        { "source": { "type": "SORD" , "key": "id" }, "target": { "prop": "objId" } },
-        { "source": { "type": "SORD" , "key": "name" }, "target": { "prop": "name" } }
+      output: [
+        { source: { type: "SORD", key: "guid" }, target: { prop: "guid" } },
+        { source: { type: "SORD", key: "id" }, target: { prop: "objId" } },
+        { source: { type: "SORD", key: "name" }, target: { prop: "name" } }
       ],
-      "options": {
-        "allowEmptyMask": false,
-        "formatAsTemplateSord": true,
-        "maxResults": searchValues.length
+      options: {
+        allowEmptyMask: false,
+        formatAsTemplateSord: true,
+        maxResults: searchValues.length
       }
-    }
+    };
 
     return searchConfig;
   
   },
 
-  prepareSetFunction: function(searchResult){
+  prepareSetFunction: function (searchResult) {
     var me = this, setInstructions;
 
-    setInstructions =  sol.common.ObjectUtils.map(searchResult.sords, function(sordResult, index){
-       var fieldName = "PARTICIPANTGROUP_GUID" + (index + 1);
-       return {type: "MAP", key: fieldName, value: sordResult.guid}
+    setInstructions = sol.common.ObjectUtils.map(searchResult.sords, function (sordResult, index) {
+      var fieldName = "PARTICIPANTGROUP_GUID" + (index + 1);
+      return { type: "MAP", key: fieldName, value: sordResult.guid };
     });
     me.logger.info(["setInstructions {0}", JSON.stringify(setInstructions)]);
     return setInstructions;
   },
 
   // TODO: implement as external configuration, so we can implement dryRun
-  executeSet: function(setInstructions){
+  executeSet: function (setInstructions) {
     var me = this;
-    return sol.common.IxUtils.execute('RF_sol_function_Set', {
+    return sol.common.IxUtils.execute("RF_sol_function_Set", {
       objId: me.objId,
       flowId: me.flowId,
-      "entries": setInstructions
+      entries: setInstructions
     });
   }
 
@@ -129,8 +129,7 @@ sol.define("sol.meeting.ix.functions.FindParticipantGroups", {
  */
 function onExitNode(info, userId, diagram, nodeId) {
   logger.enter("onExitNode_FindParticipantGroups", { flowId: diagram.id, nodeId: nodeId });
-  var params = sol.common.WfUtils.parseAndCheckParams(diagram, nodeId),
-  service;
+  var params = sol.common.WfUtils.parseAndCheckParams(diagram, nodeId), service;
 
   params.objId = diagram.objId;
   params.flowId = diagram.id;
@@ -154,7 +153,7 @@ function RF_sol_meeting_service_GetMemberOfParticipantGroup(context, args) {
   params = sol.common.ix.RfUtils.parseAndCheckParams(context, arguments.callee.name, args);
   delete params._optimize;
 
-  service = sol.create("sol.meeting.ix.functions.FindParticipantGroup", params);
+  service = sol.create("sol.meeting.ix.functions.FindParticipantGroups", params);
   result = JSON.stringify(service.process());
 
   logger.exit("RF_sol_meeting_function_FindParticipantGroups", result);
