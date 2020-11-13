@@ -29,24 +29,34 @@ sol.define("sol.common.RepoUtils", {
    * Checkout a Sord.
    * @param {String} objId Can be an objId, a GUID or an ARCPATH
    * @param {Object} params (optional)
+   * @param {de.elo.ix.client.IXConnection} params.connection (optional) Index server connection
    * @param {de.elo.ix.client.SordZ} [params.sordZ=SordC.mbAllIndex] (optional)
    * @param {de.elo.ix.client.LockZ} [params.lockZ=LockC.NO] (optional)
    * @return {de.elo.ix.client.Sord}
    */
   getSord: function (objId, params) {
-    var sordZ, lockZ;
+    var me = this,
+        sordZ, lockZ, conn, sord;
+
     sordZ = (params && params.sordZ) ? params.sordZ : SordC.mbAllIndex;
     lockZ = (params && params.lockZ) ? params.lockZ : LockC.NO;
-    return ixConnect.ix().checkoutSord(objId + "", sordZ, lockZ);
+    params = params || {};
+    conn = params.connection || ixConnect;
+    sord = conn.ix().checkoutSord(objId + "", sordZ, lockZ);
+    if (me.logger.debugEnabled) {
+      me.logger.debug("getSord: sord.id=" + sord.id + ", sord.name=" + sord.name + ", conn.user.id=" + conn.loginResult.user.id +
+        ", conn.user.name=" + conn.loginResult.user.name + ", conn.timeZone=" + conn.loginResult.clientInfo.timeZone);
+    }
+    return sord;
   },
 
   /**
    * Returns sords by object IDs
    * @param {Array} objIds Object IDs
    * @param {Object} config (optional)
-   * @param {de.elo.ix.client.IXConnection} config.connection Index server connection
+   * @param {de.elo.ix.client.IXConnection} config.connection (optional) Index server connection
    * @param {de.elo.ix.client.SordZ} [config.sordZ=SordC.mbAllIndex] (optional)
-   * @param {Boolean} config.keepOrder Keep the order of the Sords
+   * @param {Boolean} config.keepOrder (optional) Keep the order of the Sords
    * @return {de.elo.ix.client.Sord[]} Sords
    */
   getSords: function (objIds, config) {
@@ -339,6 +349,7 @@ sol.define("sol.common.RepoUtils", {
       if (params.objKeysObj) {
         for (key in params.objKeysObj) {
           if (params.objKeysObj.hasOwnProperty(key)) {
+            params.objKeysObj[key] = sol.common.StringUtils.replaceAll(params.objKeysObj[key], "\"", "'");
             objKeys.push(me.createObjKey("", key, params.objKeysObj[key]));
           }
         }
@@ -653,6 +664,7 @@ sol.define("sol.common.RepoUtils", {
    * @param {String|Number} saveToRepoConfig.versionIncrement Version increment, i.g. `1`
    * @param {String} saveToRepoConfig.versionComment Version comment
    * @param {de.elo.ix.client.IXConnection} saveToRepoConfig.connection Index server connection
+   * @param {Number} saveToRepoConfig.encryptionSet Encryption set
    * @return {String} Object ID
    */
   saveToRepo: function (saveToRepoConfig) {
@@ -660,7 +672,7 @@ sol.define("sol.common.RepoUtils", {
         parentRepoPath, bytes, inputStream, editInfo, objKeys, key, objId, conn,
         newVersionString = "",
         currentVersionString, currentVersionBigDecimal, versionIncrementBigDecimal,
-        newVersionBigDecimal, decimalFormat;
+        newVersionBigDecimal, decimalFormat, encryptionSet;
 
     me.logger.enter("saveToRepo", arguments);
 
@@ -738,7 +750,7 @@ sol.define("sol.common.RepoUtils", {
     editInfo.sord.name = saveToRepoConfig.name;
 
     for (key in saveToRepoConfig.objKeysObj) {
-      if (saveToRepoConfig.objKeysObj.hasOwnProperty(key)) {
+      if (saveToRepoConfig.objKeysObj.hasOwnProperty(key) && key) {
         sol.common.SordUtils.setObjKeyValue(editInfo.sord, key, saveToRepoConfig.objKeysObj[key]);
       }
     }
@@ -787,7 +799,11 @@ sol.define("sol.common.RepoUtils", {
 
     editInfo.document.docs[0].ext = saveToRepoConfig.extension;
     editInfo.document.docs[0].pathId = editInfo.sord.path;
-    editInfo.document.docs[0].encryptionSet = editInfo.sord.details.encryptionSet;
+
+    encryptionSet = (typeof saveToRepoConfig.encryptionSet != "undefined") ? saveToRepoConfig.encryptionSet : editInfo.sord.details.encryptionSet;
+    editInfo.sord.details.encryptionSet = encryptionSet;
+    editInfo.document.docs[0].encryptionSet = encryptionSet;
+
     editInfo.document = conn.ix().checkinDocBegin(editInfo.document);
 
     if (saveToRepoConfig.file) {
@@ -2017,12 +2033,13 @@ sol.define("sol.common.RepoUtils", {
    * @param {Boolean} [params.takeTargetPermissions=true] If true the target permissions will be set
    * @param {Boolean} [params.keepOriginalPermissions=false] If true the original permissions will be kept
    * @param {Boolean} [params.keepOriginalPermissions=false] If true the original permissions will be kept
+   * @param {de.elo.ix.client.IXConnection} params.connection (optional) Index server connection
    * @return {Object}
    */
   copySords: function (startIds, newParentId, params) {
     var me = this,
         resultObj = {},
-        navInfo, procInfo, jobState, entriesIterator, pair, dstFolderId;
+        navInfo, procInfo, jobState, entriesIterator, pair, dstFolderId, conn;
 
     params = params || {};
     params.copyOnlyBaseElement = (params.copyOnlyBaseElement == undefined) ? true : params.copyOnlyBaseElement;
@@ -2030,6 +2047,7 @@ sol.define("sol.common.RepoUtils", {
     params.copyStructuresAndDocuments = (params.copyStructuresAndDocuments == undefined) ? true : params.copyStructuresAndDocuments;
     params.takeTargetPermissions = (params.takeTargetPermissions == undefined) ? true : params.takeTargetPermissions;
     params.keepOriginalPermissions = (params.keepOriginalPermissions == undefined) ? false : params.keepOriginalPermissions;
+    conn = params.connection || ixConnect;
 
     if (sol.common.ObjectUtils.isArray(startIds)) {
       if (startIds.length == 0) {
@@ -2076,9 +2094,9 @@ sol.define("sol.common.RepoUtils", {
 
     me.logger.debug(["Copy sords: startIds = '{0}', newParent.id = '{1}'", startIds, newParentId]);
 
-    jobState = ixConnect.ix().processTrees(navInfo, procInfo);
+    jobState = conn.ix().processTrees(navInfo, procInfo);
 
-    jobState = sol.common.AsyncUtils.waitForJob(jobState.jobGuid);
+    jobState = sol.common.AsyncUtils.waitForJob(jobState.jobGuid, { connection: conn });
 
     me.logger.debug(["Job '{0}' finished: jobState.countProcessed = '{1}', jobState.countErrors = '{2}'", procInfo.desc, jobState.countProcessed, jobState.countErrors]);
 
