@@ -99,9 +99,9 @@ sol.define("sol.common_document.as.Utils", {
       refPath = refPath + sord.id + File.separator + "1.";
     } else {      
       if (isCover) {
-        refPath = refPath + sord.name + File.separator + "2.";
+        refPath = refPath + sol.common.FileUtils.sanitizeFilename(sord.name) + File.separator + "2.";
       } else {
-        refPath = refPath + sord.name + File.separator + "3.";
+        refPath = refPath + sol.common.FileUtils.sanitizeFilename(sord.name) + File.separator + "3.";
       }
     }
     return refPath;
@@ -564,7 +564,7 @@ sol.define("sol.common_document.as.Utils", {
 
 
     folderSord = ixConnect.ix().checkoutSord(folderId, new SordZ(SordC.mbAll), LockC.NO);
-    pdfName = folderSord.name + ".cover";
+    pdfName = sol.common.FileUtils.sanitizeFilename(folderSord.name) + ".cover";
     me.createCoverSheetSord(folderSord, baseDstDirPath, pdfName, config, pdfContents);
 
     folderName = sol.common.FileUtils.sanitizeFilename(folderSord.name);
@@ -590,7 +590,7 @@ sol.define("sol.common_document.as.Utils", {
         if (addPathPart == true) {
           pathParts.push(partPath);
         } 
-        if (partPath == folderSord.name) {
+        if (partPath == sol.common.FileUtils.sanitizeFilename(folderSord.name)) {
           addPathPart = true;
         }
       }
@@ -605,7 +605,7 @@ sol.define("sol.common_document.as.Utils", {
             me.logger.error("error creating destination directory", e);
           }
         }
-        pdfName = sord.name + ".cover";
+        pdfName = sol.common.FileUtils.sanitizeFilename(sord.name) + ".cover";
         me.createCoverSheetSord(sord, subDirPath, pdfName, config, pdfContents);                
         partPath = sol.common.FileUtils.sanitizeFilename(sord.name);
         if (addPathPart == true) {
@@ -625,9 +625,9 @@ sol.define("sol.common_document.as.Utils", {
         try {
           ext = (sord && sord.docVersion && sord.docVersion.ext) ? sord.docVersion.ext : null;
           if (ext) {
-            pdfName = sord.name + ".cover." + ext;
+            pdfName = sol.common.FileUtils.sanitizeFilename(sord.name) + ".cover." + ext;
           } else {
-            pdfName = sord.name + ".cover";
+            pdfName = sol.common.FileUtils.sanitizeFilename(sord.name) + ".cover";
           }
           me.createCoverSheetSord(sord, subDirPath, pdfName, config, pdfContents);      
           me.createPdfDocument(sord, subDirPath, config, pdfContents);
