@@ -1,6 +1,6 @@
 ﻿<ruleset>
   <base>
-    <name>sol.visitor.as.functions.CreateVisitorBadge</name>
+    <name>sol.visitor.as.actions.CreateVisitorBadge</name>
     <search>
       <name>"DIRECT"</name>
       <value>"1"</value>
@@ -36,25 +36,16 @@
     </includes>
   </base>
   <rule>
-    <name>CreateVisitorBadge</name>
+    <name>Regel1</name>
     <condition></condition>
     <script>
       sol.common.as.Utils.requiresUserSession(this);
-
-      var params, createVisitorBadge;
-      params = JSON.parse(EM_PARAM2);
+      
+      var params = JSON.parse(EM_PARAM2);
       params.user = EM_USERID;
-
-      createVisitorBadge = sol.create("sol.visitor.as.actions.CreateVisitorBadge", {
-        parentId: params.objId,
-        targetId: params.objId,
-        template: params.template,
-        useLongtermBadgeTemplates: params.useLongtermBadgeTemplates,
-        longTermBadgeName: params.longTermBadgeName 
-      });
-      createVisitorBadge.execute();
-      ruleset.setStatusMessage(JSON.stringify({ passOn: true }));
-
+      var createVisitorBadge = sol.create("sol.visitor.as.actions.CreateVisitorBadge", params);
+      ruleset.setStatusMessage(createVisitorBadge.execute());
+      
       sol.common.as.Utils.cleanupUserSession(this);
     </script>
   </rule>

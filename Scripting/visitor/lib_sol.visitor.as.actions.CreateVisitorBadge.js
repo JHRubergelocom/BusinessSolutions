@@ -20,6 +20,7 @@ sol.define("sol.visitor.as.actions.CreateVisitorBadge", {
 
   initialize: function (config) {
     var me = this;
+
     me.$super("sol.common.as.ActionBase", "initialize", [config]);
     me.config = sol.create("sol.common.Config", { compose: "/visitor/Configuration/visitor.config" }).config;
 
@@ -47,6 +48,10 @@ sol.define("sol.visitor.as.actions.CreateVisitorBadge", {
         generator, result;
 
     me.requireUserRights(me.targetId, { rights: "RWL" });
+
+    if (me.longTermBadgeName) {
+      name = sol.create("sol.common.Template", { source: me.longTermBadgeName }).apply();
+    }
 
     generator = sol.create("sol.common.as.DocumentGenerator", {
       name: name,
