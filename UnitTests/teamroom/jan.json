@@ -1,0 +1,53 @@
+{
+    "dependencies": [
+        {
+            "folder": "../common.git/Business Solutions/common",
+            "elo": "/Business Solutions/common"
+        },
+        {
+            "folder": "../common.git/Business Solutions/common_monitoring",
+            "elo": "/Business Solutions/common_monitoring"
+        },
+        {
+            "folder": "../common.git/Business Solutions/development",
+            "elo": "/Business Solutions/development"
+        },
+
+        {
+            "folder": "../common.git/Business Solutions/dev_internal",
+            "elo": "/Business Solutions/dev_internal"
+        },
+        {
+            "folder": "../common.git/Business Solutions Custom/common",
+            "elo": "/Business Solutions Custom/common"
+        },
+        {
+            "folder": "./Business Solutions/elo.teamroom",
+            "elo": "/Business Solutions/elo.teamroom"
+        },
+        {
+            "folder": "./Business Solutions Custom/elo.teamroom",
+            "elo": "/Business Solutions Custom/elo.teamroom"
+        },
+        {
+            "folder": "./Business Solutions/elo.teamroom.Local",
+            "elo": "/Business Solutions/elo.teamroom.Local"
+        },
+        {
+            "folder": "./Business Solutions Custom/elo.teamroom.Local",
+            "elo": "/Business Solutions Custom/elo.teamroom.Local"
+        },
+        {
+            "folder": "./Business Solutions/elo.teamroom.Remote",
+            "elo": "/Business Solutions/elo.teamroom.Remote"
+        },
+        {
+            "folder": "./Business Solutions Custom/elo.teamroom.Remote",
+            "elo": "/Business Solutions Custom/elo.teamroom.Remote"
+        },
+        {
+            "folder": "./Business Solutions/Unit Tests",
+            "elo": "/Business Solutions/teamroom [unit tests]"
+        }        
+    ]
+}

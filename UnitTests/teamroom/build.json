@@ -1,0 +1,13 @@
+{
+  "setupName": "sol.teamroom [unit tests]",
+
+  "fileNamePrefix": "70",
+
+  "workflowTemplates": [
+  ],
+
+  "sordTypes": [
+  ],
+
+  "gitPackagePath": "C:/Git/solutions/teamroom.git/Business Solutions/Unit Tests"
+}
