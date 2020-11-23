@@ -8,11 +8,20 @@ importPackage(Packages.de.elo.ix.client);
 var logger = sol.create("sol.Logger", { scope: "sol.common.ix.functions.MultiSet" }); // eslint-disable-line one-var
 
 /**
- * Edits an existing object by changing the mask or setting different values.
+ * Edits existing objects by changing the mask or setting different values pro object.
  *
  * # As workflow node
  *
- * ObjId is multiset based on the element that the workflow is attached to.
+ * The configuration is defined in the following way:
+ * 
+ *     {
+ *         "objEntries: [
+ *           { "objId" : 4711, "entries" : [ ... ]}, // The "entries" are configurated similar as in the "RF_sol_function_Set" RF. 
+ *           { "objId" : 4713, "entries" : [ ... ]},
+ *              .....
+ *           { "objId" : 4720, "entries" : [ ... ]}           
+ *         ]
+ *     }
  *
  * Following configuration should be applied to the comments field for a mask and field update:
  *
@@ -118,7 +127,6 @@ sol.define("sol.common.ix.functions.MultiSet", {
   initialize: function (config) {
     var me = this;
     me.$super("sol.common.ix.FunctionBase", "initialize", [config]);
-    me.sordMaskChanged = false;
   },
 
   /**
@@ -126,6 +134,7 @@ sol.define("sol.common.ix.functions.MultiSet", {
    */
   process: function () {
     var me = this,
+        savedTimeZone = null, 
         i, objEntry;
 
     if (!me.objEntries) {
@@ -135,7 +144,7 @@ sol.define("sol.common.ix.functions.MultiSet", {
     me.logger.debug(["sol.common.ix.functions.MultiSet: objEntries={0}", JSON.stringify(me.objEntries)]);
 
     if (me.timeZone) {
-      me.savedTimeZone = ixConnect.loginResult.clientInfo.timeZone;
+      savedTimeZone = ixConnect.loginResult.clientInfo.timeZone;
       ixConnect.loginResult.clientInfo.timeZone = me.timeZone;
       me.logger.debug(["user.name={0}, timeZone={1}", ixConnect.loginResult.user.name, ixConnect.loginResult.clientInfo.timeZone]);
     }
@@ -147,8 +156,8 @@ sol.define("sol.common.ix.functions.MultiSet", {
         entries: objEntry.entries
       });
     }
-    if (me.savedTimeZone) {
-      ixConnect.loginResult.clientInfo.timeZone = me.savedTimeZone;
+    if (savedTimeZone) {
+      ixConnect.loginResult.clientInfo.timeZone = savedTimeZone;
     }  
   }
 });
