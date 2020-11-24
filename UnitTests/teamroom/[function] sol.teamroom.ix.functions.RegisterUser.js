@@ -1,12 +1,12 @@
 
-describe("[function] sol.teamroom.ix.functions.HandleEvent", function () {
+describe("[function] sol.teamroom.ix.functions.RegisterUser", function () {
   var originalTimeout, token;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
-      test.Utils.createTempSord("HandleEvent").then(function success(objTempId) {
+      test.Utils.createTempSord("RegisterUser").then(function success(objTempId) {
         done();
       }, function error(err) {
         fail(err);
@@ -17,7 +17,7 @@ describe("[function] sol.teamroom.ix.functions.HandleEvent", function () {
     }).not.toThrow();
   });
   describe("Tests Registered Functions", function () {
-    describe("RF_sol_teamroom_function_HandleEvent", function () {
+    describe("RF_sol_teamroom_function_RegisterUser", function () {
       it("get teamroom.remote.config", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_GetConfig", {
@@ -37,9 +37,9 @@ describe("[function] sol.teamroom.ix.functions.HandleEvent", function () {
           );
         }).not.toThrow();
       });
-      it("should throw if executed without paramter", function (done) {
+      it("should throw if executed without parameter", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_teamroom_function_HandleEvent", {
+          test.Utils.execute("RF_sol_teamroom_function_RegisterUser", {
           }).then(function success(jsonResult) {
             fail(jsonResult);
             done();
@@ -50,10 +50,28 @@ describe("[function] sol.teamroom.ix.functions.HandleEvent", function () {
           );
         }).not.toThrow();
       });
-      it("'apiKey'", function (done) {
+      it("'mode':'register'", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_teamroom_function_HandleEvent", {
-            apiKey: token 
+          test.Utils.execute("RF_sol_teamroom_function_RegisterUser", {
+            apiToken: token, 
+            mode: "register", 
+            user: "Administrator"
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("'mode':'sendregistration'", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_teamroom_function_RegisterUser", {
+            apiToken: token, 
+            mode: "sendregistration", 
+            user: "Administrator"
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {

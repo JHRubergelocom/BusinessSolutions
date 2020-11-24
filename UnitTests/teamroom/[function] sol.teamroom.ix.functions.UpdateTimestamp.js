@@ -1,12 +1,13 @@
 
-describe("[function] sol.teamroom.ix.functions.HandleEvent", function () {
-  var originalTimeout, token;
+describe("[function] sol.teamroom.ix.functions.UpdateTimestamp", function () {
+  var originalTimeout, objTempId, token;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
-      test.Utils.createTempSord("HandleEvent").then(function success(objTempId) {
+      test.Utils.createTempSord("UpdateTimestamp").then(function success(objTempId1) {
+        objTempId = objTempId1;
         done();
       }, function error(err) {
         fail(err);
@@ -17,7 +18,7 @@ describe("[function] sol.teamroom.ix.functions.HandleEvent", function () {
     }).not.toThrow();
   });
   describe("Tests Registered Functions", function () {
-    describe("RF_sol_teamroom_function_HandleEvent", function () {
+    describe("RF_sol_teamroom_function_UpdateTimestamp", function () {
       it("get teamroom.remote.config", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_GetConfig", {
@@ -37,9 +38,9 @@ describe("[function] sol.teamroom.ix.functions.HandleEvent", function () {
           );
         }).not.toThrow();
       });
-      it("should throw if executed without paramter", function (done) {
+      it("should throw if executed without parameter", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_teamroom_function_HandleEvent", {
+          test.Utils.execute("RF_sol_teamroom_function_UpdateTimestamp", {
           }).then(function success(jsonResult) {
             fail(jsonResult);
             done();
@@ -50,10 +51,30 @@ describe("[function] sol.teamroom.ix.functions.HandleEvent", function () {
           );
         }).not.toThrow();
       });
-      it("'apiKey'", function (done) {
+      it("'mode':'updatets'", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_teamroom_function_HandleEvent", {
-            apiKey: token 
+          test.Utils.execute("RF_sol_teamroom_function_UpdateTimestamp", {
+            token: token, 
+            mode: "updatets", 
+            id: objTempId, 
+            timestamp: "20201212"
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("'mode':'updatetsfeed'", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_teamroom_function_UpdateTimestamp", {
+            token: token, 
+            mode: "updatetsfeed", 
+            id: objTempId, 
+            timestamp: "20201212"
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {

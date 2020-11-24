@@ -1,0 +1,70 @@
+{
+  "entities": {
+    "connection": {
+      "API_TOKEN" : "Axc3f67Hq1"
+    },
+    "eventhandler": {
+      "events": {
+        "created": {
+          "wfName": "sol.teamroom.teamroom.created",
+          "wfTitle": "{{{translate 'sol.teamroom.workflow.roomCreated'}}}"
+        },
+        "closed": {
+          "wfName": "sol.teamroom.teamroom.closed",
+          "wfTitle": "{{{translate 'sol.teamroom.workflow.roomClosed'}}}"
+        },
+        "deleted": {
+          "rfName": ""
+        }
+      }
+    },
+    "user": {
+      "functions": {
+        "registerUser": {
+          "workflow": {
+            "wfName": "sol.teamroom.SendRegistration",
+            "wfTitle": "{{{translate 'sol.teamroom.workflow.sendRegistration'}}}"
+          },
+          "wf": {
+            "baseUrl": "http://<server>:<port>/ix-<TR Archive>/plugin/de.elo.ix.plugin.proxy/wf/",
+            "registrationApp": "apps/app/elo.webapps.Login/?mode=confirm_register&afterApp=elo.teamroom.Client"
+          },
+          "registrationTemplate": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/elo.teamroom.Remote/Configuration/Registration template"
+        }
+      },
+      "workflowMixins": {
+        "sendRegistration": {
+          "move": {
+            "scriptProperties": {
+              "path": "ARCPATH[{{{sord.mapKeys.ELO_APPS_FOLDER}}}]:¶AccountRecovery¶Processes¶{{formatDate 'YYYY'}}",
+              "adjustRights": true
+            }
+          },
+          "renderTemplate": {
+            "scriptProperties": {
+              "templateFields": [
+                { "type": "GRP", "key": "ELO_ACCOUNT_MAIL"},
+                { "type": "SORD", "key": "desc" }
+              ]
+            }
+          },
+          "send": {
+            "scriptProperties": {
+              "mode": "get",
+              "from": "dobro@contelo.com",
+              "to": {
+                "type": "GRP",
+                "key": "ELO_ACCOUNT_MAIL"
+              },
+              "subject": "{{translate 'sol.teamroom.mailsubject'}}",
+              "body": {
+                "type": "html",
+                "tplObjId": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions Custom/elo.teamroom.Remote/Teamroom/UserRegistrationTemplate"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
