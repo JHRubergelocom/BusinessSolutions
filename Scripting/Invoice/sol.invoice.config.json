@@ -81,6 +81,9 @@
     "INVOICE_NET_AMOUNT_LOCAL_CURR": {
       "value": "INVOICE_NET_AMOUNT_LOCAL_CURR"
     },
+    "INVOICE_NO_ERP": {
+      "value": "INVOICE_NO_ERP"
+    },
     "INVOICE_NUMBER": {
       "value": "INVOICE_NUMBER"
     },
@@ -131,6 +134,9 @@
     },
     "CURRENT_USER": {
       "value": "CURRENT_USER"
+    },
+    "PROCESS_STATUS": {
+      "value": "PROCESS_STATUS"
     }
   },
   "mapFields": {
@@ -422,6 +428,12 @@
     }
   },
 
+  "fileToInvoice": {
+    "selectionDialog": {
+      "columnFields": ["INVOICE_NUMBER", "INVOICE_DATE", "VENDOR_NO", "INVOICE_NET_AMOUNT"]
+    }
+  },
+
   "export": {
     "parentId": "/Invoice",
     "maskName": "Incoming Invoice",
@@ -487,10 +499,11 @@
       "accountingSystemConfigRepoPath": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/invoice/Configuration/sol.invoice.export.accountingSytem.Datev.config"
     }],
 
-    "chunkSize": 2
+    "chunkSize": 100
   },
 
   "taxes": {
     "calcTaxesAfterDataCollection": true
   }
 }
+

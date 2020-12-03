@@ -1,0 +1,121 @@
+13:38:03,694 ixclient-2495 ixclient-2495 INFO  (BTransport.java:246) - send-1183044 [23478] Response=[#33=[0,104,103,...]]
+13:38:03,694 Thread-6   INFO  (?:?) - Stop status: false
+13:38:06,485 http-nio-9080-exec-10   INFO  (ELOmover.java:194) - request uri: /as-testelo12/as
+13:38:06,486 http-nio-9080-exec-10   INFO  (ELOmover.java:195) - request url: http://test-elo12:9080/as-testelo12/as
+13:38:06,486 http-nio-9080-exec-10   INFO  (IXconnect.java:246) - called
+13:38:06,486 http-nio-9080-exec-10   INFO  (WorkingSet.java:1078) - callJSFunction sol.common_document.as.actions.PdfExport, ThreadId 35, trigger id: 22
+13:38:06,487 http-nio-9080-exec-10   INFO  (BTransport.java:208) - send-1183045 Request=[IXServicePortIF.checkoutSord([B9408978FB65A52B...:http-nio-9080-exec-10:1183049,de/XX],1,[mbSordLean],LOCK.NO)]
+13:38:06,498 ixclient-2495 ixclient-2495 INFO  (BTransport.java:246) - send-1183045 [11] Response=[[1,testelo12],[null],null]
+13:38:06,499 http-nio-9080-exec-10   INFO  (?:?) - Sord: testelo12   State: 1
+13:38:06,500 http-nio-9080-exec-10   INFO  (BTransport.java:208) - send-1183046 Request=[IXServicePortIF.createSord([B9408978FB65A52B...:http-nio-9080-exec-10:1183050,de/XX],0,,[mbOnlyId])]
+13:38:06,502 ixclient-2495 ixclient-2495 INFO  (BTransport.java:246) - send-1183046 [2] Response=[[-1,],[null],null]
+13:38:06,507 ixclient-2495 ixclient-2495 INFO  (IXAuthentication.java:79) - Authenticate [BClient_Indexserver, transport=[[1076998891.3718213841546536093.7675834342263977199.], wire=[url=http://test-elo12:9090/ix-testelo12/byps, #openreq=1, done=false]]]
+13:38:06,507 ixclient-2495 ixclient-2495 INFO  (BTransport.java:208) - send-1 Request=[IXServicePortIF.login([B9408978FB65A52B...:ixclient-2495:1,de/XX],PUBLIC_ENCR_KEY,null,null,null)]
+13:38:06,511 ixclient-2496 ixclient-2496 INFO  (BTransport.java:246) - send-1 [3] Response=[ci=[AKtBENe+Wcfw+7oqTawludGPnt521DJ00IutIqMXC5gy1FeFY7BlS7a1hm3NKRYFB4yfX16GMFT2NMhzc0Z0nffE...:ixclient-2495:1,de/XX],tlf=0,user=null
+13:38:06,512 ixclient-2496 ixclient-2496 INFO  (IXAuthentication.java:335) - Initialized public RSA key in 1ms.
+13:38:06,512 ixclient-2496 ixclient-2496 INFO  (BTransport.java:208) - send-2 Request=[IXServicePortIF.login([B9408978FB65A52B...:ixclient-2496:2,de/XX],,,,0)]
+13:38:06,690 ixclient-2495 ixclient-2495 INFO  (BTransport.java:246) - send-2 [178] Response=[ci=[183AD5A5FCED1A79...:ixclient-2496:2,de/XX],tlf=486,user=[0,Administrator]
+13:38:06,691 ixclient-2495 ixclient-2495 INFO  (IXAuthentication.java:411) - Login result=[ci=[183AD5A5FCED1A79...:ixclient-2496:2,de/XX],tlf=486,user=[0,Administrator]
+13:38:06,691 ixclient-2495 ixclient-2495 INFO  (BTransport.java:208) - send-3 Request=[IXServicePortIF.getServerInfo([183AD5A5FCED1A79...:ixclient-2495:3,de/XX])]
+13:38:06,694 ixclient-2496 ixclient-2496 INFO  (BTransport.java:246) - send-3 [3] Response=[ixid=ELO-IX-SERVER1,indexServers=#2[[arcName=Personal,url=http://test-elo12:9090/ix-Personal/ix],[arcName=testelo12,url=http://test-elo12:9090/ix-testelo12/ix]],license=[serno=presentation license DE (738) - ELO Digital Office GmbH
+Not for resale Teamroom
+[2021-03-31],indexServer=true,limitedVersion=false,demoVersion=false,fultext=true,replication=true,backup=true,limitedIg=false,nbOfServerLicenses=1,sapALink=true,xmlImport=true,cold=true,httpServer=true,domea=false,signature=true,stack=true,nbOfFulltextLangs=3],version=12.01.000.5905,replProcessOnServerId=,databaseEngine=MSSQL]
+13:38:06,694 ixclient-2496 ixclient-2496 INFO  (BTransport.java:208) - send-4 Request=[IXServicePortIF.setSessionOptions([183AD5A5FCED1A79...:ixclient-2496:4,de/XX],#3[[clientApp.version=12.01.000 Build 012],[clientApp.type=ZPCE],[clientApp.name=ELO Automation Servi...]])]
+13:38:06,699 Thread-6   INFO  (WorkingSet.java:1076) - callJSFunction sol.common.as.WfController, ThreadId 23
+13:38:06,699 Thread-6   INFO  (?:?) - WfController: doWorkflow(): timeZone=Europe/Berlin, callId=http-nio-9080-exec-10:1183050
+13:38:06,699 Thread-6   INFO  (BTransport.java:208) - send-1183047 Request=[IXServicePortIF.findFirstTasks([B9408978FB65A52B...:Thread-6:1183051,de/XX],[wf,group,prio=2...0],200)]
+13:38:06,703 ixclient-2496 ixclient-2496 INFO  (BTransport.java:246) - send-1183047 [4] Response=[searchId=(1DA2EAA5-5FC0-FCB4-9AE0-6BD0CE14CA71),moreResults=false,breakTimeout=false,breakTotalCount=false,arr=#0[]]
+13:38:06,703 Thread-6   INFO  (BTransport.java:208) - send-1183048 Request=[IXServicePortIF.findClose([B9408978FB65A52B...:Thread-6:1183052,de/XX],(1DA2EAA5-5FC0-FCB4-9AE0-6BD0CE14CA71))]
+13:38:06,704 ixclient-2496 ixclient-2496 INFO  (BTransport.java:246) - send-1183048 [1] Response=(void)
+13:38:06,704 Thread-6   INFO  (?:?) - Stop status: false
+13:38:06,715 ixclient-2495 ixclient-2495 INFO  (BTransport.java:246) - send-4 [21] Response=(void)
+13:38:06,716 ixclient-2495 ixclient-2495 INFO  (IXAuthentication.java:171) - Set session options=#3[[clientApp.version=12.01.000 Build 012],[clientApp.type=ZPCE],[clientApp.name=ELO Automation Servi...]], err=null
+13:38:06,716 ixclient-2495 ixclient-2495 INFO  (IXAuthentication.java:391) - Notify re-login
+13:38:06,717 http-nio-9080-exec-10   INFO  (?:?) - [sol.common.as.Utils] User session: user.id=0, user.name=Administrator, language=de, timeZone=Europe/Berlin, callId=ixclient-2496:4]
+13:38:06,721 http-nio-9080-exec-10   INFO  (BTransport.java:208) - send-5 Request=[IXServicePortIF.checkoutCounters([183AD5A5FCED1A79...:http-nio-9080-exec-10:5,de/XX],[#1=[SOL_ACTION_ID]],false,LOCK.NO)]
+13:38:06,752 ixclient-2495 ixclient-2495 INFO  (BTransport.java:246) - send-5 [30] Response=[#1=[[SOL_ACTION_ID,1524]]]
+13:38:06,752 http-nio-9080-exec-10   INFO  (BTransport.java:208) - send-6 Request=[IXServicePortIF.checkoutCounters([183AD5A5FCED1A79...:http-nio-9080-exec-10:6,de/XX],[#1=[SOL_ACTION_ID]],true,LOCK.NO)]
+13:38:06,766 ixclient-2495 ixclient-2495 INFO  (BTransport.java:246) - send-6 [12] Response=[#1=[[SOL_ACTION_ID,1524]]]
+13:38:06,766 http-nio-9080-exec-10   INFO  (?:?) - [sol.common_document.as.actions.PdfExport] executing action 'PdfExport' => actionId=1524
+13:38:06,767 http-nio-9080-exec-10   INFO  (BTransport.java:208) - send-7 Request=[IXServicePortIF.checkoutDoc([183AD5A5FCED1A79...:http-nio-9080-exec-10:7,de/XX],ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common/Configuration/base.config,null,[mbSordDoc],LOCK.NO)]
+13:38:06,776 ixclient-2495 ixclient-2495 INFO  (BTransport.java:246) - send-7 [8] Response=[[141642,base.config],[[141642,docs:#1[[26496,]]]],null]
+13:38:06,776 http-nio-9080-exec-10   INFO  (IXConnection.java:632) - Begin download url=http://test-elo12:9090/ix-testelo12/ix?cmd=readdoc1&id=26496&objid=141642&userid=0&groupids=118,9998,90,9006,9999,9002,96,9003,9004,86,9019,9020,9021,9022,9023,9024,9007,147,148,9014,9015,9016,9005,9033,9034,9035,9036,9037,9038,9039,9040,9100,151,152&ticket=62C4B60DF38EC93E2232D85D730F8F1E&ext=YYYY6A0073006F006E00&mode=read&valid=20201202124806&transaction=-546925007&eticket=-AES-0ECF117FE16036897D788BD954CB57BAEDE2F65239177AA0C5E9301D828904610034DF20E5A4D8DE33A399D1EA6FA474&applyallblackenings=false&_1=20201202124806.8c937e28bfd22096&_2=89A28FBC71AFAB0F179C27B44F2880F7&fname=base.config.json
+13:38:06,777 http-nio-9080-exec-10   INFO  (BTransport.java:208) - send-8 Request=[RawStreamService.download([183AD5A5FCED1A79...:http-nio-9080-exec-10:8,de/XX],[#15=[cmd=readdoc1,id=26496,objid=141642,...]])]
+13:38:06,778 ixclient-2495 ixclient-2495 INFO  (BTransport.java:246) - send-8 [1] Response=[, #=-1,targetId=[1076998891.2162611892758688267.3472474062659337821.]]
+13:38:06,779 http-nio-9080-exec-10   INFO  (IXConnection.java:654) - Download url=http://test-elo12:9090/ix-testelo12/ix?cmd=readdoc1&id=26496&objid=141642&userid=0&groupids=118,9998,90,9006,9999,9002,96,9003,9004,86,9019,9020,9021,9022,9023,9024,9007,147,148,9014,9015,9016,9005,9033,9034,9035,9036,9037,9038,9039,9040,9100,151,152&ticket=62C4B60DF38EC93E2232D85D730F8F1E&ext=YYYY6A0073006F006E00&mode=read&valid=20201202124806&transaction=-546925007&eticket=-AES-0ECF117FE16036897D788BD954CB57BAEDE2F65239177AA0C5E9301D828904610034DF20E5A4D8DE33A399D1EA6FA474&applyallblackenings=false&_1=20201202124806.8c937e28bfd22096&_2=89A28FBC71AFAB0F179C27B44F2880F7&fname=base.config.json, received contentLength=-1
+13:38:06,787 http-nio-9080-exec-10   INFO  (BTransport.java:208) - send-9 Request=[IXServicePortIF.checkoutSord([183AD5A5FCED1A79...:http-nio-9080-exec-10:9,de/XX],ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common/Configuration/as.config,[0x0,[mbOnlyId]],LOCK.NO)]
+13:38:06,793 ixclient-2495 ixclient-2495 INFO  (BTransport.java:246) - send-9 [5] Response=[[141643,as.config],[null],null]
+13:38:06,794 http-nio-9080-exec-10   INFO  (BTransport.java:208) - send-10 Request=[IXServicePortIF.checkoutSord([183AD5A5FCED1A79...:http-nio-9080-exec-10:10,de/XX],ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions Custom/common/Configuration/as.config,[0x0,[mbOnlyId]],LOCK.NO)]
+13:38:06,799 ixclient-2495 ixclient-2495 INFO  (BTransport.java:246) - send-10 [5] Response=[[6829,as.config],[null],null]
+13:38:06,799 http-nio-9080-exec-10   INFO  (BTransport.java:208) - send-11 Request=[IXServicePortIF.checkoutDoc([183AD5A5FCED1A79...:http-nio-9080-exec-10:11,de/XX],(F88D7207-0FBA-2F53-97EA-C6D61FB390BC),null,[mbSordDoc],LOCK.NO)]
+13:38:06,804 ixclient-2495 ixclient-2495 INFO  (BTransport.java:246) - send-11 [5] Response=[[141643,as.config],[[141643,docs:#1[[26498,]]]],null]
+13:38:06,804 http-nio-9080-exec-10   INFO  (IXConnection.java:632) - Begin download url=http://test-elo12:9090/ix-testelo12/ix?cmd=readdoc1&id=26498&objid=141643&userid=0&groupids=118,9998,90,9006,9999,9002,96,9003,9004,86,9019,9020,9021,9022,9023,9024,9007,147,148,9014,9015,9016,9005,9033,9034,9035,9036,9037,9038,9039,9040,9100,151,152&ticket=9EBF73B8480AD39303CC4B825124C0AC&ext=YYYY6A0073006F006E00&mode=read&valid=20201202124806&transaction=756255111&eticket=-AES-0ECF117FE16036897D788BD954CB57BAEDE2F65239177AA0C5E9301D82890461A970F9C26D4032ADA7688B188BE27D00&applyallblackenings=false&_1=20201202124806.ea5d0aa9a2714daa&_2=9CF3AD7BCDC913728EBC2593B381440D&fname=as.config.json
+13:38:06,805 http-nio-9080-exec-10   INFO  (BTransport.java:208) - send-12 Request=[RawStreamService.download([183AD5A5FCED1A79...:http-nio-9080-exec-10:12,de/XX],[#15=[cmd=readdoc1,id=26498,objid=141643,...]])]
+13:38:06,807 ixclient-2495 ixclient-2495 INFO  (BTransport.java:246) - send-12 [2] Response=[, #=-1,targetId=[1076998891.5755661157291424629.5217777354124581854.]]
+13:38:06,807 http-nio-9080-exec-10   INFO  (IXConnection.java:654) - Download url=http://test-elo12:9090/ix-testelo12/ix?cmd=readdoc1&id=26498&objid=141643&userid=0&groupids=118,9998,90,9006,9999,9002,96,9003,9004,86,9019,9020,9021,9022,9023,9024,9007,147,148,9014,9015,9016,9005,9033,9034,9035,9036,9037,9038,9039,9040,9100,151,152&ticket=9EBF73B8480AD39303CC4B825124C0AC&ext=YYYY6A0073006F006E00&mode=read&valid=20201202124806&transaction=756255111&eticket=-AES-0ECF117FE16036897D788BD954CB57BAEDE2F65239177AA0C5E9301D82890461A970F9C26D4032ADA7688B188BE27D00&applyallblackenings=false&_1=20201202124806.ea5d0aa9a2714daa&_2=9CF3AD7BCDC913728EBC2593B381440D&fname=as.config.json, received contentLength=-1
+13:38:06,816 http-nio-9080-exec-10   INFO  (BTransport.java:208) - send-13 Request=[IXServicePortIF.checkoutDoc([183AD5A5FCED1A79...:http-nio-9080-exec-10:13,de/XX],(2E4B82F9-D445-E76F-4669-E79742EE656F),null,[mbSordDoc],LOCK.NO)]
+13:38:06,820 ixclient-2495 ixclient-2495 INFO  (BTransport.java:246) - send-13 [4] Response=[[6829,as.config],[[6829,docs:#1[[4528,]]]],null]
+13:38:06,821 http-nio-9080-exec-10   INFO  (IXConnection.java:632) - Begin download url=http://test-elo12:9090/ix-testelo12/ix?cmd=readdoc1&id=4528&objid=6829&userid=0&groupids=118,9998,90,9006,9999,9002,96,9003,9004,86,9019,9020,9021,9022,9023,9024,9007,147,148,9014,9015,9016,9005,9033,9034,9035,9036,9037,9038,9039,9040,9100,151,152&ticket=D56EF6EC81DB8CF0A6D6243EB865410E&ext=YYYY6A0073006F006E00&mode=read&valid=20201202124806&transaction=-545991966&eticket=-AES-0ECF117FE16036897D788BD954CB57BAEDE2F65239177AA0C5E9301D82890461BBFEAFD6729659A02F7BDF520AF96892&applyallblackenings=false&_1=20201202124806.1a84cc8800f80278&_2=9E5C10AF8D4224D1C2D22FC666770E0C&fname=as.config.json
+13:38:06,821 http-nio-9080-exec-10   INFO  (BTransport.java:208) - send-14 Request=[RawStreamService.download([183AD5A5FCED1A79...:http-nio-9080-exec-10:14,de/XX],[#15=[cmd=readdoc1,id=4528,objid=6829,...]])]
+13:38:06,822 ixclient-2495 ixclient-2495 INFO  (BTransport.java:246) - send-14 [0] Response=[, #=-1,targetId=[1076998891.1490027412385407462.1146386793457349980.]]
+13:38:06,822 http-nio-9080-exec-10   INFO  (IXConnection.java:654) - Download url=http://test-elo12:9090/ix-testelo12/ix?cmd=readdoc1&id=4528&objid=6829&userid=0&groupids=118,9998,90,9006,9999,9002,96,9003,9004,86,9019,9020,9021,9022,9023,9024,9007,147,148,9014,9015,9016,9005,9033,9034,9035,9036,9037,9038,9039,9040,9100,151,152&ticket=D56EF6EC81DB8CF0A6D6243EB865410E&ext=YYYY6A0073006F006E00&mode=read&valid=20201202124806&transaction=-545991966&eticket=-AES-0ECF117FE16036897D788BD954CB57BAEDE2F65239177AA0C5E9301D82890461BBFEAFD6729659A02F7BDF520AF96892&applyallblackenings=false&_1=20201202124806.1a84cc8800f80278&_2=9E5C10AF8D4224D1C2D22FC666770E0C&fname=as.config.json, received contentLength=-1
+13:38:06,837 http-nio-9080-exec-2   INFO  (ELOmover.java:194) - request uri: /as-testelo12/as
+13:38:06,837 http-nio-9080-exec-2   INFO  (ELOmover.java:195) - request url: http://test-elo12:9080/as-testelo12/as
+13:38:06,837 http-nio-9080-exec-2   INFO  (ELOmover.java:505) - instance=invalid
+13:38:06,838 http-nio-9080-exec-2   WARN  (ELOmover.java:553) - Error while executing the run cmd: 
+java.lang.NullPointerException
+	at de.elo.mover.main.WorkingSet.getRuleset(WorkingSet.java:262)
+	at de.elo.mover.main.ELOmover.processTrigger(ELOmover.java:519)
+	at de.elo.mover.main.ELOmover.processRequest(ELOmover.java:208)
+	at de.elo.mover.main.ELOmover.doGet(ELOmover.java:183)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:634)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.filters.CorsFilter.handleNonCORS(CorsFilter.java:352)
+	at org.apache.catalina.filters.CorsFilter.doFilter(CorsFilter.java:171)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:199)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:490)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:668)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:834)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1417)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+13:38:06,843 ix-logout   INFO  (BTransport.java:208) - send-15 Request=[IXServicePortIF.logout([183AD5A5FCED1A79...:ix-logout:15,de/XX])]
+13:38:06,850 ixclient-2495 ixclient-2495 INFO  (BTransport.java:246) - send-15 [7] Response=(void)
+13:38:06,850 ix-logout   INFO  (BTransport.java:208) - send-1 Request=[BUtilityRequests.cancelMessage(-2)]
+13:38:06,852 ixclient-2495 ixclient-2495 INFO  (BTransport.java:234) - send-1 [2] Response=[ELOIX:401]Send message failed[DETAILS:HTTP status 401 java.io.IOException: HTTP status 401][HTTP status 401], relogin=true
+13:38:06,853 ixclient-2496 ixclient-2496 INFO  (BTransport.java:208) - send-2 Request=[BUtilityRequests.cancelMessage(-2)]
+13:38:06,855 ixclient-2495 ixclient-2495 INFO  (BTransport.java:246) - send-2 [2] Response=(void)
+13:38:06,856 http-nio-9080-exec-10   INFO  (?:?) - Stop status: false
+13:38:18,710 Thread-6   INFO  (WorkingSet.java:1076) - callJSFunction sol.common_monitoring.as.JobQueue, ThreadId 23
+13:38:18,710 Thread-6   INFO  (BTransport.java:208) - send-1183049 Request=[IXServicePortIF.checkoutSord([B9408978FB65A52B...:Thread-6:1183053,de/XX],1,[mbSordLean],LOCK.NO)]
+13:38:18,712 ixclient-2495 ixclient-2495 INFO  (BTransport.java:246) - send-1183049 [2] Response=[[1,testelo12],[null],null]
+13:38:18,713 Thread-6   INFO  (?:?) - Sord: testelo12   State: 1
+13:38:18,713 Thread-6   INFO  (BTransport.java:208) - send-1183050 Request=[IXServicePortIF.checkoutSord([B9408978FB65A52B...:Thread-6:1183054,de/XX],ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/_global/Job queue,[mbOnlyId],LOCK.NO)]
+13:38:18,718 ixclient-2495 ixclient-2495 INFO  (BTransport.java:246) - send-1183050 [4] Response=[[1395,Job queue],[null],null]
+13:38:18,718 Thread-6   INFO  (BTransport.java:208) - send-1183051 Request=[IXServicePortIF.checkoutMap([B9408978FB65A52B...:Thread-6:1183055,de/XX],objekte,1395,[#2=[SOL_UPDATE_WF_TEMPLATE.*,SOL_UPDATE_TIMESTAMP.*]],LOCK.NO)]
+13:38:18,721 ixclient-2495 ixclient-2495 INFO  (BTransport.java:246) - send-1183051 [2] Response=[objekte,id=1395,objId=1395,lockId=-1,lockName=,TStamp=2020.11.09.09.25.09,items=#6[[SOL_UPDATE_WF_TEMPLATE.(3BE92CC6-3B99-21B3-EA48-7D884D3B81B3)=sol.hr.personnel.Fil...],[SOL_UPDATE_TIMESTAMP.(1FE6B5F1-71D3-1F48-166B-10BD755559AD)=20201109092459],[SOL_UPDATE_TIMESTAMP.(498692AE-228E-69CB-1734-FEEEFABA8273)=20201104142838],...]]
+13:38:18,721 Thread-6   INFO  (?:?) - [sol.common_monitoring.as.Monitor] initialize monitor
+13:38:18,722 Thread-6   INFO  (?:?) - [sol.common_monitoring.as.Monitor] processing start: 20201202133818
+13:38:18,722 Thread-6   INFO  (BTransport.java:208) - send-1183052 Request=[IXServicePortIF.findFirstSords([B9408978FB65A52B...:Thread-6:1183056,de/XX],[findByIndex:[],findChildren:[parentId=ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/_global/Job queue,mainParent=false,endLevel=1],findByType:[docs,stcs]],1000,[mbAllIndex])]
+13:38:18,726 ixclient-2495 ixclient-2495 INFO  (BTransport.java:246) - send-1183052 [4] Response=[searchId=(3F239D77-78D7-B389-CB18-B2A417F0BA17),moreResults=false,breakTimeout=false,breakTotalCount=false,arr=#0[]]
+13:38:18,726 Thread-6   INFO  (BTransport.java:208) - send-1183053 Request=[IXServicePortIF.findClose([B9408978FB65A52B...:Thread-6:1183057,de/XX],(3F239D77-78D7-B389-CB18-B2A417F0BA17))]
+13:38:18,726 ixclient-2495 ixclient-2495 INFO  (BTransport.java:246) - send-1183053 [0] Response=(void)
+13:38:18,726 Thread-6   INFO  (?:?) - [sol.common_monitoring.as.Monitor] processing batch: found 0 entries
+13:38:18,729 Thread-6   INFO  (?:?) - Stop status: false

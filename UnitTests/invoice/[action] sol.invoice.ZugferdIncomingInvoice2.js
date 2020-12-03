@@ -24,6 +24,25 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice2", function () {
       );
     }).not.toThrow();
   });
+  describe("Rename Folder 'connector_dx' to '_connector_dx'", function () {
+    it("get connector_dx folder", function (done) {
+      test.Utils.getSord("ARCPATH:/Administration/Business Solutions/connector_dx").then(function success1(SordCdx) {
+        test.Utils.updateSord(SordCdx, [{ key: "name", value: "_connector_dx" }]).then(function success2(updateSordResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }, function error(err) {
+        fail(err);
+        console.error(err);
+        done();
+      }
+      );
+    });
+  });
   describe("prepare incoming invoice", function () {
     it("get entry folder", function (done) {
       expect(function () {
@@ -1120,6 +1139,25 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice2", function () {
         }
         );
       }).not.toThrow();
+    });
+  });
+  describe("Rename Folder '_connector_dx' to 'connector_dx'", function () {
+    it("get _connector_dx folder", function (done) {
+      test.Utils.getSord("ARCPATH:/Administration/Business Solutions/_connector_dx").then(function success1(SordCdx) {
+        test.Utils.updateSord(SordCdx, [{ key: "name", value: "connector_dx" }]).then(function success2(updateSordResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }, function error(err) {
+        fail(err);
+        console.error(err);
+        done();
+      }
+      );
     });
   });
   afterAll(function (done) {
