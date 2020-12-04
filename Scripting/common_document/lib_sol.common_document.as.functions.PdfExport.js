@@ -6,6 +6,7 @@
  * @requires sol.common.AclUtils
  * @requires sol.common.Config
  * @requires sol.common.FileUtils
+ * @requires sol.common.sol.common.JsonUtils
  * @requires sol.common.Template
  * @requires sol.common.TranslateTerms
  * @requires sol.common.WfUtils
@@ -16,6 +17,9 @@
  * @requires sol.common_document.Utils
  * @requires sol.common_document.as.Utils
  */
+
+var logger = sol.create("sol.Logger", { scope: "sol.common_document.as.functions.PdfExport" });
+
 sol.define("sol.common_document.as.functions.PdfExport", {
   extend: "sol.common.as.FunctionBase",
   
@@ -29,13 +33,19 @@ sol.define("sol.common_document.as.functions.PdfExport", {
   },
   
   process: function () {
+    logger.enter("process_PdfExport");
     var me = this, 
         exportDirPath, result, tempDirBasePath, timestamp;
 
     tempDirBasePath = sol.common.FileUtils.getTempDirPath(); 
     timestamp = sol.common.FileUtils.getTimeStampString();   
     exportDirPath = tempDirBasePath + File.separator + "temp" + "_" + timestamp;
+
+    logger.info(["Start pdfExport with folderId: '{0}', exportDirPath: '{1}', config: '{2}'", me.folderId, exportDirPath, sol.common.JsonUtils.stringifyAll(me.config, { tabStop: 2 })]);
+    sol.common_document.as.Utils.logger = logger;
     result = sol.common_document.as.Utils.pdfExport(me.folderId, exportDirPath, me.config);
+    logger.info(["Finished pdfExport with result: {0}", sol.common.JsonUtils.stringifyAll(result, { tabStop: 2 })]);
+
     sol.common.FileUtils.delete(exportDirPath, { quietly: true });
 
     if (result.objId) {
@@ -48,6 +58,8 @@ sol.define("sol.common_document.as.functions.PdfExport", {
       }
       sol.common.WfUtils.createReminder(result.objId);
     }
+
+    logger.exit("process_PdfExport");
   }
   
 });
