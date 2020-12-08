@@ -74,6 +74,11 @@ sol.define("sol.knowledge.ix.services.CreateReply", {
    * Object IDs of created files
    */
 
+  /**
+   * @cfg {String} feedId
+   * feedId
+   */
+
   initialize: function (params) {
     var me = this;
     me.$super("sol.common.ix.ServiceBase", "initialize", [params]);
@@ -88,7 +93,7 @@ sol.define("sol.knowledge.ix.services.CreateReply", {
   createReply: function () {
     var me = this,
         post, replyTemplateObjId, reply, replyTemplate, space, objId, flowNameData, workflowTemplateName, flowName, guid, score,
-        contentType;
+        contentType, action, currentUser;
 
     post = sol.common.RepoUtils.getSord(me.postGuid);
     replyTemplateObjId = sol.common.RepoUtils.getObjIdFromRelativePath(me.knowledgeConfig.replyTypeTemplateFolderId, "/" + me.type);
@@ -100,10 +105,8 @@ sol.define("sol.knowledge.ix.services.CreateReply", {
       throw "Current User has no list right to current post";
     }
 
-    replyTemplate = sol.common.RepoUtils.getSord(replyTemplateObjId, { sordZ: SordC.mbAll });
-
+    replyTemplate = sol.common.RepoUtils.getSord(replyTemplateObjId);
     space = sol.knowledge.ix.KnowledgeUtils.findSpace(post.id);
-
     reply = sol.common.SordUtils.cloneSord(post, {
       dstSord: replyTemplate,
       dstParentId: me.postGuid,
@@ -112,18 +115,26 @@ sol.define("sol.knowledge.ix.services.CreateReply", {
     });
 
     reply.aclItems = space.aclItems;
-
     sol.common.SordUtils.addRights(reply, { users: ["$CURRENTUSER"], rights: me.knowledgeConfig.services.createReply.userRights });
-
     sol.common.SordUtils.setObjKeyValue(reply, me.knowledgeConfig.fields.objectType, me.knowledgeConfig.services.createReply.objectType);
-
     reply.desc = me.content;
-
     reply.type = replyTemplate.type;
-    objId = ixConnect.ix().checkinSord(reply, SordC.mbAll, LockC.NO);
 
+    if (me.feedId) {
+      if (me.feedId != "-1") {
+        action = ixConnect.feedService.checkoutAction(me.feedId, ActionC.mbAll);
+        currentUser = ixConnect.loginResult.user;
+        if (currentUser.id != action.userId) {
+          if (sol.common.AclUtils.hasEffectiveRights(space.id, { rights: { w: true } })) {
+            reply.ownerId = action.userId;
+            reply.ownerName = action.userName;
+          }        
+        }  
+      }
+    }
+
+    objId = ixConnect.ix().checkinSord(reply, SordC.mbAllIndex, LockC.NO);
     sol.common.RepoUtils.moveSords(me.createdFiles, objId);
-
     score = sol.common.SordUtils.incObjKeyValue(post, me.knowledgeConfig.fields.knowledgeCountReplies);
 
     if (me.containsClassName(me.knowledgeConfig.updateXDateServices)) {
@@ -140,14 +151,10 @@ sol.define("sol.knowledge.ix.services.CreateReply", {
     }
 
     // count maximum replies for this post
-    sol.knowledge.ix.ReputationUtils.maxCount("RECEIVE_POST_REPLIES_MAX",
-        post.ownerId,
-        score);
+    sol.knowledge.ix.ReputationUtils.maxCount("RECEIVE_POST_REPLIES_MAX", post.ownerId, score);
 
     contentType = sol.common.SordUtils.getObjKeyValue(post, "KNOWLEDGE_CONTENT_TYPE");
-    sol.knowledge.ix.ReputationUtils.maxCount("RECEIVE_POST_REPLIES_" + contentType + "_MAX",
-        post.ownerId,
-        score);
+    sol.knowledge.ix.ReputationUtils.maxCount("RECEIVE_POST_REPLIES_" + contentType + "_MAX", post.ownerId, score);
 
     sol.common.WfUtils.startWorkflow(workflowTemplateName, flowName, objId);
 

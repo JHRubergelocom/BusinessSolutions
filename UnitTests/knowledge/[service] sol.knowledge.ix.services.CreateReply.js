@@ -1,6 +1,7 @@
 
 describe("[service] sol.knowledge.ix.services.CreateReply", function () {
-  var objTempId, objPostId, objSpaceId, objFile1Id, objFile2Id, originalTimeout;
+  var objTempId, objPostId, objSpaceId, objFile1Id, objFile2Id, 
+      feedActionId, originalTimeout;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -66,6 +67,22 @@ describe("[service] sol.knowledge.ix.services.CreateReply", function () {
           lang: "fr"
         }).then(function success(jsonResultPost) {
           objPostId = jsonResultPost.objId;
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("result should return new feedActionId", function (done) {
+      expect(function () {
+        test.Utils.execute("RF_sol_knowledge_service_Comment_Add", {
+          objId: objPostId, text: "Neuer Test feedId"
+        }).then(function success(result) {
+          expect(result.feedActionId).toBeDefined();
+          feedActionId = result.feedActionId;
           done();
         }, function error(err) {
           fail(err);
@@ -144,6 +161,23 @@ describe("[service] sol.knowledge.ix.services.CreateReply", function () {
               content: "Content3",
               postGuid: objPostId,
               createdFiles: [objFile1Id, objFile2Id]
+            }).then(function success(jsonResult) {
+              done();
+            }, function error(err) {
+              fail(err);
+              console.error(err);
+              done();
+            }
+            );
+          }).not.toThrow();
+        });
+        it("create reply with feedId", function (done) {
+          expect(function () {
+            test.Utils.execute("RF_sol_knowledge_service_Reply_Create", {
+              type: "Reply",
+              content: "Content4",
+              postGuid: objPostId,
+              feedId: feedActionId
             }).then(function success(jsonResult) {
               done();
             }, function error(err) {
