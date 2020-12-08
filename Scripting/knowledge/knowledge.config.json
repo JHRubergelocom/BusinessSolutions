@@ -154,7 +154,8 @@
           "fieldName": "KNOWLEDGE_LAST_EDITED_BY"
         },
         "editedDate": {
-          "group": "KNOWLEDGE_LAST_EDITED_DATE"
+          "group": "KNOWLEDGE_LAST_EDITED_DATE",
+          "adjustToConnectionTimeZone": true
         }
       }
     },
@@ -269,12 +270,13 @@
     "cacheReloadInSeconds": 5,
     "earliestReloadCacheInMinutes": 1,
     "allowEditReplyBeforeChangeToComment": false,
-    "getDefaultFlagForUpdateDateOnMove": false,
+    "defaultFlagForUpdateDateOnMove": false,
     "additionalPostInfo": {
       "maxUsers": 10,
       "maxRelatedPosts": 8
     },
-    "topicMaxLength": 30
+    "topicMaxLength": 30,
+    "boardsAtHome": 4
   },
   "boardUpload": {
     "imageUpload": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Knowledge Board Upload/Image",
