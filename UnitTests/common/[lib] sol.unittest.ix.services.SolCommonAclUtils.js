@@ -4,7 +4,8 @@ describe("[lib] sol.unittest.ix.services.SolCommonAclUtils", function () {
       objId, users, rights, config, accessCode, asAdmin,
       andGroup, defaultAccessCode, sord, recursive, rightsConfig,
       params, oldAclList, newAclList, newAclItems, conn, mode, aclItems,
-      aclItem, combineAclFunction, ctxSord, inclTplSord, startIds;
+      aclItem, combineAclFunction, ctxSord, inclTplSord, startIds,
+      clazz, fieldName;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -478,6 +479,25 @@ describe("[lib] sol.unittest.ix.services.SolCommonAclUtils", function () {
           );
         }).not.toThrow();
       });
+      it("hasClassField", function (done) {
+        expect(function () {
+          clazz = "AccessC";
+          fieldName = "LUR_PERMISSION";
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.AclUtils",
+            classConfig: {},
+            method: "hasClassField",
+            params: [clazz, fieldName]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("hasEffectiveRights", function (done) {
         expect(function () {
           sord = aclUtilsSord;
@@ -513,6 +533,23 @@ describe("[lib] sol.unittest.ix.services.SolCommonAclUtils", function () {
             classConfig: {},
             method: "initializeRights",
             params: [newAclItems, objId, config, conn]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("isAccessCodePermissionAvailable", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.AclUtils",
+            classConfig: {},
+            method: "isAccessCodePermissionAvailable",
+            params: []
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {

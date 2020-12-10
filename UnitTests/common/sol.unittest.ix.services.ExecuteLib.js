@@ -132,6 +132,7 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
   process: function () {
     var me = this,
         result = {},
+        accessC,
         file, dir, path, fileData, cls, func,
         i, bytes, byte, string, strings, sordMap,
         findInfo, findChildren, findByType,
@@ -172,6 +173,10 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
             cls.appendInheritedAcl(me.params[3], me.params[1], me.params[2], me.params[0]);
             cls.appendUserAcl(me.params[3], me.params[1], me.params[2], defaultAccessCode);
             cls.appendAndGroupAcl(me.params[3], me.params[1], me.params[2], defaultAccessCode);
+            break;
+          case "hasClassField":
+            accessC = new AccessC;
+            me.params[0] = accessC.getClass();
             break;
           case "initializeRights":
             me.params[3] = ixConnect;

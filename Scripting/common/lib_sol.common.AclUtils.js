@@ -464,7 +464,8 @@ sol.define("sol.common.AclUtils", {
    * @return {Number}
    */
   createAccessCode: function (rights) {
-    var code;
+    var me = this,
+        code;
 
     code = 0;
     if (!rights) {
@@ -483,13 +484,54 @@ sol.define("sol.common.AclUtils", {
     if ((rights.edit === true) || (rights.e === true)) {
       code |= AccessC.LUR_EDIT;
     }
+
     if ((rights.list === true) || (rights.l === true)) {
       code |= AccessC.LUR_LIST;
     }
-    if ((typeof new AccessC().LUR_PERMISSION !== "undefined") && ((rights.perm === true) || (rights.p === true))) { // additional check is necessary if property does not exist (prior to ELO12)
+
+    if (((rights.perm === true) || (rights.p === true)) && (me.isAccessCodePermissionAvailable())) {
       code |= AccessC.LUR_PERMISSION;
     }
+
     return code;
+  },
+
+  /**
+   * Is the access code `permission` available
+   * Check must be compatible with Rhino, Nashorn and GraalVM
+   */
+  isAccessCodePermissionAvailable: function () {
+    var me = this,
+        accessC, accessCClass;
+
+    if (typeof me.accessCodePermissionAvailable == "undefined") {
+      accessC = new AccessC;
+      accessCClass = accessC.getClass();
+      me.accessCodePermissionAvailable = me.hasClassField(accessCClass, "LUR_PERMISSION");
+    }
+
+    return me.accessCodePermissionAvailable;
+  },
+
+  /**
+   * @private
+   * @param {java.lang.Class} clazz
+   * @param {String} fieldName
+   * @return {Boolean} Has class field
+   */
+  hasClassField: function (clazz, fieldName) {
+    var fields, i, field;
+
+    fields = clazz.getDeclaredFields();
+
+    for (i = 0; i < fields.length; i++) {
+      field = fields[i];
+      if (field.name == fieldName) {
+        return true;
+      }
+    }
+
+    return false;
   },
 
   /**
@@ -501,6 +543,7 @@ sol.define("sol.common.AclUtils", {
    *     var jobState = sol.common.AclUtils.changeRightsInBackground("ARCPATH:/AclTest/Acl1", { mode: "SET", users: ["zipfel"], rights: { r: true } });
    *     var jobState = sol.common.AclUtils.changeRightsInBackground("ARCPATH:/AclTest/Acl1", { mode: "SET", users: ["weiler", { name: "zipfel", rights:{ r: true, w: true } }], rights: { r: true }, andGroups: { groups: ["Pubsec.Registratur", { name: "Pubsec.Sachbearbeiter" }], rights: { d: true } } });
    *     var jobState = sol.common.AclUtils.changeRightsInBackground("ARCPATH:/AclTest/Acl1", { mode: "ADD", users: [{ "type": "GRP", "key": "CONTRACT_RESPONSIBLE", "rights": { "r": true, "w": true, "d": false, "e": false, "l": false } }] });
+   *     var jobState = sol.common.AclUtils.changeRightsInBackground("ARCPATH:/AclTest/Acl1", { mode: "ADD", users: [{ "type": "GRP", "key": "CONTRACT_RESPONSIBLE", "mode": "SUPERVISOR", "supervisorLevel": 0, "rights": { "r": true, "w": true, "d": false, "e": false, "l": false } }] });
    *
    * Example with and-groups
    * (sets an and-group with the groups 'GroupA', 'GroupB' and the group from the CONTRACT_RESPONSIBLE field with read only,
@@ -542,6 +585,7 @@ sol.define("sol.common.AclUtils", {
    * @param {Object} config.rights Additional rights, e.g. { read: false, write: true, del: true, edit: true, list: true, perm: true }
    * @param {Boolean} [config.recursive=true] If true the ACL of the children will also be changed. Default is true.
    * @param {Boolean} [config.dontWait=false] Don't wait for the background process. Default is false (synchronous).
+   * @param {String} config.flowId Flow ID to determine the values of flow map fields
    * @return {de.elo.ix.client.JobState}
    */
   changeRightsInBackground: function (objId, config) {
@@ -658,7 +702,7 @@ sol.define("sol.common.AclUtils", {
   appendUserAcl: function (newAclItems, objId, config, defaultAccessCode) {
     var me = this,
         users, userAcls;
-    users = me.preprocessUsers(objId, config.users);
+    users = me.preprocessUsers(objId, config.users, config);
     userAcls = me.retrieveUserAcl(users, defaultAccessCode);
     if (userAcls) {
       userAcls.forEach(function (userAcl) {
@@ -680,7 +724,7 @@ sol.define("sol.common.AclUtils", {
     if (config.andGroups && (config.andGroups.length > 0)) {
       config.andGroups.forEach(function (andGroup) {
         var andGroupAcl;
-        andGroup.groups = me.preprocessUsers(objId, andGroup.groups);
+        andGroup.groups = me.preprocessUsers(objId, andGroup.groups, config);
         andGroupAcl = me.retrieveAndGroupAcl(andGroup, defaultAccessCode);
         if (andGroupAcl) {
           newAclItems.push(andGroupAcl);
@@ -766,6 +810,8 @@ sol.define("sol.common.AclUtils", {
    * If a user name or the retrieved value contains handlebars syntax, the sord will be applied to that string.
    * @param {String} objId Object ID
    * @param {String[]|Number[]|Object[]} users Array of user defintions. all Types can be mixed.
+   * @param {Object} params Parameters
+   * @param {String} params.flowId Workflow ID
    * @return {Object[]}
    *
    * # Example of the parameter 'users':
@@ -778,7 +824,7 @@ sol.define("sol.common.AclUtils", {
    *       { "name": "LEGAL_DEP_{{sord.objKeys.CONTRACT_DEPARTMENT}}", "rights": { "r": true, "w": false, "d": false, "e": false, "l": false, "p": false } }
    *     ]
    */
-  preprocessUsers: function (objId, users) {
+  preprocessUsers: function (objId, users, params) {
     var me = this,
         ctxSord = { objId: objId },
         conn, userCfgs;
@@ -789,22 +835,53 @@ sol.define("sol.common.AclUtils", {
     if (users && (users.length > 0)) {
       users = JSON.parse(sol.common.JsonUtils.stringifyAll(users));
       users.forEach(function (user) {
-        var userNames, userInfos, sord;
+        var userNames = [],
+            rawUserNames, rawUserName, userName, i, supervisorLevel, userInfos, sord;
+
         if (sol.common.ObjectUtils.isString(user) || sol.common.ObjectUtils.isNumber(user)) {
-          user = me.replaceUserNamePlaceholders(String(user), ctxSord, conn);
+          user = me.replaceUserNamePlaceholders(String(user), ctxSord, conn, params.flowId);
           if (user) {
             userCfgs.push(user);
           }
         } else if (!user.name && user.type && user.key) {
           try {
-            sord = me.enrichContextSord(ctxSord, false, conn).sord;
-            userNames = sol.common.SordUtils.getValues(sord, user);
-            userInfos = ixConnect.ix().checkoutUsers(userNames, CheckoutUsersC.BY_IDS, LockC.NO);
+            sord = me.enrichContextSord(ctxSord, false, conn, params.flowId).sord;
+
+            if ((user.type == "WFMAP") && (params.flowId)) {
+              rawUserName = sol.common.WfUtils.getWfMapValue(params.flowId, user.key);
+              rawUserNames = (rawUserName) ? [rawUserName] : [];
+            } else {
+              rawUserNames = sol.common.SordUtils.getValues(sord, user);
+            }
+
+            supervisorLevel = user.supervisorLevel || 0;
+
+            rawUserNames = rawUserNames || [];
+
+            for (i = 0; i < rawUserNames.length; i++) {
+              rawUserName = rawUserNames[i];
+              userName = rawUserName;
+
+              if (user.mode && (user.mode.toUpperCase() == "SUPERVISOR")) {
+                userName = sol.common.UserUtils.getSupervisorOfLevel(rawUserName, supervisorLevel);
+                if (!userName) {
+                  me.logger.debug("Can't find supervisor: userName={0}", rawUserName);
+                }
+              }
+
+              if (userName) {
+                userNames.push(userName);
+              }
+            }
+
+            if (userNames.length > 0) {
+              userInfos = ixConnect.ix().checkoutUsers(userNames, CheckoutUsersC.BY_IDS, LockC.NO);
+            }
 
             if (userInfos && (userInfos.length > 0)) {
               userInfos.forEach(function (userInfo) {
                 var tmpUser = JSON.parse(sol.common.JsonUtils.stringifyAll(user)); // copy current user configuration for each user in the list
-                tmpUser.name = me.replaceUserNamePlaceholders(userInfo.name, ctxSord, conn);
+                tmpUser.name = me.replaceUserNamePlaceholders(userInfo.name, ctxSord, conn, params.flowId);
                 if (tmpUser) {
                   userCfgs.push(tmpUser);
                 }
@@ -814,12 +891,15 @@ sol.define("sol.common.AclUtils", {
             me.logger.debug("error determining user(s)", ignore);
           }
         } else {
-          user.name = me.replaceUserNamePlaceholders(user.name, ctxSord, conn);
+          user.name = me.replaceUserNamePlaceholders(user.name, ctxSord, conn, params.flowId);
           if (user && user.name) {
             userCfgs.push(user);
           }
         }
       });
+
+      me.logger.debug(["preprocessUsers(): resolvedUsers={0}", JSON.stringify(userCfgs)]);
+
       return userCfgs;
     }
   },
@@ -834,9 +914,10 @@ sol.define("sol.common.AclUtils", {
    * @param {String} userName
    * @param {Object} ctxSord (optional) only used if `userName` contains handlebars syntax
    * @param {de.elo.ix.client.IXConnection} conn (optional) only used if `userName` contains handlebars syntax
+   * @param {String} flowId (optional)
    * @return {String} Username
    */
-  replaceUserNamePlaceholders: function (userName, ctxSord, conn) {
+  replaceUserNamePlaceholders: function (userName, ctxSord, conn, flowId) {
     var me = this,
         tplSord;
 
@@ -846,7 +927,7 @@ sol.define("sol.common.AclUtils", {
       return String(ixConnect.loginResult.user.name);
     }
     if (userName.indexOf("{{") > -1) {
-      tplSord = me.enrichContextSord(ctxSord, true, conn).tplSord;
+      tplSord = me.enrichContextSord(ctxSord, true, conn, flowId).tplSord;
       return sol.create("sol.common.Template", { source: userName }).apply(tplSord);
     }
     return userName;
@@ -858,9 +939,10 @@ sol.define("sol.common.AclUtils", {
    * @param {Object} ctxSord
    * @param {Boolean} inclTplSord
    * @param {de.elo.ix.client.IXConnection} conn
+   * @param {String} flowId (optional)
    * @return {Object} The ctxSord itself after enrichment
    */
-  enrichContextSord: function (ctxSord, inclTplSord, conn) {
+  enrichContextSord: function (ctxSord, inclTplSord, conn, flowId) {
     if (!ctxSord.sord) {
       if (!ctxSord.objId) {
         throw "Object ID is empty";
@@ -868,7 +950,9 @@ sol.define("sol.common.AclUtils", {
       ctxSord.sord = conn.ix().checkoutSord(ctxSord.objId, SordC.mbAllIndex, LockC.NO);
     }
     if (inclTplSord && !ctxSord.tplSord) {
-      ctxSord.tplSord = sol.common.SordUtils.getTemplateSord(ctxSord.sord);
+      ctxSord.tplSord = flowId
+        ? sol.common.WfUtils.getTemplateSord(ctxSord.sord, flowId)
+        : sol.common.SordUtils.getTemplateSord(ctxSord.sord);
     }
     return ctxSord;
   },
