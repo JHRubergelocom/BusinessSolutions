@@ -315,13 +315,17 @@ sol.define("sol.common.SordUtils", {
    *     }
    *
    * @param {de.elo.ix.client.Sord} sord
-   * @param {Object} params
+   * @param {Object} params Parameter
+   * @param {String} params.key Key
+   * @param {String} params.type Type
+   * @param {Number} params.maxLength Max length
+   * @param {Number} params.fillString Fill string, e.g. `00000000000000`
    * @return {String[]} Can be null
    */
   getValues: function (sord, params) {
     var me = this,
         values = null,
-        tmpValues, i, fieldDefString, fileData;
+        tmpValues, i, fieldDefString, value;
 
     if (!sord) {
       throw "Sord is empty";
@@ -334,7 +338,7 @@ sol.define("sol.common.SordUtils", {
     switch (params.type) {
       case "SORD":
         if (sord[params.key]) {
-          values = [sord[params.key]];
+          values = [String(sord[params.key])];
         }
         break;
       case "GRP":
@@ -348,30 +352,187 @@ sol.define("sol.common.SordUtils", {
         if (tmpValues && (tmpValues.length > 0)) {
           values = [];
           for (i = 0; i < tmpValues.length; i++) {
-            values.push(tmpValues[i].value);
+            values.push(String(tmpValues[i].value));
           }
         }
         break;
+      case "SORDBLOB":
+        value = me.getStringMapBlob({ mapDomain: MapDomainC.DOMAIN_SORD, mapId: sord.id, key: params.key });
+        if (value) {
+          values = [value];
+        }
+        break;
       case "FORMBLOB":
-        tmpValues = ixConnect.ix().checkoutMap("formdata", sord.id, [params.key], LockC.NO).items;
-        if (tmpValues && (tmpValues.length == 1)) {
-          fileData = tmpValues[0].blobValue;
-          if (fileData && fileData.stream) {
-            values = [Packages.org.apache.commons.io.IOUtils.toString(fileData.stream, "UTF-8")];
-            fileData.stream.close();
-          }
+        value = me.getStringMapBlob({ mapDomain: "FORMDATA", mapId: sord.id, key: params.key });
+        if (value) {
+          values = [value];
         }
         break;
       case "CONST":
         if (params.value) {
-          values = [params.value];
+          values = [String(params.value)];
         }
         break;
       default:
         throw "unsupported type: " + params.type;
     }
 
+    if (params.maxLength) {
+      for (i = 0; i < values.length; i++) {
+        value = values[i] + "";
+        value = (value.length > params.maxLength) ? value.substr(0, params.maxLength) : value;
+        values[i] = value;
+      }
+    }
+
+    if (params.fillString) {
+      for (i = 0; i < values.length; i++) {
+        value = values[i] + "";
+        if (value.length < params.fillString.length) {
+          value += params.fillString.substr(value.length);
+        }
+        values[i] = value;
+      }
+    }
+
     return values;
+  },
+
+  /**
+   * Returns an object map blob
+   * @param {Object} params Parameters
+   * @param {String} [params.mapDomain=MapDomainC.DOMAIN_SORD] Map domain
+   * @param {String} params.mapId Map ID
+   * @param {String} params.key Map key
+   * @return {Object}
+   */
+  getObjectMapBlob: function (params) {
+    var me = this,
+        obj, str;
+
+    params = params || {};
+
+    str = me.getStringMapBlob(params);
+
+    obj = JSON.parse(str);
+
+    return obj;
+  },
+
+  /**
+   * Returns a string map blob
+   * @param {Object} params Parameters
+   * @param {String} [params.mapDomain=MapDomainC.DOMAIN_SORD] Map domain
+   * @param {String} params.mapId Map ID
+   * @param {String} params.key Map key
+   */
+  getStringMapBlob: function (params) {
+    var me = this,
+        mapEntries, mapEntry, dataString;
+
+    params = params || {};
+
+    if (!params.mapId) {
+      throw "Map ID is missing";
+    }
+
+    if (!params.key) {
+      throw "Key is missing";
+    }
+
+    params.mapDomain = params.mapDomain || MapDomainC.DOMAIN_SORD;
+
+    mapEntries = ixConnect.ix().checkoutMap(params.mapDomain, params.mapId, [params.key], LockC.NO).items;
+
+    if (!mapEntries || (mapEntries.length == 0)) {
+      return;
+    }
+
+    mapEntry = mapEntries[0];
+
+    dataString = me.getBlobDataFromMapEntry(mapEntry);
+
+    return dataString;
+  },
+
+  /**
+   * Sets an object map blob
+   * @param {Object} params Parameters
+   * @param {String} params.mapId Map ID
+   * @param {String} params.key Key
+   * @param {Object} params.value Value
+   * @param {String} [params.mapDomain=MapDomainC.DOMAIN_SORD] Map domain
+   * @param {String} params.objId Object ID
+   */
+  setObjectMapBlob: function (params) {
+    var me = this;
+
+    params = params || {};
+
+    params.value = JSON.stringify(params.value, 2);
+
+    me.setStringMapBlob(params);
+  },
+
+  /**
+   * Sets a string map blob
+   * @param {Object} params Parameters
+   * @param {String} params.mapId Map ID
+   * @param {String} params.key Key
+   * @param {String} params.value Value
+   * @param {String} [params.mapDomain=MapDomainC.DOMAIN_SORD] Map domain
+   * @param {String} params.objId Object ID
+   */
+  setStringMapBlob: function (params) {
+    var me = this,
+        stringMapBlob;
+
+    params = params || {};
+
+    if (!params.mapId) {
+      throw "Map ID is missing";
+    }
+
+    if (!params.key) {
+      throw "Map key is missing";
+    }
+
+    params.mapDomain = params.mapDomain || MapDomainC.DOMAIN_SORD;
+    stringMapBlob = me.createStringMapBlob(params.key, params.value);
+
+    if (!params.objId && (params.mapDomain == MapDomainC.DOMAIN_SORD)) {
+      params.objId = params.mapId;
+    }
+
+    if (!params.objId) {
+      throw "Object ID is empty";
+    }
+
+    ixConnect.ix().checkinMap(params.mapDomain, params.mapId, params.objId, [stringMapBlob], LockC.NO);
+  },
+
+  /**
+   * Creates a string map blob
+   * @param {String} key Key
+   * @param {String} value Value
+   * @return {de.elo.ix.client.MapValue} Map blob
+   */
+  createStringMapBlob: function (key, value) {
+    var str, bytes, fileData, stringMapBlob;
+
+    if (!key) {
+      throw "Key is empty";
+    }
+
+    value = value || "";
+
+    str = new java.lang.String(value);
+    bytes = str.getBytes("UTF-8");
+
+    fileData = new FileData("text/plain", bytes);
+    stringMapBlob = new MapValue(key, fileData);
+
+    return stringMapBlob;
   },
 
   /**
@@ -383,7 +544,11 @@ sol.define("sol.common.SordUtils", {
    * Uses {@link #getValues}.
    *
    * @param {de.elo.ix.client.Sord} sord
-   * @param {Object} params
+   * @param {Object} params Parameter
+   * @param {String} params.key Key
+   * @param {String} params.type Type
+   * @param {Number} params.fillString Fill string, e.g. `00000000000000`
+   * @param {Number} params.maxLength Max length
    *
    *     {
    *       key: "name",
@@ -654,11 +819,22 @@ sol.define("sol.common.SordUtils", {
    * @return {String[]} The field values
    */
   getObjKeyValues: function (sord, keyName) {
-    var key = this.getObjKey(sord, keyName);
-    if (key && key.data && (key.data.length > 0)) {
-      return key.data;
+    var me = this,
+        key, values, i, value;
+
+    key = me.getObjKey(sord, keyName);
+
+    if (key && key.data) {
+      for (i = 0; i < key.data.length; i++) {
+        value = key.data[i];
+        if (typeof value != "undefined") {
+          values = values || [];
+          values.push(String(value));
+        }
+      }
     }
-    return null;
+
+    return values;
   },
 
   /**
@@ -688,7 +864,7 @@ sol.define("sol.common.SordUtils", {
    */
   setObjKeyValues: function (sord, keyName, values, params) {
     var me = this,
-        newObjKey, objKeys, line, key;
+        newObjKey, objKeys, line, key, i, value;
 
     params = params || {};
 
@@ -698,6 +874,18 @@ sol.define("sol.common.SordUtils", {
 
     if (!keyName) {
       throw "Object key name is empty";
+    }
+
+    values = values || [""];
+
+    if (params.fillString) {
+      for (i = 0; i < values.length; i++) {
+        value = values[i] + "";
+        if (value.length < params.fillString.length) {
+          value += params.fillString.substr(value.length);
+        }
+        values[i] = value;
+      }
     }
 
     key = this.getObjKey(sord, keyName);
@@ -1381,22 +1569,69 @@ sol.define("sol.common.SordUtils", {
   },
 
   /**
-   * Returns a string map blob
-   * @param {String} key Key
-   * @param {String} value Value
-   * @return {de.elo.ix.client.MapValue} Map blob
+   * Returns blob data from a map entry
+   * @param {de.elo.ix.client.KeyValue} mapEntry Map entry
+   * @param {Object} params Parameters
+   * @param {String} [params.returnType=String] returnType, e.g. `String`
+   * @param {String} [params.encoding=UTF-8] encoding, e.g. `UTF-8`
+   * @return {String}
    */
-  createStringMapBlob: function (key, value) {
-    var str, bytes, fileData, stringMapBlob;
-    if (!key) {
-      throw "Key is empty";
+  getBlobDataFromMapEntry: function (mapEntry, params) {
+    var fileData, stringValue;
+
+    if (!mapEntry || !mapEntry.blobValue) {
+      return;
     }
-    value = value || "";
-    str = new java.lang.String(value);
-    bytes = str.getBytes("UTF-8");
-    fileData = new FileData("text/plain", bytes);
-    stringMapBlob = new MapValue(key, fileData);
-    return stringMapBlob;
+
+    fileData = mapEntry.blobValue;
+
+    if (!fileData.stream) {
+      return;
+    }
+
+    params = params || {};
+    params.returnType = params.returnType || "String";
+    params.encoding = params.encoding || "UTF-8";
+
+    if (params.returnType == "String") {
+      stringValue = Packages.org.apache.commons.io.IOUtils.toString(fileData.stream, params.encoding) + "";
+      fileData.stream.close();
+      return stringValue;
+    }
+  },
+
+  /**
+   * Returns the internal date for `iDate` and `xDate`
+   * @param {String} isoDate ISO date
+   * @param {Object} params Parameters
+   * @param {Object} params.conn Connection
+   * @param {String} Internal date
+   */
+  getInternalDate: function (isoDate, params) {
+    var me = this,
+        ELODATE_1970_01_01_UTC,
+        conn, timeZone, utcOffset, date, systemMillis, internalDateInteger, internalDateString;
+
+    ELODATE_1970_01_01_UTC = 36819360;
+
+    params = params || {};
+
+    conn = params.conn || ixConnect;
+
+    timeZone = conn.loginResult.clientInfo.timeZone + "";
+    utcOffset = me.getTimeZoneOffset(timeZone);
+
+    if (isoDate) {
+      date = Packages.org.apache.commons.lang3.time.DateUtils.parseDate(isoDate, ["yyyyMMddHHmmss", "yyyyMMdd"]);
+    } else {
+      date = new java.util.Date();
+    }
+
+    systemMillis = date.getTime();
+
+    internalDateInteger = parseInt((systemMillis / 60 / 1000) + ELODATE_1970_01_01_UTC + utcOffset, 10);
+    internalDateString = internalDateInteger + "";
+
+    return internalDateString;
   }
 });
-

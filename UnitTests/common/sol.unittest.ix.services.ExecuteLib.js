@@ -146,6 +146,13 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
         break;
       case "sol.common.mixins.Inject":
         return result;
+      case "sol.common.SordUtils":
+        switch (me.method) {
+          case "getObjectMapBlob":
+            return result;
+          default:
+        }
+        break;
       default:
     }
 

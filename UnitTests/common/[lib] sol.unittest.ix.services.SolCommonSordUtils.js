@@ -2,7 +2,8 @@
 describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
   var SordUtilsSord, objSordUtilsId, originalTimeout, sord, params, newMask, key,
       srcSord, keyName, maskName, conn, language, country, name, fieldName, objId,
-      config, fieldDef, timeZoneString, numberString, value, values, indexData, data;
+      config, fieldDef, timeZoneString, numberString, value, values, indexData, 
+      mapEntry, data, isoDate;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -183,6 +184,25 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
             params: [maskName]
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual(true);
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("getBlobDataFromMapEntry", function (done) {
+        expect(function () {
+          mapEntry = {};
+          params = {};
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordUtils",
+            classConfig: {},
+            method: "getBlobDataFromMapEntry",
+            params: [mapEntry, params]
+          }).then(function success(jsonResult) {
             done();
           }, function error(err) {
             fail(err);
@@ -381,6 +401,25 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
+      it("getInternalDate", function (done) {
+        expect(function () {
+          isoDate = "";
+          params = {};
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordUtils",
+            classConfig: {},
+            method: "getInternalDate",
+            params: [isoDate, params]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("getLinks", function (done) {
         expect(function () {
           sord = SordUtilsSord;
@@ -515,6 +554,24 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
+      it("getObjectMapBlob", function (done) {
+        expect(function () {
+          params = { mapId: SordUtilsSord.id, key: "MapValue" };
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordUtils",
+            classConfig: {},
+            method: "getObjectMapBlob",
+            params: [params]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("getStatisticSord", function (done) {
         expect(function () {
           sord = SordUtilsSord;
@@ -523,6 +580,24 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
             classConfig: {},
             method: "getStatisticSord",
             params: [sord]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("getStringMapBlob", function (done) {
+        expect(function () {
+          params = { mapId: SordUtilsSord.id, key: "MapValue" };
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordUtils",
+            classConfig: {},
+            method: "getStringMapBlob",
+            params: [params]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
@@ -883,6 +958,42 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
             classConfig: {},
             method: "setObjKeyValues",
             params: [sord, keyName, values, params]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("setObjectMapBlob", function (done) {
+        expect(function () {
+          params = { mapId: SordUtilsSord.id, key: "MapValue" };
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordUtils",
+            classConfig: {},
+            method: "setObjectMapBlob",
+            params: [params]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("setStringMapBlob", function (done) {
+        expect(function () {
+          params = { mapId: SordUtilsSord.id, key: "MapValue" };
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordUtils",
+            classConfig: {},
+            method: "setStringMapBlob",
+            params: [params]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
