@@ -1,6 +1,7 @@
 
 //@include lib_Class.js
 //@include lib_sol.common.SordUtils.js
+//@include lib_sol.common.StringUtils.js
 //@include lib_sol.common.TranslateTerms.js
 //@include lib_sol.common.ix.FunctionBase.js
 //@include lib_sol.pubsec.Utils.js
@@ -20,6 +21,7 @@ var logger = sol.create("sol.Logger", { scope: "sol.pubsec.ix.functions.Restrict
  * @requires sol.common.Config
  * @requires sol.common.JsonUtils
  * @requires sol.common.SordUtils
+ * @requires sol.common.StringUtils
  * @requires sol.common.WfUtils
  * @requires sol.common.TranslateTerms
  * @requires sol.common.ix.FunctionBase
@@ -60,7 +62,7 @@ sol.define("sol.pubsec.ix.functions.RestrictionNote", {
     } else {
       restrictionNote = sol.common.SordUtils.getObjKeyValue(sord, me.config.fields.restrictionNoteDescription);
       // restrictionDesc = me.getDescription();
-      if (!restrictionNote || (restrictionNote.trim().isEmpty())) {
+      if (sol.common.StringUtils.isBlank(restrictionNote)) {
         throw sol.common.TranslateTerms.getTerm(me.ci, "sol.pubsec.ix.actions.RestrictionNote.error.mandatory");
       }
     }

@@ -141,7 +141,7 @@ describe("[action] sol.meeting.ix.actions.MeetingTypeCreate", function () {
                 PARTICIPANTGROUP_REFERENCE1: "UT9999"
               }).then(function success3(updateMapDataResult) {
                 test.Utils.updateWfMapData(wfInfo.flowId, objIdMT, { 
-                  MEETING_ITEM_POSITION1: "1",
+                  MEETING_AGENDA_POSITION1: "1",
                   MEETING_ITEM_TITLE1: "Tagesordnungspunkt Unittest",
                   MEETING_ITEM_DURATION1: "30",
                   MEETING_ITEM_DESC1: "Ablauf Unittest"

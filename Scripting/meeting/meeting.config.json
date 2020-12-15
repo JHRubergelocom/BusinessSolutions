@@ -398,6 +398,27 @@
               }
             ]
           },
+          "move": {
+            "meeting": {"key": "SOL_TYPE", "value": ["MEETING"], "message": "{{translate 'sol.meeting.item.move.meeting.missing'}}"},
+            "message": "{{translate 'sol.meeting.item.move.meeting.status'}}",
+            "allowed": [
+              {
+                "key": "{{meeting.objKeys.MEETING_STATUS}}", "mode": "STARTSWITH", "value": ["A - ", "D - "],
+                "rules": [
+                  {"key": "{{sord.objKeys.MEETING_ITEM_RESPONSIBLE_PERSON}}", "mode": "EQUALS", "value": "{{currentUser}}"},
+                  {"key": "{{meeting.ownerName}}", "mode": "EQUALS", "value": "{{currentUser}}"}  
+                ],
+                "message": "{{translate 'sol.meeting.item.move.responsible'}}"
+              },
+              {
+                "key": "{{meeting.objKeys.MEETING_STATUS}}", "mode": "STARTSWITH", "value": "S - ",
+                "rules": [
+                  {"key": "{{meeting.ownerName}}", "mode": "EQUALS", "value": "{{currentUser}}"}
+                ],
+                "message": "{{translate 'sol.meeting.item.move.meeting.started'}}"
+              }
+            ]
+          },
           "register": {
             "meeting": {"key": "SOL_TYPE", "value": ["MEETING"], "message": "{{translate 'sol.meeting.item.register.meeting'}}"},
             "allowed": {
@@ -422,12 +443,23 @@
         "create": {
           "moveMeetingType": {
             "scriptProperties": {
-              "path": "/Sitzungsmanagement/Sitzungstypen/"
+              "path": "ARCPATH:/Sitzungsmanagement/Sitzungstypen"
+            }
+          },
+          "generateShortDescription": {
+            "scriptProperties": {
+               "entries": [
+                 {
+                  "type": "SORD",
+                  "key": "name",
+                  "value": "{{sord.objKeys.MEETINGTYPE_NAME}}",
+                  "useTemplating": true
+                }
+               ]
             }
           },
           "referenceParticpantGroups": {
             "scriptProperties": {
-              
               "columns": {
                   "wfMap": [
                     "PARTICIPANTGROUP_GUID"
@@ -502,7 +534,7 @@
           "foreachMeetingItems": {
             "columns": {
               "wfMap": [
-                "MEETING_ITEM_POSITION",
+                "MEETING_AGENDA_POSITION",
                 "MEETING_ITEM_TITLE",
                 "MEETING_ITEM_DURATION",
                 "MEETING_ITEM_DESC"
@@ -539,7 +571,7 @@
                 "metadataMapping": [
                   { "source": { "id": "MEETING_ITEM_TITLE", "type": "MAP" }, "target": { "id": "MEETING_ITEM_TITLE", "type": "GRP" } },
                   { "source": { "id": "MEETING_ITEM_DURATION", "type": "MAP" }, "target": { "id": "MEETING_ITEM_DURATION", "type": "GRP" } },
-                  { "source": { "id": "MEETING_ITEM_POSITION", "type": "MAP" }, "target": { "id": "MEETING_ITEM_POSITION", "type": "GRP" } },
+                  { "source": { "id": "MEETING_AGENDA_POSITION", "type": "MAP" }, "target": { "id": "MEETING_AGENDA_POSITION", "type": "GRP" } },
                   { "source": { "id": "MEETING_ITEM_DESC", "type": "MAP"}, "target": {"id": "desc", "type": "SORD"}},
                   { "target": { "id": "SOL_TYPE", "type": "GRP", "value": "MEETING_ITEM" }},
                   { "target": { "id": "MEETING_ITEM_SHORT_DESC_GEN", "type": "GRP", "value": "Default"}}
