@@ -3,7 +3,7 @@ describe("[action] sol.visitor.as.actions.CreateVisitorBadge", function () {
 
   var objTempId, checkResult, visitorTypes, config,
       objIdVs, objIdGr, succNodes, succNodesIds,
-      objIdSingleVs1, objIdSingleVs2,
+      content,
       visitorBadgeTypes, evInfo, dvReport,
       repTemplateId, targetId, params,
       objSmileyBase64Id, base64Content,
@@ -532,303 +532,6 @@ describe("[action] sol.visitor.as.actions.CreateVisitorBadge", function () {
         );
       }).not.toThrow();
     });
-    it("get guid single visitor1 in group sord", function (done) {
-      expect(function () {
-        test.Utils.getMapValue(objIdGr, "VISITOR_GUID1").then(function success(objIdSingleVs11) {
-          objIdSingleVs1 = objIdSingleVs11;
-          done();
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
-    it("get guid single visitor2 in group sord", function (done) {
-      expect(function () {
-        test.Utils.getMapValue(objIdGr, "VISITOR_GUID2").then(function success(objIdSingleVs21) {
-          objIdSingleVs2 = objIdSingleVs21;
-          done();
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
-
-  });
-  describe("capture picture single visitor1", function () {
-    it("load visitor picture", function (done) {
-      expect(function () {
-        test.Utils.execute("RF_sol_common_service_DownloadFileContent", {
-          objId: objSmileyBase64Id
-        }).then(function success1(jsonData) {
-          base64Content = jsonData.content;
-          done();
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
-    it("start action capturepicture workflow", function (done) {
-      expect(function () {
-        config = {
-          visitorObjId: objIdSingleVs1
-        };
-        wfInfo = {};
-        test.Utils.executeIxActionHandler("RF_sol_visitor_action_CaptureVisitorPicture", config, []).then(function success(jsonResults) {
-          test.Utils.handleAllEvents(jsonResults).then(function success1(wfInfo1) {
-            wfInfo = wfInfo1;
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
-    it("get maskname, pictureName form visitor.config", function (done) {
-      expect(function () {
-        test.Utils.execute("RF_sol_common_service_GetConfig", {
-          objId: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/visitor/Configuration/visitor.config"
-        }).then(function success(configResult) {
-          setWebcamConfig = JSON.parse(configResult.config.visitor.pictureUpload.setWebcamConfig.entries[0].value);
-          maskName = setWebcamConfig.photoConfig.maskName;
-          pictureName = setWebcamConfig.photoConfig.pictureName;
-          done();
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
-    it("upload visitor picture", function (done) {
-      expect(function () {
-        base64Content = base64Content.replace(/^data:image\/(jpeg|png|gif|bmp);base64,/, "");
-        test.Utils.execute("RF_sol_common_document_service_UploadFile", {
-          objId: objIdSingleVs1,
-          base64Content: base64Content,
-          cfg: { maskName: maskName, pictureName: pictureName }
-        }).then(function success(jsonResult) {
-          pictureGuid = jsonResult.guid;
-          done();
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
-    it("set photoReferenceField", function (done) {
-      expect(function () {
-        test.Utils.getSord(objIdSingleVs1).then(function success(sordV) {
-          test.Utils.updateKeywording(sordV, { VISITOR_PHOTO_GUID: pictureGuid }, true).then(function success1(updateKeywordingResult) {
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
-    it("finish input forwarding workflow", function (done) {
-      expect(function () {
-        test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-          succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.common.wf.node.ok");
-          succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
-          test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest finish input").then(function success1(forwardWorkflowTaskResult) {
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
-    it("remove workflows", function (done) {
-      expect(function () {
-        test.Utils.getFinishedWorkflows(objIdSingleVs1).then(function success(wfs) {
-          test.Utils.removeFinishedWorkflows(wfs).then(function success1(removeFinishedWorkflowsResult) {
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
-  });
-  describe("capture picture single visitor2", function () {
-    it("load visitor picture", function (done) {
-      expect(function () {
-        test.Utils.execute("RF_sol_common_service_DownloadFileContent", {
-          objId: objSmileyBase64Id
-        }).then(function success1(jsonData) {
-          base64Content = jsonData.content;
-          done();
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
-    it("start action capturepicture workflow", function (done) {
-      expect(function () {
-        config = {
-          visitorObjId: objIdSingleVs2
-        };
-        wfInfo = {};
-        test.Utils.executeIxActionHandler("RF_sol_visitor_action_CaptureVisitorPicture", config, []).then(function success(jsonResults) {
-          test.Utils.handleAllEvents(jsonResults).then(function success1(wfInfo1) {
-            wfInfo = wfInfo1;
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
-    it("get maskname, pictureName form visitor.config", function (done) {
-      expect(function () {
-        test.Utils.execute("RF_sol_common_service_GetConfig", {
-          objId: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/visitor/Configuration/visitor.config"
-        }).then(function success(configResult) {
-          setWebcamConfig = JSON.parse(configResult.config.visitor.pictureUpload.setWebcamConfig.entries[0].value);
-          maskName = setWebcamConfig.photoConfig.maskName;
-          pictureName = setWebcamConfig.photoConfig.pictureName;
-          done();
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
-    it("upload visitor picture", function (done) {
-      expect(function () {
-        base64Content = base64Content.replace(/^data:image\/(jpeg|png|gif|bmp);base64,/, "");
-        test.Utils.execute("RF_sol_common_document_service_UploadFile", {
-          objId: objIdSingleVs2,
-          base64Content: base64Content,
-          cfg: { maskName: maskName, pictureName: pictureName }
-        }).then(function success(jsonResult) {
-          pictureGuid = jsonResult.guid;
-          done();
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
-    it("set photoReferenceField", function (done) {
-      expect(function () {
-        test.Utils.getSord(objIdSingleVs2).then(function success(sordV) {
-          test.Utils.updateKeywording(sordV, { VISITOR_PHOTO_GUID: pictureGuid }, true).then(function success1(updateKeywordingResult) {
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
-    it("finish input forwarding workflow", function (done) {
-      expect(function () {
-        test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-          succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.common.wf.node.ok");
-          succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
-          test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest finish input").then(function success1(forwardWorkflowTaskResult) {
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
-    it("remove workflows", function (done) {
-      expect(function () {
-        test.Utils.getFinishedWorkflows(objIdSingleVs2).then(function success(wfs) {
-          test.Utils.removeFinishedWorkflows(wfs).then(function success1(removeFinishedWorkflowsResult) {
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
   });
   describe("test create visitorbadge group", function () {
     it("check preconditions should not throw", function (done) {
@@ -867,52 +570,24 @@ describe("[action] sol.visitor.as.actions.CreateVisitorBadge", function () {
         repTemplateId = visitorBadgeTypes[0].objId;
         targetId = objIdGr;
         params = { templateId: repTemplateId, parentId: targetId, targetId: targetId };
-        test.Utils.executeASActionHandler("visitor", "sol.visitor.as.actions.CreateVisitorBadge", params, []).then(function success(jsonResults) {
-          test.Utils.handleAllEvents(jsonResults).then(function success1(evInfo1) {
-            evInfo = evInfo1;
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
+        test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
+          action: "sol.visitor.as.actions.CreateVisitorBadge",
+          config: params
+        }).then(function success(jsonResult) {
+          content = jsonResult.content;
+          if (content.indexOf("exception") != -1) {
+            fail(jsonResult.content);
           }
-          );
+          done();
         }, function error(err) {
           fail(err);
           console.error(err);
           done();
         }
         );
+
+
       }).not.toThrow();
-    });
-    it("evInfo.objId must be available", function () {
-      expect(evInfo.objId).toBeDefined();
-    });
-    it("report must be available", function (done) {
-      test.Utils.getSord(evInfo.objId).then(function success(sordReport) {
-        expect(sordReport).toBeDefined();
-        done();
-      }, function error(err) {
-        fail(err);
-        console.error(err);
-        done();
-      }
-      );
-    });
-    it("doc.size report must be available", function (done) {
-      test.Utils.getCurrentWorkVersion(evInfo.objId).then(function success(dvReport1) {
-        dvReport = dvReport1;
-        expect(dvReport.size).toBeDefined();
-        done();
-      }, function error(err) {
-        fail(err);
-        console.error(err);
-        done();
-      }
-      );
-    });
-    it("doc.size report must greater than zero", function () {
-      expect(dvReport.size).toBeGreaterThan(0);
     });
   });
   afterAll(function (done) {

@@ -28,7 +28,7 @@ sol.define("sol.visitor.as.AutoCheckOut", {
     expiredVisitors = me.retrieveExpiredVisitors(offset);
 
     if (expiredVisitors && expiredVisitors.length > 0) {
-      expiredVisitors.forEach(me.checkoutVisitor);
+      expiredVisitors.forEach(me.checkoutVisitor, me);
     }
   },
 

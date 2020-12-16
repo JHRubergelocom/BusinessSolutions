@@ -65,6 +65,18 @@ sol.define("sol.unittest.visitor.as.services.ExecuteLib", {
       throw "IllegalMethodException: Method '" + me.method + "' not supported in Class '" + me.className + "'";
     }
 
+    switch (me.className) {
+      case "sol.visitor.as.AutoCheckOut":
+        switch (me.method) {
+          case "retrieveExpiredVisitors":
+            result = String(result);
+            break;
+          default:
+        }
+        break;
+      default:
+    }
+
     return result;
   }
 });
