@@ -16,7 +16,7 @@ describe("[service] sol.common.ix.services.ActionCancelForms", function () {
           console.error(err);
           done();
         }
-      );
+        );
       }, function error(err) {
         fail(err);
         console.error(err);
@@ -25,14 +25,14 @@ describe("[service] sol.common.ix.services.ActionCancelForms", function () {
       );
     }).not.toThrow();
   });
-  it("should throw if executed without 'flowId'", function (done) {
+  it("should not throw if executed without 'flowId'", function (done) {
     expect(function () {
       test.Utils.execute("RF_sol_common_service_ActionCancelForm", {
         objId: objActionCancelFormsId
       }).then(function success(jsonResult) {
-        fail(jsonResult);
         done();
       }, function error(err) {
+        fail(err);
         console.error(err);
         done();
       }
@@ -44,9 +44,9 @@ describe("[service] sol.common.ix.services.ActionCancelForms", function () {
       test.Utils.execute("RF_sol_common_service_ActionCancelForm", {
         flowId: flowId
       }).then(function success(jsonResult) {
-        fail(jsonResult);
         done();
       }, function error(err) {
+        fail(err);
         console.error(err);
         done();
       }

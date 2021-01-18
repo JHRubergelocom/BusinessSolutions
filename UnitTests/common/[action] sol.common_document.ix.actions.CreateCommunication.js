@@ -136,7 +136,7 @@ describe("[action] sol.common_document.ix.actions.CreateCommunication", function
         test.Utils.getSord(wfInfo.objId).then(function success(sordCo1) {
           test.Utils.updateSord(sordCo1, [{ key: "name", value: "Unittest communication1" }, { key: "desc", value: "Unittest desc1" }]).then(function success1(updateSordResult) {
             keywording = {
-              COMMUNICATION_SENDER: "EloService@elo.local", 
+              COMMUNICATION_SENDER: "test-business-solutions@elo.local", 
               COMMUNICATION_RECIPIENT: "test-business-solutions@elo.local",
               COMMUNICATION_SUBJECT: "Unittest Subject"
             };

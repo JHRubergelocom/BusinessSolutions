@@ -316,7 +316,6 @@ describe("[lib] sol.unittest.ix.services.SolCommonMail", function () {
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
-            fail(err);
             console.error(err);
             done();
           }
