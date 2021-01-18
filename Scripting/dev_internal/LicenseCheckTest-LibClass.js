@@ -10,9 +10,11 @@ function getScriptButtonPositions() {
 }
 
 function eloScriptButton404Start() {
-  var className;
+  var className, message;
 
-  className = "sol.learning.Test";
+  message = "ClassName eingeben";
+
+  className = String(workspace.showSimpleInputBox("License check test - LibClass", message, "sol.learning.Test"));
 
   RhinoManager.registerClass(className);
 
