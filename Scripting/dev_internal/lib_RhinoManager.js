@@ -38,9 +38,8 @@ RhinoManager = {
             if (!le.v) {
               throw "License for module '" + moduleName + "' is missing";
             }
+            return "License check: moduleName=" + moduleName + ", valid=" + le.v + ", lics=" + JSON.stringify(this.lo, null, 2);
           }
-
-          return "License check: moduleName=" + moduleName + ", valid=" + le.v + ", lics=" + JSON.stringify(this.lo, null, 2);
         }
       }
     }

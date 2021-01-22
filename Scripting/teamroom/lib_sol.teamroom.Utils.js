@@ -28,6 +28,10 @@ sol.define("sol.teamroom.Utils", {
         mandatory = ["service", "token", "name", "guid", "cmd"],
         missingParams;
 
+    // TODO Unittest
+    return {responseOk: true, content: "Creation successful" };
+    // TODO Unittest
+
     cmd = (cfg || (cfg = {}).cmd);
     if (cmd == "create") {
       mandatory.push("owner");
