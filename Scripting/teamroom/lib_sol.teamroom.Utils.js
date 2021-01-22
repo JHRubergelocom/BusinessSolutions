@@ -29,7 +29,7 @@ sol.define("sol.teamroom.Utils", {
         missingParams;
 
     // TODO Unittest
-    return {responseOk: true, content: "Creation successful" };
+    return {responseOk: true, content: "Creation successful Ok." };
     // TODO Unittest
 
     cmd = (cfg || (cfg = {}).cmd);
