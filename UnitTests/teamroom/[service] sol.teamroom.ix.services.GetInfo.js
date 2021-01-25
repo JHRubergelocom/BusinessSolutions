@@ -1,6 +1,6 @@
 
 describe("[service] sol.teamroom.ix.services.GetInfo", function () {
-  var originalTimeout, objTempId, token;
+  var originalTimeout, objTempId;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -19,25 +19,6 @@ describe("[service] sol.teamroom.ix.services.GetInfo", function () {
   });
   describe("Tests Registered Functions", function () {
     describe("RF_sol_teamroom_service_GetInfo", function () {
-      it("get teamroom.remote.config", function (done) {
-        expect(function () {
-          test.Utils.execute("RF_sol_common_service_GetConfig", {
-            objId: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/elo.teamroom.Remote/Configuration/teamroom.remote.config",
-            forceReload: true
-          }).then(function success(jsonConfig) {
-            token = jsonConfig.config.entities.connection["API_TOKEN"];
-            expect(jsonConfig.config).toBeDefined();
-            expect(jsonConfig.config.entities).toBeDefined();
-            expect(jsonConfig.config.entities.connection).toBeDefined();
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }).not.toThrow();
-      });
       it("should throw if executed without parameter", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_teamroom_service_GetInfo", {
@@ -55,7 +36,6 @@ describe("[service] sol.teamroom.ix.services.GetInfo", function () {
         expect(function () {
           test.Utils.execute("RF_sol_teamroom_service_GetInfo", {
             objId: objTempId, 
-            token: token, 
             mode: "feed" 
           }).then(function success(jsonResult) {
             done();
@@ -71,7 +51,6 @@ describe("[service] sol.teamroom.ix.services.GetInfo", function () {
         expect(function () {
           test.Utils.execute("RF_sol_teamroom_service_GetInfo", {
             objId: objTempId, 
-            token: token, 
             mode: "relation"
           }).then(function success(jsonResult) {
             done();
@@ -87,7 +66,6 @@ describe("[service] sol.teamroom.ix.services.GetInfo", function () {
         expect(function () {
           test.Utils.execute("RF_sol_teamroom_service_GetInfo", {
             objId: objTempId, 
-            token: token, 
             mode: "children" 
           }).then(function success(jsonResult) {
             done();
