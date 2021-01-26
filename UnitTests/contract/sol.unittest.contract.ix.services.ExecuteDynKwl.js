@@ -9,6 +9,7 @@ importPackage(Packages.de.elo.ix.client);
 //@include sol.contract.ix.localizedKwl.CashflowRecurring.js
 //@include sol.contract.ix.localizedKwl.Relation.js
 //@include sol.contract.ix.localizedKwl.RiskClassification.js
+//@include sol.contract.ix.localizedKwl.ReasonEnd.js
 //@include sol.contract.ix.localizedKwl.Status.js
 //@include sol.contract.ix.localizedKwl.TerminationPoint.js
 
