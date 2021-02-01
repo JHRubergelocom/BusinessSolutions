@@ -575,6 +575,85 @@ describe("[action] sol.invoice.IncomingInvoice3", function () {
         );
       }).not.toThrow();
     });
+    it("remove workflows", function (done) {
+      expect(function () {
+        test.Utils.getFinishedWorkflows().then(function success(wfs) {
+          test.Utils.removeFinishedWorkflows(wfs).then(function success1(removeFinishedWorkflowsResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("setTimeout (wait for elo as)", function (done) {
+      expect(function () {
+        test.Utils.setTimeout(interval).then(function success(timeoutResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
     it("remove incoming invoice", function (done) {
       expect(function () {
         test.Utils.deleteSord(objIncomingInvoiceId).then(function success2(deleteResult) {
@@ -612,31 +691,7 @@ describe("[action] sol.invoice.IncomingInvoice3", function () {
     expect(function () {
       test.Utils.getTempfolder().then(function success(tempfolder) {
         test.Utils.deleteSord(tempfolder).then(function success1(deleteResult) {
-          test.Utils.getFinishedWorkflows().then(function success2(wfs) {
-            test.Utils.removeFinishedWorkflows(wfs).then(function success3(removeFinishedWorkflowsResult) {
-              test.Utils.getActiveWorkflows().then(function success4(wfs1) {
-                test.Utils.removeActiveWorkflows(wfs1).then(function success5(removeFinishedWorkflowsResult1) {
-                  done();
-                }, function error(err) {
-                  console.error(err);
-                  done();
-                }
-                );
-              }, function error(err) {
-                console.error(err);
-                done();
-              }
-              );
-            }, function error(err) {
-              console.error(err);
-              done();
-            }
-            );
-          }, function error(err) {
-            console.error(err);
-            done();
-          }
-          );
+          done();
         }, function error(err) {
           fail(err);
           console.error(err);
