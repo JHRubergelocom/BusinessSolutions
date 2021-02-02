@@ -1,0 +1,47 @@
+version: '2'
+services:
+  postgres-admin:
+    image: chorss/docker-pgadmin4
+    environment:
+      UID: '1000'
+      GID: '1000'
+    stdin_open: true
+    volumes:
+    - postgres-admin:/data
+    tty: true
+    links:
+    - postgres:postgres
+    labels:
+      io.rancher.container.pull_image: always
+  elo:
+    privileged: true
+    image: registry.elo.dev/solutions/elo-dev:12-core
+    hostname: elo
+    environment:
+      ELO_NAME: {{ .Stack.Name }}
+      ELO_HOST: http://{{ .Stack.Name }}.dev.elo
+      ELO_DEBUGGING_PORT: $ELO_DEBUGGING_PORT
+      ELO_MEMORY: 1536m
+      ELO_LIC: "createdate=2021-02-02\ncustomer1=ELO Business Solutions ELO 12\ncustomer2=Nur zur internen Verwendung / 2\nusercount1=30\nusercount2=30\nusercount3=30\nusercount4=30\nusercount5=30\nusercount6=30\nusercount7=30\nusercount8=30\nusercount9=30\nusercount10=30\nusercount11=0\nusercount12=30\nusercount13=0\nlangcount=3\nvalidThru=2022-01-31\nresetxc=\nproduct=12p\nfeature.BACKUP=true\nfeature.COLD=true\nfeature.SAPALINK=true\nfeature.SAPILM=true\nfeature.SHAREPOINT=true\nfeature.STACKSIGN=true\nfeature.WEBCLIENT=true\nfeature.XMLIMPORT=true\nfeature.SIGNATURE=true\nfeature.SAPTOOLBOX=true\nfeature.SAPCP=true\nfeature.REPLICATION=true\nfeature.CMIS=true\nfeature.BARCODE=true\nfeature.ADDRESS=true\nfeature.HREXPENSES=true\nfeature.HRPERSONAL=true\nfeature.FIXTURES=true\nfeature.KNOWLEDGE=true\nfeature.EAKTE=true\nfeature.VISITOR=true\nfeature.ZUGFERD=true\nfeature.SKILL=true\nfeature.LEARNING=true\nfeature.INVOICE=true\nfeature.RECRUITING=true\nfeature.HRLEAVE=true\nfeature.CONTRACT=true\nfeature.EICSHAREPOINT=true\nfeature.EICNAVISION=true\nfeature.EICSALESFORCE=true\nfeature.SMARTINPUT=true\nfeature.EICBUSINESSONE=true\nfeature.EDTBUSINESSONE=true\nfeature.EOLNAVISION=true\nfeature.EDTNAVISION=true\nfeature.E4DATEV=true\nfeature.EOLBUSINESSONE=true\nguid=L(CC81F2B3-A2EB-C0F5-99F8-887B9B757590)\nsordguid=(CC81F2B3-A2EB-C0F5-99F8-887B9B75759E)\nhash1=1031c4529ecc9446a62f4e78cbcaf8538362cfd4fd8251d422675098f4af6086\n\n---\ncjlnliiakicglgbchdemeddicbpnjgbgjnfddjmjbabmikgfapbefbcjmjnneadgdkndcjogiljkebkgcmdlnfpjjcccccianoimebbchhjlkfopmojdoghmeggmkaejcccnkddllpjplkoedcpmmcfgpbpobeicfelmefcmnohhjnphegmdcfcpnmoaeecpeojlpmnpjnaocalffiljgjfajbdmcihfcacnkgcficolbmgbolcohmeobdondekhaonpbiddcbajcjggahfdageidkgnliladchfmjfhlibmjdhckoclohepmidpjdfdlefdblfpfnacipnllcbdhaempkfjemdlelgcicejkmhfpeiknefbpnkgflhpfkiigakjfkheplfmgbmlkjoalbpdjmknaifpaoemilooohdgeljmmcifddjgpobmokpfmbdlchbeaicghelpnipcpaaipjmpckkfimeilinddbehapiaomhnmplebbclfnnk"
+      ELO_WF_DISABLE_JS_MINIFICATION: true
+    ports:
+    - $ELO_DEBUGGING_PORT:$ELO_DEBUGGING_PORT/tcp
+    stdin_open: true
+    tty: true
+    links:
+    - postgres:postgres
+    labels:
+      io.rancher.container.pull_image: always
+  postgres:
+    image: postgres:11
+    environment:
+      POSTGRES_PASSWORD: elo
+      POSTGRES_USER: elodb
+    stdin_open: true
+    tty: true
+    labels:
+      io.rancher.container.pull_image: always
+volumes:
+  postgres-admin:
+    driver: local
+    external: true
