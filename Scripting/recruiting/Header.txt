@@ -3,6 +3,8 @@
 <script type="text/javascript" src="lib_sol.common.ObjectUtils"></script>
 <script type="text/javascript" src="lib_sol.common.DateUtils"></script>
 <script type="text/javascript" src="lib_sol.common.forms.Utils"></script>
+<script type="text/javascript" src="lib_sol.common.forms.FormWrapper"></script>
+<script type="text/javascript" src="lib_sol.recruiting.forms.Posting"></script>
 <script type="text/javascript" src="redactor.3.min"></script>
 
 <script type='text/javascript'>
@@ -29,11 +31,11 @@
 
  function inputChanged(source) {
     var me = this, workflowActive = (ELO_PARAMS.ELO_FLOWID !== "-1");
-   
-    sol.common.forms.Utils.initializeIxSession();
-   
     if (source == null) {
       window.setTimeout(function() { sol.common.forms.Utils.initializeForm(); }, 100);
+      me.form = sol.create("sol.recruiting.forms.Posting");
+      me.form.OnInitAndTabChange();
+            
       $R(".redactor3 textarea", { });
 
       workflowActive
@@ -43,30 +45,8 @@
 
       postingUtils.initIntegration();
     } else {
-        var requisitionno = $val("IX_GRP_RECRUITING_REQUISITION_NO");
-        var sords = sol.common.IxUtils.execute("RF_sol_common_service_SordProvider", 
-          {
-            "masks":["Recruiting Requisition"],
-            "search": [{"key": "RECRUITING_REQUISITION_NO", "value": requisitionno }],
-            "output": [
-                  { "source": { "type": "SORD", "key": "guid" }, "target": { "prop": "guid" } },
-                  { "source": { "type": "SORD", "key": "name" }, "target": { "prop": "name" } },
-                  { "source": { "type": "GRP", "key": "RECRUITING_REQUISITION_DESC" }, "target": { "prop": "requisitiondesc" } },
-                  { "source": { "type": "FORMBLOB", "key": "RECRUITING_REQUISITION_QUALIFICATIONS" }, "target": { "prop": "requisitionqualifications" } }
-
-           ]
-
-        });
-
-        if (sords.sords[0]) {
-          var requisitionqualifications = sords.sords[0].requisitionqualifications;
-          var requisitiondesc = sords.sords[0].requisitiondesc;
-
-          $update("IX_BLOB_RECRUITING_POSTING_QUALIFICATIONS", requisitionqualifications);
-          $update("IX_DESC", requisitiondesc);      
-        }
-    }
-   
+      me.form && me.form.InputChanged(source);
+    }  
   }
 
   function nextClicked(id) {
@@ -74,15 +54,18 @@
       return true;
     }
     postingUtils.registerUpdate();
+    this.form.OnSave();
     return true;
   }
 
   function saveClicked() {
     postingUtils.registerUpdate();
+    
     return true;
   }
 
   function addLineClicked(addLineId, groupIndex) {
+    this.form.OnLineChange(true, addLineId, groupIndex);
   }
 
   function removeLineClicked(addLineId, groupIndex) {
@@ -90,9 +73,11 @@
   }
 
   function tabChanged(id) {
+    this.form.TabChanged(id);
   }
 
   function onDynListItemSelected(item, inputName) {
+    this.form.InputChanged(item, inputName);
   }
 
 </script>
