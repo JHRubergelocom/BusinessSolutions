@@ -11,7 +11,8 @@ sol.define("sol.recruiting.forms.Posting", {
   extend: "sol.common.forms.FormWrapper",
   prefix: "RECRUITING",
   defaultState: "defaultState",
-  utils: {},
+  utils: {
+  },
   onSaveRules: {
     posting: {
       solType: "RECRUITING_POSTING",
@@ -25,7 +26,8 @@ sol.define("sol.recruiting.forms.Posting", {
     // to be executed one time during init
     sol.common.forms.Utils.initializeIxSession();
   },
-  AfterInputChanged: function () {},
+  AfterInputChanged: function () {
+  },
 
   InputChanged: function (source, name) {
     var me = this, 
@@ -54,6 +56,19 @@ sol.define("sol.recruiting.forms.Posting", {
           me.fields.IX_DESC.set(requisitiondesc);      
         }
       }
+    }
+  },
+
+  states: {
+    stateInit: {
+      fieldProperties: {
+      }
+    },
+    defaultState: {
+      bodyClasses: [
+        "default"
+      ],
+      fieldProperties: {}
     }
   }
 });
