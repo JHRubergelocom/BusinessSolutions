@@ -1,0 +1,125 @@
+﻿<script type="text/javascript" src="lib_Class"></script>
+<script type="text/javascript" src="lib_sol.common.IxUtils"></script>
+<script type="text/javascript" src="lib_sol.common.ObjectUtils"></script>
+<script type="text/javascript" src="lib_sol.common.DateUtils"></script>
+<script type="text/javascript" src="lib_sol.common.forms.Utils"></script>
+<script type="text/javascript" src="redactor.3.min"></script>
+
+<script type='text/javascript'>
+  var postingUtils = {
+    registerUpdate: function() {
+      sol.common.forms.Utils.registerUpdate();
+    },
+    setToToday: function (field) {
+      $update(field, moment().format('YYYYMMDD'));
+    },
+    initIntegration: function () {
+      var link = document.querySelectorAll('.integrationLink')[0],
+          acronym, a, url;
+      if ($val("IX_MAP_PUBLISHED_INTEGRATION1") && link && link.firstChild && (acronym = link.firstChild.firstChild)) {
+        url = "../apps/app/sol.recruitingintegration.gohiring.Redirector/?guid=" + ELO_PARAMS.ELO_OBJID;
+	a = document.createElement('a');
+        a.href = url;
+	a.innerText = (document.querySelectorAll('.integrationLinkButtonText')[0] || {}).innerText || "GOhiring";
+	acronym.appendChild(a);
+	link.classList.add('showMessage');
+      }
+    }
+  }
+
+ function inputChanged(source) {
+    var me = this, workflowActive = (ELO_PARAMS.ELO_FLOWID !== "-1");
+   
+    sol.common.forms.Utils.initializeIxSession();
+   
+    if (source == null) {
+      window.setTimeout(function() { sol.common.forms.Utils.initializeForm(); }, 100);
+      $R(".redactor3 textarea", { });
+
+      workflowActive
+        && !$val("IX_GRP_RECRUITING_POSTING_PUBLISH_DATE")
+          && postingUtils.setToToday("IX_GRP_RECRUITING_POSTING_PUBLISH_DATE");
+
+
+      postingUtils.initIntegration();
+    } else {
+        var requisitionno = $val("IX_GRP_RECRUITING_REQUISITION_NO");
+        var sords = sol.common.IxUtils.execute("RF_sol_common_service_SordProvider", 
+          {
+            "masks":["Recruiting Requisition"],
+            "search": [{"key": "RECRUITING_REQUISITION_NO", "value": requisitionno }],
+            "output": [
+                  { "source": { "type": "SORD", "key": "guid" }, "target": { "prop": "guid" } },
+                  { "source": { "type": "SORD", "key": "name" }, "target": { "prop": "name" } },
+                  { "source": { "type": "GRP", "key": "RECRUITING_REQUISITION_DESC" }, "target": { "prop": "requisitiondesc" } },
+                  { "source": { "type": "FORMBLOB", "key": "RECRUITING_REQUISITION_QUALIFICATIONS" }, "target": { "prop": "requisitionqualifications" } }
+
+           ]
+
+        });
+
+        if (sords.sords[0]) {
+          var requisitionqualifications = sords.sords[0].requisitionqualifications;
+          var requisitiondesc = sords.sords[0].requisitiondesc;
+
+          $update("IX_BLOB_RECRUITING_POSTING_QUALIFICATIONS", requisitionqualifications);
+          $update("IX_DESC", requisitiondesc);      
+        }
+    }
+   
+  }
+
+  function nextClicked(id) {
+    if (sol.common.forms.Utils.disableCancelButtonValidation(id, ["sol.common.wf.node.cancel"])) {
+      return true;
+    }
+    postingUtils.registerUpdate();
+    return true;
+  }
+
+  function saveClicked() {
+    postingUtils.registerUpdate();
+    return true;
+  }
+
+  function addLineClicked(addLineId, groupIndex) {
+  }
+
+  function removeLineClicked(addLineId, groupIndex) {
+    return true;
+  }
+
+  function tabChanged(id) {
+  }
+
+  function onDynListItemSelected(item, inputName) {
+  }
+
+</script>
+
+<link rel='stylesheet' type='text/css' href="redactor.3.min.css">
+<link rel='stylesheet' type='text/css' href="sol.common.forms.MainForm.css">
+
+<style type='text/css'>
+
+  .integrationLink:not(.showMessage) {
+    display: none;
+  }
+
+  .integrationLink a {
+    font-weight: bold;
+    padding: 5px 8px;
+    display: inline-block;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    color: #333;
+    margin: 0 5px;
+    text-decoration: none;
+  }
+
+  .integrationLink a:hover {
+    background-color: #eee;
+  }
+
+</style>
