@@ -26,8 +26,7 @@ sol.define("sol.recruiting.forms.Posting", {
     // to be executed one time during init
     sol.common.forms.Utils.initializeIxSession();
   },
-  AfterInputChanged: function () {
-  },
+  AfterInputChanged: function () {},
 
   InputChanged: function (source, name) {
     var me = this, 
@@ -61,8 +60,7 @@ sol.define("sol.recruiting.forms.Posting", {
 
   states: {
     stateInit: {
-      fieldProperties: {
-      }
+      fieldProperties: {}
     },
     defaultState: {
       bodyClasses: [
