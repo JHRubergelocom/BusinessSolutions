@@ -30,7 +30,7 @@ sol.define("sol.recruiting.forms.Posting", {
 
   InputChanged: function (source, name) {
     var me = this, 
-        requisitionno, sords, requisitionqualifications, requisitiondesc;
+        requisitionno, sords, requisitionqualifications, requisitiondesc, element;
 
     if (name) {
       if (source.RECRUITING_REQUISITION_NO) {
@@ -50,9 +50,10 @@ sol.define("sol.recruiting.forms.Posting", {
         if (sords.sords[0]) {
           requisitionqualifications = sords.sords[0].requisitionqualifications;
           requisitiondesc = sords.sords[0].requisitiondesc;
-
-          me.fields.IX_BLOB_RECRUITING_POSTING_QUALIFICATIONS.set(requisitionqualifications);
-          me.fields.IX_DESC.set(requisitiondesc);      
+          element = document.getElementsByName("IX_BLOB_RECRUITING_POSTING_QUALIFICATIONS");
+          $R(element[0], "source.setCode", requisitionqualifications);
+          element = document.getElementsByName("IX_DESC");
+          $R(element[0], "source.setCode", requisitiondesc);
         }
       }
     }
