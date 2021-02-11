@@ -28,33 +28,51 @@ sol.define("sol.recruiting.forms.Posting", {
   },
   AfterInputChanged: function () {},
 
+  setPostingFields: function (requisitionno) {
+    var me = this, 
+        sords, requisitionqualifications, requisitiondesc, requisitionname, element;
+
+    sords = sol.common.IxUtils.execute("RF_sol_common_service_SordProvider", 
+      {
+        masks: ["Recruiting Requisition"],
+        search: [{ key: "RECRUITING_REQUISITION_NO", value: requisitionno }],
+        output: [
+          { source: { type: "SORD", key: "guid" }, target: { prop: "guid" } },
+          { source: { type: "SORD", key: "name" }, target: { prop: "name" } },
+          { source: { type: "GRP", key: "RECRUITING_REQUISITION_DESC" }, target: { prop: "requisitiondesc" } },
+          { source: { type: "GRP", key: "RECRUITING_REQUISITION_NAME" }, target: { prop: "requisitionname" } },
+          { source: { type: "FORMBLOB", key: "RECRUITING_REQUISITION_QUALIFICATIONS" }, target: { prop: "requisitionqualifications" } }    
+        ]    
+      });
+    if (sords.sords[0]) {
+      requisitionqualifications = sords.sords[0].requisitionqualifications;
+      requisitiondesc = sords.sords[0].requisitiondesc;
+      requisitionname = sords.sords[0].requisitionname;
+      if (!requisitionqualifications) { 
+        requisitionqualifications = ""; 
+      }
+      if (!requisitiondesc) { 
+        requisitiondesc = ""; 
+      }
+      if (!requisitionname) { 
+        requisitionname = ""; 
+      }
+      element = document.getElementsByName("IX_BLOB_RECRUITING_POSTING_QUALIFICATIONS");
+      $R(element[0], "source.setCode", requisitionqualifications);
+      element = document.getElementsByName("IX_DESC");
+      $R(element[0], "source.setCode", requisitiondesc);
+      me.fields.IX_GRP_RECRUITING_POSTING_NAME.set(requisitionname);
+    }
+  },
+
   InputChanged: function (source, name) {
     var me = this, 
-        requisitionno, sords, requisitionqualifications, requisitiondesc, element;
+        requisitionno;
 
     if (name) {
       if (source.RECRUITING_REQUISITION_NO) {
         requisitionno = me.fields.IX_GRP_RECRUITING_REQUISITION_NO.value();
-        sords = sol.common.IxUtils.execute("RF_sol_common_service_SordProvider", 
-          {
-            masks:["Recruiting Requisition"],
-            search: [{ key: "RECRUITING_REQUISITION_NO", value: requisitionno }],
-            output: [
-              { source: { type: "SORD", key: "guid" }, target: { prop: "guid" } },
-              { source: { type: "SORD", key: "name" }, target: { prop: "name" } },
-              { source: { type: "GRP", key: "RECRUITING_REQUISITION_DESC" }, target: { prop: "requisitiondesc" } },
-              { source: { type: "FORMBLOB", key: "RECRUITING_REQUISITION_QUALIFICATIONS" }, target: { prop: "requisitionqualifications" } }    
-            ]    
-          });
-
-        if (sords.sords[0]) {
-          requisitionqualifications = sords.sords[0].requisitionqualifications;
-          requisitiondesc = sords.sords[0].requisitiondesc;
-          element = document.getElementsByName("IX_BLOB_RECRUITING_POSTING_QUALIFICATIONS");
-          $R(element[0], "source.setCode", requisitionqualifications);
-          element = document.getElementsByName("IX_DESC");
-          $R(element[0], "source.setCode", requisitiondesc);
-        }
+        me.setPostingFields(requisitionno);
       }
     }
   },
