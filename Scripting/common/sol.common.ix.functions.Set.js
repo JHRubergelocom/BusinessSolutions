@@ -140,6 +140,11 @@ sol.define("sol.common.ix.functions.Set", {
    * Time zone
    */
 
+  /**
+   * @cfg {String} setParent
+   * If set parent sord is setted
+   */
+
   initialize: function (config) {
     var me = this;
     me.$super("sol.common.ix.FunctionBase", "initialize", [config]);
@@ -176,6 +181,14 @@ sol.define("sol.common.ix.functions.Set", {
     }
 
     me.sord = sol.common.RepoUtils.getSord(me.objId, { sordZ: SordC.mbAllIndex });
+
+    if (me.setParent) {
+      if (me.sord.id === 1 || me.sord.parentId === 0) {
+        me.logger.info(["me.sord.id={0}, me.sord.parentId={1} Parent cannot be set", me.sord.id, me.sord.parentId]);
+        throw "me.sord.id=" + me.sord.id + ", me.sord.parentId=" + me.sord.parentId + " Parent cannot be set";
+      }
+      me.sord = sol.common.RepoUtils.getSord(me.sord.parentId, { sordZ: SordC.mbAllIndex });
+    }
 
     for (i = 0; i < me.entries.length; i++) {
       entry = me.entries[i];

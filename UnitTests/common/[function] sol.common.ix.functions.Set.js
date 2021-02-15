@@ -1,6 +1,6 @@
 
 describe("[function] sol.common.ix.functions.Set", function () {
-  var originalTimeout, objSetId, sordName, sordDesc, grpField1, grpField2, mapValue1, mapValue2;
+  var originalTimeout, objSetId, sordName, sordDesc, grpField1, grpField2, grpField3, mapValue1, mapValue2, objSetChildId;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -10,11 +10,20 @@ describe("[function] sol.common.ix.functions.Set", function () {
       sordDesc = "sordDesc";
       grpField1 = "grpField1";
       grpField2 = "grpField2";
+      grpField3 = "grpField3";
       mapValue1 = "mapValue1";
       mapValue2 = "mapValue2";
       test.Utils.createTempSord("objSet").then(function success(objSetId1) {
         objSetId = objSetId1;
-        done();
+        test.Utils.createSord(objSetId).then(function success1(objSetChildId1) {
+          objSetChildId = objSetChildId1;
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
       }, function error(err) {
         fail(err);
         console.error(err);
@@ -90,12 +99,33 @@ describe("[function] sol.common.ix.functions.Set", function () {
         );
       }).not.toThrow();
     });
+    it("SetParent", function (done) {
+      expect(function () {
+        test.Utils.execute("RF_sol_function_Set", {
+          objId: objSetChildId,
+          setParent: true,
+          entries: [{
+            type: "GRP",
+            key: "UNITTEST_FIELD3",
+            value: grpField3
+          }]
+        }).then(function success(jsonResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
     it("Compare Values", function (done) {
       test.Utils.getSord(objSetId).then(function success(sordSet) {
         expect(sordSet.name).toEqual(sordName);
         expect(sordSet.desc).toEqual(sordDesc);
         expect(test.Utils.getObjKeyValue(sordSet, "UNITTEST_FIELD1")).toEqual(grpField1);
         expect(test.Utils.getObjKeyValue(sordSet, "UNITTEST_FIELD2")).toEqual(grpField2);
+        expect(test.Utils.getObjKeyValue(sordSet, "UNITTEST_FIELD3")).toEqual(grpField3);
         test.Utils.getMapValue(objSetId, "MAP_VALUE1").then(function success1(mapValue11) {
           test.Utils.getMapValue(objSetId, "MAP_VALUE2").then(function success2(mapValue21) {
             expect(mapValue11).toEqual(mapValue1);
