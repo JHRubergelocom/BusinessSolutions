@@ -174,6 +174,21 @@ sol.define("sol.common.Mail", {
    */
 
   /**
+   * @cfg {Number} smtpTimeout
+   * SMTP timeout
+   */
+
+  /**
+   * @cfg {Number} smtpConnectionTimeout
+   * SMTP connection timeout
+   */
+
+  /**
+   * @cfg {Number} smtpWriteTimeout
+   * SMTP write timeout
+   */
+
+  /**
    * @private
    * @param {Object} config Configuration
    */
@@ -226,6 +241,10 @@ sol.define("sol.common.Mail", {
     me.useSsl = (typeof me.useSsl != "undefined") ? me.useSsl : mailConfig.useSsl;
     me.useStartTls = (typeof me.useStartTls != "undefined") ? me.useStartTls : mailConfig.useStartTls;
 
+    me.smtpTimeout = (me.smtpTimeout || mailConfig.smtpTimeout || 3000) + "";
+    me.smtpConnectionTimeout = (me.smtpConnectionTimeout || mailConfig.smtpConnectionTimeout || 3000) + "";
+    me.smtpWriteTimeout = (me.smtpWriteTimeout || mailConfig.smtpWriteTimeout || 3000) + "";
+
     me.trustAllHosts = (typeof me.trustAllHosts != "undefined") ? me.trustAllHosts : mailConfig.trustAllHosts;
     me.trustAllHosts = (typeof me.trustAllHosts != "undefined") ? me.trustAllHosts : true;
 
@@ -251,8 +270,15 @@ sol.define("sol.common.Mail", {
         socketFactory.trustAllHosts = true;
         props.put("mail.smtp.ssl.socketFactory", socketFactory);
       }
+    } else {
+      me.port = me.port || "25";
     }
+
     props.put("mail.smtp.port", me.port);
+
+    props.put("mail.smtp.timeout", me.smtpTimeout);
+    props.put("mail.smtp.connectiontimeout", me.smtpConnectionTimeout);
+    props.put("mail.smtp.writetimeout", me.smtpWriteTimeout);
 
     me.logger.debug("Start SMTP session: " + props);
     me.session = javax.mail.Session.getInstance(props, authenticator);
@@ -269,11 +295,19 @@ sol.define("sol.common.Mail", {
    * @return {Object} Mail configuration
    */
   loadMailConfig: function (repoPath) {
-    var objId = sol.common.RepoUtils.getObjId(repoPath);
+    var conn, objId, config;
+
+    conn = (typeof ixConnectAdmin !== "undefined") ? ixConnectAdmin : ixConnect;
+
+    objId = sol.common.RepoUtils.getObjId(repoPath);
+
     if (!objId) {
       return;
     }
-    return sol.create("sol.common.Config", { compose: objId }).config;
+
+    config = sol.create("sol.common.Config", { compose: objId, connection: conn }).config;
+
+    return config;
   },
 
   /**
@@ -305,6 +339,10 @@ sol.define("sol.common.Mail", {
     var me = this,
         value, wfDiagram, wfNode, successorNodes;
 
+    if (!def) {
+      return "";
+    }
+
     if (sol.common.ObjectUtils.isObject(def)) {
       if (!def.type) {
         throw "to.type is empty";
@@ -335,9 +373,13 @@ sol.define("sol.common.Mail", {
           break;
 
         case "CURRENT":
-          wfDiagram = me.getWorkflow();
+          wfDiagram = me.wfDiagram || me.getWorkflow();
           wfNode = sol.common.WfUtils.getNode(wfDiagram, me.nodeId);
-          value = wfNode.userName;
+          if (wfNode) {
+            value = wfNode.userName;
+          } else {
+            me.logger.warn(["Can't determinate workflow node: flowId={0}, nodeId={1}", wfDiagram.id, me.nodeId]);
+          }
           break;
 
         case "NEXT":
