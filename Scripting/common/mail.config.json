@@ -6,5 +6,6 @@
   "port": "",
   "useSsl": false,
   "useStartTls": false,
-  "trustAllHosts": true
+  "trustAllHosts": true,
+  "passwordEncrypted": true
 }

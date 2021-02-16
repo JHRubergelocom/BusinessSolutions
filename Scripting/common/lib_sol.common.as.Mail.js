@@ -225,6 +225,11 @@ sol.define("sol.common.as.Mail", {
    */
 
   /**
+   * @cfg {Boolean} passwordEncrypted
+   * password is encrypted
+   */
+
+  /**
    * @cfg {Boolean} debug
    * True if the SMTP debug information should be written into the log
    */
@@ -298,6 +303,8 @@ sol.define("sol.common.as.Mail", {
 
     me.trustAllHosts = (typeof me.trustAllHosts != "undefined") ? me.trustAllHosts : mailConfig.trustAllHosts;
     me.trustAllHosts = (typeof me.trustAllHosts != "undefined") ? me.trustAllHosts : true;
+
+    me.passwordEncrypted = (typeof me.passwordEncrypted != "undefined") ? me.passwordEncrypted : mailConfig.passwordEncrypted;
 
     if (!me.smtpHost) {
       throw "SMTP host must be set.";
@@ -554,8 +561,16 @@ sol.define("sol.common.as.Mail", {
    * @return {javax.mail.PasswordAuthentication} Authententication
    */
   getPasswordAuthentication: function () {
-    var me = this;
-    return new javax.mail.PasswordAuthentication(me.user, me.password);
+    var me = this,
+        des, password;
+        
+    if (me.passwordEncrypted) {
+      des = new Packages.de.elo.utils.sec.DesEncryption();
+      password = des.decrypt(me.password);
+    } else {
+      password = me.password;
+    }
+    return new javax.mail.PasswordAuthentication(me.user, password);
   },
 
   /**
