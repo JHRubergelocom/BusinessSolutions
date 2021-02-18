@@ -18,6 +18,7 @@
       <name>lib_sol.common.FileUtils</name>
       <name>lib_sol.common.ObjectUtils</name>
       <name>lib_sol.common.StringUtils</name>
+      <name>lib_sol.common.IxUtils</name>
       <name>lib_sol.common.JsonUtils</name>
       <name>lib_sol.common.SordUtils</name>
       <name>lib_sol.common.RepoUtils</name>

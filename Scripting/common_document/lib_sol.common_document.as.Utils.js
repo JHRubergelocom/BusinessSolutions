@@ -82,15 +82,16 @@ sol.define("sol.common_document.as.Utils", {
         inputStream;
 
     me.logger.enter("convertOutputStreamToInputStream");
-    me.logger.info(["Start convertOutputStreamToInputStream with outputStream: '{0}'", outputStream]);
+    me.logger.debug(["Start convertOutputStreamToInputStream with outputStream: '{0}'", outputStream]);
 
     if (!outputStream) {
+      me.logger.info("convertOutputStreamToInputStream 'Output stream is empty'");
       throw "Output stream is empty";
     }
     inputStream = new ByteArrayInputStream(outputStream.toByteArray());
     outputStream.close();
 
-    me.logger.info(["Finish convertOutputStreamToInputStream with inputStream: '{0}'", inputStream]);
+    me.logger.debug(["Finish convertOutputStreamToInputStream with inputStream: '{0}'", inputStream]);
     me.logger.exit("convertOutputStreamToInputStream");
     return inputStream;
   },
@@ -154,7 +155,7 @@ sol.define("sol.common_document.as.Utils", {
         dstFile, fop, contentInBytes;
 
     me.logger.enter("writePdfOutputStreamToFile");
-    me.logger.info(["Start writePdfOutputStreamToFile with pdfOutputStream: '{0}', dstDirPath: '{1}', pdfName: '{2}'", pdfOutputStream, dstDirPath, pdfName]);
+    me.logger.info(["Start writePdfOutputStreamToFile with dstDirPath: '{0}', pdfName: '{1}'", dstDirPath, pdfName]);
 
     dstFile = new java.io.File(dstDirPath + java.io.File.separator + pdfName + ".pdf");
     fop = new FileOutputStream(dstFile);
@@ -185,7 +186,7 @@ sol.define("sol.common_document.as.Utils", {
         dstFile;
 
     me.logger.enter("writePdfInputStreamToFile");
-    me.logger.info(["Start writePdfInputStreamToFile with pdfInputStream: '{0}', dstDirPath: '{1}', pdfName: '{2}'", pdfInputStream, dstDirPath, pdfName]);
+    me.logger.info(["Start writePdfInputStreamToFile with dstDirPath: '{0}', pdfName: '{1}'", dstDirPath, pdfName]);
 
     dstFile = new java.io.File(dstDirPath + java.io.File.separator + pdfName + ".pdf");
     if (!dstFile.exists()) {
@@ -198,6 +199,32 @@ sol.define("sol.common_document.as.Utils", {
     me.logger.exit("writePdfInputStreamToFile");
 
     return dstFile;
+  },
+
+  pushContent: function (sord, pdfContents, pdfInputStream, refPath, contentName, pdfPages, hint) {
+    var contentType, contentMask, dm;
+    
+    contentType = "Dokument";
+    if (sol.common.SordUtils.isFolder(sord)) {
+      contentType = "Ordner";
+    }
+    dm = sol.common.SordUtils.getDocMask(sord.maskName, "de");
+    contentMask = dm.name;
+    if (dm.nameTranslationKey) {
+      if (String(dm.nameTranslationKey).trim() !== "") {
+        contentMask = sol.create("sol.common.Template", { source: "{{translate '" + dm.nameTranslationKey + "' 'de'}}" }).apply();
+      }
+    }
+
+    pdfContents.push({ 
+      pdfInputStream: pdfInputStream, 
+      refPath: refPath, 
+      contentName: contentName, 
+      pdfPages: pdfPages, 
+      contentType: contentType, 
+      contentMask: contentMask,
+      contentHint: hint
+    });    
   },
 
   /**
@@ -216,10 +243,10 @@ sol.define("sol.common_document.as.Utils", {
   createPdfFromSord: function (sord, templateId, dstDirPath, ext, pdfName, config, pdfContents) {
     var me = this,
         data, fopRenderer, result, pdfInputStream, refPath, pdfPages, 
-        dstFile, isCover, contentType;
+        dstFile, isCover;
 
     me.logger.enter("createPdfFromSord"); 
-    me.logger.info(["Start createPdfFromSord with sord: '{0}', templateId: '{1}', dstDirPath: '{2}', ext: '{3}', pdfName: '{4}', config: '{5}', pdfContents: '{6}'", sord, templateId, dstDirPath, ext, pdfName, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 }), pdfContents]);
+    me.logger.info(["Start createPdfFromSord with sord: '{0}', templateId: '{1}', dstDirPath: '{2}', ext: '{3}', pdfName: '{4}', config: '{5}'", sord, templateId, dstDirPath, ext, pdfName, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
 
     if (ext) {
       data = { sord: sol.common.SordUtils.getTemplateSord(sord).sord, ext: ext };
@@ -238,20 +265,7 @@ sol.define("sol.common_document.as.Utils", {
       refPath = me.getRefPath(sord, isCover);
       dstFile = me.writePdfOutputStreamToFile(result.outputStream, dstDirPath, pdfName);
       pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstFile);
-
-      contentType = "Document";
-      if (sol.common.SordUtils.isFolder(sord)) {
-        contentType = "Folder";
-      }     
-      pdfContents.push({ 
-        pdfInputStream: pdfInputStream, 
-        refPath: refPath, 
-        contentName: pdfName, 
-        pdfPages: pdfPages, 
-        contentType: contentType, 
-        contentMask: sord.maskName,
-        contentHint: ""
-      });    
+      me.pushContent(sord, pdfContents, pdfInputStream, refPath, pdfName, pdfPages, "");
 
     } else {
       fopRenderer = sol.create("sol.common.as.renderer.Fop", { templateId: templateId, toStream: true });
@@ -280,7 +294,7 @@ sol.define("sol.common_document.as.Utils", {
         templateId;
 
     me.logger.enter("createCoverSheetSord");   
-    me.logger.info(["Start createCoverSheetSord with sord: '{0}', dstDirPath: '{1}', pdfName: '{2}', config: '{3}', pdfContents: '{4}'", sord, dstDirPath, pdfName, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 }), pdfContents]);
+    me.logger.info(["Start createCoverSheetSord with sord: '{0}', dstDirPath: '{1}', pdfName: '{2}', config: '{3}'", sord, dstDirPath, pdfName, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
 
     templateId = me.getTemplateCoverSheetSord(sord, config);
     me.createPdfFromSord(sord, templateId, dstDirPath, "pdf", pdfName, config, pdfContents);
@@ -301,10 +315,10 @@ sol.define("sol.common_document.as.Utils", {
   createErrorConversionPdf: function (sord, ext, dstDirPath, config, pdfContents) {
     var me = this,
         templateId, pdfName, data, fopRenderer, result, pdfInputStream,
-        refPath, contentName, dstFile, pdfPages, contentType;
+        refPath, contentName, dstFile, pdfPages;
 
     me.logger.enter("createErrorConversionPdf");
-    me.logger.info(["Start createErrorConversionPdf with sord: '{0}', ext: '{1}', dstDirPath: '{2}', config: '{3}', pdfContents: '{4}'", sord, ext, dstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 }), pdfContents]);
+    me.logger.info(["Start createErrorConversionPdf with sord: '{0}', ext: '{1}', dstDirPath: '{2}', config: '{3}'", sord, ext, dstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
     
     
     templateId = me.getTemplateErrorConversionPdf(config);
@@ -329,20 +343,7 @@ sol.define("sol.common_document.as.Utils", {
       } 
       dstFile = me.writePdfOutputStreamToFile(result.outputStream, dstDirPath, pdfName);
       pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstFile);
-
-      contentType = "Document";
-      if (sol.common.SordUtils.isFolder(sord)) {
-        contentType = "Folder";
-      }     
-      pdfContents.push({ 
-        pdfInputStream: pdfInputStream, 
-        refPath: refPath, 
-        contentName: contentName, 
-        pdfPages: pdfPages, 
-        contentType: contentType, 
-        contentMask: sord.maskName,
-        contentHint: "Konvertierung fehlgeschlagen"
-      });    
+      me.pushContent(sord, pdfContents, pdfInputStream, refPath, contentName, pdfPages, "Konvertierung fehlgeschlagen");
 
       sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
 
@@ -409,10 +410,10 @@ sol.define("sol.common_document.as.Utils", {
    */
   createPdfDocument: function (sord, dstDirPath, config, pdfContents) {
     var me = this,
-        pdfInputStream, ext, refPath, contentName, pdfPages, dstFile, pdfName, contentType;
+        pdfInputStream, ext, refPath, contentName, pdfPages, dstFile, pdfName;
 
     me.logger.enter("createPdfDocument");
-    me.logger.info(["Start createPdfDocument with sord: '{0}'dstDirPath: '{1}', config: '{2}', pdfContents: '{3}'", sord, dstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 }), pdfContents]);
+    me.logger.info(["Start createPdfDocument with sord: '{0}'dstDirPath: '{1}', config: '{2}'", sord, dstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
 
     pdfInputStream = me.convertToPdf(sord);
     ext = (sord && sord.docVersion && sord.docVersion.ext) ? sord.docVersion.ext : null;  
@@ -434,20 +435,7 @@ sol.define("sol.common_document.as.Utils", {
           contentName = sord.name;
         }
         pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstFile);
-        contentType = "Document";
-        if (sol.common.SordUtils.isFolder(sord)) {
-          contentType = "Folder";
-        }     
-        pdfContents.push({ 
-          pdfInputStream: pdfInputStream, 
-          refPath: refPath, 
-          contentName: contentName, 
-          pdfPages: pdfPages, 
-          contentType: contentType, 
-          contentMask: sord.maskName,
-          contentHint: ""
-        });    
-
+        me.pushContent(sord, pdfContents, pdfInputStream, refPath, contentName, pdfPages, "");
         sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
       }
     } else {
@@ -468,7 +456,7 @@ sol.define("sol.common_document.as.Utils", {
         newContents, newName, oldContents, i, j, newContent, oldContent;
 
     me.logger.enter("adjustContent");
-    me.logger.info(["Start adjustContent with contents: '{0}'", sol.common.JsonUtils.stringifyAll(contents, { tabStop: 2 })]);
+    me.logger.debug(["Start adjustContent with contents: '{0}'", sol.common.JsonUtils.stringifyAll(contents, { tabStop: 2 })]);
 
     newContents = [];
     oldContents = [];
@@ -494,7 +482,7 @@ sol.define("sol.common_document.as.Utils", {
       }
     }
 
-    me.logger.info(["Finish adjustContent with newContents: '{0}'", sol.common.JsonUtils.stringifyAll(newContents, { tabStop: 2 })]);
+    me.logger.debug(["Finish adjustContent with newContents: '{0}'", sol.common.JsonUtils.stringifyAll(newContents, { tabStop: 2 })]);
     me.logger.exit("adjustContent");
     
     return newContents;
@@ -514,7 +502,7 @@ sol.define("sol.common_document.as.Utils", {
         templateId, data, fopRenderer, result, dstFile, pdfPages, fop, contentInBytes;
 
     me.logger.enter("getOffsetSumPages");
-    me.logger.info(["Start getOffsetSumPages with folderName: '{0}', dstDirPath: '{1}', config: '{2}', pdfContents: '{3}'", folderName, dstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 }), sol.common.JsonUtils.stringifyAll(pdfContents, { tabStop: 2 })]);
+    me.logger.info(["Start getOffsetSumPages with folderName: '{0}', dstDirPath: '{1}', config: '{2}'", folderName, dstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
     
     pdfPages = 0;
     templateId = me.getTemplateContents(config);
@@ -562,7 +550,7 @@ sol.define("sol.common_document.as.Utils", {
         templateId, fopRenderer, result, data, pdfInputStream, sumPages;
 
     me.logger.enter("createContent");
-    me.logger.info(["Start createContent with folderName: '{0}', dstDirPath: '{1}', config: '{2}', pdfContents: '{3}'", folderName, dstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 }), sol.common.JsonUtils.stringifyAll(pdfContents, { tabStop: 2 })]);
+    me.logger.info(["Start createContent with folderName: '{0}', dstDirPath: '{1}', config: '{2}'", folderName, dstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
 
     templateId = me.getTemplateContents(config);
     data = {};
