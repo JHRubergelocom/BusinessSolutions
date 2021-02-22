@@ -11,7 +11,7 @@
     <fo:flow flow-name="xsl-region-body">
       <fo:block-container width="4.9cm" margin-top="3mm">
           <fo:block font-size="11pt" margin-bottom="1mm">
-            {{sord.name}}.{{ext}} konnte nicht in PDF konvertiert werden
+            {{sord.name}}.{{ext}} {{msg}}
           </fo:block>
       </fo:block-container>        
     </fo:flow>

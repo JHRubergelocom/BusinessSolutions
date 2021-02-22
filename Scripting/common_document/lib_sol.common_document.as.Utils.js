@@ -202,17 +202,18 @@ sol.define("sol.common_document.as.Utils", {
   },
 
   pushContent: function (sord, pdfContents, pdfInputStream, refPath, contentName, pdfPages, hint) {
-    var contentType, contentMask, dm;
-    
-    contentType = "Dokument";
+    var me = this, 
+        contentType, contentMask, dm;
+
+    contentType = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.document' '" + me.language + "'}}" }).apply();
     if (sol.common.SordUtils.isFolder(sord)) {
-      contentType = "Ordner";
+      contentType = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.folder' '" + me.language + "'}}" }).apply();
     }
-    dm = sol.common.SordUtils.getDocMask(sord.maskName, "de");
+    dm = sol.common.SordUtils.getDocMask(sord.maskName, me.language);
     contentMask = dm.name;
     if (dm.nameTranslationKey) {
       if (String(dm.nameTranslationKey).trim() !== "") {
-        contentMask = sol.create("sol.common.Template", { source: "{{translate '" + dm.nameTranslationKey + "' 'de'}}" }).apply();
+        contentMask = sol.create("sol.common.Template", { source: "{{translate '" + dm.nameTranslationKey + "' '" + me.language + "'}}" }).apply();
       }
     }
 
@@ -315,7 +316,7 @@ sol.define("sol.common_document.as.Utils", {
   createErrorConversionPdf: function (sord, ext, dstDirPath, config, pdfContents) {
     var me = this,
         templateId, pdfName, data, fopRenderer, result, pdfInputStream,
-        refPath, contentName, dstFile, pdfPages;
+        refPath, contentName, dstFile, pdfPages, hint;
 
     me.logger.enter("createErrorConversionPdf");
     me.logger.info(["Start createErrorConversionPdf with sord: '{0}', ext: '{1}', dstDirPath: '{2}', config: '{3}'", sord, ext, dstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
@@ -327,7 +328,7 @@ sol.define("sol.common_document.as.Utils", {
     } else {
       data = { sord: sol.common.SordUtils.getTemplateSord(sord).sord };
     }
-
+    data.msg = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.error.msg' '" + me.language + "'}}" }).apply();
     pdfName = me.getPdfName(sord, ext);
 
     if (config.pdfExport === true) {
@@ -343,7 +344,9 @@ sol.define("sol.common_document.as.Utils", {
       } 
       dstFile = me.writePdfOutputStreamToFile(result.outputStream, dstDirPath, pdfName);
       pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstFile);
-      me.pushContent(sord, pdfContents, pdfInputStream, refPath, contentName, pdfPages, "Konvertierung fehlgeschlagen");
+
+      hint = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.conversionFailed' '" + me.language + "'}}" }).apply();
+      me.pushContent(sord, pdfContents, pdfInputStream, refPath, contentName, pdfPages, hint);
 
       sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
 
@@ -508,6 +511,9 @@ sol.define("sol.common_document.as.Utils", {
     templateId = me.getTemplateContents(config);
     data = {};
     data.header = { name: folderName };
+    data.overview = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.contents.overview' '" + me.language + "'}}" }).apply();
+    data.content = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.contents.content' '" + me.language + "'}}" }).apply();
+    data.noContentFound = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.contents.noContentFound' '" + me.language + "'}}" }).apply();
     data.contents = [];
 
     pdfContents.forEach(function (pdfContent) {
@@ -555,6 +561,9 @@ sol.define("sol.common_document.as.Utils", {
     templateId = me.getTemplateContents(config);
     data = {};
     data.header = { name: folderName };
+    data.overview = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.contents.overview' '" + me.language + "'}}" }).apply();
+    data.content = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.contents.content' '" + me.language + "'}}" }).apply();
+    data.noContentFound = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.contents.noContentFound' '" + me.language + "'}}" }).apply();
     data.contents = [];
 
     sumPages = me.getOffsetSumPages(folderName, dstDirPath, config, pdfContents);
@@ -615,6 +624,11 @@ sol.define("sol.common_document.as.Utils", {
 
     me.logger.enter("pdfExport");
     me.logger.info(["Start pdfExport with folderId: '{0}', baseDstDirPath: '{1}', config: '{2}'", folderId, baseDstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
+
+    me.language = ixConnect.loginResult.clientInfo.language;
+    if (config.language) {
+      me.language = config.language;
+    }
 
     pdfContents = [];
 

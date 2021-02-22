@@ -422,9 +422,10 @@ sol.define("sol.common.as.WordDocument", {
         me.logger.debug("Word content control not supported: title=" + control.title + ", sdtType=" + control.sdtType + ", tag=" + control.tag + ", value=" + value);
         continue;
       }
+
       tag = String(control.tag);
       if (tag.indexOf("{{") < 0) {
-        return;
+        continue;
       }
 
       value = sol.create("sol.common.Template", { source: tag }).apply(data);
