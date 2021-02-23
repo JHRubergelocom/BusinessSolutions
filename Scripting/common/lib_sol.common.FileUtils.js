@@ -60,51 +60,69 @@ sol.define("sol.common.FileUtils", {
   },
 
   /**
-   * Extracts the file name from a File (without the file extension)
-   * @param {java.io.File} file
-   * @return {java.lang.String} The name of the file
+   * Extracts the file name from a file object (without the file extension)
+   * @param {java.io.File} file File
+   * @return {String} The name of the file
    */
   getName: function (file) {
     var me = this,
-        name, extIdx, _result;
+        nameWithoutExtension;
+
+    if (!file) {
+      return "";
+    }
+
     me.logger.enter("getName", arguments);
-    name = file.getName();
-    extIdx = name.lastIndexOf(".");
-    _result = name.substring(0, extIdx);
-    me.logger.exit("getName", _result + "");
-    return _result;
+
+    nameWithoutExtension = Packages.org.apache.commons.io.FilenameUtils.removeExtension(file.name) + "";
+
+    me.logger.exit("getName", nameWithoutExtension);
+
+    return nameWithoutExtension;
   },
 
   /**
-   * Extracts the file extension from a File
-   * @param {java.io.File} file
-   * @return {java.lang.String} The file extension
+   * Extracts the file extension from a file object
+   * @param {java.io.File} file File
+   * @return {String} The file extension
    */
   getExtension: function (file) {
     var me = this,
-        name, extIdx, _result;
-    me.logger.enter("getExtension", arguments);
-    name = file.getName();
-    extIdx = name.lastIndexOf(".");
-    _result = name.substring(extIdx + 1, name.length());
-    me.logger.exit("getExtension", _result + "");
-    return _result;
+        extension;
+
+    if (!file) {
+      return "";
+    }
+
+    me.logger.enter("getExtension", file.canonicalPath + "");
+
+    extension = Packages.org.apache.commons.io.FilenameUtils.getExtension(file.name) + "";
+
+    me.logger.exit("getExtension", extension + "");
+
+    return extension;
   },
 
   /**
    * Extracts the file extension from a path
-   * @param {String} filePath file path
+   * @param {String} filePath File path
    * @return {String} File extension
    */
   getExtensionFromPath: function (filePath) {
     var me = this,
-        extIdx, _result;
-    me.logger.enter("getExtensionFromPath", arguments);
-    filePath = String(filePath);
-    extIdx = filePath.lastIndexOf(".");
-    _result = filePath.substring(extIdx + 1, filePath.length);
-    me.logger.exit("getExtensionFromPath", _result);
-    return _result;
+        extension;
+
+    if (!filePath) {
+      return "";
+    }
+
+    me.logger.enter("getExtensionFromPath", filePath);
+
+    extension = Packages.org.apache.commons.io.FilenameUtils.getExtension(filePath) + "";
+
+    me.logger.exit("getExtensionFromPath", extension);
+
+    return extension;
   },
 
   /**
@@ -538,8 +556,8 @@ sol.define("sol.common.FileUtils", {
     var me = this,
         editInfo, docVersion, sordName, dstFile;
 
-    editInfo = ixConnect.ix().checkoutDoc(objId, null, new EditInfoZ(EditInfoC.mbDocumentMembers, SordC.mbLean), LockC.NO),
-    docVersion = editInfo.document.docs[0],
+    editInfo = ixConnect.ix().checkoutDoc(objId, null, new EditInfoZ(EditInfoC.mbDocumentMembers, SordC.mbLean), LockC.NO);
+    docVersion = editInfo.document.docs[0];
     sordName = me.sanitizeFilename(editInfo.sord.name);
     dstFile = new java.io.File(dstDirPath + java.io.File.separator + sordName + "." + docVersion.ext);
     ixConnect.download(docVersion.url, dstFile);
@@ -564,6 +582,9 @@ sol.define("sol.common.FileUtils", {
 
 /**
  * Represents an Ini file
+ * @elojc
+ * @eloas
+ * @eloix
  */
 sol.define("sol.common.IniFile", {
 

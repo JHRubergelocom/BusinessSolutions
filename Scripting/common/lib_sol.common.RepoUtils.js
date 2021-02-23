@@ -214,6 +214,8 @@ sol.define("sol.common.RepoUtils", {
 
     ixConn = ixConn || ixConnect;
 
+    me.logger.debug(["findChildren: conn.user.name={0}", ixConn.loginResult.user.name]);
+
     findChildren.parentId = objId + "";
     findChildren.mainParent = !includeReferences;
     findChildren.endLevel = (recursive) ? level : 1;
@@ -331,7 +333,7 @@ sol.define("sol.common.RepoUtils", {
     var me = this,
         objKeys = [],
         sords = [],
-        findInfo, sordZ, key, i, idx, findResult, ixConn;
+        findInfo, sordZ, key, i, idx, findResult, ixConn, value;
 
     me.logger.enter("findSords", params);
 
@@ -349,8 +351,12 @@ sol.define("sol.common.RepoUtils", {
       if (params.objKeysObj) {
         for (key in params.objKeysObj) {
           if (params.objKeysObj.hasOwnProperty(key)) {
-            params.objKeysObj[key] = sol.common.StringUtils.replaceAll(params.objKeysObj[key], "\"", "'");
-            objKeys.push(me.createObjKey("", key, params.objKeysObj[key]));
+            value = params.objKeysObj[key] + "";
+            if (value.trim().indexOf("\"") == 0) {
+              findInfo.findOptions = new FindOptions();
+              findInfo.findOptions.searchMode = SearchModeC.ONE_TERM;
+            }
+            objKeys.push(me.createObjKey("", key, value));
           }
         }
         findInfo.findByIndex.objKeys = objKeys;
@@ -463,7 +469,8 @@ sol.define("sol.common.RepoUtils", {
    * @param {String} docId If a docId is supplied, the function will try to download the version only, if objId is null.
    * @param {Object} params (optional) Additional parameter
    * @param {Boolean} [params.preserveBOM=false] (optional) If `true`, the BOM will not be removed (if present)
-   * @param {Array} [param.charsets=[UTF-8] Charsets, e.g. ["UTF-8", "ISO-8859-1"]
+   * @param {Array} param.charsets=[UTF-8] Charsets, e.g. ["UTF-8", "ISO-8859-1"]
+   * @param {de.elo.ix.client.IXConnection} params.connection (optional) Index server connection
    * @return {String} Content as string.
    */
   downloadToString: function (objId, docId, params) {
@@ -475,7 +482,7 @@ sol.define("sol.common.RepoUtils", {
 
     me.logger.enter("downloadToString", arguments);
 
-    bytes = me.downloadToByteArray(objId, docId);
+    bytes = me.downloadToByteArray(objId, docId, params);
 
     for (i = 0; i < params.charsets.length; i++) {
       charset = params.charsets[i];
@@ -514,12 +521,16 @@ sol.define("sol.common.RepoUtils", {
    * Downloads the content of a repository document into a byte array
    * @param {String} objId Object ID of the document. If a document version should be loaded, this has to be null
    * @param {String} docId If a docId is supplied, the function will try to download the version only, if objId is null.
+   * @param {de.elo.ix.client.IXConnection} params.connection (optional) Index server connection
    * @return {java.lang.Byte[]} Content as byte array.
    */
-  downloadToByteArray: function (objId, docId) {
+  downloadToByteArray: function (objId, docId, params) {
     var me = this,
         inputStream, bytes;
-    inputStream = me.downloadToStream(objId, docId);
+
+    params = params || {};
+
+    inputStream = me.downloadToStream(objId, docId, params);
     bytes = Packages.org.apache.commons.io.IOUtils.toByteArray(inputStream);
     inputStream.close();
     return bytes;
@@ -529,36 +540,59 @@ sol.define("sol.common.RepoUtils", {
    * @private
    * @param {String} objId
    * @param {String} docId
+   * @param {Object} params
+   * @param {de.elo.ix.client.IXConnection} params.connection
    * @return {java.io.InputStream}
    */
-  downloadToStream: function (objId, docId) {
+  downloadToStream: function (objId, docId, params) {
     var me = this,
-        url;
-    url = me.getDownloadUrl(objId, docId);
-    return ixConnect.download(url, 0, -1);
+        url, conn, inputStream;
+
+    params = params || {};
+    conn = params.connection || ixConnect;
+
+    url = me.getDownloadUrl(objId, docId, params);
+
+    me.logger.debug(["downloadToStream: conn.user.name={0}", conn.loginResult.user.name]);
+
+    inputStream = conn.download(url, 0, -1);
+
+    return inputStream;
   },
 
   /**
    * @private
    * @param {String} objId
    * @param {String} docId
-   * @return {java.io.InputStream}
+   * @param {Object} params
+   * @param {de.elo.ix.client.IXConnection} params.connection
+   * @return {String}
    */
-  getDownloadUrl: function (objId, docId) {
-    var editInfo, docs;
+  getDownloadUrl: function (objId, docId, params) {
+    var me = this,
+        editInfo, docs, conn, url;
+
+    params = params || {};
+    conn = params.connection || ixConnect;
+
     if (!objId && !docId) {
       throw "objId and docId are both empty";
     }
+
+    me.logger.debug(["getDownloadUrl: conn.user.name={0}", conn.loginResult.user.name]);
+
     if (objId) {
-      editInfo = ixConnect.ix().checkoutDoc(objId + "", null, EditInfoC.mbSordDoc, LockC.NO);
+      editInfo = conn.ix().checkoutDoc(objId + "", null, EditInfoC.mbSordDoc, LockC.NO);
     } else if (docId) {
-      editInfo = ixConnect.ix().checkoutDoc(null, docId + "", EditInfoC.mbDocument, LockC.NO);
+      editInfo = conn.ix().checkoutDoc(null, docId + "", EditInfoC.mbDocument, LockC.NO);
     }
     docs = editInfo.document.docs;
     if (!docs || (docs.length == 0)) {
       throw "There are no documents";
     }
-    return String(docs[0].url);
+    url = String(docs[0].url);
+
+    return url;
   },
 
   contentTypeExtensions: {
@@ -594,22 +628,31 @@ sol.define("sol.common.RepoUtils", {
    * Downloads the content of a small repository document into a string
    * @param {String} objId Object ID of the document. If a document version should be loaded, this has to be null
    * @param {String} docId If a docId is supplied, the function will try to download the version only, if objId is null.
-   * @return {String} Content as string.
+   * @return {java.lang.String} Content as string.
    */
   downloadSmallContentToString: function (objId, docId) {
     var me = this,
-        ed, configStr;
+        content = "",
+        editInfo;
+
     me.logger.enter("downloadSmallContentToString", arguments);
 
     if (objId) {
-      ed = ixConnect.ix().checkoutSord(objId, new EditInfoZ(0, new SordZ(SordC.mbSmallDocumentContent)), LockC.NO);
-      configStr = new java.lang.String(ed.sord.docVersion.fileData.data, "UTF-8");
+      editInfo = ixConnect.ix().checkoutSord(objId, new EditInfoZ(0, new SordZ(SordC.mbSmallDocumentContent)), LockC.NO);
+      if (editInfo.sord.docVersion) {
+        content = new java.lang.String(editInfo.sord.docVersion.fileData.data, "UTF-8");
+      } else {
+        me.logger.warn(["downloadSmallContentToString: No document version: objId={0}, docId={1}", objId || "", docId || ""]);
+      }
     } else {
-      ed = ixConnect.ix().checkoutDoc(null, docId + "", EditInfoC.mbSordDocSmallContent, LockC.NO);
-      configStr = new java.lang.String(ed.document.docs[0].fileData.data, "UTF-8");
+      editInfo = ixConnect.ix().checkoutDoc(null, docId + "", EditInfoC.mbSordDocSmallContent, LockC.NO);
+      content = new java.lang.String(editInfo.document.docs[0].fileData.data, "UTF-8");
     }
+
+    content = content.replace(me.bom, "");
     me.logger.exit("downloadSmallContentToString");
-    return configStr.replace(me.bom, "");
+
+    return content;
   },
 
   /**
@@ -905,25 +948,52 @@ sol.define("sol.common.RepoUtils", {
   /**
    * Returns the object ID of a given repository path
    * @param {String} path Repository path. The path separator is defined by the first character or the first charcter after "ARCPATH:"
+   * @param {Object} params Parameters
+   * @param {Boolean} params.resolveGuid Resolve GUID
    * @return {String} The ID of the new element, or null if it does not exist
    */
-  getObjId: function (path) {
+  getObjId: function (path, params) {
     var me = this,
-        conn, editInfo;
-    me.logger.enter("getObjId", arguments);
+        conn, sord, objId;
+
+    params = params || {};
+    me.logger.enter("getObjId", { path: path, params: params });
+
     conn = (typeof ixConnectAdmin !== "undefined") ? ixConnectAdmin : ixConnect;
-    if (me.isObjId(path) || me.isGuid(path)) {
-      me.logger.exit("getObjId", path);
+
+    if (me.isObjId(path)) {
+      me.logger.exit("getObjId", { objId: path });
       return path;
     }
+
+    if (me.isGuid(path)) {
+      if (params.resolveGuid) {
+        try {
+          sord = conn.ix().checkoutSord(path + "", SordC.mbOnlyId, LockC.NO);
+          objId = sord.id + "";
+          me.logger.exit("getObjId", { objId: objId });
+          return objId;
+        } catch (ex) {
+          me.logger.warn(["Can't find GUID: guid={0}", path]);
+          return;
+        }
+      } else {
+        me.logger.exit("getObjId", { guid: path });
+        return path;
+      }
+    }
+
     path = me.normalizePath(path, true);
+
     try {
-      editInfo = conn.ix().checkoutSord(path + "", EditInfoC.mbOnlyId, LockC.NO);
-      me.logger.exit("getObjId", editInfo.sord.id);
-      return editInfo.sord.id;
+      sord = conn.ix().checkoutSord(path + "", SordC.mbOnlyId, LockC.NO);
+      objId = sord.id + "";
+      me.logger.exit("getObjId", { objId: objId });
+      return objId;
     } catch (ignore) {
       // Object not found
     }
+
     me.logger.exit("getObjId");
   },
 
@@ -2171,6 +2241,7 @@ sol.define("sol.common.RepoUtils", {
    * @param {String} params.limitTo Limit to
    * @param {String} [params.limitToUnit=d] Limit to unit, e.g. days
    * @param {Number} params.times times Times
+   * @param {Boolean} [params.escapeXml=false] Escape the URL for use in XML
    * @return {String} URL
    */
   createExternalLink: function (params) {
@@ -2199,6 +2270,15 @@ sol.define("sol.common.RepoUtils", {
     publicDownload = ixConnect.ix().insertPublicDownload(downloadOptions);
 
     url = publicDownload.url;
+
+    if (params.escapeXml) {
+      try {
+        url = Packages.org.apache.commons.text.StringEscapeUtils.escapeXml11(url) + "";
+      } catch (ex) {
+        url = Packages.org.apache.commons.lang.StringEscapeUtils.escapeXml(url) + "";
+      }
+    }
+
     return url;
   },
 
