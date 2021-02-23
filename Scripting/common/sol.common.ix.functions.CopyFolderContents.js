@@ -8,6 +8,7 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_sol.common.RepoUtils.js
 //@include lib_sol.common.UserUtils.js
 //@include lib_sol.common.ix.FunctionBase.js
+//@include lib_sol.common.Template.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.common.ix.functions.CopyFolderContents" });
 
@@ -35,6 +36,8 @@ var logger = sol.create("sol.Logger", { scope: "sol.common.ix.functions.CopyFold
  * @eloix
  * @requires  sol.Logger
  * @requires  sol.common.JsonUtils
+ * @requires  sol.common.SordUtils
+ * @requires  sol.common.RepoUtils
  * @requires  sol.common.ObjectUtils
  * @requires  sol.common.ix.RfUtils
  * @requires  sol.common.ix.FunctionBase
@@ -78,6 +81,12 @@ sol.define("sol.common.ix.functions.CopyFolderContents", {
    * Copy only the base element
    */
   copyOnlyBaseElement: false,
+
+  /**
+   * @cfg {String} [targetMask]
+   * Change the base element mask to another mask finally
+   */
+  targetMask: undefined,
 
   /**
    * @cfg {String} name
@@ -138,11 +147,11 @@ sol.define("sol.common.ix.functions.CopyFolderContents", {
     ixConn = (me.asAdmin === true) ? ixConnectAdmin : ixConnect;
 
     if (!sol.common.RepoUtils.isObjId(me.source)) {
-      me.source = sol.common.RepoUtils.getObjId(me.source);
+      me.source = sol.common.RepoUtils.getObjId(me.source, { resolveGuid: true });
     }
 
     if (!sol.common.RepoUtils.isObjId(me.objId)) {
-      me.objId = sol.common.RepoUtils.getObjId(me.objId);
+      me.objId = sol.common.RepoUtils.getObjId(me.objId, { resolveGuid: true });
     }
 
     me.logger.info(["CopyFolderContents: source={0}, newParent={1}", me.source, me.objId]);
@@ -154,7 +163,29 @@ sol.define("sol.common.ix.functions.CopyFolderContents", {
       newObjId = me.executeBackgroundCopy(ixConn, [me.source], me.objId, me.name, false);
     }
 
+    // change mask of the root object
+    if (me.targetMask && newObjId) {
+       me.changeBaseElementMask(newObjId);
+    }
+
     return newObjId;
+  },
+
+  /**
+   * @param {objId} newObjId
+   * @private
+   */
+  changeBaseElementMask: function(newObjId) {
+    var me = this, rootSord, changedSord;
+
+    if (sol.common.SordUtils.docMaskExists(me.targetMask)) {
+      me.logger.info(["switch mask of objId={0} to {1}", newObjId, me.targetMask]);
+      rootSord = sol.common.RepoUtils.getSord(newObjId);
+      changedSord = sol.common.SordUtils.changeMask(rootSord, me.targetMask);
+      ixConnect.ix().checkinSord(changedSord, SordC.mbLean, LockC.NO);
+    } else {
+      me.logger.warn(["mask {1} doesn't exist", me.targetMask]);
+    }
   },
 
   executeQuickCopy: function (ixConn) {

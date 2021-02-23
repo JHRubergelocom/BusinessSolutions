@@ -377,21 +377,24 @@ sol.define("sol.common.SordUtils", {
         throw "unsupported type: " + params.type;
     }
 
-    if (params.maxLength) {
-      for (i = 0; i < values.length; i++) {
-        value = values[i] + "";
-        value = (value.length > params.maxLength) ? value.substr(0, params.maxLength) : value;
-        values[i] = value;
-      }
-    }
+    if (values && (values.length > 0)) {
 
-    if (params.fillString) {
-      for (i = 0; i < values.length; i++) {
-        value = values[i] + "";
-        if (value.length < params.fillString.length) {
-          value += params.fillString.substr(value.length);
+      if (params.maxLength) {
+        for (i = 0; i < values.length; i++) {
+          value = values[i] + "";
+          value = (value.length > params.maxLength) ? value.substr(0, params.maxLength) : value;
+          values[i] = value;
         }
-        values[i] = value;
+      }
+
+      if (params.fillString) {
+        for (i = 0; i < values.length; i++) {
+          value = values[i] + "";
+          if (value.length < params.fillString.length) {
+            value += params.fillString.substr(value.length);
+          }
+          values[i] = value;
+        }
       }
     }
 
@@ -1633,5 +1636,41 @@ sol.define("sol.common.SordUtils", {
     internalDateString = internalDateInteger + "";
 
     return internalDateString;
+  },
+
+  /**
+   * Reads map entries for the defined `objId` (or `mapId`) and returns them as an object
+   * @param {Object} config Configuration
+   * @param {Array} config.keys Map-keys which should be returned
+   * @param {String} [config.mapId=config.objId] Either `mapId` or `objId` must be passed. The specific map for the `mapId` or `objId` will be read.
+   * @param {String} config.objId Object ID
+   * @param {de.elo.ix.client.MapDomainDataC} [config.domain=MapDomainC.DOMAIN_SORD] Map domain
+   * @param {de.elo.ix.client.IXConnection} [params.connection=ixConnect] Index server connection
+   */
+  getMapEntriesAsObject: function (config) {
+    var mapId,
+        mapObj = {},
+        domain, keys, connection, keyValues, i, entry;
+
+    config = config || {};
+    mapId = config.mapId || config.objId;
+    domain = config.domain || MapDomainC.DOMAIN_SORD;
+
+    if (!mapId) {
+      throw "Map ID is missing";
+    }
+
+    keys = config.keys || [];
+    connection = config.connection || ixConnect;
+
+
+    keyValues = connection.ix().checkoutMap(domain, mapId, keys, LockC.NO).items;
+
+    for (i = 0; i < keyValues.length; i++) {
+      entry = keyValues[i];
+      mapObj[entry.key + ""] = entry.value + "";
+    }
+
+    return mapObj;
   }
 });

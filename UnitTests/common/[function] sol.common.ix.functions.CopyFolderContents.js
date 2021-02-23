@@ -1,7 +1,7 @@
 
 describe("[function] sol.common.ix.functions.CopyFolderContents", function () {
   var originalTimeout, objId, idFolder1, idFolder2,
-      countFolder1, countFolder2;
+      countFolder1, countFolder2, newObjId, maskNewObjId;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -152,8 +152,10 @@ describe("[function] sol.common.ix.functions.CopyFolderContents", function () {
           source: idFolder1,
           copySourceAcl: false,
           inheritDestinationAcl: true,
-          fallbackToSyncExecution: true
+          fallbackToSyncExecution: true,
+          targetMask: "ELOScripts"
         }).then(function success(jsonResult) {
+          newObjId = jsonResult;
           done();
         }, function error(err) {
           fail(err);
@@ -168,6 +170,32 @@ describe("[function] sol.common.ix.functions.CopyFolderContents", function () {
         test.Utils.findChildren(idFolder2).then(function success(childrenFolder) {
           countFolder2 = childrenFolder.length;
           expect(countFolder2).toEqual(3);
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("get docmask newObjId", function (done) {
+      expect(function () {
+        test.Utils.getSord(newObjId).then(function success(sordNewObjId) {
+          maskNewObjId = sordNewObjId.mask;
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("check docmask newObjId is 'ELOScripts' ", function (done) {
+      expect(function () {
+        test.Utils.getDocMask(maskNewObjId).then(function success(docmaskNewObjId) {
+          expect(docmaskNewObjId.name).toEqual("ELOScripts");
           done();
         }, function error(err) {
           fail(err);

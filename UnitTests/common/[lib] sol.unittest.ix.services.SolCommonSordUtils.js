@@ -477,6 +477,24 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
+      it("getMapEntriesAsObject", function (done) {
+        expect(function () {
+          config = { objId: SordUtilsSord.id };
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordUtils",
+            classConfig: {},
+            method: "getMapEntriesAsObject",
+            params: [config]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("getObjKey", function (done) {
         expect(function () {
           sord = SordUtilsSord;
