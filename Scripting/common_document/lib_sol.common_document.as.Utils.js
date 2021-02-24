@@ -274,7 +274,7 @@ sol.define("sol.common_document.as.Utils", {
       dstFile = me.writePdfOutputStreamToFile(result.outputStream, dstDirPath, pdfName);
     }
 
-    if (config.pdfA == true) {
+    if (config.pdfA === true) {
       me.convertPDFtoPDFA(dstFile);
     }
     me.logger.info(["Finish createPdfFromSord"]);
@@ -425,7 +425,7 @@ sol.define("sol.common_document.as.Utils", {
       pdfName = me.getPdfName(sord, ext);
       dstFile = me.writePdfInputStreamToFile(pdfInputStream, dstDirPath, pdfName);
 
-      if (config.pdfA == true) {
+      if (config.pdfA === true) {
         me.convertPDFtoPDFA(dstFile);
       }
       pdfInputStream = new ByteArrayInputStream(Packages.org.apache.commons.io.FileUtils.readFileToByteArray(dstFile));
@@ -610,6 +610,29 @@ sol.define("sol.common_document.as.Utils", {
   },
 
   /**
+   * Set pagination in a PDF.
+   * @private
+   * @param {java.io.File} dstPdfFile PDF File
+   */
+  setPagination: function (dstPdfFile) {
+    var me = this, 
+        pdfPages, i, page;
+
+    me.logger.enter("setPagination");
+    me.logger.info(["Start setPagination with dstPdfFile: '{0}'", dstPdfFile]);
+
+    pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstPdfFile);
+    for (i = 0; i < pdfPages; i++) {
+      page = i + 1;
+      page = String(page) + "";       
+      Packages.de.elo.mover.main.pdf.PdfFileHelper.insertTextInPdf(page, dstPdfFile, page, 500, 10, 10, 0, 0, 0, 1.0, 0);
+    }
+
+    me.logger.info(["Finish setPagination"]);
+    me.logger.exit("setPagination");    
+  },
+
+  /**
    * Export folder as pdf or zip filde.
    * @param {String} folderId
    * @param {String} baseDstDirPath
@@ -749,7 +772,7 @@ sol.define("sol.common_document.as.Utils", {
       sol.common.as.PdfUtils.mergePdfStreams(pdfInputStreams, mergedOutputStream);
       parentId = me.getExportFolder(config);
 
-      if (config.pdfA == true) {
+      if (config.pdfA === true) {
         dstFile = new java.io.File(dstDirPath + java.io.File.separator + "All.pdf");
         fop = new FileOutputStream(dstFile);
         if (!dstFile.exists()) {
@@ -768,6 +791,27 @@ sol.define("sol.common_document.as.Utils", {
 
         sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
       }
+
+      if (config.pagination === true) {
+        dstFile = new java.io.File(dstDirPath + java.io.File.separator + "All.pdf");
+        fop = new FileOutputStream(dstFile);
+        if (!dstFile.exists()) {
+          dstFile.createNewFile();
+        }
+        contentInBytes = mergedOutputStream.toByteArray();
+        fop.write(contentInBytes);
+        fop.flush();
+        fop.close();
+    
+        me.setPagination(dstFile);
+
+        bytes = Packages.org.apache.commons.io.FileUtils.readFileToByteArray(dstFile);
+        mergedOutputStream = new ByteArrayOutputStream(bytes.length);
+        mergedOutputStream.write(bytes, 0, bytes.length);
+
+        sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
+      }
+
       result.objId = sol.common.RepoUtils.saveToRepo({ parentId: parentId, name: folderName, outputStream: mergedOutputStream, extension: "pdf" });
     } else {
       zipFile = new File(baseDstDirPath + ".zip");

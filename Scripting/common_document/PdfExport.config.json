@@ -10,5 +10,6 @@
   "workflow": "",
   "pdfExport": true,
   "pdfA": false,
-  "language": "de"
+  "language": "de",
+  "pagination": true
 }
