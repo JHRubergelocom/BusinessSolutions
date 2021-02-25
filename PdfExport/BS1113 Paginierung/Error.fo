@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
+  <fo:layout-master-set>
+    <fo:simple-page-master master-name="Deckblatt" page-height="29.7cm" page-width="21cm" margin-top="1.5cm" margin-bottom="1.5cm" margin-left="2cm" margin-right="2cm">
+      <fo:region-body />
+    </fo:simple-page-master>
+  </fo:layout-master-set>
+
+  <fo:page-sequence master-reference="Deckblatt">
+    <fo:flow flow-name="xsl-region-body">
+      <fo:block-container width="20cm" margin-top="3mm">
+          <fo:block font-size="11pt" margin-bottom="1mm">
+            {{sord.name}}.{{ext}} {{msg}}
+          </fo:block>
+      </fo:block-container>        
+    </fo:flow>
+  </fo:page-sequence>
+
+</fo:root>
