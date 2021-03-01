@@ -244,7 +244,7 @@ sol.define("sol.common_document.as.Utils", {
   createPdfFromSord: function (sord, templateId, dstDirPath, ext, pdfName, config, pdfContents) {
     var me = this,
         data, fopRenderer, result, pdfInputStream, refPath, pdfPages, 
-        dstFile, isCover;
+        dstFile, isCover, dm;
 
     me.logger.enter("createPdfFromSord"); 
     me.logger.info(["Start createPdfFromSord with sord: '{0}', templateId: '{1}', dstDirPath: '{2}', ext: '{3}', pdfName: '{4}', config: '{5}'", sord, templateId, dstDirPath, ext, pdfName, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
@@ -256,6 +256,14 @@ sol.define("sol.common_document.as.Utils", {
     }
     if (sol.common.SordUtils.isFolder(sord)) {
       data.folder = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.folder' '" + me.language + "'}}" }).apply();
+    }
+
+    data.maskName = sord.maskName;
+    dm = sol.common.SordUtils.getDocMask(sord.maskName, me.language);
+    if (dm.nameTranslationKey) {
+      if (String(dm.nameTranslationKey).trim() !== "") {
+        data.maskName = sol.create("sol.common.Template", { source: "{{translate '" + dm.nameTranslationKey + "' '" + me.language + "'}}" }).apply();
+      }
     }
  
     if (config.pdfExport === true) {
@@ -332,6 +340,7 @@ sol.define("sol.common_document.as.Utils", {
       data = { sord: sol.common.SordUtils.getTemplateSord(sord).sord };
     }
     data.msg = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.error.msg' '" + me.language + "'}}" }).apply();
+    data.hint = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.conversionFailed' '" + me.language + "'}}" }).apply();
     pdfName = me.getPdfName(sord, ext);
 
     if (config.pdfExport === true) {
