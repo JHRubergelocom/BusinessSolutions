@@ -81,35 +81,31 @@ sol.define("sol.unittest.as.services.Test", {
       attachmentInfo.fileName = attachment.getLongFileName();
       attachmentInfo.fileExtension = attachment.getExtension();
 
-      if (!(sol.common.StringUtils.startsWith(attachmentInfo.fileName, "image0") && attachmentInfo.fileExtension == ".jpg")) {
+      attachmentObjectData = attachment.getObjectData();
 
-        // Get attachment object data (only defined for Outlook Messages, will return undefined object for other attachment types)
-        attachmentObjectData = attachment.getObjectData();
-
-        // Check if attachment is an outlook message
-        if (attachmentObjectData) {
-          if (attachmentObjectData.isOutlookMessage()) {
-            isAttachmentOutlookMessage = true;
-          } else {
-            isAttachmentOutlookMessage = null;
-          }
+      // Check if attachment is an outlook message
+      if (attachmentObjectData) {
+        if (attachmentObjectData.isOutlookMessage()) {
+          isAttachmentOutlookMessage = true;
         } else {
           isAttachmentOutlookMessage = null;
         }
-
-        if (isAttachmentOutlookMessage) {
-          messageAttachment = attachment.getObjectData().toMapiMessage();
-          attachmentInfo.filePath = dstDirPath;
-          attachmentInfo.filePathAndFileName = dstDirPath + java.io.File.separator + attachmentInfo.fileName;
-          messageAttachment.save(attachmentInfo.filePathAndFileName);
-
-        } else {
-          attachmentInfo.filePath = dstDirPath;
-          attachmentInfo.filePathAndFileName = dstDirPath + java.io.File.separator + attachmentInfo.fileName;
-          attachment.save(attachmentInfo.filePathAndFileName);
-        }
-      
+      } else {
+        isAttachmentOutlookMessage = null;
       }
+
+      if (isAttachmentOutlookMessage) {
+        messageAttachment = attachment.getObjectData().toMapiMessage();
+        attachmentInfo.filePath = dstDirPath;
+        attachmentInfo.filePathAndFileName = dstDirPath + java.io.File.separator + attachmentInfo.fileName;
+        messageAttachment.save(attachmentInfo.filePathAndFileName);
+
+      } else {
+        attachmentInfo.filePath = dstDirPath;
+        attachmentInfo.filePathAndFileName = dstDirPath + java.io.File.separator + attachmentInfo.fileName;
+        attachment.save(attachmentInfo.filePathAndFileName);
+      }
+      
     }
 
     me.logger.info(["Finish convertMsgWithAttchmentToPdf with inputStream: '{0}'", inputStream]);
