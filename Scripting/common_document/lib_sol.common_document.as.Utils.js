@@ -375,9 +375,10 @@ sol.define("sol.common_document.as.Utils", {
    * Converts a document to a PDF.
    * @private
    * @param {de.elo.ix.client.Sord} sord
+   * @param {String} dstDirPath
    * @return {java.io.InputStream} inputStream or null if there was an error
    */
-  convertToPdf: function (sord) {
+  convertToPdf: function (sord, dstDirPath) {
     var me = this,
         inputStream = null,
         ext, converter;
@@ -387,23 +388,33 @@ sol.define("sol.common_document.as.Utils", {
 
     try {
       ext = (sord && sord.docVersion && sord.docVersion.ext) ? sord.docVersion.ext : null;
-      if (ext && (ext == "pdf")) {
-        me.logger.debug("skip converting, document is already an PDF");
-        inputStream = sol.common.RepoUtils.downloadToStream(sord.id);
-      } else {
-        converter = sol.create("sol.common.as.functions.OfficeConverter", {
-          openFromRepo: {
-            objId: sord.id
-          },
-          saveToStream: {
-            format: "pdf"
-          }
-        });
-        if (converter.isSupported(ext)) {
-          inputStream = converter.execute();
-        } else {
-          me.logger.warn(["format '{0}' is not supported", ext]);
-        }
+      if (ext) {
+        ext = String(ext);
+        switch (ext) {
+          case "pdf":
+            me.logger.debug("skip converting, document is already an PDF");
+            inputStream = sol.common.RepoUtils.downloadToStream(sord.id);    
+            break;
+          case "msg":
+            me.logger.debug("convert Msg to PDF");
+            inputStream = me.convertMsgWithAttchmentToPdf(sord, dstDirPath);
+            break;    
+          default:
+            converter = sol.create("sol.common.as.functions.OfficeConverter", {
+              openFromRepo: {
+                objId: sord.id
+              },
+              saveToStream: {
+                format: "pdf"
+              }
+            });
+            if (converter.isSupported(ext)) {
+              inputStream = converter.execute();
+            } else {
+              me.logger.warn(["format '{0}' is not supported", ext]);
+            }    
+            break;
+        }  
       }
     } catch (ex) {
       me.logger.info(["error converting document (objId={0}, name={1})", sord.id, sord.name], ex);
@@ -430,7 +441,7 @@ sol.define("sol.common_document.as.Utils", {
     me.logger.enter("createPdfDocument");
     me.logger.info(["Start createPdfDocument with sord: '{0}'dstDirPath: '{1}', config: '{2}'", sord, dstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
 
-    pdfInputStream = me.convertToPdf(sord);
+    pdfInputStream = me.convertToPdf(sord, dstDirPath);
     ext = (sord && sord.docVersion && sord.docVersion.ext) ? sord.docVersion.ext : null;  
 
     if (pdfInputStream != null) {
@@ -642,6 +653,172 @@ sol.define("sol.common_document.as.Utils", {
 
     me.logger.info(["Finish setPagination"]);
     me.logger.exit("setPagination");    
+  },
+
+  /**
+   * Write inputstream to file
+   * @private
+   * @param {java.io.InputStream} inputStream
+   * @param {String} dstDirPath
+   * @param {String} fileName
+   * @param {String} fileFormat
+   * @return {java.io.File} dstFile
+   */
+  writeInputStreamToFile: function (inputStream, dstDirPath, fileName, fileFormat) {
+    var me = this, 
+        dstFile;
+
+    me.logger.enter("writePdfInputStreamToFile");
+    me.logger.info(["Start writePdfInputStreamToFile with dstDirPath: '{0}', fileName: '{1}', fileFormat: '{2}'", dstDirPath, fileName, fileFormat]);
+
+    dstFile = new java.io.File(dstDirPath + java.io.File.separator + fileName + "." + fileFormat);
+    if (!dstFile.exists()) {
+      dstFile.createNewFile();
+    }
+
+    Packages.org.apache.commons.io.FileUtils.copyInputStreamToFile(inputStream, dstFile);
+
+    me.logger.info(["Finish writePdfInputStreamToFile with dstFile: '{0}'", dstFile]);
+    me.logger.exit("writePdfInputStreamToFile");
+
+    return dstFile;
+  },
+
+  /**
+   * Converts a file to a PDF.
+   * @private
+   * @param {String} filePath
+   * @return {java.io.InputStream} inputStream or null if there was an error
+   */
+  convertFileToPdf: function (filePath) {
+    var me = this,
+        inputStream = null,
+        ext, converter;
+
+    me.logger.enter("convertFileToPdf");
+    me.logger.info(["Start convertFileToPdf with sord: '{0}'", filePath]);
+
+    try {
+      ext = sol.common.FileUtils.getExtensionFromPath(filePath);
+      if (ext) {
+        ext = String(ext);
+        switch (ext) {
+          case "pdf":
+            me.logger.debug("skip converting, document is already an PDF");
+            inputStream = new FileInputStream(filePath);    
+            break;
+          default:
+            converter = sol.create("sol.common.as.functions.OfficeConverter", {
+              openFile: {
+                filePath: filePath
+              },
+              saveToStream: {
+                format: "pdf"
+              }
+            });
+            if (converter.isSupported(ext)) {
+              inputStream = converter.execute();
+            } else {
+              me.logger.warn(["format '{0}' is not supported", ext]);
+            }    
+            break;
+        }  
+      }
+    } catch (ex) {
+      me.logger.info(["error converting file (filePath={0})", filePath], ex);
+    }
+    me.logger.info(["Finish convertFileToPdf with inputStream: '{0}'", inputStream]);
+    me.logger.exit("convertFileToPdf");
+    return inputStream;
+  },
+
+
+  /**
+   * Converts a Msg document (E-Mail) to a PDF.
+   * @private
+   * @param {de.elo.ix.client.Sord} sord
+   * @param {String} dstDirPath
+   * @return {java.io.InputStream} inputStream or null if there was an error
+   */
+  convertMsgWithAttchmentToPdf: function (sord, dstDirPath) {
+    var me = this,
+        inputStream = null,
+        msgFile, msgFilePath, message, attachments, i, attachment, attachmentInfo, attachmentObjectData,
+        isAttachmentOutlookMessage, messageAttachment, fileAttchments, pdfInputStream, 
+        pdfInputStreams, mergedOutputStream;
+
+    me.logger.enter("convertMsgWithAttchmentToPdf");
+    me.logger.info(["Start convertMsgWithAttchmentToPdf with sord: '{0}'", sord]);
+
+    inputStream = sol.common.RepoUtils.downloadToStream(sord.id);
+    me.writeInputStreamToFile(inputStream, dstDirPath, sord.name, "msg");
+    msgFilePath = dstDirPath + java.io.File.separator + sord.name + ".msg";
+    msgFile = new java.io.File(msgFilePath);
+    message = Packages.com.aspose.email.MapiMessage.fromFile(msgFile);
+    attachments = message.getAttachments();
+
+    fileAttchments = [];
+    for (i = 0; i < attachments.size(); i++) {
+      attachment = attachments.get_Item(i);
+
+      attachmentInfo = {};
+      attachmentInfo.fileName = attachment.getLongFileName();
+      attachmentInfo.fileExtension = attachment.getExtension();
+
+      attachmentObjectData = attachment.getObjectData();
+
+      // Check if attachment is an outlook message
+      if (attachmentObjectData) {
+        if (attachmentObjectData.isOutlookMessage()) {
+          isAttachmentOutlookMessage = true;
+        } else {
+          isAttachmentOutlookMessage = null;
+        }
+      } else {
+        isAttachmentOutlookMessage = null;
+      }
+
+      if (isAttachmentOutlookMessage) {
+        messageAttachment = attachment.getObjectData().toMapiMessage();
+        attachmentInfo.filePath = dstDirPath;
+        attachmentInfo.filePathAndFileName = dstDirPath + java.io.File.separator + attachmentInfo.fileName;
+        messageAttachment.save(attachmentInfo.filePathAndFileName);
+
+      } else {
+        attachmentInfo.filePath = dstDirPath;
+        attachmentInfo.filePathAndFileName = dstDirPath + java.io.File.separator + attachmentInfo.fileName;
+        attachment.save(attachmentInfo.filePathAndFileName);
+      }
+      fileAttchments.push(attachmentInfo.filePathAndFileName);
+      
+    }
+
+    pdfInputStreams = [];
+    pdfInputStream = me.convertFileToPdf(msgFilePath);
+    if (pdfInputStream) {
+      pdfInputStreams.push(pdfInputStream);
+    }
+
+    fileAttchments.forEach(function (fileAttchment) {
+      pdfInputStream = me.convertFileToPdf(fileAttchment);
+      if (pdfInputStream) {
+        pdfInputStreams.push(pdfInputStream);
+      }
+    });
+
+    mergedOutputStream = new ByteArrayOutputStream();
+    sol.common.as.PdfUtils.mergePdfStreams(pdfInputStreams, mergedOutputStream);
+    inputStream = me.convertOutputStreamToInputStream(mergedOutputStream);   
+
+    sol.common.FileUtils.delete(msgFilePath, { quietly: true }); 
+    fileAttchments.forEach(function (fileAttchment) {
+      sol.common.FileUtils.delete(fileAttchment, { quietly: true }); 
+    });
+
+    me.logger.info(["Finish convertMsgWithAttchmentToPdf with inputStream: '{0}'", inputStream]);
+    me.logger.exit("convertMsgWithAttchmentToPdf");
+
+    return inputStream;
   },
 
   /**
