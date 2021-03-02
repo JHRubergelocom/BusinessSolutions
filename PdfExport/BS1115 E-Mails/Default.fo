@@ -10,8 +10,9 @@
   <fo:page-sequence master-reference="Deckblatt">
     <fo:flow flow-name="xsl-region-body">
       <fo:block-container width="20cm" margin-top="3mm">
+      
 			    <fo:block font-size="18pt" text-align="left" font-weight="bold">
-             {{folder}}
+             {{maskName}}
           </fo:block>
 
           <fo:block text-align="left" margin-bottom="10pt" margin-top="15pt" border-bottom="solid 1pt black" font-weight="bold"></fo:block>
