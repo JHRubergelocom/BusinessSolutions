@@ -121,9 +121,8 @@ sol.define("sol.visitor.ix.services.DeactivateLongTermBadgePreconditions", {
 
     isLongtermBadge = sol.visitor.Utils.isLongtermBadge(longtermBadge);
     isActive = sol.visitor.Utils.isLongtermBadgeActive(longtermBadge);
-    isInTimerange = sol.visitor.Utils.isLongtermBadgeInValidTimerange(longtermBadge);
 
-    if (isLongtermBadge && isActive && isInTimerange) {
+    if (isLongtermBadge && isActive) {
       return true;
     }
 

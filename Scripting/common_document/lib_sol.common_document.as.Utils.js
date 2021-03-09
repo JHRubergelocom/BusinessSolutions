@@ -62,6 +62,16 @@ sol.define("sol.common_document.as.Utils", {
   },
 
   /**
+   * Get graphic template
+   * @private
+   * @param {Object} config Pdf export configuration
+   * @return {String} Graphic template
+   */
+  getTemplateGraphic: function (config) {
+    return config.graphicTemplate;
+  },
+
+  /**
    * Get export folder in archive
    * @private
    * @param {Object} config Pdf export configuration
@@ -372,13 +382,86 @@ sol.define("sol.common_document.as.Utils", {
   },
 
   /**
+   * Converts a text document to a PDF.
+   * @private
+   * @param {java.io.InputStream} inputStream
+   * @param {String} dstDirPath
+   * @param {String} ext
+   * @return {java.io.InputStream} inputStream or null if there was an error
+   */
+  convertTextFileToPdf: function (inputStream, dstDirPath, ext) {
+    var me = this,
+        pdfInputStream = null,
+        sourceFile, targetFile;
+
+    me.logger.enter("convertTextFileToPdf");
+    me.logger.info(["Start convertTextFileToPdf with inputStream:'{0}', dstDirPath:'{1}', ext:'{2}'", inputStream, dstDirPath, ext]);
+
+    try {
+      sourceFile = me.writeInputStreamToFile(inputStream, dstDirPath, "Text", ext);
+      targetFile = new File(dstDirPath + java.io.File.separator + "Text.pdf");
+
+      Packages.de.elo.mover.utils.ELOAsConvertUtils.convertToPdf(sourceFile, targetFile);
+      pdfInputStream = new ByteArrayInputStream(Packages.org.apache.commons.io.FileUtils.readFileToByteArray(targetFile));
+      sol.common.FileUtils.delete(sourceFile, { quietly: true });
+      sol.common.FileUtils.delete(targetFile, { quietly: true });
+
+    } catch (ex) {
+      me.info.error(["error convertTextFileToPdf with inputStream:'{0}', dstDirPath:'{1}', ext:'{2}'", inputStream, dstDirPath, ext], ex);
+    }
+
+    me.logger.info(["Finish convertTextFileToPdf with inputStream: '{0}'", pdfInputStream]);
+    me.logger.exit("convertTextFileToPdf");
+    return pdfInputStream;
+
+  },
+
+  /**
+   * Converts a graphic to a PDF.
+   * @private
+   * @param {de.elo.ix.client.Sord} sord
+   * @param {String} ext
+   * @param {String} dstDirPath
+   * @param {Object} config Pdf export configuration
+   * @return {java.io.InputStream} inputStream or null if there was an error
+   */
+  convertGraphicToPdf: function (sord, ext, dstDirPath, config) {
+    var me = this,
+        inputStream = null,
+        fopRenderer, templateId, result, data, pdfName;
+
+    me.logger.enter("convertGraphicToPdf");
+    me.logger.info(["Start convertGraphicToPdf with sord: '{0}'", sord]);
+
+    templateId = me.getTemplateGraphic(config);  
+    if (ext) {
+      data = { sord: sol.common.SordUtils.getTemplateSord(sord).sord, ext: ext };
+    } else {
+      data = { sord: sol.common.SordUtils.getTemplateSord(sord).sord };
+    }
+
+    pdfName = me.getPdfName(sord, ext);
+
+    fopRenderer = sol.create("sol.common.as.renderer.Fop", { templateId: templateId, toStream: true });
+    result = fopRenderer.render(pdfName, data);
+    inputStream = me.convertOutputStreamToInputStream(result.outputStream);
+    me.writePdfOutputStreamToFile(result.outputStream, dstDirPath, pdfName);
+
+    me.logger.info(["Finish convertToPdf with inputStream: '{0}'", inputStream]);
+    me.logger.exit("convertGraphicToPdf");
+
+    return inputStream;
+  },
+
+  /**
    * Converts a document to a PDF.
    * @private
    * @param {de.elo.ix.client.Sord} sord
    * @param {String} dstDirPath
+   * @param {Object} config Pdf export configuration
    * @return {java.io.InputStream} inputStream or null if there was an error
    */
-  convertToPdf: function (sord, dstDirPath) {
+  convertToPdf: function (sord, dstDirPath, config) {
     var me = this,
         inputStream = null,
         ext, converter;
@@ -398,7 +481,16 @@ sol.define("sol.common_document.as.Utils", {
           case "msg":
             me.logger.debug("convert Msg to PDF");
             inputStream = me.convertMsgWithAttchmentToPdf(sord, dstDirPath);
-            break;    
+            break;  
+          case "jpg":
+          case "jpeg":
+          case "bmp":
+          case "png":
+          case "gif":
+          case "ico":
+            me.logger.debug("convert Graphic to PDF");
+            inputStream = me.convertGraphicToPdf(sord, ext, dstDirPath, config);            
+            break;
           default:
             converter = sol.create("sol.common.as.functions.OfficeConverter", {
               openFromRepo: {
@@ -411,7 +503,11 @@ sol.define("sol.common_document.as.Utils", {
             if (converter.isSupported(ext)) {
               inputStream = converter.execute();
             } else {
-              me.logger.warn(["format '{0}' is not supported", ext]);
+              inputStream = sol.common.RepoUtils.downloadToStream(sord.id);    
+              inputStream = me.convertTextFileToPdf(inputStream, dstDirPath, ext);
+              if (inputStream == null) {
+                me.logger.warn(["format '{0}' is not supported", ext]);
+              }
             }    
             break;
         }  
@@ -441,7 +537,7 @@ sol.define("sol.common_document.as.Utils", {
     me.logger.enter("createPdfDocument");
     me.logger.info(["Start createPdfDocument with sord: '{0}'dstDirPath: '{1}', config: '{2}'", sord, dstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
 
-    pdfInputStream = me.convertToPdf(sord, dstDirPath);
+    pdfInputStream = me.convertToPdf(sord, dstDirPath, config);
     ext = (sord && sord.docVersion && sord.docVersion.ext) ? sord.docVersion.ext : null;  
 
     if (pdfInputStream != null) {
@@ -688,9 +784,10 @@ sol.define("sol.common_document.as.Utils", {
    * Converts a file to a PDF.
    * @private
    * @param {String} filePath
+   * @param {String} dstDirPath
    * @return {java.io.InputStream} inputStream or null if there was an error
    */
-  convertFileToPdf: function (filePath) {
+  convertFileToPdf: function (filePath, dstDirPath) {
     var me = this,
         inputStream = null,
         ext, converter;
@@ -707,6 +804,12 @@ sol.define("sol.common_document.as.Utils", {
             me.logger.debug("skip converting, document is already an PDF");
             inputStream = new FileInputStream(filePath);    
             break;
+          case "png":
+          case "gif":
+          case "jpg":
+          case "json":
+          case "fo":
+            return;
           default:
             converter = sol.create("sol.common.as.functions.OfficeConverter", {
               openFile: {
@@ -719,7 +822,11 @@ sol.define("sol.common_document.as.Utils", {
             if (converter.isSupported(ext)) {
               inputStream = converter.execute();
             } else {
-              me.logger.warn(["format '{0}' is not supported", ext]);
+              inputStream = new FileInputStream(filePath);    
+              inputStream = me.convertTextFileToPdf(inputStream, dstDirPath, ext);
+              if (inputStream == null) {
+                me.logger.warn(["format '{0}' is not supported", ext]);
+              }
             }    
             break;
         }  
@@ -794,13 +901,13 @@ sol.define("sol.common_document.as.Utils", {
     }
 
     pdfInputStreams = [];
-    pdfInputStream = me.convertFileToPdf(msgFilePath);
+    pdfInputStream = me.convertFileToPdf(msgFilePath, dstDirPath);
     if (pdfInputStream) {
       pdfInputStreams.push(pdfInputStream);
     }
 
     fileAttchments.forEach(function (fileAttchment) {
-      pdfInputStream = me.convertFileToPdf(fileAttchment);
+      pdfInputStream = me.convertFileToPdf(fileAttchment, dstDirPath);
       if (pdfInputStream) {
         pdfInputStreams.push(pdfInputStream);
       }

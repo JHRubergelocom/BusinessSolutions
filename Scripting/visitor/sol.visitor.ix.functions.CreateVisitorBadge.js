@@ -39,8 +39,7 @@ sol.define("sol.visitor.ix.functions.CreateVisitorBadge", {
   process: function () {
     var me = this,
         result, resultStr;
-    me.config.mode = "run";
-    me.config.ruleName = "sol.visitor.as.actions.CreateVisitorBadge";
+    me.config.ruleName = "sol.visitor.as.functions.CreateVisitorBadge";
     result = sol.common.AsUtils.callAs(me.config);
     resultStr = sol.common.JsonUtils.stringifyAll(result);
     return resultStr;
@@ -57,7 +56,7 @@ function onEnterNode(clInfo, userId, wfDiagram, nodeId) {
   var config = sol.common.WfUtils.parseAndCheckParams(wfDiagram, nodeId),
       module;
 
-  config.objId = wfDiagram.objId;
+  config.objId = String(wfDiagram.objId);
   config.flowId = wfDiagram.id;
   config.nodeId = nodeId;
 
@@ -76,7 +75,7 @@ function onExitNode(ci, userId, wfDiagram, nodeId) {
   var config = sol.common.WfUtils.parseAndCheckParams(wfDiagram, nodeId),
       module;
 
-  config.objId = wfDiagram.objId;
+  config.objId = String(wfDiagram.objId);
   config.flowId = wfDiagram.id;
   config.nodeId = nodeId;
 
