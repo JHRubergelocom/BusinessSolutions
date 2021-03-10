@@ -240,7 +240,7 @@ sol.define("sol.unittest.as.services.Test", {
    */
   process: function () {
     var me = this, 
-        pdfInputStream, dstDirPath;
+        pdfInputStream, dstDirPath, os;
     
     /*    
     mapiMessage = sol.create("sol.common.as.MapiMessage", {});
@@ -259,10 +259,14 @@ sol.define("sol.unittest.as.services.Test", {
     */
 
     // Save MSG-File with Attachment
+    /*
     dstDirPath = "C:\\Temp\\PdfExport";
     pdfInputStream = me.convertMsgWithAttchmentToPdf({ id: me.objId, name: "Mail", ext: "msg" }, dstDirPath);
     me.writePdfInputStreamToFile(pdfInputStream, dstDirPath, "ConvertedMail");
     return pdfInputStream;
-           
+    */
+    os = System.getProperty("os.name").toLowerCase();
+    return String(os);
+    
   }
 });

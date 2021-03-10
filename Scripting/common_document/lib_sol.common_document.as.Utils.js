@@ -464,7 +464,7 @@ sol.define("sol.common_document.as.Utils", {
   convertToPdf: function (sord, dstDirPath, config) {
     var me = this,
         inputStream = null,
-        ext, converter;
+        ext, converter, os;
 
     me.logger.enter("convertToPdf");
     me.logger.info(["Start convertToPdf with sord: '{0}'", sord]);
@@ -491,6 +491,20 @@ sol.define("sol.common_document.as.Utils", {
             me.logger.debug("convert Graphic to PDF");
             inputStream = me.convertGraphicToPdf(sord, ext, dstDirPath, config);            
             break;
+            // TODO Powerpoint Konvertierung unter linux abfangen
+          case "ppt":
+          case "pot":
+          case "pps":
+          case "pptx":
+          case "potx":
+          case "pptm":
+          case "ppt":
+            os = String(java.lang.System.getProperty("os.name").toLowerCase());
+            if (!sol.common.StringUtils.contains(os, "win")) {
+              me.logger.info(["format '{0}' is not supported in os '{1}'", ext, os]);
+              return inputStream;
+            }
+          // TODO
           default:
             converter = sol.create("sol.common.as.functions.OfficeConverter", {
               openFromRepo: {
@@ -790,7 +804,7 @@ sol.define("sol.common_document.as.Utils", {
   convertFileToPdf: function (filePath, dstDirPath) {
     var me = this,
         inputStream = null,
-        ext, converter;
+        ext, converter, os;
 
     me.logger.enter("convertFileToPdf");
     me.logger.info(["Start convertFileToPdf with sord: '{0}'", filePath]);
@@ -809,7 +823,21 @@ sol.define("sol.common_document.as.Utils", {
           case "jpg":
           case "json":
           case "fo":
-            return;
+            return inputStream;
+            // TODO Powerpoint Konvertierung unter linux abfangen
+          case "ppt":
+          case "pot":
+          case "pps":
+          case "pptx":
+          case "potx":
+          case "pptm":
+          case "ppt":
+            os = String(java.lang.System.getProperty("os.name").toLowerCase());
+            if (!sol.common.StringUtils.contains(os, "win")) {
+              me.logger.info(["format '{0}' is not supported in os '{1}'", ext, os]);
+              return inputStream;
+            }
+            // TODO
           default:
             converter = sol.create("sol.common.as.functions.OfficeConverter", {
               openFile: {
