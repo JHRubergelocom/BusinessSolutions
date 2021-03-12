@@ -491,7 +491,6 @@ sol.define("sol.common_document.as.Utils", {
             me.logger.debug("convert Graphic to PDF");
             inputStream = me.convertGraphicToPdf(sord, ext, dstDirPath, config);            
             break;
-            // TODO Powerpoint, txt Konvertierung unter linux abfangen
           case "ppt":
           case "pot":
           case "pps":
@@ -505,7 +504,6 @@ sol.define("sol.common_document.as.Utils", {
               me.logger.info(["format '{0}' is not supported in os '{1}'", ext, os]);
               return inputStream;
             }
-          // TODO
           default:
             converter = sol.create("sol.common.as.functions.OfficeConverter", {
               openFromRepo: {
@@ -795,7 +793,6 @@ sol.define("sol.common_document.as.Utils", {
     return dstFile;
   },
 
-  // TODO convertGraphicFileToPdf analog convertGraphicToPdf(....)
   /**
    * Converts a graphic file to a PDF.
    * @private
@@ -813,6 +810,7 @@ sol.define("sol.common_document.as.Utils", {
     me.logger.info(["Start convertGraphicFileToPdf with filePath: '{0}'", filePath]);
 
     templateId = me.getTemplateGraphic(config);  
+    filePath = sol.common.FileUtils.getUrlFromFilePath(filePath);
     data = { filePath: filePath };
 
     pdfName = String(new File(filePath).getName());
@@ -826,8 +824,6 @@ sol.define("sol.common_document.as.Utils", {
 
     return inputStream;
   },
-
-  // TODO convertGraphicFileToPdf analog convertGraphicToPdf(....)
 
   /**
    * Converts a file to a PDF.
@@ -854,7 +850,6 @@ sol.define("sol.common_document.as.Utils", {
             me.logger.debug("skip converting, document is already an PDF");
             inputStream = new FileInputStream(filePath);    
             break;
-          // TODO convertGraphicFileToPdf analog convertGraphicToPdf(....)
           case "jpg":
           case "jpeg":
           case "bmp":
@@ -864,16 +859,9 @@ sol.define("sol.common_document.as.Utils", {
             me.logger.debug("convert Graphic to PDF");
             inputStream = me.convertGraphicFileToPdf(filePath, dstDirPath, config);            
             break;
-            // TODO convertGraphicFileToPdf analog convertGraphicToPdf(....)
-
-
-          case "png":
-          case "gif":
-          case "jpg":
           case "json":
           case "fo":
             return inputStream;
-            // TODO Powerpoint, txt Konvertierung unter linux abfangen
           case "ppt":
           case "pot":
           case "pps":
@@ -887,7 +875,6 @@ sol.define("sol.common_document.as.Utils", {
               me.logger.info(["format '{0}' is not supported in os '{1}'", ext, os]);
               return inputStream;
             }
-            // TODO
           default:
             converter = sol.create("sol.common.as.functions.OfficeConverter", {
               openFile: {
