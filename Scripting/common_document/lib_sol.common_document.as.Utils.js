@@ -71,6 +71,18 @@ sol.define("sol.common_document.as.Utils", {
     return config.graphicTemplate;
   },
 
+  // TODO text
+  /**
+   * Get text template
+   * @private
+   * @param {Object} config Pdf export configuration
+   * @return {String} Text template
+   */
+  getTemplateText: function (config) {
+    return config.textTemplate;
+  },
+  // TODO text
+
   /**
    * Get export folder in archive
    * @private
@@ -382,41 +394,6 @@ sol.define("sol.common_document.as.Utils", {
   },
 
   /**
-   * Converts a text document to a PDF.
-   * @private
-   * @param {java.io.InputStream} inputStream
-   * @param {String} dstDirPath
-   * @param {String} ext
-   * @return {java.io.InputStream} inputStream or null if there was an error
-   */
-  convertTextFileToPdf: function (inputStream, dstDirPath, ext) {
-    var me = this,
-        pdfInputStream = null,
-        sourceFile, targetFile;
-
-    me.logger.enter("convertTextFileToPdf");
-    me.logger.info(["Start convertTextFileToPdf with inputStream:'{0}', dstDirPath:'{1}', ext:'{2}'", inputStream, dstDirPath, ext]);
-
-    try {
-      sourceFile = me.writeInputStreamToFile(inputStream, dstDirPath, "Text", ext);
-      targetFile = new File(dstDirPath + java.io.File.separator + "Text.pdf");
-
-      Packages.de.elo.mover.utils.ELOAsConvertUtils.convertToPdf(sourceFile, targetFile);
-      pdfInputStream = new ByteArrayInputStream(Packages.org.apache.commons.io.FileUtils.readFileToByteArray(targetFile));
-      sol.common.FileUtils.delete(sourceFile, { quietly: true });
-      sol.common.FileUtils.delete(targetFile, { quietly: true });
-
-    } catch (ex) {
-      me.info.error(["error convertTextFileToPdf with inputStream:'{0}', dstDirPath:'{1}', ext:'{2}'", inputStream, dstDirPath, ext], ex);
-    }
-
-    me.logger.info(["Finish convertTextFileToPdf with inputStream: '{0}'", pdfInputStream]);
-    me.logger.exit("convertTextFileToPdf");
-    return pdfInputStream;
-
-  },
-
-  /**
    * Converts a graphic to a PDF.
    * @private
    * @param {de.elo.ix.client.Sord} sord
@@ -441,7 +418,6 @@ sol.define("sol.common_document.as.Utils", {
     }
 
     pdfName = me.getPdfName(sord, ext);
-
     fopRenderer = sol.create("sol.common.as.renderer.Fop", { templateId: templateId, toStream: true });
     result = fopRenderer.render(pdfName, data);
     inputStream = me.convertOutputStreamToInputStream(result.outputStream);
@@ -452,6 +428,44 @@ sol.define("sol.common_document.as.Utils", {
 
     return inputStream;
   },
+
+  // TODO text
+  /**
+   * Converts a text to a PDF.
+   * @private
+   * @param {de.elo.ix.client.Sord} sord
+   * @param {String} ext
+   * @param {String} dstDirPath
+   * @param {Object} config Pdf export configuration
+   * @return {java.io.InputStream} inputStream or null if there was an error
+   */
+  convertTextToPdf: function (sord, ext, dstDirPath, config) {
+    var me = this,
+        inputStream = null,
+        templateId, text, lines, data, pdfName, fopRenderer, result;
+
+    me.logger.enter("convertTextToPdf");
+    me.logger.info(["Start convertTextToPdf with sord: '{0}'", sord]);
+
+    templateId = me.getTemplateText(config);  
+    text = sol.common.RepoUtils.downloadToString(sord.id);
+    lines = sol.common.StringUtils.splitLines(text);
+    data = {};
+    data.lines = lines;
+
+    pdfName = me.getPdfName(sord, ext);
+    fopRenderer = sol.create("sol.common.as.renderer.Fop", { templateId: templateId, toStream: true });
+    result = fopRenderer.render(pdfName, data);
+    inputStream = me.convertOutputStreamToInputStream(result.outputStream);
+    me.writePdfOutputStreamToFile(result.outputStream, dstDirPath, pdfName);
+
+    me.logger.info(["Finish convertTextToPdf with inputStream: '{0}'", inputStream]);
+    me.logger.exit("convertTextToPdf");
+
+    return inputStream;
+  },
+  // TODO text
+
 
   /**
    * Converts a document to a PDF.
@@ -473,6 +487,7 @@ sol.define("sol.common_document.as.Utils", {
       ext = (sord && sord.docVersion && sord.docVersion.ext) ? sord.docVersion.ext : null;
       if (ext) {
         ext = String(ext);
+        ext = ext.toLowerCase();
         switch (ext) {
           case "pdf":
             me.logger.debug("skip converting, document is already an PDF");
@@ -498,13 +513,19 @@ sol.define("sol.common_document.as.Utils", {
           case "potx":
           case "pptm":
           case "ppt":
-          case "txt":
             os = String(java.lang.System.getProperty("os.name").toLowerCase());
             if (!sol.common.StringUtils.contains(os, "win")) {
               me.logger.info(["format '{0}' is not supported in os '{1}'", ext, os]);
               return inputStream;
             }
           default:
+            // TODO text
+            if (sol.common.StringUtils.contains(config.whiteListTextFile, ext)) {
+              me.logger.debug("convert Text to PDF");
+              inputStream = me.convertTextToPdf(sord, ext, dstDirPath, config);              
+              return inputStream;
+            }
+            // TODO text
             converter = sol.create("sol.common.as.functions.OfficeConverter", {
               openFromRepo: {
                 objId: sord.id
@@ -516,8 +537,6 @@ sol.define("sol.common_document.as.Utils", {
             if (converter.isSupported(ext)) {
               inputStream = converter.execute();
             } else {
-              inputStream = sol.common.RepoUtils.downloadToStream(sord.id);    
-              inputStream = me.convertTextFileToPdf(inputStream, dstDirPath, ext);
               if (inputStream == null) {
                 me.logger.warn(["format '{0}' is not supported", ext]);
               }
@@ -825,6 +844,44 @@ sol.define("sol.common_document.as.Utils", {
     return inputStream;
   },
 
+  // TODO text
+  /**
+   * Converts a text file to a PDF.
+   * @private
+   * @param {String} filePath
+   * @param {String} dstDirPath
+   * @param {Object} config Pdf export configuration
+   * @return {java.io.InputStream} inputStream or null if there was an error
+   */
+  convertTextFileToPdf: function (filePath, dstDirPath, config) {
+    var me = this,
+        inputStream = null,
+        fopRenderer, templateId, result, data, pdfName, text, lines;
+
+    me.logger.enter("convertTextFileToPdf");
+    me.logger.info(["Start convertTextFileToPdf with filePath: '{0}'", filePath]);
+
+    templateId = me.getTemplateText(config); 
+    text = sol.common.FileUtils.readFileToString(filePath);
+    lines = sol.common.StringUtils.splitLines(text);
+    data = {};
+    data.lines = lines;
+
+    pdfName = String(new File(filePath).getName());
+    fopRenderer = sol.create("sol.common.as.renderer.Fop", { templateId: templateId, toStream: true });
+    result = fopRenderer.render(pdfName, data);
+    inputStream = me.convertOutputStreamToInputStream(result.outputStream);
+    me.writePdfOutputStreamToFile(result.outputStream, dstDirPath, pdfName);
+
+    me.logger.info(["Finish convertTextFileToPdf with inputStream: '{0}'", inputStream]);
+    me.logger.exit("convertTextFileToPdf");
+
+    return inputStream;
+  },
+
+  // TODO text
+
+
   /**
    * Converts a file to a PDF.
    * @private
@@ -845,6 +902,7 @@ sol.define("sol.common_document.as.Utils", {
       ext = sol.common.FileUtils.getExtensionFromPath(filePath);
       if (ext) {
         ext = String(ext);
+        ext = ext.toLowerCase();
         switch (ext) {
           case "pdf":
             me.logger.debug("skip converting, document is already an PDF");
@@ -859,9 +917,6 @@ sol.define("sol.common_document.as.Utils", {
             me.logger.debug("convert Graphic to PDF");
             inputStream = me.convertGraphicFileToPdf(filePath, dstDirPath, config);            
             break;
-          case "json":
-          case "fo":
-            return inputStream;
           case "ppt":
           case "pot":
           case "pps":
@@ -869,13 +924,20 @@ sol.define("sol.common_document.as.Utils", {
           case "potx":
           case "pptm":
           case "ppt":
-          case "txt":
             os = String(java.lang.System.getProperty("os.name").toLowerCase());
             if (!sol.common.StringUtils.contains(os, "win")) {
               me.logger.info(["format '{0}' is not supported in os '{1}'", ext, os]);
               return inputStream;
             }
           default:
+            // TODO text
+            if (sol.common.StringUtils.contains(config.whiteListTextFile, ext)) {
+              me.logger.debug("convert Text to PDF");
+              inputStream = me.convertTextFileToPdf(filePath, dstDirPath, config);              
+              return inputStream;
+            }
+            // TODO text
+
             converter = sol.create("sol.common.as.functions.OfficeConverter", {
               openFile: {
                 filePath: filePath
@@ -887,8 +949,6 @@ sol.define("sol.common_document.as.Utils", {
             if (converter.isSupported(ext)) {
               inputStream = converter.execute();
             } else {
-              inputStream = new FileInputStream(filePath);    
-              inputStream = me.convertTextFileToPdf(inputStream, dstDirPath, ext);
               if (inputStream == null) {
                 me.logger.warn(["format '{0}' is not supported", ext]);
               }

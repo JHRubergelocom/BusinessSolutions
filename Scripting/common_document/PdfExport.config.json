@@ -9,9 +9,11 @@
   "errorTemplate": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions Custom/common_document/Configuration/PDF Export Templates/Defaults/Error",
   "contentsTemplate": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions Custom/common_document/Configuration/PDF Export Templates/Defaults/Contents",
   "graphicTemplate": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions Custom/common_document/Configuration/PDF Export Templates/Defaults/Graphic",
+  "textTemplate": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions Custom/common_document/Configuration/PDF Export Templates/Defaults/Text",
   "workflow": "",
   "pdfExport": true,
   "pdfA": false,
   "language": "de",
-  "pagination": true
+  "pagination": true,
+  "whiteListTextFile": ["txt", "fo", "js", "xml", "html"]
 }
