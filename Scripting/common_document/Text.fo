@@ -25,7 +25,7 @@
         {{#each lines}}
           <fo:table-row>
             <fo:table-cell empty-cells="show">
-              <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{line}} <fo:leader /></fo:block>
+              <fo:block line-height="11pt" margin-top="3pt" text-align="left" white-space="pre">{{line}} <fo:leader /></fo:block>
             </fo:table-cell>
           </fo:table-row>
         {{/each}}

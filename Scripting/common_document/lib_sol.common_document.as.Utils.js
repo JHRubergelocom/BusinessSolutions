@@ -71,7 +71,6 @@ sol.define("sol.common_document.as.Utils", {
     return config.graphicTemplate;
   },
 
-  // TODO text
   /**
    * Get text template
    * @private
@@ -81,7 +80,6 @@ sol.define("sol.common_document.as.Utils", {
   getTemplateText: function (config) {
     return config.textTemplate;
   },
-  // TODO text
 
   /**
    * Get export folder in archive
@@ -429,7 +427,6 @@ sol.define("sol.common_document.as.Utils", {
     return inputStream;
   },
 
-  // TODO text
   /**
    * Converts a text to a PDF.
    * @private
@@ -468,8 +465,6 @@ sol.define("sol.common_document.as.Utils", {
 
     return inputStream;
   },
-  // TODO text
-
 
   /**
    * Converts a document to a PDF.
@@ -523,13 +518,11 @@ sol.define("sol.common_document.as.Utils", {
               return inputStream;
             }
           default:
-            // TODO text
             if (sol.common.StringUtils.contains(config.whiteListTextFile, ext)) {
               me.logger.debug("convert Text to PDF");
               inputStream = me.convertTextToPdf(sord, ext, dstDirPath, config);              
               return inputStream;
             }
-            // TODO text
             converter = sol.create("sol.common.as.functions.OfficeConverter", {
               openFromRepo: {
                 objId: sord.id
@@ -848,7 +841,6 @@ sol.define("sol.common_document.as.Utils", {
     return inputStream;
   },
 
-  // TODO text
   /**
    * Converts a text file to a PDF.
    * @private
@@ -886,9 +878,6 @@ sol.define("sol.common_document.as.Utils", {
 
     return inputStream;
   },
-
-  // TODO text
-
 
   /**
    * Converts a file to a PDF.
@@ -938,14 +927,11 @@ sol.define("sol.common_document.as.Utils", {
               return inputStream;
             }
           default:
-            // TODO text
             if (sol.common.StringUtils.contains(config.whiteListTextFile, ext)) {
               me.logger.debug("convert Text to PDF");
               inputStream = me.convertTextFileToPdf(filePath, dstDirPath, config);              
               return inputStream;
             }
-            // TODO text
-
             converter = sol.create("sol.common.as.functions.OfficeConverter", {
               openFile: {
                 filePath: filePath
