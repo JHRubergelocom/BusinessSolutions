@@ -451,7 +451,11 @@ sol.define("sol.common_document.as.Utils", {
     text = sol.common.RepoUtils.downloadToString(sord.id);
     lines = sol.common.StringUtils.splitLines(text);
     data = {};
-    data.lines = lines;
+    data.lines = [];
+    lines.forEach(function (line) {
+      line = String(line);
+      data.lines.push({ line: line });
+    });
 
     pdfName = me.getPdfName(sord, ext);
     fopRenderer = sol.create("sol.common.as.renderer.Fop", { templateId: templateId, toStream: true });
@@ -865,7 +869,11 @@ sol.define("sol.common_document.as.Utils", {
     text = sol.common.FileUtils.readFileToString(filePath);
     lines = sol.common.StringUtils.splitLines(text);
     data = {};
-    data.lines = lines;
+    data.lines = [];
+    lines.forEach(function (line) {
+      line = String(line);
+      data.lines.push({ line: line });
+    });
 
     pdfName = String(new File(filePath).getName());
     fopRenderer = sol.create("sol.common.as.renderer.Fop", { templateId: templateId, toStream: true });
