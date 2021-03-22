@@ -30,7 +30,7 @@ sol.define("sol.recruiting.forms.Posting", {
 
   setPostingFields: function (requisitionno) {
     var me = this, 
-        sords, requisitionqualifications, requisitiondesc, requisitionname, element;
+        sords, requisitionqualifications, requisitiondesc, requisitionname;
 
     sords = sol.common.IxUtils.execute("RF_sol_common_service_SordProvider", 
       {
@@ -57,10 +57,8 @@ sol.define("sol.recruiting.forms.Posting", {
       if (!requisitionname) { 
         requisitionname = ""; 
       }
-      element = document.getElementsByName("IX_BLOB_RECRUITING_POSTING_QUALIFICATIONS");
-      $R(element[0], "source.setCode", requisitionqualifications);
-      element = document.getElementsByName("IX_DESC");
-      $R(element[0], "source.setCode", requisitiondesc);
+      me.fields.IX_BLOB_RECRUITING_POSTING_QUALIFICATIONS.set(requisitionqualifications);
+      me.fields.IX_DESC.set(requisitiondesc);      
       me.fields.IX_GRP_RECRUITING_POSTING_NAME.set(requisitionname);
     }
   },

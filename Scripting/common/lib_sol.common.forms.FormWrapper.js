@@ -410,6 +410,12 @@ sol.define("sol.common.forms.FormWrapper", {
   wfName: "",
 
   /**
+   * Default editor options. editor won't be initialize at start by default
+   * because of backwards compatibility
+   */
+  editorOptions: { initImmediately: false, redactorOptions: {} },
+
+  /**
    *  logs all fieldnames and their values to the console (as a table if implemented in the JS-Engine).
    *  @param {Boolean} nolog returns fields and their values as an array instead of doing a console-log
    *  @returns {[{fieldName: String, fieldValue: String}] || undefined}
@@ -925,6 +931,7 @@ sol.define("sol.common.forms.FormWrapper", {
           tb.form = me;
           tb.getRow = me.getTableRow.bind(me, cols, colCount);
           tb.addRow = me.addRow.bind(tb, jsAdd.onclick.bind(jsAdd));
+          tb.removeRow = me.removeRow.bind(tb);
           tb.insert = me.insert.bind(tb);
           tb.forEach = me.tableForEach;
           tb.map = me.tableMap;
@@ -971,6 +978,44 @@ sol.define("sol.common.forms.FormWrapper", {
     isEmpty || fn();  // only add new row if last row is not empty
 
     return me.getRow(me.size);
+  },
+
+  /**
+   * Remove the passed row object
+   *
+   * Unfortunately there is no well provided api function
+   * to remove a row from a table, so be careful with this function.
+   *
+   * It's actually a workaround to find the
+   * remove button within the same row and simulate a click on
+   * the JS_REMOVELINE button (like addRow function in formwrapper)
+   *
+   * @param {Object} row - the table row object which should be removed
+   * @param {Object} [options]
+   * @param {String} [options.indicatorField] source column to find JS_REMOVELINE Button
+   *                 If not set use first column name as default
+   */
+  removeRow: function (row, options) {
+    var me = this,
+      indicatorColumn = options && options.indicatorColumn;
+
+    if (!indicatorColumn && me.columns.length > 0) {
+      // use first column as an indicatorColumn
+      indicatorColumn = me.columns[0];
+    }
+
+    if (row) {
+      try {
+        row[indicatorColumn].element()
+        .closest("tr") // find parent tr and search then the JS_REMOVELINE Button from there
+        .querySelector("a.jsRemoveLine")
+        .click();
+      } catch (ex) {
+        console.warn("Could not determine remove button - Did you add JS_REMOVELINE and JS_ADDLINE in your form?");
+      }
+    } else {
+      console.warn("row could not be remove because row is not set");
+    }
   },
 
   insert: function (data, emptyFields) {
@@ -1978,8 +2023,15 @@ sol.define("sol.common.forms.FormWrapper.Field", {
 
     me.isDate = (parent && parent.getAttribute("elonodename") == "DATE") || (me.element() && me.element().getAttribute("eloverify") == "date");
     me.datePicker = me.isDate && me.element().parentElement.children[1];
-    unitSelectorName = me.prefix + "_" + me.shortName.toUpperCase() + "_UNIT";
 
+    me.editor = me.isEditor()
+        && sol.create("sol.common.forms.FormWrapper.RedactorApi", {
+          field: me,
+          immediately: me.form.editorOptions.initImmediately,
+          redactorOptions: me.form.editorOptions.redactorOptions
+        });
+
+    unitSelectorName = me.prefix + "_" + me.shortName.toUpperCase() + "_UNIT";
 
     me.label = $var("LBL_" + me.prefix + "_" + me.shortName.toUpperCase());
 
@@ -1991,6 +2043,11 @@ sol.define("sol.common.forms.FormWrapper.Field", {
     me.selector = selector;
     me.localizedDynKwlName = me.getDynKwlName();
     me.localizedDynKwl = me.localizedDynKwlName && me.element().nextSibling;
+  },
+
+  isEditor: function () {
+    var me = this;
+    return !!(me.element() && me.element().closest(".redactor3"));
   },
 
   /**
@@ -2183,6 +2240,7 @@ sol.define("sol.common.forms.FormWrapper.Field", {
     || (me.isDate && (sol.common.forms.Utils.setIsoDate(me.fName, value) || true))
     || (!me.localizedDynKwl && me.localizedDynKwlName && (me.selectDynKwlEntry(value) || true))
     || (me.localizedDynKwlName && (me.setLocalizedDynKwlKey(value) || true))
+    || (me.editor && (me.editor.set(value) || true))
     || $update(me.fName, value);
 
     children = me.element().childNodes;
@@ -2277,7 +2335,6 @@ sol.define("sol.common.forms.FormWrapper.Field", {
       $update(me.fName, "");
     }
   },
-
   /**
    * used by FormWrapper to map state properties to the respective functions
    * @private
@@ -2443,6 +2500,48 @@ sol.define("sol.common.forms.FormWrapper.Field", {
   hide: function (includingLabel, includingSelector) {
     this.changeVisibility(false, includingLabel, includingSelector);
   }
+});
+
+sol.define("sol.common.forms.FormWrapper.RedactorApi", {
+
+  requiredConfig: ["field"],
+
+  initialize: function (config) {
+    var me = this;
+    me.$super("sol.Base", "initialize", [config]);
+    console.log("init redactor field", me.field);
+    if (me.immediately) {
+      me.initRedactor(me.redactorOptions);
+    }
+  },
+
+  /**
+   * 
+   */
+  initRedactor: function (options) {
+    var me = this,
+     el = me.field.element();
+    $R(el, options || {});
+  },
+
+  /**
+   * 
+   */
+  set: function (content) {
+    var me = this,
+     el = me.field.element();
+    el && $R(el, "source.setCode", content);
+  },
+
+  /**
+   * 
+   */
+  get: function (content) {
+    var me = this,
+     el = me.field.element();
+    return (el && $R(el, "source.getCode"));
+  },
+
 });
 
 /**
@@ -2863,4 +2962,5 @@ sol.define("sol.common.forms.FormWrapper.Templates", {
 
     return configuredTemplate;
   }
+
 });
