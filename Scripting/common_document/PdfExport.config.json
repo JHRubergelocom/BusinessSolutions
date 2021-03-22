@@ -15,5 +15,5 @@
   "pdfA": false,
   "language": "de",
   "pagination": true,
-  "whiteListTextFile": ["txt", "fo", "js", "xml", "html"]
+  "whiteListTextFile": ["txt", "fo", "js", "xml", "json"]
 }

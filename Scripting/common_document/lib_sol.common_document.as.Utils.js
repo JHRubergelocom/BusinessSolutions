@@ -477,7 +477,7 @@ sol.define("sol.common_document.as.Utils", {
   convertToPdf: function (sord, dstDirPath, config) {
     var me = this,
         inputStream = null,
-        ext, converter, os;
+        ext, converter, os, currentIxVersion;
 
     me.logger.enter("convertToPdf");
     me.logger.info(["Start convertToPdf with sord: '{0}'", sord]);
@@ -493,6 +493,14 @@ sol.define("sol.common_document.as.Utils", {
             inputStream = sol.common.RepoUtils.downloadToStream(sord.id);    
             break;
           case "msg":
+            os = String(java.lang.System.getProperty("os.name").toLowerCase());
+            if (!sol.common.StringUtils.contains(os, "win")) {
+              currentIxVersion = ixConnect.version;
+              if (!sol.common.RepoUtils.checkVersion(currentIxVersion, "20.00.000")) {
+                me.logger.info(["format '{0}' is not supported in os '{1}' and ixversion '{2}'", ext, os, currentIxVersion]);
+                return inputStream;  
+              }
+            }
             me.logger.debug("convert Msg to PDF");
             inputStream = me.convertMsgWithAttchmentToPdf(sord, dstDirPath, config);
             break;  
