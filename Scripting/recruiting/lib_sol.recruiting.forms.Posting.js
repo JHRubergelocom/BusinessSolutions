@@ -57,12 +57,15 @@ sol.define("sol.recruiting.forms.Posting", {
       if (!requisitionname) { 
         requisitionname = ""; 
       }
-
       me.when("IX_BLOB_RECRUITING_POSTING_QUALIFICATIONS", function (postingQualificationField) {
         postingQualificationField.set(requisitionqualifications);
       });
-      me.fields.IX_DESC.set(requisitiondesc);      
-      me.fields.IX_GRP_RECRUITING_POSTING_NAME.set(requisitionname);
+      me.when("IX_DESC", function (descField) {
+        descField.set(requisitiondesc);
+      });
+      me.when("IX_GRP_RECRUITING_POSTING_NAME", function (postingNameField) {
+        postingNameField.set(requisitionname);
+      });
     }
   },
 
