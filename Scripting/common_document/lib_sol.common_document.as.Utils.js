@@ -249,6 +249,32 @@ sol.define("sol.common_document.as.Utils", {
   },
 
   /**
+   * Converts a Json Object to Json Key/Value array.
+   * @private
+   * @param {Object} jsonObject Json Object
+   * @return {Object[]} Json Key/Value array
+   */
+  convertJsonToJsonKeyValuePairs: function (jsonObject) {
+
+    var me = this, 
+        jsonKeyValuePairs = [],
+        prop;
+
+    me.logger.enter("convertJsonToJsonKeyValuePairs"); 
+    me.logger.info(["Start convertJsonToJsonKeyValuePairs with jsonObject: '{0}'", sol.common.JsonUtils.stringifyAll(jsonObject, { tabStop: 2 })]);
+    
+    for (prop in jsonObject) {
+      me.logger.info(["{key: '{0}', value: '{1}'}", prop, jsonObject[prop]]);
+      jsonKeyValuePairs.push({ key: prop, value: jsonObject[prop] });
+    }
+
+    me.logger.info(["Finish convertJsonToJsonKeyValuePairs with jsonKeyValuePairs: '{0}'", sol.common.JsonUtils.stringifyAll(jsonKeyValuePairs, { tabStop: 2 })]);
+    me.logger.exit("convertJsonToJsonKeyValuePairs");
+
+    return jsonKeyValuePairs;
+  },
+
+  /**
    * Create PDF from sord
    * @private
    * @param {de.elo.ix.client.Sord} sord
@@ -284,6 +310,24 @@ sol.define("sol.common_document.as.Utils", {
       if (String(dm.nameTranslationKey).trim() !== "") {
         data.maskName = sol.create("sol.common.Template", { source: "{{translate '" + dm.nameTranslationKey + "' '" + me.language + "'}}" }).apply();
       }
+    }
+
+    if (config.metadata) {
+      if (config.metadata.sordKeys === true) {
+        data.sordKeys = true;
+      }
+      if (config.metadata.objKeys === true) {
+        if (data.sord.objKeys) {
+          data.sord.objKeys = me.convertJsonToJsonKeyValuePairs(data.sord.objKeys);
+          data.objKeys = true;
+        }
+      }
+      if (config.metadata.mapKeys === true) {
+        if (data.sord.mapKeys) {
+          data.sord.mapKeys = me.convertJsonToJsonKeyValuePairs(data.sord.mapKeys);
+          data.mapKeys = true;
+        }
+      }  
     }
  
     if (config.pdfExport === true) {

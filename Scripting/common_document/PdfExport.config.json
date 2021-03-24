@@ -15,5 +15,6 @@
   "pdfA": false,
   "language": "de",
   "pagination": true,
-  "whiteListTextFile": ["txt", "fo", "js", "xml", "json"]
+  "whiteListTextFile": ["txt", "fo", "js", "xml", "json"],
+  "metadata": { "sordKeys": true, "objKeys": true,"mapKeys": true }
 }

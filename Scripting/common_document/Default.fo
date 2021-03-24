@@ -11,7 +11,7 @@
     <fo:flow flow-name="xsl-region-body">
       <fo:block-container width="17cm" margin-top="3mm">
       
-			    <fo:block font-size="18pt" text-align="left" font-weight="bold">
+          <fo:block font-size="18pt" text-align="left" font-weight="bold">
              {{maskName}}
           </fo:block>
 
@@ -33,6 +33,147 @@
           </fo:table>
 
           <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt black" font-weight="bold"></fo:block>
+
+          {{#if sordKeys}}
+            <fo:block font-size="16pt" text-align="left" font-weight="bold" margin-bottom="10pt" margin-top="15pt">
+              SordKeys
+            </fo:block>
+
+            <fo:block text-align="left" margin-bottom="10pt" margin-top="15pt" border-bottom="solid 1pt black" font-weight="bold"></fo:block>
+
+            <fo:table border-style="hidden" table-layout="fixed" width="100%">
+              <fo:table-column column-width="7cm"/>
+              <fo:table-column column-width="15cm"/>
+              <fo:table-body>
+                <fo:table-row>
+                  <fo:table-cell>
+                    <fo:block line-height="11pt" margin-top="3pt" text-align="left">id</fo:block>
+                  </fo:table-cell>
+                  <fo:table-cell>
+                    <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{sord.id}}</fo:block>
+                  </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row>
+                  <fo:table-cell>
+                    <fo:block line-height="11pt" margin-top="3pt" text-align="left">guid</fo:block>
+                  </fo:table-cell>
+                  <fo:table-cell>
+                    <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{sord.guid}}</fo:block>
+                  </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row>
+                  <fo:table-cell>
+                    <fo:block line-height="11pt" margin-top="3pt" text-align="left">maskName</fo:block>
+                  </fo:table-cell>
+                  <fo:table-cell>
+                    <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{sord.maskName}}</fo:block>
+                  </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row>
+                  <fo:table-cell>
+                    <fo:block line-height="11pt" margin-top="3pt" text-align="left">name</fo:block>
+                  </fo:table-cell>
+                  <fo:table-cell>
+                    <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{sord.name}}</fo:block>
+                  </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row>
+                  <fo:table-cell>
+                    <fo:block line-height="11pt" margin-top="3pt" text-align="left">desc</fo:block>
+                  </fo:table-cell>
+                  <fo:table-cell>
+                    <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{sord.desc}}</fo:block>
+                  </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row>
+                  <fo:table-cell>
+                    <fo:block line-height="11pt" margin-top="3pt" text-align="left">IDateIso</fo:block>
+                  </fo:table-cell>
+                  <fo:table-cell>
+                    <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{sord.IDateIso}}</fo:block>
+                  </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row>
+                  <fo:table-cell>
+                    <fo:block line-height="11pt" margin-top="3pt" text-align="left">XDateIso</fo:block>
+                  </fo:table-cell>
+                  <fo:table-cell>
+                    <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{sord.XDateIso}}</fo:block>
+                  </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row>
+                  <fo:table-cell>
+                    <fo:block line-height="11pt" margin-top="3pt" text-align="left">ownerName</fo:block>
+                  </fo:table-cell>
+                  <fo:table-cell>
+                    <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{sord.ownerName}}</fo:block>
+                  </fo:table-cell>
+                </fo:table-row>
+              </fo:table-body>
+            </fo:table>
+
+            <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt black" font-weight="bold"></fo:block>
+          {{/if}}
+
+          {{#if objKeys}}
+            {{#ifCond sord.objKeys.length '>' '0'}}
+              <fo:block font-size="16pt" text-align="left" font-weight="bold" margin-bottom="10pt" margin-top="15pt">
+                ObjKeys
+              </fo:block>
+
+              <fo:block text-align="left" margin-bottom="10pt" margin-top="15pt" border-bottom="solid 1pt black" font-weight="bold"></fo:block>
+
+              <fo:table border-style="hidden" table-layout="fixed" width="100%">
+                <fo:table-column column-width="7cm"/>
+                <fo:table-column column-width="15cm"/>
+                <fo:table-body>
+                  {{#each sord.objKeys}}
+                    <fo:table-row>
+                      <fo:table-cell>
+                        <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{key}}</fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell>
+                        <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{value}}</fo:block>
+                      </fo:table-cell>
+                    </fo:table-row>
+                  {{/each}}
+                </fo:table-body>
+              </fo:table>
+
+              <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt black" font-weight="bold"></fo:block>
+
+            {{/ifCond}}
+          {{/if}}
+
+          {{#if mapKeys}}
+            {{#ifCond sord.mapKeys.length '>' '0'}}
+              <fo:block font-size="16pt" text-align="left" font-weight="bold" margin-bottom="10pt" margin-top="15pt">
+                MapKeys
+              </fo:block>
+
+              <fo:block text-align="left" margin-bottom="10pt" margin-top="15pt" border-bottom="solid 1pt black" font-weight="bold"></fo:block>
+
+              <fo:table border-style="hidden" table-layout="fixed" width="100%">
+                <fo:table-column column-width="7cm"/>
+                <fo:table-column column-width="15cm"/>
+                <fo:table-body>
+                  {{#each sord.mapKeys}}
+                    <fo:table-row>
+                      <fo:table-cell>
+                        <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{key}}</fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell>
+                        <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{value}}</fo:block>
+                      </fo:table-cell>
+                    </fo:table-row>
+                  {{/each}}
+                </fo:table-body>
+              </fo:table>
+
+              <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt black" font-weight="bold"></fo:block>
+
+            {{/ifCond}}
+          {{/if}}
 
       </fo:block-container>        
     </fo:flow>
