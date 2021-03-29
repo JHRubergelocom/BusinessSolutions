@@ -511,6 +511,75 @@ sol.define("sol.common_document.as.Utils", {
   },
 
   /**
+   * Converts a tiff document to a PDF.
+   * @private
+   * @param {de.elo.ix.client.Sord} sord
+   * @param {String} ext
+   * @param {String} dstDirPath
+   * @return {java.io.InputStream} inputStream or null if there was an error
+   */
+  convertTiffToPdf: function (sord, ext, dstDirPath) {
+    var me = this,
+        inputStream = null,
+        pdfInputStream = null,
+        sourceFile, targetFile, fileName;
+
+    me.logger.enter("convertTiffToPdf");
+    me.logger.info(["Start convertTiffToPdf with sord: '{0}'", sord]);
+
+    try {
+      inputStream = sol.common.RepoUtils.downloadToStream(sord.id);
+      fileName = sol.common.FileUtils.sanitizeFilename(sord.name);
+
+      sourceFile = me.writeInputStreamToFile(inputStream, dstDirPath, fileName, ext);
+      targetFile = new File(dstDirPath + java.io.File.separator + fileName + ".pdf");
+
+      Packages.de.elo.mover.utils.ELOAsTiffUtils.saveTiffAsPdf(sourceFile, targetFile);
+      pdfInputStream = new ByteArrayInputStream(Packages.org.apache.commons.io.FileUtils.readFileToByteArray(targetFile));
+
+    } catch (ex) {
+      me.info.error(["error convertTiffToPdf with sourceFile:'{0}', targetFile:'{1}'", sourceFile, targetFile], ex);
+    }
+
+    me.logger.info(["Finish convertTiffToPdf with inputStream: '{0}'", pdfInputStream]);
+    me.logger.exit("convertTiffToPdf");
+    return pdfInputStream;
+  },
+
+  /**
+   * Converts a tiff file to a PDF.
+   * @private
+   * @param {String} filePath   
+   * @param {String} dstDirPath
+   * @return {java.io.InputStream} inputStream or null if there was an error
+   */
+  convertTiffFileToPdf: function (filePath, dstDirPath) {
+    var me = this,
+        pdfInputStream = null,
+        sourceFile, targetFile, fileName;
+
+    me.logger.enter("convertTiffFileToPdf");
+    me.logger.info(["Start convertTiffFileToPdf with filePath: '{0}', dstDirPath:'{1}'", filePath, dstDirPath]);
+
+    try {
+      sourceFile = new File(filePath);
+      fileName = sol.common.FileUtils.getName(sourceFile);
+      targetFile = new File(dstDirPath + java.io.File.separator + fileName + ".pdf");
+
+      Packages.de.elo.mover.utils.ELOAsTiffUtils.saveTiffAsPdf(sourceFile, targetFile);
+      pdfInputStream = new ByteArrayInputStream(Packages.org.apache.commons.io.FileUtils.readFileToByteArray(targetFile));
+
+    } catch (ex) {
+      me.info.error(["error convertTiffFileToPdf with sourceFile:'{0}', targetFile:'{1}'", sourceFile, targetFile], ex);
+    }
+
+
+    me.logger.info(["Finish convertTiffFileToPdf with inputStream: '{0}'", pdfInputStream]);
+    me.logger.exit("convertTiffFileToPdf");
+    return pdfInputStream;
+  },
+
+  /**
    * Converts a document to a PDF.
    * @private
    * @param {de.elo.ix.client.Sord} sord
@@ -556,6 +625,11 @@ sol.define("sol.common_document.as.Utils", {
           case "ico":
             me.logger.debug("convert Graphic to PDF");
             inputStream = me.convertGraphicToPdf(sord, ext, dstDirPath, config);            
+            break;
+          case "tif":
+          case "tiff":
+            me.logger.debug("convert Tiff to PDF");
+            inputStream = me.convertTiffToPdf(sord, ext, dstDirPath);            
             break;
           case "ppt":
           case "pot":
@@ -965,6 +1039,11 @@ sol.define("sol.common_document.as.Utils", {
           case "ico":
             me.logger.debug("convert Graphic to PDF");
             inputStream = me.convertGraphicFileToPdf(filePath, dstDirPath, config);            
+            break;
+          case "tif":
+          case "tiff":
+            me.logger.debug("convert Tiff to PDF");
+            inputStream = me.convertTiffFileToPdf(filePath, dstDirPath);            
             break;
           case "ppt":
           case "pot":

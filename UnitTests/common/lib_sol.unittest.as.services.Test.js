@@ -239,8 +239,7 @@ sol.define("sol.unittest.as.services.Test", {
    * @return {String|Object} result of method
    */
   process: function () {
-    var me = this, 
-        pdfInputStream, dstDirPath, os;
+    var me = this;
     
     /*    
     mapiMessage = sol.create("sol.common.as.MapiMessage", {});
@@ -265,8 +264,24 @@ sol.define("sol.unittest.as.services.Test", {
     me.writePdfInputStreamToFile(pdfInputStream, dstDirPath, "ConvertedMail");
     return pdfInputStream;
     */
+   
+    // Get Operating System
+    /*
     os = System.getProperty("os.name").toLowerCase();
     return String(os);
-    
+    */
+
+    // Convert tiff to pdf
+    if (me.windows) {
+      Packages.de.elo.mover.utils.ELOAsTiffUtils.saveTiffAsPdf(new File("C:\\Temp\\PdfExport\\Rechnung.TIF"), new File("C:\\Temp\\PdfExport\\Rechnung.pdf"));
+      Packages.de.elo.mover.utils.ELOAsTiffUtils.saveTiffAsPdf(new File("C:\\Temp\\PdfExport\\Scan_Invoice_Unittest.tif"), new File("C:\\Temp\\PdfExport\\Scan_Invoice_Unittest.pdf"));
+      Packages.de.elo.mover.utils.ELOAsTiffUtils.saveTiffAsPdf(new File("C:\\Temp\\PdfExport\\Tiff-Image-File-Download.tiff"), new File("C:\\Temp\\PdfExport\\Tiff-Image-File-Download.pdf"));
+    } else {
+      Packages.de.elo.mover.utils.ELOAsTiffUtils.saveTiffAsPdf(new File("/var/elo/servers/ELO-base/temp/Rechnung.TIF"), new File("/var/elo/servers/ELO-base/temp/Rechnung.pdf"));
+      Packages.de.elo.mover.utils.ELOAsTiffUtils.saveTiffAsPdf(new File("/var/elo/servers/ELO-base/temp/Scan_Invoice_Unittest.tif"), new File("/var/elo/servers/ELO-base/temp/Scan_Invoice_Unittest.pdf"));
+      Packages.de.elo.mover.utils.ELOAsTiffUtils.saveTiffAsPdf(new File("/var/elo/servers/ELO-base/temp/Tiff-Image-File-Download.tiff"), new File("/var/elo/servers/ELO-base/temp/Tiff-Image-File-Download.pdf"));
+    }
+
+    return true;
   }
 });
