@@ -536,7 +536,8 @@ sol.define("sol.common_document.as.Utils", {
 
       Packages.de.elo.mover.utils.ELOAsTiffUtils.saveTiffAsPdf(sourceFile, targetFile);
       pdfInputStream = new ByteArrayInputStream(Packages.org.apache.commons.io.FileUtils.readFileToByteArray(targetFile));
-
+      sol.common.FileUtils.delete(sourceFile, { quietly: true });
+      
     } catch (ex) {
       me.info.error(["error convertTiffToPdf with sourceFile:'{0}', targetFile:'{1}'", sourceFile, targetFile], ex);
     }
@@ -568,6 +569,7 @@ sol.define("sol.common_document.as.Utils", {
 
       Packages.de.elo.mover.utils.ELOAsTiffUtils.saveTiffAsPdf(sourceFile, targetFile);
       pdfInputStream = new ByteArrayInputStream(Packages.org.apache.commons.io.FileUtils.readFileToByteArray(targetFile));
+      sol.common.FileUtils.delete(sourceFile, { quietly: true });
 
     } catch (ex) {
       me.info.error(["error convertTiffFileToPdf with sourceFile:'{0}', targetFile:'{1}'", sourceFile, targetFile], ex);
