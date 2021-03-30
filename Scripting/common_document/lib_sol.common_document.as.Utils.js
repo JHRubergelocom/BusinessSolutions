@@ -312,6 +312,12 @@ sol.define("sol.common_document.as.Utils", {
       }
     }
 
+    if (String(data.maskName) === "E-mail") {
+      data.from = data.sord.objKeys.ELOOUTL1;
+      data.to = data.sord.objKeys.ELOOUTL2;
+      data.cc = data.sord.objKeys.ELOOUTL4;
+    }
+
     if (config.metadata) {
       if (config.metadata.sordKeys === true) {
         data.sordKeys = true;

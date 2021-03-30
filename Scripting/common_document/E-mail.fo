@@ -33,7 +33,7 @@
                   <fo:block line-height="11pt" margin-top="3pt" text-align="left">From</fo:block>
                 </fo:table-cell>
                 <fo:table-cell>
-                  <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{sord.objKeys.ELOOUTL1}}</fo:block>
+                  <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{from}}</fo:block>
                 </fo:table-cell>
               </fo:table-row>
               <fo:table-row>
@@ -41,7 +41,7 @@
                   <fo:block line-height="11pt" margin-top="3pt" text-align="left">To</fo:block>
                 </fo:table-cell>
                 <fo:table-cell>
-                  <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{sord.objKeys.ELOOUTL2}}</fo:block>
+                  <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{to}}</fo:block>
                 </fo:table-cell>
               </fo:table-row>
               <fo:table-row>
@@ -49,7 +49,7 @@
                   <fo:block line-height="11pt" margin-top="3pt" text-align="left">CC</fo:block>
                 </fo:table-cell>
                 <fo:table-cell>
-                  <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{sord.objKeys.ELOOUTL4}}</fo:block>
+                  <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{cc}}</fo:block>
                 </fo:table-cell>
               </fo:table-row>
             </fo:table-body>
