@@ -239,7 +239,9 @@ sol.define("sol.unittest.as.services.Test", {
    * @return {String|Object} result of method
    */
   process: function () {
-    var me = this;
+    var me = this,
+        sourceFile, targetFile, watermarkFile, i, page,
+        pdfDocument, imageStamp, pages, pdfOutline, bookmarkFile, childBookmarkFile, pdfChildOutline;
     
     /*    
     mapiMessage = sol.create("sol.common.as.MapiMessage", {});
@@ -272,6 +274,7 @@ sol.define("sol.unittest.as.services.Test", {
     */
 
     // Convert tiff to pdf
+    /*
     if (me.windows) {
       Packages.de.elo.mover.utils.ELOAsTiffUtils.saveTiffAsPdf(new File("C:\\Temp\\PdfExport\\Rechnung.TIF"), new File("C:\\Temp\\PdfExport\\Rechnung.pdf"));
       Packages.de.elo.mover.utils.ELOAsTiffUtils.saveTiffAsPdf(new File("C:\\Temp\\PdfExport\\Scan_Invoice_Unittest.tif"), new File("C:\\Temp\\PdfExport\\Scan_Invoice_Unittest.pdf"));
@@ -281,6 +284,95 @@ sol.define("sol.unittest.as.services.Test", {
       Packages.de.elo.mover.utils.ELOAsTiffUtils.saveTiffAsPdf(new File("/var/elo/servers/ELO-base/temp/Scan_Invoice_Unittest.tif"), new File("/var/elo/servers/ELO-base/temp/Scan_Invoice_Unittest.pdf"));
       Packages.de.elo.mover.utils.ELOAsTiffUtils.saveTiffAsPdf(new File("/var/elo/servers/ELO-base/temp/Tiff-Image-File-Download.tiff"), new File("/var/elo/servers/ELO-base/temp/Tiff-Image-File-Download.pdf"));
     }
+    */
+    if (me.windows) {
+      sourceFile = new File("C:\\Temp\\PdfExport\\Test.pdf");
+      targetFile = new File("C:\\Temp\\PdfExport\\Watermark.pdf");
+      watermarkFile = new File("C:\\Temp\\PdfExport\\Smiley1.jpg");
+      bookmarkFile = new File("C:\\Temp\\PdfExport\\Bookmark.pdf");
+      childBookmarkFile = new File("C:\\Temp\\PdfExport\\ChildBookmark.pdf");
+    } else {
+      sourceFile = new File("/var/elo/servers/ELO-base/temp/Test.pdf");
+      targetFile = new File("/var/elo/servers/ELO-base/temp/Watermark.pdf");
+      watermarkFile = new File("/var/elo/servers/ELO-base/temp/Smiley1.jpg");
+      bookmarkFile = new File("/var/elo/servers/ELO-base/temp/Bookmark.pdf");
+      childBookmarkFile = new File("/var/elo/servers/ELO-base/temp/ChildBookmark.pdf");
+
+    } 
+    sol.common.FileUtils.copyFile(sourceFile, targetFile);
+
+    // Insert Watermark with aspose
+    pdfDocument = new Packages.com.aspose.pdf.Document(targetFile.getPath());
+    imageStamp = new Packages.com.aspose.pdf.ImageStamp(watermarkFile.getPath());
+    imageStamp.setBackground(true);
+
+    // imageStamp.setHeight(350);
+    // imageStamp.setWidth(350);
+    imageStamp.setOpacity(0.5);
+
+    imageStamp.setHorizontalAlignment(Packages.com.aspose.pdf.HorizontalAlignment.Center);
+    imageStamp.setVerticalAlignment(Packages.com.aspose.pdf.VerticalAlignment.Center);
+
+    pages = pdfDocument.getPages();
+    for (i = 1; i <= pages.size(); i++) {
+      page = pages.get_Item(i);
+      page.addStamp(imageStamp);
+    }
+    pdfDocument.save(targetFile.getPath());
+
+
+    // Add a Bookmark with aspose
+
+    // Open the source PDF document
+    pdfDocument = new Packages.com.aspose.pdf.Document(targetFile.getPath());
+
+    // Create a bookmark object
+    pdfOutline = new Packages.com.aspose.pdf.OutlineItemCollection(pdfDocument.getOutlines());
+    pdfOutline.setTitle("Test Outline");
+    pdfOutline.setItalic(true);
+    pdfOutline.setBold(true);
+    
+    // Set the destination page number
+    pdfOutline.setAction(new Packages.com.aspose.pdf.GoToAction(pdfDocument.getPages().get_Item(1)));
+    
+    // Add a bookmark in the document's outline collection.
+    pdfDocument.getOutlines().add(pdfOutline);
+    
+    // Save the update document
+    pdfDocument.save(bookmarkFile.getPath());
+
+
+    // Add a Child Bookmark with aspose
+
+    // Open document
+    pdfDocument = new Packages.com.aspose.pdf.Document(targetFile.getPath());
+
+    // Create a parent bookmark object
+    pdfOutline = new Packages.com.aspose.pdf.OutlineItemCollection(pdfDocument.getOutlines());
+    pdfOutline.setTitle("Parent Outline");
+    pdfOutline.setItalic(true);
+    pdfOutline.setBold(true);
+
+    // Set the destination page number
+    pdfOutline.setDestination(new Packages.com.aspose.pdf.GoToAction(pdfDocument.getPages().get_Item(2)));
+
+    // Create a child bookmark object
+    pdfChildOutline = new Packages.com.aspose.pdf.OutlineItemCollection(pdfDocument.getOutlines());
+    pdfChildOutline.setTitle("Child Outline");
+    pdfChildOutline.setItalic(true);
+    pdfChildOutline.setBold(true);
+
+    // Set the destination page number for child outline
+    pdfChildOutline.setDestination(new Packages.com.aspose.pdf.GoToAction(pdfDocument.getPages().get_Item(10)));
+
+    // Add child bookmark to parent bookmark's collection
+    pdfOutline.add(pdfChildOutline);
+
+    // Add parent bookmark to the document's outline collection.
+    pdfDocument.getOutlines().add(pdfOutline);
+
+    // Save output
+    pdfDocument.save(childBookmarkFile.getPath());
 
     return true;
   }
