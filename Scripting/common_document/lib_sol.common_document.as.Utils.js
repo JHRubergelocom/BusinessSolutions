@@ -131,6 +131,9 @@ sol.define("sol.common_document.as.Utils", {
       pathIds.push(ldname.id);
     });
     refPath = pathIds.join(File.separator) + File.separator;
+    if (sol.common.StringUtils.startsWith(refPath, File.separator)) {
+      refPath = "";
+    }
     if (sol.common.SordUtils.isFolder(sord)) {
       refPath = refPath + sord.id + File.separator + "1.";
     } else {      
@@ -1304,6 +1307,13 @@ sol.define("sol.common_document.as.Utils", {
 
     if (config.pdfExport === true) {
       mergedOutputStream = new ByteArrayOutputStream();
+
+      me.logger.debug("pdfContents before sort");
+      pdfContents.forEach(function (pdfContent) {        
+        me.logger.debug(["refpath = '{0}', contentName = '{1}', pdfPages = '{2}', contentType = '{3}', contentMask = '{4}', contentHint = '{5}'", pdfContent.refPath, pdfContent.contentName, pdfContent.pdfPages, pdfContent.contentType, pdfContent.contentMask, pdfContent.contentHint]);
+      });
+      me.logger.debug("pdfContents before sort");
+
       pdfContents.sort(function (a, b) {
         var refPathA = a.refPath.toUpperCase(),
             refPathB = b.refPath.toUpperCase();
@@ -1316,6 +1326,13 @@ sol.define("sol.common_document.as.Utils", {
         }      
         return 0;
       });
+
+      me.logger.debug("pdfContents after sort");
+      pdfContents.forEach(function (pdfContent) {        
+        me.logger.debug(["refpath = '{0}', contentName = '{1}', pdfPages = '{2}', contentType = '{3}', contentMask = '{4}', contentHint = '{5}'", pdfContent.refPath, pdfContent.contentName, pdfContent.pdfPages, pdfContent.contentType, pdfContent.contentMask, pdfContent.contentHint]);
+      });
+      me.logger.debug("pdfContents after sort");
+
       pdfInputStreams = [];
       pdfInputStream = me.createContent(folderName, dstDirPath, config, pdfContents);
       pdfInputStreams.push(pdfInputStream);
