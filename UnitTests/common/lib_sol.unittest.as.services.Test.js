@@ -241,7 +241,8 @@ sol.define("sol.unittest.as.services.Test", {
   process: function () {
     var me = this,
         sourceFile, targetFile, watermarkFile, i, page,
-        pdfDocument, imageStamp, pages, pdfOutline, bookmarkFile, childBookmarkFile, pdfChildOutline;
+        pdfDocument, imageStamp, pages, pdfOutline, bookmarkFile, childBookmarkFile, 
+        pdfChildOutline, textWatermarkFile, textStamp;
     
     /*    
     mapiMessage = sol.create("sol.common.as.MapiMessage", {});
@@ -288,20 +289,21 @@ sol.define("sol.unittest.as.services.Test", {
     if (me.windows) {
       sourceFile = new File("C:\\Temp\\PdfExport\\Test.pdf");
       targetFile = new File("C:\\Temp\\PdfExport\\Watermark.pdf");
-      watermarkFile = new File("C:\\Temp\\PdfExport\\Smiley1.jpg");
+      watermarkFile = new File("C:\\Temp\\PdfExport\\Logo.png");
       bookmarkFile = new File("C:\\Temp\\PdfExport\\Bookmark.pdf");
       childBookmarkFile = new File("C:\\Temp\\PdfExport\\ChildBookmark.pdf");
+      textWatermarkFile = new File("C:\\Temp\\PdfExport\\TextWatermarkFile.pdf");
     } else {
       sourceFile = new File("/var/elo/servers/ELO-base/temp/Test.pdf");
       targetFile = new File("/var/elo/servers/ELO-base/temp/Watermark.pdf");
-      watermarkFile = new File("/var/elo/servers/ELO-base/temp/Smiley1.jpg");
+      watermarkFile = new File("/var/elo/servers/ELO-base/temp/Logo.png");
       bookmarkFile = new File("/var/elo/servers/ELO-base/temp/Bookmark.pdf");
       childBookmarkFile = new File("/var/elo/servers/ELO-base/temp/ChildBookmark.pdf");
-
+      textWatermarkFile = new File("/var/elo/servers/ELO-base/temp/TextWatermarkFile.pdf");
     } 
     sol.common.FileUtils.copyFile(sourceFile, targetFile);
 
-    // Insert Watermark with aspose
+    // Insert Image Watermark with aspose
     pdfDocument = new Packages.com.aspose.pdf.Document(targetFile.getPath());
     imageStamp = new Packages.com.aspose.pdf.ImageStamp(watermarkFile.getPath());
     imageStamp.setBackground(true);
@@ -320,6 +322,44 @@ sol.define("sol.unittest.as.services.Test", {
     }
     pdfDocument.save(targetFile.getPath());
 
+    // TODO
+    if (me.windows) {
+      // Insert Text Watermark with aspose
+      sol.common.FileUtils.copyFile(sourceFile, textWatermarkFile);
+
+      // open document
+      pdfDocument = new Packages.com.aspose.pdf.Document(textWatermarkFile.getPath());
+      // create text stamp
+      textStamp = new Packages.com.aspose.pdf.TextStamp("Text Watermark");
+      // set whether stamp is background
+      textStamp.setBackground(true);
+      // set origin
+      //textStamp.setXIndent(100);
+      //textStamp.setYIndent(100);
+      textStamp.setOpacity(0.5);
+      textStamp.setHorizontalAlignment(Packages.com.aspose.pdf.HorizontalAlignment.Center);
+      textStamp.setVerticalAlignment(Packages.com.aspose.pdf.VerticalAlignment.Center);
+
+
+      // rotate stamp
+      textStamp.setRotateAngle(45.0);
+      // set text properties
+      // textStamp.getTextState().setFont(new Packages.com.aspose.pdf.FontRepository().findFont("Arial"));
+      textStamp.getTextState().setFontSize(60.0);
+      textStamp.getTextState().setFontStyle(Packages.com.aspose.pdf.FontStyles.Bold);
+      textStamp.getTextState().setFontStyle(Packages.com.aspose.pdf.FontStyles.Italic);
+      textStamp.getTextState().setForegroundColor(Packages.com.aspose.pdf.Color.getGreen());
+
+      pages = pdfDocument.getPages();
+      for (i = 1; i <= pages.size(); i++) {
+        page = pages.get_Item(i);
+        page.addStamp(textStamp);
+      }
+
+      // save output document
+      pdfDocument.save(textWatermarkFile.getPath());    
+    }
+    // TODO
 
     // Add a Bookmark with aspose
 
