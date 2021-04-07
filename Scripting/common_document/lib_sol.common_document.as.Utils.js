@@ -166,6 +166,29 @@ sol.define("sol.common_document.as.Utils", {
   },
 
   /**
+   * Write file to outputstream
+   * @private
+   * @param {java.io.File} dstFile
+   * @return {java.io.OutputStream} pdfOutputStream
+   */
+  writeFileToPdfOutputStream: function (dstFile) {
+    var me = this,
+        bytes, pdfOutputStream;
+
+    me.logger.enter("writeFileToPdfOutputStream");
+    me.logger.info(["Start writeFileToPdfOutputStream with dstFile: '{0}'", dstFile]);
+
+    bytes = Packages.org.apache.commons.io.FileUtils.readFileToByteArray(dstFile);
+    pdfOutputStream = new ByteArrayOutputStream(bytes.length);
+    pdfOutputStream.write(bytes, 0, bytes.length);
+
+    me.logger.info(["Finish writeFileToPdfOutputStream with pdfOutputStream: '{0}'", pdfOutputStream]);
+    me.logger.exit("writeFileToPdfOutputStream");
+
+    return pdfOutputStream;
+  },
+
+  /**
    * Write outputstream to file
    * @private
    * @param {java.io.OutputStream} pdfOutputStream
@@ -918,6 +941,53 @@ sol.define("sol.common_document.as.Utils", {
   },
 
   /**
+   * Set watermark image in a PDF.
+   * @private
+   * @param {java.io.File} dstPdfFile PDF File
+   * @param {String} dstDirPath
+   * @param {String} repoPath Repository path to watermark image
+   */
+  setWatermarkImage: function (dstPdfFile, dstDirPath, repoPath) {
+    var me = this,
+        sord, ext, inputStream, fileName, watermarkImageFile,
+        pdfDocument, imageStamp, pages, page, i;
+
+    me.logger.enter("setWatermarkImage");
+    me.logger.info(["Start setWatermarkImage with dstPdfFile: '{0}', dstDirPath: '{1}', repoPath: '{2}'", dstPdfFile, dstDirPath, repoPath]);
+
+    try {
+      sord = sol.common.RepoUtils.getSord(repoPath);
+      ext = (sord && sord.docVersion && sord.docVersion.ext) ? sord.docVersion.ext : null;
+      inputStream = sol.common.RepoUtils.downloadToStream(sord.id);
+      fileName = sol.common.FileUtils.sanitizeFilename(sord.name);
+      watermarkImageFile = me.writeInputStreamToFile(inputStream, dstDirPath, fileName, ext);
+
+      pdfDocument = new Packages.com.aspose.pdf.Document(dstPdfFile.getPath());
+      imageStamp = new Packages.com.aspose.pdf.ImageStamp(watermarkImageFile.getPath());
+      imageStamp.setBackground(true);
+      imageStamp.setOpacity(0.5);
+
+      imageStamp.setHorizontalAlignment(Packages.com.aspose.pdf.HorizontalAlignment.Center);
+      imageStamp.setVerticalAlignment(Packages.com.aspose.pdf.VerticalAlignment.Center);
+
+      pages = pdfDocument.getPages();
+      for (i = 1; i <= pages.size(); i++) {
+        page = pages.get_Item(i);
+        page.addStamp(imageStamp);
+      }
+      pdfDocument.save(dstPdfFile.getPath());
+
+      sol.common.FileUtils.delete(watermarkImageFile, { quietly: true });
+    } catch (ex) {
+      me.info.error(["error setWatermarkImage with dstPdfFile:'{0}', watermarkImageFile:'{1}'", dstPdfFile, watermarkImageFile], ex);
+    }
+
+    me.logger.info(["Finish setWatermarkImage"]);
+    me.logger.exit("setWatermarkImage");    
+
+  },
+
+  /**
    * Write inputstream to file
    * @private
    * @param {java.io.InputStream} inputStream
@@ -1201,7 +1271,7 @@ sol.define("sol.common_document.as.Utils", {
     var me = this,
         result, i, j, sord, dstDir, pathParts, dstDirPath, sords, dstDirPathFile, folderSord, addPathPart, partPath,
         subDirPath, subDirPathFile, zipFile, zipDir, parentId, folderName, mergedOutputStream, pdfName, ext, 
-        pdfInputStreams, pdfInputStream, pdfContents, dstFile, fop, contentInBytes, bytes;
+        pdfInputStreams, pdfInputStream, pdfContents, dstFile;
 
     me.logger.enter("pdfExport");
     me.logger.info(["Start pdfExport with folderId: '{0}', baseDstDirPath: '{1}', config: '{2}'", folderId, baseDstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
@@ -1345,42 +1415,23 @@ sol.define("sol.common_document.as.Utils", {
       parentId = me.getExportFolder(config);
 
       if (config.pdfA === true) {
-        dstFile = new java.io.File(dstDirPath + java.io.File.separator + "All.pdf");
-        fop = new FileOutputStream(dstFile);
-        if (!dstFile.exists()) {
-          dstFile.createNewFile();
-        }
-        contentInBytes = mergedOutputStream.toByteArray();
-        fop.write(contentInBytes);
-        fop.flush();
-        fop.close();
-    
+        dstFile = me.writePdfOutputStreamToFile(mergedOutputStream, dstDirPath, "All.pdf");
         me.convertPDFtoPDFA(dstFile);
-
-        bytes = Packages.org.apache.commons.io.FileUtils.readFileToByteArray(dstFile);
-        mergedOutputStream = new ByteArrayOutputStream(bytes.length);
-        mergedOutputStream.write(bytes, 0, bytes.length);
-
+        mergedOutputStream = me.writeFileToPdfOutputStream(dstFile);
         sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
       }
 
       if (config.pagination === true) {
-        dstFile = new java.io.File(dstDirPath + java.io.File.separator + "All.pdf");
-        fop = new FileOutputStream(dstFile);
-        if (!dstFile.exists()) {
-          dstFile.createNewFile();
-        }
-        contentInBytes = mergedOutputStream.toByteArray();
-        fop.write(contentInBytes);
-        fop.flush();
-        fop.close();
-    
+        dstFile = me.writePdfOutputStreamToFile(mergedOutputStream, dstDirPath, "All.pdf");
         me.setPagination(dstFile);
+        mergedOutputStream = me.writeFileToPdfOutputStream(dstFile);
+        sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
+      }
 
-        bytes = Packages.org.apache.commons.io.FileUtils.readFileToByteArray(dstFile);
-        mergedOutputStream = new ByteArrayOutputStream(bytes.length);
-        mergedOutputStream.write(bytes, 0, bytes.length);
-
+      if (config.watermark.image.show === true) {
+        dstFile = me.writePdfOutputStreamToFile(mergedOutputStream, dstDirPath, "All.pdf");
+        me.setWatermarkImage(dstFile, dstDirPath, config.watermark.image.path);
+        mergedOutputStream = me.writeFileToPdfOutputStream(dstFile);
         sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
       }
 
