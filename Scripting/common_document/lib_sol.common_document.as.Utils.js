@@ -984,7 +984,49 @@ sol.define("sol.common_document.as.Utils", {
 
     me.logger.info(["Finish setWatermarkImage"]);
     me.logger.exit("setWatermarkImage");    
+  },
 
+  /**
+   * Set watermark text in a PDF.
+   * @private
+   * @param {java.io.File} dstPdfFile PDF File
+   * @param {String} textWatermark Watermark text
+   */
+  setWatermarkText: function (dstPdfFile, textWatermark) {
+    var me = this,
+        pdfDocument, textStamp, pages, page, i;
+
+    me.logger.enter("setWatermarkText");
+    me.logger.info(["Start setWatermarkText with dstPdfFile: '{0}', textWatermark: '{1}'", dstPdfFile, textWatermark]);
+
+    try {
+      pdfDocument = new Packages.com.aspose.pdf.Document(dstPdfFile.getPath());
+      textStamp = new Packages.com.aspose.pdf.TextStamp(textWatermark);
+      textStamp.setBackground(true);
+      textStamp.setOpacity(0.5);
+
+      textStamp.setHorizontalAlignment(Packages.com.aspose.pdf.HorizontalAlignment.Center);
+      textStamp.setVerticalAlignment(Packages.com.aspose.pdf.VerticalAlignment.Center);
+
+      textStamp.setRotateAngle(45.0);
+
+      textStamp.getTextState().setFontSize(60.0);
+      textStamp.getTextState().setFontStyle(Packages.com.aspose.pdf.FontStyles.Bold);
+      textStamp.getTextState().setFontStyle(Packages.com.aspose.pdf.FontStyles.Italic);
+      textStamp.getTextState().setForegroundColor(Packages.com.aspose.pdf.Color.getGreen());
+
+      pages = pdfDocument.getPages();
+      for (i = 1; i <= pages.size(); i++) {
+        page = pages.get_Item(i);
+        page.addStamp(textStamp);
+      }
+      pdfDocument.save(dstPdfFile.getPath());    
+    } catch (ex) {
+      me.info.error(["error setWatermarkText with dstPdfFile:'{0}', textWatermark:'{1}'", dstPdfFile, textWatermark], ex);
+    }
+
+    me.logger.info(["Finish setWatermarkText"]);
+    me.logger.exit("setWatermarkText");    
   },
 
   /**
@@ -1271,7 +1313,7 @@ sol.define("sol.common_document.as.Utils", {
     var me = this,
         result, i, j, sord, dstDir, pathParts, dstDirPath, sords, dstDirPathFile, folderSord, addPathPart, partPath,
         subDirPath, subDirPathFile, zipFile, zipDir, parentId, folderName, mergedOutputStream, pdfName, ext, 
-        pdfInputStreams, pdfInputStream, pdfContents, dstFile;
+        pdfInputStreams, pdfInputStream, pdfContents, dstFile, os;
 
     me.logger.enter("pdfExport");
     me.logger.info(["Start pdfExport with folderId: '{0}', baseDstDirPath: '{1}', config: '{2}'", folderId, baseDstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
@@ -1433,6 +1475,16 @@ sol.define("sol.common_document.as.Utils", {
         me.setWatermarkImage(dstFile, dstDirPath, config.watermark.image.path);
         mergedOutputStream = me.writeFileToPdfOutputStream(dstFile);
         sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
+      }
+
+      os = String(java.lang.System.getProperty("os.name").toLowerCase());
+      if (sol.common.StringUtils.contains(os, "win")) {
+        if (config.watermark.text.show === true) {
+          dstFile = me.writePdfOutputStreamToFile(mergedOutputStream, dstDirPath, "All.pdf");
+          me.setWatermarkText(dstFile, config.watermark.text.content);
+          mergedOutputStream = me.writeFileToPdfOutputStream(dstFile);
+          sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
+        }  
       }
 
       result.objId = sol.common.RepoUtils.saveToRepo({ parentId: parentId, name: folderName, outputStream: mergedOutputStream, extension: "pdf" });
