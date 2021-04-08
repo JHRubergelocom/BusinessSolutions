@@ -65,7 +65,8 @@ RhinoManager = {
     "erp.sbo.datatransfer": { k: "EDTBUSINESSONE" },
     "erp.mbc.integrationservice": { k: "EICNAVISION" },
     "erp.mbc.outputlink": { k: "EOLNAVISION" },
-    "erp.mbc.datatransfer": { k: "EDTNAVISION" }
+    "erp.mbc.datatransfer": { k: "EDTNAVISION" },
+    "sol.docusign": { k: "DOCUSIGN" }
   }
 };
 
