@@ -1,0 +1,29 @@
+﻿<ruleset>
+  <base>
+    <name>TestConvertPowerPointToPdf</name>
+    <search>
+      <name>"DIRECT"</name>
+      <value>""</value>
+      <mask>(E10E1000-E100-E100-E100-E10E10E10E30)</mask>
+      <max>1</max>
+    </search>
+    <interval>0H</interval>
+  </base>
+<rule>
+  <name>Rule1</name>
+  <condition></condition>
+  <script>
+    log.info("TestConvertPowerPointToPdf called");
+    var sourceFile = new File("/var/elo/servers/ELO-base/temp/Bibliotheken und IndexServer-Bausteine Vorstellung.pptx");
+    var targetFile = new File("/var/elo/servers/ELO-base/temp/Bibliotheken und IndexServer-Bausteine Vorstellung" + java.lang.System.currentTimeMillis() + ".pdf");
+    Packages.de.elo.mover.utils.ELOAsConvertUtils.convertToPdf(sourceFile, targetFile);
+    elo.setAnswer(targetFile);
+    log.info("Test convert power point to pdf was successfull");
+  </script>
+</rule>
+<rule>
+  <name>Global Error Rule</name>
+  <condition>OnError</condition>
+  <script></script>
+</rule>
+</ruleset>
