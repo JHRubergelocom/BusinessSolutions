@@ -5,6 +5,7 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_Class.js
 //@include lib_sol.common.ix.ServiceBase.js
 //@include lib_sol.unittest.ix.dynkwl.UserNames.js
+//@include sol.common_monitoring.ix.dynkwl.ConfigKwl.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.ExecuteDynKwl" });
 
