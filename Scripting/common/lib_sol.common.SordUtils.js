@@ -542,7 +542,7 @@ sol.define("sol.common.SordUtils", {
    * Retrieves a value from a Sord.
    * This could be a Sord property, an objKey or a map field.
    *
-   * Map values will only be returned, if there is one result. If there are more results, all will be ignored.
+   * If there are more than one value, first value will be returned.
    *
    * Uses {@link #getValues}.
    *
@@ -568,13 +568,6 @@ sol.define("sol.common.SordUtils", {
     values = me.getValues(sord, params);
 
     if (values && (values.length > 0)) {
-
-      // type 'map' ignores completelly if there is more than one result
-      if ((params.type === "MAP") && (values.length === 1)) {
-        return values[0];
-      }
-
-      // other types simply return the first value
       value = values[0];
     }
 
@@ -895,8 +888,9 @@ sol.define("sol.common.SordUtils", {
     if (key) {
       key.data = values;
     } else {
+
       // in some cases objKey array doesn't match mask definition.
-      line = me.getDocMaskLine(sord.mask, keyName);
+      line = me.getDocMaskLine(sord.mask, keyName) || me.getHiddenLine(keyName);
       if (line) {
         me.logger.debug("ObjKey '" + keyName + "' does not exist. Adding ObjKey to list.");
         newObjKey = new ObjKey();
@@ -911,6 +905,7 @@ sol.define("sol.common.SordUtils", {
         if (!params.silent) {
           throw "ObjKey '" + keyName + "' not found.";
         }
+        return;
       }
     }
     return key;
@@ -1026,6 +1021,52 @@ sol.define("sol.common.SordUtils", {
         return line;
       }
     }
+  },
+
+  /**
+   * @private
+   * Returns an hidden line object
+   * @param {String} keyName Key name
+   * @return {Objekt} line Line
+   * @return {String} line.id Line ID
+   * @return {String} line.name Key name
+   */
+  getHiddenLine: function (keyName) {
+    var me = this,
+        hiddenLine;
+
+    if (!me.hiddenLines) {
+      me.hiddenLines = {};
+      me.hiddenLines[DocMaskLineC.NAME_FILENAME + ""] = { id: DocMaskLineC.ID_FILENAME + "", name: DocMaskLineC.NAME_FILENAME };
+      me.hiddenLineExists("NAME_PERSONALDATA_DELETEAT") && (me.hiddenLines[DocMaskLineC.NAME_PERSONALDATA_DELETEAT + ""] = { id: DocMaskLineC.ID_PERSONALDATA_DELETEAT + "", name: DocMaskLineC.NAME_PERSONALDATA_DELETEAT });
+      me.hiddenLineExists("NAME_PERSONALDATA_UID") && (me.hiddenLines[DocMaskLineC.NAME_PERSONALDATA_UID + ""] = { id: DocMaskLineC.ID_PERSONALDATA_UID + "", name: DocMaskLineC.NAME_PERSONALDATA_UID });
+    }
+
+    hiddenLine = me.hiddenLines[keyName];
+
+    return hiddenLine;
+  },
+
+  /**
+   * Checks if a hidden line exists
+   * @param {String} constantName Constant name
+   */
+  hiddenLineExists: function (constantName) {
+    var docMaskLineC, docMaskLineCClass, fields, i, field;
+
+    docMaskLineC = new DocMaskLineC();
+    docMaskLineCClass = docMaskLineC.getClass();
+
+    fields = docMaskLineCClass.getDeclaredFields();
+
+    for (i = 0; i < fields.length; i++) {
+      field = fields[i];
+      if (field.name == constantName) {
+        return true;
+      }
+    }
+
+    return false;
   },
 
   /**

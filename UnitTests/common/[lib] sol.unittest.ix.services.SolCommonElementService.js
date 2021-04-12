@@ -1,14 +1,12 @@
 
-describe("[libix] sol.unittest.ix.services.SolCommonMonitoringMonitorUtils", function () {
-  var objSolCommonMonitoringMonitorUtilsId, SolCommonMonitoringMonitorUtilsSord, sord, 
-      originalTimeout, objId, wfTemplate, str;
+describe("[lib] sol.unittest.ix.services.SolCommonElementService", function () {
+  var originalTimeout, config, opt, cfg;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
-      test.Utils.createTempSord("SolCommonMonitoringMonitorUtils").then(function success(objSolCommonMonitoringMonitorUtilsId1) {
-        objSolCommonMonitoringMonitorUtilsId = objSolCommonMonitoringMonitorUtilsId1;
+      test.Utils.createTempSord("SolCommonElementService").then(function success(obSolCommonElementServiceId) {
         done();
       }, function error(err) {
         fail(err);
@@ -19,29 +17,15 @@ describe("[libix] sol.unittest.ix.services.SolCommonMonitoringMonitorUtils", fun
     }).not.toThrow();
   });
   describe("Test Lib Functions", function () {
-    describe("sol.common_monitoring.ix.MonitorUtils", function () {
-      it("getsord", function (done) {
+    describe("sol.common.mixins.ElementService", function () {
+      it("initialize", function (done) {
         expect(function () {
-          test.Utils.getSord(objSolCommonMonitoringMonitorUtilsId).then(function success(SolCommonMonitoringMonitorUtilsSord1) {
-            SolCommonMonitoringMonitorUtilsSord = SolCommonMonitoringMonitorUtilsSord1;
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }).not.toThrow();
-      });
-      it("evalDateUnitConfig", function (done) {
-        expect(function () {
-          sord = SolCommonMonitoringMonitorUtilsSord;
           config = {};
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib2", {
-            className: "sol.common_monitoring.ix.MonitorUtils",
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib6", {
+            className: "sol.common.mixins.ElementService",
             classConfig: {},
-            method: "evalDateUnitConfig",
-            params: [sord, config]
+            method: "initialize",
+            params: [config]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
@@ -52,14 +36,14 @@ describe("[libix] sol.unittest.ix.services.SolCommonMonitoringMonitorUtils", fun
           );
         }).not.toThrow();
       });
-      it("getLocalizedKwlKey", function (done) {
+      it("sanitizeElementServiceConfig", function (done) {
         expect(function () {
-          str = "TEST_UNIT";
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib2", {
-            className: "sol.common_monitoring.ix.MonitorUtils",
+          opt = { name: "RF_unittest" };
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib6", {
+            className: "sol.common.mixins.ElementService",
             classConfig: {},
-            method: "getLocalizedKwlKey",
-            params: [str]
+            method: "sanitizeElementServiceConfig",
+            params: [opt]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
@@ -70,15 +54,14 @@ describe("[libix] sol.unittest.ix.services.SolCommonMonitoringMonitorUtils", fun
           );
         }).not.toThrow();
       });
-      it("registerUpdate", function (done) {
+      it("executeElementService", function (done) {
         expect(function () {
-          objId = objSolCommonMonitoringMonitorUtilsId;
-          wfTemplate = "wfTemplate1";
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib2", {
-            className: "sol.common_monitoring.ix.MonitorUtils",
+          cfg = { name: "RF_unittest" };
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib6", {
+            className: "sol.common.mixins.ElementService",
             classConfig: {},
-            method: "registerUpdate",
-            params: [objId, wfTemplate]
+            method: "executeElementService",
+            params: [cfg]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {

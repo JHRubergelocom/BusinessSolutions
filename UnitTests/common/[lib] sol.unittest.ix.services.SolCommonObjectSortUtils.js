@@ -1,14 +1,12 @@
 
-describe("[libix] sol.unittest.ix.services.SolCommonMonitoringMonitorUtils", function () {
-  var objSolCommonMonitoringMonitorUtilsId, SolCommonMonitoringMonitorUtilsSord, sord, 
-      originalTimeout, objId, wfTemplate, str;
+describe("[lib] sol.unittest.ix.services.SolCommonObjectSortUtils", function () {
+  var originalTimeout, a, b, arr, sortCriterias, options, sorts;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
-      test.Utils.createTempSord("SolCommonMonitoringMonitorUtils").then(function success(objSolCommonMonitoringMonitorUtilsId1) {
-        objSolCommonMonitoringMonitorUtilsId = objSolCommonMonitoringMonitorUtilsId1;
+      test.Utils.createTempSord("SolCommonObjectSortUtils").then(function success(obSolCommonObjectSortUtilsId) {
         done();
       }, function error(err) {
         fail(err);
@@ -19,29 +17,16 @@ describe("[libix] sol.unittest.ix.services.SolCommonMonitoringMonitorUtils", fun
     }).not.toThrow();
   });
   describe("Test Lib Functions", function () {
-    describe("sol.common_monitoring.ix.MonitorUtils", function () {
-      it("getsord", function (done) {
+    describe("sol.common.ObjectSortUtils", function () {
+      it("date", function (done) {
         expect(function () {
-          test.Utils.getSord(objSolCommonMonitoringMonitorUtilsId).then(function success(SolCommonMonitoringMonitorUtilsSord1) {
-            SolCommonMonitoringMonitorUtilsSord = SolCommonMonitoringMonitorUtilsSord1;
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }).not.toThrow();
-      });
-      it("evalDateUnitConfig", function (done) {
-        expect(function () {
-          sord = SolCommonMonitoringMonitorUtilsSord;
-          config = {};
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib2", {
-            className: "sol.common_monitoring.ix.MonitorUtils",
+          a = "20210713";
+          b = "20210302";
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib6", {
+            className: "sol.common.ObjectSortUtils",
             classConfig: {},
-            method: "evalDateUnitConfig",
-            params: [sord, config]
+            method: "date",
+            params: [a, b]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
@@ -52,14 +37,15 @@ describe("[libix] sol.unittest.ix.services.SolCommonMonitoringMonitorUtils", fun
           );
         }).not.toThrow();
       });
-      it("getLocalizedKwlKey", function (done) {
+      it("default", function (done) {
         expect(function () {
-          str = "TEST_UNIT";
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib2", {
-            className: "sol.common_monitoring.ix.MonitorUtils",
+          a = 10;
+          b = 12;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib6", {
+            className: "sol.common.ObjectSortUtils",
             classConfig: {},
-            method: "getLocalizedKwlKey",
-            params: [str]
+            method: "default",
+            params: [a, b]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
@@ -70,15 +56,54 @@ describe("[libix] sol.unittest.ix.services.SolCommonMonitoringMonitorUtils", fun
           );
         }).not.toThrow();
       });
-      it("registerUpdate", function (done) {
+    });
+    describe("sol.common.mixins.ObjectSort", function () {
+      it("sortArray", function (done) {
         expect(function () {
-          objId = objSolCommonMonitoringMonitorUtilsId;
-          wfTemplate = "wfTemplate1";
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib2", {
-            className: "sol.common_monitoring.ix.MonitorUtils",
+          arr = [];
+          sortCriterias = [];
+          options = {};
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib6", {
+            className: "sol.common.mixins.ObjectSort",
             classConfig: {},
-            method: "registerUpdate",
-            params: [objId, wfTemplate]
+            method: "sortArray",
+            params: [arr, sortCriterias, options]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("hasSortCriteria", function (done) {
+        expect(function () {
+          sortCriterias = [];
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib6", {
+            className: "sol.common.mixins.ObjectSort",
+            classConfig: {},
+            method: "hasSortCriteria",
+            params: [sortCriterias]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("generateSort", function (done) {
+        expect(function () {
+          sorts = [];
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib6", {
+            className: "sol.common.mixins.ObjectSort",
+            classConfig: {},
+            method: "generateSort",
+            params: [sorts]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {

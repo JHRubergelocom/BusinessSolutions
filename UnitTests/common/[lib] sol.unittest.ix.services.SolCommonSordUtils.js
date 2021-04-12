@@ -3,7 +3,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
   var SordUtilsSord, objSordUtilsId, originalTimeout, sord, params, newMask, key,
       srcSord, keyName, maskName, conn, language, country, name, fieldName, objId,
       config, fieldDef, timeZoneString, numberString, value, values, indexData, 
-      mapEntry, data, isoDate;
+      mapEntry, data, isoDate, constantName;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -401,6 +401,24 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
           );
         }).not.toThrow();
       });
+      it("getHiddenLine", function (done) {
+        expect(function () {
+          keyName = "UNITTEST_FIELD1";
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordUtils",
+            classConfig: {},
+            method: "getHiddenLine",
+            params: [keyName]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("getInternalDate", function (done) {
         expect(function () {
           isoDate = "";
@@ -709,6 +727,24 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordUtils", function () {
             classConfig: {},
             method: "hasDocMask",
             params: [sord, maskName]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("hiddenLineExists", function (done) {
+        expect(function () {
+          constantName = "UNITTEST_FIELD1";
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.SordUtils",
+            classConfig: {},
+            method: "hiddenLineExists",
+            params: [constantName]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {

@@ -24,6 +24,7 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_sol.common.ix.SubscriptionUtils.js
 //@include lib_sol.common_fx.ix.FxUtils.js
 //@include lib_sol.common_monitoring.ix.MonitorUtils.js
+//@include lib_sol.common_monitoring.ix.TimedEventUtils.js
 //@include lib_sol.dev.ix.ActionUtils.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.ExecuteLib2" });

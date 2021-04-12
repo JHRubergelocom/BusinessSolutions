@@ -22,6 +22,86 @@ sol.define("sol.common_monitoring.ix.MonitorUtils", {
   timestampBufferUnit: "s",
 
   /**
+   * Evaluates a Sord and a configuration to determine a value and a unit.
+   *
+   * If no value was found, it will be set so `0` as default.
+   * If no unit was found, it will be left blank.
+   *
+   *     { value: 10 }
+   *     { value: 10, unit: "Y" }
+   *     { value: 10, unit: { type: "GRP", key: "MY_UNIT" } }
+   *     { type: "GRP", key: "MY_DATE" }
+   *     { type: "GRP", key: "MY_DATE", unit: "Y" }
+   *     { type: "GRP", key: "MY_DATE", unit: { type: "GRP", key: "MY_UNIT" } }
+   *
+   * The followig call
+   *
+   *      sol.common_monitoring.as.MonitorUtils.evalDateUnitConfig(sord, { value: 10, unit: "Y" });
+   *
+   * would just return the two fix values
+   *
+   *      { value: 10, unit: "Y" }
+   *
+   * while this call
+   *
+   *     sol.common_monitoring.as.MonitorUtils.evalDateUnitConfig(sord, { type: "GRP", key: "MY_DATE", unit: { type: "GRP", key: "MY_UNIT" } });
+   *
+   * would read the resulting `value` from the indexfield `MY_DATE` and the `unit` from the indexfield `MY_UNIT`.
+   *
+   * If the field holding the unit is filled by a localized keyword list, it will contain values like 'd - days'.
+   * Therefor the function analyses the unit and if it contains any `-` the key (string befor the `-`) will be extracted and used.
+   *
+   * @param {de.elo.ix.client.Sord} sord
+   * @param {Object} config
+   * @return {Object} Returns an object with the two attributes: `value` and `unit`
+   */
+  evalDateUnitConfig: function (sord, config) {
+    var me = this,
+        result = {};
+
+    if (config.type && config.key) {
+      result.value = sol.common.SordUtils.getValue(sord, config) + "";
+    } else {
+      result.value = config.value;
+    }
+
+    if (!result.value) {
+      result.value = 0;
+    }
+
+    if (config.unit && config.unit.type && config.unit.key) {
+      result.unit = sol.common.SordUtils.getValue(sord, config.unit) + "";
+      result.unit = me.getLocalizedKwlKey(result.unit);
+    } else {
+      result.unit = config.unit;
+    }
+
+    return result;
+  },
+
+  /**
+   * @private
+   * Extracts the unit, if the value was set from a localized keyword list.
+   * @param {String} str
+   * @return {String}
+   */
+  getLocalizedKwlKey: function (str) {
+    var separator = "-",
+        part, separatorPos;
+    if (!str) {
+      part = "";
+    } else {
+      separatorPos = str.indexOf(separator);
+      if (separatorPos < 0) {
+        part = str;
+      } else {
+        part = str.substring(0, separatorPos).trim();
+      }
+    }
+    return part;
+  },
+
+  /**
    * Register object to be updated by the `JobQueue` rule.
    * Registration will be skipped if element is in chaos cabinet.
    *

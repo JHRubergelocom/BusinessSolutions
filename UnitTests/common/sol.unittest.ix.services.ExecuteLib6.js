@@ -8,6 +8,9 @@ importPackage(Packages.org.apache.commons.io);
 //@include lib_sol.common.ix.ServiceBase.js
 //@include lib_sol.common.Config.js
 //@include lib_sol.common.Mail.js
+//@include lib_sol.common.DateUtils.js
+//@include lib_sol.common.ElementService.js
+//@include lib_sol.common.ObjectSortUtils.js
 //@include lib_sol.common.RepoUtils.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.ix.services.ExecuteLib6" });
@@ -64,11 +67,27 @@ sol.define("sol.unittest.ix.services.ExecuteLib6", {
   process: function () {
     var me = this,
         result = {},
-        cls, func, dir;
+        cls, func;
 
     me.classConfig.ec = me.ec;
 
     cls = sol.create(me.className, me.classConfig);
+
+    switch (me.className) {
+      case "sol.common.mixins.ElementService":
+        cls.logger = logger;
+        switch (me.method) {
+          case "executeElementService":
+            return result;
+          default:
+        }
+        break;
+      case "sol.common.mixins.ObjectSort":
+        cls.logger = logger;
+        break;
+      default:
+    }
+
     func = cls[me.method];
 
     switch (me.className) {
@@ -110,4 +129,3 @@ function RF_sol_unittest_service_ExecuteLib6(ec, args) {
   logger.exit("RF_sol_unittest_service_ExecuteLib6", result);
   return sol.common.JsonUtils.stringifyAll(result);
 }
-
