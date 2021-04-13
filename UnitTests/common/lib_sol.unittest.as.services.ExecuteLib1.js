@@ -21,6 +21,8 @@
  * @eloas
  * @requires  sol.common.as.FunctionBase
  */
+var logger = sol.create("sol.Logger", { scope: "sol.unittest.as.services.ExecuteLib1" });
+
 sol.define("sol.unittest.as.services.ExecuteLib1", {
   extend: "sol.common.as.FunctionBase",
 
@@ -122,6 +124,10 @@ sol.define("sol.unittest.as.services.ExecuteLib1", {
         switch (me.method) {
           case "postProcess":
             me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
+            break;
+          case "findInfo":
+            me.params[0] = { logger: logger };
+            func = cls.utils.log.findInfo;
             break;
           default:
         }

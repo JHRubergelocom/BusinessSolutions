@@ -72,6 +72,29 @@ sol.define("sol.common_monitoring.as.collectors.NextRunCollector", {
    */
   defaultSordZ: SordC.mbAllIndex,
 
+  utils: {
+    log: {
+      findInfo: function (self, findInfo) {
+        var findByIndex = (findInfo || {}).findByIndex || {},
+            name = ((findByIndex.objKeys || [])[0] || {}).name,
+            data = (((findByIndex.objKeys || [])[0] || {}).data || {})[0],
+            maskId = findByIndex.maskId;
+
+        self.logger.debug(["perform search: nextRunField={0}, lookupPeriod={1}, limitToMask={2}", name, data, maskId]);
+      },
+      postProcess: function (self, params) {
+        params = params || {};
+        self.logger.info([
+          "update next run date(objId={0}, objKey={1}): oldValue='{2}', newValue='{3}'",
+          (params.sord || {}).id,
+          self.nextRunField,
+          params.currentNextRunDate,
+          params.newNextRunDate
+        ]);
+      }
+    }
+  },
+
   initialize: function (config) {
     var me = this;
     me.$super("sol.Base", "initialize", [config]);
@@ -106,8 +129,8 @@ sol.define("sol.common_monitoring.as.collectors.NextRunCollector", {
     me._hasMoreResults = false;
 
     try {
-      me.logger.debug(["perform search: nextRunField={0}, lookupPeriod={1}, limitToMask={2}",
-        me._findInfo.findByIndex.objKeys[0].name, me._findInfo.findByIndex.objKeys[0].data[0], me._findInfo.findByIndex.maskId]);
+      me.utils.log.findInfo(me, me._findInfo);
+
       if (!me._findResult) {
         me._idx = 0;
         me._findResult = ixConnect.ix().findFirstSords(me._findInfo, me._batchSize, me._sordZ);
@@ -126,7 +149,7 @@ sol.define("sol.common_monitoring.as.collectors.NextRunCollector", {
       }
     }
 
-    me.logger.info(["return result batch: found {0} entries (hasMoreResults={1})", me._workingSet.length, me._hasMoreResults]);
+    me.logger.info(["return result batch: found {0} entries (hasMoreResults={1})", (me._workingSet || []).length, me._hasMoreResults]);
     me.logger.exit("getResults");
 
     return me._workingSet;
@@ -161,7 +184,8 @@ sol.define("sol.common_monitoring.as.collectors.NextRunCollector", {
       if (currentNextRunDate != newNextRunDate) {
         sol.common.SordUtils.setObjKeyValue(sord, me.nextRunField, newNextRunDate);
         ixConnect.ix().checkinSord(sord, me._sordZ, LockC.NO);
-        me.logger.info(["update next run date(objId={0}, objKey={1}): oldValue='{2}', newValue='{3}'", sord.id, me.nextRunField, currentNextRunDate, newNextRunDate]);
+
+        me.utils.log.postProcess(me, { sord: sord, currentNextRunDate: currentNextRunDate, newNextRunDate: newNextRunDate });
       }
     } else {
       me.logger.debug("no 'nextRuns' defined, skip post processing");

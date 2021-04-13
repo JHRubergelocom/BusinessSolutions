@@ -1,6 +1,7 @@
 
 describe("[libas] sol.unittest.as.services.SolCommonMonitoringExecutorsSimpleExecutor", function () {
-  var obSolCommonMonitoringExecutorsSimpleExecutorId, originalTimeout, content, sord, action, ctx, nameTemplate, value, results, user, config;
+  var obSolCommonMonitoringExecutorsSimpleExecutorId, originalTimeout, content, 
+      sord, action, ctx, nameTemplate, value, results, user, config, userConnection, source, key;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -163,6 +164,31 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringExecutorsSimpleExe
               classConfig: { _userConnectionCache: {} },
               method: "dispose",
               params: []
+            }
+          }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") != -1) {
+              fail(jsonResult.content);
+            }
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("disposeUserConnection", function (done) {
+        expect(function () {
+          userConnection = {};
+          test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
+            action: "sol.unittest.as.services.ExecuteLib2",
+            config: {
+              className: "sol.common_monitoring.as.executors.SimpleExecutor",
+              classConfig: {},
+              method: "disposeUserConnection",
+              params: [userConnection]
             }
           }).then(function success(jsonResult) {
             content = jsonResult.content;
@@ -350,6 +376,32 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringExecutorsSimpleExe
               classConfig: {},
               method: "getConnection",
               params: [user]
+            }
+          }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") != -1) {
+              fail(jsonResult.content);
+            }
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("getValueAtKey", function (done) {
+        expect(function () {
+          source = { key1: "key1" };
+          key = "key1";
+          test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
+            action: "sol.unittest.as.services.ExecuteLib2",
+            config: {
+              className: "sol.common_monitoring.as.executors.SimpleExecutor",
+              classConfig: {},
+              method: "getValueAtKey",
+              params: [source, key]
             }
           }).then(function success(jsonResult) {
             content = jsonResult.content;

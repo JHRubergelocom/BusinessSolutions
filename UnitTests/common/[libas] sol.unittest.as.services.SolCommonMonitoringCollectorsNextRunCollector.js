@@ -1,6 +1,7 @@
 
 describe("[libas] sol.unittest.as.services.SolCommonMonitoringCollectorsNextRunCollector", function () {
-  var obSolCommonMonitoringCollectorsNextRunCollectorId, originalTimeout, content, config, sord, results;
+  var obSolCommonMonitoringCollectorsNextRunCollectorId, originalTimeout, content, config, sord, results,
+      self, findInfo;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -52,6 +53,32 @@ describe("[libas] sol.unittest.as.services.SolCommonMonitoringCollectorsNextRunC
               classConfig: {},
               method: "dispose",
               params: []
+            }
+          }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") != -1) {
+              fail(jsonResult.content);
+            }
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("findInfo", function (done) {
+        expect(function () {
+          self = {};
+          findInfo = {};
+          test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
+            action: "sol.unittest.as.services.ExecuteLib1",
+            config: {
+              className: "sol.common_monitoring.as.collectors.NextRunCollector",
+              classConfig: {},
+              method: "findInfo",
+              params: [self, findInfo]
             }
           }).then(function success(jsonResult) {
             content = jsonResult.content;

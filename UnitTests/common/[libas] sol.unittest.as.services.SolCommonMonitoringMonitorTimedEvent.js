@@ -1,30 +1,13 @@
 
-describe("[libas] sol.unittest.as.services.solcommon_monitoringMonitorTimedEvent", function () {
-  var MonitorTimedEventSord, userName, userInfo, originalTimeout, content, params, sord, sords, sordProcessFunction, component, name, functions, secondRun, currentSord, config, value;
+describe("[libas] sol.unittest.as.services.SolCommonMonitoringMonitorTimedEvent", function () {
+  var originalTimeout, content, params, sord, sords, sordProcessFunction, component, name, functions, secondRun, currentSord, config, value;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
-      test.Utils.createTempSord("solcommon_monitoringMonitorTimedEvent").then(function success(obsolcommon_monitoringMonitorTimedEventId) {
-        test.Utils.getSord("ARCPATH:/Administration/Business Solutions/common_monitoring [unit tests]/Resources/MonitorTimedEvent").then(function success1(MonitorTimedEventSord1) {
-          MonitorTimedEventSord = MonitorTimedEventSord1;
-          userName = test.Utils.getCurrentUserName();
-          test.Utils.getUserInfo(userName).then(function success3(userInfo1) {
-            userInfo = userInfo1;
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
+      test.Utils.createTempSord("SolCommonMonitoringMonitorTimedEvent").then(function success(objSolCommonMonitoringMonitorTimedEventId) {
+        done();
       }, function error(err) {
         fail(err);
         console.error(err);
@@ -34,12 +17,12 @@ describe("[libas] sol.unittest.as.services.solcommon_monitoringMonitorTimedEvent
     }).not.toThrow();
   });
   describe("Test Lib Functions", function () {
-    describe("sol.common_monitoring.MonitorTimedEvent", function () {
-      xit("checkInjection", function (done) {
+    describe("sol.common_monitoring.as.MonitorTimedEvent", function () {
+      it("checkInjection", function (done) {
         expect(function () {
-          params = PVALUE;
+          params = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.as.services.ExecuteLib",
+            action: "sol.unittest.as.services.ExecuteLib1",
             config: {
               className: "sol.common_monitoring.as.MonitorTimedEvent",
               classConfig: {},
@@ -48,7 +31,7 @@ describe("[libas] sol.unittest.as.services.solcommon_monitoringMonitorTimedEvent
             }
           }).then(function success(jsonResult) {
             content = jsonResult.content;
-            if (content.indexOf("exception") != -1) {
+            if (content.indexOf("exception") == -1) {
               fail(jsonResult.content);
             }
             done();
@@ -60,11 +43,11 @@ describe("[libas] sol.unittest.as.services.solcommon_monitoringMonitorTimedEvent
           );
         }).not.toThrow();
       });
-      xit("checkParameters", function (done) {
+      it("checkParameters", function (done) {
         expect(function () {
-          params = PVALUE;
+          params = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.as.services.ExecuteLib",
+            action: "sol.unittest.as.services.ExecuteLib1",
             config: {
               className: "sol.common_monitoring.as.MonitorTimedEvent",
               classConfig: {},
@@ -73,7 +56,7 @@ describe("[libas] sol.unittest.as.services.solcommon_monitoringMonitorTimedEvent
             }
           }).then(function success(jsonResult) {
             content = jsonResult.content;
-            if (content.indexOf("exception") != -1) {
+            if (content.indexOf("exception") == -1) {
               fail(jsonResult.content);
             }
             done();
@@ -85,11 +68,11 @@ describe("[libas] sol.unittest.as.services.solcommon_monitoringMonitorTimedEvent
           );
         }).not.toThrow();
       });
-      xit("getAnalyzer", function (done) {
+      it("getAnalyzer", function (done) {
         expect(function () {
-          params = PVALUE;
+          params = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.as.services.ExecuteLib",
+            action: "sol.unittest.as.services.ExecuteLib1",
             config: {
               className: "sol.common_monitoring.as.MonitorTimedEvent",
               classConfig: {},
@@ -98,7 +81,7 @@ describe("[libas] sol.unittest.as.services.solcommon_monitoringMonitorTimedEvent
             }
           }).then(function success(jsonResult) {
             content = jsonResult.content;
-            if (content.indexOf("exception") != -1) {
+            if (content.indexOf("exception") == -1) {
               fail(jsonResult.content);
             }
             done();
@@ -110,11 +93,11 @@ describe("[libas] sol.unittest.as.services.solcommon_monitoringMonitorTimedEvent
           );
         }).not.toThrow();
       });
-      xit("getExecutor", function (done) {
+      it("getExecutor", function (done) {
         expect(function () {
-          params = PVALUE;
+          params = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.as.services.ExecuteLib",
+            action: "sol.unittest.as.services.ExecuteLib1",
             config: {
               className: "sol.common_monitoring.as.MonitorTimedEvent",
               classConfig: {},
@@ -123,7 +106,7 @@ describe("[libas] sol.unittest.as.services.solcommon_monitoringMonitorTimedEvent
             }
           }).then(function success(jsonResult) {
             content = jsonResult.content;
-            if (content.indexOf("exception") != -1) {
+            if (content.indexOf("exception") == -1) {
               fail(jsonResult.content);
             }
             done();
@@ -135,11 +118,11 @@ describe("[libas] sol.unittest.as.services.solcommon_monitoringMonitorTimedEvent
           );
         }).not.toThrow();
       });
-      xit("getInjections", function (done) {
+      it("getInjections", function (done) {
         expect(function () {
-          params = PVALUE;
+          params = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.as.services.ExecuteLib",
+            action: "sol.unittest.as.services.ExecuteLib1",
             config: {
               className: "sol.common_monitoring.as.MonitorTimedEvent",
               classConfig: {},
@@ -148,7 +131,7 @@ describe("[libas] sol.unittest.as.services.solcommon_monitoringMonitorTimedEvent
             }
           }).then(function success(jsonResult) {
             content = jsonResult.content;
-            if (content.indexOf("exception") != -1) {
+            if (content.indexOf("exception") == -1) {
               fail(jsonResult.content);
             }
             done();
@@ -160,11 +143,11 @@ describe("[libas] sol.unittest.as.services.solcommon_monitoringMonitorTimedEvent
           );
         }).not.toThrow();
       });
-      xit("initialize", function (done) {
+      it("initialize", function (done) {
         expect(function () {
-          params = PVALUE;
+          params = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.as.services.ExecuteLib",
+            action: "sol.unittest.as.services.ExecuteLib1",
             config: {
               className: "sol.common_monitoring.as.MonitorTimedEvent",
               classConfig: {},
@@ -173,7 +156,7 @@ describe("[libas] sol.unittest.as.services.solcommon_monitoringMonitorTimedEvent
             }
           }).then(function success(jsonResult) {
             content = jsonResult.content;
-            if (content.indexOf("exception") != -1) {
+            if (content.indexOf("exception") == -1) {
               fail(jsonResult.content);
             }
             done();
@@ -185,12 +168,12 @@ describe("[libas] sol.unittest.as.services.solcommon_monitoringMonitorTimedEvent
           );
         }).not.toThrow();
       });
-      xit("prepareExecution", function (done) {
+      it("prepareExecution", function (done) {
         expect(function () {
-          sord = PVALUE;
-          params = PVALUE;
+          sord = {};
+          params = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.as.services.ExecuteLib",
+            action: "sol.unittest.as.services.ExecuteLib1",
             config: {
               className: "sol.common_monitoring.as.MonitorTimedEvent",
               classConfig: {},
@@ -199,7 +182,7 @@ describe("[libas] sol.unittest.as.services.solcommon_monitoringMonitorTimedEvent
             }
           }).then(function success(jsonResult) {
             content = jsonResult.content;
-            if (content.indexOf("exception") != -1) {
+            if (content.indexOf("exception") == -1) {
               fail(jsonResult.content);
             }
             done();
@@ -211,12 +194,12 @@ describe("[libas] sol.unittest.as.services.solcommon_monitoringMonitorTimedEvent
           );
         }).not.toThrow();
       });
-      xit("processSord", function (done) {
+      it("processSord", function (done) {
         expect(function () {
-          sord = PVALUE;
-          params = PVALUE;
+          sord = {};
+          params = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.as.services.ExecuteLib",
+            action: "sol.unittest.as.services.ExecuteLib1",
             config: {
               className: "sol.common_monitoring.as.MonitorTimedEvent",
               classConfig: {},
@@ -225,7 +208,7 @@ describe("[libas] sol.unittest.as.services.solcommon_monitoringMonitorTimedEvent
             }
           }).then(function success(jsonResult) {
             content = jsonResult.content;
-            if (content.indexOf("exception") != -1) {
+            if (content.indexOf("exception") == -1) {
               fail(jsonResult.content);
             }
             done();
@@ -237,13 +220,13 @@ describe("[libas] sol.unittest.as.services.solcommon_monitoringMonitorTimedEvent
           );
         }).not.toThrow();
       });
-      xit("processSords", function (done) {
+      it("processSords", function (done) {
         expect(function () {
-          sords = PVALUE;
-          params = PVALUE;
-          sordProcessFunction = PVALUE;
+          sords = [];
+          params = {};
+          sordProcessFunction = "sordProcessFunction1";
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.as.services.ExecuteLib",
+            action: "sol.unittest.as.services.ExecuteLib1",
             config: {
               className: "sol.common_monitoring.as.MonitorTimedEvent",
               classConfig: {},
@@ -252,7 +235,7 @@ describe("[libas] sol.unittest.as.services.solcommon_monitoringMonitorTimedEvent
             }
           }).then(function success(jsonResult) {
             content = jsonResult.content;
-            if (content.indexOf("exception") != -1) {
+            if (content.indexOf("exception") == -1) {
               fail(jsonResult.content);
             }
             done();
@@ -264,10 +247,10 @@ describe("[libas] sol.unittest.as.services.solcommon_monitoringMonitorTimedEvent
           );
         }).not.toThrow();
       });
-      xit("run", function (done) {
+      it("run", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.as.services.ExecuteLib",
+            action: "sol.unittest.as.services.ExecuteLib1",
             config: {
               className: "sol.common_monitoring.as.MonitorTimedEvent",
               classConfig: {},
@@ -276,7 +259,7 @@ describe("[libas] sol.unittest.as.services.solcommon_monitoringMonitorTimedEvent
             }
           }).then(function success(jsonResult) {
             content = jsonResult.content;
-            if (content.indexOf("exception") != -1) {
+            if (content.indexOf("exception") == -1) {
               fail(jsonResult.content);
             }
             done();
@@ -288,15 +271,15 @@ describe("[libas] sol.unittest.as.services.solcommon_monitoringMonitorTimedEvent
           );
         }).not.toThrow();
       });
-      xit("setupComponent", function (done) {
+      it("setupComponent", function (done) {
         expect(function () {
-          component = PVALUE;
-          name = PVALUE;
-          functions = PVALUE;
-          secondRun = PVALUE;
-          currentSord = PVALUE;
+          component = "component1";
+          name = "name1";
+          functions = [];
+          secondRun = false;
+          currentSord = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.as.services.ExecuteLib",
+            action: "sol.unittest.as.services.ExecuteLib1",
             config: {
               className: "sol.common_monitoring.as.MonitorTimedEvent",
               classConfig: {},
@@ -305,7 +288,7 @@ describe("[libas] sol.unittest.as.services.solcommon_monitoringMonitorTimedEvent
             }
           }).then(function success(jsonResult) {
             content = jsonResult.content;
-            if (content.indexOf("exception") != -1) {
+            if (content.indexOf("exception") == -1) {
               fail(jsonResult.content);
             }
             done();
@@ -317,11 +300,11 @@ describe("[libas] sol.unittest.as.services.solcommon_monitoringMonitorTimedEvent
           );
         }).not.toThrow();
       });
-      xit("setupComponents", function (done) {
+      it("setupComponents", function (done) {
         expect(function () {
-          config = PVALUE;
+          config = {};
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.as.services.ExecuteLib",
+            action: "sol.unittest.as.services.ExecuteLib1",
             config: {
               className: "sol.common_monitoring.as.MonitorTimedEvent",
               classConfig: {},
@@ -330,7 +313,7 @@ describe("[libas] sol.unittest.as.services.solcommon_monitoringMonitorTimedEvent
             }
           }).then(function success(jsonResult) {
             content = jsonResult.content;
-            if (content.indexOf("exception") != -1) {
+            if (content.indexOf("exception") == -1) {
               fail(jsonResult.content);
             }
             done();
@@ -342,11 +325,11 @@ describe("[libas] sol.unittest.as.services.solcommon_monitoringMonitorTimedEvent
           );
         }).not.toThrow();
       });
-      xit("wrapInFunction", function (done) {
+      it("wrapInFunction", function (done) {
         expect(function () {
-          value = PVALUE;
+          value = "value1";
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
-            action: "sol.unittest.as.services.ExecuteLib",
+            action: "sol.unittest.as.services.ExecuteLib1",
             config: {
               className: "sol.common_monitoring.as.MonitorTimedEvent",
               classConfig: {},
@@ -355,7 +338,7 @@ describe("[libas] sol.unittest.as.services.solcommon_monitoringMonitorTimedEvent
             }
           }).then(function success(jsonResult) {
             content = jsonResult.content;
-            if (content.indexOf("exception") != -1) {
+            if (content.indexOf("exception") == -1) {
               fail(jsonResult.content);
             }
             done();

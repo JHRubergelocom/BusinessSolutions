@@ -120,13 +120,32 @@ sol.define("sol.common_monitoring.as.executors.SimpleExecutor", {
    * Performes cleanup. Closes all opened user connections.
    */
   dispose: function () {
-    var me = this,
-        connection;
-    for (connection in me._userConnectionCache) {
-      if (me._userConnectionCache.hasOwnProperty(connection)) {
-        connection.close();
-      }
-    }
+    var me = this;
+
+    Object.keys(me._userConnectionCache || {})
+      .map(me.getValueAtKey.bind(me, me._userConnectionCache))
+      .map(me.disposeUserConnection);
+  },
+
+  /**
+   * @private
+   * get value at key
+   * @param {Object} source
+   * @param {String} key
+   * @returns {Object} the object at provided key
+   */
+  getValueAtKey: function (source, key) {
+    return source[key];
+  },
+
+
+  /**
+   * @private
+   * Closes an user cconnection
+   * @param {de.elo.ix.client.IXConnection} userConnection
+   */
+  disposeUserConnection: function (userConnection) {
+    userConnection.close();
   },
 
   /**
