@@ -240,9 +240,8 @@ sol.define("sol.unittest.as.services.Test", {
    */
   process: function () {
     var me = this,
-        sourceFile, targetFile, watermarkFile, i, page,
-        pdfDocument, imageStamp, pages, pdfOutline, bookmarkFile, childBookmarkFile, 
-        pdfChildOutline, textWatermarkFile, textStamp;
+        sourceFile, targetFile, contentFile, contentDocument, page, link, textFragment, textBuilder;
+
     
     /*    
     mapiMessage = sol.create("sol.common.as.MapiMessage", {});
@@ -286,6 +285,8 @@ sol.define("sol.unittest.as.services.Test", {
       Packages.de.elo.mover.utils.ELOAsTiffUtils.saveTiffAsPdf(new File("/var/elo/servers/ELO-base/temp/Tiff-Image-File-Download.tiff"), new File("/var/elo/servers/ELO-base/temp/Tiff-Image-File-Download.pdf"));
     }
     */
+
+    /*
     if (me.windows) {
       sourceFile = new File("C:\\Temp\\PdfExport\\Test.pdf");
       targetFile = new File("C:\\Temp\\PdfExport\\Watermark.pdf");
@@ -322,7 +323,6 @@ sol.define("sol.unittest.as.services.Test", {
     }
     pdfDocument.save(targetFile.getPath());
 
-    // TODO
     if (me.windows) {
       // Insert Text Watermark with aspose
       sol.common.FileUtils.copyFile(sourceFile, textWatermarkFile);
@@ -359,7 +359,6 @@ sol.define("sol.unittest.as.services.Test", {
       // save output document
       pdfDocument.save(textWatermarkFile.getPath());    
     }
-    // TODO
 
     // Add a Bookmark with aspose
 
@@ -413,6 +412,81 @@ sol.define("sol.unittest.as.services.Test", {
 
     // Save output
     pdfDocument.save(childBookmarkFile.getPath());
+    */
+
+    // TODO Add Hypelink to File
+    if (me.windows) {
+      sourceFile = new File("C:\\Temp\\PdfExport\\Test.pdf");
+      targetFile = new File("C:\\Temp\\PdfExport\\Hyperlink.pdf");
+      contentFile = new File("C:\\Temp\\PdfExport\\Content.pdf");
+
+    } else {
+      sourceFile = new File("/var/elo/servers/ELO-base/temp/Test.pdf");
+      targetFile = new File("/var/elo/servers/ELO-base/temp/Hyperlink.pdf");
+      contentFile = new File("/var/elo/servers/ELO-base/temp/Content.pdf");
+
+    } 
+    sol.common.FileUtils.copyFile(sourceFile, targetFile);
+
+
+
+    // Create document
+    contentDocument = new Packages.com.aspose.pdf.Document();
+
+    // Add page1
+    page = contentDocument.getPages().add();
+
+    // Add text to new page
+    page.getParagraphs().add(new Packages.com.aspose.pdf.TextFragment("Inhaltsverzeichnis"));
+    page.getParagraphs().add(new Packages.com.aspose.pdf.TextFragment("Seite 2"));
+
+
+    // Add page2
+    page = contentDocument.getPages().add();
+
+    // Add text to new page
+    page.getParagraphs().add(new Packages.com.aspose.pdf.TextFragment("Seite 2"));
+
+
+    // Get page1
+    page = contentDocument.getPages().get_Item(1);
+
+    // Create Link annotation object  and specify rectangular region
+    // link = new Packages.com.aspose.pdf.LinkAnnotation(page, new Packages.com.aspose.pdf.Rectangle(100, 760, 110, 770));
+    link = new Packages.com.aspose.pdf.LinkAnnotation(page, new Packages.com.aspose.pdf.Rectangle(100, 560, 200, 570));
+
+    // Set color for Annotation object
+    // link.setColor(com.aspose.pdf.Color.fromRgb(java.awt.Color.green));
+    // border = new Packages.com.aspose.pdf.Border(link);
+    // border.setWidth(0);
+    // link.setBorder(border);
+
+    // Specify the link to page2
+    link.setAction(new Packages.com.aspose.pdf.GoToRemoteAction(contentFile.getPath(), 2));
+
+
+    // Add link annotation to annotations collection of first page of PDF file
+    page.getAnnotations().add(link);
+
+    // create text fragment
+    textFragment = new Packages.com.aspose.pdf.TextFragment("main text");
+    textFragment.setPosition(new Packages.com.aspose.pdf.Position(100, 560));
+
+    // set text properties
+    textFragment.getTextState().setFont(Packages.com.aspose.pdf.FontRepository.findFont("Verdana"));
+    textFragment.getTextState().setFontSize(14);
+    textFragment.getTextState().setForegroundColor(Packages.com.aspose.pdf.Color.getBlue());
+    textFragment.getTextState().setBackgroundColor(Packages.com.aspose.pdf.Color.getGray());
+
+    // create TextBuilder object
+    textBuilder = new Packages.com.aspose.pdf.TextBuilder(page);
+    // append the text fragment to the PDF page
+    textBuilder.appendText(textFragment);
+
+    // Save updated document
+    contentDocument.save(contentFile);
+
+    // TODO
 
     return true;
   }

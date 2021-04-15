@@ -831,7 +831,7 @@ sol.define("sol.common_document.as.Utils", {
     data.contents = me.adjustContent(data.contents);
     fopRenderer = sol.create("sol.common.as.renderer.Fop", { templateId: templateId, toStream: true });
     result = fopRenderer.render("Content", data);
-    dstFile = new java.io.File(dstDirPath + java.io.File.separator + "Content.pdf");
+    dstFile = new java.io.File(dstDirPath + java.io.File.separator + "All.pdf");
     fop = new FileOutputStream(dstFile);
     if (!dstFile.exists()) {
       dstFile.createNewFile();
@@ -849,6 +849,46 @@ sol.define("sol.common_document.as.Utils", {
     
     return pdfPages;
   },
+
+  // TODO Insert Hyperlinks to contents
+  /**
+   * Set watermark text in a PDF.
+   * @private
+   * @param {java.io.File} dstPdfFile PDF Content File
+   * @param {String} contents contents text and pages
+   */
+
+  setHyperlinks: function (dstPdfFile, contents) {
+    var me = this,
+        pdfDocument, contentPage, page;
+
+
+    me.logger.enter("setHyperlinks");
+    me.logger.info(["Start setHyperlinks with dstPdfFile: '{0}', contents: '{1}'", dstPdfFile, contents]);
+
+    try {
+      pdfDocument = new Packages.com.aspose.pdf.Document(dstPdfFile.getPath());
+      contentPage = 1;
+      page = pdfDocument.getPages().get_Item(contentPage);
+
+      contents.forEach(function (content) {
+
+        link = new Packages.com.aspose.pdf.LinkAnnotation(page, new Packages.com.aspose.pdf.Rectangle(100, 760, 110, 770));
+        link.setAction(new Packages.com.aspose.pdf.GoToRemoteAction(contentFile.getPath(), 2));
+        page.getAnnotations().add(link);
+      });
+      pdfDocument.save(dstPdfFile.getPath());
+  
+    } catch (ex) {
+      me.info.error(["error setHyperlinks with dstPdfFile:'{0}', contents:'{1}'", dstPdfFile, contents], ex);
+    }
+
+    me.logger.info(["Finish setHyperlinks"]);
+    me.logger.exit("setHyperlinks");    
+
+  },
+
+  // TODO Insert Hyperlinks to contents
 
   /**
    * Get inputstream of content pdf.
@@ -884,7 +924,17 @@ sol.define("sol.common_document.as.Utils", {
     data.contents = me.adjustContent(data.contents);
     fopRenderer = sol.create("sol.common.as.renderer.Fop", { templateId: templateId, toStream: true });
     result = fopRenderer.render("Content", data);
+
+    // TODO Insert Hyperlinks to contents
     pdfInputStream = me.convertOutputStreamToInputStream(result.outputStream);
+    /*
+    dstFile = me.writePdfOutputStreamToFile(result.outputStream, dstDirPath, "All.pdf");
+    me.setHyperlinks(dstFile, data.contents);
+    pdfOutputStream = me.writeFileToPdfOutputStream(dstFile);
+    sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
+    pdfInputStream = me.convertOutputStreamToInputStream(pdfOutputStream);
+    */
+    // TODO Insert Hyperlinks to contents
 
     me.logger.info(["Finish createContent with pdfInputStream: '{0}'", pdfInputStream]);
     me.logger.exit("createContent");
