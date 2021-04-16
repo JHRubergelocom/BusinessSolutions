@@ -775,6 +775,11 @@ sol.define("sol.common_document.as.Utils", {
       if (content.name.indexOf(".cover") > -1) {
         newName = content.name.split(".cover").join("");
         newName = newName + "  ------  (" + content.type + ", " + content.mask + ")";
+        // TODO max. 80 Zeichen
+        if (newName.length > 80) {
+          newName = newName.substr(0, 80);
+        }
+        // TODO max. 80 Zeichen
         newContents.push({ name: newName, pageno: content.pageno });
       } else {
         oldContents.push({ name: content.name, hint: content.hint });
@@ -852,35 +857,45 @@ sol.define("sol.common_document.as.Utils", {
 
   // TODO Insert Hyperlinks to contents
   /**
-   * Set watermark text in a PDF.
+   * Set hyperlinks in content File.
    * @private
    * @param {java.io.File} dstPdfFile PDF Content File
-   * @param {String} contents contents text and pages
+   * @param {Object[]} contents contents text and pages
    */
 
   setHyperlinks: function (dstPdfFile, contents) {
     var me = this,
-        pdfDocument, contentPage, page;
-
+        pdfDocument, i, pdfPage, page, pdfPages, x, y, content, link;
 
     me.logger.enter("setHyperlinks");
     me.logger.info(["Start setHyperlinks with dstPdfFile: '{0}', contents: '{1}'", dstPdfFile, contents]);
 
     try {
+      pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstPdfFile);
       pdfDocument = new Packages.com.aspose.pdf.Document(dstPdfFile.getPath());
-      contentPage = 1;
-      page = pdfDocument.getPages().get_Item(contentPage);
+      i = 0;
+      pdfPage = 1;
+      y = 628;
+      x = 57;
+      while (pdfPage <= pdfPages && i < contents.length) {
+        page = pdfDocument.getPages().get_Item(pdfPage);        
+        if (contents.length > 0) {          
+          content = contents[i];
+          link = new Packages.com.aspose.pdf.LinkAnnotation(page, new Packages.com.aspose.pdf.Rectangle(x, y, x + 490, y + 11));
+          link.setAction(new Packages.com.aspose.pdf.GoToAction(content.pageno));
+          page.getAnnotations().add(link);
 
-      contents.forEach(function (content) {
-
-        link = new Packages.com.aspose.pdf.LinkAnnotation(page, new Packages.com.aspose.pdf.Rectangle(100, 760, 110, 770));
-        link.setAction(new Packages.com.aspose.pdf.GoToRemoteAction(contentFile.getPath(), 2));
-        page.getAnnotations().add(link);
-      });
+          i++;
+          y -= 17.1;
+          if ((i % 32) == 0) {
+            y = 740;
+            pdfPage++;
+          }
+        }
+      }
       pdfDocument.save(dstPdfFile.getPath());
-  
     } catch (ex) {
-      me.info.error(["error setHyperlinks with dstPdfFile:'{0}', contents:'{1}'", dstPdfFile, contents], ex);
+      me.info.error(["error setHyperlinks with dstPdfFile:'{0}', data:'{1}'", dstPdfFile, contents], ex);
     }
 
     me.logger.info(["Finish setHyperlinks"]);
@@ -901,7 +916,7 @@ sol.define("sol.common_document.as.Utils", {
    */
   createContent: function (folderName, dstDirPath, config, pdfContents) {
     var me = this,
-        templateId, fopRenderer, result, data, pdfInputStream, sumPages;
+        templateId, fopRenderer, result, data, pdfInputStream, sumPages, dstFile, pdfOutputStream;
 
     me.logger.enter("createContent");
     me.logger.info(["Start createContent with folderName: '{0}', dstDirPath: '{1}', config: '{2}'", folderName, dstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
@@ -926,14 +941,12 @@ sol.define("sol.common_document.as.Utils", {
     result = fopRenderer.render("Content", data);
 
     // TODO Insert Hyperlinks to contents
-    pdfInputStream = me.convertOutputStreamToInputStream(result.outputStream);
-    /*
+    // pdfInputStream = me.convertOutputStreamToInputStream(result.outputStream);
     dstFile = me.writePdfOutputStreamToFile(result.outputStream, dstDirPath, "All.pdf");
     me.setHyperlinks(dstFile, data.contents);
     pdfOutputStream = me.writeFileToPdfOutputStream(dstFile);
     sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
     pdfInputStream = me.convertOutputStreamToInputStream(pdfOutputStream);
-    */
     // TODO Insert Hyperlinks to contents
 
     me.logger.info(["Finish createContent with pdfInputStream: '{0}'", pdfInputStream]);

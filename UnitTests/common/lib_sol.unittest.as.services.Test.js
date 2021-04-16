@@ -240,7 +240,8 @@ sol.define("sol.unittest.as.services.Test", {
    */
   process: function () {
     var me = this,
-        sourceFile, targetFile, contentFile, contentDocument, page, link, textFragment, textBuilder;
+        sourceFile, targetFile, contentFile, contentDocument, 
+        page, link, textFragment, textBuilder, border;
 
     
     /*    
@@ -457,12 +458,12 @@ sol.define("sol.unittest.as.services.Test", {
 
     // Set color for Annotation object
     // link.setColor(com.aspose.pdf.Color.fromRgb(java.awt.Color.green));
-    // border = new Packages.com.aspose.pdf.Border(link);
-    // border.setWidth(0);
-    // link.setBorder(border);
+    border = new Packages.com.aspose.pdf.Border(link);
+    border.setWidth(0);
+    link.setBorder(border);
 
     // Specify the link to page2
-    link.setAction(new Packages.com.aspose.pdf.GoToRemoteAction(contentFile.getPath(), 2));
+    link.setAction(new Packages.com.aspose.pdf.GoToAction(2));
 
 
     // Add link annotation to annotations collection of first page of PDF file
@@ -473,10 +474,10 @@ sol.define("sol.unittest.as.services.Test", {
     textFragment.setPosition(new Packages.com.aspose.pdf.Position(100, 560));
 
     // set text properties
-    textFragment.getTextState().setFont(Packages.com.aspose.pdf.FontRepository.findFont("Verdana"));
-    textFragment.getTextState().setFontSize(14);
-    textFragment.getTextState().setForegroundColor(Packages.com.aspose.pdf.Color.getBlue());
-    textFragment.getTextState().setBackgroundColor(Packages.com.aspose.pdf.Color.getGray());
+    // textFragment.getTextState().setFont(Packages.com.aspose.pdf.FontRepository.findFont("Verdana"));
+    // textFragment.getTextState().setFontSize(14);
+    // textFragment.getTextState().setForegroundColor(Packages.com.aspose.pdf.Color.getBlue());
+    // textFragment.getTextState().setBackgroundColor(Packages.com.aspose.pdf.Color.getGray());
 
     // create TextBuilder object
     textBuilder = new Packages.com.aspose.pdf.TextBuilder(page);
