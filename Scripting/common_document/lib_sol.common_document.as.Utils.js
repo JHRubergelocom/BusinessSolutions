@@ -178,9 +178,16 @@ sol.define("sol.common_document.as.Utils", {
     me.logger.enter("writeFileToPdfOutputStream");
     me.logger.info(["Start writeFileToPdfOutputStream with dstFile: '{0}'", dstFile]);
 
-    bytes = Packages.org.apache.commons.io.FileUtils.readFileToByteArray(dstFile);
-    pdfOutputStream = new ByteArrayOutputStream(bytes.length);
-    pdfOutputStream.write(bytes, 0, bytes.length);
+    // TODO
+    try {
+      bytes = Packages.org.apache.commons.io.FileUtils.readFileToByteArray(dstFile);
+      pdfOutputStream = new ByteArrayOutputStream(bytes.length);
+      pdfOutputStream.write(bytes, 0, bytes.length);
+    } catch (ex) {
+      pdfOutputStream = null;
+      me.logger.error(["error writeFileToPdfOutputStream with dstFile: '{0}'", dstFile], ex);
+    }
+    // TODO
 
     me.logger.info(["Finish writeFileToPdfOutputStream with pdfOutputStream: '{0}'", pdfOutputStream]);
     me.logger.exit("writeFileToPdfOutputStream");
@@ -204,14 +211,23 @@ sol.define("sol.common_document.as.Utils", {
     me.logger.info(["Start writePdfOutputStreamToFile with dstDirPath: '{0}', pdfName: '{1}'", dstDirPath, pdfName]);
 
     dstFile = new java.io.File(dstDirPath + java.io.File.separator + pdfName + ".pdf");
-    fop = new FileOutputStream(dstFile);
-    if (!dstFile.exists()) {
-      dstFile.createNewFile();
+
+    // TODO
+    try {
+      fop = new FileOutputStream(dstFile);
+      if (!dstFile.exists()) {
+        dstFile.createNewFile();
+      }
+
+      contentInBytes = pdfOutputStream.toByteArray();
+      fop.write(contentInBytes);
+      fop.flush();
+      fop.close();
+    } catch (ex) {
+      me.logger.error(["error writePdfOutputStreamToFile with dstDirPath: '{0}', pdfName: '{1}'", dstDirPath, pdfName], ex);
     }
-    contentInBytes = pdfOutputStream.toByteArray();
-    fop.write(contentInBytes);
-    fop.flush();
-    fop.close();
+
+    // TODO
 
     me.logger.info(["Finish writePdfOutputStreamToFile with dstFile: '{0}'", dstFile]);
     me.logger.exit("writePdfOutputStreamToFile");
@@ -372,7 +388,14 @@ sol.define("sol.common_document.as.Utils", {
       }
       refPath = me.getRefPath(sord, isCover);
       dstFile = me.writePdfOutputStreamToFile(result.outputStream, dstDirPath, pdfName);
-      pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstFile);
+      // TODO
+      try {
+        pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstFile);
+      } catch (ex) {
+        pdfPages = 0;
+        me.logger.error(["error createPdfFromSord with sord: '{0}', templateId: '{1}', dstDirPath: '{2}', ext: '{3}', pdfName: '{4}', config: '{5}'", sord, templateId, dstDirPath, ext, pdfName, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })], ex);
+      }
+      // TODO
       me.pushContent(sord, pdfContents, pdfInputStream, refPath, pdfName, pdfPages, "");
 
     } else {
@@ -451,7 +474,15 @@ sol.define("sol.common_document.as.Utils", {
         contentName = sord.name;
       } 
       dstFile = me.writePdfOutputStreamToFile(result.outputStream, dstDirPath, pdfName);
-      pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstFile);
+
+      // TODO
+      try {
+        pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstFile);
+      } catch (ex) {
+        pdfPages = 0;
+        me.logger.error(["error createErrorConversionPdf with sord: '{0}', ext: '{1}', dstDirPath: '{2}', config: '{3}'", sord, ext, dstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })], ex);
+      }
+      // TODO
 
       hint = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.conversionFailed' '" + me.language + "'}}" }).apply();
       me.pushContent(sord, pdfContents, pdfInputStream, refPath, contentName, pdfPages, hint);
@@ -571,7 +602,7 @@ sol.define("sol.common_document.as.Utils", {
       sol.common.FileUtils.delete(sourceFile, { quietly: true });
       
     } catch (ex) {
-      me.info.error(["error convertTiffToPdf with sourceFile:'{0}', targetFile:'{1}'", sourceFile, targetFile], ex);
+      me.logger.error(["error convertTiffToPdf with sourceFile:'{0}', targetFile:'{1}'", sourceFile, targetFile], ex);
     }
 
     me.logger.info(["Finish convertTiffToPdf with inputStream: '{0}'", pdfInputStream]);
@@ -604,7 +635,7 @@ sol.define("sol.common_document.as.Utils", {
       sol.common.FileUtils.delete(sourceFile, { quietly: true });
 
     } catch (ex) {
-      me.info.error(["error convertTiffFileToPdf with sourceFile:'{0}', targetFile:'{1}'", sourceFile, targetFile], ex);
+      me.logger.error(["error convertTiffFileToPdf with sourceFile:'{0}', targetFile:'{1}'", sourceFile, targetFile], ex);
     }
 
 
@@ -835,17 +866,28 @@ sol.define("sol.common_document.as.Utils", {
     fopRenderer = sol.create("sol.common.as.renderer.Fop", { templateId: templateId, toStream: true });
     result = fopRenderer.render("Content", data);
     dstFile = new java.io.File(dstDirPath + java.io.File.separator + "All.pdf");
-    fop = new FileOutputStream(dstFile);
-    if (!dstFile.exists()) {
-      dstFile.createNewFile();
-    }
-    contentInBytes = result.outputStream.toByteArray();
-    fop.write(contentInBytes);
-    fop.flush();
-    fop.close();
 
-    pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstFile);
-    sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
+    // TODO
+    try {
+
+      fop = new FileOutputStream(dstFile);
+      if (!dstFile.exists()) {
+        dstFile.createNewFile();
+      }
+      contentInBytes = result.outputStream.toByteArray();
+      fop.write(contentInBytes);
+      fop.flush();
+      fop.close();
+
+
+      pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstFile);
+      sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
+    } catch (ex) {
+      pdfPages = 0;
+      me.logger.error(["error getOffsetSumPages with folderName: '{0}', dstDirPath: '{1}', config: '{2}'", folderName, dstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })], ex);
+    }
+    // TODO
+
 
     me.logger.info(["Finish getOffsetSumPages with pdfPages: '{0}'", pdfPages]);
     me.logger.exit("getOffsetSumPages");
@@ -909,7 +951,7 @@ sol.define("sol.common_document.as.Utils", {
       }
       pdfDocument.save(dstPdfFile.getPath());
     } catch (ex) {
-      me.info.error(["error setHyperlinks with dstPdfFile:'{0}', data:'{1}'", dstPdfFile, contents], ex);
+      me.logger.error(["error setHyperlinks with dstPdfFile:'{0}', data:'{1}'", dstPdfFile, contents], ex);
     }
 
     me.logger.info(["Finish setHyperlinks"]);
@@ -956,7 +998,14 @@ sol.define("sol.common_document.as.Utils", {
     me.setHyperlinks(dstFile, data.contents);
     pdfOutputStream = me.writeFileToPdfOutputStream(dstFile);
     sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
-    pdfInputStream = me.convertOutputStreamToInputStream(pdfOutputStream);
+
+    // TODO
+    if (pdfOutputStream != null) {
+      pdfInputStream = me.convertOutputStreamToInputStream(pdfOutputStream);
+    } else {
+      pdfInputStream = null;
+    }
+    // TODO
 
     me.logger.info(["Finish createContent with pdfInputStream: '{0}'", pdfInputStream]);
     me.logger.exit("createContent");
@@ -1051,7 +1100,7 @@ sol.define("sol.common_document.as.Utils", {
 
       sol.common.FileUtils.delete(watermarkImageFile, { quietly: true });
     } catch (ex) {
-      me.info.error(["error setWatermarkImage with dstPdfFile:'{0}', watermarkImageFile:'{1}'", dstPdfFile, watermarkImageFile], ex);
+      me.logger.error(["error setWatermarkImage with dstPdfFile:'{0}', watermarkImageFile:'{1}'", dstPdfFile, watermarkImageFile], ex);
     }
 
     me.logger.info(["Finish setWatermarkImage"]);
@@ -1094,7 +1143,7 @@ sol.define("sol.common_document.as.Utils", {
       }
       pdfDocument.save(dstPdfFile.getPath());    
     } catch (ex) {
-      me.info.error(["error setWatermarkText with dstPdfFile:'{0}', textWatermark:'{1}'", dstPdfFile, textWatermark], ex);
+      me.logger.error(["error setWatermarkText with dstPdfFile:'{0}', textWatermark:'{1}'", dstPdfFile, textWatermark], ex);
     }
 
     me.logger.info(["Finish setWatermarkText"]);
@@ -1360,7 +1409,10 @@ sol.define("sol.common_document.as.Utils", {
     });
 
     mergedOutputStream = new ByteArrayOutputStream();
+    // TODO
+
     sol.common.as.PdfUtils.mergePdfStreams(pdfInputStreams, mergedOutputStream);
+    // TODO
     inputStream = me.convertOutputStreamToInputStream(mergedOutputStream);   
 
     sol.common.FileUtils.delete(msgFilePath, { quietly: true }); 
@@ -1519,44 +1571,56 @@ sol.define("sol.common_document.as.Utils", {
 
       pdfInputStreams = [];
       pdfInputStream = me.createContent(folderName, dstDirPath, config, pdfContents);
-      pdfInputStreams.push(pdfInputStream);
-
+      // TODO
+      if (pdfInputStream) {
+        pdfInputStreams.push(pdfInputStream);
+      }
+      // TODO
       pdfContents.forEach(function (pdfContent) {
-        pdfInputStreams.push(pdfContent.pdfInputStream);
+        if (pdfContent.pdfInputStream) {
+          pdfInputStreams.push(pdfContent.pdfInputStream);
+        }
       });
 
+      // TODO
       sol.common.as.PdfUtils.mergePdfStreams(pdfInputStreams, mergedOutputStream);
+      // TODO
       parentId = me.getExportFolder(config);
 
-      if (config.pdfA === true) {
-        dstFile = me.writePdfOutputStreamToFile(mergedOutputStream, dstDirPath, "All.pdf");
-        me.convertPDFtoPDFA(dstFile);
-        mergedOutputStream = me.writeFileToPdfOutputStream(dstFile);
-        sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
-      }
-
-      if (config.pagination === true) {
-        dstFile = me.writePdfOutputStreamToFile(mergedOutputStream, dstDirPath, "All.pdf");
-        me.setPagination(dstFile);
-        mergedOutputStream = me.writeFileToPdfOutputStream(dstFile);
-        sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
-      }
-
-      if (config.watermark.image.show === true) {
-        dstFile = me.writePdfOutputStreamToFile(mergedOutputStream, dstDirPath, "All.pdf");
-        me.setWatermarkImage(dstFile, dstDirPath, config.watermark.image.path);
-        mergedOutputStream = me.writeFileToPdfOutputStream(dstFile);
-        sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
-      }
-
-      os = String(java.lang.System.getProperty("os.name").toLowerCase());
-      if (sol.common.StringUtils.contains(os, "win")) {
-        if (config.watermark.text.show === true) {
+      try {
+        if (config.pdfA === true) {
           dstFile = me.writePdfOutputStreamToFile(mergedOutputStream, dstDirPath, "All.pdf");
-          me.setWatermarkText(dstFile, config.watermark.text.content);
+          me.convertPDFtoPDFA(dstFile);
           mergedOutputStream = me.writeFileToPdfOutputStream(dstFile);
           sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
+        }
+  
+        if (config.pagination === true) {
+          dstFile = me.writePdfOutputStreamToFile(mergedOutputStream, dstDirPath, "All.pdf");
+          me.setPagination(dstFile);
+          mergedOutputStream = me.writeFileToPdfOutputStream(dstFile);
+          sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
+        }
+  
+        if (config.watermark.image.show === true) {
+          dstFile = me.writePdfOutputStreamToFile(mergedOutputStream, dstDirPath, "All.pdf");
+          me.setWatermarkImage(dstFile, dstDirPath, config.watermark.image.path);
+          mergedOutputStream = me.writeFileToPdfOutputStream(dstFile);
+          sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
+        }
+  
+        os = String(java.lang.System.getProperty("os.name").toLowerCase());
+  
+        if (sol.common.StringUtils.contains(os, "win")) {
+          if (config.watermark.text.show === true) {
+            dstFile = me.writePdfOutputStreamToFile(mergedOutputStream, dstDirPath, "All.pdf");
+            me.setWatermarkText(dstFile, config.watermark.text.content);
+            mergedOutputStream = me.writeFileToPdfOutputStream(dstFile);
+            sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
+          }  
         }  
+      } catch (ex) {
+        me.logger.error(["error pdfExport with folderId: '{0}', baseDstDirPath: '{1}', config: '{2}'", folderId, baseDstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })], ex);
       }
 
       result.objId = sol.common.RepoUtils.saveToRepo({ parentId: parentId, name: folderName, outputStream: mergedOutputStream, extension: "pdf" });
