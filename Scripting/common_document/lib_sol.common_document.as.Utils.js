@@ -775,11 +775,9 @@ sol.define("sol.common_document.as.Utils", {
       if (content.name.indexOf(".cover") > -1) {
         newName = content.name.split(".cover").join("");
         newName = newName + "  ------  (" + content.type + ", " + content.mask + ")";
-        // TODO max. 80 Zeichen
-        if (newName.length > 80) {
-          newName = newName.substr(0, 80);
+        if (newName.length > 78) {
+          newName = newName.substr(0, 78);
         }
-        // TODO max. 80 Zeichen
         newContents.push({ name: newName, pageno: content.pageno });
       } else {
         oldContents.push({ name: content.name, hint: content.hint });
@@ -855,17 +853,15 @@ sol.define("sol.common_document.as.Utils", {
     return pdfPages;
   },
 
-  // TODO Insert Hyperlinks to contents
   /**
    * Set hyperlinks in content File.
    * @private
    * @param {java.io.File} dstPdfFile PDF Content File
    * @param {Object[]} contents contents text and pages
    */
-
   setHyperlinks: function (dstPdfFile, contents) {
     var me = this,
-        pdfDocument, i, pdfPage, page, pdfPages, x, y, content, link;
+        pdfDocument, i, pdfPage, page, pdfPages, x, y, content, link, changePage, ip, border;
 
     me.logger.enter("setHyperlinks");
     me.logger.info(["Start setHyperlinks with dstPdfFile: '{0}', contents: '{1}'", dstPdfFile, contents]);
@@ -874,6 +870,7 @@ sol.define("sol.common_document.as.Utils", {
       pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstPdfFile);
       pdfDocument = new Packages.com.aspose.pdf.Document(dstPdfFile.getPath());
       i = 0;
+      ip = 0;
       pdfPage = 1;
       y = 628;
       x = 57;
@@ -882,14 +879,31 @@ sol.define("sol.common_document.as.Utils", {
         if (contents.length > 0) {          
           content = contents[i];
           link = new Packages.com.aspose.pdf.LinkAnnotation(page, new Packages.com.aspose.pdf.Rectangle(x, y, x + 490, y + 11));
+          border = new Packages.com.aspose.pdf.Border(link);
+          border.setWidth(0);
+          link.setBorder(border);      
           link.setAction(new Packages.com.aspose.pdf.GoToAction(content.pageno));
           page.getAnnotations().add(link);
-
           i++;
+          ip++;
           y -= 17.1;
-          if ((i % 32) == 0) {
-            y = 740;
+          changePage = false;
+          if (pdfPage == 1) {
+            if ((ip % 32) == 0) {
+              changePage = true;
+            }  
+          } else {
+            if ((ip % 39) == 0) {
+              changePage = true;
+            }
+          }
+          if ((ip % 15) == 0) {
+            y += 2;
+          }
+          if (changePage == true) {
+            y = 742;
             pdfPage++;
+            ip = 0;
           }
         }
       }
@@ -902,8 +916,6 @@ sol.define("sol.common_document.as.Utils", {
     me.logger.exit("setHyperlinks");    
 
   },
-
-  // TODO Insert Hyperlinks to contents
 
   /**
    * Get inputstream of content pdf.
@@ -940,14 +952,11 @@ sol.define("sol.common_document.as.Utils", {
     fopRenderer = sol.create("sol.common.as.renderer.Fop", { templateId: templateId, toStream: true });
     result = fopRenderer.render("Content", data);
 
-    // TODO Insert Hyperlinks to contents
-    // pdfInputStream = me.convertOutputStreamToInputStream(result.outputStream);
     dstFile = me.writePdfOutputStreamToFile(result.outputStream, dstDirPath, "All.pdf");
     me.setHyperlinks(dstFile, data.contents);
     pdfOutputStream = me.writeFileToPdfOutputStream(dstFile);
     sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
     pdfInputStream = me.convertOutputStreamToInputStream(pdfOutputStream);
-    // TODO Insert Hyperlinks to contents
 
     me.logger.info(["Finish createContent with pdfInputStream: '{0}'", pdfInputStream]);
     me.logger.exit("createContent");

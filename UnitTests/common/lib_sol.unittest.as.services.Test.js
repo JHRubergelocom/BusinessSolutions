@@ -415,7 +415,7 @@ sol.define("sol.unittest.as.services.Test", {
     pdfDocument.save(childBookmarkFile.getPath());
     */
 
-    // TODO Add Hypelink to File
+    // Add Hypelink to File
     if (me.windows) {
       sourceFile = new File("C:\\Temp\\PdfExport\\Test.pdf");
       targetFile = new File("C:\\Temp\\PdfExport\\Hyperlink.pdf");
@@ -486,8 +486,6 @@ sol.define("sol.unittest.as.services.Test", {
 
     // Save updated document
     contentDocument.save(contentFile);
-
-    // TODO
 
     return true;
   }
