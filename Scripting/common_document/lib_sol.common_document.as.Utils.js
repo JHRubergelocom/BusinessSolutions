@@ -632,6 +632,110 @@ sol.define("sol.common_document.as.Utils", {
     return pdfInputStream;
   },
 
+  // TODO Html to pdf
+  /**
+   * Converts a html document to a PDF.
+   * @private
+   * @param {de.elo.ix.client.Sord} sord
+   * @param {String} ext
+   * @param {String} dstDirPath
+   * @return {java.io.InputStream} inputStream or null if there was an error
+   */
+  convertHtmlToPdf: function (sord, ext, dstDirPath) {
+    var me = this,
+        inputStream = null,
+        pdfInputStream = null,
+        sourceFile, targetFile, fileName,
+        basePath, htmloptions, doc;
+
+    me.logger.enter("convertHtmlToPdf");
+    me.logger.info(["Start convertHtmlToPdf with sord: '{0}'", sord]);
+
+    try {
+      inputStream = sol.common.RepoUtils.downloadToStream(sord.id);
+      fileName = sol.common.FileUtils.sanitizeFilename(sord.name);
+
+      sourceFile = me.writeInputStreamToFile(inputStream, dstDirPath, fileName, ext);
+      targetFile = new File(dstDirPath + java.io.File.separator + fileName + ".pdf");
+
+      // Create HTML load options
+      basePath = sourceFile.getParent() + File.separator;
+      me.logger.info(["'basePath = sourceFile.getParent() + File.separator' with basePath: '{0}'", basePath]);
+
+      htmloptions = new Packages.com.aspose.pdf.HtmlLoadOptions(basePath); 		 
+      me.logger.info(["'htmloptions = new Packages.com.aspose.pdf.HtmlLoadOptions(basePath)' with basePath: '{0}', htmloptions: '{1}'", basePath, htmloptions]);
+
+      // Load HTML file
+      doc = new Packages.com.aspose.pdf.Document(sourceFile.getPath(), htmloptions); 
+      me.logger.info(["'doc = new Packages.com.aspose.pdf.Document(sourceFile.getPath(), htmloptions)' with htmloptions: '{0}', doc: '{1}'", htmloptions, doc]);
+
+      // Convert HTML file to PDF
+      doc.save(targetFile.getPath());
+      me.logger.info(["'doc.save(targetFile.getPath())' with targetFile: '{0}'", targetFile]);
+
+      pdfInputStream = new ByteArrayInputStream(Packages.org.apache.commons.io.FileUtils.readFileToByteArray(targetFile));
+      sol.common.FileUtils.delete(sourceFile, { quietly: true });
+      
+    } catch (ex) {
+      me.logger.error(["error convertHtmlToPdf with sourceFile:'{0}', targetFile:'{1}'", sourceFile, targetFile], ex);
+    }
+
+    me.logger.info(["Finish convertHtmlToPdf with inputStream: '{0}'", pdfInputStream]);
+    me.logger.exit("convertHtmlToPdf");
+    return pdfInputStream;
+  },
+
+  /**
+   * Converts a html file to a PDF.
+   * @private
+   * @param {String} filePath   
+   * @param {String} dstDirPath
+   * @return {java.io.InputStream} inputStream or null if there was an error
+   */
+  convertHtmlFileToPdf: function (filePath, dstDirPath) {
+    var me = this,
+        pdfInputStream = null,
+        sourceFile, targetFile, fileName,
+        basePath, htmloptions, doc;
+
+    me.logger.enter("convertHtmlFileToPdf");
+    me.logger.info(["Start convertHtmlFileToPdf with filePath: '{0}', dstDirPath:'{1}'", filePath, dstDirPath]);
+
+    try {
+      sourceFile = new File(filePath);
+      fileName = sol.common.FileUtils.getName(sourceFile);
+      targetFile = new File(dstDirPath + java.io.File.separator + fileName + ".pdf");
+
+      // Create HTML load options
+      basePath = sourceFile.getParent() + File.separator;
+      me.logger.info(["'basePath = sourceFile.getParent() + File.separator' with basePath: '{0}'", basePath]);
+
+      htmloptions = new Packages.com.aspose.pdf.HtmlLoadOptions(basePath); 		 
+      me.logger.info(["'htmloptions = new Packages.com.aspose.pdf.HtmlLoadOptions(basePath)' with basePath: '{0}', htmloptions: '{1}'", basePath, htmloptions]);
+
+      // Load HTML file
+      doc = new Packages.com.aspose.pdf.Document(sourceFile.getPath(), htmloptions); 
+      me.logger.info(["'doc = new Packages.com.aspose.pdf.Document(sourceFile.getPath(), htmloptions)' with htmloptions: '{0}', doc: '{1}'", htmloptions, doc]);
+
+      // Convert HTML file to PDF
+      doc.save(targetFile.getPath());
+      me.logger.info(["'doc.save(targetFile.getPath())' with targetFile: '{0}'", targetFile]);
+
+      pdfInputStream = new ByteArrayInputStream(Packages.org.apache.commons.io.FileUtils.readFileToByteArray(targetFile));
+      sol.common.FileUtils.delete(sourceFile, { quietly: true });
+
+    } catch (ex) {
+      me.logger.error(["error convertHtmlFileToPdf with sourceFile:'{0}', targetFile:'{1}'", sourceFile, targetFile], ex);
+    }
+
+    me.logger.info(["Finish convertHtmlFileToPdf with inputStream: '{0}'", pdfInputStream]);
+    me.logger.exit("convertHtmlFileToPdf");
+    return pdfInputStream;
+  },
+
+  // TODO Html to pdf
+
+
   /**
    * Converts a document to a PDF.
    * @private
@@ -684,6 +788,17 @@ sol.define("sol.common_document.as.Utils", {
             me.logger.debug("convert Tiff to PDF");
             inputStream = me.convertTiffToPdf(sord, ext, dstDirPath);            
             break;
+          // TODO Html to pdf
+          case "html":
+            os = String(java.lang.System.getProperty("os.name").toLowerCase());
+            if (!sol.common.StringUtils.contains(os, "win") || sol.common.StringUtils.contains(os, "win")) {
+              me.logger.info(["format '{0}' is not supported in os '{1}'", ext, os]);
+              return inputStream;
+            }
+            me.logger.debug("convert Html to PDF");
+            inputStream = me.convertHtmlToPdf(sord, ext, dstDirPath);            
+            break;
+          // TODO Html to pdf
           case "ppt":
           case "pot":
           case "pps":
@@ -1270,6 +1385,17 @@ sol.define("sol.common_document.as.Utils", {
             me.logger.debug("convert Tiff to PDF");
             inputStream = me.convertTiffFileToPdf(filePath, dstDirPath);            
             break;
+            // TODO Html to pdf
+          case "html":
+            os = String(java.lang.System.getProperty("os.name").toLowerCase());
+            if (!sol.common.StringUtils.contains(os, "win") || sol.common.StringUtils.contains(os, "win")) {
+              me.logger.info(["format '{0}' is not supported in os '{1}'", ext, os]);
+              return inputStream;
+            }
+            me.logger.debug("convert Html to PDF");
+            inputStream = me.convertHtmlFileToPdf(filePath, dstDirPath);            
+            break;
+            // TODO Html to pdf
           case "ppt":
           case "pot":
           case "pps":

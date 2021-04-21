@@ -240,8 +240,7 @@ sol.define("sol.unittest.as.services.Test", {
    */
   process: function () {
     var me = this,
-        sourceFile, targetFile, contentFile, contentDocument, 
-        page, link, textFragment, textBuilder, border;
+        htmlFile, targetFile, htmloptions, doc, basePath;
 
     
     /*    
@@ -413,7 +412,6 @@ sol.define("sol.unittest.as.services.Test", {
 
     // Save output
     pdfDocument.save(childBookmarkFile.getPath());
-    */
 
     // Add Hypelink to File
     if (me.windows) {
@@ -486,6 +484,49 @@ sol.define("sol.unittest.as.services.Test", {
 
     // Save updated document
     contentDocument.save(contentFile);
+    */
+
+
+    // TODO
+    // Convert htlm to pdf    
+
+    me.logger.enter("sol.unittest.as.services.Test");
+    me.logger.info(["Start sol.unittest.as.services.Test"]);
+    try {
+      if (me.windows) {
+        htmlFile = new File("C:\\Temp\\PdfExport\\HTMLToPDF.html");
+        targetFile = new File("C:\\Temp\\PdfExport\\HTMLToPDF.pdf");
+  
+      } else {
+        htmlFile = new File("/var/elo/servers/ELO-base/temp/HTMLToPDF.html");
+        targetFile = new File("/var/elo/servers/ELO-base/temp/HTMLToPDF.pdf");
+      } 
+
+      me.logger.info(["Try sol.unittest.as.services.Test with htmlFile: '{0}', targetFile: '{1}'", htmlFile, targetFile]);
+
+      // Create HTML load options
+      basePath = htmlFile.getParent() + File.separator;
+      me.logger.info(["'basePath = htmlFile.getParent() + File.separator' with basePath: '{0}'", basePath]);
+
+      htmloptions = new Packages.com.aspose.pdf.HtmlLoadOptions(basePath); 		 
+      me.logger.info(["'htmloptions = new Packages.com.aspose.pdf.HtmlLoadOptions(basePath)' with basePath: '{0}', htmloptions: '{1}'", basePath, htmloptions]);
+
+      // Load HTML file
+      doc = new Packages.com.aspose.pdf.Document(htmlFile.getPath(), htmloptions); 
+      me.logger.info(["'doc = new Packages.com.aspose.pdf.Document(htmlFile.getPath(), htmloptions)' with htmloptions: '{0}', doc: '{1}'", htmloptions, doc]);
+
+      // Convert HTML file to PDF
+      doc.save(targetFile.getPath());
+      me.logger.info(["'doc.save(targetFile.getPath())' with targetFile: '{0}'", targetFile]);
+  
+    } catch (ex) {
+      me.logger.error(["error sol.unittest.as.services.Test with htmlFile: '{0}', targetFile: '{1}'", htmlFile, targetFile], ex);
+    }
+
+    me.logger.info(["Finish sol.unittest.as.services.Test"]);
+    me.logger.exit("sol.unittest.as.services.Test");
+
+    // TODO
 
     return true;
   }
