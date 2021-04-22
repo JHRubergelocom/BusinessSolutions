@@ -240,7 +240,8 @@ sol.define("sol.unittest.as.services.Test", {
    */
   process: function () {
     var me = this,
-        htmlFile, targetFile, htmloptions, doc, basePath;
+        htmlFile, targetFile, doc,
+        HTML, CSS, page;
 
     
     /*    
@@ -486,8 +487,6 @@ sol.define("sol.unittest.as.services.Test", {
     contentDocument.save(contentFile);
     */
 
-
-    // TODO
     // Convert htlm to pdf    
 
     me.logger.enter("sol.unittest.as.services.Test");
@@ -501,7 +500,7 @@ sol.define("sol.unittest.as.services.Test", {
         htmlFile = new File("/var/elo/servers/ELO-base/temp/HTMLToPDF.html");
         targetFile = new File("/var/elo/servers/ELO-base/temp/HTMLToPDF.pdf");
       } 
-
+      /*
       me.logger.info(["Try sol.unittest.as.services.Test with htmlFile: '{0}', targetFile: '{1}'", htmlFile, targetFile]);
 
       // Create HTML load options
@@ -518,6 +517,23 @@ sol.define("sol.unittest.as.services.Test", {
       // Convert HTML file to PDF
       doc.save(targetFile.getPath());
       me.logger.info(["'doc.save(targetFile.getPath())' with targetFile: '{0}'", targetFile]);
+      */
+
+      // input HTML
+      // HTML = "< b >BIG TEXT< /b>< ol>SOME VALUE< /ol>< li >item1< /li >< li >item2 & 3 < /li >< /ol >";
+      HTML = "<HTML><HEAD><TITLE>Your Title Here</TITLE></HEAD><BODY BGCOLOR='FFFFFF'><CENTER><IMG SRC='clouds.jpg' ALIGN='BOTTOM'> </CENTER><HR><a href='http://somegreatsite.com'>Link Name</a>is a link to another nifty site<H1>This is a Header</H1><H2>This is a Medium Header</H2><HR></BODY></HTML>";
+
+      // CSS for input HTML contents
+      // CSS = " *{font-weight : normal !important ; margin :0 !important ; padding:0 !important ; list-style-type:none !important}";
+      CSS = "";
+      // instantiate Document instance
+      doc = new Packages.com.aspose.pdf.Document();
+      // add page to pages collection of Document object
+      page = doc.getPages().add();
+      // add HTMLFragment to paragraphs collection of PDF page
+      page.getParagraphs().add(new com.aspose.pdf.HtmlFragment(CSS + HTML));
+      // save resultant PDF file
+      doc.save(targetFile.getPath());
   
     } catch (ex) {
       me.logger.error(["error sol.unittest.as.services.Test with htmlFile: '{0}', targetFile: '{1}'", htmlFile, targetFile], ex);
@@ -525,8 +541,6 @@ sol.define("sol.unittest.as.services.Test", {
 
     me.logger.info(["Finish sol.unittest.as.services.Test"]);
     me.logger.exit("sol.unittest.as.services.Test");
-
-    // TODO
 
     return true;
   }
