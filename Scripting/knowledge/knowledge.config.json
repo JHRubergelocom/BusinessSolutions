@@ -276,7 +276,7 @@
       "maxRelatedPosts": 8
     },
     "topicMaxLength": 30,
-    "boardsAtHome": 4
+    "boardsAtHome": 6
   },
   "boardUpload": {
     "imageUpload": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Knowledge Board Upload/Image",

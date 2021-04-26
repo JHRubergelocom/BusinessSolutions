@@ -22,225 +22,11 @@ sol.define("sol.unittest.as.services.Test", {
   },
 
   /**
-   * Write inputstream to file
-   * @private
-   * @param {java.io.InputStream} inputStream
-   * @param {String} dstDirPath
-   * @param {String} fileName
-   * @param {String} fileFormat
-   * @return {java.io.File} dstFile
-   */
-  writeInputStreamToFile: function (inputStream, dstDirPath, fileName, fileFormat) {
-    var me = this, 
-        dstFile;
-
-    me.logger.enter("writePdfInputStreamToFile");
-    me.logger.info(["Start writePdfInputStreamToFile with dstDirPath: '{0}', fileName: '{1}', fileFormat: '{2}'", dstDirPath, fileName, fileFormat]);
-
-    dstFile = new java.io.File(dstDirPath + java.io.File.separator + fileName + "." + fileFormat);
-    if (!dstFile.exists()) {
-      dstFile.createNewFile();
-    }
-
-    Packages.org.apache.commons.io.FileUtils.copyInputStreamToFile(inputStream, dstFile);
-
-    me.logger.info(["Finish writePdfInputStreamToFile with dstFile: '{0}'", dstFile]);
-    me.logger.exit("writePdfInputStreamToFile");
-
-    return dstFile;
-  },
-
-  /**
-   * Converts a file to a PDF.
-   * @private
-   * @param {String} filePath
-   * @return {java.io.InputStream} inputStream or null if there was an error
-   */
-  convertFileToPdf: function (filePath) {
-    var me = this,
-        inputStream = null,
-        ext, converter;
-
-    me.logger.enter("convertFileToPdf");
-    me.logger.info(["Start convertFileToPdf with sord: '{0}'", filePath]);
-
-    try {
-      ext = sol.common.FileUtils.getExtensionFromPath(filePath);
-      if (ext && (ext == "pdf")) {
-        me.logger.debug("skip converting, document is already an PDF");
-        inputStream = new FileInputStream(filePath);
-      } else {
-        converter = sol.create("sol.common.as.functions.OfficeConverter", {
-          openFile: {
-            filePath: filePath
-          },
-          saveToStream: {
-            format: "pdf"
-          }
-        });
-        if (converter.isSupported(ext)) {
-          inputStream = converter.execute();
-        } else {
-          me.logger.warn(["format '{0}' is not supported", ext]);
-        }
-      }
-    } catch (ex) {
-      me.logger.info(["error converting file (filePath={0})", filePath], ex);
-    }
-    me.logger.info(["Finish convertFileToPdf with inputStream: '{0}'", inputStream]);
-    me.logger.exit("convertFileToPdf");
-    return inputStream;
-  },
-
-  // schon in as.Utils vorhanden
-  /**
-   * Converts an output stream to an input stream
-   * @private
-   * @param {java.io.OutputStream} outputStream
-   * @return {java.io.InputStream} inputStream
-   */
-  convertOutputStreamToInputStream: function (outputStream) {
-    var me = this,
-        inputStream;
-
-    me.logger.enter("convertOutputStreamToInputStream");
-    me.logger.debug(["Start convertOutputStreamToInputStream with outputStream: '{0}'", outputStream]);
-
-    if (!outputStream) {
-      me.logger.info("convertOutputStreamToInputStream 'Output stream is empty'");
-      throw "Output stream is empty";
-    }
-    inputStream = new ByteArrayInputStream(outputStream.toByteArray());
-    outputStream.close();
-
-    me.logger.debug(["Finish convertOutputStreamToInputStream with inputStream: '{0}'", inputStream]);
-    me.logger.exit("convertOutputStreamToInputStream");
-    return inputStream;
-  },
-
-  /**
-   * Write inputstream to file
-   * @private
-   * @param {java.io.InputStream} pdfInputStream
-   * @param {String} dstDirPath
-   * @param {String} pdfName;
-   * @return {java.io.File} dstFile
-   */
-  writePdfInputStreamToFile: function (pdfInputStream, dstDirPath, pdfName) {
-    var me = this, 
-        dstFile;
-
-    me.logger.enter("writePdfInputStreamToFile");
-    me.logger.info(["Start writePdfInputStreamToFile with dstDirPath: '{0}', pdfName: '{1}'", dstDirPath, pdfName]);
-
-    dstFile = new java.io.File(dstDirPath + java.io.File.separator + pdfName + ".pdf");
-    if (!dstFile.exists()) {
-      dstFile.createNewFile();
-    }
-
-    Packages.org.apache.commons.io.FileUtils.copyInputStreamToFile(pdfInputStream, dstFile);
-
-    me.logger.info(["Finish writePdfInputStreamToFile with dstFile: '{0}'", dstFile]);
-    me.logger.exit("writePdfInputStreamToFile");
-
-    return dstFile;
-  },
-
-  /**
-   * Converts a Msg document (E-Mail) to a PDF.
-   * @private
-   * @param {de.elo.ix.client.Sord} sord
-   * @param {String} dstDirPath
-   * @return {java.io.InputStream} inputStream or null if there was an error
-   */
-  convertMsgWithAttchmentToPdf: function (sord, dstDirPath) {
-    var me = this,
-        inputStream = null,
-        msgFile, msgFilePath, message, attachments, i, attachment, attachmentInfo, attachmentObjectData,
-        isAttachmentOutlookMessage, messageAttachment, fileAttchments, pdfInputStream, 
-        pdfInputStreams, mergedOutputStream;
-
-    me.logger.enter("convertMsgWithAttchmentToPdf");
-    me.logger.info(["Start convertMsgWithAttchmentToPdf with sord: '{0}'", sord]);
-
-    inputStream = sol.common.RepoUtils.downloadToStream(sord.id);
-    me.writeInputStreamToFile(inputStream, dstDirPath, sord.name, sord.ext);
-    msgFilePath = dstDirPath + java.io.File.separator + sord.name + "." + sord.ext;
-    msgFile = new java.io.File(msgFilePath);
-    message = Packages.com.aspose.email.MapiMessage.fromFile(msgFile);
-    attachments = message.getAttachments();
-
-    fileAttchments = [];
-    for (i = 0; i < attachments.size(); i++) {
-      attachment = attachments.get_Item(i);
-
-      attachmentInfo = {};
-      attachmentInfo.fileName = attachment.getLongFileName();
-      attachmentInfo.fileExtension = attachment.getExtension();
-
-      attachmentObjectData = attachment.getObjectData();
-
-      // Check if attachment is an outlook message
-      if (attachmentObjectData) {
-        if (attachmentObjectData.isOutlookMessage()) {
-          isAttachmentOutlookMessage = true;
-        } else {
-          isAttachmentOutlookMessage = null;
-        }
-      } else {
-        isAttachmentOutlookMessage = null;
-      }
-
-      if (isAttachmentOutlookMessage) {
-        messageAttachment = attachment.getObjectData().toMapiMessage();
-        attachmentInfo.filePath = dstDirPath;
-        attachmentInfo.filePathAndFileName = dstDirPath + java.io.File.separator + attachmentInfo.fileName;
-        messageAttachment.save(attachmentInfo.filePathAndFileName);
-
-      } else {
-        attachmentInfo.filePath = dstDirPath;
-        attachmentInfo.filePathAndFileName = dstDirPath + java.io.File.separator + attachmentInfo.fileName;
-        attachment.save(attachmentInfo.filePathAndFileName);
-      }
-      fileAttchments.push(attachmentInfo.filePathAndFileName);
-      
-    }
-
-    pdfInputStreams = [];
-    pdfInputStream = me.convertFileToPdf(msgFilePath);
-    if (pdfInputStream) {
-      pdfInputStreams.push(pdfInputStream);
-    }
-
-    fileAttchments.forEach(function (fileAttchment) {
-      pdfInputStream = me.convertFileToPdf(fileAttchment);
-      if (pdfInputStream) {
-        pdfInputStreams.push(pdfInputStream);
-      }
-    });
-
-    mergedOutputStream = new ByteArrayOutputStream();
-    sol.common.as.PdfUtils.mergePdfStreams(pdfInputStreams, mergedOutputStream);
-    inputStream = me.convertOutputStreamToInputStream(mergedOutputStream);   
-
-    sol.common.FileUtils.delete(msgFilePath, { quietly: true }); 
-    fileAttchments.forEach(function (fileAttchment) {
-      sol.common.FileUtils.delete(fileAttchment, { quietly: true }); 
-    });
-
-    me.logger.info(["Finish convertMsgWithAttchmentToPdf with inputStream: '{0}'", inputStream]);
-    me.logger.exit("convertMsgWithAttchmentToPdf");
-
-    return inputStream;
-  },
-
-  /**
    * Call the method and returns the result
    * @return {String|Object} result of method
    */
   process: function () {
-    var me = this,
-        htmlFile, targetFile;
+    var me = this, notes, typetext;
 
     
     /*    
@@ -491,6 +277,7 @@ sol.define("sol.unittest.as.services.Test", {
     me.logger.enter("sol.unittest.as.services.Test");
     me.logger.info(["Start sol.unittest.as.services.Test"]);
     try {
+      /*
       if (me.windows) {
         htmlFile = new File("C:\\Temp\\PdfExport\\HTMLToPDF.html");
         targetFile = new File("C:\\Temp\\PdfExport\\HTMLToPDF.pdf");
@@ -499,7 +286,7 @@ sol.define("sol.unittest.as.services.Test", {
         htmlFile = new File("/var/elo/servers/ELO-base/temp/HTMLToPDF.html");
         targetFile = new File("/var/elo/servers/ELO-base/temp/HTMLToPDF.pdf");
       } 
-      /*
+      
       me.logger.info(["Try sol.unittest.as.services.Test with htmlFile: '{0}', targetFile: '{1}'", htmlFile, targetFile]);
 
       // Create HTML load options
@@ -516,8 +303,7 @@ sol.define("sol.unittest.as.services.Test", {
       // Convert HTML file to PDF
       doc.save(targetFile.getPath());
       me.logger.info(["'doc.save(targetFile.getPath())' with targetFile: '{0}'", targetFile]);
-      */
-      /*
+
       // input HTML
       // HTML = "< b >BIG TEXT< /b>< ol>SOME VALUE< /ol>< li >item1< /li >< li >item2 & 3 < /li >< /ol >";
       HTML = "<HTML><HEAD><TITLE>Your Title Here</TITLE></HEAD><BODY BGCOLOR='FFFFFF'><CENTER><IMG SRC='clouds.jpg' ALIGN='BOTTOM'> </CENTER><HR><a href='http://somegreatsite.com'>Link Name</a>is a link to another nifty site<H1>This is a Header</H1><H2>This is a Medium Header</H2><HR></BODY></HTML>";
@@ -534,10 +320,139 @@ sol.define("sol.unittest.as.services.Test", {
       // save resultant PDF file
       doc.save(targetFile.getPath());
       */
-     
-      Packages.de.elo.mover.main.helper.ConvertHelper.convertToPdf(htmlFile, targetFile);
+
+      notes = ixConnect.ix().checkoutNotes(me.objId, null, NoteC.mbAll, LockC.NO);
+      notes.forEach(function (note) {
+        switch (note.type) {
+          case NoteC.TYPE_ANNOTATION_FILETEXT:
+            typetext = "Note type: reserved";
+            break;
+
+          case NoteC.TYPE_ANNOTATION_FILLEDRECTANGLE: 	
+            typetext = "Note type:draws a filled coloured box on the document, over the existing document.";
+            break;
+
+          case NoteC.TYPE_ANNOTATION_FREEHAND: 	
+            typetext = "Note type:freehand line.";
+            break;
+
+          case NoteC.TYPE_ANNOTATION_HOLLOWRECTANGLE: 	
+            typetext = "Note type:draws a hollow rectangle (frame) on a document.";
+            break;
+
+          case NoteC.TYPE_ANNOTATION_HORIZONTAL_LINE: 	
+            typetext = "Note type:horizontal line.";
+            break;
+
+          case NoteC.TYPE_ANNOTATION_LINE: 	
+            typetext = "Note type:reserved";
+            break;
+
+          case NoteC.TYPE_ANNOTATION_MARKER: 	
+            typetext = "Note type:highlighting rectange (filled) on the document.";
+            break;
+
+          case NoteC.TYPE_ANNOTATION_NOTE: 	
+            typetext = "Note type:annotation text";
+            break;
+
+          case NoteC.TYPE_ANNOTATION_NOTE_WITHFONT: 	
+            typetext = "Note type:Draws a filled rectangular box on a document and displays text in the box.";
+            break;
+
+          case NoteC.TYPE_ANNOTATION_RECTANGLE: 	
+            typetext = "Note type:reserved";
+            break;
+
+          case NoteC.TYPE_ANNOTATION_STAMP: 	
+            typetext = "Deprecated.Use 'TYPE_ANNOTATION_STAMP_NEW'";
+            break;
+
+          case NoteC.TYPE_ANNOTATION_STAMP_NEW: 	
+            typetext = "Note type:adds a stamp, such as a received date for example, to a document.";
+            break;
+
+          case NoteC.TYPE_ANNOTATION_STRIKEOUT: 	
+            typetext = "Note type:strike out text";
+            break;
+
+          case NoteC.TYPE_ANNOTATION_TEXT: 	
+            typetext = "Annotation with text but without a rectangle.";
+            break;
+
+          case NoteC.TYPE_ANOTEW_MARKER: 	
+            typetext = "Deprecated.";
+            break;
+
+          case NoteC.TYPE_ANOTEWG_NOTE: 	
+            typetext = "Deprecated.";
+            break;
+
+          case NoteC.TYPE_NONE: 	
+            typetext = "Note type:needed in FindByNotes to indicate typeless filtering";
+            break;
+
+          case NoteC.TYPE_NORMAL: 	
+            typetext = "Note type:standard yellow note";
+            break;
+
+          case NoteC.TYPE_NORMAL_ACL: 	
+            typetext = "Note type:standard ACL";
+            break;
+
+          case NoteC.TYPE_PERSONAL: 	
+            typetext = "Note type:standard green note";
+            break;
+
+          case NoteC.TYPE_STAMP: 	
+            typetext = "Note type:standard red note";
+            break;
+
+          default:
+        }  
+
+        me.logger.info(["note.id='{0}', note.type='{1}', typetext='{2}'", note.id, note.type, typetext]);
+
+        me.logger.info(["---------------------------------------------------------------------"]);
+        me.logger.info(["note.id='{0}', note.type='{1}', typetext='{2}'", note.id, note.type, typetext]);
+
+        me.logger.info(["note.color='{0}'", note.color]);
+        me.logger.info(["note.createDateIso='{0}'", note.createDateIso]);
+        me.logger.info(["note.desc='{0}'", note.desc]);
+        me.logger.info(["note.guid='{0}'", note.guid]);
+        me.logger.info(["note.height='{0}'", note.height]);
+        me.logger.info(["note.pageNo='{0}'", note.pageNo]);
+        me.logger.info(["note.width='{0}'", note.width]);
+        me.logger.info(["note.XPos='{0}'", note.XPos]);
+        me.logger.info(["note.YPos='{0}'", note.YPos]);
+
+        if (note.noteFreehand != null) {
+          if (note.noteFreehand.points != null) {
+            note.noteFreehand.points.forEach(function (point) {
+              me.logger.info(["point.x='{0}'", point.x]);
+              me.logger.info(["point.y='{0}'", point.y]);
+            });
+          }
+          me.logger.info(["note.noteFreehand.strikeoutColor='{0}'", note.noteFreehand.strikeoutColor]);
+          me.logger.info(["note.noteFreehand.strikeoutWidth='{0}'", note.noteFreehand.strikeoutWidth]);
+          me.logger.info(["note.noteFreehand.width='{0}'", note.noteFreehand.width]);
+        } 
+        if (note.noteImage != null) {
+          me.logger.info(["note.noteImage.fileData='{0}'", note.noteImage.fileData]);
+          me.logger.info(["note.noteImage.fileName='{0}'", note.noteImage.fileName]);
+        } 
+        if (note.noteText != null) { 
+          me.logger.info(["note.noteText.fontInfo='{0}'", note.noteText.fontInfo]);
+          me.logger.info(["note.noteText.text='{0}'", note.noteText.text]);
+        } 
+
+        me.logger.info(["---------------------------------------------------------------------"]);
+
+      });
+
+
     } catch (ex) {
-      me.logger.error(["error sol.unittest.as.services.Test with htmlFile: '{0}', targetFile: '{1}'", htmlFile, targetFile], ex);
+      me.logger.error(["error sol.unittest.as.services.Test"], ex);
     }
 
     me.logger.info(["Finish sol.unittest.as.services.Test"]);

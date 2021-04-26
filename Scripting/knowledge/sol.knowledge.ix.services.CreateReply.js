@@ -91,7 +91,7 @@ sol.define("sol.knowledge.ix.services.CreateReply", {
    * @return {Object}
    */
   createReply: function () {
-    var me = this,
+    var me = this, conn = ixConnect,
         post, replyTemplateObjId, reply, replyTemplate, space, objId, flowNameData, workflowTemplateName, flowName, guid, score,
         contentType, action, currentUser;
 
@@ -126,6 +126,7 @@ sol.define("sol.knowledge.ix.services.CreateReply", {
         currentUser = ixConnect.loginResult.user;
         if (currentUser.id != action.userId) {
           if (sol.common.AclUtils.hasEffectiveRights(space.id, { rights: { w: true } })) {
+            conn = ixConnectAdmin;
             reply.ownerId = action.userId;
             reply.ownerName = action.userName;
           }        
@@ -133,7 +134,7 @@ sol.define("sol.knowledge.ix.services.CreateReply", {
       }
     }
 
-    objId = ixConnect.ix().checkinSord(reply, SordC.mbAllIndex, LockC.NO);
+    objId = conn.ix().checkinSord(reply, SordC.mbAllIndex, LockC.NO);
     sol.common.RepoUtils.moveSords(me.createdFiles, objId);
     score = sol.common.SordUtils.incObjKeyValue(post, me.knowledgeConfig.fields.knowledgeCountReplies);
 
