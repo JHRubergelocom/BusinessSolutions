@@ -14,11 +14,13 @@
   "pdfExport": true,
   "pdfA": false,
   "language": "de",
+  "timeZone": "Europe/Berlin",
   "pagination": true,
   "whiteListTextFile": ["txt", "fo", "js", "xml", "json"],
   "metadata": { "sordKeys": true, "objKeys": true,"mapKeys": true },
   "watermark": { 
     "image": { "path": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions Custom/common_document/Configuration/PDF Export Templates/Watermarks/Logo", "show": true },
     "text": { "content" : "Watermark", "show": false }
-  }
+  },
+  "marginNotes": true
 }

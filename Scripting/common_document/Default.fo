@@ -175,6 +175,99 @@
             {{/ifCond}}
           {{/if}}
 
+          {{#if showMarginNotes}}
+            {{#ifCond marginNotes.size '>' '0'}}
+              <fo:block font-size="16pt" text-align="left" font-weight="bold" margin-bottom="10pt" margin-top="15pt">
+                {{headerMarginNotes}}
+              </fo:block>
+            {{/ifCond}}
+
+            {{#ifCond marginNotes.typeNormal.length '>' '0'}}
+              <fo:block font-size="16pt" text-align="left" font-weight="bold" margin-bottom="10pt" margin-top="15pt">
+                {{headerGeneralMarginNote}}
+              </fo:block>
+
+              <fo:block text-align="left" margin-bottom="10pt" margin-top="15pt" border-bottom="solid 1pt black" font-weight="bold"></fo:block>
+
+              <fo:table border-style="hidden" table-layout="fixed" width="100%">
+                <fo:table-column column-width="7cm"/>
+                <fo:table-column column-width="15cm"/>
+                <fo:table-body>
+                  {{#each marginNotes.typeNormal}}
+                    <fo:table-row>
+                      <fo:table-cell>
+                        <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{date}}</fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell>
+                        <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{desc}}</fo:block>
+                      </fo:table-cell>
+                    </fo:table-row>
+                  {{/each}}
+                </fo:table-body>
+              </fo:table>
+
+              <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt black" font-weight="bold"></fo:block>
+
+            {{/ifCond}}
+
+            {{#ifCond marginNotes.typePersonal.length '>' '0'}}
+              <fo:block font-size="16pt" text-align="left" font-weight="bold" margin-bottom="10pt" margin-top="15pt">
+                {{headerPersonalMarginNote}}
+              </fo:block>
+
+              <fo:block text-align="left" margin-bottom="10pt" margin-top="15pt" border-bottom="solid 1pt black" font-weight="bold"></fo:block>
+
+              <fo:table border-style="hidden" table-layout="fixed" width="100%">
+                <fo:table-column column-width="7cm"/>
+                <fo:table-column column-width="15cm"/>
+                <fo:table-body>
+                  {{#each marginNotes.typePersonal}}
+                    <fo:table-row>
+                      <fo:table-cell>
+                        <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{date}}</fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell>
+                        <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{desc}}</fo:block>
+                      </fo:table-cell>
+                    </fo:table-row>
+                  {{/each}}
+                </fo:table-body>
+              </fo:table>
+
+              <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt black" font-weight="bold"></fo:block>
+
+            {{/ifCond}}
+
+            {{#ifCond marginNotes.typeStamp.length '>' '0'}}
+              <fo:block font-size="16pt" text-align="left" font-weight="bold" margin-bottom="10pt" margin-top="15pt">
+                {{headerPermanentMarginNote}}
+              </fo:block>
+
+              <fo:block text-align="left" margin-bottom="10pt" margin-top="15pt" border-bottom="solid 1pt black" font-weight="bold"></fo:block>
+
+              <fo:table border-style="hidden" table-layout="fixed" width="100%">
+                <fo:table-column column-width="7cm"/>
+                <fo:table-column column-width="15cm"/>
+                <fo:table-body>
+                  {{#each marginNotes.typeStamp}}
+                    <fo:table-row>
+                      <fo:table-cell>
+                        <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{date}}</fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell>
+                        <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{desc}}</fo:block>
+                      </fo:table-cell>
+                    </fo:table-row>
+                  {{/each}}
+                </fo:table-body>
+              </fo:table>
+
+              <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt black" font-weight="bold"></fo:block>
+
+            {{/ifCond}}
+
+          {{/if}}
+
       </fo:block-container>        
     </fo:flow>
   </fo:page-sequence>

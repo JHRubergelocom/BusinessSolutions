@@ -292,7 +292,6 @@ sol.define("sol.common_document.as.Utils", {
    * @return {Object[]} Json Key/Value array
    */
   convertJsonToJsonKeyValuePairs: function (jsonObject) {
-
     var me = this, 
         jsonKeyValuePairs = [],
         prop;
@@ -309,6 +308,63 @@ sol.define("sol.common_document.as.Utils", {
     me.logger.exit("convertJsonToJsonKeyValuePairs");
 
     return jsonKeyValuePairs;
+  },
+
+  /**
+   * Get Margin Notes from sord.
+   * @private
+   * @param {de.elo.ix.client.Sord} sord
+   * @param {Object} config Pdf export configuration
+   * @return {Object} Margin notes
+   */
+  getMarginNotes: function (sord, config) {
+    var me = this,
+        marginNotes = {},
+        notes, date, timeZone, utcOffset;
+
+    me.logger.enter("getMarginNotes"); 
+    me.logger.info(["Start getMarginNotes with sord: '{0}'", sord]);
+    
+    marginNotes.typeNormal = [];
+    marginNotes.typePersonal = [];
+    marginNotes.typeStamp = [];
+    marginNotes.size = 0;
+
+    timeZone = config.timeZone;
+    utcOffset = sol.common.SordUtils.getTimeZoneOffset(timeZone);
+
+    notes = ixConnect.ix().checkoutNotes(sord.id, null, NoteC.mbAll, LockC.NO);
+    notes.forEach(function (note) {
+      switch (note.type) {
+        case NoteC.TYPE_NORMAL:
+          date = sol.common.DateUtils.transformIsoDate(note.createDateIso, { asUtc: true, utcOffset: utcOffset });
+          date = sol.common.DateUtils.isoToDate(date);
+          date = sol.common.DateUtils.format(date, "YYYY.MM.DD HH:mm");
+          marginNotes.typeNormal.push({ date: date, desc: note.desc }); 
+          marginNotes.size++;
+          break;
+        case NoteC.TYPE_PERSONAL:
+          date = sol.common.DateUtils.transformIsoDate(note.createDateIso, { asUtc: true, utcOffset: utcOffset });
+          date = sol.common.DateUtils.isoToDate(date);
+          date = sol.common.DateUtils.format(date, "YYYY.MM.DD HH:mm");
+          marginNotes.typePersonal.push({ date: date, desc: note.desc }); 	
+          marginNotes.size++;
+          break;
+        case NoteC.TYPE_STAMP:
+          date = sol.common.DateUtils.transformIsoDate(note.createDateIso, { asUtc: true, utcOffset: utcOffset });
+          date = sol.common.DateUtils.isoToDate(date);
+          date = sol.common.DateUtils.format(date, "YYYY.MM.DD HH:mm");
+          marginNotes.typeStamp.push({ date: date, desc: note.desc }); 	
+          marginNotes.size++;
+          break;
+        default:
+      }
+    });
+
+    me.logger.info(["Finish getMarginNotes with marginNotes: '{0}'", sol.common.JsonUtils.stringifyAll(marginNotes, { tabStop: 2 })]);
+    me.logger.exit("getMarginNotes");
+
+    return marginNotes;
   },
 
   /**
@@ -371,6 +427,15 @@ sol.define("sol.common_document.as.Utils", {
           data.mapKeys = true;
         }
       }  
+    }
+
+    if (config.marginNotes === true) {
+      data.marginNotes = me.getMarginNotes(sord, config);
+      data.showMarginNotes = true;
+      data.headerMarginNotes = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.headerMarginNotes' '" + me.language + "'}}" }).apply();
+      data.headerGeneralMarginNote = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.headerGeneralMarginNote' '" + me.language + "'}}" }).apply();
+      data.headerPersonalMarginNote = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.headerPersonalMarginNote' '" + me.language + "'}}" }).apply();
+      data.headerPermanentMarginNote = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.headerPermanentMarginNote' '" + me.language + "'}}" }).apply();
     }
  
     if (config.pdfExport === true) {

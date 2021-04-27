@@ -325,94 +325,91 @@ sol.define("sol.unittest.as.services.Test", {
       notes.forEach(function (note) {
         switch (note.type) {
           case NoteC.TYPE_ANNOTATION_FILETEXT:
-            typetext = "Note type: reserved";
+            typetext = "NoteC.TYPE_ANNOTATION_FILETEXT: Note type: reserved";
             break;
 
           case NoteC.TYPE_ANNOTATION_FILLEDRECTANGLE: 	
-            typetext = "Note type:draws a filled coloured box on the document, over the existing document.";
+            typetext = "NoteC.TYPE_ANNOTATION_FILLEDRECTANGLE: Note type:draws a filled coloured box on the document, over the existing document.";
             break;
 
           case NoteC.TYPE_ANNOTATION_FREEHAND: 	
-            typetext = "Note type:freehand line.";
+            typetext = "NoteC.TYPE_ANNOTATION_FREEHAND: Note type:freehand line.";
             break;
 
           case NoteC.TYPE_ANNOTATION_HOLLOWRECTANGLE: 	
-            typetext = "Note type:draws a hollow rectangle (frame) on a document.";
+            typetext = "NoteC.TYPE_ANNOTATION_HOLLOWRECTANGLE: Note type:draws a hollow rectangle (frame) on a document.";
             break;
 
           case NoteC.TYPE_ANNOTATION_HORIZONTAL_LINE: 	
-            typetext = "Note type:horizontal line.";
+            typetext = "NoteC.TYPE_ANNOTATION_HORIZONTAL_LINE: Note type:horizontal line.";
             break;
 
           case NoteC.TYPE_ANNOTATION_LINE: 	
-            typetext = "Note type:reserved";
+            typetext = "NoteC.TYPE_ANNOTATION_LINE: Note type:reserved";
             break;
 
           case NoteC.TYPE_ANNOTATION_MARKER: 	
-            typetext = "Note type:highlighting rectange (filled) on the document.";
+            typetext = "NoteC.TYPE_ANNOTATION_MARKER: Note type:highlighting rectange (filled) on the document.";
             break;
 
           case NoteC.TYPE_ANNOTATION_NOTE: 	
-            typetext = "Note type:annotation text";
+            typetext = "NoteC.TYPE_ANNOTATION_NOTE: Note type:annotation text";
             break;
 
           case NoteC.TYPE_ANNOTATION_NOTE_WITHFONT: 	
-            typetext = "Note type:Draws a filled rectangular box on a document and displays text in the box.";
+            typetext = "NoteC.TYPE_ANNOTATION_NOTE_WITHFONT: Note type:Draws a filled rectangular box on a document and displays text in the box.";
             break;
 
           case NoteC.TYPE_ANNOTATION_RECTANGLE: 	
-            typetext = "Note type:reserved";
+            typetext = "NoteC.TYPE_ANNOTATION_RECTANGLE: Note type:reserved";
             break;
 
           case NoteC.TYPE_ANNOTATION_STAMP: 	
-            typetext = "Deprecated.Use 'TYPE_ANNOTATION_STAMP_NEW'";
+            typetext = "NoteC.TYPE_ANNOTATION_STAMP: Deprecated.Use 'TYPE_ANNOTATION_STAMP_NEW'";
             break;
 
           case NoteC.TYPE_ANNOTATION_STAMP_NEW: 	
-            typetext = "Note type:adds a stamp, such as a received date for example, to a document.";
+            typetext = "NoteC.TYPE_ANNOTATION_STAMP_NEW: Note type:adds a stamp, such as a received date for example, to a document.";
             break;
 
           case NoteC.TYPE_ANNOTATION_STRIKEOUT: 	
-            typetext = "Note type:strike out text";
+            typetext = "NoteC.TYPE_ANNOTATION_STRIKEOUT: Note type:strike out text";
             break;
 
           case NoteC.TYPE_ANNOTATION_TEXT: 	
-            typetext = "Annotation with text but without a rectangle.";
+            typetext = "NoteC.TYPE_ANNOTATION_TEXT: Annotation with text but without a rectangle.";
             break;
 
           case NoteC.TYPE_ANOTEW_MARKER: 	
-            typetext = "Deprecated.";
+            typetext = "NoteC.TYPE_ANOTEW_MARKER: Deprecated.";
             break;
 
           case NoteC.TYPE_ANOTEWG_NOTE: 	
-            typetext = "Deprecated.";
+            typetext = "NoteC.TYPE_ANOTEWG_NOTE: Deprecated.";
             break;
 
           case NoteC.TYPE_NONE: 	
-            typetext = "Note type:needed in FindByNotes to indicate typeless filtering";
+            typetext = "NoteC.TYPE_NONE: Note type:needed in FindByNotes to indicate typeless filtering";
             break;
 
           case NoteC.TYPE_NORMAL: 	
-            typetext = "Note type:standard yellow note";
+            typetext = "NoteC.TYPE_NORMAL: Note type:standard yellow note";
             break;
 
           case NoteC.TYPE_NORMAL_ACL: 	
-            typetext = "Note type:standard ACL";
+            typetext = "NoteC.TYPE_NORMAL_ACL: Note type:standard ACL";
             break;
 
           case NoteC.TYPE_PERSONAL: 	
-            typetext = "Note type:standard green note";
+            typetext = "NoteC.TYPE_PERSONAL: Note type:standard green note";
             break;
 
           case NoteC.TYPE_STAMP: 	
-            typetext = "Note type:standard red note";
+            typetext = "NoteC.TYPE_STAMP: Note type:standard red note";
             break;
 
           default:
         }  
-
-        me.logger.info(["note.id='{0}', note.type='{1}', typetext='{2}'", note.id, note.type, typetext]);
-
         me.logger.info(["---------------------------------------------------------------------"]);
         me.logger.info(["note.id='{0}', note.type='{1}', typetext='{2}'", note.id, note.type, typetext]);
 
