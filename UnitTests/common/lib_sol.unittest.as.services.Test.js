@@ -28,7 +28,7 @@ sol.define("sol.unittest.as.services.Test", {
   process: function () {
     var me = this, 
         notes, typetext, targetFile, doc, page, graph, rect, 
-        sourceFile, pageNo, height, width, XPos, YPos, pHeight, pWidth, scale;
+        sourceFile, pageNo, height, width, XPos, YPos, pHeight, pWidth, scale, lineWidth;
 
     
     /*    
@@ -461,6 +461,7 @@ sol.define("sol.unittest.as.services.Test", {
 
       // Add Rectangle Object to PDF
       pageNo = 1;
+      lineWidth = 5;
       height = 337;
       width = 1055;
       XPos = 610;
@@ -493,8 +494,10 @@ sol.define("sol.unittest.as.services.Test", {
       page.getParagraphs().add(graph);
       // Create Rectangle instance
       rect = new Packages.com.aspose.pdf.drawing.Rectangle(XPos, pHeight - YPos - height, width, height);
-      // Specify fill color for Graph object
-      rect.getGraphInfo().setFillColor(Packages.com.aspose.pdf.Color.getRed());
+      rect.setRoundedCornerRadius(5);
+      // Specify color for Graph object
+      rect.getGraphInfo().setColor(Packages.com.aspose.pdf.Color.getGreen());
+      rect.getGraphInfo().setLineWidth(lineWidth);
       // Add rectangle object to shapes collection of Graph object
       graph.getShapes().add(rect);
       // save resultant PDF file
