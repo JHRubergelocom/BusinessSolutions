@@ -19,7 +19,7 @@
 
           <fo:table border-style="hidden" table-layout="fixed" width="100%">
             <fo:table-column column-width="3cm"/>
-            <fo:table-column column-width="15cm"/>
+            <fo:table-column column-width="14cm"/>
             <fo:table-body>
               <fo:table-row>
                 <fo:table-cell>
@@ -43,7 +43,7 @@
 
             <fo:table border-style="hidden" table-layout="fixed" width="100%">
               <fo:table-column column-width="7cm"/>
-              <fo:table-column column-width="15cm"/>
+              <fo:table-column column-width="10cm"/>
               <fo:table-body>
                 <fo:table-row>
                   <fo:table-cell>
@@ -125,7 +125,7 @@
 
               <fo:table border-style="hidden" table-layout="fixed" width="100%">
                 <fo:table-column column-width="7cm"/>
-                <fo:table-column column-width="15cm"/>
+                <fo:table-column column-width="10cm"/>
                 <fo:table-body>
                   {{#each sord.objKeys}}
                     <fo:table-row>
@@ -155,7 +155,7 @@
 
               <fo:table border-style="hidden" table-layout="fixed" width="100%">
                 <fo:table-column column-width="7cm"/>
-                <fo:table-column column-width="15cm"/>
+                <fo:table-column column-width="10cm"/>
                 <fo:table-body>
                   {{#each sord.mapKeys}}
                     <fo:table-row>
@@ -191,14 +191,14 @@
 
               <fo:table border-style="hidden" table-layout="fixed" width="100%">
                 <fo:table-column column-width="7cm"/>
-                <fo:table-column column-width="15cm"/>
+                <fo:table-column column-width="10cm"/>
                 <fo:table-body>
                   {{#each marginNotes.typeNormal}}
                     <fo:table-row>
-                      <fo:table-cell>
+                      <fo:table-cell background-color="yellow">
                         <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{date}}</fo:block>
                       </fo:table-cell>
-                      <fo:table-cell>
+                      <fo:table-cell background-color="yellow">
                         <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{desc}}</fo:block>
                       </fo:table-cell>
                     </fo:table-row>
@@ -219,14 +219,14 @@
 
               <fo:table border-style="hidden" table-layout="fixed" width="100%">
                 <fo:table-column column-width="7cm"/>
-                <fo:table-column column-width="15cm"/>
+                <fo:table-column column-width="10cm"/>
                 <fo:table-body>
                   {{#each marginNotes.typePersonal}}
                     <fo:table-row>
-                      <fo:table-cell>
+                      <fo:table-cell background-color="green">
                         <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{date}}</fo:block>
                       </fo:table-cell>
-                      <fo:table-cell>
+                      <fo:table-cell background-color="green">
                         <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{desc}}</fo:block>
                       </fo:table-cell>
                     </fo:table-row>
@@ -247,14 +247,14 @@
 
               <fo:table border-style="hidden" table-layout="fixed" width="100%">
                 <fo:table-column column-width="7cm"/>
-                <fo:table-column column-width="15cm"/>
+                <fo:table-column column-width="10cm"/>
                 <fo:table-body>
                   {{#each marginNotes.typeStamp}}
                     <fo:table-row>
-                      <fo:table-cell>
+                      <fo:table-cell background-color="red">
                         <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{date}}</fo:block>
                       </fo:table-cell>
-                      <fo:table-cell>
+                      <fo:table-cell background-color="red">
                         <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{desc}}</fo:block>
                       </fo:table-cell>
                     </fo:table-row>

@@ -924,6 +924,11 @@ sol.define("sol.common_document.as.Utils", {
       if (config.pdfA === true) {
         me.convertPDFtoPDFA(dstFile);
       }
+
+      // TODO Stamps, Sticky notes, Text notes, Rectangle marker, Freehand marker, Horizontal marker, Strike through
+
+      // TODO
+
       pdfInputStream = new ByteArrayInputStream(Packages.org.apache.commons.io.FileUtils.readFileToByteArray(dstFile));
 
       if (config.pdfExport === true) {

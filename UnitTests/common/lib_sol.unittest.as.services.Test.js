@@ -26,7 +26,9 @@ sol.define("sol.unittest.as.services.Test", {
    * @return {String|Object} result of method
    */
   process: function () {
-    var me = this, notes, typetext;
+    var me = this, 
+        notes, typetext, targetFile, doc, page, graph, rect, 
+        sourceFile, pageNo, height, width, XPos, YPos, pHeight, pWidth, scale;
 
     
     /*    
@@ -446,6 +448,63 @@ sol.define("sol.unittest.as.services.Test", {
         me.logger.info(["---------------------------------------------------------------------"]);
 
       });
+
+      // TODO Create Stamp in PDF
+      if (me.windows) {
+        sourceFile = new File("C:\\Temp\\PdfExport\\bob ipsum PDF.pdf");
+        targetFile = new File("C:\\Temp\\PdfExport\\Stamp.pdf");
+  
+      } else {
+        sourceFile = new File("/var/elo/servers/ELO-base/temp/bob ipsum PDF.pdf");
+        targetFile = new File("/var/elo/servers/ELO-base/temp/Stamp.pdf");
+      } 
+
+      // Add Rectangle Object to PDF
+      pageNo = 1;
+      height = 337;
+      width = 1055;
+      XPos = 610;
+      YPos = 457;
+      scale = 0.24;
+      height *= scale;
+      width *= scale;
+      XPos *= scale;
+      YPos *= scale;
+
+      // Create Document instance
+      doc = new Packages.com.aspose.pdf.Document(sourceFile.getPath());
+
+      // Get page
+      page = doc.getPages().get_Item(pageNo);
+
+      page.getPageInfo().getMargin().setLeft(0);
+      page.getPageInfo().getMargin().setTop(0);
+      pHeight = page.getPageInfo().getHeight();
+      pWidth = page.getPageInfo().getWidth();
+
+      
+      // Create Graph instance
+      graph = new Packages.com.aspose.pdf.drawing.Graph(pWidth, pHeight);
+      rect = new Packages.com.aspose.pdf.drawing.Rectangle(0, 0, pWidth, pHeight);
+      graph.getShapes().add(rect);
+
+
+      // Add graph object to paragraphs collection of page instance
+      page.getParagraphs().add(graph);
+      // Create Rectangle instance
+      rect = new Packages.com.aspose.pdf.drawing.Rectangle(XPos, pHeight - YPos - height, width, height);
+      // Specify fill color for Graph object
+      rect.getGraphInfo().setFillColor(Packages.com.aspose.pdf.Color.getRed());
+      // Add rectangle object to shapes collection of Graph object
+      graph.getShapes().add(rect);
+      // save resultant PDF file
+      doc.save(targetFile.getPath());
+
+
+      // Add Text to Rectangle Object
+
+      // TODO Create Stamp in PDF
+
 
 
     } catch (ex) {
