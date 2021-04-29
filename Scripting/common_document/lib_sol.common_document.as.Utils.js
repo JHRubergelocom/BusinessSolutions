@@ -926,7 +926,9 @@ sol.define("sol.common_document.as.Utils", {
       }
 
       // TODO Stamps, Sticky notes, Text notes, Rectangle marker, Freehand marker, Horizontal marker, Strike through
-
+      if (config.annotationNotes === true) {
+        me.setAnnotationNotes(dstFile, sord);
+      }
       // TODO
 
       pdfInputStream = new ByteArrayInputStream(Packages.org.apache.commons.io.FileUtils.readFileToByteArray(dstFile));
@@ -1192,6 +1194,59 @@ sol.define("sol.common_document.as.Utils", {
     me.logger.info(["Finish convertPDFtoPDFA"]);
     me.logger.exit("convertPDFtoPDFA");    
   },
+
+  // TODO Stamps, Sticky notes, Text notes, Rectangle marker, Freehand marker, Horizontal marker, Strike through
+  /**
+   * Set annotation stamp in a PDF.
+   * @private
+   * @param {com.aspose.pdf.Document} pdfDocument PDF File
+   * @param {de.elo.ix.client.Note} note note
+   */
+  setAnnotationStamp: function (pdfDocument, note) {
+    
+  },
+
+  /**
+   * Set annotation notes in a PDF.
+   * @private
+   * @param {java.io.File} dstPdfFile PDF File
+   * @param {de.elo.ix.client.Sord} sord
+   */
+  setAnnotationNotes: function (dstPdfFile, sord) {
+    var me = this,
+        notes, pdfDocument;
+
+    me.logger.enter("setAnnotationNotes");
+    me.logger.info(["Start setAnnotationNotes with dstPdfFile: '{0}', sord: '{1}'", dstPdfFile, sord]);
+
+    try {
+
+      notes = ixConnect.ix().checkoutNotes(sord.id, null, NoteC.mbAll, LockC.NO);
+      notes.forEach(function (note) {
+        switch (note.type) {
+          case NoteC.TYPE_ANNOTATION_STAMP_NEW:
+            if (!pdfDocument) {
+              pdfDocument = new Packages.com.aspose.pdf.Document(dstPdfFile.getPath());
+            }
+            me.setAnnotationStamp(pdfDocument, note);
+            break;
+          default:
+        }
+      });
+      if (pdfDocument) {
+        pdfDocument.save(dstPdfFile.getPath());
+      }
+
+    } catch (ex) {
+      me.logger.error(["error setAnnotationNotes with dstPdfFile:'{0}', sord:'{1}'", dstPdfFile, sord], ex);
+    }
+
+    me.logger.info(["Finish setAnnotationNotes"]);
+    me.logger.exit("setAnnotationNotes");    
+
+  },
+  // TODO
+  
 
   /**
    * Set pagination in a PDF.
