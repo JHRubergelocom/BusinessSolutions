@@ -28,7 +28,9 @@ sol.define("sol.unittest.as.services.Test", {
   process: function () {
     var me = this, 
         notes, typetext, targetFile, doc, page, graph, rect, 
-        sourceFile, pageNo, height, width, XPos, YPos, pHeight, pWidth, scale, lineWidth;
+        sourceFile, pageNo, height, width, XPos, YPos, pHeight, 
+        pWidth, scale, lineWidth, text, textFrag, textState, fontHeight, fontRGB,
+        color, alpha, red, green, blue;
 
     
     /*    
@@ -441,7 +443,15 @@ sol.define("sol.unittest.as.services.Test", {
           me.logger.info(["note.noteImage.fileName='{0}'", note.noteImage.fileName]);
         } 
         if (note.noteText != null) { 
-          me.logger.info(["note.noteText.fontInfo='{0}'", note.noteText.fontInfo]);
+          me.logger.info(["note.noteText.fontInfo.bold='{0}'", note.noteText.fontInfo.bold]);
+          me.logger.info(["note.noteText.fontInfo.escapement='{0}'", note.noteText.fontInfo.escapement]);
+          me.logger.info(["note.noteText.fontInfo.faceName='{0}'", note.noteText.fontInfo.faceName]);
+          me.logger.info(["note.noteText.fontInfo.height='{0}'", note.noteText.fontInfo.height]);
+          me.logger.info(["note.noteText.fontInfo.heightPerCell='{0}'", note.noteText.fontInfo.heightPerCell]);
+          me.logger.info(["note.noteText.fontInfo.italic='{0}'", note.noteText.fontInfo.italic]);
+          me.logger.info(["note.noteText.fontInfo.RGB='{0}'", note.noteText.fontInfo.RGB]);
+          me.logger.info(["note.noteText.fontInfo.strikeOut='{0}'", note.noteText.fontInfo.strikeOut]);
+          me.logger.info(["note.noteText.fontInfo.underline='{0}'", note.noteText.fontInfo.underline]);
           me.logger.info(["note.noteText.text='{0}'", note.noteText.text]);
         } 
 
@@ -460,6 +470,9 @@ sol.define("sol.unittest.as.services.Test", {
       } 
 
       // Add Rectangle Object to PDF
+      text = "Approved";
+      fontHeight = 220;
+      fontRGB = 65280;
       pageNo = 1;
       lineWidth = 5;
       height = 337;
@@ -471,6 +484,7 @@ sol.define("sol.unittest.as.services.Test", {
       width *= scale;
       XPos *= scale;
       YPos *= scale;
+      fontHeight *= scale;
 
       // Create Document instance
       doc = new Packages.com.aspose.pdf.Document(sourceFile.getPath());
@@ -496,8 +510,24 @@ sol.define("sol.unittest.as.services.Test", {
       rect = new Packages.com.aspose.pdf.drawing.Rectangle(XPos, pHeight - YPos - height, width, height);
       rect.setRoundedCornerRadius(5);
       // Specify color for Graph object
-      rect.getGraphInfo().setColor(Packages.com.aspose.pdf.Color.getGreen());
+
+      color = new Packages.java.awt.Color(fontRGB);
+      red = color.getRed();
+      green = color.getGreen();
+      blue = color.getBlue();
+      alpha = color.getAlpha();
+      color = Packages.com.aspose.pdf.Color.fromArgb(alpha, red, green, blue);
+      rect.getGraphInfo().setColor(color);
       rect.getGraphInfo().setLineWidth(lineWidth);
+
+      // Set Text
+      textFrag = new Packages.com.aspose.pdf.TextFragment(text);
+      textState = textFrag.getTextState();
+      textState.setFontStyle(Packages.com.aspose.pdf.FontStyles.Bold);
+      textState.setFontSize(fontHeight);
+      textState.setForegroundColor(color);
+      rect.setText(textFrag);
+
       // Add rectangle object to shapes collection of Graph object
       graph.getShapes().add(rect);
       // save resultant PDF file
