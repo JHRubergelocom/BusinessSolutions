@@ -1196,6 +1196,64 @@ sol.define("sol.common_document.as.Utils", {
   },
 
   // TODO Stamps, Sticky notes, Text notes, Rectangle marker, Freehand marker, Horizontal marker, Strike through
+
+  /**
+   * Get graph.
+   * @private
+   * @param {com.aspose.pdf.Page} page page
+   * @param {Double} pWidth pWidth
+   * @param {Double} pHeight pHeight
+   * @return {com.aspose.pdf.drawing.Graph} graph
+   */
+  getGraph: function (page, pWidth, pHeight) {
+    var me = this, 
+        graph, rect;
+
+    me.logger.enter("getGraph");
+    me.logger.info(["Start getGraph with page: '{0}', pWidth: '{1}', pHeight: '{2}'", page, pWidth, pHeight]);
+
+    if (page.getParagraphs().getCount() == 0) {
+      page.getPageInfo().getMargin().setLeft(0);
+      page.getPageInfo().getMargin().setTop(0);
+      graph = new Packages.com.aspose.pdf.drawing.Graph(pWidth, pHeight);
+      rect = new Packages.com.aspose.pdf.drawing.Rectangle(0, 0, pWidth, pHeight);
+      graph.getShapes().add(rect);
+      page.getParagraphs().add(graph);
+    }
+    graph = page.getParagraphs().get_Item(0);
+
+    me.logger.info(["Finish getGraph with graph: '{0}'", graph]);
+    me.logger.exit("getGraph");
+
+    return graph;
+  },
+
+  /**
+   * Get graph.
+   * @private
+   * @param {Integer} noteRGB noteRGB
+   * @return {com.aspose.pdf.Color} color
+   */
+  getColor: function (noteRGB) {
+    var me = this,
+        color, red, green, blue, alpha;
+
+    me.logger.enter("getColor");
+    me.logger.info(["Start getColor with noteRGB: '{0}'", noteRGB]);
+
+    color = new Packages.java.awt.Color(noteRGB);
+    blue = color.getRed();
+    green = color.getGreen();
+    red = color.getBlue();
+    alpha = color.getAlpha();
+    color = Packages.com.aspose.pdf.Color.fromArgb(alpha, red, green, blue);
+
+    me.logger.info(["Finish getColor with graph: '{0}'", color]);
+    me.logger.exit("getColor");
+
+    return color;
+  },
+
   /**
    * Set annotation stamp in a PDF.
    * @private
@@ -1203,7 +1261,111 @@ sol.define("sol.common_document.as.Utils", {
    * @param {de.elo.ix.client.Note} note note
    */
   setAnnotationStamp: function (pdfDocument, note) {
-    
+    var me = this, 
+        page, pHeight, pWidth, graph, rect, text, fontHeight, fontRGB,
+        lineWidth, height, width, XPos, YPos, scale, color,
+        textFrag, textState;
+
+    me.logger.enter("setAnnotationStamp");
+    me.logger.info(["Start setAnnotationStamp with pdfDocument: '{0}', note: '{1}'", pdfDocument, note]);
+
+    text = note.noteText.text;
+    fontHeight = note.noteText.fontInfo.height;
+    fontRGB = note.noteText.fontInfo.RGB;
+    lineWidth = 5;
+    height = note.height;
+    width = note.width;
+    XPos = note.XPos;
+    YPos = note.YPos;
+    scale = 0.24;
+    height *= scale;
+    width *= scale;
+    XPos *= scale;
+    YPos *= scale;
+    fontHeight *= scale;
+
+    page = pdfDocument.getPages().get_Item(note.pageNo);
+
+    pHeight = page.getPageInfo().getHeight();
+    pWidth = page.getPageInfo().getWidth();
+
+    graph = me.getGraph(page, pWidth, pHeight);
+
+    rect = new Packages.com.aspose.pdf.drawing.Rectangle(XPos, pHeight - YPos - height, width, height);
+    rect.setRoundedCornerRadius(lineWidth);
+
+    color = me.getColor(fontRGB);
+    rect.getGraphInfo().setColor(color);
+    rect.getGraphInfo().setLineWidth(lineWidth);
+
+    textFrag = new Packages.com.aspose.pdf.TextFragment(text);
+    textState = textFrag.getTextState();
+    textState.setFontStyle(Packages.com.aspose.pdf.FontStyles.Bold);
+    textState.setFontSize(fontHeight);
+    textState.setForegroundColor(color);
+    rect.setText(textFrag);
+
+    graph.getShapes().add(rect);
+
+    me.logger.info(["Finish setAnnotationStamp"]);
+    me.logger.exit("setAnnotationStamp");    
+
+  },
+
+  /**
+   * Set stiky note in a PDF.
+   * @private
+   * @param {com.aspose.pdf.Document} pdfDocument PDF File
+   * @param {de.elo.ix.client.Note} note note
+   */
+  setStickyNote: function (pdfDocument, note) {
+    var me = this,
+        page, pHeight, pWidth, graph, rect, text, fontHeight, noteRGB,
+        height, width, XPos, YPos, scale, color,
+        textFrag, textState;
+
+    me.logger.enter("setStickyNote");
+    me.logger.info(["Start setStickyNote with pdfDocument: '{0}', note: '{1}'", pdfDocument, note]);
+
+    text = note.noteText.text;
+    fontHeight = note.noteText.fontInfo.height;
+    noteRGB = note.color;
+    height = note.height;
+    width = note.width;
+    XPos = note.XPos;
+    YPos = note.YPos;
+    scale = 0.24;
+    height *= scale;
+    width *= scale;
+    XPos *= scale;
+    YPos *= scale;
+
+    page = pdfDocument.getPages().get_Item(note.pageNo);
+
+    pHeight = page.getPageInfo().getHeight();
+    pWidth = page.getPageInfo().getWidth();
+
+    graph = me.getGraph(page, pWidth, pHeight);
+    rect = new Packages.com.aspose.pdf.drawing.Rectangle(XPos, pHeight - YPos - height, width, height);
+
+    if (noteRGB != 0) {
+      color = me.getColor(noteRGB);
+      rect.getGraphInfo().setColor(color);
+      rect.getGraphInfo().setFillColor(color);  
+    } else {
+      rect.getGraphInfo().setColor(Packages.com.aspose.pdf.Color.getWhite());
+    }
+
+    textFrag = new Packages.com.aspose.pdf.TextFragment(text);
+    textState = textFrag.getTextState();
+    textState.setFontSize(fontHeight);
+    rect.setText(textFrag);
+
+    graph.getShapes().add(rect);
+
+    me.logger.info(["Finish setStickyNote"]);
+    me.logger.exit("setStickyNote");    
+
   },
 
   /**
@@ -1230,6 +1392,14 @@ sol.define("sol.common_document.as.Utils", {
             }
             me.setAnnotationStamp(pdfDocument, note);
             break;
+          case NoteC.TYPE_ANNOTATION_NOTE_WITHFONT:
+          case NoteC.TYPE_ANNOTATION_TEXT:
+            if (!pdfDocument) {
+              pdfDocument = new Packages.com.aspose.pdf.Document(dstPdfFile.getPath());
+            }
+            me.setStickyNote(pdfDocument, note);
+            break;
+  
           default:
         }
       });
