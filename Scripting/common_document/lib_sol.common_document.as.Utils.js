@@ -925,11 +925,9 @@ sol.define("sol.common_document.as.Utils", {
         me.convertPDFtoPDFA(dstFile);
       }
 
-      // TODO Stamps, Sticky notes, Text notes, Rectangle marker, Freehand marker, Horizontal marker, Strike through
       if (config.annotationNotes === true) {
         me.setAnnotationNotes(dstFile, sord);
       }
-      // TODO
 
       pdfInputStream = new ByteArrayInputStream(Packages.org.apache.commons.io.FileUtils.readFileToByteArray(dstFile));
 
@@ -1195,8 +1193,6 @@ sol.define("sol.common_document.as.Utils", {
     me.logger.exit("convertPDFtoPDFA");    
   },
 
-  // TODO Stamps, Sticky notes, Text notes, Rectangle marker, Freehand marker, Horizontal marker, Strike through
-
   /**
    * Get graph.
    * @private
@@ -1232,9 +1228,10 @@ sol.define("sol.common_document.as.Utils", {
    * Get graph.
    * @private
    * @param {Integer} noteRGB noteRGB
+   * @param {Boolean} setAlpha setAlpha
    * @return {com.aspose.pdf.Color} color
    */
-  getColor: function (noteRGB) {
+  getColor: function (noteRGB, setAlpha) {
     var me = this,
         color, red, green, blue, alpha;
 
@@ -1245,7 +1242,10 @@ sol.define("sol.common_document.as.Utils", {
     blue = color.getRed();
     green = color.getGreen();
     red = color.getBlue();
-    alpha = color.getAlpha();
+    alpha = 127;
+    if (setAlpha) {
+      alpha = color.getAlpha();
+    }
     color = Packages.com.aspose.pdf.Color.fromArgb(alpha, red, green, blue);
 
     me.logger.info(["Finish getColor with graph: '{0}'", color]);
@@ -1264,7 +1264,7 @@ sol.define("sol.common_document.as.Utils", {
     var me = this, 
         page, pHeight, pWidth, graph, rect, text, fontHeight, fontRGB,
         lineWidth, height, width, XPos, YPos, scale, color,
-        textFrag, textState;
+        textStamp, textState;
 
     me.logger.enter("setAnnotationStamp");
     me.logger.info(["Start setAnnotationStamp with pdfDocument: '{0}', note: '{1}'", pdfDocument, note]);
@@ -1298,12 +1298,18 @@ sol.define("sol.common_document.as.Utils", {
     rect.getGraphInfo().setColor(color);
     rect.getGraphInfo().setLineWidth(lineWidth);
 
-    textFrag = new Packages.com.aspose.pdf.TextFragment(text);
-    textState = textFrag.getTextState();
+    textStamp = new Packages.com.aspose.pdf.TextStamp(text);
+    textStamp.setOpacity(0.5);
+    textStamp.setXIndent(XPos + 15.0);
+    textStamp.setYIndent(pHeight - YPos - height + 15.0);
+    textStamp.setWidth(width - 30.0);
+    textStamp.setHeight(height - 30.0);
+
+    textState = textStamp.getTextState();
     textState.setFontStyle(Packages.com.aspose.pdf.FontStyles.Bold);
     textState.setFontSize(fontHeight);
     textState.setForegroundColor(color);
-    rect.setText(textFrag);
+    page.addStamp(textStamp);
 
     graph.getShapes().add(rect);
 
@@ -1321,7 +1327,7 @@ sol.define("sol.common_document.as.Utils", {
   setStickyNote: function (pdfDocument, note) {
     var me = this,
         page, pHeight, pWidth, graph, rect, text, fontHeight, noteRGB,
-        height, width, XPos, YPos, scale, color,
+        height, width, XPos, YPos, scale, color, fontRGB,
         textFrag, textState;
 
     me.logger.enter("setStickyNote");
@@ -1329,6 +1335,7 @@ sol.define("sol.common_document.as.Utils", {
 
     text = note.noteText.text;
     fontHeight = note.noteText.fontInfo.height;
+    fontRGB = note.noteText.fontInfo.RGB;
     noteRGB = note.color;
     height = note.height;
     width = note.width;
@@ -1348,17 +1355,31 @@ sol.define("sol.common_document.as.Utils", {
     graph = me.getGraph(page, pWidth, pHeight);
     rect = new Packages.com.aspose.pdf.drawing.Rectangle(XPos, pHeight - YPos - height, width, height);
 
-    if (noteRGB != 0) {
-      color = me.getColor(noteRGB);
-      rect.getGraphInfo().setColor(color);
-      rect.getGraphInfo().setFillColor(color);  
-    } else {
-      rect.getGraphInfo().setColor(Packages.com.aspose.pdf.Color.getWhite());
+    color = me.getColor(noteRGB);
+    if (noteRGB == 0) {
+      color = Packages.com.aspose.pdf.Color.getWhite();
     }
+    rect.getGraphInfo().setColor(color);
+    rect.getGraphInfo().setFillColor(color);  
 
+    color = me.getColor(fontRGB, true);
     textFrag = new Packages.com.aspose.pdf.TextFragment(text);
     textState = textFrag.getTextState();
     textState.setFontSize(fontHeight);
+    textState.setForegroundColor(color);
+
+    if (note.noteText.fontInfo.bold == true) {
+      textState.setFontStyle(Packages.com.aspose.pdf.FontStyles.Bold);
+    }
+    if (note.noteText.fontInfo.italic == true) {
+      textState.setFontStyle(Packages.com.aspose.pdf.FontStyles.Italic);
+    }
+    if (note.noteText.fontInfo.strikeOut == true) {
+      textState.setStrikeOut(true);
+    }
+    if (note.noteText.fontInfo.underline == true) {
+      textState.setUnderline(true);
+    }
     rect.setText(textFrag);
 
     graph.getShapes().add(rect);
@@ -1367,6 +1388,104 @@ sol.define("sol.common_document.as.Utils", {
     me.logger.exit("setStickyNote");    
 
   },
+
+  /**
+   * Set rectangle marker in a PDF.
+   * @private
+   * @param {com.aspose.pdf.Document} pdfDocument PDF File
+   * @param {de.elo.ix.client.Note} note note
+   */
+  setRectangleMarker: function (pdfDocument, note) {
+    var me = this,
+        page, pHeight, pWidth, graph, rect, noteRGB,
+        height, width, XPos, YPos, scale, color;
+
+    me.logger.enter("setRectangleMarker");
+    me.logger.info(["Start setRectangleMarker with pdfDocument: '{0}', note: '{1}'", pdfDocument, note]);
+
+    noteRGB = note.color;
+    height = note.height;
+    width = note.width;
+    XPos = note.XPos;
+    YPos = note.YPos;
+    scale = 0.24;
+    height *= scale;
+    width *= scale;
+    XPos *= scale;
+    YPos *= scale;
+
+    page = pdfDocument.getPages().get_Item(note.pageNo);
+
+    pHeight = page.getPageInfo().getHeight();
+    pWidth = page.getPageInfo().getWidth();
+
+    graph = me.getGraph(page, pWidth, pHeight);
+    rect = new Packages.com.aspose.pdf.drawing.Rectangle(XPos, pHeight - YPos - height, width, height);
+
+    color = me.getColor(noteRGB);
+    rect.getGraphInfo().setColor(color);
+    rect.getGraphInfo().setFillColor(color);  
+
+    graph.getShapes().add(rect);
+
+    me.logger.info(["Finish setRectangleMarker"]);
+    me.logger.exit("setRectangleMarker");    
+
+  },
+
+  /**
+   * Set rectangle marker in a PDF.
+   * @private
+   * @param {com.aspose.pdf.Document} pdfDocument PDF File
+   * @param {de.elo.ix.client.Note} note note
+   */
+  setLineMarker: function (pdfDocument, note) {
+    var me = this,
+        page, pHeight, pWidth, graph, line, noteRGB,
+        lineWidth, scale, color, positionArray;
+
+    me.logger.enter("setLineMarker");
+    me.logger.info(["Start setLineMarker with pdfDocument: '{0}', note: '{1}'", pdfDocument, note]);
+
+    noteRGB = note.color;
+    scale = 0.24;
+
+    page = pdfDocument.getPages().get_Item(note.pageNo);
+
+    pHeight = page.getPageInfo().getHeight();
+    pWidth = page.getPageInfo().getWidth();
+
+    graph = me.getGraph(page, pWidth, pHeight);
+
+    positionArray = [];
+    if (note.noteFreehand != null) {
+      lineWidth = note.noteFreehand.width * scale;
+      if (note.noteFreehand.points != null) {
+        note.noteFreehand.points.forEach(function (point) {
+          positionArray.push(point.x * scale);
+          positionArray.push(pHeight - (point.y * scale));
+        });
+      }
+    } 
+
+    line = new Packages.com.aspose.pdf.drawing.Line(positionArray);
+
+    color = me.getColor(noteRGB);
+    line.getGraphInfo().setColor(color);
+    line.getGraphInfo().setLineWidth(lineWidth);  
+    graph.getShapes().add(line);
+
+    if (note.type == NoteC.TYPE_ANNOTATION_STRIKEOUT) {
+      line = new Packages.com.aspose.pdf.drawing.Line(positionArray);
+      line.getGraphInfo().setLineWidth(lineWidth * 0.5);  
+      graph.getShapes().add(line);  
+    }
+
+    me.logger.info(["Finish setLineMarker"]);
+    me.logger.exit("setLineMarker");    
+
+  },
+
 
   /**
    * Set annotation notes in a PDF.
@@ -1399,6 +1518,20 @@ sol.define("sol.common_document.as.Utils", {
             }
             me.setStickyNote(pdfDocument, note);
             break;
+          case NoteC.TYPE_ANNOTATION_MARKER:
+            if (!pdfDocument) {
+              pdfDocument = new Packages.com.aspose.pdf.Document(dstPdfFile.getPath());
+            }
+            me.setRectangleMarker(pdfDocument, note);
+            break;  
+          case NoteC.TYPE_ANNOTATION_HORIZONTAL_LINE:
+          case NoteC.TYPE_ANNOTATION_FREEHAND:
+          case NoteC.TYPE_ANNOTATION_STRIKEOUT:
+            if (!pdfDocument) {
+              pdfDocument = new Packages.com.aspose.pdf.Document(dstPdfFile.getPath());
+            }
+            me.setLineMarker(pdfDocument, note);
+            break;  
   
           default:
         }
@@ -1415,8 +1548,6 @@ sol.define("sol.common_document.as.Utils", {
     me.logger.exit("setAnnotationNotes");    
 
   },
-  // TODO
-  
 
   /**
    * Set pagination in a PDF.
