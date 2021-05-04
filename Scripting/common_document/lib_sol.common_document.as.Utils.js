@@ -1495,28 +1495,32 @@ sol.define("sol.common_document.as.Utils", {
    */
   setAnnotationNotes: function (dstPdfFile, sord) {
     var me = this,
-        notes, pdfDocument;
+        notes, pdfDocument, os;
 
     me.logger.enter("setAnnotationNotes");
     me.logger.info(["Start setAnnotationNotes with dstPdfFile: '{0}', sord: '{1}'", dstPdfFile, sord]);
 
     try {
-
+      os = String(java.lang.System.getProperty("os.name").toLowerCase());
       notes = ixConnect.ix().checkoutNotes(sord.id, null, NoteC.mbAll, LockC.NO);
       notes.forEach(function (note) {
         switch (note.type) {
           case NoteC.TYPE_ANNOTATION_STAMP_NEW:
-            if (!pdfDocument) {
-              pdfDocument = new Packages.com.aspose.pdf.Document(dstPdfFile.getPath());
+            if (sol.common.StringUtils.contains(os, "win")) {
+              if (!pdfDocument) {
+                pdfDocument = new Packages.com.aspose.pdf.Document(dstPdfFile.getPath());
+              }
+              me.setAnnotationStamp(pdfDocument, note);
             }
-            me.setAnnotationStamp(pdfDocument, note);
             break;
           case NoteC.TYPE_ANNOTATION_NOTE_WITHFONT:
           case NoteC.TYPE_ANNOTATION_TEXT:
-            if (!pdfDocument) {
-              pdfDocument = new Packages.com.aspose.pdf.Document(dstPdfFile.getPath());
+            if (sol.common.StringUtils.contains(os, "win")) {
+              if (!pdfDocument) {
+                pdfDocument = new Packages.com.aspose.pdf.Document(dstPdfFile.getPath());
+              }
+              me.setStickyNote(pdfDocument, note);
             }
-            me.setStickyNote(pdfDocument, note);
             break;
           case NoteC.TYPE_ANNOTATION_MARKER:
             if (!pdfDocument) {
