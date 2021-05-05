@@ -1356,11 +1356,13 @@ sol.define("sol.common_document.as.Utils", {
     rect = new Packages.com.aspose.pdf.drawing.Rectangle(XPos, pHeight - YPos - height, width, height);
 
     color = me.getColor(noteRGB);
-    if (noteRGB == 0) {
-      color = Packages.com.aspose.pdf.Color.getWhite();
+    if (note.type != NoteC.TYPE_ANNOTATION_TEXT) {
+      rect.getGraphInfo().setColor(color);
+      rect.getGraphInfo().setFillColor(color);    
+    } else {
+      rect.getGraphInfo().setColor(Packages.com.aspose.pdf.Color.fromArgb(0, 255, 255, 255));
     }
-    rect.getGraphInfo().setColor(color);
-    rect.getGraphInfo().setFillColor(color);  
+
 
     color = me.getColor(fontRGB, true);
     textFrag = new Packages.com.aspose.pdf.TextFragment(text);
