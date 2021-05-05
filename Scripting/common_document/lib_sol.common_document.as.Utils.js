@@ -1525,18 +1525,22 @@ sol.define("sol.common_document.as.Utils", {
             }
             break;
           case NoteC.TYPE_ANNOTATION_MARKER:
-            if (!pdfDocument) {
-              pdfDocument = new Packages.com.aspose.pdf.Document(dstPdfFile.getPath());
+            if (sol.common.StringUtils.contains(os, "win")) {
+              if (!pdfDocument) {
+                pdfDocument = new Packages.com.aspose.pdf.Document(dstPdfFile.getPath());
+              }
+              me.setRectangleMarker(pdfDocument, note);
             }
-            me.setRectangleMarker(pdfDocument, note);
             break;  
           case NoteC.TYPE_ANNOTATION_HORIZONTAL_LINE:
           case NoteC.TYPE_ANNOTATION_FREEHAND:
           case NoteC.TYPE_ANNOTATION_STRIKEOUT:
-            if (!pdfDocument) {
-              pdfDocument = new Packages.com.aspose.pdf.Document(dstPdfFile.getPath());
+            if (sol.common.StringUtils.contains(os, "win")) {
+              if (!pdfDocument) {
+                pdfDocument = new Packages.com.aspose.pdf.Document(dstPdfFile.getPath());
+              }
+              me.setLineMarker(pdfDocument, note);
             }
-            me.setLineMarker(pdfDocument, note);
             break;  
   
           default:
