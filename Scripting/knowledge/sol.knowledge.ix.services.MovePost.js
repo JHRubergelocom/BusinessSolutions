@@ -120,7 +120,8 @@ sol.define("sol.knowledge.ix.services.MovePost", {
 
     sol.common.IxUtils.execute("RF_sol_function_Move", {
       objId: me.postGuid,
-      targetId: me.spaceGuid
+      targetId: me.spaceGuid,
+      adjustRights: true
     });
 
     post = ixConnect.ix().checkoutSord(me.postGuid, SordC.mbAllIndex, LockC.NO);

@@ -121,6 +121,11 @@ sol.define("sol.common.ix.functions.Move", {
   refOldParentId: undefined,
 
   /**
+   * @cfg {Boolean} relative If set to true and a path without an ARCPATH is defined, the sord will be moved relative to its parent.
+   */
+  relative: false,
+
+  /**
    * @cfg {String[]} referenceIds If set, references will be created
    */
   referenceIds: undefined,
@@ -148,14 +153,29 @@ sol.define("sol.common.ix.functions.Move", {
    */
 
   /**
+   * @cfg {String} rightsMode
+   * Rights mode, e.g. `SET` or `ADD`. With this property it´s possible to overwrite the given rights mode within the `rightsConfig` property.
+   */
+
+  /**
    * @cfg {String|Number} sordType
    * Name or ID of a sord type for the newly created elements. Fallback is the IX standard behaviour.
+   */
+
+  /**
+   * @cfg {String} mask
+   * If set, newly created parts of the path get that mask.
    */
 
   /**
    * @since 1.05.000
    * @cfg {Boolean} [ignoreInvalidRefPaths=false]
    * If this is `true`, there will be no error if one of the {@link #referencePaths} is invalid and the invalid paths will just be ignored.
+   */
+
+  /**
+   * @cfg {Boolean} asAdmin
+   * Execute function with administrator rights
    */
 
   initialize: function (config) {
@@ -172,14 +192,19 @@ sol.define("sol.common.ix.functions.Move", {
    */
   process: function () {
     var me = this,
-        conn, sord, oldParentId, newParentId, i, refId, sordMap, mapValue,
+        conn, sord, wfTplSord, oldParentId, newParentId, i, refId, sordMap, mapValue,
         deleteIfPathNotFound, target;
 
-    conn = (typeof ixConnectAdmin !== "undefined") ? ixConnectAdmin : ixConnect;
+    conn = me.asAdmin ? ixConnectAdmin : ixConnect;
 
-    sord = ixConnect.ix().checkoutSord(me.objId, EditInfoC.mbSord, LockC.NO).sord;
+    me.logger.info(["conn.user.name={0}", conn.loginResult.user.name]);
+
+    sord = conn.ix().checkoutSord(me.objId, EditInfoC.mbSord, LockC.NO).sord;
 
     oldParentId = sord.parentId;
+    if (me.relative && me.path && !(me.path.indexOf("ARCPATH") == 0) && +oldParentId) { // do nothing for objId 0
+      me.path = "ARCPATH[" + sol.common.RepoUtils.getGuid(oldParentId) + "]:" + me.path;
+    }
 
     deleteIfPathNotFound = (me.deleteIfPathNotFound === true) && (+(oldParentId) === 0); // only allow sords in chaos cabinet for now.
 
@@ -206,13 +231,16 @@ sol.define("sol.common.ix.functions.Move", {
     if (me.path) {
       me.logger.debug(["path={0}", me.path]);
       if (!me.targetId) {
-        target = sol.common.RepoUtils.preparePath(me.path, { data: sord, sordType: me.sordType, mask: me.mask, skipIfNotExists: deleteIfPathNotFound, returnDetails: true });
+        if (me.flowId) {
+          wfTplSord = sol.common.WfUtils.getTemplateSord(sord, me.flowId, { formBlobs: true });
+        }
+        target = sol.common.RepoUtils.preparePath(me.path, { data: wfTplSord || sord, sordType: me.sordType, mask: me.mask, skipIfNotExists: deleteIfPathNotFound, returnDetails: true });
         if (target.objId) {
           me.targetId = target.objId;
           me.logger.info(["target path OK {0}.", target.path]);
         } else if (deleteIfPathNotFound && target.skipped) {
           me.logger.info(["deleteIfPathNotFound is defined. target path not found {0}. Deleting sord {1}", target.path, me.objId]);
-          ixConnect.ix().deleteSord(oldParentId, me.objId, LockC.NO, (new DeleteOptions()));
+          conn.ix().deleteSord(oldParentId, me.objId, LockC.NO, (new DeleteOptions()));
           return;
         }
       }
@@ -238,7 +266,13 @@ sol.define("sol.common.ix.functions.Move", {
       if (me.referencePaths instanceof Array) {
         for (i = 0; i < me.referencePaths.length; i++) {
           if (me.ignoreInvalidRefPaths !== true || me.isValidPath(me.referencePaths[i])) {
-            refId = sol.common.RepoUtils.preparePath(me.referencePaths[i], { data: sord, sordType: me.sordType });
+            try {
+              refId = sol.common.RepoUtils.preparePath(me.referencePaths[i], { data: wfTplSord || sord, sordType: me.sordType });
+            } catch (e) {
+              if (me.ignoreInvalidRefPaths !== true) {
+                throw e;
+              }
+            }
           }
           if (refId) {
             me.referenceIds.push(refId);
@@ -254,6 +288,9 @@ sol.define("sol.common.ix.functions.Move", {
         me.rightsConfig = { mode: "SET", inherit: true };
       } else {
         me.rightsConfig = JSON.parse(JSON.stringify(me.rightsConfig));
+        if (me.rightsMode) {
+          me.rightsConfig.mode = me.rightsMode;
+        }
       }
       sol.common.AclUtils.changeRightsInBackground(sord.id, me.rightsConfig);
     }
@@ -290,6 +327,7 @@ function onEnterNode(_clInfo, _userId, wFDiagram, nodeId) {
   sol.common.WfUtils.checkMainAdminWf(wFDiagram);
   params = sol.common.WfUtils.parseAndCheckParams(wFDiagram, nodeId);
   params.objId = wFDiagram.objId;
+  params.flowId = wFDiagram.id;
   params.wFDiagram = wFDiagram;
 
   module = sol.create("sol.common.ix.functions.Move", params);
@@ -312,6 +350,7 @@ function onExitNode(_clInfo, _userId, wFDiagram, nodeId) {
   sol.common.WfUtils.checkMainAdminWf(wFDiagram);
   params = sol.common.WfUtils.parseAndCheckParams(wFDiagram, nodeId);
   params.objId = wFDiagram.objId;
+  params.flowId = wFDiagram.id;
   params.wFDiagram = wFDiagram;
 
   module = sol.create("sol.common.ix.functions.Move", params);
