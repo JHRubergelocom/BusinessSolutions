@@ -53,6 +53,35 @@ describe("[service] sol.knowledge.ix.services.Config", function () {
         }).not.toThrow();
       });
     });
+    describe("RF_sol_knowledge_service_GetSubscription", function () {
+      it("should throw if executed without 'objId'", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_knowledge_service_GetSubscription", {
+          }).then(function success(jsonResult) {
+            fail(jsonResult);
+            done();
+          }, function error(err) {
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("get subscription", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_knowledge_service_GetSubscription", {
+            objId: 1
+          }).then(function success(result) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+    });
   });
   afterAll(function () {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;

@@ -75,10 +75,28 @@ function onExitNode(clInfo, userId, wFDiagram, nodeId) {
 
   logger.enter("onExitNode_GenerateBoardReference", { flowId: wFDiagram.id, nodeId: nodeId });
 
-  params = sol.common.WfUtils.parseAndCheckParams(wFDiagram, nodeId),
+  params = sol.common.WfUtils.parseAndCheckParams(wFDiagram, nodeId);
 
   params.objId = wFDiagram.objId;
   module = sol.create("sol.knowledge.ix.functions.generators.GenerateBoardReference", params);
   module.process();
   logger.exit("onExitNode_GenerateBoardReference");
+}
+
+
+/**
+ * @member sol.knowledge.ix.functions.generators.GenerateBoardReference
+ * @method RF_sol_knowledge_function_generators_GenerateBoardReference
+ * @static
+ * @inheritdoc sol.common.ix.FunctionBase#RF_FunctionName
+ */
+function RF_sol_knowledge_function_generators_GenerateBoardReference(iXSEContext, args) {
+  logger.enter("RF_sol_knowledge_function_generators_GenerateBoardReference", args);
+
+  var params = sol.common.ix.RfUtils.parseAndCheckParams(iXSEContext, arguments.callee.name, args, "objId", "updateExisting"),
+      module = sol.create("sol.knowledge.ix.functions.generators.GenerateBoardReference", params);
+
+  module.process();
+
+  logger.exit("RF_sol_knowledge_function_generators_GenerateBoardReference");
 }

@@ -75,10 +75,28 @@ function onExitNode(clInfo, userId, wFDiagram, nodeId) {
 
   logger.enter("onExitNode_GenerateSpaceReference", { flowId: wFDiagram.id, nodeId: nodeId });
 
-  params = sol.common.WfUtils.parseAndCheckParams(wFDiagram, nodeId),
+  params = sol.common.WfUtils.parseAndCheckParams(wFDiagram, nodeId);
 
   params.objId = wFDiagram.objId;
   module = sol.create("sol.knowledge.ix.functions.generators.GenerateSpaceReference", params);
   module.process();
   logger.exit("onExitNode_GenerateSpaceReference");
+}
+
+
+/**
+ * @member sol.knowledge.ix.functions.generators.GenerateSpaceReference
+ * @method RF_sol_knowledge_function_generators_GenerateSpaceReference
+ * @static
+ * @inheritdoc sol.common.ix.FunctionBase#RF_FunctionName
+ */
+function RF_sol_knowledge_function_generators_GenerateSpaceReference(iXSEContext, args) {
+  logger.enter("RF_sol_knowledge_function_generators_GenerateSpaceReference", args);
+
+  var params = sol.common.ix.RfUtils.parseAndCheckParams(iXSEContext, arguments.callee.name, args, "objId", "updateExisting"),
+      module = sol.create("sol.knowledge.ix.functions.generators.GenerateSpaceReference", params);
+
+  module.process();
+
+  logger.exit("RF_sol_knowledge_function_generators_GenerateSpaceReference");
 }
