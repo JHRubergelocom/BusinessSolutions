@@ -12,6 +12,8 @@ sol.define("sol.unittest.as.services.Test", {
 
   requiredConfig: ["objId"],
 
+  wkhtmltopdfRelativePath: "\\wkhtmltopdf\\bin\\wkhtmltopdf.exe",
+
   /**
    * @cfg {String} id id.
    */
@@ -21,16 +23,83 @@ sol.define("sol.unittest.as.services.Test", {
     me.$super("sol.common.as.FunctionBase", "initialize", [config]);
   },
 
+
+  executeProgram: function (args) {
+    var me = this, 
+        processBuilder, process, scanner, returnCode;
+
+    me.logger.enter("executeProgram");
+    me.logger.info(["Start executeProgram with args: '{0}'", args]);
+    
+    me.logger.info("Execute program: \"" + args.join("\" \"") + "\"");
+
+    processBuilder = new java.lang.ProcessBuilder(java.util.Arrays.asList(args));
+    processBuilder.redirectErrorStream(true);
+
+    process = processBuilder.start();
+    scanner = new java.util.Scanner(process.inputStream).useDelimiter("\\Z");
+    while (scanner.hasNextLine()) {
+      me.logger.info(scanner.nextLine());
+    }
+    scanner.close();
+    returnCode = process.waitFor();
+    me.logger.info("returnCode=" + returnCode);
+
+    me.logger.info(["Finish executeProgram with returnCode: '{0}'", returnCode]);
+    me.logger.exit("executeProgram");
+  },
+
+  getProgramFilesDirPath: function () {
+    var me = this;
+
+    me.logger.enter("getProgramFilesDirPath");
+    me.logger.info(["Start getProgramFilesDirPath"]);
+
+    if (!me.programFilesDirPath) {
+      me.programFilesDirPath = java.lang.System.getenv("ProgramFiles");
+      if (!me.programFilesDirPath) {
+        me.logger.error(["'ProgramFiles' path is empty."]);
+      }
+    }
+    me.logger.info(["Finish getProgramFilesDirPath with me.programFilesDirPath: '{0}'", me.programFilesDirPath]);
+    me.logger.exit("getProgramFilesDirPath");
+
+    return me.programFilesDirPath;
+  },
+
+  getWkhtmltopdfPath: function () {
+    var me = this;
+
+    me.logger.enter("getWkhtmltopdfPath");
+    me.logger.info(["Start getWkhtmltopdfPath"]);
+
+    if (!me.wkhtmltopdfPath) {
+      me.wkhtmltopdfPath = me.getProgramFilesDirPath() + me.wkhtmltopdfRelativePath;
+    }
+    me.logger.info(["Finish getWkhtmltopdfPath with me.wkhtmltopdfPath: '{0}'", me.wkhtmltopdfPath]);
+    me.logger.exit("getWkhtmltopdfPath");
+
+    return me.wkhtmltopdfPath;
+  },
+
+  convertHtmlToPdf: function (url, destPath) {
+    var me = this;
+
+    me.logger.enter("convertHtmlToPdf");
+    me.logger.info(["Start convertHtmlToPdf with url: '{0}', destPath: '{1}'", url, destPath]);
+
+    me.executeProgram([me.getWkhtmltopdfPath(), "-O", "Portrait", url, destPath]);
+
+    me.logger.info(["Finish convertHtmlToPdf"]);
+    me.logger.exit("convertHtmlToPdf");
+  },
+
   /**
    * Call the method and returns the result
    * @return {String|Object} result of method
    */
   process: function () {
-    var me = this, 
-        notes, typetext, targetFile, doc, page, graph, rect, 
-        sourceFile, pageNo, height, width, XPos, YPos, pHeight, 
-        pWidth, scale, lineWidth, text, textFrag, textState, fontHeight, fontRGB,
-        color, alpha, red, green, blue;
+    var me = this, htmlFile, targetFile, url;
 
     
     /*    
@@ -281,7 +350,6 @@ sol.define("sol.unittest.as.services.Test", {
     me.logger.enter("sol.unittest.as.services.Test");
     me.logger.info(["Start sol.unittest.as.services.Test"]);
     try {
-      /*
       if (me.windows) {
         htmlFile = new File("C:\\Temp\\PdfExport\\HTMLToPDF.html");
         targetFile = new File("C:\\Temp\\PdfExport\\HTMLToPDF.pdf");
@@ -292,6 +360,9 @@ sol.define("sol.unittest.as.services.Test", {
       } 
       
       me.logger.info(["Try sol.unittest.as.services.Test with htmlFile: '{0}', targetFile: '{1}'", htmlFile, targetFile]);
+
+      /*
+      // Aspose
 
       // Create HTML load options
       basePath = htmlFile.getParent() + File.separator;
@@ -325,6 +396,13 @@ sol.define("sol.unittest.as.services.Test", {
       doc.save(targetFile.getPath());
       */
 
+      // wkhtmltopdf
+      url = sol.common.FileUtils.getUrlFromFilePath(htmlFile.getPath());
+      me.convertHtmlToPdf(url, targetFile.getPath());
+
+
+      /*
+      // Get Notes, Annotations
       notes = ixConnect.ix().checkoutNotes(me.objId, null, NoteC.mbAll, LockC.NO);
       notes.forEach(function (note) {
         switch (note.type) {
@@ -443,102 +521,14 @@ sol.define("sol.unittest.as.services.Test", {
           me.logger.info(["note.noteImage.fileName='{0}'", note.noteImage.fileName]);
         } 
         if (note.noteText != null) { 
-          me.logger.info(["note.noteText.fontInfo.bold='{0}'", note.noteText.fontInfo.bold]);
-          me.logger.info(["note.noteText.fontInfo.escapement='{0}'", note.noteText.fontInfo.escapement]);
-          me.logger.info(["note.noteText.fontInfo.faceName='{0}'", note.noteText.fontInfo.faceName]);
-          me.logger.info(["note.noteText.fontInfo.height='{0}'", note.noteText.fontInfo.height]);
-          me.logger.info(["note.noteText.fontInfo.heightPerCell='{0}'", note.noteText.fontInfo.heightPerCell]);
-          me.logger.info(["note.noteText.fontInfo.italic='{0}'", note.noteText.fontInfo.italic]);
-          me.logger.info(["note.noteText.fontInfo.RGB='{0}'", note.noteText.fontInfo.RGB]);
-          me.logger.info(["note.noteText.fontInfo.strikeOut='{0}'", note.noteText.fontInfo.strikeOut]);
-          me.logger.info(["note.noteText.fontInfo.underline='{0}'", note.noteText.fontInfo.underline]);
+          me.logger.info(["note.noteText.fontInfo='{0}'", note.noteText.fontInfo]);
           me.logger.info(["note.noteText.text='{0}'", note.noteText.text]);
         } 
 
         me.logger.info(["---------------------------------------------------------------------"]);
 
       });
-
-      // TODO Create Stamp in PDF
-      if (me.windows) {
-        sourceFile = new File("C:\\Temp\\PdfExport\\bob ipsum PDF.pdf");
-        targetFile = new File("C:\\Temp\\PdfExport\\Stamp.pdf");
-  
-      } else {
-        sourceFile = new File("/var/elo/servers/ELO-base/temp/bob ipsum PDF.pdf");
-        targetFile = new File("/var/elo/servers/ELO-base/temp/Stamp.pdf");
-      } 
-
-      // Add Rectangle Object to PDF
-      text = "Approved";
-      fontHeight = 220;
-      fontRGB = 65280;
-      pageNo = 1;
-      lineWidth = 5;
-      height = 337;
-      width = 1055;
-      XPos = 610;
-      YPos = 457;
-      scale = 0.24;
-      height *= scale;
-      width *= scale;
-      XPos *= scale;
-      YPos *= scale;
-      fontHeight *= scale;
-
-      // Create Document instance
-      doc = new Packages.com.aspose.pdf.Document(sourceFile.getPath());
-
-      // Get page
-      page = doc.getPages().get_Item(pageNo);
-
-      page.getPageInfo().getMargin().setLeft(0);
-      page.getPageInfo().getMargin().setTop(0);
-      pHeight = page.getPageInfo().getHeight();
-      pWidth = page.getPageInfo().getWidth();
-
-      
-      // Create Graph instance
-      graph = new Packages.com.aspose.pdf.drawing.Graph(pWidth, pHeight);
-      rect = new Packages.com.aspose.pdf.drawing.Rectangle(0, 0, pWidth, pHeight);
-      graph.getShapes().add(rect);
-
-
-      // Add graph object to paragraphs collection of page instance
-      page.getParagraphs().add(graph);
-      // Create Rectangle instance
-      rect = new Packages.com.aspose.pdf.drawing.Rectangle(XPos, pHeight - YPos - height, width, height);
-      rect.setRoundedCornerRadius(5);
-      // Specify color for Graph object
-
-      color = new Packages.java.awt.Color(fontRGB);
-      red = color.getRed();
-      green = color.getGreen();
-      blue = color.getBlue();
-      alpha = color.getAlpha();
-      color = Packages.com.aspose.pdf.Color.fromArgb(alpha, red, green, blue);
-      rect.getGraphInfo().setColor(color);
-      rect.getGraphInfo().setLineWidth(lineWidth);
-
-      // Set Text
-      textFrag = new Packages.com.aspose.pdf.TextFragment(text);
-      textState = textFrag.getTextState();
-      textState.setFontStyle(Packages.com.aspose.pdf.FontStyles.Bold);
-      textState.setFontSize(fontHeight);
-      textState.setForegroundColor(color);
-      rect.setText(textFrag);
-
-      // Add rectangle object to shapes collection of Graph object
-      graph.getShapes().add(rect);
-      // save resultant PDF file
-      doc.save(targetFile.getPath());
-
-
-      // Add Text to Rectangle Object
-
-      // TODO Create Stamp in PDF
-
-
+*/
 
     } catch (ex) {
       me.logger.error(["error sol.unittest.as.services.Test"], ex);
