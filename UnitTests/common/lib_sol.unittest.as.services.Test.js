@@ -51,12 +51,67 @@ sol.define("sol.unittest.as.services.Test", {
     me.logger.exit("convertHtmlToPdf");
   },
 
+
+  /**
+   * Retrieve the feed guid of an element (sol.common.ix.SubscriptionUtils)
+   * @param {String} objId
+   * @return {String}
+   */
+  getFeedGuid: function (objId) {
+    var fai, fr, feed;
+
+    fai = FindActionsInfo();
+    fai.objId = objId;
+    fr = ixConnect.feedService.findFirstActions(fai, 20, ActionC.mbAll);
+
+    feed = (fr && fr.actions && fr.actions.length > 0) ? fr.feeds.get(fr.actions[0].feedGuid) : null;
+
+    return (feed) ? feed.guid : null;
+  },
+
+
+  // TODO getActions
+
+  getActions: function (objId) {
+    var findInfo, findResult, idx, actions, i;
+
+    findInfo = new FindActionsInfo();
+    findInfo.objId = objId;
+
+    idx = 0;
+    findResult = ixConnect.getFeedService().findFirstActions(findInfo, 200, ActionC.mbAll);
+
+    actions = [];
+
+    while (true) {
+      for (i = 0; i < findResult.actions.length; i++) {
+        actions.push(findResult.actions[i]);
+      }
+      if (!findResult.moreResults) {
+        break;
+      }
+      idx += findResult.actions.length;
+      findResult = ixConnect.getFeedService().findNextactions(findResult.searchId, idx, 200, ActionC.mbAll);
+    }
+    return actions;
+  },
+
+  // TODO getAction
+
+
+
+
+
+
+
+
+
   /**
    * Call the method and returns the result
    * @return {String|Object} result of method
    */
   process: function () {
-    var me = this, htmlFile, targetFile;
+    var me = this, htmlFile, targetFile, actions;
 
     
     /*    
@@ -486,6 +541,15 @@ sol.define("sol.unittest.as.services.Test", {
       });
 */
 
+
+      // Get feed info
+      // TODO
+      actions = me.getActions(me.objId);
+      actions.forEach(function (action) {
+        me.logger.info(["action.text='{0}'", action.text]);
+      });
+
+      // TODO
     } catch (ex) {
       me.logger.error(["error sol.unittest.as.services.Test"], ex);
     }
