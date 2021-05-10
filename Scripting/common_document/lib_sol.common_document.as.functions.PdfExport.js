@@ -5,6 +5,7 @@
  * @requires handlebars
  * @requires sol.common.AclUtils
  * @requires sol.common.Config
+ * @requires sol.common.ExecUtils
  * @requires sol.common.FileUtils
  * @requires sol.common.sol.common.JsonUtils
  * @requires sol.common.Template

@@ -15,6 +15,7 @@
       <name>lib_sol.common.Cache</name>
       <name>lib_sol.common.Config</name>
       <name>lib_sol.common.AsUtils</name>
+      <name>lib_sol.common.ExecUtils</name>
       <name>lib_sol.common.FileUtils</name>
       <name>lib_sol.common.HttpUtils</name>
       <name>lib_sol.common.IxUtils</name>

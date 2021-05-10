@@ -23,50 +23,6 @@ sol.define("sol.unittest.as.services.Test", {
     me.$super("sol.common.as.FunctionBase", "initialize", [config]);
   },
 
-
-  executeProgram: function (args) {
-    var me = this, 
-        processBuilder, process, scanner, returnCode;
-
-    me.logger.enter("executeProgram");
-    me.logger.info(["Start executeProgram with args: '{0}'", args]);
-    
-    me.logger.info("Execute program: \"" + args.join("\" \"") + "\"");
-
-    processBuilder = new java.lang.ProcessBuilder(java.util.Arrays.asList(args));
-    processBuilder.redirectErrorStream(true);
-
-    process = processBuilder.start();
-    scanner = new java.util.Scanner(process.inputStream).useDelimiter("\\Z");
-    while (scanner.hasNextLine()) {
-      me.logger.info(scanner.nextLine());
-    }
-    scanner.close();
-    returnCode = process.waitFor();
-    me.logger.info("returnCode=" + returnCode);
-
-    me.logger.info(["Finish executeProgram with returnCode: '{0}'", returnCode]);
-    me.logger.exit("executeProgram");
-  },
-
-  getProgramFilesDirPath: function () {
-    var me = this;
-
-    me.logger.enter("getProgramFilesDirPath");
-    me.logger.info(["Start getProgramFilesDirPath"]);
-
-    if (!me.programFilesDirPath) {
-      me.programFilesDirPath = java.lang.System.getenv("ProgramFiles");
-      if (!me.programFilesDirPath) {
-        me.logger.error(["'ProgramFiles' path is empty."]);
-      }
-    }
-    me.logger.info(["Finish getProgramFilesDirPath with me.programFilesDirPath: '{0}'", me.programFilesDirPath]);
-    me.logger.exit("getProgramFilesDirPath");
-
-    return me.programFilesDirPath;
-  },
-
   getWkhtmltopdfPath: function () {
     var me = this;
 
@@ -74,7 +30,7 @@ sol.define("sol.unittest.as.services.Test", {
     me.logger.info(["Start getWkhtmltopdfPath"]);
 
     if (!me.wkhtmltopdfPath) {
-      me.wkhtmltopdfPath = me.getProgramFilesDirPath() + me.wkhtmltopdfRelativePath;
+      me.wkhtmltopdfPath = sol.common.ExecUtils.getProgramFilesDir() + me.wkhtmltopdfRelativePath;
     }
     me.logger.info(["Finish getWkhtmltopdfPath with me.wkhtmltopdfPath: '{0}'", me.wkhtmltopdfPath]);
     me.logger.exit("getWkhtmltopdfPath");
@@ -88,7 +44,8 @@ sol.define("sol.unittest.as.services.Test", {
     me.logger.enter("convertHtmlToPdf");
     me.logger.info(["Start convertHtmlToPdf with url: '{0}', destPath: '{1}'", url, destPath]);
 
-    me.executeProgram([me.getWkhtmltopdfPath(), "-O", "Portrait", url, destPath]);
+    sol.common.ExecUtils.startProcess([me.getWkhtmltopdfPath(), "-O", "Portrait", url, destPath], { wait: true });
+
 
     me.logger.info(["Finish convertHtmlToPdf"]);
     me.logger.exit("convertHtmlToPdf");
@@ -99,7 +56,7 @@ sol.define("sol.unittest.as.services.Test", {
    * @return {String|Object} result of method
    */
   process: function () {
-    var me = this, htmlFile, targetFile, url;
+    var me = this, htmlFile, targetFile;
 
     
     /*    
@@ -397,8 +354,7 @@ sol.define("sol.unittest.as.services.Test", {
       */
 
       // wkhtmltopdf
-      url = sol.common.FileUtils.getUrlFromFilePath(htmlFile.getPath());
-      me.convertHtmlToPdf(url, targetFile.getPath());
+      me.convertHtmlToPdf(htmlFile.getPath(), targetFile.getPath());
 
 
       /*

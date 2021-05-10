@@ -705,7 +705,7 @@ sol.define("sol.common_document.as.Utils", {
    * @param {String} dstDirPath
    * @return {java.io.InputStream} inputStream or null if there was an error
    */
-  convertHtmlToPdf: function (sord, ext, dstDirPath) {
+  _convertHtmlToPdf: function (sord, ext, dstDirPath) {
     var me = this,
         inputStream = null,
         pdfInputStream = null,
@@ -746,6 +746,64 @@ sol.define("sol.common_document.as.Utils", {
     return pdfInputStream;
   },
 
+  // TODO wkhtmltopdf
+  getWkhtmltopdfPath: function () {
+    var me = this,
+        wkhtmltopdfPath, wkhtmltopdfRelativePath;
+
+    me.logger.enter("getWkhtmltopdfPath");
+    me.logger.info(["Start getWkhtmltopdfPath"]);
+
+    wkhtmltopdfRelativePath = "\\wkhtmltopdf\\bin\\wkhtmltopdf.exe";
+    wkhtmltopdfPath = sol.common.ExecUtils.getProgramFilesDir() + wkhtmltopdfRelativePath;
+
+    me.logger.info(["Finish getWkhtmltopdfPath with wkhtmltopdfPath: '{0}'", wkhtmltopdfPath]);
+    me.logger.exit("getWkhtmltopdfPath");
+
+    return wkhtmltopdfPath;
+  },
+
+  /**
+   * Converts a html document to a PDF.
+   * @private
+   * @param {de.elo.ix.client.Sord} sord
+   * @param {String} ext
+   * @param {String} dstDirPath
+   * @return {java.io.InputStream} inputStream or null if there was an error
+   */
+  convertHtmlToPdf: function (sord, ext, dstDirPath) {
+    var me = this,
+        inputStream = null,
+        pdfInputStream = null,
+        sourceFile, targetFile, fileName;
+
+    me.logger.enter("convertHtmlToPdf");
+    me.logger.info(["Start convertHtmlToPdf with sord: '{0}'", sord]);
+
+    try {
+      inputStream = sol.common.RepoUtils.downloadToStream(sord.id);
+      fileName = sol.common.FileUtils.sanitizeFilename(sord.name);
+
+      sourceFile = me.writeInputStreamToFile(inputStream, dstDirPath, fileName, ext);
+      targetFile = new File(dstDirPath + java.io.File.separator + fileName + ".pdf");
+
+      sol.common.ExecUtils.startProcess([me.getWkhtmltopdfPath(), "-O", "Portrait", sourceFile.getPath(), targetFile.getPath()], { wait: true });
+
+      pdfInputStream = new ByteArrayInputStream(Packages.org.apache.commons.io.FileUtils.readFileToByteArray(targetFile));
+      sol.common.FileUtils.delete(sourceFile, { quietly: true });
+      
+    } catch (ex) {
+      me.logger.error(["error convertHtmlToPdf with sourceFile:'{0}', targetFile:'{1}'", sourceFile, targetFile], ex);
+    }
+
+    me.logger.info(["Finish convertHtmlToPdf with inputStream: '{0}'", pdfInputStream]);
+    me.logger.exit("convertHtmlToPdf");
+    return pdfInputStream;
+  },
+
+
+  // TODO wkhtmltopdf
+
   /**
    * Converts a html file to a PDF.
    * @private
@@ -753,7 +811,7 @@ sol.define("sol.common_document.as.Utils", {
    * @param {String} dstDirPath
    * @return {java.io.InputStream} inputStream or null if there was an error
    */
-  convertHtmlFileToPdf: function (filePath, dstDirPath) {
+  _convertHtmlFileToPdf: function (filePath, dstDirPath) {
     var me = this,
         pdfInputStream = null,
         sourceFile, targetFile, fileName,
@@ -790,6 +848,45 @@ sol.define("sol.common_document.as.Utils", {
     me.logger.exit("convertHtmlFileToPdf");
     return pdfInputStream;
   },
+
+  // TODO wkhtmltopdf
+
+  /**
+   * Converts a html file to a PDF.
+   * @private
+   * @param {String} filePath   
+   * @param {String} dstDirPath
+   * @return {java.io.InputStream} inputStream or null if there was an error
+   */
+  convertHtmlFileToPdf: function (filePath, dstDirPath) {
+    var me = this,
+        pdfInputStream = null,
+        sourceFile, targetFile, fileName;
+
+    me.logger.enter("convertHtmlFileToPdf");
+    me.logger.info(["Start convertHtmlFileToPdf with filePath: '{0}', dstDirPath:'{1}'", filePath, dstDirPath]);
+
+    try {
+      sourceFile = new File(filePath);
+      fileName = sol.common.FileUtils.getName(sourceFile);
+      targetFile = new File(dstDirPath + java.io.File.separator + fileName + ".pdf");
+
+      sol.common.ExecUtils.startProcess([me.getWkhtmltopdfPath(), "-O", "Portrait", sourceFile.getPath(), targetFile.getPath()], { wait: true });
+
+      pdfInputStream = new ByteArrayInputStream(Packages.org.apache.commons.io.FileUtils.readFileToByteArray(targetFile));
+      sol.common.FileUtils.delete(sourceFile, { quietly: true });
+
+    } catch (ex) {
+      me.logger.error(["error convertHtmlFileToPdf with sourceFile:'{0}', targetFile:'{1}'", sourceFile, targetFile], ex);
+    }
+
+    me.logger.info(["Finish convertHtmlFileToPdf with inputStream: '{0}'", pdfInputStream]);
+    me.logger.exit("convertHtmlFileToPdf");
+    return pdfInputStream;
+  },
+
+
+  // TODO wkhtmltopdf
 
   /**
    * Converts a document to a PDF.
@@ -845,7 +942,7 @@ sol.define("sol.common_document.as.Utils", {
             break;
           case "html":
             os = String(java.lang.System.getProperty("os.name").toLowerCase());
-            if (!sol.common.StringUtils.contains(os, "win") || !me.debug) {
+            if (!sol.common.StringUtils.contains(os, "win")) {
               inputStream = me.convertTextToPdf(sord, ext, dstDirPath, config); 
               me.logger.info(["format '{0}' is not supported in os '{1}'", ext, os]);
               return inputStream;
@@ -1812,7 +1909,7 @@ sol.define("sol.common_document.as.Utils", {
             break;
           case "html":
             os = String(java.lang.System.getProperty("os.name").toLowerCase());
-            if (!sol.common.StringUtils.contains(os, "win") || !me.debug) {
+            if (!sol.common.StringUtils.contains(os, "win")) {
               inputStream = me.convertTextFileToPdf(filePath, dstDirPath, config);              
               me.logger.info(["format '{0}' is not supported in os '{1}'", ext, os]);
               return inputStream;
