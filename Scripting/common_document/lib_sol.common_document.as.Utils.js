@@ -712,8 +712,8 @@ sol.define("sol.common_document.as.Utils", {
         sourceFile, targetFile, fileName,
         basePath, htmloptions, doc;
 
-    me.logger.enter("convertHtmlToPdf");
-    me.logger.info(["Start convertHtmlToPdf with sord: '{0}'", sord]);
+    me.logger.enter("_convertHtmlToPdf");
+    me.logger.info(["Start _convertHtmlToPdf with sord: '{0}'", sord]);
 
     try {
       inputStream = sol.common.RepoUtils.downloadToStream(sord.id);
@@ -738,11 +738,11 @@ sol.define("sol.common_document.as.Utils", {
       sol.common.FileUtils.delete(sourceFile, { quietly: true });
       
     } catch (ex) {
-      me.logger.error(["error convertHtmlToPdf with sourceFile:'{0}', targetFile:'{1}'", sourceFile, targetFile], ex);
+      me.logger.error(["error _convertHtmlToPdf with sourceFile:'{0}', targetFile:'{1}'", sourceFile, targetFile], ex);
     }
 
-    me.logger.info(["Finish convertHtmlToPdf with inputStream: '{0}'", pdfInputStream]);
-    me.logger.exit("convertHtmlToPdf");
+    me.logger.info(["Finish _convertHtmlToPdf with inputStream: '{0}'", pdfInputStream]);
+    me.logger.exit("_convertHtmlToPdf");
     return pdfInputStream;
   },
 
@@ -817,8 +817,8 @@ sol.define("sol.common_document.as.Utils", {
         sourceFile, targetFile, fileName,
         basePath, htmloptions, doc;
 
-    me.logger.enter("convertHtmlFileToPdf");
-    me.logger.info(["Start convertHtmlFileToPdf with filePath: '{0}', dstDirPath:'{1}'", filePath, dstDirPath]);
+    me.logger.enter("_convertHtmlFileToPdf");
+    me.logger.info(["Start _convertHtmlFileToPdf with filePath: '{0}', dstDirPath:'{1}'", filePath, dstDirPath]);
 
     try {
       sourceFile = new File(filePath);
@@ -841,11 +841,11 @@ sol.define("sol.common_document.as.Utils", {
       sol.common.FileUtils.delete(sourceFile, { quietly: true });
 
     } catch (ex) {
-      me.logger.error(["error convertHtmlFileToPdf with sourceFile:'{0}', targetFile:'{1}'", sourceFile, targetFile], ex);
+      me.logger.error(["error _convertHtmlFileToPdf with sourceFile:'{0}', targetFile:'{1}'", sourceFile, targetFile], ex);
     }
 
-    me.logger.info(["Finish convertHtmlFileToPdf with inputStream: '{0}'", pdfInputStream]);
-    me.logger.exit("convertHtmlFileToPdf");
+    me.logger.info(["Finish _convertHtmlFileToPdf with inputStream: '{0}'", pdfInputStream]);
+    me.logger.exit("_convertHtmlFileToPdf");
     return pdfInputStream;
   },
 
