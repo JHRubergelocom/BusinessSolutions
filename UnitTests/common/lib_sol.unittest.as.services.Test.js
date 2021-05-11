@@ -76,13 +76,14 @@ sol.define("sol.unittest.as.services.Test", {
 
     guid = sol.common.RepoUtils.getSord(objId).guid;
 
+    urlParams.push("ticket=" + ixConnect.loginResult.clientInfo.ticket);
     urlParams.push("userid=" + ixConnect.loginResult.user.id);
     urlParams.push("lang=" + ixConnect.loginResult.clientInfo.language);
     urlParams.push("timezone=" + "Europe/Berlin");
 
     baseUrl = sol.common.WfUtils.getWfBaseUrl();
 
-    url = baseUrl + "/social/feed/?guid=" + guid + "&ticket=de.elo.ix.client.ticket_from_cookie&" + urlParams.join("&");
+    url = baseUrl + "/social/feed/?guid=" + guid + "&" + urlParams.join("&");
     return url;
   },
 
@@ -129,7 +130,7 @@ sol.define("sol.unittest.as.services.Test", {
    * @return {String|Object} result of method
    */
   process: function () {
-    var me = this, htmlFile, targetFile, feedUrl;
+    var me = this, htmlFile, targetFile, feedUrl, feedFile;
 
     
     /*    
@@ -383,10 +384,12 @@ sol.define("sol.unittest.as.services.Test", {
       if (me.windows) {
         htmlFile = new File("C:\\Temp\\PdfExport\\HTMLToPDF.html");
         targetFile = new File("C:\\Temp\\PdfExport\\HTMLToPDF.pdf");
+        feedFile = new File("C:\\Temp\\PdfExport\\Feed.pdf");
   
       } else {
         htmlFile = new File("/var/elo/servers/ELO-base/temp/HTMLToPDF.html");
         targetFile = new File("/var/elo/servers/ELO-base/temp/HTMLToPDF.pdf");
+        feedFile = new File("/var/elo/servers/ELO-base/temp/Feed.pdf");
       } 
       
       me.logger.info(["Try sol.unittest.as.services.Test with htmlFile: '{0}', targetFile: '{1}'", htmlFile, targetFile]);
@@ -571,6 +574,9 @@ sol.define("sol.unittest.as.services.Test", {
 
       feedUrl = me.getFeedUrl(me.objId);
       java.awt.Desktop.desktop.browse(new java.net.URI(feedUrl));
+
+      me.convertHtmlToPdf(feedUrl, feedFile.getPath());
+
 
       // TODO
     } catch (ex) {
