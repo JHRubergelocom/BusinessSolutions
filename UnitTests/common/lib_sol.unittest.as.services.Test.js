@@ -62,12 +62,30 @@ sol.define("sol.unittest.as.services.Test", {
 
     fai = FindActionsInfo();
     fai.objId = objId;
-    fr = ixConnect.feedService.findFirstActions(fai, 20, ActionC.mbAll);
+    fr = ixConnect.feedService.findFirstActions(fai, 1, ActionC.mbMin);
 
     feed = (fr && fr.actions && fr.actions.length > 0) ? fr.feeds.get(fr.actions[0].feedGuid) : null;
 
     return (feed) ? feed.guid : null;
   },
+
+  getFeedUrl: function (objId) {
+    var baseUrl, url, guid,
+        urlParams = [];
+
+
+    guid = sol.common.RepoUtils.getSord(objId).guid;
+
+    urlParams.push("userid=" + ixConnect.loginResult.user.id);
+    urlParams.push("lang=" + ixConnect.loginResult.clientInfo.language);
+    urlParams.push("timezone=" + "Europe/Berlin");
+
+    baseUrl = sol.common.WfUtils.getWfBaseUrl();
+
+    url = baseUrl + "/social/feed/?guid=" + guid + "&ticket=de.elo.ix.client.ticket_from_cookie&" + urlParams.join("&");
+    return url;
+  },
+
 
 
   // TODO getActions
@@ -111,7 +129,7 @@ sol.define("sol.unittest.as.services.Test", {
    * @return {String|Object} result of method
    */
   process: function () {
-    var me = this, htmlFile, targetFile, actions;
+    var me = this, htmlFile, targetFile, feedUrl;
 
     
     /*    
@@ -544,10 +562,15 @@ sol.define("sol.unittest.as.services.Test", {
 
       // Get feed info
       // TODO
+      /*
       actions = me.getActions(me.objId);
       actions.forEach(function (action) {
         me.logger.info(["action.text='{0}'", action.text]);
       });
+      */
+
+      feedUrl = me.getFeedUrl(me.objId);
+      java.awt.Desktop.desktop.browse(new java.net.URI(feedUrl));
 
       // TODO
     } catch (ex) {
