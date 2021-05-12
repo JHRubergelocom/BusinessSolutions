@@ -465,7 +465,7 @@ sol.define("sol.common_document.as.Utils", {
   createPdfFromSord: function (sord, templateId, dstDirPath, ext, pdfName, config, pdfContents) {
     var me = this,
         data, fopRenderer, result, pdfInputStream, refPath, pdfPages, 
-        dstFile, isCover, dm;
+        dstFile, isCover, dm, os;
 
     me.logger.enter("createPdfFromSord"); 
     me.logger.info(["Start createPdfFromSord with sord: '{0}', templateId: '{1}', dstDirPath: '{2}', ext: '{3}', pdfName: '{4}', config: '{5}'", sord, templateId, dstDirPath, ext, pdfName, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
@@ -545,7 +545,10 @@ sol.define("sol.common_document.as.Utils", {
 
     // TODO feedInfo
     if (config.feedInfo === true) {
-      me.appendFeedInfo(sord, dstFile);
+      os = String(java.lang.System.getProperty("os.name").toLowerCase());
+      if (sol.common.StringUtils.contains(os, "win")) {
+        me.appendFeedInfo(sord, dstFile);
+      }
     }
     // TODO feedInfo
 
