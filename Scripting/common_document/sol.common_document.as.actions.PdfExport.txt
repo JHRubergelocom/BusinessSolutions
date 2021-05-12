@@ -28,6 +28,7 @@
       <name>lib_sol.common.UserUtils</name>
       <name>lib_sol.common.Template</name>
       <name>lib_sol.common.TranslateTerms</name>
+      <name>lib_sol.common.WfUtils</name>
       <name>lib_sol.common.ZipUtils</name>
       <name>lib_sol.common.ObjectFormatter</name>
       <name>lib_sol.common.ActionBase</name>

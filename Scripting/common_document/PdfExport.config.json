@@ -23,5 +23,6 @@
     "text": { "content" : "Watermark", "show": false }
   },
   "marginNotes": true,
-  "annotationNotes": true
+  "annotationNotes": true,
+  "feedInfo": true
 }

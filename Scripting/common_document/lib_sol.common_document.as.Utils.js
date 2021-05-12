@@ -367,6 +367,88 @@ sol.define("sol.common_document.as.Utils", {
     return marginNotes;
   },
 
+  // TODO feedInfo
+
+  /**
+   * Get feed url from sord.
+   * @private
+   * @param {de.elo.ix.client.Sord} sord
+   * @param {Object} config Pdf export configuration
+   * @return {String} feed url
+   */
+  getFeedUrl: function (sord, config) {
+    var me = this, 
+        baseUrl, feedUrl, guid, timeZone,
+        urlParams = [];
+
+    me.logger.enter("getFeedUrl"); 
+    me.logger.info(["Start getFeedUrl with sord: '{0}', config: '{1}'", sord, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
+    
+    guid = sord.guid;
+    timeZone = config.timeZone;
+
+    urlParams.push("ticket=" + ixConnect.loginResult.clientInfo.ticket);
+    urlParams.push("userid=" + ixConnect.loginResult.user.id);
+    urlParams.push("lang=" + ixConnect.loginResult.clientInfo.language);
+    urlParams.push("timezone=" + timeZone);
+
+    baseUrl = sol.common.WfUtils.getWfBaseUrl();
+    feedUrl = baseUrl + "/social/feed/?guid=" + guid + "&" + urlParams.join("&");
+
+    me.logger.info(["Finish getFeedUrl with feedUrl: '{0}'", feedUrl]);
+    me.logger.exit("getFeedUrl");
+
+    return feedUrl;
+  },
+
+  /**
+   * Append feed info of sord to a PDF.
+   * @private
+   * @param {String} feedUrl feed url
+   * @param {String} dstFeedPdfPath Path PDF Feed File
+   * @param {Object} config Pdf export configuration
+   */
+  convertFeedToPdf: function (feedUrl, dstFeedPdfPath) {
+    var me = this;
+
+    me.logger.enter("convertFeedToPdf");
+    me.logger.info(["Start convertFeedToPdf with feedUrl: '{0}', dstFeedPdfPath: '{1}'", feedUrl, dstFeedPdfPath]);
+
+    sol.common.ExecUtils.startProcess([me.getWkhtmltopdfPath(), "-O", "Portrait", feedUrl, dstFeedPdfPath], { wait: true });
+
+    me.logger.info(["Finish convertFeedToPdf"]);
+    me.logger.exit("convertFeedToPdf");    
+  },
+
+  /**
+   * Append feed info of sord to a PDF.
+   * @private
+   * @param {de.elo.ix.client.Sord} sord
+   * @param {java.io.File} dstPdfFile PDF File
+   * @param {Object} config Pdf export configuration
+   */
+  appendFeedInfo: function (sord, dstPdfFile, config) {
+    var me = this,
+        dstPdfPath, dstFeedPdfPath, dstFeedPdfFile, feedUrl;
+
+    me.logger.enter("appendFeedInfo");
+    me.logger.info(["Start appendFeedInfo with sord: '{0}', dstPdfFile: '{1}', config: '{2}'", sord, dstPdfFile, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
+
+    dstPdfPath = dstPdfFile.getPath();
+    dstFeedPdfPath = dstPdfPath + "_feed.pdf";
+    feedUrl = me.getFeedUrl(sord, config);
+    me.convertFeedToPdf(feedUrl, dstFeedPdfPath);
+
+    dstFeedPdfFile = new File(dstFeedPdfPath);
+    Packages.de.elo.mover.main.pdf.appendPdfToPdf(dstFeedPdfFile, dstPdfFile);
+    dstFeedPdfFile.delete();
+
+    me.logger.info(["Finish appendFeedInfo"]);
+    me.logger.exit("appendFeedInfo");    
+  },
+  // TODO feedInfo
+
+
   /**
    * Create PDF from sord
    * @private
@@ -460,6 +542,12 @@ sol.define("sol.common_document.as.Utils", {
       result = fopRenderer.render(pdfName, data);
       dstFile = me.writePdfOutputStreamToFile(result.outputStream, dstDirPath, pdfName);
     }
+
+    // TODO feedInfo
+    if (config.feedInfo === true) {
+      me.appendFeedInfo(sord, dstFile);
+    }
+    // TODO feedInfo
 
     if (config.pdfA === true) {
       me.convertPDFtoPDFA(dstFile);
