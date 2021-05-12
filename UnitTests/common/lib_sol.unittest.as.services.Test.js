@@ -87,10 +87,6 @@ sol.define("sol.unittest.as.services.Test", {
     return url;
   },
 
-
-
-  // TODO getActions
-
   getActions: function (objId) {
     var findInfo, findResult, idx, actions, i;
 
@@ -115,23 +111,12 @@ sol.define("sol.unittest.as.services.Test", {
     return actions;
   },
 
-  // TODO getAction
-
-
-
-
-
-
-
-
-
   /**
    * Call the method and returns the result
    * @return {String|Object} result of method
    */
   process: function () {
     var me = this, htmlFile, targetFile, feedUrl, feedFile;
-
     
     /*    
     mapiMessage = sol.create("sol.common.as.MapiMessage", {});
@@ -562,9 +547,7 @@ sol.define("sol.unittest.as.services.Test", {
       });
 */
 
-
       // Get feed info
-      // TODO
       /*
       actions = me.getActions(me.objId);
       actions.forEach(function (action) {
@@ -576,9 +559,7 @@ sol.define("sol.unittest.as.services.Test", {
       java.awt.Desktop.desktop.browse(new java.net.URI(feedUrl));
 
       me.convertHtmlToPdf(feedUrl, feedFile.getPath());
-
-
-      // TODO
+      
     } catch (ex) {
       me.logger.error(["error sol.unittest.as.services.Test"], ex);
     }
