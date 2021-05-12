@@ -10,6 +10,7 @@
  * @requires sol.common.sol.common.JsonUtils
  * @requires sol.common.Template
  * @requires sol.common.TranslateTerms
+ * @requires sol.common.UserProfile
  * @requires sol.common.WfUtils
  * @requires sol.common.ObjectFormatter.TemplateSord
  * @requires sol.common.as.DocumentGenerator

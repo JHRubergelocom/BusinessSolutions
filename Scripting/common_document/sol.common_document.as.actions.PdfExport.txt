@@ -25,6 +25,7 @@
       <name>lib_sol.common.SordUtils</name>
       <name>lib_sol.common.RepoUtils</name>
       <name>lib_sol.common.CounterUtils</name>
+      <name>lib_sol.common.UserProfile</name>
       <name>lib_sol.common.UserUtils</name>
       <name>lib_sol.common.Template</name>
       <name>lib_sol.common.TranslateTerms</name>

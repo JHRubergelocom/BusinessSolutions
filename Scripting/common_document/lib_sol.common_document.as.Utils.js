@@ -440,7 +440,7 @@ sol.define("sol.common_document.as.Utils", {
     me.convertFeedToPdf(feedUrl, dstFeedPdfPath);
 
     dstFeedPdfFile = new File(dstFeedPdfPath);
-    Packages.de.elo.mover.main.pdf.appendPdfToPdf(dstFeedPdfFile, dstPdfFile);
+    Packages.de.elo.mover.main.pdf.PdfFileHelper.appendPdfToPdf(dstFeedPdfFile, dstPdfFile, false);
     dstFeedPdfFile.delete();
 
     me.logger.info(["Finish appendFeedInfo"]);
@@ -547,7 +547,7 @@ sol.define("sol.common_document.as.Utils", {
     if (config.feedInfo === true) {
       os = String(java.lang.System.getProperty("os.name").toLowerCase());
       if (sol.common.StringUtils.contains(os, "win")) {
-        me.appendFeedInfo(sord, dstFile);
+        me.appendFeedInfo(sord, dstFile, config);
       }
     }
     // TODO feedInfo
