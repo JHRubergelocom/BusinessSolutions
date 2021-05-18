@@ -105,9 +105,6 @@ sol.define("sol.unittest.as.services.ExecuteLib2", {
           case "eveluateActionProperty":
             me.params[1] = ixConnect.ix().checkoutSord(me.params[1], new SordZ(SordC.mbAll), LockC.NO);
             break;
-          case "disposeUserConnection":
-            me.params[0] = ixConnect;
-            break;
           case "FUNCTION":
           case "REMINDER":
           case "TECHNICAL_WORKFLOW":
@@ -121,6 +118,17 @@ sol.define("sol.unittest.as.services.ExecuteLib2", {
       case "sol.common_document.as.Utils":
         config = sol.common_document.Utils.loadConfigExport();
         switch (me.method) {
+          case "appendFeedInfo":
+          case "convertGraphicFileToPdf":
+          case "convertGraphicToPdf":
+          case "convertTextFileToPdf":
+          case "convertTextToPdf":
+          case "getGraph":
+          case "setAnnotationStamp":
+          case "setLineMarker":
+          case "setRectangleMarker":
+          case "setStickyNote":
+            return result;
           case "convertOutputStreamToInputStream":
             me.params[0] = new ByteArrayOutputStream();
             break;
@@ -135,7 +143,11 @@ sol.define("sol.unittest.as.services.ExecuteLib2", {
           case "getPdfName":
             me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
             break;
+          case "convertMsgWithAttchmentToPdf":
+          case "setPagination":
+            return result;          
           case "getTemplateCoverSheetSord":
+          case "getMarginNotes":
             me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
             me.params[1] = config;           
             break;
@@ -188,6 +200,7 @@ sol.define("sol.unittest.as.services.ExecuteLib2", {
             me.params[2] = config;            
             break;   
           case "writePdfInputStreamToFile":
+          case "writeInputStreamToFile":
             exportDirPath = me.createExportDirPath("folderName1");
             sord = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
             pdfInputStream = cls.convertToPdf(sord);
@@ -239,6 +252,9 @@ sol.define("sol.unittest.as.services.ExecuteLib2", {
         break;
       case "sol.common_document.as.Utils":
         switch (me.method) {
+          case "getColor":
+            result = String(result);
+            break;
           case "convertOutputStreamToInputStream":
             result.close();
             result = String(result);
@@ -250,6 +266,7 @@ sol.define("sol.unittest.as.services.ExecuteLib2", {
             break;
           case "convertPDFtoPDFA":
           case "writePdfInputStreamToFile":  
+          case "writeInputStreamToFile":
           case "writePdfOutputStreamToFile":
             sol.common.FileUtils.delete(exportDirPath, { quietly: true });
             result = String(result);

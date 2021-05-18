@@ -18,6 +18,7 @@
       <name>lib_sol.common.CounterUtils</name>
       <name>lib_sol.common.DateUtils</name>
       <name>lib_sol.common.ExceptionUtils</name>
+      <name>lib_sol.common.ExecUtils</name>
       <name>lib_sol.common.FileUtils</name>
       <name>lib_sol.common.JsonUtils</name>
       <name>lib_sol.common.IxUtils</name>
@@ -28,6 +29,7 @@
       <name>lib_sol.common.StringUtils</name>
       <name>lib_sol.common.Template</name>
       <name>lib_sol.common.TranslateTerms</name>
+      <name>lib_sol.common.UserProfile</name>
       <name>lib_sol.common.WfUtils</name>
       <name>lib_sol.common.as.ActionBase</name>
       <name>lib_sol.common.as.FunctionBase</name>

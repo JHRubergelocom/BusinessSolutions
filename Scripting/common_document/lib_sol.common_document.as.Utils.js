@@ -412,7 +412,11 @@ sol.define("sol.common_document.as.Utils", {
     me.logger.enter("convertFeedToPdf");
     me.logger.info(["Start convertFeedToPdf with feedUrl: '{0}', dstFeedPdfPath: '{1}'", feedUrl, dstFeedPdfPath]);
 
-    sol.common.ExecUtils.startProcess([me.getWkhtmltopdfPath(), "-O", "Portrait", feedUrl, dstFeedPdfPath], { wait: true });
+    try {
+      sol.common.ExecUtils.startProcess([me.getWkhtmltopdfPath(), "-O", "Portrait", feedUrl, dstFeedPdfPath], { wait: true });
+    } catch (ex) {
+      me.logger.error(["error convertFeedToPdf with feedUrl: '{0}', dstFeedPdfPath: '{1}'", feedUrl, dstFeedPdfPath], ex);
+    }
 
     me.logger.info(["Finish convertFeedToPdf"]);
     me.logger.exit("convertFeedToPdf");    
