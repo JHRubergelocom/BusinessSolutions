@@ -540,7 +540,6 @@ sol.define("sol.common_document.as.Utils", {
       data.headerPermanentMarginNote = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.headerPermanentMarginNote' '" + me.language + "'}}" }).apply();
     }
  
-
     if (config.pdfExport === true) {
       fopRenderer = sol.create("sol.common.as.renderer.Fop", { templateId: templateId, toStream: true });
       result = fopRenderer.render(pdfName, data);
@@ -554,9 +553,11 @@ sol.define("sol.common_document.as.Utils", {
 
       if (config.feedInfo === true) {
         os = String(java.lang.System.getProperty("os.name").toLowerCase());
-        if (sol.common.StringUtils.contains(os, "win")) {
-          dstFile = me.appendFeedInfo(sord, dstDirPath, pdfName, config);
-          pdfInputStream = new FileInputStream(dstFile);
+        if (me.debug) {
+          if (sol.common.StringUtils.contains(os, "win")) {
+            dstFile = me.appendFeedInfo(sord, dstDirPath, pdfName, config);
+            pdfInputStream = new FileInputStream(dstFile);
+          }  
         }
       }
 
@@ -574,8 +575,10 @@ sol.define("sol.common_document.as.Utils", {
 
       if (config.feedInfo === true) {
         os = String(java.lang.System.getProperty("os.name").toLowerCase());
-        if (sol.common.StringUtils.contains(os, "win")) {
-          dstFile = me.appendFeedInfo(sord, dstDirPath, pdfName, config);
+        if (me.debug) {
+          if (sol.common.StringUtils.contains(os, "win")) {
+            dstFile = me.appendFeedInfo(sord, dstDirPath, pdfName, config);
+          }  
         }
       }
     }
@@ -1052,13 +1055,13 @@ sol.define("sol.common_document.as.Utils", {
             break;
           case "html":
             os = String(java.lang.System.getProperty("os.name").toLowerCase());
-            if (!sol.common.StringUtils.contains(os, "win")) {
-              inputStream = me.convertTextToPdf(sord, ext, dstDirPath, config); 
-              me.logger.info(["format '{0}' is not supported in os '{1}'", ext, os]);
+            if (sol.common.StringUtils.contains(os, "win") && me.debug) {
+              me.logger.debug("convert Html to PDF");
+              inputStream = me.convertHtmlToPdf(sord, ext, dstDirPath);            
               return inputStream;
-            }
-            me.logger.debug("convert Html to PDF");
-            inputStream = me.convertHtmlToPdf(sord, ext, dstDirPath);            
+            }  
+            inputStream = me.convertTextToPdf(sord, ext, dstDirPath, config); 
+            me.logger.info(["format '{0}' is not supported in os '{1}'", ext, os]);
             break;
           case "ppt":
           case "pot":
@@ -1351,10 +1354,12 @@ sol.define("sol.common_document.as.Utils", {
 
     if (config.feedInfo === true) {
       os = String(java.lang.System.getProperty("os.name").toLowerCase());
-      if (sol.common.StringUtils.contains(os, "win")) {
-        if (sumPages > 0) {
-          sumPages--;
-        }
+      if (me.debug) {
+        if (sol.common.StringUtils.contains(os, "win")) {
+          if (sumPages > 0) {
+            sumPages--;
+          }
+        }  
       }
     }
 
@@ -2028,13 +2033,13 @@ sol.define("sol.common_document.as.Utils", {
             break;
           case "html":
             os = String(java.lang.System.getProperty("os.name").toLowerCase());
-            if (!sol.common.StringUtils.contains(os, "win")) {
-              inputStream = me.convertTextFileToPdf(filePath, dstDirPath, config);              
-              me.logger.info(["format '{0}' is not supported in os '{1}'", ext, os]);
+            if (sol.common.StringUtils.contains(os, "win") && me.debug) {
+              me.logger.debug("convert Html to PDF");
+              inputStream = me.convertHtmlFileToPdf(filePath, dstDirPath);            
               return inputStream;
-            }
-            me.logger.debug("convert Html to PDF");
-            inputStream = me.convertHtmlFileToPdf(filePath, dstDirPath);            
+            }  
+            inputStream = me.convertTextFileToPdf(filePath, dstDirPath, config);              
+            me.logger.info(["format '{0}' is not supported in os '{1}'", ext, os]);
             break;
           case "ppt":
           case "pot":
