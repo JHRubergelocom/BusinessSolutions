@@ -11,9 +11,11 @@
     "optionKey": "ELOas.SendWfAsMail",
     "language": "ELOas.SendWfAsMail.language",
     "timeZoneKey": "ELOas.SendWfAsMail.timeZone",
+    "reportEndDaysKey": "ELOas.SendWfAsMail.reportEndDays",
+    "delayDaysKey": "ELOas.SendWfAsMail.delayDays",
     "showMailBody": true,
     "periodDays": 1,
-    "wfBaseUrl": ""
+    "solutionNameForAsConfig": "common"
   },
   "links": {
     "sord": "elodms://{{sord.guid}}",
@@ -22,5 +24,6 @@
   "mailTemplates": {
     "tasks": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions Custom/notify/Configuration/Mail templates/NotifyMail"
   },
-  "defaultTimeZone": "Europe/Berlin"
+  "defaultTimeZone": "Europe/Berlin",
+  "wfBaseUrl": ""
 }

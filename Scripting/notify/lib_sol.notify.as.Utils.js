@@ -158,7 +158,7 @@ sol.define("sol.notify.as.Utils", {
     if (reportConfig.newsMyElo) {
       feedAggregation = me.getFeedAggregation(userId);
 
-      timeZone = reportConfig.timeZone;
+      timeZone = reportConfig.timeZone || me.notifyConfig.defaultTimeZone || "Europe/Berlin";
       utcOffset = sol.common.SordUtils.getTimeZoneOffset(timeZone);
 
       notifyPosts = [];
@@ -245,8 +245,9 @@ sol.define("sol.notify.as.Utils", {
    */
   processTask: function (task, userId, reportConfig) {
     var me = this,
-        wfNode = task.wfNode,
-        mapid, values, data, item, nodeDelayDateIso;
+        wfNode, mapKey, values, data, item, nodeDelayDateIso;
+
+    wfNode = task.wfNode;
 
     me.logger.debug(wfNode.nodeName);
 
@@ -258,19 +259,21 @@ sol.define("sol.notify.as.Utils", {
     }
 
     if (reportConfig.onlyOnce) {
-      mapid = "NOTIFY_SENT_" + wfNode.nodeId + "_" + userId;
-      values = ixConnect.ix().checkoutMap(MapDomainC.DOMAIN_WORKFLOW_ACTIVE, wfNode.flowId, [mapid], LockC.NO);
+
+      mapKey = "NOTIFY_SENT_" + wfNode.nodeId + "_" + userId;
+      values = ixConnect.ix().checkoutMap(MapDomainC.DOMAIN_WORKFLOW_ACTIVE, wfNode.flowId, [mapKey], LockC.NO);
       if (values && values.items.length > 0) {
         data = values.items[0].value;
         if (data == "sent") {
-          me.logger.info("Sent entry ignored: " + wfNode.flowId + " - " + wfNode.nodeId);
+          me.logger.info(["Sent entry ignored: userId={0}, flowId={1}, mapKey={2} (nodeId, userId)", userId, wfNode.flowId, mapKey]);
           return false;
         }
       }
       item = new KeyValue();
-      item.key = mapid;
+      item.key = mapKey;
       item.value = "sent";
       ixConnect.ix().checkinMap(MapDomainC.DOMAIN_WORKFLOW_ACTIVE, wfNode.flowId, wfNode.objId, [item], LockC.NO);
+      me.logger.info(["Sent entry marked: userId={0}, flowId={1}, mapKey={2} (nodeId, userId)", userId, wfNode.flowId, mapKey]);
     }
     return true;
   },
@@ -349,7 +352,7 @@ sol.define("sol.notify.as.Utils", {
   sendNotifyMail: function (userId, notifyTasks, notifyPosts, reportConfig) {
     var me = this,
         htmlReport, mailAddress, sendMail, templateNotification, userName, notificationCount, subjectTemplate,
-        titleReport, tpl, notifyEmpty, notifyConfig;
+        titleReport, tpl, notifyEmpty, notifyConfig, solutionNameForAsConfig;
 
     me.logger.enter("sendNotifyMail");
 
@@ -380,8 +383,11 @@ sol.define("sol.notify.as.Utils", {
           htmlReport = me.createMailNotifyBody(templateNotification, titleReport, notifyTasks, notifyPosts, notifyEmpty);
           me.logger.debug(htmlReport);
         }
+
+        solutionNameForAsConfig = notifyConfig.email.solutionNameForAsConfig || "common";
+
         sendMail = sol.create("sol.common.as.functions.SendMail", {
-          solutionNameForAsConfig: "common",
+          solutionNameForAsConfig: solutionNameForAsConfig,
           from: me.cfgNotifyMail.sender,
           to: mailAddress,
           subject: titleReport,

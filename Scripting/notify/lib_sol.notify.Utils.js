@@ -4,10 +4,11 @@
 /**
  * Utility functions for the ELO Notification Services
  *
- * @author MW, ELO Digital Office GmbH
- * @version 1.00.000
+ * @author ELO Digital Office GmbH
+ * @version 1.06.001
  *
  * @eloas
+ * @eloix
  *
  * @requires sol.common.Config
  * @requires sol.common.RepoUtils
@@ -44,7 +45,7 @@ sol.define("sol.notify.Utils", {
     var me = this,
         reportConfig = {},
         userProfile, option, flagName, bitMask,
-        language, timeZoneKey, timeZone, connectionTimeZone;
+        language, timeZoneKey, reportEndDaysString, delayDaysString;
 
     userId = (typeof userId != "undefined") ? userId : ixConnect.loginResult.user.id;
 
@@ -53,9 +54,13 @@ sol.define("sol.notify.Utils", {
     language = userProfile.getOption(me.notifyConfig.email.language) || ixConnect.loginResult.clientInfo.language;
     reportConfig.language = language;
     timeZoneKey = me.notifyConfig.email.timeZoneKey || "ELOas.SendWfAsMail.timeZone";
-    connectionTimeZone = (ixConnect.loginResult.clientInfo.timeZone || "") + "";
-    timeZone = userProfile.getOption(timeZoneKey) || connectionTimeZone || me.notifyConfig.defaultTimeZone;
-    reportConfig.timeZone = timeZone;
+    reportConfig.timeZone = userProfile.getOption(timeZoneKey);
+
+    reportEndDaysString = userProfile.getOption("ELOas.SendWfAsMail.reportEndDays");
+    reportConfig.reportEndDays = Number(reportEndDaysString);
+
+    delayDaysString = userProfile.getOption("ELOas.SendWfAsMail.delayDays");
+    reportConfig.delayDays = Number(delayDaysString);
 
     for (flagName in me.flags) {
       bitMask = me.flags[flagName];
@@ -73,7 +78,7 @@ sol.define("sol.notify.Utils", {
   writeReportConfig: function (userId, reportConfig) {
     var me = this,
         optionValue = 0,
-        userProfile, flagName, bitMask, flag, timeZoneKey;
+        userProfile, flagName, bitMask, flag, timeZoneKey, reportEndDaysKey, delayDaysKey;
 
     userId = (typeof userId != "undefined") ? userId : ixConnect.loginResult.user.id;
     reportConfig = reportConfig || {};
@@ -96,6 +101,16 @@ sol.define("sol.notify.Utils", {
     if (reportConfig.timeZone) {
       timeZoneKey = me.notifyConfig.email.timeZoneKey || "ELOas.SendWfAsMail.timeZone";
       userProfile.setOption(timeZoneKey, reportConfig.timeZone);
+    }
+
+    if (typeof reportConfig.reportEndDays != "undefined") {
+      reportEndDaysKey = me.notifyConfig.email.reportEndDaysKey || "ELOas.SendWfAsMail.reportEndDays";
+      userProfile.setOption(reportEndDaysKey, reportConfig.reportEndDays);
+    }
+
+    if (typeof reportConfig.delayDays != "undefined") {
+      delayDaysKey = me.notifyConfig.email.delayDaysKey || "ELOas.SendWfAsMail.delayDays";
+      userProfile.setOption(delayDaysKey, reportConfig.delayDays);
     }
 
     userProfile.write();

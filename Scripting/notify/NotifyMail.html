@@ -47,13 +47,13 @@
 					</tr>
 					{{#each NotifyTasks}}
 					<tr class="{{className}}">
-						<td class="marker" width="6" bgcolor="#fff" style="border-top:1px solid #e8e8e8;padding:20px 0;width:6px;background:#fff;">&nbsp;</td>
+						<td class="marker" width="6" bgcolor="{{#ifCond className '!=' "urgent"}}#fff{{/ifCond}}{{#ifCond className '==' "urgent"}}#c00{{/ifCond}}" style="border-top:1px solid #e8e8e8;padding:20px 0;width:6px;background:{{#ifCond className '!=' "urgent"}}#fff{{/ifCond}}{{#ifCond className '==' "urgent"}}#c00{{/ifCond}};">&nbsp;</td>
 						<td class="workflow" valign="middle" bgcolor="#fff" style="border-top:1px solid #e8e8e8;padding:20px 15px;vertical-align:middle;background:#fff;word-wrap:break-word;">
-							<span class="wf-name" style="font-weight:bold;color:#333;">{{taskInfo.task.nodeName}}</span>
+							<span class="wf-name" style="font-weight:bold;color:#333;">{{taskInfo.task.flowName}}</span>
 							<a class="node-name" style="display:none;font-weight:bold;margin-top:0.3em;word-wrap:break-word;" href="elodms://{{taskInfo.sord.guid}}" target="_blank">{{taskInfo.task.nodeName}}</a></td>
 						<td class="node-name hide-mobile" bgcolor="#fff" style="border-top:1px solid #e8e8e8;padding:20px 15px 20px 0;vertical-align:middle;background:#fff;word-wrap:break-word;"><a style="font-weight:bold;" href="elodms://{{taskInfo.sord.guid}}" target="_blank">{{taskInfo.task.nodeName}}</a></td>
 						<td class="wf-owner hide-thin" valign="middle" bgcolor="#fff" style="border-top:1px solid #e8e8e8;padding:20px 15px 20px 0;vertical-align:middle;background:#fff;word-wrap:break-word;">{{taskInfo.task.userName}}</td>
-						<td class="wf-date hide-mobile" valign="middle" bgcolor="#fff" style="border-top:1px solid #e8e8e8;padding:20px 15px 20px 0;vertical-align:middle;background:#fff;word-wrap:break-word;">{{#if taskInfo.task.timeLimitIso}}{{translate "sol.notify.tpl.workflow.due"}} {{formatDate 'DD.MM.YYYY' taskInfo.task.timeLimitIso}}{{else}}{{formatDate 'DD.MM.YYYY' taskInfo.task.activateDateWorkflowIso}}{{/if}}</td>
+						<td class="wf-date hide-mobile" valign="middle" bgcolor="#fff" style="border-top:1px solid #e8e8e8;padding:20px 15px 20px 0;vertical-align:middle;background:#fff;word-wrap:break-word;{{#ifCond className '==' "urgent"}}font-weight:700;color:#c00;{{/ifCond}}">{{#if taskInfo.task.timeLimitIso}}{{translate "sol.notify.tpl.workflow.due"}} {{formatDate 'DD.MM.YYYY' taskInfo.task.timeLimitIso}}{{else}}{{formatDate 'DD.MM.YYYY' taskInfo.task.activateDateWorkflowIso}}{{/if}}</td>
 					</tr>
 					{{/each}}
 				</table>
