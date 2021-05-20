@@ -10,7 +10,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
       configKeys, maskName, ignoreCase, optimization, groupingTerm, constantCriteriaFindInfo, store,
       fuzzy, objId, srdC, findResult, outputDefinition, initOptimizationCache, searchInfo, mapDomain,
       _accessors, pagingId, props, desiredResults, i, cache, value, id, mask, val, s, sord,
-      output, sDef, fields, outputDef, str, infos;
+      output, sDef, fields, outputDef, str, infos, objIds, sordC, formattedSord;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -1239,6 +1239,42 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
           );
         }).not.toThrow();
       });
+      it("getFormattedDataCollectionFromObjectFormatter", function (done) {
+        expect(function () {
+          ids = [1];
+          instructions = { mbs: [], converterConfig: { sordKeys: ["ID", "GUID"] }, targetProps: [], formatterRequired: true, configKeys: ["sordKeys"], directValues: {}, objectFormatter: { formatter: "sol.common.ObjectFormatter.BaseSord" }, config: {} };
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib4", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "getFormattedDataCollectionFromObjectFormatter",
+            params: [ids, instructions]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("getFormatter", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib4", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "getFormatter",
+            params: []
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("getFromOptimizationCache", function (done) {
         expect(function () {
           cache = "cache1";
@@ -1333,6 +1369,25 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
           );
         }).not.toThrow();
       });
+      it("getObjectFormatterInput", function (done) {
+        expect(function () {
+          ids = [1];
+          instructions = { mbs: [], converterConfig: { sordKeys: ["ID", "GUID"] }, targetProps: [], formatterRequired: true, configKeys: ["sordKeys"], directValues: {}, objectFormatter: { formatter: "sol.common.ObjectFormatter.BaseSord" }, config: {} };
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib4", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "getObjectFormatterInput",
+            params: [ids, instructions]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("getSearchCriteriaQuery", function (done) {
         expect(function () {
           searchCriteria = [{ key: "SOL_TYPE", value: "RECRUITING_CANDIDATE" }, { key: "DEPARTMENTS", value: ["Sales", "Purchasing"] }, { key: "ACTIVITYSTATUS", value: "A - *" }];
@@ -1362,6 +1417,25 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
             classConfig: {},
             method: "getSord",
             params: [objId, srdC]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("getSords", function (done) {
+        expect(function () {
+          objIds = [];
+          sordC = 0x7;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib4", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "getSords",
+            params: [objIds, sordC]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
@@ -1842,6 +1916,25 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
           );
         }).not.toThrow();
       });
+      it("pushToResults", function (done) {
+        expect(function () {
+          resultArr = [];
+          formattedSord = {};
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib4", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "pushToResults",
+            params: [resultArr, formattedSord]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("reinitializeFormatterSettingsIfRequired", function (done) {
         expect(function () {
           instructions = { mbs: [], converterConfig: { sordKeys: ["ID", "GUID"] }, targetProps: [], formatterRequired: true, configKeys: ["sordKeys"], directValues: {} };
@@ -1968,6 +2061,24 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
             classConfig: {},
             method: "setUnchangedIdsAsResult",
             params: [resultArr, ids]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("shouldUseDefaultDataCollection", function (done) {
+        expect(function () {
+          instructions = { mbs: [], converterConfig: { sordKeys: ["ID", "GUID"] }, targetProps: [], formatterRequired: true, configKeys: ["sordKeys"], directValues: {}, objectFormatter: { formatter: "sol.common.ObjectFormatter.BaseSord" }, config: {} };
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib4", {
+            className: "sol.common.SordProvider",
+            classConfig: {},
+            method: "shouldUseDefaultDataCollection",
+            params: [instructions]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {

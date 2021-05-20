@@ -572,6 +572,11 @@ sol.define("sol.common.ObjectFormatter.BaseSord", {
   isValidObjKey: function (sordObjKey) {
     var me = this,
         i, length;
+
+    if (sordObjKey.id < 0) {
+      return false;
+    }
+
     if (!me.allObjKeys) {
       for (i = 0, length = me.objKeys.length; i < length; i++) {
         if (sordObjKey.name == me.objKeys[i]) {
@@ -612,6 +617,7 @@ sol.define("sol.common.ObjectFormatter.BaseSord", {
    * @param {Object} params (optional)
    * @param {String[]} params.dataAsString (optional) Contains the names of the fields, for which all values (not just the first) should be returned as pilcrow separated string
    * @param {String[]} params.dataAsArray (optional) Contains the names of the fields, for which all values (not just the first) should be returned as an array
+   * @param {boolean} params.addSordTypeKind (optional) if set to true adds sord type kind (e.g. "REPOSITORY", "FOLDER", "DOCUMENT") to formattedSord
    * @return {Object}
    */
   buildJson: function (originalSord, mask, params) {
@@ -622,12 +628,22 @@ sol.define("sol.common.ObjectFormatter.BaseSord", {
         formattedSord = [],
         key, i, length, lengthO, objKey, objKeyName,
         objKeyCache, addedObjKeys, value, cachePos,
-        _result;
+        _result,
+        alreadyContainsStartElement;
 
     // prepare cache for mask that allows fast iterations over required objKeys.
     me.buildCacheMaskObjKeys(maskName, sord.objKeys);
 
     formattedSord.push("{");
+
+    if (me.shouldAddSordTypeKind(params)) {
+      me.addSordTypeKind(formattedSord, sord);
+      alreadyContainsStartElement = true;
+    }
+
+    if (me.sordKeys.length > 0 && alreadyContainsStartElement) {
+      formattedSord.push(",");
+    }
 
     // apply sordKeys
     for (i = 0, length = me.sordKeys.length; i < length; i++) {
@@ -740,12 +756,50 @@ sol.define("sol.common.ObjectFormatter.BaseSord", {
       } else if (params && params.dataAsArray && (params.dataAsArray.length > 0) && (params.dataAsArray.indexOf(String(objKey.name)) !== -1)) {
         val = JSON.stringify(objKey.data.map(adjustValueFunction));
       } else {
-        val = adjustValueFunction(objKey.data[0]);
+        val = (objKey.data && (objKey.data.length > 0)) ? objKey.data[0] : "";
+        val = adjustValueFunction(val);
       }
       // < adjust val
 
       formattedSord.push(val);
     }
+  },
+
+  /**
+   * @param {String[]} formattedSord
+   * @param {de.elo.ix.client.Sord} sord
+   */
+  addSordTypeKind: function (formattedSord, sord) {
+    var me = this,
+        value;
+
+    formattedSord.push('"typeKind":');
+    value = me.getSordTypeKind(String(sord["type"]));
+    formattedSord.push(JSON.stringify(value) || "null");
+  },
+
+
+  /**
+   * @param {Object} params
+   * @returns {boolean} should set sord type kind
+   */
+  shouldAddSordTypeKind: function (params) {
+    return (params || {}).addSordTypeKind;
+  },
+
+  /**
+   * @param {Number} id
+   * @returns {String}
+   */
+  getSordTypeKind: function (id) {
+    if (id == "9999") {
+      return "REPOSITORY";
+    } else if (id < SordC.LBT_DOCUMENT) {
+      return "FOLDER";
+    } else if (id <= SordC.LBT_DOCUMENT_MAX) {
+      return "DOCUMENT";
+    }
+    return "UNKNOWN";
   },
 
   /**

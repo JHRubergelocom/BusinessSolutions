@@ -2,6 +2,7 @@ importPackage(Packages.de.elo.ix.client);
 
 //@include lib_Class.js
 //@include lib_sol.common.ObjectUtils.js
+//@include lib_sol.common.ObjectFormatter.js
 
 /**
  * Retrieves sords using a search (findByIndex) or by predefined ids and formats the retrieved sords according to
@@ -235,6 +236,18 @@ importPackage(Packages.de.elo.ix.client);
  *     output: [
  *       { target: { prop: "myspecialprop", value: "My Fixed Value" } }
  *     ]
+ *
+ * #### Format with ObjectFormatter
+ *
+ * You can use ObjectFormatters as defined in lib_sol.common.ObjectFormatter to format the output.
+ * To do so, define formatter and config within the `output` parameter, e.g.:
+ *
+ *     output: {
+ *        formatter: 'sol.common.ObjectFormatter.TemplateSord',
+ *        config: {}
+ *     }
+ *
+ * the defined option parameter regarding output formatting "formatAsTemplateSord" and "ignorePropertyNames" will be ignored.
  *
  * ### Skipping search and providing ids directly
  *
@@ -635,6 +648,15 @@ sol.define("sol.common.SordProvider", {
    * helpers for collectDataFromId
    */
 
+  getSords: function (objIds, sordC) {
+    var me = this;
+
+    return (objIds || [])
+      .map(function (objId) {
+        return me.getSord(objId, sordC || SordC.mbAllIndex);
+      });
+  },
+
   getSord: function (objId, srdC) {
     try {
       return ixConnect.ix().checkoutSord(objId, srdC, LockC.NO);
@@ -656,7 +678,7 @@ sol.define("sol.common.SordProvider", {
     var me = this, i = fieldMapping.length, field, fieldNo, d, dLen, str, values, pilcrow = me.pilcrow,
         key, targetProp, ignorePropNames = me.ipn,
         maskObjKeys = (me.maskObjKeyCache[mask || +(sord.mask)])
-          || me.generateObjKeyLineMapping(mask || +(sord.mask));
+        || me.generateObjKeyLineMapping(mask || +(sord.mask));
 
     while (i--) {
       key = (field = fieldMapping[i]).key;
@@ -739,12 +761,24 @@ sol.define("sol.common.SordProvider", {
     }
 
     if (instructions.formatterRequired) {
-      return me[me.formatAsTemplateSord ? "formatSordAsTemplateSord" : "formatSord"](
-        sord, instructions.converterConfig, instructions.configKeys, instructions.mapAccessors, mask
+      return me.getFormatter()(
+        sord,
+        instructions.converterConfig,
+        instructions.configKeys,
+        instructions.mapAccessors,
+        mask
       );
     }
 
     return sord;
+  },
+
+  getFormatter: function () {
+    var me = this;
+
+    return me.formatAsTemplateSord
+      ? me.formatSordAsTemplateSord.bind(me)
+      : me.formatSord.bind(me);
   },
 
   setUnchangedIdsAsResult: function (resultArr, ids) {
@@ -781,14 +815,45 @@ sol.define("sol.common.SordProvider", {
   },
 
   defaultDataCollection: function (resultArr, ids, instructions, mask) {
-    var me = this, i, len = ids.length;
+    var me = this;
     me.logger.debug("Mode: Default formatter");
 
-    for (i = 0; i < len; i++) {
-      resultArr.push(me.collectDataFromId(ids[i], instructions, mask));
+    if (instructions.objectFormatter) {
+      me.getFormattedDataCollectionFromObjectFormatter(ids, instructions)
+        .map(me.pushToResults.bind(me, resultArr));
+    } else {
+      (ids || [])
+        .map(function (id) {
+          return me.collectDataFromId(id, instructions, mask);
+        })
+        .map(me.pushToResults.bind(me, resultArr));
     }
 
     me.logger.debug(ids.length + " sords formatted");
+  },
+
+  getFormattedDataCollectionFromObjectFormatter: function (ids, instructions) {
+    var me = this;
+
+    return (sol.common.ObjectFormatter.format(
+      me.getObjectFormatterInput(ids, instructions)
+    ) || {}).sords || [];
+  },
+
+  pushToResults: function (resultArr, formattedSord) {
+    resultArr.push(formattedSord);
+  },
+
+  getObjectFormatterInput: function (ids, instructions) {
+    var me = this;
+
+    return {
+      sords: {
+        formatter: instructions.objectFormatter.formatter,
+        data: me.getSords(ids, instructions.sordZ),
+        config: instructions.objectFormatter.config
+      }
+    };
   },
 
   generateObjKeyLineMapping: function (maskName) {
@@ -812,14 +877,13 @@ sol.define("sol.common.SordProvider", {
   },
 
   addDataCollectedFromIdContainer: function (idContainer, instructions, allCollectedData, ofMask) {
-    var me = this, mask,
+    var me = this,
+        mask,
         idsOfMask = idContainer[ofMask],
-        idIsObjId = +(idsOfMask[0]) === +(idsOfMask[0]),  // NaN if guid
-        requiredIdIsAvailableId = (instructions.idName === "id" && idIsObjId)
-          || (instructions.idName === "guid" && (!idsOfMask[0].indexOf("("))) // idIsGuid
-        ;
+        idIsObjId = +(idsOfMask[0]) === +(idsOfMask[0]),
+        requiredIdIsAvailableId = (instructions.idName === "id" && idIsObjId) || (instructions.idName === "guid" && (!idsOfMask[0].indexOf("(")));
 
-    if (!instructions.onlyIdsInCollection && instructions.converterConfig && instructions.formatterRequired) {
+    if (me.shouldUseDefaultDataCollection(instructions)) {
       me.logger.debug("Collecting data for all ids of mask", mask);
       if (instructions.objKeysRequired && (mask = (ofMask === "__nomask" ? undefined : ofMask))) {
         me.prepareMask(mask);
@@ -827,7 +891,7 @@ sol.define("sol.common.SordProvider", {
       me.defaultDataCollection(allCollectedData, idsOfMask, instructions, mask);
     } else {
       if (instructions.anIdRequired) {
-        instructions.onlyIdsInCollection = true;  // this value persists for whole execution
+        instructions.onlyIdsInCollection = true; // this value persists for whole execution
         if (requiredIdIsAvailableId) {
           me.setUnchangedIdsAsResult(allCollectedData, idsOfMask);
         } else {
@@ -836,6 +900,13 @@ sol.define("sol.common.SordProvider", {
       }
     }
     return allCollectedData;
+  },
+
+  shouldUseDefaultDataCollection: function (instructions) {
+    return instructions.objectFormatter
+      || (!instructions.onlyIdsInCollection
+        && instructions.converterConfig
+        && instructions.formatterRequired);
   },
 
   processIdContainer: function (idContainer, instructions) {
@@ -913,7 +984,8 @@ sol.define("sol.common.SordProvider", {
   buildFindInfoForFindDirect: function (masks, searchCriteria) {
     var me = this, findInfo = new FindInfo(), queryOpts;
     me.logger.debug("Building findInfo for search via mask(s) using findDirect", masks);
-    (sol.common.ObjectUtils.type(me.query, "string"))
+
+    sol.common.ObjectUtils.type(me.query, "string")
       && (queryOpts = { customQuery: String(me.query) });
 
     findInfo.findDirect = me.buildFindDirect(masks, searchCriteria, queryOpts);
@@ -991,7 +1063,7 @@ sol.define("sol.common.SordProvider", {
     }
     (type === "SORD" || type === "GRP")
       ? converterConfig[formatterTarget].push({ key: key, prop: prop })
-      : converterConfig[formatterTarget][key] = prop;  // map/blob definitions stored in objects!
+      : converterConfig[formatterTarget][key] = prop; // map/blob definitions stored in objects!
   },
 
   cleanConfig: function (config) {
@@ -1027,7 +1099,7 @@ sol.define("sol.common.SordProvider", {
     if (instructions.objKeysRequired = me.contains(instructions.mbs, "GRP")) {
       me.logger.debug("Output will contain GRP-fields");
       ((!me.masks) || me.contains(me.masks, "__nomask"))
-        && me.addMb(instructions.mbs, "SORD", "mask")  // mask will be read from every sord
+        && me.addMb(instructions.mbs, "SORD", "mask") // mask will be read from every sord
         && me.logger.debug("Since no mask was defined, `mask` has been added to SordZ of sord formatter");
     }
 
@@ -1047,7 +1119,7 @@ sol.define("sol.common.SordProvider", {
   optimizeObjectAccessors: function (instructions) {
     var me = this;
     me.logger.debug("Optimizing sord object accessors");
-    instructions.configKeys = Object.keys(instructions.converterConfig);  // performance opt. for converterConfig
+    instructions.configKeys = Object.keys(instructions.converterConfig); // performance opt. for converterConfig
     instructions.mapAccessors = me.cleanConfig({ // performance opt. for keys in configKeys
       mapKeys: Object.keys(instructions.converterConfig.mapKeys || {}),
       formBlobs: Object.keys(instructions.converterConfig.formBlobs || {})
@@ -1109,7 +1181,9 @@ sol.define("sol.common.SordProvider", {
   },
 
   parseOutputDefinition: function (outputDef) {
-    var me = this, multipleOptsDefined = (outputDef.length > 1), instructions = {
+    var me = this,
+        multipleOptsDefined = (outputDef.length > 1),
+        instructions = {
           mbs: [], // used for generating a sordZ for CheckoutSord
           // defines, which values will be retrieved from the checked out sord
           targetProps: [], // used when sparse option is set
@@ -1121,8 +1195,8 @@ sol.define("sol.common.SordProvider", {
     outputDef.reduce(me.addOutputInstruction.bind(me, multipleOptsDefined), instructions);
 
     !multipleOptsDefined
-      && me._directValuesDefined  // defined in addOutputInstruction
-        && me.assignFallbackIdProp(instructions, outputDef[0]);
+      && me._directValuesDefined // defined in addOutputInstruction
+      && me.assignFallbackIdProp(instructions, outputDef[0]);
 
     instructions.converterConfig = me.cleanConfig(instructions.converterConfig);
     me.calcFlags(instructions); // precalculate flags to save time in loops later on
@@ -1157,8 +1231,8 @@ sol.define("sol.common.SordProvider", {
   },
 
   updateSearchCache: function (findResult, desiredResults) {
-    var me = this, cache =
-        (me.searchCache[findResult.searchId] || (me.searchCache[findResult.searchId] = {})),
+    var me = this,
+        cache = (me.searchCache[findResult.searchId] || (me.searchCache[findResult.searchId] = {})),
         results = (findResult.ids && findResult.ids.length) || 0;
     me.logger.debug("Updating search cache");
     cache.idx = cache.idx ? cache.idx + results : results;
@@ -1211,8 +1285,8 @@ sol.define("sol.common.SordProvider", {
 
     if (me.manualPagingFrom === undefined || me.paging === true) {
       findResult = (searchInfo.idx === undefined)
-      ? ixConnect.ix().findFirstSords(findInfo, searchInfo.maxSords, sordZ)
-      : ixConnect.ix().findNextSords(searchId, searchInfo.idx, searchInfo.maxSords, sordZ);
+        ? ixConnect.ix().findFirstSords(findInfo, searchInfo.maxSords, sordZ)
+        : ixConnect.ix().findNextSords(searchId, searchInfo.idx, searchInfo.maxSords, sordZ);
 
       me.maintainSearchInfo(searchInfo, findResult, maxResults);
 
@@ -1276,7 +1350,7 @@ sol.define("sol.common.SordProvider", {
     if (paging) {
       result = (typeof paging === "boolean") // initialize paging
         ? me.pageFind((me.getFindInfoBuilder())(masks, searchFields), maxResults, pageSize, sordZ)
-        : me.pageFind((me.manualPagingFrom === undefined ? undefined : (me.getFindInfoBuilder())(masks, searchFields)), maxResults, pageSize, sordZ, paging);  // continue paging search
+        : me.pageFind((me.manualPagingFrom === undefined ? undefined : (me.getFindInfoBuilder())(masks, searchFields)), maxResults, pageSize, sordZ, paging); // continue paging search
     } else {
       me.logger.debug("Using standard search");
       result = me.findAll((me.getFindInfoBuilder())(masks, searchFields), maxResults, sordZ);
@@ -1379,20 +1453,27 @@ sol.define("sol.common.SordProvider", {
       idContainer = inputIds.idsByMask;
     } else {
       me.logger.debug("Processing a single id. No search preceded.");
-      idContainer.__nomask.push(inputIds);  // single id from parameter
+      idContainer.__nomask.push(inputIds); // single id from parameter
     }
 
     return idContainer;
   },
 
   processIds: function (inputIds, instructions) {
-    var me = this, sords, idContainer = me.buildIdContainer(inputIds);
+    var me = this,
+        sords,
+        idContainer;
 
+    idContainer = me.buildIdContainer(inputIds);
     me.finalizeCollector(instructions);
     sords = me.processIdContainer(idContainer, instructions);
 
     return (instructions.dvKeys.length)
-      ? ((instructions.onlyIdsInCollection ? me.addDirectValuesToIds : me.addDirectValuesToSords)(sords, instructions))
+      ? (
+        (instructions.onlyIdsInCollection
+          ? me.addDirectValuesToIds
+          : me.addDirectValuesToSords
+        )(sords, instructions))
       : sords;
   },
 
@@ -1457,8 +1538,8 @@ sol.define("sol.common.SordProvider", {
   filterSords: function (sords, filter) {
     var me = this;
     return me.formatAsTemplateSord
-     ? me.templateSordFilter(sords, filter)
-     : me.fastFilter(sords, filter);
+      ? me.templateSordFilter(sords, filter)
+      : me.fastFilter(sords, filter);
   },
 
   arrayToRegExp: function (arr, wc) {
@@ -1503,10 +1584,10 @@ sol.define("sol.common.SordProvider", {
 
     // search for terms of the field `key`
     return me.getContextTerms(
-        findInfo,
-        me.getGroupingTerm({ groupBy: { type: "GRP", key: key } }),
-        (+(maxGroups) || me.defaultMaxGroups)
-      )
+      findInfo,
+      me.getGroupingTerm({ groupBy: { type: "GRP", key: key } }),
+      (+(maxGroups) || me.defaultMaxGroups)
+    )
       .filter(function (result) { // return only terms containing the wildcard value
         return re.test(String(result.term));
       });
@@ -1536,34 +1617,34 @@ sol.define("sol.common.SordProvider", {
 
   getCriterionQuery: function (key, value, ignoreCase, tokenized, constantCriteriaFindInfo, maxGroups) {
     var me = this, addTermsToCriterionQuery =
-        function (criterionQuery, term, i, availableTerms) {
-          var resTerm = String(term.term);
-          (!me.contains(resTerm, me.wildCard))
-            && (criterionQuery += me.parens(me.getCriterionQuery(key, me.sanitizeQueryValue(resTerm), ignoreCase, tokenized))); // recursion!
-          return me.addOR(criterionQuery, i, availableTerms.length);
-        };
+      function (criterionQuery, term, i, availableTerms) {
+        var resTerm = String(term.term);
+        (!me.contains(resTerm, me.wildCard))
+          && (criterionQuery += me.parens(me.getCriterionQuery(key, me.sanitizeQueryValue(resTerm), ignoreCase, tokenized))); // recursion!
+        return me.addOR(criterionQuery, i, availableTerms.length);
+      };
 
     return !me.contains(value, me.wildCard)
       ? me.buildValueQuery(key, value, tokenized)
       : (
-          (me.getAvailableTerms(key, value, ignoreCase, constantCriteriaFindInfo, maxGroups)
-            .reduce(addTermsToCriterionQuery, ""))
-          || me.buildValueQuery(key, value.replace(/\*/g, ""), tokenized)
-        );
+        (me.getAvailableTerms(key, value, ignoreCase, constantCriteriaFindInfo, maxGroups)
+          .reduce(addTermsToCriterionQuery, ""))
+        || me.buildValueQuery(key, value.replace(/\*/g, ""), tokenized)
+      );
   },
 
   addCriterionToQuery: function (maxGroups, supplementaryFindInfo, query, criterion) {
     var me = this, criterionQuery, addCriterionQueriesForAllValuesToQuery =
-        function (valuePartOfQuery, val, i, values) {
-          valuePartOfQuery += me.parens(
-            me.getCriterionQuery(
-              criterion.key, me.sanitizeQueryValue(val),
-              (criterion.ignoreCase === true), (criterion.tokenized === true),
-              supplementaryFindInfo, maxGroups
-            ).trim()
-          );
-          return me.addOR(valuePartOfQuery, i, values.length);
-        };
+      function (valuePartOfQuery, val, i, values) {
+        valuePartOfQuery += me.parens(
+          me.getCriterionQuery(
+            criterion.key, me.sanitizeQueryValue(val),
+            (criterion.ignoreCase === true), (criterion.tokenized === true),
+            supplementaryFindInfo, maxGroups
+          ).trim()
+        );
+        return me.addOR(valuePartOfQuery, i, values.length);
+      };
 
     me.logger.debug("Criterion", criterion);
     if (Array.isArray(criterion.value) && !criterion.value.length) {
@@ -1613,7 +1694,7 @@ sol.define("sol.common.SordProvider", {
 
   sanitizeQueryValue: function (val) {
     var me = this;
-    return me.escapeOrRemoveInvalidCharacters(val);  //TODO: filterStopWords like in BS-Knowledge?
+    return me.escapeOrRemoveInvalidCharacters(val); //TODO: filterStopWords like in BS-Knowledge?
   },
 
   extendQueryByCustomQuery: function (query, custom) {
@@ -1670,7 +1751,9 @@ sol.define("sol.common.SordProvider", {
   buildFindInfoForContextTerms: function (masks, searchCriteria, queryOpts) {
     var me = this, findInfo = new FindInfo();
     me.logger.debug("Building findInfo for search via mask(s)", masks);
-    (sol.common.ObjectUtils.type(me.query, "string"))
+
+    queryOpts || (queryOpts = {});
+    sol.common.ObjectUtils.type(me.query, "string")
       && (queryOpts.customQuery = String(me.query));
 
     findInfo.findDirect = me.buildFindDirect(masks, searchCriteria, queryOpts);
@@ -1700,10 +1783,10 @@ sol.define("sol.common.SordProvider", {
 
     me.logger.debug("... context term search using search criteria", searchCriteria);
     return me.getContextTerms(
-        me.buildFindInfoForContextTerms(masks, searchCriteria, { maxGroups: maxGroups }),
-        me.getGroupingTerm(options.fuzzy),
-        (+(maxGroups) || me.defaultMaxGroups)
-      )
+      me.buildFindInfoForContextTerms(masks, searchCriteria, { maxGroups: maxGroups }),
+      me.getGroupingTerm(options.fuzzy),
+      (+(maxGroups) || me.defaultMaxGroups)
+    )
       .reduce(me.castThenAddResults, {});
   },
 
@@ -1756,8 +1839,23 @@ sol.define("sol.common.SordProvider", {
       me.logger.debug("Output options parsed. Generated optimized instructions:", instructions);
       me.initializeCaching((me.optimize === true), instructions);
     } else {
-      if (!options.fuzzy) {
-        throw "SordProvider: output parameter must be defined as an Array";
+      if (output.formatter && output.config && !options.fuzzy) {
+        instructions = {
+          mbs: [], // used for generating a sordZ for CheckoutSord
+          // defines, which values will be retrieved from the checked out sord
+          targetProps: [], // used when sparse option is set
+          converterConfig: { sordKeys: [], objKeys: [], mapKeys: {}, formBlobs: {} },
+          directValues: {},
+          dvKeys: [],
+          objectFormatter: {
+            formatter: output.formatter,
+            config: output.config
+          }
+        };
+
+        filter && me.addFilterDefinition(instructions, filter);
+      } else if (!options.fuzzy) {
+        throw "SordProvider: output parameter must be defined as an Array or as Object with parameter formatter and config to use ObjectFormatter";
       }
       me.logger.debug("Output schema will be produced by fuzzy search (getContextTerms)");
     }
@@ -1779,11 +1877,11 @@ sol.define("sol.common.SordProvider", {
     !(instructions = me.getInstructionsFromCache())
       && (instructions = me.generateInstructions(outputDefinition, filter, options))
       && me._initialOptimization // value has been set in generateInstructions, may be undefined if optimization is not active
-        && (result.optimization = me._initialOptimization);
+      && (result.optimization = me._initialOptimization);
 
     options.paging // restrict pageSize to max allowed value
       && (options.pageSize > me.pageSizeMax)
-        && (options.pageSize = me.pageSizeMax);
+      && (options.pageSize = me.pageSizeMax);
 
     options.idSordZ = (instructions.idName === "guid") ? SordC.mbOnlyGuid : SordC.mbOnlyId;
 
@@ -1822,7 +1920,7 @@ sol.define("sol.common.SordProvider", {
       me.manualPagingFrom = options.startPagingFrom;
     }
 
-    if (options.findDirect || options.query) {  // will use findDirect instead of findByIndex
+    if (options.findDirect || options.query) { // will use findDirect instead of findByIndex
       me.findDirect = true;
     }
     if (options.query) {
@@ -1833,10 +1931,10 @@ sol.define("sol.common.SordProvider", {
       (processingInstructions = me.initSearchAndProcessingInstructions(outputDefinition, filter, options, result));
 
     deliverables = (me.search || me.pagingIdDefined(pagingOpt))
-      ? me.performSearch(me.masks, me.search, options)  // findByIndex or getContextTerms (fuzzy) search
+      ? me.performSearch(me.masks, me.search, options) // findByIndex or getContextTerms (fuzzy) search
       : (me.id || me.ids); // use specified ids instead of searching
 
-    if (fuzzySearch) {  // only stores results. no processing for fuzzy search results
+    if (fuzzySearch) { // only stores results. no processing for fuzzy search results
       me.logger.debug("Returning fuzzy search results (groups)");
       result.groups = deliverables;
     } else {
@@ -1844,7 +1942,7 @@ sol.define("sol.common.SordProvider", {
       deliverables
         && (result.sords = me.processIds(deliverables, processingInstructions)) // apply output rules
         && deliverables.paging // if the search was paged and can be continued ...
-          && (result.searchId = deliverables.paging); // ... store pagingId in result
+        && (result.searchId = deliverables.paging); // ... store pagingId in result
 
       me.moreResults && (result.moreResults = true);
 

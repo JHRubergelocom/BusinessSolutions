@@ -4,7 +4,8 @@ describe("[lib] sol.unittest.ix.services.SolCommonObjectFormatter", function () 
       config, partName, configPart, result, params, originalSord, toObj, sord,
       maskName, objKeys, prefix, key, value, flowId, objId, sordObjKey, mask,
       formattedSord, addedObjKeys, objKeyPrefix, objKey, guid, feedActionTypes,
-      cfg, originalTask, succNodes, succNodesIds, userTask, nodeId, wfDiagram;
+      cfg, originalTask, succNodes, succNodesIds, userTask, nodeId, wfDiagram,
+      id;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -90,6 +91,61 @@ describe("[lib] sol.unittest.ix.services.SolCommonObjectFormatter", function () 
             className: "sol.common.ObjectFormatter.BaseSord",
             classConfig: {},
             method: "initialize",
+            params: [params]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("addSordTypeKind", function (done) {
+        expect(function () {
+          formattedSord = [];
+          sord = ObjectFormatterSord;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.ObjectFormatter.BaseSord",
+            classConfig: {},
+            method: "addSordTypeKind",
+            params: [formattedSord, sord]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("getSordTypeKind", function (done) {
+        expect(function () {
+          id = 9999;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.ObjectFormatter.BaseSord",
+            classConfig: {},
+            method: "getSordTypeKind",
+            params: [id]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("shouldAddSordTypeKind", function (done) {
+        expect(function () {
+          params = {};
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.ObjectFormatter.BaseSord",
+            classConfig: {},
+            method: "shouldAddSordTypeKind",
             params: [params]
           }).then(function success(jsonResult) {
             done();
