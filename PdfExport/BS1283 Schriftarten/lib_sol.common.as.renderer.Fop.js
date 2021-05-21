@@ -68,7 +68,8 @@ sol.define("sol.common.as.renderer.Fop", {
       fopConfig = eloAsConfig.fop || {};
       fopFontsConfig = fopConfig.fonts || {};
       fopFontsAutoDetect = (typeof fopFontsConfig.autoDetect == "undefined") ? true : fopFontsConfig.autoDetect;
-
+      
+      // TODO fontTempDir wieder aufräumen bzw. am Anfang initialisieren, Testen mit mehrfachen Aufruf, von common-master aus entwickeln, abzweigen 
       fopFontsDirs = fopFontsConfig.dirs || [];
       fopFontsDirFiles = fopFontsDirs.map(function (fopFontsDir) {
         if (fopFontsDir.indexOf("ARCPATH") === 0) {
