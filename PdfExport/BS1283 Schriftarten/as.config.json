@@ -1,0 +1,9 @@
+{
+  "fop": {
+    "fonts": {
+      "dir": [
+        "/var/elo/fonts"
+      ]
+    }
+  }
+}
