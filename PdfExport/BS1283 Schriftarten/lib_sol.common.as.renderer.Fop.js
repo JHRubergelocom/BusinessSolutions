@@ -48,8 +48,8 @@ sol.define("sol.common.as.renderer.Fop", {
   render: function (name, data) {
     var me = this,
         result = {},
-        pdfStream, foContent, foStream, tpl, eloAsConfig, fontTempDir,
-        fopConfig, fopFontsConfig, fopFontsAutoDetect, fopFontsDirs, fopFontsDirFiles;
+        pdfStream, foContent, foStream, tpl, eloAsConfig,
+        fopConfig, fopFontsConfig, fopFontsAutoDetect, fopFontsDirs, fopFontsDirFiles, fontTempDir;
 
     me.maskId = me.maskId || "";
 
@@ -68,8 +68,6 @@ sol.define("sol.common.as.renderer.Fop", {
       fopConfig = eloAsConfig.fop || {};
       fopFontsConfig = fopConfig.fonts || {};
       fopFontsAutoDetect = (typeof fopFontsConfig.autoDetect == "undefined") ? true : fopFontsConfig.autoDetect;
-      
-      // TODO fontTempDir wieder aufräumen bzw. am Anfang initialisieren, Testen mit mehrfachen Aufruf, von common-master aus entwickeln, abzweigen 
       fopFontsDirs = fopFontsConfig.dirs || [];
       fopFontsDirFiles = fopFontsDirs.map(function (fopFontsDir) {
         if (fopFontsDir.indexOf("ARCPATH") === 0) {
@@ -77,7 +75,6 @@ sol.define("sol.common.as.renderer.Fop", {
           sol.common.FileUtils.downloadDocuments(fopFontsDir, fontTempDir, { makeDstDirs: true });
           fopFontsDir = fontTempDir;
         }
-        
         return new java.io.File(fopFontsDir);
       });
 

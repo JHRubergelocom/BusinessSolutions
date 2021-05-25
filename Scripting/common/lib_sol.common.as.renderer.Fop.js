@@ -48,7 +48,8 @@ sol.define("sol.common.as.renderer.Fop", {
   render: function (name, data) {
     var me = this,
         result = {},
-        pdfStream, foContent, foStream, tpl;
+        pdfStream, foContent, foStream, tpl, eloAsConfig,
+        fopConfig, fopFontsConfig, fopFontsAutoDetect, fopFontsDirs, fopFontsDirFiles, fontTempDir;
 
     me.maskId = me.maskId || "";
 
@@ -63,7 +64,25 @@ sol.define("sol.common.as.renderer.Fop", {
       foStream = org.apache.commons.io.IOUtils.toInputStream(foContent, "UTF-8");
       pdfStream = new ByteArrayOutputStream();
 
-      Packages.de.elo.mover.main.helper.XmlHelper.convertToPdf(foStream, pdfStream);
+      eloAsConfig = sol.create("sol.common.Config").loadEloAsConfig(me.solutionNameForAsConfig);
+      fopConfig = eloAsConfig.fop || {};
+      fopFontsConfig = fopConfig.fonts || {};
+      fopFontsAutoDetect = (typeof fopFontsConfig.autoDetect == "undefined") ? true : fopFontsConfig.autoDetect;
+      fopFontsDirs = fopFontsConfig.dirs || [];
+      fopFontsDirFiles = fopFontsDirs.map(function (fopFontsDir) {
+        if (fopFontsDir.indexOf("ARCPATH") === 0) {
+          fontTempDir = sol.common.FileUtils.getTempDirPath() + File.separator + "ELOasFonts";
+          sol.common.FileUtils.downloadDocuments(fopFontsDir, fontTempDir, { makeDstDirs: true });
+          fopFontsDir = fontTempDir;
+        }
+        return new java.io.File(fopFontsDir);
+      });
+
+      try {
+        Packages.de.elo.mover.main.helper.XmlHelper.convertToPdf2(foStream, pdfStream, fopFontsAutoDetect, fopFontsDirFiles);
+      } catch (ex) {
+        Packages.de.elo.mover.main.helper.XmlHelper.convertToPdf(foStream, pdfStream);
+      }
 
       if (me.toStream) {
         result.outputStream = pdfStream;
