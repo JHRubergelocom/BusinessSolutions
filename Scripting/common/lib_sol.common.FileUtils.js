@@ -533,21 +533,24 @@ sol.define("sol.common.FileUtils", {
       sol.common.FileUtils.deleteFiles({ dirPath: dstDirPath });
     }
 
-    sord = ixConnect.ix().checkoutSord(objId, SordC.mbLean, LockC.NO);
+    try {
+      sord = ixConnect.ix().checkoutSord(objId, SordC.mbLean, LockC.NO);
 
-    if (sol.common.SordUtils.isFolder(sord)) {
-      findConfig = { includeFolders: false, includeDocuments: true };
-      if (params.includeReferences) {
-        findConfig.includeReferences = true;
+      if (sol.common.SordUtils.isFolder(sord)) {
+        findConfig = { includeFolders: false, includeDocuments: true };
+        if (params.includeReferences) {
+          findConfig.includeReferences = true;
+        }
+        children = sol.common.RepoUtils.findChildren(sord.id, findConfig);
+        if (children) {
+          children.forEach(function (child) {
+            me.downloadDocument(child.id, dstDirPath);
+          });
+        }
+      } else {
+        me.downloadDocument(sord.id, dstDirPath);
       }
-      children = sol.common.RepoUtils.findChildren(sord.id, findConfig);
-      if (children) {
-        children.forEach(function (child) {
-          me.downloadDocument(child.id, dstDirPath);
-        });
-      }
-    } else {
-      me.downloadDocument(sord.id, dstDirPath);
+    } catch (ex) {
     }
   },
 

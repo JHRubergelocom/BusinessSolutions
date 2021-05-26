@@ -72,7 +72,7 @@ sol.define("sol.common.as.renderer.Fop", {
       fopFontsDirFiles = fopFontsDirs.map(function (fopFontsDir) {
         if (fopFontsDir.indexOf("ARCPATH") === 0) {
           fontTempDir = sol.common.FileUtils.getTempDirPath() + File.separator + "ELOasFonts";
-          sol.common.FileUtils.downloadDocuments(fopFontsDir, fontTempDir, { makeDstDirs: true });
+          sol.common.FileUtils.downloadDocuments(fopFontsDir, fontTempDir, { makeDstDirs: true, includeReferences: true });
           fopFontsDir = fontTempDir;
         }
         return new java.io.File(fopFontsDir);
