@@ -2,6 +2,7 @@
   "fop": {
     "fonts": {
       "dirs": [
+        "/var/elo/fonts",
         "ARCPATH:/Administration/ELOas Base/Fonts"
        ]
     }
