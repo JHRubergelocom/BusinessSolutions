@@ -506,10 +506,11 @@ sol.define("sol.common.FileUtils", {
    * @param {Object} params Parameters
    * @param {Boolean} [params.makeDstDirs=true] Make directories
    * @param {Boolean} params.cleanDstDir Clean destination directory
+   * @param {Boolean} params.includeReferences Include references
    */
   downloadDocuments: function (objId, dstDirPath, params) {
     var me = this,
-        sord, children, dstDir;
+        sord, children, dstDir, findConfig;
 
     if (!objId) {
       throw "Folder ID is empty";
@@ -535,7 +536,11 @@ sol.define("sol.common.FileUtils", {
     sord = ixConnect.ix().checkoutSord(objId, SordC.mbLean, LockC.NO);
 
     if (sol.common.SordUtils.isFolder(sord)) {
-      children = sol.common.RepoUtils.findChildren(sord.id, { includeFolders: false, includeDocuments: true, includeReferences: true });
+      findConfig = { includeFolders: false, includeDocuments: true };
+      if (params.includeReferences) {
+        findConfig.includeReferences = true;
+      }
+      children = sol.common.RepoUtils.findChildren(sord.id, findConfig);
       if (children) {
         children.forEach(function (child) {
           me.downloadDocument(child.id, dstDirPath);
