@@ -5,6 +5,7 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_Class.js
 //@include lib_sol.common.ix.ServiceBase.js
 //@include lib_sol.common.ix.GenericDynKwl.js
+//@include lib_sol.learning.ix.dynkwl.BaseCourseIterator.js
 //@include sol.learning.ix.dynkwl.CertificateTemplate.js
 //@include sol.learning.ix.dynkwl.CourseIterator.js
 //@include sol.learning.ix.dynkwl.generators.CommunicationShortDescGen.js
@@ -14,6 +15,7 @@ importPackage(Packages.de.elo.ix.client);
 //@include sol.learning.ix.dynkwl.generators.SessionNo.js
 //@include sol.learning.ix.dynkwl.generators.SessionShortDescGen.js
 //@include sol.learning.ix.dynkwl.KnowledgeSpace.js
+//@include sol.learning.ix.dynkwl.RepetitionCourseIterator.js
 //@include sol.learning.ix.dynkwl.RequiredCourseIterator.js
 //@include sol.learning.ix.localizedKwl.CourseDifficulty.js
 //@include sol.learning.ix.localizedKwl.CourseStatus.js
@@ -104,7 +106,7 @@ sol.define("sol.unittest.learning.ix.services.ExecuteDynKwl", {
       result.header = provider.getHeader();
       result.title = provider.getTitle();
       result.data = resultData;
-      
+
     } catch (ex) {
       result.error = String(ex);
     } finally {
