@@ -551,6 +551,7 @@ sol.define("sol.common.FileUtils", {
         me.downloadDocument(sord.id, dstDirPath);
       }
     } catch (ex) {
+      me.logger.error(["error reading sord from objId '{0}'", objId], ex);
     }
   },
 
