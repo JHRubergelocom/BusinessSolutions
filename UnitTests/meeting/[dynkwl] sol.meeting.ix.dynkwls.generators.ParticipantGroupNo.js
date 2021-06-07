@@ -19,12 +19,12 @@ describe("[dynkwl] sol.meeting.ix.dynkwls.generators.ParticipantGroupNo", functi
   });
   describe("Tests Dynamic Keyword lists", function () {
     describe("sol.meeting.ix.dynkwl.generators.meeting", function () {
-      it("get 'ParticipantGroupNo' configuration from kwl.config", function (done) {
+      it("get 'participantGroupNo' configuration from kwl.config", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_GetConfig", {
             objId: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/meeting/Configuration/generatorsKwls.config"
           }).then(function success(configResult) {
-            kwlConfig = configResult.config["ParticipantGroupNo"];
+            kwlConfig = configResult.config["participantGroupNo"];
             done();
           }, function error(err) {
             fail(err);

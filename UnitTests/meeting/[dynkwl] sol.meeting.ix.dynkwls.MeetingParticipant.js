@@ -19,12 +19,12 @@ describe("[dynkwl] sol.meeting.ix.dynkwls.MeetingParticipant", function () {
   });
   describe("Tests Dynamic Keyword lists", function () {
     describe("sol.meeting.ix.dynkwl.MeetingParticipant", function () {
-      it("get 'MeetingParticipant' configuration from kwl.config", function (done) {
+      it("get 'meetingParticipant' configuration from kwl.config", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_GetConfig", {
             objId: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/meeting/Configuration/kwl.config"
           }).then(function success(configResult) {
-            kwlConfig = configResult.config["MeetingParticipant"];
+            kwlConfig = configResult.config["meetingParticipant"];
             done();
           }, function error(err) {
             fail(err);

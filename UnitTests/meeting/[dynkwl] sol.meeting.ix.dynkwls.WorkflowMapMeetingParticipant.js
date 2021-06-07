@@ -19,12 +19,12 @@ describe("[dynkwl] sol.meeting.ix.dynkwls.WorkflowMapMeetingParticipant", functi
   });
   describe("Tests Dynamic Keyword lists", function () {
     describe("sol.meeting.ix.dynkwl.WorkflowMapMeetingParticipant", function () {
-      it("get 'WorkflowMapMeetingParticipant' configuration from kwl.config", function (done) {
+      it("get 'workflowMapMeetingParticipant' configuration from kwl.config", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_GetConfig", {
             objId: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/meeting/Configuration/kwl.config"
           }).then(function success(configResult) {
-            kwlConfig = configResult.config["WorkflowMapMeetingParticipant"];
+            kwlConfig = configResult.config["workflowMapMeetingParticipant"];
             done();
           }, function error(err) {
             fail(err);

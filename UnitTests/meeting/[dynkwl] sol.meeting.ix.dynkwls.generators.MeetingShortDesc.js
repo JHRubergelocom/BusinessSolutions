@@ -19,12 +19,12 @@ describe("[dynkwl] sol.meeting.ix.dynkwls.generators.MeetingShortDesc", function
   });
   describe("Tests Dynamic Keyword lists", function () {
     describe("sol.meeting.ix.dynkwl.generators.meeting", function () {
-      it("get 'MeetingShortDesc' configuration from kwl.config", function (done) {
+      it("get 'meetingShortDesc' configuration from kwl.config", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_GetConfig", {
             objId: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/meeting/Configuration/generatorsKwls.config"
           }).then(function success(configResult) {
-            kwlConfig = configResult.config["MeetingShortDesc"];
+            kwlConfig = configResult.config["meetingShortDesc"];
             done();
           }, function error(err) {
             fail(err);
