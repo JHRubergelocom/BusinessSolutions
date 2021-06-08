@@ -368,20 +368,6 @@ describe("[action] sol.meeting.ix.actions.ProposalsCreate", function () {
     });
   });
   describe("test finish proposals create", function () {
-    /*
-    it("check precondition meeting approval", function (done) {
-      expect(function () {
-        test.Utils.execute("RF_sol_meeting_service_ProposalsCreatePreCondition", { targetId: objIdMI }).then(function success(checkResult) {
-          done();
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }).not.toThrow();
-    });
-    */
     it("proposalTypes must be available", function (done) {
       configTypes = {
         objId: objIdMI
@@ -400,26 +386,6 @@ describe("[action] sol.meeting.ix.actions.ProposalsCreate", function () {
     it("start action create workflow", function (done) {
       expect(function () {
         configAction = {
-          /*
-          objId: objIdMI,
-          $name: "ProposalsCreate",
-          $wf: {
-            template: {
-              name: "sol.meeting.ApproveMeetings"
-            },
-            name: "{{translate 'sol.meeting.client.ribbon.btnApproveMeetings'}}"
-          },
-          $events: [
-            {
-              id: "DIALOG",
-              onWfStatus: ""
-            },
-            {
-              id: "REFRESH",
-              onWfStatus: ""
-            }
-          ]
-          */
           objId: objIdMI,
           $name: "CreateProposal",
           $wf: {
