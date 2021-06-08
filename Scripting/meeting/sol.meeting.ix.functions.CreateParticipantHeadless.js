@@ -59,20 +59,20 @@ sol.define("sol.meeting.ix.functions.CreateInvitationHeadless", {
   mixins: ["sol.meeting.mixins.Configuration", "sol.common.mixins.Inject"],
 
   inject: {
-    _newSordDef: { config: "meeting", prop: "entities.invitation.actions.createheadless.const.newSordDef"},
-    _userField: {config: "meeting", prop: "entities.invitation.actions.createheadless.const.userField"},
-    _mailField: {config: "meeting", prop: "entities.invitation.actions.createheadless.const.mailField"},
-    _standardWorkflow: {config: "meeting", prop: "entities.invitation.actions.createheadless.const.standardWorkflow"},
-    _workflowMessage: {config: "meeting", prop: "entities.invitation.actions.createheadless.const.workflowMessage", template: true},
-    _invitationStatusField: {config: "meeting", prop: "entities.invitation.actions.createheadless.const.invitationStatusField"},
-    _meetingReferenceField: {config: "meeting", prop: "entities.invitation.actions.createheadless.const.meetingReferenceField"},
-    _meetingGuidField: {config: "meeting", prop: "entities.invitation.actions.createheadless.const.meetingGuid"},
-    _findMeeting: {config: "meeting", prop: "entities.invitation.actions.createheadless.findMeeting"}, 
-    _findParticipant: {config: "meeting", prop: "entities.invitation.actions.createheadless.findParticipant" },
-    _participantShortDesc: {config: "meeting", prop: "entities.participant.fields.MEETING_PARTICIPANT_SHORT_DESC_GEN.defaultValue"},
-    _invitationStatus: {config: "meeting", prop: "entities.participant.fields.MEETING_INVITATION_STATUS.defaultValue"},
-    _solType: {config: "meeting", prop: "entities.participant.fields.SOL_TYPE.defaultValue"},
-    _userFieldsToCopy: {config: "meeting", prop: "entities.participant.const.fieldsFromUser"}
+    _newSordDef: { config: "meeting", prop: "entities.invitation.actions.createheadless.const.newSordDef" },
+    _userField: { config: "meeting", prop: "entities.invitation.actions.createheadless.const.userField" },
+    _mailField: { config: "meeting", prop: "entities.invitation.actions.createheadless.const.mailField" },
+    _standardWorkflow: { config: "meeting", prop: "entities.invitation.actions.createheadless.const.standardWorkflow" },
+    _workflowMessage: { config: "meeting", prop: "entities.invitation.actions.createheadless.const.workflowMessage", template: true },
+    _invitationStatusField: { config: "meeting", prop: "entities.invitation.actions.createheadless.const.invitationStatusField" },
+    _meetingReferenceField: { config: "meeting", prop: "entities.invitation.actions.createheadless.const.meetingReferenceField" },
+    _meetingGuidField: { config: "meeting", prop: "entities.invitation.actions.createheadless.const.meetingGuid" },
+    _findMeeting: { config: "meeting", prop: "entities.invitation.actions.createheadless.findMeeting" }, 
+    _findParticipant: { config: "meeting", prop: "entities.invitation.actions.createheadless.findParticipant" },
+    _participantShortDesc: { config: "meeting", prop: "entities.participant.fields.MEETING_PARTICIPANT_SHORT_DESC_GEN.defaultValue" },
+    _invitationStatus: { config: "meeting", prop: "entities.participant.fields.MEETING_INVITATION_STATUS.defaultValue" },
+    _solType: { config: "meeting", prop: "entities.participant.fields.SOL_TYPE.defaultValue" },
+    _userFieldsToCopy: { config: "meeting", prop: "entities.participant.const.fieldsFromUser" }
 
   },
 
@@ -81,57 +81,57 @@ sol.define("sol.meeting.ix.functions.CreateInvitationHeadless", {
         participantId, mail, throws = true, flowId, meetingGuid;
 
     try {
-      meeting = me.determineCriterion(me._meetingReferenceField, me._meetingReferenceField, "meeting reference", throws)
-      meetingGuid = me.determineCriterion(me._meetingGuidField, me._meetingGuidField, "meeting guid", throws)
+      meeting = me.determineCriterion(me._meetingReferenceField, me._meetingReferenceField, "meeting reference", throws);
+      meetingGuid = me.determineCriterion(me._meetingGuidField, me._meetingGuidField, "meeting guid", throws);
       mail = me.determineCriterion("mail", me._mailField, "mail address", throws);
       standardWorkflow = me.determineCriterion("workflowTemplate", "workflowTemplate", "workflowTemplate", false);
-      me.logger.info(["determine workflow template {0}", standardWorkflow])
+      me.logger.info(["determine workflow template {0}", standardWorkflow]);
       standardWorkflow = standardWorkflow || me._standardWorkflow;
 
       // Find participant to check if the participant already invited to the current meeting
       participantId = me.getParticipant(mail, meeting);
 
-      if(participantId) { //participant already exists
+      if (participantId) { //participant already exists
         me.logger.info("participantId:" + participantId);
         return { code: "duplicate", data: { objId: participantId }, info: "Participant not created: already existed." };
       }
 
 
       metaData = me.prepareMetaData({
-         MEETING_REFERENCE: meeting,
-         MEETING_PARTICIPANT_SHORT_DESC_GEN: me._participantShortDesc,
-         MEETING_INVITATION_STATUS: me._invitationStatus,
-         SOL_TYPE: me._solType
+        MEETING_REFERENCE: meeting,
+        MEETING_PARTICIPANT_SHORT_DESC_GEN: me._participantShortDesc,
+        MEETING_INVITATION_STATUS: me._invitationStatus,
+        SOL_TYPE: me._solType
       });
 
       invitationId = me.createInvitationFromScratch(me._newSordDef, metaData);
 
       // attach the guid of the given meeting to simplify search and move operation foreach participant
       me.attachMapMetaData(invitationId, [{
-          key: me._meetingGuidField, value: meetingGuid
+        key: me._meetingGuidField, value: meetingGuid
       }]);
 
       me.logger.info(["Start Workflow template={0}, name={1}, invitationId={2}", standardWorkflow, me._workflowMessage, invitationId]);
       flowId = sol.common.WfUtils.startWorkflow(standardWorkflow, me._workflowMessage, invitationId);
 
       if (!flowId) {
-         throw "Workflow couln't start templFlowId=" + standardWorkflow + ", flowName=" + me._workflowMessage + ", objId=" + invitationId;
+        throw "Workflow couln't start templFlowId=" + standardWorkflow + ", flowName=" + me._workflowMessage + ", objId=" + invitationId;
       }
 
       return { code: "success", data: { objId: invitationId, flowId: flowId, metaData: JSON.stringify(metaData) }, info: "Invitation created" };
-    } catch (e){
-      return {code: "error", message: JSON.stringify(e), data: me.participantData}
+    } catch (e) {
+      return { code: "error", message: JSON.stringify(e), data: me.participantData };
     }
 
  
   },
 
-  getParticipant: function(mail, meeting) {
+  getParticipant: function (mail, meeting) {
     var me = this;
 
     me._findParticipant.search.push(
-      {key: me._meetingReferenceField, value: meeting},
-      {key: me._mailField, value: mail}
+      { key: me._meetingReferenceField, value: meeting },
+      { key: me._mailField, value: mail }
     );
 
     me.logger.info("findParticipant:", me._findParticipant.search);
@@ -177,10 +177,11 @@ sol.define("sol.meeting.ix.functions.CreateInvitationHeadless", {
     var me = this;
     try {
       // FIXME parentId should not be possible, only for development
+      me.logger.info("create sord with mask " + mask);
       return ixConnectAdmin.ix().createSord(me.parentId || "0", mask, EditInfoC.mbSord).sord;
     } catch (e) {
       me.logger.debug("could not create enrollment sord", e);
-      throw "CreateEnrollmentHeadless: could not create sord in chaos cabinet. Mask not available or insufficient permissions? mask:`" + mask + "`";
+      throw "CreateParticipantHeadless: could not create sord in chaos cabinet. Mask not available or insufficient permissions? mask:`" + mask + "`";
     }
   },
 
@@ -213,19 +214,19 @@ sol.define("sol.meeting.ix.functions.CreateInvitationHeadless", {
     });
   },
 
-  attachMapMetaData: function(sordId, metaData) {
-     var me = this, wfMap;
+  attachMapMetaData: function (sordId, metaData) {
+    var me = this, wfMap;
 
-     wfMap = sol.create("sol.common.SordMap", {
+    wfMap = sol.create("sol.common.SordMap", {
       objId: sordId
     });
 
     wfMap.read();
 
-    if (sol.common.ObjectUtils.isArray(metaData)){
-      metaData.forEach(function(data){
-         me.logger.info(["write to map {0} = {1}", data.key, data.value]);
-         wfMap.setValue(data.key, data.value)
+    if (sol.common.ObjectUtils.isArray(metaData)) {
+      metaData.forEach(function (data) {
+        me.logger.info(["write to map {0} = {1}", data.key, data.value]);
+        wfMap.setValue(data.key, data.value);
       });
     }
 
@@ -245,10 +246,10 @@ sol.define("sol.meeting.ix.functions.CreateInvitationHeadless", {
     return metaData;
   },
 
-  addParticipantData: function(metaData, objKeys, fields){
-    fields.forEach(function(fieldKey){
-      metaData.push({ type: "GRP", key: fieldKey, value: objKeys[fieldKey] })
-    })
+  addParticipantData: function (metaData, objKeys, fields) {
+    fields.forEach(function (fieldKey) {
+      metaData.push({ type: "GRP", key: fieldKey, value: objKeys[fieldKey] });
+    });
 
     return metaData;
   },
@@ -265,7 +266,7 @@ sol.define("sol.meeting.ix.functions.CreateInvitationHeadless", {
 
 /**
  * @member sol.meeting.ix.functions.CreateInvitationHeadless
- * @method RF_sol_meeting_function_CreateEnrollmentHeadless
+ * @method RF_sol_meeting_function_CreateInvitationHeadless
  * @static
  * @inheritdoc sol.common.ix.FunctionBase#RF_FunctionName
  */
