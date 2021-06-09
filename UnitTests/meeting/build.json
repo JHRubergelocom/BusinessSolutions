@@ -4,6 +4,7 @@
   "fileNamePrefix": "70",
 
   "workflowTemplates": [
+    "UnittestStandardWF"
   ],
 
   "sordTypes": [
