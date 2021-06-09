@@ -1,13 +1,14 @@
 
-describe("[action] sol.meeting.ix.actions.ProposalsCreate", function () {
+describe("[action] sol.meeting.ix.actions.ProposalsInitiateApproval", function () {
   var objTempId, configAction, wfInfo, succNodes, succNodesIds, objIdM, objIdMI, objIdPr,
-      originalTimeout, configTypes, meetingTypes, meetingItemTypes, proposalTypes;
+      originalTimeout, configTypes, meetingTypes, meetingItemTypes, proposalTypes,
+      userNode, nodes, userNodeId;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
-      test.Utils.createTempSord("Actions.ProposalsCreate", null, null).then(function success(objTempId1) {
+      test.Utils.createTempSord("Actions.ProposalsInitiateApproval", null, null).then(function success(objTempId1) {
         objTempId = objTempId1;
         done();
       }, function error(err) {
@@ -18,7 +19,7 @@ describe("[action] sol.meeting.ix.actions.ProposalsCreate", function () {
       );
     }).not.toThrow();
   });
-  describe("test propoasal create", function () {
+  describe("test propoasal initiate approval", function () {
     it("should not throw if executed without parameter", function (done) {
       expect(function () {
         test.Utils.execute("RF_sol_common_action_Standard", {
@@ -367,7 +368,7 @@ describe("[action] sol.meeting.ix.actions.ProposalsCreate", function () {
       }).not.toThrow();
     });
   });
-  describe("test finish proposals create", function () {
+  describe("create proposal", function () {
     it("proposalTypes must be available", function (done) {
       configTypes = {
         objId: objIdMI
@@ -478,16 +479,7 @@ describe("[action] sol.meeting.ix.actions.ProposalsCreate", function () {
         );
       }).not.toThrow();
     });
-    it("wfInfo.objId must be available", function () {
-      expect(wfInfo.objId).toBeDefined();
-    });
-    it("wfInfo.flowId must be available", function () {
-      expect(wfInfo.flowId).toBeDefined();
-    });
-    it("wfInfo.nodeId must be available", function () {
-      expect(wfInfo.nodeId).toBeDefined();
-    });
-    it("fill propoasal create", function (done) {
+    it("fill propoasal", function (done) {
       expect(function () {
         objIdPr = wfInfo.objId;
         test.Utils.updateWfMapData(wfInfo.flowId, wfInfo.objId, { 
@@ -547,32 +539,29 @@ describe("[action] sol.meeting.ix.actions.ProposalsCreate", function () {
       }).not.toThrow();
     });
   });
-  describe("test cancel proposalscreate", function () {
-    it("proposalTypes must be available", function (done) {
-      configTypes = {
-        objId: objIdMI
-      };
-      test.Utils.execute("RF_sol_meeting_service_GetProposalTypeInfos", configTypes).then(function success(proposalTypes1) {
-        proposalTypes = proposalTypes1;
-        expect(proposalTypes).toBeDefined();
-        done();
-      }, function error(err) {
-        fail(err);
-        console.error(err);
-        done();
-      }
-      );
+  describe("test finish proposalsinitiateapproval without DynAdHoc Approval", function () {
+    it("check precondition proposal approval", function (done) {
+      expect(function () {
+        test.Utils.execute("RF_sol_meeting_service_ProposalPrecondition", {}).then(function success(checkResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
     });
     it("start action create workflow", function (done) {
       expect(function () {
         configAction = {
-          objId: objIdMI,
-          $name: "CreateProposal",
+          objId: objIdPr,
+          $name: "InitiateApprovalProposal",
           $wf: {
             template: {
-              name: "sol.meeting.proposals.Create"
+              name: "sol.meeting.proposal.Approval"
             },
-            name: "{{translate 'sol.meeting.client.ribbon.btnCreateProposalText'}}-{{formatDate 'YYYYMMDDHHmmss'}}"
+            name: "{{translate 'sol.meeting.client.ribbon.btnInitiateApprovalProposal'}}"
           },
           $events: [
             {
@@ -580,63 +569,15 @@ describe("[action] sol.meeting.ix.actions.ProposalsCreate", function () {
               onWfStatus: ""
             },
             {
-              id: "REFRESH", 
+              id: "REFRESH",
               onWfStatus: ""
             }
           ],
-          $new: {
-            target: {
-              mode: "SELECTED"
-            },
-            name: proposalTypes[0].name,
-            template: {
-              base: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/meeting/Configuration/Proposal types",
-              name: proposalTypes[0].name
-            }
-          },
           $metadata: {
             owner: {
               fromConnection: true
             },
-            solType: "MEETING_PROPOSAL",
-            objKeys: [
-              {
-                key: "MEETING_ITEM_TITLE",
-                value: "{{sord.objKeys.MEETING_ITEM_TITLE}}"
-              },
-              {
-                key: "MEETING_PROPOSAL_CATEGORY",
-                value: proposalTypes[0].name
-              },
-              {
-                key: "MEETING_ITEM_DURATION",
-                value: "{{sord.objKeys.MEETING_ITEM_DURATION}}"
-              },
-              {
-                key: "MEETING_ITEM_SPEAKER",
-                value: "{{sord.objKeys.MEETING_ITEM_SPEAKER}}"
-              },
-              {
-                key: "MEETING_ITEM_RESPONSIBLE_PERSON",
-                value: "{{sord.objKeys.MEETING_ITEM_RESPONSIBLE_PERSON}}"
-              },
-              {
-                key: "MEETING_ITEM_STATUS",
-                value: "{{sord.objKeys.MEETING_ITEM_STATUS}}"
-              },
-              {
-                key: "MEETING_ITEM_START",
-                value: "{{sord.objKeys.MEETING_ITEM_START}}"
-              },
-              {
-                key: "MEETING_ITEM_END",
-                value: "{{sord.objKeys.MEETING_ITEM_END}}"
-              },
-              {
-                key: "MEETING_ITEM_ID",
-                value: "{{sord.objKeys.MEETING_ITEM_ID}}"
-              }
-            ]
+            solType: "MEETING_PROPOSAL"
           }
         };
         wfInfo = {};
@@ -658,21 +599,21 @@ describe("[action] sol.meeting.ix.actions.ProposalsCreate", function () {
         );
       }).not.toThrow();
     });
-    it("wfInfo.objId must be available", function () {
-      expect(wfInfo.objId).toBeDefined();
-    });
     it("wfInfo.flowId must be available", function () {
       expect(wfInfo.flowId).toBeDefined();
     });
     it("wfInfo.nodeId must be available", function () {
       expect(wfInfo.nodeId).toBeDefined();
     });
-    it("cancel input forwarding workflow", function (done) {
+    it("wfInfo.objId must be available", function () {
+      expect(wfInfo.objId).toBeDefined();
+    });
+    it("finish input forwarding workflow", function (done) {
       expect(function () {
         test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
-          succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.common.wf.node.cancel");
+          succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.common.wf.node.ok");
           succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
-          test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest cancel input").then(function success1(forwardWorkflowTaskResult) {
+          test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest finish input", true).then(function success1(forwardWorkflowTaskResult) {
             done();
           }, function error(err) {
             fail(err);
@@ -690,7 +631,451 @@ describe("[action] sol.meeting.ix.actions.ProposalsCreate", function () {
     });
     it("remove workflows", function (done) {
       expect(function () {
-        test.Utils.getFinishedWorkflows().then(function success(wfs) {
+        test.Utils.getFinishedWorkflows(wfInfo.objId).then(function success(wfs) {
+          test.Utils.removeFinishedWorkflows(wfs).then(function success1(removeFinishedWorkflowsResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+  });
+  describe("test finish proposalsinitiateapproval -> 'OK' -> 'Freigeben' -> 'Bestätigen", function () {
+    it("check precondition proposal approval", function (done) {
+      expect(function () {
+        test.Utils.execute("RF_sol_meeting_service_ProposalPrecondition", {}).then(function success(checkResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("start action create workflow", function (done) {
+      expect(function () {
+        wfInfo = {};
+        test.Utils.executeIxActionHandler("RF_sol_common_action_Standard", configAction, []).then(function success(jsonResults) {
+          test.Utils.handleAllEvents(jsonResults).then(function success1(wfInfo1) {
+            wfInfo = wfInfo1;
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("wfInfo.flowId must be available", function () {
+      expect(wfInfo.flowId).toBeDefined();
+    });
+    it("wfInfo.nodeId must be available", function () {
+      expect(wfInfo.nodeId).toBeDefined();
+    });
+    it("wfInfo.objId must be available", function () {
+      expect(wfInfo.objId).toBeDefined();
+    });
+    it("set DynAdHoc Approval", function (done) {
+      expect(function () {
+        test.Utils.updateWfMapData(wfInfo.flowId, wfInfo.objId, { USER_MANDATORY1: true, USER1: "Administrator", USER_ID1: "0" }).then(function success(updateWfMapDataResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("finish input forwarding workflow", function (done) {
+      expect(function () {
+        test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
+          succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.common.wf.node.ok");
+          succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
+          test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest finish input", true).then(function success1(forwardWorkflowTaskResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("get active node 'Freigabe' (id = 10) of Workflow", function (done) {
+      expect(function () {
+        test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
+          nodes = test.Utils.getActiveUserNodes(workflow);
+          if (nodes.length > 0) {
+            userNode = nodes[0];
+            userNodeId = userNode.id;
+            // alert("(userNode.name, userNode.id) = (" + userNode.name + "," + userNode.id + ")");
+          } else {
+            // alert("no userNodes available");
+          }
+          expect(userNodeId).toEqual(10);
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("'Freigeben' forwarding Workflow", function (done) {
+      expect(function () {
+        test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
+          succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.common.wf.node.approve");
+          succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
+          test.Utils.forwardWorkflowTask(wfInfo.flowId, userNodeId, succNodesIds, "Unittest 'Approve'", true).then(function success1(forwardWorkflowTaskResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("get active node 'Vorlage freigeben' (id = 19) of Workflow", function (done) {
+      expect(function () {
+        test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
+          nodes = test.Utils.getActiveUserNodes(workflow);
+          if (nodes.length > 0) {
+            userNode = nodes[0];
+            userNodeId = userNode.id;
+            // alert("(userNode.name, userNode.id) = (" + userNode.name + "," + userNode.id + ")");
+          } else {
+            // alert("no userNodes available");
+          }
+          expect(userNodeId).toEqual(19);
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("'Bestätigen' forwarding Workflow", function (done) {
+      expect(function () {
+        test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
+          succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.common.wf.node.confirm");
+          succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
+          test.Utils.forwardWorkflowTask(wfInfo.flowId, userNodeId, succNodesIds, "Unittest 'Confirm'", true).then(function success1(forwardWorkflowTaskResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("remove workflows", function (done) {
+      expect(function () {
+        test.Utils.getFinishedWorkflows(wfInfo.objId).then(function success(wfs) {
+          test.Utils.removeFinishedWorkflows(wfs).then(function success1(removeFinishedWorkflowsResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+  });
+  describe("test finish proposalsinitiateapproval -> 'OK' -> 'Ablehnen' -> 'Bestätigen", function () {
+    it("check precondition proposal approval", function (done) {
+      expect(function () {
+        test.Utils.execute("RF_sol_meeting_service_ProposalPrecondition", {}).then(function success(checkResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("start action create workflow", function (done) {
+      expect(function () {
+        wfInfo = {};
+        test.Utils.executeIxActionHandler("RF_sol_common_action_Standard", configAction, []).then(function success(jsonResults) {
+          test.Utils.handleAllEvents(jsonResults).then(function success1(wfInfo1) {
+            wfInfo = wfInfo1;
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("wfInfo.flowId must be available", function () {
+      expect(wfInfo.flowId).toBeDefined();
+    });
+    it("wfInfo.nodeId must be available", function () {
+      expect(wfInfo.nodeId).toBeDefined();
+    });
+    it("wfInfo.objId must be available", function () {
+      expect(wfInfo.objId).toBeDefined();
+    });
+    it("set DynAdHoc Approval", function (done) {
+      expect(function () {
+        test.Utils.updateWfMapData(wfInfo.flowId, wfInfo.objId, { USER_MANDATORY1: true, USER1: "Administrator", USER_ID1: "0" }).then(function success(updateWfMapDataResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("finish input forwarding workflow", function (done) {
+      expect(function () {
+        test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
+          succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.common.wf.node.ok");
+          succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
+          test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest finish input", true).then(function success1(forwardWorkflowTaskResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("get active node 'Freigabe' (id = 10) of Workflow", function (done) {
+      expect(function () {
+        test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
+          nodes = test.Utils.getActiveUserNodes(workflow);
+          if (nodes.length > 0) {
+            userNode = nodes[0];
+            userNodeId = userNode.id;
+            // alert("(userNode.name, userNode.id) = (" + userNode.name + "," + userNode.id + ")");
+          } else {
+            // alert("no userNodes available");
+          }
+          expect(userNodeId).toEqual(10);
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("'Ablehnen' forwarding Workflow", function (done) {
+      expect(function () {
+        test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
+          succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.common.wf.node.reject");
+          succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
+          test.Utils.forwardWorkflowTask(wfInfo.flowId, userNodeId, succNodesIds, "Unittest 'Reject'", true).then(function success1(forwardWorkflowTaskResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("get active node 'Vorlage nicht freigeben' (id = 20) of Workflow", function (done) {
+      expect(function () {
+        test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
+          nodes = test.Utils.getActiveUserNodes(workflow);
+          if (nodes.length > 0) {
+            userNode = nodes[0];
+            userNodeId = userNode.id;
+            // alert("(userNode.name, userNode.id) = (" + userNode.name + "," + userNode.id + ")");
+          } else {
+            // alert("no userNodes available");
+          }
+          expect(userNodeId).toEqual(20);
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("'Bestätigen' forwarding Workflow", function (done) {
+      expect(function () {
+        test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
+          succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.common.wf.node.confirm");
+          succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
+          test.Utils.forwardWorkflowTask(wfInfo.flowId, userNodeId, succNodesIds, "Unittest 'Confirm'", true).then(function success1(forwardWorkflowTaskResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("remove workflows", function (done) {
+      expect(function () {
+        test.Utils.getFinishedWorkflows(wfInfo.objId).then(function success(wfs) {
+          test.Utils.removeFinishedWorkflows(wfs).then(function success1(removeFinishedWorkflowsResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+  });
+  describe("test cancel proposalsinitiateapproval", function () {
+    it("check precondition proposal approval", function (done) {
+      expect(function () {
+        test.Utils.execute("RF_sol_meeting_service_ProposalPrecondition", {}).then(function success(checkResult) {
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("start action create workflow", function (done) {
+      expect(function () {
+        wfInfo = {};
+        test.Utils.executeIxActionHandler("RF_sol_common_action_Standard", configAction, []).then(function success(jsonResults) {
+          test.Utils.handleAllEvents(jsonResults).then(function success1(wfInfo1) {
+            wfInfo = wfInfo1;
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("wfInfo.flowId must be available", function () {
+      expect(wfInfo.flowId).toBeDefined();
+    });
+    it("wfInfo.nodeId must be available", function () {
+      expect(wfInfo.nodeId).toBeDefined();
+    });
+    it("wfInfo.objId must be available", function () {
+      expect(wfInfo.objId).toBeDefined();
+    });
+    it("cancel input forwarding workflow", function (done) {
+      expect(function () {
+        test.Utils.getWorkflow(wfInfo.flowId).then(function success(workflow) {
+          succNodes = test.Utils.getSuccessorNodes(workflow, wfInfo.nodeId, null, "sol.common.wf.node.cancel");
+          succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
+          test.Utils.forwardWorkflowTask(wfInfo.flowId, wfInfo.nodeId, succNodesIds, "Unittest cancel input", true).then(function success1(forwardWorkflowTaskResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("remove workflows", function (done) {
+      expect(function () {
+        test.Utils.getFinishedWorkflows(wfInfo.objId).then(function success(wfs) {
           test.Utils.removeFinishedWorkflows(wfs).then(function success1(removeFinishedWorkflowsResult) {
             done();
           }, function error(err) {
