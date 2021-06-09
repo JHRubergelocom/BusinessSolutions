@@ -5,6 +5,8 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_Class.js
 //@include lib_sol.common.ix.ServiceBase.js
 //@include lib_sol.common.ix.GenericDynKwl.js
+//@include sol.common.ix.dynkwl.DynKwlMultiIndexIterator.js
+//@include sol.meeting.ix.dynkwl.ProposalTypesMultiIndex.js
 //@include sol.meeting.ix.dynkwl.MeetingIterator.js
 //@include sol.meeting.ix.dynkwl.ResponsibleUserNames.js
 //@include sol.meeting.ix.dynkwl.SpeakerUserNames.js
