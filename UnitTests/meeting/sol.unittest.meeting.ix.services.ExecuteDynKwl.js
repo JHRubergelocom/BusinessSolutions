@@ -13,6 +13,8 @@ importPackage(Packages.de.elo.ix.client);
 //@include sol.meeting.ix.localizedKwl.MeetingInvitationStatus.js
 //@include sol.meeting.ix.localizedKwl.MeetingItemStatus.js
 //@include sol.meeting.ix.localizedKwl.MeetingStatus.js
+//@include sol.meeting.ix.localizedKwl.MemberStatus.js
+//@include sol.meeting.ix.localizedKwl.ProposalStatus.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.meeting.ix.services.ExecuteDynKwl" });
 
