@@ -116,7 +116,7 @@ sol.define("sol.unittest.as.services.Test", {
    * @return {String|Object} result of method
    */
   process: function () {
-    var me = this, htmlFile, targetFile, feedUrl, feedFile;
+    var me = this, htmlFile, targetFile, feedUrl, feedFile, actions;
     
     /*    
     mapiMessage = sol.create("sol.common.as.MapiMessage", {});
@@ -548,12 +548,10 @@ sol.define("sol.unittest.as.services.Test", {
 */
 
       // Get feed info
-      /*
       actions = me.getActions(me.objId);
       actions.forEach(function (action) {
         me.logger.info(["action.text='{0}'", action.text]);
       });
-      */
 
       feedUrl = me.getFeedUrl(me.objId);
       java.awt.Desktop.desktop.browse(new java.net.URI(feedUrl));

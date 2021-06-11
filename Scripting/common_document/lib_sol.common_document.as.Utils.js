@@ -19,7 +19,6 @@ sol.define("sol.common_document.as.Utils", {
    * @param {de.elo.ix.client.Sord} sord
    * @param {Object} config Pdf export configuration
    * @param {String} config.defaultTemplate Default cover template
-   * @param {Object[]} config.coverSheets Assigments docmask to coversheet template
    * @param {String} config.coversheetBasePath Folder for coversheet templates
    * @return {String} templateId
    */
@@ -31,11 +30,10 @@ sol.define("sol.common_document.as.Utils", {
     me.logger.info(["Start getTemplateCoverSheetSord with sord.id: '{0}', config: '{1}'", sord.id, sol.common.JsonUtils.stringifyAll(me.config, { tabStop: 2 })]);
 
     templateId = config.defaultTemplate;
-    config.coverSheets.forEach(function (coverSheet) {
-      if (coverSheet.mask == sord.maskName) {
-        templateId = config.coversheetBasePath + coverSheet.template;
-      }
-    });
+    if (sol.common.RepoUtils.exists(config.coversheetBasePath + "/" + sord.maskName)) {
+      templateId = config.coversheetBasePath + "/" + sord.maskName;
+    }
+
     me.logger.info(["Finish getTemplateCoverSheetSord with templateId: '{0}'", templateId]);
     me.logger.exit("getTemplateCoverSheetSord");
     return templateId;
@@ -80,6 +78,18 @@ sol.define("sol.common_document.as.Utils", {
   getTemplateText: function (config) {
     return config.textTemplate;
   },
+
+  // TODO
+  /**
+   * Get feedInfo template
+   * @private
+   * @param {Object} config Pdf export configuration
+   * @return {String} FeedInfo template
+   */
+  getTemplateFeedInfo: function (config) {
+    return config.feedInfoTemplate;
+  },
+  // TODO
 
   /**
    * Get export folder in archive
@@ -422,6 +432,8 @@ sol.define("sol.common_document.as.Utils", {
     me.logger.exit("convertFeedToPdf");    
   },
 
+  // TODO FeedInfo als fop-Vorlage umsetzen
+
   /**
    * Append feed info of sord to a PDF.
    * @private
@@ -431,14 +443,14 @@ sol.define("sol.common_document.as.Utils", {
    * @param {Object} config Pdf export configuration
    * @return {java.io.File} dstPdfFile
    */
-  appendFeedInfo: function (sord, dstDirPath, pdfName, config) {
+  _appendFeedInfo: function (sord, dstDirPath, pdfName, config) {
     var me = this,
         dstPdfFile,
         dstPdfPath, dstFeedPdfPath, dstFeedPdfFile, feedUrl,
         mergedOutputStream, pdfInputStreams, pdfInputStream;
 
-    me.logger.enter("appendFeedInfo");
-    me.logger.info(["Start appendFeedInfo with sord: '{0}', dstDirPath: '{1}', pdfName: '{2}', config: '{3}'", sord, dstDirPath, pdfName, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
+    me.logger.enter("_appendFeedInfo");
+    me.logger.info(["Start _appendFeedInfo with sord: '{0}', dstDirPath: '{1}', pdfName: '{2}', config: '{3}'", sord, dstDirPath, pdfName, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
 
     dstPdfFile = new java.io.File(dstDirPath + java.io.File.separator + pdfName + ".pdf");
 
@@ -463,11 +475,120 @@ sol.define("sol.common_document.as.Utils", {
     dstPdfFile = me.writePdfOutputStreamToFile(mergedOutputStream, dstDirPath, pdfName);
     sol.common.FileUtils.deleteFiles({ dirPath: dstFeedPdfFile.getPath() });
 
+    me.logger.info(["Finish _appendFeedInfo with dstPdfFile: '{0}'", dstPdfFile]);
+    me.logger.exit("_appendFeedInfo");    
+
+    return dstPdfFile;
+  },
+
+  /**
+   * Get actions of document feeds.
+   * @private
+   * @param {String} objId Object ID
+   * @return {de.elo.ix.client.feed.Action[]} actions
+   */
+  getActions: function (objId) {
+    var findInfo, findResult, idx, actions, i, action;
+
+    findInfo = new FindActionsInfo();
+    findInfo.objId = objId;
+
+    idx = 0;
+    findResult = ixConnect.getFeedService().findFirstActions(findInfo, 200, ActionC.mbAll);
+
+    actions = [];
+
+    while (true) {
+      for (i = 0; i < findResult.actions.length; i++) {
+        action = findResult.actions[i];
+        // action.text = String(action.text);
+        actions.push({ createDateIso: action.createDateIso, commentText: action.text, userName: action.userName });
+      }
+      if (!findResult.moreResults) {
+        break;
+      }
+      idx += findResult.actions.length;
+      findResult = ixConnect.getFeedService().findNextactions(findResult.searchId, idx, 200, ActionC.mbAll);
+    }
+    return actions;
+  },
+
+
+  /**
+   * Converts a feedInfo to a PDF.
+   * @private
+   * @param {de.elo.ix.client.Sord} sord
+   * @param {String} dstDirPath
+   * @param {Object} config Pdf export configuration
+   * @return {java.io.InputStream} inputStream or null if there was an error
+   */
+  convertFeedInfoToPdf: function (sord, dstDirPath, config) {
+    var me = this,
+        inputStream = null,
+        fopRenderer, templateId, result, data, pdfName;
+
+    me.logger.enter("convertFeedInfoToPdf");
+    me.logger.info(["Start convertFeedInfoToPdf with sord: '{0}'", sord]);
+
+    templateId = me.getTemplateFeedInfo(config);
+    // TODO  
+    data = { actions: me.getActions(sord.id) };
+    // TODO
+
+    pdfName = me.getPdfName(sord, "pdf");
+    fopRenderer = sol.create("sol.common.as.renderer.Fop", { templateId: templateId, toStream: true });
+    result = fopRenderer.render(pdfName, data);
+    inputStream = me.convertOutputStreamToInputStream(result.outputStream);
+    me.writePdfOutputStreamToFile(result.outputStream, dstDirPath, pdfName);
+
+    me.logger.info(["Finish convertFeedInfoToPdf with inputStream: '{0}'", inputStream]);
+    me.logger.exit("convertFeedInfoToPdf");
+
+    return inputStream;
+  },
+
+  /**
+   * Append feed info of sord to a PDF.
+   * @private
+   * @param {de.elo.ix.client.Sord} sord
+   * @param {String} dstDirPath
+   * @param {String} pdfName
+   * @param {Object} config Pdf export configuration
+   * @return {java.io.File} dstPdfFile
+   */
+  appendFeedInfo: function (sord, dstDirPath, pdfName, config) {
+    var me = this,
+        dstPdfFile,
+        dstPdfPath,
+        mergedOutputStream, pdfInputStreams, pdfInputStream;
+
+    me.logger.enter("appendFeedInfo");
+    me.logger.info(["Start _appendFeedInfo with sord: '{0}', dstDirPath: '{1}', pdfName: '{2}', config: '{3}'", sord, dstDirPath, pdfName, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
+
+    dstPdfFile = new java.io.File(dstDirPath + java.io.File.separator + pdfName + ".pdf");
+    dstPdfPath = dstPdfFile.getPath();
+
+    mergedOutputStream = new ByteArrayOutputStream();
+    pdfInputStreams = [];
+    pdfInputStream = new FileInputStream(dstPdfPath);
+    if (pdfInputStream) {
+      pdfInputStreams.push(pdfInputStream);
+    }
+    pdfInputStream = me.convertFeedInfoToPdf(sord, dstDirPath, config);
+
+    if (pdfInputStream) {
+      pdfInputStreams.push(pdfInputStream);
+    }
+    sol.common.as.PdfUtils.mergePdfStreams(pdfInputStreams, mergedOutputStream);
+    dstPdfFile = me.writePdfOutputStreamToFile(mergedOutputStream, dstDirPath, pdfName);
+
     me.logger.info(["Finish appendFeedInfo with dstPdfFile: '{0}'", dstPdfFile]);
     me.logger.exit("appendFeedInfo");    
 
     return dstPdfFile;
   },
+
+  // TODO FeedInfo als fop-Vorlage umsetzen
 
   /**
    * Create PDF from sord
@@ -485,7 +606,7 @@ sol.define("sol.common_document.as.Utils", {
   createPdfFromSord: function (sord, templateId, dstDirPath, ext, pdfName, config, pdfContents) {
     var me = this,
         data, fopRenderer, result, pdfInputStream, refPath, pdfPages, 
-        dstFile, isCover, dm, os;
+        dstFile, isCover, dm;
 
     me.logger.enter("createPdfFromSord"); 
     me.logger.info(["Start createPdfFromSord with sord: '{0}', templateId: '{1}', dstDirPath: '{2}', ext: '{3}', pdfName: '{4}', config: '{5}'", sord, templateId, dstDirPath, ext, pdfName, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
@@ -551,7 +672,9 @@ sol.define("sol.common_document.as.Utils", {
       refPath = me.getRefPath(sord, isCover);
       dstFile = me.writePdfOutputStreamToFile(result.outputStream, dstDirPath, pdfName);
 
+      // TODO
       if (config.feedInfo === true) {
+        /*
         os = String(java.lang.System.getProperty("os.name").toLowerCase());
         if (me.debug) {
           if (sol.common.StringUtils.contains(os, "win")) {
@@ -559,7 +682,11 @@ sol.define("sol.common_document.as.Utils", {
             pdfInputStream = new FileInputStream(dstFile);
           }  
         }
+        */
+        dstFile = me.appendFeedInfo(sord, dstDirPath, pdfName, config);
+        pdfInputStream = new FileInputStream(dstFile);    
       }
+      // TODO
 
       try {
         pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstFile);
@@ -573,14 +700,19 @@ sol.define("sol.common_document.as.Utils", {
       result = fopRenderer.render(pdfName, data);
       dstFile = me.writePdfOutputStreamToFile(result.outputStream, dstDirPath, pdfName);
 
+      // TODO
       if (config.feedInfo === true) {
+        /*
         os = String(java.lang.System.getProperty("os.name").toLowerCase());
         if (me.debug) {
           if (sol.common.StringUtils.contains(os, "win")) {
             dstFile = me.appendFeedInfo(sord, dstDirPath, pdfName, config);
           }  
         }
+        */
+        dstFile = me.appendFeedInfo(sord, dstDirPath, pdfName, config);
       }
+      // TODO
     }
 
     if (config.pdfA === true) {
@@ -1337,7 +1469,7 @@ sol.define("sol.common_document.as.Utils", {
    */
   createContent: function (folderName, dstDirPath, config, pdfContents) {
     var me = this,
-        templateId, fopRenderer, result, data, pdfInputStream, sumPages, dstFile, pdfOutputStream, os;
+        templateId, fopRenderer, result, data, pdfInputStream, sumPages, dstFile, pdfOutputStream;
 
     me.logger.enter("createContent");
     me.logger.info(["Start createContent with folderName: '{0}', dstDirPath: '{1}', config: '{2}'", folderName, dstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
@@ -1352,7 +1484,9 @@ sol.define("sol.common_document.as.Utils", {
 
     sumPages = me.getOffsetSumPages(folderName, dstDirPath, config, pdfContents);
 
+    // TODO    
     if (config.feedInfo === true) {
+      /*
       os = String(java.lang.System.getProperty("os.name").toLowerCase());
       if (me.debug) {
         if (sol.common.StringUtils.contains(os, "win")) {
@@ -1361,7 +1495,12 @@ sol.define("sol.common_document.as.Utils", {
           }
         }  
       }
+      */
+      if (sumPages > 0) {
+        sumPages--;
+      }
     }
+    // TODO
 
     pdfContents.forEach(function (pdfContent) {
       sumPages += pdfContent.pdfPages;
