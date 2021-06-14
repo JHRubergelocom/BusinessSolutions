@@ -19,7 +19,7 @@
 
           <fo:table border-style="hidden" table-layout="fixed" width="100%">
             <fo:table-column column-width="3cm"/>
-            <fo:table-column column-width="14cm"/>
+            <fo:table-column column-width="15cm"/>
             <fo:table-body>
               <fo:table-row>
                 <fo:table-cell>
@@ -36,14 +36,14 @@
 
           {{#if sordKeys}}
             <fo:block font-size="16pt" text-align="left" font-weight="bold" margin-bottom="10pt" margin-top="15pt">
-              SordKeys
+              {{sordKeysLabel}}
             </fo:block>
 
             <fo:block text-align="left" margin-bottom="10pt" margin-top="15pt" border-bottom="solid 1pt black" font-weight="bold"></fo:block>
 
             <fo:table border-style="hidden" table-layout="fixed" width="100%">
               <fo:table-column column-width="7cm"/>
-              <fo:table-column column-width="10cm"/>
+              <fo:table-column column-width="15cm"/>
               <fo:table-body>
                 <fo:table-row>
                   <fo:table-cell>
@@ -118,14 +118,14 @@
           {{#if objKeys}}
             {{#ifCond sord.objKeys.length '>' '0'}}
               <fo:block font-size="16pt" text-align="left" font-weight="bold" margin-bottom="10pt" margin-top="15pt">
-                ObjKeys
+                {{objKeysLabel}}
               </fo:block>
 
               <fo:block text-align="left" margin-bottom="10pt" margin-top="15pt" border-bottom="solid 1pt black" font-weight="bold"></fo:block>
 
               <fo:table border-style="hidden" table-layout="fixed" width="100%">
                 <fo:table-column column-width="7cm"/>
-                <fo:table-column column-width="10cm"/>
+                <fo:table-column column-width="15cm"/>
                 <fo:table-body>
                   {{#each sord.objKeys}}
                     <fo:table-row>
@@ -148,14 +148,14 @@
           {{#if mapKeys}}
             {{#ifCond sord.mapKeys.length '>' '0'}}
               <fo:block font-size="16pt" text-align="left" font-weight="bold" margin-bottom="10pt" margin-top="15pt">
-                MapKeys
+                {{mapKeysLabel}}
               </fo:block>
 
               <fo:block text-align="left" margin-bottom="10pt" margin-top="15pt" border-bottom="solid 1pt black" font-weight="bold"></fo:block>
 
               <fo:table border-style="hidden" table-layout="fixed" width="100%">
                 <fo:table-column column-width="7cm"/>
-                <fo:table-column column-width="10cm"/>
+                <fo:table-column column-width="15cm"/>
                 <fo:table-body>
                   {{#each sord.mapKeys}}
                     <fo:table-row>
@@ -191,14 +191,14 @@
 
               <fo:table border-style="hidden" table-layout="fixed" width="100%">
                 <fo:table-column column-width="7cm"/>
-                <fo:table-column column-width="10cm"/>
+                <fo:table-column column-width="15cm"/>
                 <fo:table-body>
                   {{#each marginNotes.typeNormal}}
                     <fo:table-row>
-                      <fo:table-cell background-color="yellow">
+                      <fo:table-cell>
                         <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{date}}</fo:block>
                       </fo:table-cell>
-                      <fo:table-cell background-color="yellow">
+                      <fo:table-cell>
                         <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{desc}}</fo:block>
                       </fo:table-cell>
                     </fo:table-row>
@@ -219,14 +219,14 @@
 
               <fo:table border-style="hidden" table-layout="fixed" width="100%">
                 <fo:table-column column-width="7cm"/>
-                <fo:table-column column-width="10cm"/>
+                <fo:table-column column-width="15cm"/>
                 <fo:table-body>
                   {{#each marginNotes.typePersonal}}
                     <fo:table-row>
-                      <fo:table-cell background-color="green">
+                      <fo:table-cell>
                         <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{date}}</fo:block>
                       </fo:table-cell>
-                      <fo:table-cell background-color="green">
+                      <fo:table-cell>
                         <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{desc}}</fo:block>
                       </fo:table-cell>
                     </fo:table-row>
@@ -247,14 +247,14 @@
 
               <fo:table border-style="hidden" table-layout="fixed" width="100%">
                 <fo:table-column column-width="7cm"/>
-                <fo:table-column column-width="10cm"/>
+                <fo:table-column column-width="15cm"/>
                 <fo:table-body>
                   {{#each marginNotes.typeStamp}}
                     <fo:table-row>
-                      <fo:table-cell background-color="red">
+                      <fo:table-cell>
                         <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{date}}</fo:block>
                       </fo:table-cell>
-                      <fo:table-cell background-color="red">
+                      <fo:table-cell>
                         <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{desc}}</fo:block>
                       </fo:table-cell>
                     </fo:table-row>

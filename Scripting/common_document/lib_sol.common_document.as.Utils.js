@@ -319,6 +319,46 @@ sol.define("sol.common_document.as.Utils", {
   },
 
   /**
+   * Converts a Json Object to Json Key/Value array.
+   * @private
+   * @param {Object[]} jsonKeyValuePairs Json Key/Value array
+   * @param {String} maskName Name of the mask
+   */
+  translateJsonKeyValuePairs: function (jsonKeyValuePairs, maskName) {
+    var me = this,
+        i, jsonKeyValuePair, dmLine, key;
+
+    me.logger.enter("translateJsonKeyValuePairs"); 
+    me.logger.info(["Start translateJsonKeyValuePairs with jsonKeyValuePairs: '{0}'", sol.common.JsonUtils.stringifyAll(jsonKeyValuePairs, { tabStop: 2 })]);
+
+    for (i = 0; i < jsonKeyValuePairs.length; i++) {
+      jsonKeyValuePair = jsonKeyValuePairs[i];
+      key = jsonKeyValuePair.key;
+      dmLine = sol.common.SordUtils.getDocMaskLine(maskName, jsonKeyValuePair.key);
+      if (dmLine) {
+        if (dmLine.nameTranslationKey) {
+          if (String(dmLine.nameTranslationKey).trim() !== "") {
+            key = sol.create("sol.common.Template", { source: "{{translate '" + dmLine.nameTranslationKey + "' '" + me.language + "'}}" }).apply();
+          } else if (dmLine.name) {
+            if (String(dmLine.name).trim() !== "") {
+              key = dmLine.name;
+            }
+          }  
+        } else if (dmLine.name) {
+          if (String(dmLine.name).trim() !== "") {
+            key = dmLine.name;
+          }
+        }  
+      }
+      jsonKeyValuePair.key = key;
+    }
+
+    me.logger.info(["Finish translateJsonKeyValuePairs with jsonKeyValuePairs: '{0}'", sol.common.JsonUtils.stringifyAll(jsonKeyValuePairs, { tabStop: 2 })]);
+    me.logger.exit("translateJsonKeyValuePairs");
+
+  },
+
+  /**
    * Get Margin Notes from sord.
    * @private
    * @param {de.elo.ix.client.Sord} sord
@@ -674,15 +714,19 @@ sol.define("sol.common_document.as.Utils", {
 
     if (config.metadata) {
       if (config.metadata.sordKeys === true) {
+        data.sordKeysLabel = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.sordKeysLabel' '" + me.language + "'}}" }).apply();
         data.sordKeys = true;
       }
       if (config.metadata.objKeys === true) {
+        data.objKeysLabel = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.objKeysLabel' '" + me.language + "'}}" }).apply();
         if (data.sord.objKeys) {
           data.sord.objKeys = me.convertJsonToJsonKeyValuePairs(data.sord.objKeys);
+          me.translateJsonKeyValuePairs(data.sord.objKeys, sord.maskName);
           data.objKeys = true;
         }
       }
       if (config.metadata.mapKeys === true) {
+        data.mapKeysLabel = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.mapKeysLabel' '" + me.language + "'}}" }).apply();
         if (data.sord.mapKeys) {
           data.sord.mapKeys = me.convertJsonToJsonKeyValuePairs(data.sord.mapKeys);
           data.mapKeys = true;
