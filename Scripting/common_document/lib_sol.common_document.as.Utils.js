@@ -485,7 +485,8 @@ sol.define("sol.common_document.as.Utils", {
    * @return {de.elo.ix.client.feed.Action[]} actions
    */
   getActions: function (objId, config) {
-    var findInfo, findResult, idx, actions, i, action, date, timeZone, utcOffset;
+    var me = this, 
+        findInfo, findResult, idx, actions, i, action, date, timeZone, utcOffset, commentText;
 
     timeZone = config.timeZone;
     utcOffset = sol.common.SordUtils.getTimeZoneOffset(timeZone);
@@ -501,12 +502,47 @@ sol.define("sol.common_document.as.Utils", {
     while (true) {
       for (i = 0; i < findResult.actions.length; i++) {
         action = findResult.actions[i];
-        if (action.type == EActionType.UserComment) {
-          date = sol.common.DateUtils.transformIsoDate(action.createDateIso, { asUtc: true, utcOffset: utcOffset });
-          date = sol.common.DateUtils.isoToDate(date);
-          date = sol.common.DateUtils.format(date, "YYYY.MM.DD HH:mm");
-          actions.push({ createDateIso: date, commentText: action.text, userName: action.userName });
+        date = sol.common.DateUtils.transformIsoDate(action.createDateIso, { asUtc: true, utcOffset: utcOffset });
+        date = sol.common.DateUtils.isoToDate(date);
+        date = sol.common.DateUtils.format(date, "YYYY.MM.DD HH:mm");
+
+        commentText = "";
+        switch (action.type) {
+          case EActionType.UserComment:
+            commentText = action.text;
+            break;
+
+          case EActionType.AutoComment:
+            commentText = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.autoComment' '" + me.language + "'}}" }).apply();
+            break;
+  
+          case EActionType.Released:
+            commentText = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.released' '" + me.language + "'}}" }).apply();
+            break;
+
+          case EActionType.SordCreated:
+            commentText = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.sordCreated' '" + me.language + "'}}" }).apply();
+            break;
+
+          case EActionType.Survey:
+            commentText = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.survey' '" + me.language + "'}}" }).apply();
+            break;
+
+          case EActionType.VersionCreated:
+            commentText = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.versionCreated' '" + me.language + "'}}" }).apply();
+            break;
+
+          case EActionType.WorkVersionCreated:
+            commentText = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.workVersionCreated' '" + me.language + "'}}" }).apply();
+            break;
+
+          case EActionType.WorkVersionSwitched:
+            commentText = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.workVersionSwitched' '" + me.language + "'}}" }).apply();
+            break;
+                                                                      
+          default:
         }
+        actions.push({ createDateIso: date, commentText: commentText, userName: action.userName });
       }
       if (!findResult.moreResults) {
         break;
