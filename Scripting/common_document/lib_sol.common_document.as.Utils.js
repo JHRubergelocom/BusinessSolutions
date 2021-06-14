@@ -79,7 +79,6 @@ sol.define("sol.common_document.as.Utils", {
     return config.textTemplate;
   },
 
-  // TODO
   /**
    * Get feedInfo template
    * @private
@@ -89,7 +88,6 @@ sol.define("sol.common_document.as.Utils", {
   getTemplateFeedInfo: function (config) {
     return config.feedInfoTemplate;
   },
-  // TODO
 
   /**
    * Get export folder in archive
@@ -432,8 +430,6 @@ sol.define("sol.common_document.as.Utils", {
     me.logger.exit("convertFeedToPdf");    
   },
 
-  // TODO FeedInfo als fop-Vorlage umsetzen
-
   /**
    * Append feed info of sord to a PDF.
    * @private
@@ -485,10 +481,14 @@ sol.define("sol.common_document.as.Utils", {
    * Get actions of document feeds.
    * @private
    * @param {String} objId Object ID
+   * @param {Object} config Pdf export configuration
    * @return {de.elo.ix.client.feed.Action[]} actions
    */
-  getActions: function (objId) {
-    var findInfo, findResult, idx, actions, i, action;
+  getActions: function (objId, config) {
+    var findInfo, findResult, idx, actions, i, action, date, timeZone, utcOffset;
+
+    timeZone = config.timeZone;
+    utcOffset = sol.common.SordUtils.getTimeZoneOffset(timeZone);
 
     findInfo = new FindActionsInfo();
     findInfo.objId = objId;
@@ -501,8 +501,12 @@ sol.define("sol.common_document.as.Utils", {
     while (true) {
       for (i = 0; i < findResult.actions.length; i++) {
         action = findResult.actions[i];
-        // action.text = String(action.text);
-        actions.push({ createDateIso: action.createDateIso, commentText: action.text, userName: action.userName });
+        if (action.type == EActionType.UserComment) {
+          date = sol.common.DateUtils.transformIsoDate(action.createDateIso, { asUtc: true, utcOffset: utcOffset });
+          date = sol.common.DateUtils.isoToDate(date);
+          date = sol.common.DateUtils.format(date, "YYYY.MM.DD HH:mm");
+          actions.push({ createDateIso: date, commentText: action.text, userName: action.userName });
+        }
       }
       if (!findResult.moreResults) {
         break;
@@ -531,9 +535,9 @@ sol.define("sol.common_document.as.Utils", {
     me.logger.info(["Start convertFeedInfoToPdf with sord: '{0}'", sord]);
 
     templateId = me.getTemplateFeedInfo(config);
-    // TODO  
-    data = { actions: me.getActions(sord.id) };
-    // TODO
+    data = { actions: me.getActions(sord.id, config) };
+    data.userFeeds = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.userFeeds' '" + me.language + "'}}" }).apply();
+    data.noUserFeeds = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.noUserFeeds' '" + me.language + "'}}" }).apply();
 
     pdfName = me.getPdfName(sord, "pdf");
     fopRenderer = sol.create("sol.common.as.renderer.Fop", { templateId: templateId, toStream: true });
@@ -587,8 +591,6 @@ sol.define("sol.common_document.as.Utils", {
 
     return dstPdfFile;
   },
-
-  // TODO FeedInfo als fop-Vorlage umsetzen
 
   /**
    * Create PDF from sord
@@ -672,21 +674,10 @@ sol.define("sol.common_document.as.Utils", {
       refPath = me.getRefPath(sord, isCover);
       dstFile = me.writePdfOutputStreamToFile(result.outputStream, dstDirPath, pdfName);
 
-      // TODO
       if (config.feedInfo === true) {
-        /*
-        os = String(java.lang.System.getProperty("os.name").toLowerCase());
-        if (me.debug) {
-          if (sol.common.StringUtils.contains(os, "win")) {
-            dstFile = me.appendFeedInfo(sord, dstDirPath, pdfName, config);
-            pdfInputStream = new FileInputStream(dstFile);
-          }  
-        }
-        */
         dstFile = me.appendFeedInfo(sord, dstDirPath, pdfName, config);
         pdfInputStream = new FileInputStream(dstFile);    
       }
-      // TODO
 
       try {
         pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstFile);
@@ -700,19 +691,9 @@ sol.define("sol.common_document.as.Utils", {
       result = fopRenderer.render(pdfName, data);
       dstFile = me.writePdfOutputStreamToFile(result.outputStream, dstDirPath, pdfName);
 
-      // TODO
       if (config.feedInfo === true) {
-        /*
-        os = String(java.lang.System.getProperty("os.name").toLowerCase());
-        if (me.debug) {
-          if (sol.common.StringUtils.contains(os, "win")) {
-            dstFile = me.appendFeedInfo(sord, dstDirPath, pdfName, config);
-          }  
-        }
-        */
         dstFile = me.appendFeedInfo(sord, dstDirPath, pdfName, config);
       }
-      // TODO
     }
 
     if (config.pdfA === true) {
@@ -1185,16 +1166,6 @@ sol.define("sol.common_document.as.Utils", {
             me.logger.debug("convert Tiff to PDF");
             inputStream = me.convertTiffToPdf(sord, ext, dstDirPath);            
             break;
-          case "html":
-            os = String(java.lang.System.getProperty("os.name").toLowerCase());
-            if (sol.common.StringUtils.contains(os, "win") && me.debug) {
-              me.logger.debug("convert Html to PDF");
-              inputStream = me.convertHtmlToPdf(sord, ext, dstDirPath);            
-              return inputStream;
-            }  
-            inputStream = me.convertTextToPdf(sord, ext, dstDirPath, config); 
-            me.logger.info(["format '{0}' is not supported in os '{1}'", ext, os]);
-            break;
           case "ppt":
           case "pot":
           case "pps":
@@ -1483,24 +1454,11 @@ sol.define("sol.common_document.as.Utils", {
     data.contents = [];
 
     sumPages = me.getOffsetSumPages(folderName, dstDirPath, config, pdfContents);
-
-    // TODO    
     if (config.feedInfo === true) {
-      /*
-      os = String(java.lang.System.getProperty("os.name").toLowerCase());
-      if (me.debug) {
-        if (sol.common.StringUtils.contains(os, "win")) {
-          if (sumPages > 0) {
-            sumPages--;
-          }
-        }  
-      }
-      */
       if (sumPages > 0) {
         sumPages--;
       }
     }
-    // TODO
 
     pdfContents.forEach(function (pdfContent) {
       sumPages += pdfContent.pdfPages;
@@ -2169,16 +2127,6 @@ sol.define("sol.common_document.as.Utils", {
           case "tiff":
             me.logger.debug("convert Tiff to PDF");
             inputStream = me.convertTiffFileToPdf(filePath, dstDirPath);            
-            break;
-          case "html":
-            os = String(java.lang.System.getProperty("os.name").toLowerCase());
-            if (sol.common.StringUtils.contains(os, "win") && me.debug) {
-              me.logger.debug("convert Html to PDF");
-              inputStream = me.convertHtmlFileToPdf(filePath, dstDirPath);            
-              return inputStream;
-            }  
-            inputStream = me.convertTextFileToPdf(filePath, dstDirPath, config);              
-            me.logger.info(["format '{0}' is not supported in os '{1}'", ext, os]);
             break;
           case "ppt":
           case "pot":
