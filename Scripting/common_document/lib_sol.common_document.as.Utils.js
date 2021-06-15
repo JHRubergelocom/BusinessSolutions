@@ -614,8 +614,7 @@ sol.define("sol.common_document.as.Utils", {
     data = { actions: me.getActions(sord.id, config) };
     data.userFeeds = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.userFeeds' '" + me.language + "'}}" }).apply();
     data.noUserFeeds = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.noUserFeeds' '" + me.language + "'}}" }).apply();
-
-    pdfName = me.getPdfName(sord, "pdf");
+    pdfName = "_feed.pdf";
     fopRenderer = sol.create("sol.common.as.renderer.Fop", { templateId: templateId, toStream: true });
     result = fopRenderer.render(pdfName, data);
     inputStream = me.convertOutputStreamToInputStream(result.outputStream);
