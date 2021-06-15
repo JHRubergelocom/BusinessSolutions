@@ -684,10 +684,13 @@ sol.define("sol.common_document.as.Utils", {
   createPdfFromSord: function (sord, templateId, dstDirPath, ext, pdfName, config, pdfContents) {
     var me = this,
         data, fopRenderer, result, pdfInputStream, refPath, pdfPages, 
-        dstFile, isCover, dm;
+        dstFile, isCover, dm, timeZone, utcOffset, date;
 
     me.logger.enter("createPdfFromSord"); 
     me.logger.info(["Start createPdfFromSord with sord: '{0}', templateId: '{1}', dstDirPath: '{2}', ext: '{3}', pdfName: '{4}', config: '{5}'", sord, templateId, dstDirPath, ext, pdfName, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
+
+    timeZone = config.timeZone;
+    utcOffset = sol.common.SordUtils.getTimeZoneOffset(timeZone);
 
     if (ext) {
       data = { sord: sol.common.SordUtils.getTemplateSord(sord).sord, ext: ext };
@@ -715,6 +718,28 @@ sol.define("sol.common_document.as.Utils", {
     if (config.metadata) {
       if (config.metadata.sordKeys === true) {
         data.sordKeysLabel = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.sordKeysLabel' '" + me.language + "'}}" }).apply();
+        data.maskNameLabel = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.maskNameLabel' '" + me.language + "'}}" }).apply();
+        data.nameLabel = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.nameLabel' '" + me.language + "'}}" }).apply();
+        data.descLabel = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.descLabel' '" + me.language + "'}}" }).apply();
+        data.IDateIsoLabel = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.IDateIsoLabel' '" + me.language + "'}}" }).apply();
+        if (data.sord.IDateIso) {
+          if (String(data.sord.IDateIso).trim() !== "") {
+            date = sol.common.DateUtils.transformIsoDate(data.sord.IDateIso, { asUtc: true, utcOffset: utcOffset });
+            date = sol.common.DateUtils.isoToDate(date);
+            date = sol.common.DateUtils.format(date, "YYYY.MM.DD HH:mm");
+            data.sord.IDateIso = date;    
+          }
+        }
+        data.XDateIsoLabel = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.XDateIsoLabel' '" + me.language + "'}}" }).apply();
+        if (data.sord.XDateIso) {
+          if (String(data.sord.XDateIso).trim() !== "") {
+            date = sol.common.DateUtils.transformIsoDate(data.sord.XDateIso, { asUtc: true, utcOffset: utcOffset });
+            date = sol.common.DateUtils.isoToDate(date);
+            date = sol.common.DateUtils.format(date, "YYYY.MM.DD HH:mm");
+            data.sord.XDateIso = date;    
+          }
+        }
+        data.ownerNameLabel = sol.create("sol.common.Template", { source: "{{translate 'sol.common_document.as.Utils.pdfExport.ownerNameLabel' '" + me.language + "'}}" }).apply();
         data.sordKeys = true;
       }
       if (config.metadata.objKeys === true) {

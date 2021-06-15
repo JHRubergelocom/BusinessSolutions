@@ -47,7 +47,7 @@
               <fo:table-body>
                 <fo:table-row>
                   <fo:table-cell>
-                    <fo:block line-height="11pt" margin-top="3pt" text-align="left">id</fo:block>
+                    <fo:block line-height="11pt" margin-top="3pt" text-align="left">Id</fo:block>
                   </fo:table-cell>
                   <fo:table-cell>
                     <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{sord.id}}</fo:block>
@@ -55,7 +55,7 @@
                 </fo:table-row>
                 <fo:table-row>
                   <fo:table-cell>
-                    <fo:block line-height="11pt" margin-top="3pt" text-align="left">guid</fo:block>
+                    <fo:block line-height="11pt" margin-top="3pt" text-align="left">Guid</fo:block>
                   </fo:table-cell>
                   <fo:table-cell>
                     <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{sord.guid}}</fo:block>
@@ -63,7 +63,7 @@
                 </fo:table-row>
                 <fo:table-row>
                   <fo:table-cell>
-                    <fo:block line-height="11pt" margin-top="3pt" text-align="left">maskName</fo:block>
+                    <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{maskNameLabel}}</fo:block>
                   </fo:table-cell>
                   <fo:table-cell>
                     <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{sord.maskName}}</fo:block>
@@ -71,7 +71,7 @@
                 </fo:table-row>
                 <fo:table-row>
                   <fo:table-cell>
-                    <fo:block line-height="11pt" margin-top="3pt" text-align="left">name</fo:block>
+                    <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{nameLabel}}</fo:block>
                   </fo:table-cell>
                   <fo:table-cell>
                     <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{sord.name}}</fo:block>
@@ -79,7 +79,7 @@
                 </fo:table-row>
                 <fo:table-row>
                   <fo:table-cell>
-                    <fo:block line-height="11pt" margin-top="3pt" text-align="left">desc</fo:block>
+                    <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{descLabel}}</fo:block>
                   </fo:table-cell>
                   <fo:table-cell>
                     <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{sord.desc}}</fo:block>
@@ -87,7 +87,7 @@
                 </fo:table-row>
                 <fo:table-row>
                   <fo:table-cell>
-                    <fo:block line-height="11pt" margin-top="3pt" text-align="left">IDateIso</fo:block>
+                    <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{IDateIsoLabel}}</fo:block>
                   </fo:table-cell>
                   <fo:table-cell>
                     <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{sord.IDateIso}}</fo:block>
@@ -95,7 +95,7 @@
                 </fo:table-row>
                 <fo:table-row>
                   <fo:table-cell>
-                    <fo:block line-height="11pt" margin-top="3pt" text-align="left">XDateIso</fo:block>
+                    <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{XDateIsoLabel}}</fo:block>
                   </fo:table-cell>
                   <fo:table-cell>
                     <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{sord.XDateIso}}</fo:block>
@@ -103,7 +103,7 @@
                 </fo:table-row>
                 <fo:table-row>
                   <fo:table-cell>
-                    <fo:block line-height="11pt" margin-top="3pt" text-align="left">ownerName</fo:block>
+                    <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{ownerNameLabel}}</fo:block>
                   </fo:table-cell>
                   <fo:table-cell>
                     <fo:block line-height="11pt" margin-top="3pt" text-align="left">{{sord.ownerName}}</fo:block>
