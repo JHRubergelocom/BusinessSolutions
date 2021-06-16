@@ -9,7 +9,9 @@
 //@include lib_sol.common.ObjectUtils.js
 //@include lib_sol.common.SordUtils.js
 //@include lib_sol.common.CounterUtils.js
+//@include lib_sol.common.DateUtils.js
 //@include lib_sol.common.TranslateTerms.js
+//@include lib_sol.common.WfUtils.js
 
 importPackage(Packages.java.io);
 importPackage(Packages.de.elo.ix.client);
@@ -97,9 +99,9 @@ importPackage(Packages.de.elo.ix.client);
  *
  * ## Map values helper: mapTable
  * Registers the templating iterator `mapTable` to iterate over an object with object keys
- * which ends with an index number
+ * which ends with an index number. The delimiter is optional
  *
- *     {{#mapTable mapKeys indicatorKey="INVI_POS_NO"}}
+ *     {{#mapTable mapKeys indicatorKey="INVI_POS_NO" delimiter=","}}
  *       {{INVI_POS_NO}} {{INVI_POS_DATA}}
  *     {{/mapTable}}
  *
@@ -108,7 +110,16 @@ importPackage(Packages.de.elo.ix.client);
  *     INVI_POS_NO2 = "2"
  *     INVI_POS_DATA1 = "Data 123"
  *     INVI_POS_DATA2 = "Data 345"
+ * 
+ * this would return the following string
+ *     1 Data 123,2 Data 345
  *
+ * The following special variables are available within the scope of mapTable
+ *     {{mapIndex}} // returns the current index of the iteration
+ *     {{parentIndex}} // returns the current index of the outer scope iteration (e.g. when using mapTable within an each)
+ *     {{firstDocChild}}
+ *     {{objKeys}}
+ *  
  * `#mapTable` is an iterator with an isolated scope. Values of the sord can still be accessed using `../`.
  *
  *     {{#mapTable mapKeys indicatorKey="INVI_POS_NO"}}
@@ -257,6 +268,7 @@ importPackage(Packages.de.elo.ix.client);
  * Creates an external link and returns the appropriate URL
  *
  *     {{{externalLink objId='{{{sord.id}}}' limitTo=1 limitToUnit='y' times=5}}}
+ *     {{externalLink objId='{{{sord.id}}}' limitTo=1 limitToUnit='y' times=5 escapeXml=true}}
  *
  * ## Sum map field values
  *
@@ -280,6 +292,35 @@ importPackage(Packages.de.elo.ix.client);
  *
  *     Returns: 10,33
  *
+ * ## Date - now
+ *
+ * Get the current date in iso format. Specify pattern option to get a specific format.
+ * moment.js are available.
+ *
+ *     {
+ *       "source": "{{now pattern='YYYYMMDD'}}",
+ *       "result": "20210326"
+ *     }
+ *
+ * ## DateTime Shift
+ *
+ *  Shifting a dateTime by a certain value.
+ *  If no timestamp is set, the current date is used.
+ *  The values must be of the type number.
+ *  Negative numbers cause the value to be subtracted.
+ *
+ *  Possibly shift instructions are: years, quarters, months, weeks, days, hours, minutes, seconds, milliseconds.
+ *  For better readability moment.js shorthands are not allowed here.
+ *
+ *    {
+ *       "source": "{{dateTimeShift dateTime='20200329' pattern='YYYYMMDD'
+ *            years=1 quarters=1 months=1 weeks=1 days=1 hours=1 minutes=1 seconds=1 milliseconds=1}}"
+ *    }
+ *
+ * Use this handlebar helper to generate indexfield daterange search for example
+ *    {
+ *       "source": "{{now pattern='YYYYMMDD'}}...{{dateTimeShift years=1 pattern='YYYYMMDD'}}"
+ *    }
  *
  * ## Block helper 'minDate'
  *
@@ -295,18 +336,25 @@ importPackage(Packages.de.elo.ix.client);
  *     {{#maxDate sords format='DD.MM.YYYY'}}{{objKeys.INVOICE_DATE}}{{/maxDate}}
  *
  *
- *  ## Helper `kwl:key`
+ * ## Helper 'kwl:key'
  *
- *  Returns the key of a localized keyword list entry
+ * Returns the key of a localized keyword list entry
  *
  *     {{kwl:key sord.objKeys.INVOICE_TYPE}}
  *
  *
- *   ## Helper `kwl:value`
+ * ## Helper 'kwl:value'
  *
- *   Returns the localized text of a localized keyword list entry
+ * Returns the localized text of a localized keyword list entry
  *
- *      {{kwl:value sord.objKeys.INVOICE_TYPE}}
+ *     {{kwl:value sord.objKeys.INVOICE_TYPE}}
+ *
+ *
+ * ## Helper 'math'
+ *
+ * Calculates a field
+ *
+ *     {{math FIELD1 "+" FIELD2 decimalPlaces=2 decimalSeparator=','}}
  *
  *
  * ## Custom
@@ -345,6 +393,8 @@ importPackage(Packages.de.elo.ix.client);
  *
  * Another implementation of the same helper function might look like this:
  *
+ * You can pass in a variable number of parameters to a helper function. They will be made available in options.hash.
+ *
  *     ...
  *       var tpl = sol.create("sol.common.Template");
  *       var fct = function (cfg) {
@@ -372,6 +422,7 @@ importPackage(Packages.de.elo.ix.client);
  * @requires sol.common.RepoUtils
  * @requires sol.common.CounterUtils
  * @requires sol.common.TranslateTerms
+ * @requires sol.common.WfUtils
  * @requires sol.common.ObjectFormatter.TemplateSord
  * @requires sol.common.as.BarcodeUtils
  */
@@ -480,22 +531,33 @@ sol.define("sol.common.Template", {
   },
 
   /**
-   * Renders the template with the sord data.
+   * Renders the template with the sord data, optionally including its workflow data.
    * @param {String|de.elo.ix.client.Sord} sord Object ID of the element or a Sord.
+   * @param {String|Number} flowId (optional) workflow ID of the element.
    * @returns {String}
    */
-  applySord: function (sord) {
-    var me = this,
+  applySord: function (sord, flowId) {
+    var me = this, templateSord,
         _result;
     me.logger.enter("applySord", arguments);
     if (!sord) {
       me.logger.exit("applySord");
       return;
     }
+
     if (!sol.common.SordUtils.isSord(sord) || !sol.common.SordUtils.isIndexdataLoaded(sord)) {
       sord = ixConnect.ix().checkoutSord(sord, EditInfoC.mbSord, LockC.NO).sord;
     }
-    _result = me.apply(sol.common.SordUtils.getTemplateSord(sord));
+
+    if ((flowId != undefined) && (+(flowId) === +(flowId))) { // flowId is a number
+      templateSord = sol.common.WfUtils.getTemplateSord(sord, flowId);
+    }
+
+    if (!templateSord) {
+      templateSord = sol.common.SordUtils.getTemplateSord(sord);
+    }
+
+    _result = me.apply(templateSord);
     me.logger.exit("applySord");
     return _result;
   },
@@ -619,6 +681,7 @@ Handlebars.registerHelper("mapTable", function (context, options) {
       mapFields = [],
       maxLines = 2000,
       indicatorKey = options.hash.indicatorKey,
+      delimiter = options.hash.delimiter,
       i, key, index, name, data;
 
   context = context || {};
@@ -639,10 +702,18 @@ Handlebars.registerHelper("mapTable", function (context, options) {
     if (!context[indicatorKey + i]) {
       break;
     }
+
+    if (i > 1 && delimiter) {
+      ret += delimiter;
+    }
+
     data = mapFields[i];
     data.objKeys = context.objKeys;
     data.parentIndex = options.data.index;
     data.mapIndex = i + "";
+    if (options && options.data && options.data.root) {
+      data.firstDocChild = options.data.root.firstDocChild;
+    }
 
     ret += options.fn(data);
   }
@@ -902,9 +973,10 @@ Handlebars.registerHelper("abs", function (number, options) {
 
   groups = number.match(/(^-?)(\d+)(\D)(\d+$)/);
 
-  if (groups && (groups.lenth == 4)) {
-    number = groups[1] + decimalSeparator + groups[3];
+  if (groups && (groups.length == 5)) {
+    number = groups[2] + decimalSeparator + groups[4];
   }
+
   return new Handlebars.SafeString(number);
 });
 
@@ -929,6 +1001,64 @@ Handlebars.registerHelper("debitCreditIndicator", function (number, debitIndicat
   }
 
   return new Handlebars.SafeString(indicator);
+});
+
+Handlebars.registerHelper("dateTimeShift", function (options) {
+    var dateTime = options && options.hash.dateTime,
+    shiftInstructions = {}, modifiers = [];
+
+
+    // to avoid client mistakes
+    if (typeof dateTime === "number") {
+      throw Error("datetime should provide as string. use quotes '20200329' in your handlebar")
+    }
+
+    // convert dateTime option to a moment object. If no dateTime is passed
+    // use now datetime object
+    dateTime =
+      dateTime === undefined
+        ? moment()
+        : typeof dateTime === "string"
+        ? moment(dateTime)
+        : dateTime;
+
+    if (typeof options === "object" && options.hash) {
+      modifiers = [
+        "years",
+        "quarters",
+        "months",
+        "weeks",
+        "days",
+        "hours",
+        "minutes",
+        "seconds",
+        "milliseconds"
+      ];
+
+      sol.common.ObjectUtils.forEach(modifiers, function(mod) {
+        if (typeof options.hash[mod] === "number" || typeof options.hash[mod] === "string") {
+          // + convert it to number
+          shiftInstructions[mod] = +options.hash[mod];
+        }
+      });
+
+      // execute shiftInstructions at once instead of
+      // creating a new moment instance each time we add a unit
+      // {days: 1, months: 1, ...} (https://momentjs.com/docs/#/manipulating/add/)
+      dateTime.add(shiftInstructions);
+    }
+
+    return options && typeof options.hash.pattern === "string"
+      ? dateTime.format(options.hash.pattern)
+      : dateTime.format();
+});
+
+Handlebars.registerHelper("now", function (options) {
+  var now = moment();
+
+  return options && typeof options.hash.pattern === "string"
+    ? now.format(options.hash.pattern)
+    : now.format();
 });
 
 Handlebars.registerHelper("minDate", function (tplSords, options) {
@@ -1009,16 +1139,31 @@ Handlebars.registerHelper("externalLink", function (options) {
 });
 
 Handlebars.registerHelper("math", function (lvalue, operator, rvalue, options) {
+  var result;
+
+  lvalue = (lvalue + "").replace(",", ".");
+  rvalue = (rvalue + "").replace(",", ".");
+
   lvalue = parseFloat(lvalue);
   rvalue = parseFloat(rvalue);
 
-  return {
+  result = {
     "+": lvalue + rvalue,
     "-": lvalue - rvalue,
     "*": lvalue * rvalue,
     "/": lvalue / rvalue,
     "%": lvalue % rvalue
   }[operator];
+
+  if (options.hash.decimalPlaces) {
+    result = result.toFixed(options.hash.decimalPlaces);
+  }
+
+  if (options.hash.decimalSeparator) {
+    result = (result + "").replace(".", options.hash.decimalSeparator);
+  }
+
+  return result;
 });
 
 Handlebars.registerHelper("monthName", function (options) {
@@ -1083,6 +1228,9 @@ Handlebars.registerHelper("kwl:value", function (keyValue, options) {
 /**
  * This class contains util functions to facilitate working with templates.
  * E.g. render, which takes any object(=template) and inputdata and returns the recursively rendered object.
+ * @elojc
+ * @eloas
+ * @eloix
  */
 sol.define("sol.common.TemplateUtils", {
   singleton: true,

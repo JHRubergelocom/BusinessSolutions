@@ -106,10 +106,153 @@ sol.define("sol.unittest.as.services.Test", {
         break;
       }
       idx += findResult.actions.length;
-      findResult = ixConnect.getFeedService().findNextactions(findResult.searchId, idx, 200, ActionC.mbAll);
+      findResult = ixConnect.getFeedService().findNextActions(findResult.searchId, idx, 200, ActionC.mbAll);
     }
     return actions;
   },
+
+  /**
+   * Append feed info of sord to a PDF.
+   * @private
+   * @param {de.elo.ix.client.Sord} sord
+   * @param {String} dstDirPath
+   * @param {String} pdfName
+   * @param {Object} config Pdf export configuration
+   * @return {java.io.File} dstPdfFile
+   */
+  appendFeedInfo: function (sord, dstDirPath, pdfName, config) {
+    var me = this,
+        dstPdfFile,
+        dstPdfPath, dstFeedPdfPath, dstFeedPdfFile, feedUrl,
+        mergedOutputStream, pdfInputStreams, pdfInputStream;
+
+    me.logger.enter("appendFeedInfo");
+    me.logger.debug(["Start appendFeedInfo with sord: '{0}', dstDirPath: '{1}', pdfName: '{2}', config: '{3}'", sord, dstDirPath, pdfName, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
+
+    dstPdfFile = new java.io.File(dstDirPath + java.io.File.separator + pdfName + ".pdf");
+
+    dstPdfPath = dstPdfFile.getPath();
+    dstFeedPdfPath = dstDirPath + java.io.File.separator + "_feed.pdf";
+
+    feedUrl = me.getFeedUrl(sord, config);
+    me.convertFeedToPdf(feedUrl, dstFeedPdfPath);
+    dstFeedPdfFile = new File(dstFeedPdfPath);
+
+    mergedOutputStream = new ByteArrayOutputStream();
+    pdfInputStreams = [];
+    pdfInputStream = new FileInputStream(dstPdfPath);
+    if (pdfInputStream) {
+      pdfInputStreams.push(pdfInputStream);
+    }
+    pdfInputStream = new FileInputStream(dstFeedPdfPath);
+    if (pdfInputStream) {
+      pdfInputStreams.push(pdfInputStream);
+    }
+    sol.common.as.PdfUtils.mergePdfStreams(pdfInputStreams, mergedOutputStream);
+    dstPdfFile = me.writePdfOutputStreamToFile(mergedOutputStream, dstDirPath, pdfName);
+    sol.common.FileUtils.deleteFiles({ dirPath: dstFeedPdfFile.getPath() });
+
+    me.logger.debug(["Finish appendFeedInfo with dstPdfFile: '{0}'", dstPdfFile]);
+    me.logger.exit("appendFeedInfo");    
+
+    return dstPdfFile;
+  },
+
+  /**
+   * Converts a html document to a PDF.
+   * @private
+   * @param {de.elo.ix.client.Sord} sord
+   * @param {String} ext
+   * @param {String} dstDirPath
+   * @return {java.io.InputStream} inputStream or null if there was an error
+   */
+  _convertHtmlToPdf: function (sord, ext, dstDirPath) {
+    var me = this,
+        inputStream = null,
+        pdfInputStream = null,
+        sourceFile, targetFile, fileName,
+        basePath, htmloptions, doc;
+
+    me.logger.enter("_convertHtmlToPdf");
+    me.logger.debug(["Start _convertHtmlToPdf with sord: '{0}'", sord]);
+
+    try {
+      inputStream = sol.common.RepoUtils.downloadToStream(sord.id);
+      fileName = sol.common.FileUtils.sanitizeFilename(sord.name);
+
+      sourceFile = me.writeInputStreamToFile(inputStream, dstDirPath, fileName, ext);
+      targetFile = new File(dstDirPath + java.io.File.separator + fileName + ".pdf");
+
+      basePath = sourceFile.getParent() + File.separator;
+      me.logger.debug(["'basePath = sourceFile.getParent() + File.separator' with basePath: '{0}'", basePath]);
+
+      htmloptions = new Packages.com.aspose.pdf.HtmlLoadOptions(basePath); 		 
+      me.logger.debug(["'htmloptions = new Packages.com.aspose.pdf.HtmlLoadOptions(basePath)' with basePath: '{0}', htmloptions: '{1}'", basePath, htmloptions]);
+
+      doc = new Packages.com.aspose.pdf.Document(sourceFile.getPath(), htmloptions); 
+      me.logger.debug(["'doc = new Packages.com.aspose.pdf.Document(sourceFile.getPath(), htmloptions)' with htmloptions: '{0}', doc: '{1}'", htmloptions, doc]);
+
+      doc.save(targetFile.getPath());
+      me.logger.debug(["'doc.save(targetFile.getPath())' with targetFile: '{0}'", targetFile]);
+
+      pdfInputStream = new ByteArrayInputStream(Packages.org.apache.commons.io.FileUtils.readFileToByteArray(targetFile));
+      sol.common.FileUtils.delete(sourceFile, { quietly: true });
+      
+    } catch (ex) {
+      me.logger.error(["error _convertHtmlToPdf with sourceFile:'{0}', targetFile:'{1}'", sourceFile, targetFile], ex);
+    }
+
+    me.logger.debug(["Finish _convertHtmlToPdf with inputStream: '{0}'", pdfInputStream]);
+    me.logger.exit("_convertHtmlToPdf");
+    return pdfInputStream;
+  },
+  
+  /**
+   * Converts a html file to a PDF.
+   * @private
+   * @param {String} filePath   
+   * @param {String} dstDirPath
+   * @return {java.io.InputStream} inputStream or null if there was an error
+   */
+  _convertHtmlFileToPdf: function (filePath, dstDirPath) {
+    var me = this,
+        pdfInputStream = null,
+        sourceFile, targetFile, fileName,
+        basePath, htmloptions, doc;
+
+    me.logger.enter("_convertHtmlFileToPdf");
+    me.logger.debug(["Start _convertHtmlFileToPdf with filePath: '{0}', dstDirPath:'{1}'", filePath, dstDirPath]);
+
+    try {
+      sourceFile = new File(filePath);
+      fileName = sol.common.FileUtils.getName(sourceFile);
+      targetFile = new File(dstDirPath + java.io.File.separator + fileName + ".pdf");
+
+      basePath = sourceFile.getParent() + File.separator;
+      me.logger.debug(["'basePath = sourceFile.getParent() + File.separator' with basePath: '{0}'", basePath]);
+
+      htmloptions = new Packages.com.aspose.pdf.HtmlLoadOptions(basePath); 		 
+      me.logger.debug(["'htmloptions = new Packages.com.aspose.pdf.HtmlLoadOptions(basePath)' with basePath: '{0}', htmloptions: '{1}'", basePath, htmloptions]);
+
+      doc = new Packages.com.aspose.pdf.Document(sourceFile.getPath(), htmloptions); 
+      me.logger.debug(["'doc = new Packages.com.aspose.pdf.Document(sourceFile.getPath(), htmloptions)' with htmloptions: '{0}', doc: '{1}'", htmloptions, doc]);
+
+      doc.save(targetFile.getPath());
+      me.logger.debug(["'doc.save(targetFile.getPath())' with targetFile: '{0}'", targetFile]);
+
+      pdfInputStream = new ByteArrayInputStream(Packages.org.apache.commons.io.FileUtils.readFileToByteArray(targetFile));
+      sol.common.FileUtils.delete(sourceFile, { quietly: true });
+
+    } catch (ex) {
+      me.logger.error(["error _convertHtmlFileToPdf with sourceFile:'{0}', targetFile:'{1}'", sourceFile, targetFile], ex);
+    }
+
+    me.logger.debug(["Finish _convertHtmlFileToPdf with inputStream: '{0}'", pdfInputStream]);
+    me.logger.exit("_convertHtmlFileToPdf");
+    return pdfInputStream;
+  },
+  
+  
 
   /**
    * Call the method and returns the result
