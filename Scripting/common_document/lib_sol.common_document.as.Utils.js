@@ -697,15 +697,15 @@ sol.define("sol.common_document.as.Utils", {
       if (config.metadata.objKeys === true) {
         data.objKeysLabel = sol.common.TranslateTerms.getTerm(me.language, "sol.common_document.as.Utils.pdfExport.objKeysLabel");
         if (data.sord.objKeys) {
-          data.sord.objKeys = me.convertJsonToJsonKeyValuePairs(data.sord.objKeys);
-          me.translateJsonKeyValuePairs(data.sord.objKeys, sord.maskName);
+          data.sord.objKeysArray = me.convertJsonToJsonKeyValuePairs(data.sord.objKeys);
+          me.translateJsonKeyValuePairs(data.sord.objKeysArray, sord.maskName);
           data.objKeys = true;
         }
       }
       if (config.metadata.mapKeys === true) {
         data.mapKeysLabel = sol.common.TranslateTerms.getTerm(me.language, "sol.common_document.as.Utils.pdfExport.mapKeysLabel");
         if (data.sord.mapKeys) {
-          data.sord.mapKeys = me.convertJsonToJsonKeyValuePairs(data.sord.mapKeys);
+          data.sord.mapKeysArray = me.convertJsonToJsonKeyValuePairs(data.sord.mapKeys);
           data.mapKeys = true;
         }
       }  
