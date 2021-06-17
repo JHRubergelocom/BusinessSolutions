@@ -111,6 +111,42 @@ sol.define("sol.unittest.as.services.Test", {
     return actions;
   },
 
+  getActionsTree: function (actions) {
+    var actionsTree, item, i;
+
+    actionsTree = [];
+
+    actions.forEach(function (action) {
+      if (String(action.parentGuid).trim() === "") {
+        item = {};
+        item = { action: action, children: [] };
+        actionsTree.push(item);
+      }
+    });
+
+    actions.forEach(function (action) {
+      if (String(action.parentGuid).trim() !== "") {
+        actionsTree.forEach(function (actionTree) {
+          if (action.parentGuid === actionTree.action.guid) {
+            actionTree.children.push(action);
+          }
+        });
+      }
+    });
+
+    actionsTree.forEach(function (actionTree) {
+      for (i = 0; i < actions.length; i++) {
+        if (String(actions[i].parentGuid) === String(actionTree.action.guid)) {
+          item = {};
+          item = { action: actions[i] };  
+          actionTree.children.push(item);
+        }  
+      }
+    });
+
+    return actionsTree;
+  },
+
   /**
    * Append feed info of sord to a PDF.
    * @private
@@ -259,7 +295,7 @@ sol.define("sol.unittest.as.services.Test", {
    * @return {String|Object} result of method
    */
   process: function () {
-    var me = this, htmlFile, targetFile, feedUrl, feedFile, actions;
+    var me = this, htmlFile, targetFile, actions, actionsTree;
     
     /*    
     mapiMessage = sol.create("sol.common.as.MapiMessage", {});
@@ -512,12 +548,12 @@ sol.define("sol.unittest.as.services.Test", {
       if (me.windows) {
         htmlFile = new File("C:\\Temp\\PdfExport\\HTMLToPDF.html");
         targetFile = new File("C:\\Temp\\PdfExport\\HTMLToPDF.pdf");
-        feedFile = new File("C:\\Temp\\PdfExport\\Feed.pdf");
+        // feedFile = new File("C:\\Temp\\PdfExport\\Feed.pdf");
   
       } else {
         htmlFile = new File("/var/elo/servers/ELO-base/temp/HTMLToPDF.html");
         targetFile = new File("/var/elo/servers/ELO-base/temp/HTMLToPDF.pdf");
-        feedFile = new File("/var/elo/servers/ELO-base/temp/Feed.pdf");
+        // feedFile = new File("/var/elo/servers/ELO-base/temp/Feed.pdf");
       } 
       
       me.logger.info(["Try sol.unittest.as.services.Test with htmlFile: '{0}', targetFile: '{1}'", htmlFile, targetFile]);
@@ -693,14 +729,48 @@ sol.define("sol.unittest.as.services.Test", {
       // Get feed info
       actions = me.getActions(me.objId);
       actions.forEach(function (action) {
-        me.logger.info(["action.text='{0}'", action.text]);
+        me.logger.info(["action.feedGuid   = '{0}'", action.feedGuid]);
+        me.logger.info(["action.guid       = '{0}'", action.guid]);
+        me.logger.info(["action.text       = '{0}'", action.text]);
+        me.logger.info(["action.parentGuid = '{0}'", action.parentGuid]);
+        me.logger.info(["action.text       = '{0}'", action.text]);
+        me.logger.info(["action.type       = '{0}'", action.type]);
+        me.logger.info(["action.userName   = '{0}'", action.userName]);
       });
 
+
+      actionsTree = me.getActionsTree(actions);
+
+      actionsTree.forEach(function (actionTree) {
+        me.logger.info(["actionTree.action.feedGuid   = '{0}'", actionTree.action.feedGuid]);
+        me.logger.info(["actionTree.action.guid       = '{0}'", actionTree.action.guid]);
+        me.logger.info(["actionTree.action.text       = '{0}'", actionTree.action.text]);
+        me.logger.info(["actionTree.action.parentGuid = '{0}'", actionTree.action.parentGuid]);
+        me.logger.info(["actionTree.action.text       = '{0}'", actionTree.action.text]);
+        me.logger.info(["actionTree.action.type       = '{0}'", actionTree.action.type]);
+        me.logger.info(["actionTree.action.userName   = '{0}'", actionTree.action.userName]);
+
+        actionTree.children.forEach(function (child) {
+          me.logger.info(["actionTree.children.action.feedGuid             = '{0}'", child.action.feedGuid]);
+          me.logger.info(["actionTree.children.action.guid                 = '{0}'", child.action.guid]);
+          me.logger.info(["actionTree.children.action.text                 = '{0}'", child.action.text]);
+          me.logger.info(["actionTree.children.action.parentGuid           = '{0}'", child.action.parentGuid]);
+          me.logger.info(["actionTree.children.action.text                 = '{0}'", child.action.text]);
+          me.logger.info(["actionTree.children.action.type                 = '{0}'", child.action.type]);
+          me.logger.info(["actionTree.children.action.userName             = '{0}'", child.action.userName]);
+        });
+  
+      });
+
+      
+
+      me.logger.debug(["actionsTree: '{0}'", sol.common.JsonUtils.stringifyAll(actionsTree, { tabStop: 2 })]);
+
+      /*
       feedUrl = me.getFeedUrl(me.objId);
       java.awt.Desktop.desktop.browse(new java.net.URI(feedUrl));
-
       me.convertHtmlToPdf(feedUrl, feedFile.getPath());
-      
+      */      
     } catch (ex) {
       me.logger.error(["error sol.unittest.as.services.Test"], ex);
     }
