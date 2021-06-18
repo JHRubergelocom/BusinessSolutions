@@ -27,7 +27,9 @@ sol.define("sol.common_document.as.Utils", {
         templateId;
 
     me.logger.enter("getTemplateCoverSheetSord", { sord: sord.id, config: config });
-    me.logger.debug(["Start getTemplateCoverSheetSord with sord.id: '{0}', config: '{1}'", sord.id, sol.common.JsonUtils.stringifyAll(me.config, { tabStop: 2 })]);
+    if (me.logger.debugEnabled) {
+      me.logger.debug(["Start getTemplateCoverSheetSord with sord.id: '{0}', config: '{1}'", sord.id, sol.common.JsonUtils.stringifyAll(me.config, { tabStop: 2 })]);
+    }
 
     templateId = config.defaultTemplate;
     if (sol.common.RepoUtils.exists(config.coversheetBasePath + "/" + sord.maskName)) {
@@ -305,14 +307,18 @@ sol.define("sol.common_document.as.Utils", {
         prop;
 
     me.logger.enter("convertJsonToJsonKeyValuePairs"); 
-    me.logger.debug(["Start convertJsonToJsonKeyValuePairs with jsonObject: '{0}'", sol.common.JsonUtils.stringifyAll(jsonObject, { tabStop: 2 })]);
+    if (me.logger.debugEnabled) {
+      me.logger.debug(["Start convertJsonToJsonKeyValuePairs with jsonObject: '{0}'", sol.common.JsonUtils.stringifyAll(jsonObject, { tabStop: 2 })]);
+    }
     
     for (prop in jsonObject) {
       me.logger.debug(["{key: '{0}', value: '{1}'}", prop, jsonObject[prop]]);
       jsonKeyValuePairs.push({ key: prop, value: jsonObject[prop] });
     }
 
-    me.logger.debug(["Finish convertJsonToJsonKeyValuePairs with jsonKeyValuePairs: '{0}'", sol.common.JsonUtils.stringifyAll(jsonKeyValuePairs, { tabStop: 2 })]);
+    if (me.logger.debugEnabled) {
+      me.logger.debug(["Finish convertJsonToJsonKeyValuePairs with jsonKeyValuePairs: '{0}'", sol.common.JsonUtils.stringifyAll(jsonKeyValuePairs, { tabStop: 2 })]);
+    }
     me.logger.exit("convertJsonToJsonKeyValuePairs");
 
     return jsonKeyValuePairs;
@@ -324,12 +330,14 @@ sol.define("sol.common_document.as.Utils", {
    * @param {Object[]} jsonKeyValuePairs Json Key/Value array
    * @param {String} maskName Name of the mask
    */
-  translateJsonKeyValuePairs: function (jsonKeyValuePairs, maskName) {
+  translateIndexfields: function (jsonKeyValuePairs, maskName) {
     var me = this,
         i, jsonKeyValuePair, dmLine, key;
 
-    me.logger.enter("translateJsonKeyValuePairs"); 
-    me.logger.debug(["Start translateJsonKeyValuePairs with jsonKeyValuePairs: '{0}'", sol.common.JsonUtils.stringifyAll(jsonKeyValuePairs, { tabStop: 2 })]);
+    me.logger.enter("translateIndexfields"); 
+    if (me.logger.debugEnabled) {
+      me.logger.debug(["Start translateIndexfields with jsonKeyValuePairs: '{0}'", sol.common.JsonUtils.stringifyAll(jsonKeyValuePairs, { tabStop: 2 })]);
+    }
 
     for (i = 0; i < jsonKeyValuePairs.length; i++) {
       jsonKeyValuePair = jsonKeyValuePairs[i];
@@ -353,8 +361,10 @@ sol.define("sol.common_document.as.Utils", {
       jsonKeyValuePair.key = key;
     }
 
-    me.logger.debug(["Finish translateJsonKeyValuePairs with jsonKeyValuePairs: '{0}'", sol.common.JsonUtils.stringifyAll(jsonKeyValuePairs, { tabStop: 2 })]);
-    me.logger.exit("translateJsonKeyValuePairs");
+    if (me.logger.debugEnabled) {
+      me.logger.debug(["Finish translateIndexfields with jsonKeyValuePairs: '{0}'", sol.common.JsonUtils.stringifyAll(jsonKeyValuePairs, { tabStop: 2 })]);
+    }
+    me.logger.exit("translateIndexfields");
 
   },
 
@@ -409,7 +419,9 @@ sol.define("sol.common_document.as.Utils", {
       }
     });
 
-    me.logger.debug(["Finish getMarginNotes with marginNotes: '{0}'", sol.common.JsonUtils.stringifyAll(marginNotes, { tabStop: 2 })]);
+    if (me.logger.debugEnabled) {
+      me.logger.debug(["Finish getMarginNotes with marginNotes: '{0}'", sol.common.JsonUtils.stringifyAll(marginNotes, { tabStop: 2 })]);
+    }
     me.logger.exit("getMarginNotes");
 
     return marginNotes;
@@ -428,7 +440,9 @@ sol.define("sol.common_document.as.Utils", {
         urlParams = [];
 
     me.logger.enter("getFeedUrl"); 
-    me.logger.debug(["Start getFeedUrl with sord: '{0}', config: '{1}'", sord, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
+    if (me.logger.debugEnabled) {
+      me.logger.debug(["Start getFeedUrl with sord: '{0}', config: '{1}'", sord, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
+    }
     
     guid = sord.guid;
     timeZone = config.timeZone;
@@ -595,7 +609,9 @@ sol.define("sol.common_document.as.Utils", {
         mergedOutputStream, pdfInputStreams, pdfInputStream;
 
     me.logger.enter("appendFeedInfo");
-    me.logger.debug(["Start appendFeedInfo with sord: '{0}', dstDirPath: '{1}', pdfName: '{2}', config: '{3}'", sord, dstDirPath, pdfName, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
+    if (me.logger.debugEnabled) {
+      me.logger.debug(["Start appendFeedInfo with sord: '{0}', dstDirPath: '{1}', pdfName: '{2}', config: '{3}'", sord, dstDirPath, pdfName, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
+    }
 
     dstPdfFile = new java.io.File(dstDirPath + java.io.File.separator + pdfName + ".pdf");
     dstPdfPath = dstPdfFile.getPath();
@@ -639,7 +655,9 @@ sol.define("sol.common_document.as.Utils", {
         dstFile, isCover, dm, timeZone, utcOffset, date;
 
     me.logger.enter("createPdfFromSord"); 
-    me.logger.debug(["Start createPdfFromSord with sord: '{0}', templateId: '{1}', dstDirPath: '{2}', ext: '{3}', pdfName: '{4}', config: '{5}'", sord, templateId, dstDirPath, ext, pdfName, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
+    if (me.logger.debugEnabled) {
+      me.logger.debug(["Start createPdfFromSord with sord: '{0}', templateId: '{1}', dstDirPath: '{2}', ext: '{3}', pdfName: '{4}', config: '{5}'", sord, templateId, dstDirPath, ext, pdfName, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
+    }
 
     timeZone = config.timeZone;
     utcOffset = sol.common.SordUtils.getTimeZoneOffset(timeZone);
@@ -698,7 +716,7 @@ sol.define("sol.common_document.as.Utils", {
         data.objKeysLabel = sol.common.TranslateTerms.getTerm(me.language, "sol.common_document.as.Utils.pdfExport.objKeysLabel");
         if (data.sord.objKeys) {
           data.sord.objKeysArray = me.convertJsonToJsonKeyValuePairs(data.sord.objKeys);
-          me.translateJsonKeyValuePairs(data.sord.objKeysArray, sord.maskName);
+          me.translateIndexfields(data.sord.objKeysArray, sord.maskName);
           data.objKeys = true;
         }
       }
@@ -774,7 +792,9 @@ sol.define("sol.common_document.as.Utils", {
         templateId;
 
     me.logger.enter("createCoverSheetSord");   
-    me.logger.debug(["Start createCoverSheetSord with sord: '{0}', dstDirPath: '{1}', pdfName: '{2}', config: '{3}'", sord, dstDirPath, pdfName, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
+    if (me.logger.debugEnabled) {
+      me.logger.debug(["Start createCoverSheetSord with sord: '{0}', dstDirPath: '{1}', pdfName: '{2}', config: '{3}'", sord, dstDirPath, pdfName, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
+    }
 
     templateId = me.getTemplateCoverSheetSord(sord, config);
     me.createPdfFromSord(sord, templateId, dstDirPath, "pdf", pdfName, config, pdfContents);
@@ -798,8 +818,9 @@ sol.define("sol.common_document.as.Utils", {
         refPath, contentName, dstFile, pdfPages, hint;
 
     me.logger.enter("createErrorConversionPdf");
-    me.logger.debug(["Start createErrorConversionPdf with sord: '{0}', ext: '{1}', dstDirPath: '{2}', config: '{3}'", sord, ext, dstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
-    
+    if (me.logger.debugEnabled) {
+      me.logger.debug(["Start createErrorConversionPdf with sord: '{0}', ext: '{1}', dstDirPath: '{2}', config: '{3}'", sord, ext, dstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
+    }    
     
     templateId = me.getTemplateErrorConversionPdf(config);
     if (ext) {
@@ -1188,7 +1209,9 @@ sol.define("sol.common_document.as.Utils", {
         pdfInputStream, ext, refPath, contentName, pdfPages, dstFile, pdfName;
 
     me.logger.enter("createPdfDocument");
-    me.logger.debug(["Start createPdfDocument with sord: '{0}'dstDirPath: '{1}', config: '{2}'", sord, dstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
+    if (me.logger.debugEnabled) {
+      me.logger.debug(["Start createPdfDocument with sord: '{0}'dstDirPath: '{1}', config: '{2}'", sord, dstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
+    }
 
     pdfInputStream = me.convertToPdf(sord, dstDirPath, config);
     ext = (sord && sord.docVersion && sord.docVersion.ext) ? sord.docVersion.ext : null;  
@@ -1236,7 +1259,9 @@ sol.define("sol.common_document.as.Utils", {
         newContents, newName, oldContents, i, j, newContent, oldContent;
 
     me.logger.enter("adjustContent");
-    me.logger.debug(["Start adjustContent with contents: '{0}'", sol.common.JsonUtils.stringifyAll(contents, { tabStop: 2 })]);
+    if (me.logger.debugEnabled) {
+      me.logger.debug(["Start adjustContent with contents: '{0}'", sol.common.JsonUtils.stringifyAll(contents, { tabStop: 2 })]);
+    }
 
     newContents = [];
     oldContents = [];
@@ -1265,7 +1290,9 @@ sol.define("sol.common_document.as.Utils", {
       }
     }
 
-    me.logger.debug(["Finish adjustContent with newContents: '{0}'", sol.common.JsonUtils.stringifyAll(newContents, { tabStop: 2 })]);
+    if (me.logger.debugEnabled) {
+      me.logger.debug(["Finish adjustContent with newContents: '{0}'", sol.common.JsonUtils.stringifyAll(newContents, { tabStop: 2 })]);
+    }
     me.logger.exit("adjustContent");
     
     return newContents;
@@ -1285,7 +1312,9 @@ sol.define("sol.common_document.as.Utils", {
         templateId, data, fopRenderer, result, dstFile, pdfPages, fop, contentInBytes;
 
     me.logger.enter("getOffsetSumPages");
-    me.logger.debug(["Start getOffsetSumPages with folderName: '{0}', dstDirPath: '{1}', config: '{2}'", folderName, dstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
+    if (me.logger.debugEnabled) {
+      me.logger.debug(["Start getOffsetSumPages with folderName: '{0}', dstDirPath: '{1}', config: '{2}'", folderName, dstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
+    }
     
     pdfPages = 0;
     templateId = me.getTemplateContents(config);
@@ -1406,7 +1435,9 @@ sol.define("sol.common_document.as.Utils", {
         templateId, fopRenderer, result, data, pdfInputStream, sumPages, dstFile, pdfOutputStream;
 
     me.logger.enter("createContent");
-    me.logger.debug(["Start createContent with folderName: '{0}', dstDirPath: '{1}', config: '{2}'", folderName, dstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
+    if (me.logger.debugEnabled) {
+      me.logger.debug(["Start createContent with folderName: '{0}', dstDirPath: '{1}', config: '{2}'", folderName, dstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
+    }
 
     templateId = me.getTemplateContents(config);
     data = {};
@@ -2239,7 +2270,9 @@ sol.define("sol.common_document.as.Utils", {
         pdfInputStreams, pdfInputStream, pdfContents, dstFile, os;
 
     me.logger.enter("pdfExport");
-    me.logger.debug(["Start pdfExport with folderId: '{0}', baseDstDirPath: '{1}', config: '{2}'", folderId, baseDstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
+    if (me.logger.debugEnabled) {
+      me.logger.debug(["Start pdfExport with folderId: '{0}', baseDstDirPath: '{1}', config: '{2}'", folderId, baseDstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
+    }
 
     me.language = ixConnect.loginResult.clientInfo.language;
     if (config.language) {
@@ -2427,7 +2460,9 @@ sol.define("sol.common_document.as.Utils", {
       sol.common.FileUtils.delete(zipFile, { quietly: true });  
     }
 
-    me.logger.debug(["Finish pdfExport with result: '{0}'", sol.common.JsonUtils.stringifyAll(result, { tabStop: 2 })]);
+    if (me.logger.debugEnabled) {
+      me.logger.debug(["Finish pdfExport with result: '{0}'", sol.common.JsonUtils.stringifyAll(result, { tabStop: 2 })]);
+    }
     me.logger.exit("pdfExport");
 
     return result;
