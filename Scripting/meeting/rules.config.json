@@ -1,0 +1,66 @@
+{
+  "rules": {
+    "meetingApprovalRequired": {
+      "when": {
+        "searchParams": [
+          { "prop": "board.mapKeys.MEETING_BOARD_SETTING_APPROVAL_REQUIRED", "mode": "NOT_EXIST" }
+        ]
+      },
+      "then": {
+        "callback": {
+          "name": "RF_sol_function_Set",
+          "args": {
+            "objId": "{{sord.id}}",
+            "entries": [
+              {"type": "GRP", "key": "MEETING_STATUS", "value": "A", "useDynKwl": true }
+            ]
+          }
+        },
+        "options":{
+          "dryRun": false
+        }
+      }
+    },
+    "meetingTypeOrganizerPermission": {
+      "when": {
+        "searchParams": [
+          { "prop": "organizer.ownerName", "mode": "EXIST" }
+        ]
+      },
+      "then": {
+        "callback": {
+          "name": "RF_sol_meeting_function_SetPermission",
+          "args": {
+            "objId": "{{sord.id}}",
+            "userIds": ["{{organizer.ownerName}}"],
+            "role": "organizer"
+          }
+        },
+        "options":{
+          "dryRun": false
+        }
+      }
+    },
+    "meetingTypeMemberPermission": {
+      "when": {
+        "searchParams": [
+          { "prop": "member.MEETINGTYPE_MEMBER_STATUS", "mode": "STARTS_WITH", "value": "A -" },
+          { "prop": "member.MEETING_PARTICIPANT_ELOUSERID", "mode": "EXIST" }
+        ]
+      },
+      "then": {
+        "callback": {
+          "name": "RF_sol_meeting_function_SetPermission",
+          "args": {
+            "objId": "{{sord.id}}",
+            "userIds": ["{{member.MEETING_PARTICIPANT_ELOUSERID}}"],
+            "role": "member"
+          }
+        },
+        "options":{
+          "dryRun": false
+        }
+      }
+    }
+  }
+}

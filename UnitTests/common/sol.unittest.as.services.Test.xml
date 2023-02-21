@@ -1,0 +1,57 @@
+﻿<ruleset>
+  <base>
+    <name>sol.unittest.as.services.Test</name>
+    <search>
+      <name>"DIRECT"</name>
+      <value>""</value>
+      <mask>(E10E1000-E100-E100-E100-E10E10E10E30)</mask>
+      <max>200</max>
+    </search>
+    <interval>0H</interval>
+    <includes>
+      <name>lib_Class</name>
+      <name>lib_handlebars</name>
+      <name>lib_moment</name>
+      <name>lib_sol.common.Config</name>
+      <name>lib_sol.common.AclUtils</name>
+      <name>lib_sol.common.DateUtils</name>
+      <name>lib_sol.common.ExceptionUtils</name>
+      <name>lib_sol.common.ExecUtils</name>
+      <name>lib_sol.common.FileUtils</name>
+      <name>lib_sol.common.ObjectUtils</name>
+      <name>lib_sol.common.StringUtils</name>
+      <name>lib_sol.common.IxUtils</name>
+      <name>lib_sol.common.JsonUtils</name>
+      <name>lib_sol.common.SordUtils</name>
+      <name>lib_sol.common.RepoUtils</name>
+      <name>lib_sol.common.Template</name>
+      <name>lib_sol.common.UserProfile</name>
+      <name>lib_sol.common.TranslateTerms</name>
+      <name>lib_sol.common.WfUtils</name>
+      <name>lib_sol.common.ZipUtils</name>
+      <name>lib_sol.common.ObjectFormatter</name>
+      <name>lib_sol.common.as.FunctionBase</name>
+      <name>lib_sol.common.as.Office</name>
+      <name>lib_sol.common.as.PdfUtils</name>
+      <name>lib_sol.common.as.renderer.Fop</name>
+      <name>lib_sol.common.as.Utils</name>
+      <name>lib_sol.unittest.as.services.Test</name>
+    </includes>
+    <onstart>EM_SYS_SELECTOR = SordC.mbAll;</onstart>
+  </base>
+  <rule>
+    <name>Regel1</name>
+    <condition></condition>
+    <script>
+    sol.common.as.Utils.requiresUserSession(this);    
+    sol.common.as.Utils.executeFunction("sol.unittest.as.services.Test");
+    sol.common.as.Utils.cleanupUserSession(this);
+    </script>
+  </rule>
+  <rule>
+    <name>Global Error Rule</name>
+    <condition>OnError</condition>
+    <script>sol.common.ExceptionUtils.logAsException(EM_ERROR);
+    </script>
+  </rule>
+</ruleset>

@@ -1,0 +1,1484 @@
+{
+  "version": "1.00.001",
+  "entities": {
+    "file": {
+      "actions": {
+        "create": {
+          "const": {
+            "temporaryAttributes": {
+              "shortDescription": "{{translate 'sol.hr.personnelfile.workflow.file.create.const.temporaryAttributes.shortDescription'}}",
+              "targetDirectory": "0"
+            }
+          },
+          "workflow": {
+            "maskStandardWorkflow": {
+              "start": true,
+              "field": "HR_FILE_WF"
+            },
+            "customWorkflow": {
+              "name": ""
+            },
+            "message": "{{translate 'sol.hr.personnelfile.workflow.file.create.message'}}",
+            "dialogTitle": "{{translate 'sol.hr.personnel.client.ribbon.btnCreateFile'}}"
+          }
+        },
+        "createheadless": {
+          "const": {
+            "templateService": "RF_sol_hr_service_GetPersonnelFileTypes",
+            "standardWorkflow": "sol.hr.personnel.File.CreateHeadless",
+            "workflowMessage": "{{translate 'sol.hr.personnelfile.workflow.file.createheadless.message'}}"
+          },
+          "protectedFields": []
+        },
+        "inquire": {
+          "const": {
+            "temporaryAttributes": {
+              "shortDescription": "{{params.typeName}} - {{params.typeRequester}} ({{formatDate 'YYYY'}}-{{formatDate 'MM'}}-{{formatDate 'DD'}}  {{formatDate 'HH'}}:{{formatDate 'mm'}})",
+              "targetDirectory": "0"
+            }
+          },
+          "options": {
+            "addReferences": [
+              {
+                "fieldName": "SOL_TYPE",
+                "fieldType": "GRP",
+                "value": "INQUIRED_PERSONNELFILE"
+              },
+              {
+                "fieldName": "HR_PERSONNEL_ORIGIN_GUID",
+                "fieldType": "WFMAP",
+                "refType": "GUID"
+              },
+              {
+                "fieldName": "HR_PERSONNEL_INQUIRY_REQUESTER",
+                "fieldType": "MAP",
+                "value": "{{params.typeRequester}}",
+                "comment": "This field is optional, as it is the workflow-owner and can be determined dynamically"
+              },
+              {
+                "fieldName": "HR_PERSONNEL_RESPONSIBLE",
+                "fieldType": "GRP",
+                "value": "{{PERSONNELFILE.objKeys.HR_PERSONNEL_RESPONSIBLE}}"
+              }
+            ],
+            "changeRights": {
+              "users": [
+                {
+                  "name": "{{params.typeRequester}}",
+                  "rights": {
+                    "r": true,
+                    "w": true,
+                    "e": true,
+                    "d": true,
+                    "l": true
+                  }
+                },
+                {
+                  "type": "GRP",
+                  "key": "HR_PERSONNEL_RESPONSIBLE",
+                  "rights": {
+                    "r": true,
+                    "w": true,
+                    "e": true,
+                    "d": true,
+                    "l": true
+                  }
+                }
+              ],
+              "recursive": true,
+              "mode": "SET"
+            }
+          },
+          "workflow": {
+            "maskStandardWorkflow": {
+              "start": false,
+              "field": ""
+            },
+            "customWorkflow": {
+              "name": "No workflow defined. Custom workflow must be defined in inquiry-config."
+            },
+            "message": "{{translate 'sol.hr.personnelfile.workflow.file.inquire.message'}}",
+            "dialogTitle": "{{translate 'sol.hr.personnel.client.ribbon.btnInquirePersonnelFileAccess'}}"
+          }
+        },
+        "terminate": {
+          "const": {
+            "temporaryAttributes": {
+              "shortDescription": "",
+              "targetDirectory": ""
+            }
+          },
+          "workflow": {
+            "maskStandardWorkflow": {
+              "start": false,
+              "field": "HR_FILE_WF"
+            },
+            "customWorkflow": {
+              "name": "sol.hr.personnel.StartOffboarding"
+            },
+            "message": "{{translate 'sol.hr.personnelfile.workflow.file.terminate.message'}}",
+            "dialogTitle": "{{translate 'sol.hr.personnel.client.ribbon.btnCreateNoticeOfTermination'}}"
+          }
+        },
+        "changesuperior": {
+          "const": {
+            "temporaryAttributes": {
+              "shortDescription": "",
+              "targetDirectory": ""
+            }
+          },
+          "workflow": {
+            "maskStandardWorkflow": {
+              "start": false,
+              "field": "HR_FILE_WF"
+            },
+            "customWorkflow": {
+              "name": "sol.hr.personnel.ChangeSuperiorFile"
+            },
+            "message": "{{translate 'sol.hr.personnelfile.workflow.file.changesuperior.message'}}"
+          }
+        }
+      },
+      "dynkwls": {
+        "personnelfile": {
+          "useUserForPFList": false
+        },
+        "authority": {
+          "solType": "PERSONNELFILE",
+          "displayNameTemplate": "{{{sord.objKeys.HR_PERSONNEL_FIRSTNAME}}} {{{sord.objKeys.HR_PERSONNEL_LASTNAME}}}",
+          "tableTitle": "{{translate 'sol.hr.dynkwl.personnelfiles.tableTitle'}}",
+          "tableHeaders": [
+            "{{translate 'sol.hr.mask.personnelfile.firstname'}}",
+            "{{translate 'sol.hr.mask.personnelfile.lastname'}}",
+            "{{translate 'sol.hr.mask.personnelfile.company'}}",
+            "{{translate 'sol.hr.mask.personnelfile.division'}}",
+            "{{translate 'sol.hr.mask.personnelfile.department'}}",
+            "{{translate 'sol.hr.mask.personnelfile.team'}}",
+            null,
+            null
+          ],
+          "tableKeyNames": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "IX_GRP_HR_CHARTELEMENT_AUTHORITY_GUID",
+            "IX_GRP_HR_CHARTELEMENT_AUTHORITY_NAME"
+          ],
+          "rowDataFields": [
+            "HR_PERSONNEL_FIRSTNAME",
+            "HR_PERSONNEL_LASTNAME",
+            "HR_PERSONNEL_COMPANY",
+            "HR_PERSONNEL_DIVISION",
+            "HR_PERSONNEL_DEPARTMENT",
+            "HR_PERSONNEL_TEAM",
+            "guid",
+            "name"
+          ]
+        },
+        "deputy": {
+          "solType": "PERSONNELFILE",
+          "displayNameTemplate": "{{{sord.objKeys.HR_PERSONNEL_FIRSTNAME}}} {{{sord.objKeys.HR_PERSONNEL_LASTNAME}}}",
+          "tableTitle": "{{translate 'sol.hr.dynkwl.personnelfiles.tableTitle'}}",
+          "tableHeaders": [
+            "{{translate 'sol.hr.mask.personnelfile.firstname'}}",
+            "{{translate 'sol.hr.mask.personnelfile.lastname'}}",
+            "{{translate 'sol.hr.mask.personnelfile.company'}}",
+            "{{translate 'sol.hr.mask.personnelfile.division'}}",
+            "{{translate 'sol.hr.mask.personnelfile.department'}}",
+            "{{translate 'sol.hr.mask.personnelfile.team'}}",
+            null,
+            null
+          ],
+          "tableKeyNames": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "IX_GRP_HR_CHARTELEMENT_DEPUTY_GUID",
+            "IX_GRP_HR_CHARTELEMENT_DEPUTY_NAME"
+          ],
+          "rowDataFields": [
+            "HR_PERSONNEL_FIRSTNAME",
+            "HR_PERSONNEL_LASTNAME",
+            "HR_PERSONNEL_COMPANY",
+            "HR_PERSONNEL_DIVISION",
+            "HR_PERSONNEL_DEPARTMENT",
+            "HR_PERSONNEL_TEAM",
+            "guid",
+            "name"
+          ]
+        },
+        "superior": {
+          "solType": "PERSONNELFILE",
+          "displayNameTemplate": "{{{sord.objKeys.HR_PERSONNEL_FIRSTNAME}}} {{{sord.objKeys.HR_PERSONNEL_LASTNAME}}}",
+          "tableTitle": "{{translate 'sol.hr.dynkwl.personnelfiles.tableTitle'}}",
+          "tableHeaders": [
+            "{{translate 'sol.hr.mask.personnelfile.firstname'}}",
+            "{{translate 'sol.hr.mask.personnelfile.lastname'}}",
+            "{{translate 'sol.hr.mask.personnelfile.company'}}",
+            "{{translate 'sol.hr.mask.personnelfile.division'}}",
+            "{{translate 'sol.hr.mask.personnelfile.department'}}",
+            "{{translate 'sol.hr.mask.personnelfile.team'}}",
+            null,
+            null,
+            null
+          ],
+          "tableKeyNames": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "IX_MAP_HR_PERSONNEL_SUPERIORUSERID",
+            "IX_GRP_HR_PERSONNEL_SUPERIOR_GUID",
+            "IX_GRP_HR_PERSONNEL_SUPERIOR"
+          ],
+          "rowDataFields": [
+            "HR_PERSONNEL_FIRSTNAME",
+            "HR_PERSONNEL_LASTNAME",
+            "HR_PERSONNEL_COMPANY",
+            "HR_PERSONNEL_DIVISION",
+            "HR_PERSONNEL_DEPARTMENT",
+            "HR_PERSONNEL_TEAM",
+            "HR_PERSONNEL_ELOUSERID",
+            "guid",
+            "name"
+          ]
+        },
+        "mentor": {
+          "solType": "PERSONNELFILE",
+          "displayNameTemplate": "{{{sord.objKeys.HR_PERSONNEL_FIRSTNAME}}} {{{sord.objKeys.HR_PERSONNEL_LASTNAME}}}",
+          "tableTitle": "{{translate 'sol.hr.dynkwl.personnelfiles.tableTitle'}}",
+          "tableHeaders": [
+            "{{translate 'sol.hr.mask.personnelfile.firstname'}}",
+            "{{translate 'sol.hr.mask.personnelfile.lastname'}}",
+            "{{translate 'sol.hr.mask.personnelfile.company'}}",
+            "{{translate 'sol.hr.mask.personnelfile.division'}}",
+            "{{translate 'sol.hr.mask.personnelfile.department'}}",
+            "{{translate 'sol.hr.mask.personnelfile.team'}}",
+            null,
+            null,
+            null
+          ],
+          "tableKeyNames": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "IX_MAP_HR_PERSONNEL_MENTORUSERID",
+            "IX_MAP_HR_PERSONNEL_MENTOR_GUID",
+            "IX_MAP_HR_PERSONNEL_MENTOR"
+          ],
+          "rowDataFields": [
+            "HR_PERSONNEL_FIRSTNAME",
+            "HR_PERSONNEL_LASTNAME",
+            "HR_PERSONNEL_COMPANY",
+            "HR_PERSONNEL_DIVISION",
+            "HR_PERSONNEL_DEPARTMENT",
+            "HR_PERSONNEL_TEAM",
+            "HR_PERSONNEL_ELOUSERID",
+            "guid",
+            "name"
+          ]
+        },
+        "superiornew": {
+          "solType": "PERSONNELFILE",
+          "displayNameTemplate": "{{{sord.objKeys.HR_PERSONNEL_FIRSTNAME}}} {{{sord.objKeys.HR_PERSONNEL_LASTNAME}}}",
+          "tableTitle": "{{translate 'sol.hr.dynkwl.personnelfiles.tableTitle'}}",
+          "tableHeaders": [
+            "{{translate 'sol.hr.mask.personnelfile.firstname'}}",
+            "{{translate 'sol.hr.mask.personnelfile.lastname'}}",
+            "{{translate 'sol.hr.mask.personnelfile.company'}}",
+            "{{translate 'sol.hr.mask.personnelfile.division'}}",
+            "{{translate 'sol.hr.mask.personnelfile.department'}}",
+            "{{translate 'sol.hr.mask.personnelfile.team'}}",
+            null,
+            null,
+            null
+          ],
+          "tableKeyNames": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "WF_MAP_HR_PERSONNEL_SUPERIORNEWUSERID",
+            "WF_MAP_HR_PERSONNEL_SUPERIORNEW_GUID",
+            "WF_MAP_HR_PERSONNEL_SUPERIORNEW"
+          ],
+          "rowDataFields": [
+            "HR_PERSONNEL_FIRSTNAME",
+            "HR_PERSONNEL_LASTNAME",
+            "HR_PERSONNEL_COMPANY",
+            "HR_PERSONNEL_DIVISION",
+            "HR_PERSONNEL_DEPARTMENT",
+            "HR_PERSONNEL_TEAM",
+            "HR_PERSONNEL_ELOUSERID",
+            "guid",
+            "name"
+          ]
+        }
+      },
+      "functions": {
+        "updatefilemetadata": {
+          "targetConfigs": {
+            "byGuid": {
+              "output": [
+                { "source": { "type": "SORD" , "key": "id" }, "target": { "prop": "id" } }
+              ],
+              "options": {
+                "asAdmin": true,
+                "maxResults": 1
+              }
+            },
+            "byNo": {
+              "masks": [""],
+              "search": [
+                { "key": "SOL_TYPE", "value": "PERSONNELFILE"},
+                { "key": "HR_PERSONNEL_PERSONNELSTATUS", "value": ["E -*"] }
+              ],
+              "output": [
+                { "source": { "type": "SORD" , "key": "id" }, "target": { "prop": "id" } }
+              ],
+              "options": {
+                "allowEmptyMask": true,
+                "asAdmin": true,
+                "maxResults": 1
+              },
+              "personnelNoField": "HR_PERSONNEL_PERSONNELNO"
+            }
+          },
+          "protectedFields": [],
+          "mandatoryFields": []
+        },
+        "changesuperiorfile": {
+          "sourceConfigs": {
+            "bySuperiorGuid": {
+              "masks": [""],
+              "search": [
+                { "key": "SOL_TYPE", "value": "PERSONNELFILE"},
+                { "key": "HR_PERSONNEL_SUPERIOR_GUID", "value": "XXXX" }
+              ],
+              "output": [
+                { "source": { "type": "SORD" , "key": "id" }, "target": { "prop": "id" } },
+                { "source": { "type": "SORD" , "key": "guid" }, "target": { "prop": "guid" } },
+                { "source": { "type": "SORD" , "key": "name" }, "target": { "prop": "name" } },
+                { "source": { "type": "GRP" , "key": "HR_PERSONNEL_FIRSTNAME" }, "target": { "prop": "firstname" } },
+                { "source": { "type": "GRP" , "key": "HR_PERSONNEL_LASTNAME" }, "target": { "prop": "lastname" } },
+                { "source": { "type": "GRP" , "key": "HR_PERSONNEL_SUPERIOR_GUID" }, "target": { "prop": "superiorguid" } },
+                { "source": { "type": "GRP" , "key": "HR_PERSONNEL_SUPERIOR" }, "target": { "prop": "superior" } },
+                { "source": { "type": "GRP" , "key": "HR_PERSONNEL_ELOUSERID" }, "target": { "prop": "elouserid" } },
+                { "source": { "type": "MAP" , "key": "HR_PERSONNEL_SUPERIORUSERID" }, "target": { "prop": "superioruserid" } }
+              ],
+              "options": {
+                "allowEmptyMask": true,
+                "asAdmin": true
+              }
+            },
+            "byGuid": {
+              "output": [
+                { "source": { "type": "SORD" , "key": "id" }, "target": { "prop": "id" } },
+                { "source": { "type": "SORD" , "key": "guid" }, "target": { "prop": "guid" } },
+                { "source": { "type": "SORD" , "key": "name" }, "target": { "prop": "name" } },
+                { "source": { "type": "GRP" , "key": "HR_PERSONNEL_FIRSTNAME" }, "target": { "prop": "firstname" } },
+                { "source": { "type": "GRP" , "key": "HR_PERSONNEL_LASTNAME" }, "target": { "prop": "lastname" } },
+                { "source": { "type": "GRP" , "key": "HR_PERSONNEL_SUPERIOR_GUID" }, "target": { "prop": "superiorguid" } },
+                { "source": { "type": "GRP" , "key": "HR_PERSONNEL_SUPERIOR" }, "target": { "prop": "superior" } },
+                { "source": { "type": "GRP" , "key": "HR_PERSONNEL_ELOUSERID" }, "target": { "prop": "elouserid" } },
+                { "source": { "type": "MAP" , "key": "HR_PERSONNEL_SUPERIORUSERID" }, "target": { "prop": "superioruserid" } }
+              ],
+              "options": {
+                "asAdmin": true
+              }
+            }
+          }
+        },
+        "generatepersonnelno": {
+          "type": "generator",
+          "generatorConfig": {
+            "generatorTemplateField": "HR_PERSONNEL_NO_GEN",
+            "templatesFolder": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/hr/Configuration/Generators/Personnel no.",
+            "targetField": "HR_PERSONNEL_PERSONNELNO"
+          },
+          "kwlConfig": {
+            "tableTitle": "{{translate 'sol.hr.dynkwl.generators.personnelNo.tableTitle'}}"
+          }
+        },
+        "generatefileshortdescription": {
+          "type": "generator",
+          "generatorConfig": {
+            "generatorTemplateField": "HR_PERSONNEL_FILE_SHORT_DESC_GEN",
+            "templatesFolder": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/hr/Configuration/Generators/Personnel file short description"
+          },
+          "kwlConfig": {
+            "tableTitle": "{{translate 'sol.hr.dynkwl.generators.personnelFileShortDesc.tableTitle'}}"
+          }
+        },
+        "doublecheck": {
+          "type": "wf",
+          "const": {
+            "originGUIDField": "wfMapKeys.HR_PERSONNEL_ORIGIN_GUID",
+            "securityLevelMapField": "HR_PERSONNEL_INQUIRY_SECURITY_LEVEL"
+          }
+        }
+      },
+      "services": {
+        "personnelfiletypes": {
+          "const": {
+            "templateFolders": [
+              "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/hr/Configuration/Personnel file types"
+            ]
+          }
+        },
+        "employeebadgetypes": {
+          "const": {
+            "templateFolders": [
+              "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/hr/Configuration/EmployeeBadge Templates"
+            ]
+          }
+        },
+        "elligiblepersonnelfiles": {
+          "const": {
+            "solutiontype": "PERSONNELFILE",
+            "targetMaskField": "mapKeys.CUSTOM_HR_INQUIRY_TARGETMASK"
+          }
+        },
+        "userspersonnelfile": {
+          "const": {
+            "solutiontype": "PERSONNELFILE",
+            "useridfield": "HR_PERSONNEL_ELOUSERID"
+          }
+        },
+        "fileproviderparams": {
+          "const": {
+            "securityClassificationField": "HR_PERSONNEL_SECURITY_CLASSIFICATION",
+            "securityLevelMapField": "wfMapKeys.HR_PERSONNEL_INQUIRY_SECURITY_LEVEL",
+            "reviewerUserIdField": "wfMapKeys.INQUIRY_REVIEWER_USER_ID",
+            "originGUIDField": "wfMapKeys.HR_PERSONNEL_ORIGIN_GUID",
+            "reviewPathField": "wfMapKeys.INQUIRY_REVIEW_PATH_ID",
+            "mainFolderName": "Inquired personnel files",
+            "reviewerRights": {
+              "users": [
+                {
+                  "name": "{{sord.wfMapKeys.INQUIRY_REVIEWER_USER_ID}}",
+                  "rights": {
+                    "r": true,
+                    "w": true,
+                    "e": true,
+                    "d": true,
+                    "l": true
+                  }
+                }
+              ],
+              "recursive": true,
+              "mode": "SET"
+            },
+            "inquirerRights": {
+              "users": [
+                {
+                  "name": "{{params.wfOwnerName}}",
+                  "rights": {
+                    "r": true,
+                    "d": true
+                  }
+                }
+              ],
+              "recursive": false,
+              "mode": "SET"
+            }
+          }
+        }
+      },
+      "reminders": {
+        "instances": {
+          "documentcassation": {
+            "collector": {
+              "retrospection": 365,
+              "nextRunField": "HR_PERSONNEL_CASSATIONDATE",
+              "soltype": "PERSONNELFILE_DOCUMENT"
+            },
+            "rules": [
+              {
+                "action": {
+                  "type": "WORKFLOW",
+                  "templateId": "sol.hr.personnel.cassationdate.reminder",
+                  "nameTemplate": "{{translate 'sol.hr.personnelfile.reminder.documentcassation'}} {{sord.name}}"
+                },
+                "date": {
+                  "type": "GRP",
+                  "key": "HR_PERSONNEL_CASSATIONDATE"
+                },
+                "execution": {
+                  "type": "MAP",
+                  "key": "HR_PERSONNEL_CASSATIONDATE_REMINDER_SENT"
+                }
+              }
+            ]
+          },
+          "structurecassation": {
+            "collector": {
+              "retrospection": 365,
+              "nextRunField": "HR_PERSONNEL_CASSATIONDATE",
+              "soltype": "PERSONNELFILE_STRUCTURE"
+            },
+            "rules": [
+              {
+                "action": {
+                  "type": "WORKFLOW",
+                  "templateId": "sol.hr.personnel.cassationdate.reminder",
+                  "nameTemplate": "{{translate 'sol.hr.personnelfile.reminder.structurecassation'}} {{sord.name}}"
+                },
+                "date": {
+                  "type": "GRP",
+                  "key": "HR_PERSONNEL_CASSATIONDATE"
+                },
+                "execution": {
+                  "type": "MAP",
+                  "key": "HR_PERSONNEL_CASSATIONDATE_REMINDER_SENT"
+                }
+              }
+            ]
+          },
+          "filecassation": {
+            "collector": {
+              "retrospection": 365,
+              "nextRunField": "HR_PERSONNEL_FILECASSATIONDATE",
+              "soltype": "PERSONNELFILE"
+            },
+            "rules": [
+              {
+                "action": {
+                  "type": "WORKFLOW",
+                  "templateId": "sol.hr.personnel.cassationdate.reminder",
+                  "nameTemplate": "{{translate 'sol.hr.personnelfile.reminder.filecassation'}} {{sord.name}}"
+                },
+                "date": {
+                  "type": "GRP",
+                  "key": "HR_PERSONNEL_FILECASSATIONDATE"
+                },
+                "execution": {
+                  "type": "MAP",
+                  "key": "HR_PERSONNEL_FILECASSATIONDATE_REMINDER_SENT"
+                }
+              }
+            ]
+          },
+          "personnelfile": {
+            "collector": {
+              "retrospection": 365,
+              "nextRunField": "",
+              "soltype": "PERSONNELFILE"
+            },
+            "rules": [
+              {
+                "action": {
+                  "type": "WORKFLOW",
+                  "templateId": "sol.hr.personnel.endofprobationary.reminder",
+                  "nameTemplate": "{{translate 'sol.hr.personnelfile.reminder.endofprobationary'}} {{sord.name}}"
+                },
+                "date": {
+                  "type": "GRP",
+                  "key": "HR_PERSONNEL_ENDOFPROBATIONARY"
+                },
+                "shift": {
+                  "value": -7,
+                  "unit": "d"
+                },
+                "execution": {
+                  "type": "MAP",
+                  "key": "HR_PERSONNEL_ENDOFPROBATIONARY_REMINDER_SENT"
+                }
+              },
+              {
+                "action": {
+                  "type": "WORKFLOW",
+                  "templateId": "sol.hr.personnel.dateofjoining.reminder",
+                  "nameTemplate": "{{translate 'sol.hr.personnelfile.reminder.dateofjoining'}} {{sord.name}}"
+                },
+                "date": {
+                  "type": "GRP",
+                  "key": "HR_PERSONNEL_DATEOFJOINING"
+                },
+                "shift": {
+                  "value": -7,
+                  "unit": "d"
+                },
+                "execution": {
+                  "type": "MAP",
+                  "key": "HR_PERSONNEL_DATEOFJOINING_REMINDER_SENT"
+                }
+              },
+              {
+                "action": {
+                  "type": "WORKFLOW",
+                  "templateId": "sol.hr.personnel.firstdayofwork.reminder",
+                  "nameTemplate": "{{translate 'sol.hr.personnelfile.reminder.firstdayofwork'}} {{sord.name}}"
+                },
+                "date": {
+                  "type": "GRP",
+                  "key": "HR_PERSONNEL_DATEOFJOINING"
+                },
+                "shift": {
+                  "value": 0,
+                  "unit": "d"
+                },
+                "execution": {
+                  "type": "MAP",
+                  "key": "HR_PERSONNEL_FIRSTDAYOFWORK_REMINDER_SENT"
+                }
+              },
+              {
+                "action": {
+                  "type": "WORKFLOW",
+                  "templateId": "sol.hr.personnel.dateofleaving.reminder",
+                  "nameTemplate": "{{translate 'sol.hr.personnelfile.reminder.dateofleaving'}} {{sord.name}}"
+                },
+                "date": {
+                  "type": "GRP",
+                  "key": "HR_PERSONNEL_DATEOFLEAVING"
+                },
+                "shift": {
+                  "value": -7,
+                  "unit": "d"
+                },
+                "execution": {
+                  "type": "MAP",
+                  "key": "HR_PERSONNEL_DATEOFLEAVING_REMINDER_SENT"
+                }
+              },
+              {
+                "action": {
+                  "type": "WORKFLOW",
+                  "templateId": "sol.hr.personnel.discharged",
+                  "nameTemplate": "{{translate 'sol.hr.personnelfile.reminder.discharged'}} {{sord.name}}"
+                },
+                "date": {
+                  "type": "GRP",
+                  "key": "HR_PERSONNEL_DATEOFLEAVING"
+                },
+                "shift": {
+                  "value": 0,
+                  "unit": "d"
+                },
+                "execution": {
+                  "type": "MAP",
+                  "key": "HR_PERSONNEL_DISCHARGED_STATUS_CHANGED"
+                }
+              },
+              {
+                "action": {
+                  "type": "WORKFLOW",
+                  "templateId": "sol.hr.personnel.lastdayofwork.reminder",
+                  "nameTemplate": "{{translate 'sol.hr.personnelfile.reminder.lastdayofwork'}} {{sord.name}}"
+                },
+                "date": {
+                  "type": "GRP",
+                  "key": "HR_PERSONNEL_LASTDAYOFWORK"
+                },
+                "shift": {
+                  "value": 0,
+                  "unit": "d"
+                },
+                "execution": {
+                  "type": "MAP",
+                  "key": "HR_PERSONNEL_LASTDAYOFWORK_REMINDER_SENT"
+                }
+              },
+              {
+                "action": {
+                  "type": "WORKFLOW",
+                  "templateId": "sol.hr.personnel.birthday.reminder",
+                  "nameTemplate": "{{translate 'sol.hr.personnelfile.reminder.birthday'}}  {{sord.name}}"
+                },
+                "date": {
+                  "type": "GRP",
+                  "key": "HR_PERSONNEL_BIRTHDAY"
+                },
+                "recur": {
+                  "value": 1,
+                  "unit": "y"
+                },
+                "execution": {
+                  "type": "MAP",
+                  "key": "HR_PERSONNEL_BIRTHDAY_REMINDER_SENT"
+                }
+              },
+              {
+                "action": {
+                  "type": "WORKFLOW",
+                  "templateId": "sol.hr.personnel.anniversary.reminder",
+                  "nameTemplate": "{{translate 'sol.hr.personnelfile.reminder.anniversary05'}}  {{sord.name}}"
+                },
+                "date": {
+                  "type": "GRP",
+                  "key": "HR_PERSONNEL_DATEOFJOINING"
+                },
+                "shift": {
+                  "value": 5,
+                  "unit": "y"
+                },
+                "execution": {
+                  "type": "MAP",
+                  "key": "HR_PERSONNEL_ANNIVERSARY_05_REMINDER_SENT"
+                }
+              },
+              {
+                "action": {
+                  "type": "WORKFLOW",
+                  "templateId": "sol.hr.personnel.anniversary.reminder",
+                  "nameTemplate": "{{translate 'sol.hr.personnelfile.reminder.anniversary10'}}  {{sord.name}}"
+                },
+                "date": {
+                  "type": "GRP",
+                  "key": "HR_PERSONNEL_DATEOFJOINING"
+                },
+                "shift": {
+                  "value": 10,
+                  "unit": "y"
+                },
+                "execution": {
+                  "type": "MAP",
+                  "key": "HR_PERSONNEL_ANNIVERSARY_10_REMINDER_SENT"
+                }
+              }
+            ]
+          },
+          "inquiredfileautodelete": {
+            "collector": {
+              "retrospection": 365,
+              "nextRunField": "HR_PERSONNEL_TEMPORARY_AUTODELETE",
+              "soltype": "INQUIRED_PERSONNELFILE"
+            },
+            "rules": [
+              {
+                "action": {
+                  "type": "WORKFLOW",
+                  "templateId": "sol.hr.personnel.inquiry.autodelete",
+                  "nameTemplate": "{{translate 'sol.hr.personnelfile.reminder.inquiryautodelete'}} {{sord.name}}"
+                },
+                "date": {
+                  "type": "GRP",
+                  "key": "HR_PERSONNEL_TEMPORARY_AUTODELETE"
+                },
+                "execution": {
+                  "type": "MAP",
+                  "key": "HR_PERSONNEL_TEMPORARY_AUTODELETE_TRIGGERED"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "workflowMixins": {
+        "create": {
+          "changerights": {
+            "scriptProperties": {
+              "users": [
+                {
+                  "type": "GRP",
+                  "key": "HR_PERSONNEL_RESPONSIBLE",
+                  "rights": {
+                    "r": true,
+                    "w": true,
+                    "e": true,
+                    "d": true,
+                    "l": true
+                  }
+                }
+              ],
+              "recursive": true,
+              "mode": "SET"
+            }
+          },
+          "setsoltype": {
+            "scriptProperties": {
+              "entries": [
+                {
+                  "type": "GRP",
+                  "key": "SOL_TYPE",
+                  "value": "PERSONNELFILE"
+                }
+              ]
+            }
+          },
+          "move": {
+            "scriptProperties": {
+              "path": "ARCPATH:/Human resources/Personnel files/{{{substring sord.objKeys.HR_PERSONNEL_LASTNAME 0 1 uppercase='true'}}}"
+            }
+          }
+        },
+        "inquire": {
+          "changeuser": {
+            "scriptProperties": {
+              "defaultUser": "HR",
+              "fromIndex": "HR_PERSONNEL_RESPONSIBLE"
+            }
+          },
+          "changeuserreview": {
+            "scriptProperties": {
+              "defaultUser": "HR",
+              "defaultFromIndex": "HR_PERSONNEL_RESPONSIBLE",
+              "fromWfMap": "INQUIRY_REVIEWER_USER_ID"
+            }
+          },
+          "map2map": {
+            "scriptProperties": {
+              "MergeTables": {
+                "WFMAP": [
+                  "HR_PERSONNEL_INQUIRY_SECURITY_LEVEL"
+                ],
+                "unique": true
+              }
+            }
+          },
+          "decide": {
+            "scriptProperties": {
+              "checks": [
+                {
+                  "type": "MAP",
+                  "key": "HR_FILE_REVIEW_ACTIVE",
+                  "regex": "^1$"
+                }
+              ],
+              "trueStatus": "TRUE",
+              "falseStatus": "FALSE"
+            }
+          },
+          "changerightsdelivery": {
+            "scriptProperties": {
+              "users": [
+                {
+                  "type": "MAP",
+                  "key": "HR_PERSONNEL_INQUIRY_REQUESTER",
+                  "rights": {
+                    "r": true,
+                    "d": true
+                  }
+                }
+              ],
+              "recursive": true,
+              "mode": "SET"
+            }
+          }
+        },
+        "lastdayofworkreminder": {
+          "changeuserresponsible": {
+            "scriptProperties": {
+              "defaultUser": "HR",
+              "fromIndex": "HR_PERSONNEL_RESPONSIBLE"
+            }
+          }
+        },
+        "cassationdatereminder": {
+          "changeuserresponsible": {
+            "scriptProperties": {
+              "defaultUser": "HR",
+              "fromIndex": "HR_PERSONNEL_RESPONSIBLE"
+            }
+          }
+        },
+        "dateofjoiningreminder": {
+          "changeuserresponsible": {
+            "scriptProperties": {
+              "defaultUser": "HR",
+              "fromIndex": "HR_PERSONNEL_RESPONSIBLE"
+            }
+          },
+          "changeusersuperior": {
+            "scriptProperties": {
+              "defaultUser": "HR",
+              "defaultFromIndex": "HR_PERSONNEL_RESPONSIBLE",
+              "fromMap": "HR_PERSONNEL_SUPERIORUSERID"
+            }
+          }
+        },
+        "firstdayofworkreminder": {
+          "changeuserresponsible": {
+            "scriptProperties": {
+              "defaultUser": "HR",
+              "fromIndex": "HR_PERSONNEL_RESPONSIBLE"
+            }
+          },
+          "changeusersuperior": {
+            "scriptProperties": {
+              "defaultUser": "HR",
+              "defaultFromIndex": "HR_PERSONNEL_RESPONSIBLE",
+              "fromMap": "HR_PERSONNEL_SUPERIORUSERID"
+            }
+          },
+          "decide": {
+            "scriptProperties": {
+              "checks": [
+                {
+                  "type": "GRP",
+                  "key": "HR_PERSONNEL_PERSONNELSTATUS",
+                  "regex": "^P.*$"
+                }
+              ],
+              "trueStatus": "TRUE",
+              "falseStatus": "FALSE"
+            }
+          },
+          "setstatus": {
+            "scriptProperties": {
+              "entries": [
+                {
+                  "type": "GRP",
+                  "key": "HR_PERSONNEL_PERSONNELSTATUS",
+                  "value": "E"
+                }
+              ]
+            }
+          }
+        },
+        "dateofleavingreminder": {
+          "changeuserresponsible": {
+            "scriptProperties": {
+              "defaultUser": "HR",
+              "fromIndex": "HR_PERSONNEL_RESPONSIBLE"
+            }
+          },
+          "changeusersuperior": {
+            "scriptProperties": {
+              "defaultUser": "HR",
+              "defaultFromIndex": "HR_PERSONNEL_RESPONSIBLE",
+              "fromMap": "HR_PERSONNEL_SUPERIORUSERID"
+            }
+          }
+        },
+        "endofprobationaryreminder": {
+          "changeuserresponsible": {
+            "scriptProperties": {
+              "defaultUser": "HR",
+              "fromIndex": "HR_PERSONNEL_RESPONSIBLE"
+            }
+          },
+          "changeusersuperior": {
+            "scriptProperties": {
+              "defaultUser": "HR",
+              "defaultFromIndex": "HR_PERSONNEL_RESPONSIBLE",
+              "fromMap": "HR_PERSONNEL_SUPERIORUSERID"
+            }
+          }
+        },
+        "birthdayreminder": {
+          "changeuserresponsible": {
+            "scriptProperties": {
+              "defaultUser": "HR",
+              "fromIndex": "HR_PERSONNEL_RESPONSIBLE"
+            }
+          }
+        },
+        "anniversaryreminder": {
+          "changeuserresponsible": {
+            "scriptProperties": {
+              "defaultUser": "HR",
+              "fromIndex": "HR_PERSONNEL_RESPONSIBLE"
+            }
+          }
+        },
+        "discharge": {
+          "setstatus": {
+            "scriptProperties": {
+              "entries": [
+                {
+                  "type": "GRP",
+                  "key": "HR_PERSONNEL_PERSONNELSTATUS",
+                  "value": "B"
+                }
+              ]
+            }
+          },
+          "move": {
+            "scriptProperties": {
+              "path": "ARCPATH:/Human resources/Personnel files (former staff)/{{{substring sord.objKeys.HR_PERSONNEL_LASTNAME 0 1 uppercase='true'}}}"
+            }
+          }
+        },
+        "update": {
+          "move": {
+            "scriptProperties": {
+              "path": "ARCPATH:/Human resources/Personnel files/{{{substring sord.objKeys.HR_PERSONNEL_LASTNAME 0 1 uppercase='true'}}}"
+            }
+          },
+          "decide": {
+            "scriptProperties": {
+              "checks": [
+                {
+                  "type": "GRP",
+                  "key": "HR_PERSONNEL_PERSONNELSTATUS",
+                  "regex": "^B.*$"
+                }
+              ],
+              "trueStatus": "TRUE",
+              "falseStatus": "FALSE"
+            }
+          },
+          "updatereferences": {
+            "scriptProperties": {
+              "configs": [
+                {
+                  "search": {
+                    "keys": {
+                      "SOL_TYPE": "PERSONNELFILE",
+                      "HR_PERSONNEL_SUPERIOR_GUID": "{{sord.guid}}"
+                    }
+                  },
+                  "update": {
+                    "byProp": {
+                      "superior": {
+                        "id": "HR_PERSONNEL_SUPERIOR",
+                        "type": "GRP"
+                      }
+                    },
+                    "mappings": [
+                      {
+                        "source": {
+                          "id": "HR_PERSONNEL_ELOUSERID",
+                          "type": "GRP"
+                        },
+                        "target": {
+                          "id": "HR_PERSONNEL_SUPERIORUSERID",
+                          "type": "MAP"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "search": {
+                    "keys": {
+                      "SOL_TYPE": "ORGCHART_*",
+                      "HR_CHARTELEMENT_AUTHORITY_GUID": "{{sord.guid}}"
+                    }
+                  },
+                  "update": {
+                    "byProp": {
+                      "authority": {
+                        "id": "HR_CHARTELEMENT_AUTHORITY_NAME",
+                        "type": "GRP"
+                      }
+                    }
+                  }
+                },
+                {
+                  "search": {
+                    "keys": {
+                      "SOL_TYPE": "ORGCHART_*",
+                      "HR_CHARTELEMENT_DEPUTY_GUID": "{{sord.guid}}"
+                    }
+                  },
+                  "update": {
+                    "byProp": {
+                      "deputy": {
+                        "id": "HR_CHARTELEMENT_DEPUTY_NAME",
+                        "type": "GRP"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "terminate": {
+          "changerights": {
+            "scriptProperties": {
+              "users": [
+                {
+                  "type": "MAP",
+                  "key": "HR_PERSONNEL_INQUIRY_REQUESTER",
+                  "rights": {
+                    "r": true,
+                    "w": true,
+                    "e": true,
+                    "d": true,
+                    "l": true
+                  }
+                },
+                {
+                  "name": "HR",
+                  "rights": {
+                    "r": true,
+                    "w": true,
+                    "e": true,
+                    "d": true,
+                    "l": true
+                  }
+                }
+              ],
+              "recursive": true,
+              "mode": "SET"
+            }
+          },
+          "setstatus": {
+            "scriptProperties": {
+              "entries": [
+                {
+                  "type": "GRP",
+                  "key": "HR_PERSONNEL_PERSONNELSTATUS",
+                  "value": "C",
+                  "useDynKwl": true,
+                  "dynKwlCfg": {
+                    "filterColumn": 0,
+                    "returnColumn": 2
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "request": {
+      "actions": {
+        "create": {
+          "const": {
+            "temporaryAttributes": {
+              "shortDescription": "{{params.typeRequester}} - {{params.typeName}} ({{now pattern='YYYY-MM-DD HH:mm' useConnectionTimeZone=true}})",
+              "targetDirectory": "0"
+            },
+            "standardTargetMaskName": "Personnel file request",
+            "standardTargetSordTypeName": "sol.Personnel File Request"
+          },
+          "options": {
+            "addReferences": [
+              {
+                "fieldName": "SOL_TYPE",
+                "fieldType": "GRP",
+                "value": "HR_REQUEST"
+              },
+              {
+                "fieldName": "HR_PERSONNEL_ORIGIN_GUID",
+                "fieldType": "WFMAP",
+                "refType": "GUID"
+              },
+              {
+                "fieldName": "HR_PERSONNEL_ELOUSERID",
+                "fieldType": "GRP",
+                "value": "{{params.typeRequester}}"
+              },
+              {
+                "fieldName": "HR_PERSONNEL_RESPONSIBLE",
+                "fieldType": "GRP",
+                "value": "{{PERSONNELFILE.objKeys.HR_PERSONNEL_RESPONSIBLE}}"
+              }
+            ],
+            "changeRights": {
+              "users": [
+                {
+                  "name": "{{params.typeRequester}}",
+                  "rights": {
+                    "r": true,
+                    "w": true,
+                    "e": true,
+                    "d": true,
+                    "l": true
+                  }
+                },
+                {
+                  "type": "GRP",
+                  "key": "HR_PERSONNEL_RESPONSIBLE",
+                  "rights": {
+                    "r": true,
+                    "w": true,
+                    "e": true,
+                    "d": true,
+                    "l": true
+                  }
+                }
+              ],
+              "recursive": true,
+              "mode": "SET"
+            }
+          },
+          "workflow": {
+            "maskStandardWorkflow": {
+              "start": false,
+              "field": ""
+            },
+            "customWorkflow": {
+              "name": "No workflow defined. Custom workflow must be defined in requests-config."
+            },
+            "message": "{{translate 'sol.hr.personnelfile.workflow.file.create.message'}}",
+            "dialogTitle": "{{translate 'sol.hr.personnel.client.ribbon.btnCreateEmployeeRequest'}}"
+          }
+        }
+      },
+      "services": {
+        "requestcontainertypes": {
+          "const": {
+            "targetMaskField": "mapKeys.CUSTOM_HR_REQUEST_TARGETMASK"
+          }
+        }
+      },
+      "workflowMixins": {
+        "create": {
+          "move": {
+            "scriptProperties": {
+              "path": "ARCPATH:/Human resources/Requests/{{formatDate 'YYYY'}}/{{formatDate 'MM'}}",
+              "rightsConfig": {
+                "users": [
+                  {
+                    "type": "GRP",
+                    "key": "HR_PERSONNEL_RESPONSIBLE",
+                    "rights": {
+                      "r": true,
+                      "w": true
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "changeuser": {
+            "scriptProperties": {
+              "defaultUser": "HR",
+              "fromIndex": "HR_PERSONNEL_RESPONSIBLE",
+              "skipNonUserNodes": 2
+            }
+          }
+        },
+        "informmissing": {
+          "changerights": {
+            "scriptProperties": {
+              "users": [
+                {
+                  "name": "HR",
+                  "rights": {
+                    "r": true,
+                    "w": true,
+                    "e": true,
+                    "d": true,
+                    "l": true
+                  }
+                },
+                {
+                  "type": "GRP",
+                  "key": "HR_PERSONNEL_RESPONSIBLE",
+                  "rights": {
+                    "r": true,
+                    "w": true,
+                    "e": true,
+                    "d": true,
+                    "l": true
+                  }
+                }
+              ],
+              "recursive": true,
+              "mode": "SET"
+            }
+          }
+        }
+      }
+    },
+    "employeeentryrequest": {
+      "actions": {
+        "create": {
+          "const": {
+            "temporaryAttributes": {
+              "shortDescription": "{{params.typeRequester}} - {{params.typeName}} ({{formatDate 'YYYY'}}-{{formatDate 'MM'}}-{{formatDate 'DD'}} {{formatDate 'HH'}}:{{formatDate 'mm'}})",
+              "targetDirectory": "0"
+            },
+            "standardTargetMaskName": "Personnel file request",
+            "standardTargetSordTypeName": "sol.Personnel File Request"
+          },
+          "options": {
+            "addReferences": [
+              {
+                "fieldName": "SOL_TYPE",
+                "fieldType": "GRP",
+                "value": "HR_REQUEST"
+              },
+              {
+                "fieldName": "HR_PERSONNEL_ORIGIN_GUID",
+                "fieldType": "WFMAP",
+                "refType": "GUID"
+              },
+              {
+                "fieldName": "HR_PERSONNEL_ELOUSERID",
+                "fieldType": "GRP",
+                "value": "{{PERSONNELFILE.objKeys.HR_PERSONNEL_ELOUSERID}}"
+              },
+              {
+                "fieldName": "HR_PERSONNEL_RESPONSIBLE",
+                "fieldType": "GRP",
+                "value": "{{PERSONNELFILE.objKeys.HR_PERSONNEL_RESPONSIBLE}}"
+              }
+            ],
+            "changeRights": {
+              "users": [
+                {
+                  "name": "{{PERSONNELFILE.objKeys.HR_PERSONNEL_RESPONSIBLE}}",
+                  "rights": {
+                    "r": true,
+                    "w": true,
+                    "e": true,
+                    "d": true,
+                    "l": true
+                  }
+                }
+              ],
+              "recursive": true,
+              "mode": "SET"
+            }
+          },
+          "workflow": {
+            "maskStandardWorkflow": {
+              "start": false,
+              "field": ""
+            },
+            "customWorkflow": {
+              "name": "No workflow defined. Custom workflow must be defined in requests-config."
+            },
+            "message": "{{translate 'sol.hr.personnelfile.workflow.file.create.message'}}",
+            "dialogTitle": "{{translate 'sol.hr.personnel.client.ribbon.btnEmployeeEntry'}}"
+          }
+        }
+      },
+      "services": {
+        "requestcontainertypes": {
+          "const": {
+            "targetMaskField": "mapKeys.CUSTOM_HR_REQUEST_TARGETMASK",
+            "employeeEnteredStatus": {
+              "key": "objKeys.HR_PERSONNEL_PERSONNELSTATUS",
+              "value": ["E"]
+            }
+          }
+        },
+        "employeeentryrequestconclusionparams": {
+          "const": {
+            "originGUIDField": "wfMapKeys.HR_PERSONNEL_ORIGIN_GUID"
+          }
+        }
+      },
+      "workflowMixins": {
+        "create": {
+          "changerightssuperior": {
+            "scriptProperties": {
+              "users": [
+                {
+                  "type": "MAP",
+                  "key": "HR_PERSONNEL_SUPERIORUSERID",
+                  "rights": {
+                    "r": true,
+                    "w": true,
+                    "e": true,
+                    "d": true,
+                    "l": true
+                  }
+                },
+                {
+                  "type": "GRP",
+                  "key": "HR_PERSONNEL_RESPONSIBLE",
+                  "rights": {
+                    "r": true,
+                    "w": true,
+                    "e": true,
+                    "d": true,
+                    "l": true
+                  }
+                }
+              ],
+              "recursive": true,
+              "mode": "SET"
+            }
+          },
+          "changeusersuperior": {
+            "scriptProperties": {
+              "logFallbackMode": true,
+              "defaultUser": "HR",
+              "defaultFromIndex": "HR_PERSONNEL_RESPONSIBLE",
+              "fromMap": "HR_PERSONNEL_SUPERIORUSERID"
+            }
+          },
+          "changeuserapproval": {
+            "scriptProperties": {
+              "defaultUser": "HR",
+              "fromIndex": "HR_PERSONNEL_RESPONSIBLE"
+            }
+          },
+          "move": {
+            "scriptProperties": {
+              "path": "ARCPATH:/Human resources/Requests/{{formatDate 'YYYY'}}/{{formatDate 'MM'}}"
+            }
+          }
+        }
+      }
+    },
+    "noticeofterminationrequest": {
+      "services": {
+        "requestcontainertypes": {
+          "const": {
+            "employeeTerminatedStatus": {
+              "key": "objKeys.HR_PERSONNEL_PERSONNELSTATUS",
+              "value": "C"
+            }
+          }
+        }
+      },
+      "workflowMixins": {
+        "create": {
+          "changerightssuperior": {
+            "scriptProperties": {
+              "users": [
+                {
+                  "type": "MAP",
+                  "key": "HR_PERSONNEL_SUPERIORUSERID",
+                  "rights": {
+                    "r": true,
+                    "w": true,
+                    "e": true,
+                    "d": true,
+                    "l": true
+                  }
+                },
+                {
+                  "type": "GRP",
+                  "key": "HR_PERSONNEL_RESPONSIBLE",
+                  "rights": {
+                    "r": true,
+                    "w": true,
+                    "e": true,
+                    "d": true,
+                    "l": true
+                  }
+                }
+              ],
+              "recursive": true,
+              "mode": "SET"
+            }
+          },
+          "changeusersuperior": {
+            "scriptProperties": {
+              "logFallbackMode": true,
+              "defaultUser": "HR",
+              "defaultFromIndex": "HR_PERSONNEL_RESPONSIBLE",
+              "fromMap": "HR_PERSONNEL_SUPERIORUSERID"
+            }
+          },
+          "changeuserapproval": {
+            "scriptProperties": {
+              "defaultUser": "HR",
+              "fromIndex": "HR_PERSONNEL_RESPONSIBLE"
+            }
+          },
+          "move": {
+            "scriptProperties": {
+              "path": "ARCPATH:/Human resources/Requests/{{formatDate 'YYYY'}}/{{formatDate 'MM'}}"
+            }
+          }
+        }
+      }
+    }
+  }
+}

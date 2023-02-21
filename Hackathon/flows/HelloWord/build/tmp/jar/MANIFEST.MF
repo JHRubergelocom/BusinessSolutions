@@ -1,0 +1,24 @@
+Manifest-Version: 1.0
+Built-By: ruberg
+Build-Timestamp: 2022-09-19T15:18:07.337+0200
+Build-Jdk: 17.0.2 (Oracle Corporation 17.0.2+8-86)
+Build-OS: Windows 11 amd64 10.0
+Created-By: Gradle 7.5.1
+Bundle-Name: HelloWord
+-exportcontents: 
+-sources: false
+-contracts: 
+Import-Package: com.elo.flows.*,com.elo.oauth.*,byps.*,de.elo.*,org.slf4
+ j,org.slf4j.spi,org.w3c.*,javax.accessibility,javax.activity,javax.anno
+ tation,javax.annotation.processing,javax.crypto,javax.crypto.*,javax.im
+ ageio,javax.imageio.*,javax.lang.model,javax.lang.model.*,javax.managem
+ ent,javax.management.*,javax.naming,javax.naming.*,javax.net,javax.net.
+ ssl,javax.print,javax.print.*,javax.rmi.*,javax.script,javax.security.*
+ ,javax.sound.*,javax.sql,javax.sql.*,javax.tools,javax.xml,javax.xml.*,
+ com.fasterxml.*,org.xml.*,!*
+Require-Bundle: 
+Bundle-Activator: com.elo.flows.worker.external.component.FlowComponentA
+ ctivator
+Bundle-ClassPath: .
+Include-Resource: 
+

@@ -1,0 +1,830 @@
+{
+  "Business areas": {
+    "type": "DB",
+    "translate": true,
+    "title": "sol.invoice.dynkwl.businessarea.tableTitle",
+    "header": [
+      "sol.invoice.dynkwl.businessarea.tableHeaders.code",
+      "sol.invoice.dynkwl.businessarea.tableHeaders.name"
+    ],
+    "output": [
+      "BUSINESS_AREA_CODE",
+      "IX_MAP_BUSINESS_AREA_NAME"
+    ],
+    "searchParams": [
+      {
+        "name": "COMPANY_CODE",
+        "message": "sol.invoice.dynkwl.message.selectcompany"
+      },
+      {
+        "mode": "STARTS_WITH"
+      },
+      {
+        "mode": "STARTS_WITH"
+      }
+    ],
+    "sqlQuery": "SELECT code, name FROM sol_business_area WHERE LOWER(company_code) = LOWER(?) AND (LOWER(code) LIKE LOWER(?) OR LOWER(name) like LOWER(?))"
+  },
+  "Items": {
+    "type": "DB",
+    "translate": true,
+    "title": "sol.invoice.dynkwl.item.tableTitle",
+    "header": [
+      "sol.invoice.dynkwl.item.tableHeaders.no",
+      "sol.invoice.dynkwl.item.tableHeaders.name",
+      "sol.invoice.dynkwl.item.tableHeaders.costcenter",
+      "sol.invoice.dynkwl.item.tableHeaders.costobject",
+      "sol.invoice.dynkwl.item.tableHeaders.glaccount",
+      "sol.invoice.dynkwl.item.tableHeaders.netprice",
+      "sol.invoice.dynkwl.item.tableHeaders.unit"
+    ],
+    "output": [
+      "IX_MAP_INVI_ITEM_NO{i}",
+      "IX_BLOB_INVI_ITEM_DESCRIPTION{i}",
+      "IX_MAP_INVI_COST_CENTER_NO{i}",
+      "IX_MAP_INVI_COST_OBJECT_NO{i}",
+      "IX_MAP_INVI_GL_ACCOUNT_NO{i}",
+      "IX_MAP_INVI_SINGLE_NET_PRICE{i}",
+      "IX_MAP_INVI_QUANTITY_UNIT{i}"
+    ],
+    "searchParams": [
+      {
+        "name": "COMPANY_CODE",
+        "message": "sol.invoice.dynkwl.message.selectcompany"
+      },
+      {
+        "mode": "STARTS_WITH"
+      },
+      {
+        "mode": "CONTAINS"
+      }
+    ],
+    "sqlQuery": "select no, description, cost_center_no, cost_object_no, gl_account_no, unit_price, unit_name from sol_invoice_item where lower(company_code) = lower(?) and (lower(no) like lower(?) or lower(description) like lower(?))"
+  },
+  "Projects": {
+    "type": "DB",
+    "translate": true,
+    "title": "sol.invoice.dynkwl.project.tableTitle",
+    "header": [
+      "sol.invoice.dynkwl.project.tableHeaders.no",
+      "sol.invoice.dynkwl.project.tableHeaders.name"
+    ],
+    "output": [
+      "PROJECT_NO",
+      "PROJECT_NAME"
+    ],
+    "searchParams": [
+      {
+        "name": "COMPANY_CODE",
+        "message": "sol.invoice.dynkwl.message.selectcompany"
+      },
+      {
+        "mode": "STARTS_WITH"
+      },
+      {
+        "mode": "CONTAINS"
+      }
+    ],
+    "sqlQuery": "SELECT no, name FROM sol_project WHERE LOWER(company_code) = LOWER(?) and (LOWER(no) LIKE LOWER(?) or LOWER(name) LIKE LOWER(?)) ORDER BY name"
+  },
+  "Terms of payment": {
+    "type": "DB",
+    "translate": true,
+    "title": "sol.invoice.dynkwl.termsofpayment.tableTitle",
+    "header": [
+      "sol.invoice.dynkwl.termsofpayment.tableHeaders.discountdays",
+      "sol.invoice.dynkwl.termsofpayment.tableHeaders.discountrate",
+      null
+    ],
+    "output": [
+      "IX_MAP_INVOICE_CASH_DISCOUNT_DAYS{i}",
+      "IX_MAP_INVOICE_CASH_DISCOUNT_RATE{i}",
+      "IX_MAP_INVOICE_CASH_DISCOUNT_SOURCE{i}"
+    ],
+    "searchParams": [
+      {
+        "name": "COMPANY_CODE",
+        "message": "sol.invoice.dynkwl.message.selectcompany"
+      },
+      {
+        "name": "VENDOR_NO",
+        "message": "sol.invoice.dynkwl.message.selectvendor"
+      }
+    ],
+    "sqlQuery": "select cash_discount_days, cash_discount_rate, 'ERP' from sol_vendor_terms_of_payment where lower(company_code) = lower(?) and lower(vendor_no) = lower(?) order by cash_discount_days",
+    "formatting": [
+      {
+        "type": "NUMBER",
+        "columnNames": [
+          "IX_MAP_INVOICE_CASH_DISCOUNT_DAYS{i}", "IX_MAP_INVOICE_CASH_DISCOUNT_RATE{i}"
+        ],
+        "decimalSeparator": ",",
+        "groupingUsed": false
+      }
+    ]
+  },
+  "Trade charges": {
+    "type": "DB",
+    "translate": true,
+    "title": "sol.invoice.dynkwl.tradecharge.tableTitle",
+    "header": [
+      "sol.invoice.dynkwl.tradecharge.tableHeaders.code",
+      "sol.invoice.dynkwl.tradecharge.tableHeaders.description"
+    ],
+    "output": [
+      "IX_MAP_INVOICE_TRADE_CHARGE_CODE{i}",
+      "IX_MAP_INVOICE_TRADE_CHARGE_DESC{i}"
+    ],
+    "searchParams": [
+      {
+        "valueType": "LANGUAGE"
+      },
+      {
+        "mode": "STARTS_WITH"
+      },
+      {
+        "mode": "CONTAINS"
+      }
+    ],
+    "sqlQuery": "select code, description from sol_trade_charge where lower(language) = lower(?) AND (lower(code) like lower(?) OR lower(description) like lower(?)) order by description"
+  },
+  "Units": {
+    "type": "DB",
+    "translate": true,
+    "title": "sol.invoice.dynkwl.units.tableTitle",
+    "header": [
+      "sol.invoice.dynkwl.units.tableHeaders.code",
+      "sol.invoice.dynkwl.units.tableHeaders.description",
+      "sol.invoice.dynkwl.units.tableHeaders.symbol"
+    ],
+    "output": [
+      "IX_MAP_INVI_QUANTITY_UNIT_CODE{i}",
+      "IX_MAP_INVI_QUANTITY_UNIT_DESCIRPTION{i}",
+      "IX_MAP_INVI_QUANTITY_UNIT{i}"
+    ],
+    "searchParams": [
+      {
+        "valueType": "LANGUAGE"
+      },
+      {
+        "mode": "STARTS_WITH"
+      },
+      {
+        "mode": "STARTS_WITH"
+      },
+      {
+        "mode": "STARTS_WITH"
+      }
+    ],
+    "sqlQuery": "select code, description, symbol from sol_units where lower(language) = lower(?) and (lower(code) like lower(?) or lower(description) like lower(?) or lower(symbol) like lower(?)) order by description"
+  },
+  "Cost objects": {
+    "type": "DB",
+    "translate": true,
+    "title": "sol.invoice.dynkwl.costobject.tableTitle",
+    "header": [
+      "sol.invoice.dynkwl.costobject.tableHeaders.no",
+      "sol.invoice.dynkwl.costobject.tableHeaders.name"
+    ],
+    "output": [
+      "IX_MAP_INVI_COST_OBJECT_NO{i}",
+      "IX_MAP_INVI_COST_OBJECT_NAME{i}"
+    ],
+    "output_": {
+      "Trade charge table": [
+        "IX_MAP_INVOICE_TRADE_CHARGE_COST_OBJECT_NO{i}",
+        "IX_MAP_INVOICE_TRADE_CHARGE_COST_OBJECT_NAME{i}"
+      ]
+    },
+    "searchParams": [
+      {
+        "name": "COMPANY_CODE",
+        "message": "sol.invoice.dynkwl.message.selectcompany"
+      },
+      {
+        "mode": "STARTS_WITH"
+      },
+      {
+        "mode": "CONTAINS"
+      }
+    ],
+    "sqlQuery": "select no, name from sol_accounting_costobject where lower(company_code) = lower(?) and (lower(no) like lower(?) or lower(name) like lower(?)) order by name"
+  },
+  "Internal orders": {
+    "type": "DB",
+    "translate": true,
+    "title": "sol.invoice.dynkwl.internalorder.tableTitle",
+    "header": [
+      "sol.invoice.dynkwl.internalorder.tableHeaders.no",
+      "sol.invoice.dynkwl.internalorder.tableHeaders.name"
+    ],
+    "output": [
+      "IX_MAP_INVI_INTERNAL_ORDER_NO{i}",
+      "IX_MAP_INVI_INTERNAL_ORDER_NAME{i}"
+    ],
+    "output_": {
+      "Trade charge table": [
+        "IX_MAP_INVOICE_TRADE_CHARGE_INTERNAL_ORDER_NO{i}",
+        "IX_MAP_INVOICE_TRADE_CHARGE_INTERNAL_ORDER_NAME{i}"
+      ]
+    },
+    "searchParams": [
+      {
+        "name": "COMPANY_CODE",
+        "message": "sol.invoice.dynkwl.message.selectcompany"
+      },
+      {
+        "mode": "STARTS_WITH"
+      },
+      {
+        "mode": "CONTAINS"
+      }
+    ],
+    "sqlQuery": "SELECT no, name FROM sol_internal_order WHERE LOWER(company_code) = LOWER(?) AND (LOWER(no) LIKE LOWER(?) OR LOWER(name) LIKE LOWER(?)) ORDER BY name"
+  },
+  "Profit centers": {
+    "type": "DB",
+    "translate": true,
+    "title": "sol.invoice.dynkwl.profitcenter.tableTitle",
+    "header": [
+      "sol.invoice.dynkwl.profitcenter.tableHeaders.code",
+      "sol.invoice.dynkwl.profitcenter.tableHeaders.name"
+    ],
+    "output": [
+      "IX_MAP_INVI_PROFIT_CENTER_CODE{i}",
+      "IX_MAP_INVI_PROFIT_CENTER_NAME{i}"
+    ],
+    "output_": {
+      "Trade charge table": [
+        "IX_MAP_INVOICE_TRADE_CHARGE_PROFIT_CENTER_CODE{i}",
+        "IX_MAP_INVOICE_TRADE_CHARGE_PROFIT_CENTER_NAME{i}"
+      ]
+    },
+    "searchParams": [
+      {
+        "name": "COMPANY_CODE",
+        "message": "sol.invoice.dynkwl.message.selectcompany"
+      },
+      {
+        "mode": "STARTS_WITH"
+      },
+      {
+        "mode": "CONTAINS"
+      }
+    ],
+    "sqlQuery": "SELECT code, name FROM sol_profit_center WHERE LOWER(company_code) = LOWER(?) and (LOWER(code) LIKE LOWER(?) or LOWER(name) LIKE LOWER(?)) ORDER BY NAME"
+  },
+  "Special Gl indicators": {
+    "type": "DB",
+    "translate": true,
+    "title": "sol.invoice.dynkwl.specialglindicator.tableTitle",
+    "header": [
+      "sol.invoice.dynkwl.specialglindicator.tableHeaders.code",
+      "sol.invoice.dynkwl.specialglindicator.tableHeaders.description"
+    ],
+    "output": [
+      "IX_MAP_INVI_SPECIAL_GL_INDICATOR_CODE{i}",
+      "IX_MAP_INVI_SPECIAL_GL_INDICATOR_NAME{i}"
+    ],
+    "output_": {
+      "Trade charge table": [
+        "IX_MAP_INVOICE_TRADE_CHARGE_SPECIAL_GL_ACCOUNT_INDICATOR_CODE{i}",
+        "IX_MAP_INVOICE_TRADE_CHARGE_SPECIAL_GL_ACCOUNT_INDICATOR_NAME{i}"
+      ]
+    },
+    "searchParams": [
+      {
+        "name": "COMPANY_CODE",
+        "message": "sol.invoice.dynkwl.message.selectcompany"
+      },
+      {
+        "valueType": "LANGUAGE"
+      },
+      {
+        "mode": "STARTS_WITH"
+      },
+      {
+        "mode": "STARTS_WITH"
+      }
+    ],
+    "sqlQuery": "SELECT code, description FROM sol_special_gl_indicator WHERE LOWER(company_code) = LOWER(?) AND LOWER(language) = LOWER(?) AND (LOWER(code) LIKE LOWER(?) OR LOWER(description) LIKE LOWER(?)) ORDER BY description"
+  },
+  "Tax codes": {
+    "type": "DB",
+    "translate": true,
+    "title": "sol.invoice.dynkwl.taxcode.tableTitle",
+    "header": [
+      "sol.invoice.dynkwl.taxcode.tableHeaders.code",
+      "sol.invoice.dynkwl.taxcode.tableHeaders.description",
+      "sol.invoice.dynkwl.taxcode.tableHeaders.vatrate"
+    ],
+    "output": [
+      "IX_MAP_INVI_TAX_CODE_CODE{i}",
+      "IX_MAP_INVI_TAX_CODE_NAME{i}",
+      "IX_MAP_INVI_TAX_CODE_VAT_RATE{i}"
+    ],
+    "searchParams": [
+      {
+        "name": "COMPANY_CODE",
+        "message": "sol.invoice.dynkwl.message.selectcompany"
+      },
+      {
+        "valueType": "LANGUAGE"
+      },
+      {
+        "mode": "STARTS_WITH"
+      },
+      {
+        "mode": "STARTS_WITH"
+      }
+    ],
+    "sqlQuery": "SELECT code, description, vat_rate FROM sol_tax_code WHERE LOWER(company_code) = LOWER(?) AND LOWER(language) = LOWER(?) AND (LOWER(code) LIKE LOWER(?) OR LOWER(description) LIKE LOWER(?)) ORDER BY description",
+    "formatting": [
+      {
+        "type": "NUMBER",
+        "columnNames": [
+          "IX_MAP_INVI_TAX_CODE_VAT_RATE{i}"
+        ],
+        "minimumFractionDigits": 1,
+        "maximumFractionDigits": 1,
+        "decimalSeparator": ",",
+        "groupingUsed": false
+      }
+    ]
+  },
+  "Tax codes trade charges": {
+    "type": "DB",
+    "translate": true,
+    "title": "sol.invoice.dynkwl.taxcode.tableTitle",
+    "header": [
+      "sol.invoice.dynkwl.taxcode.tableHeaders.code",
+      "sol.invoice.dynkwl.taxcode.tableHeaders.description",
+      "sol.invoice.dynkwl.taxcode.tableHeaders.vatrate"
+    ],
+    "output": [
+      "IX_MAP_INVOICE_TRADE_CHARGE_TAX_CODE_CODE{i}",
+      "IX_MAP_INVOICE_TRADE_CHARGE_TAX_CODE_NAME{i}",
+      "IX_MAP_INVOICE_TRADE_CHARGE_TAX_CODE_VAT_RATE{i}"
+    ],
+    "searchParams": [
+      {
+        "name": "COMPANY_CODE",
+        "message": "sol.invoice.dynkwl.message.selectcompany"
+      },
+      {
+        "valueType": "LANGUAGE"
+      },
+      {
+        "mode": "STARTS_WITH"
+      },
+      {
+        "mode": "STARTS_WITH"
+      }
+    ],
+    "sqlQuery": "SELECT code, description, vat_rate FROM sol_tax_code WHERE LOWER(company_code) = LOWER(?) AND LOWER(language) = LOWER(?) AND (LOWER(code) LIKE LOWER(?) OR LOWER(description) LIKE LOWER(?)) ORDER BY description",
+    "formatting": [
+      {
+        "type": "NUMBER",
+        "columnNames": [
+          "IX_MAP_INVOICE_TRADE_CHARGE_TAX_CODE_VAT_RATE{i}"
+        ],
+        "maximumFractionDigits": 2,
+        "groupingUsed": false
+      }
+    ]
+  },
+  "WBS elements": {
+    "type": "DB",
+    "translate": true,
+    "title": "sol.invoice.dynkwl.wbselement.tableTitle",
+    "header": [
+      "sol.invoice.dynkwl.wbselement.tableHeaders.code",
+      "sol.invoice.dynkwl.wbselement.tableHeaders.name"
+    ],
+    "output": [
+      "IX_MAP_INVI_WBS_ELEMENT_CODE{i}",
+      "IX_MAP_INVI_WBS_ELEMENT_NAME{i}"
+    ],
+    "output_": {
+      "Trade charge table": [
+        "IX_MAP_INVOICE_TRADE_CHARGE_WBS_ELEMENT_CODE{i}",
+        "IX_MAP_INVOICE_TRADE_CHARGE_WBS_ELEMENT_NAME{i}"
+      ]
+    },
+    "searchParams": [
+      {
+        "name": "COMPANY_CODE",
+        "message": "sol.invoice.dynkwl.message.selectcompany"
+      },
+      {
+        "mode": "STARTS_WITH"
+      },
+      {
+        "mode": "CONTAINS"
+      }
+    ],
+    "sqlQuery": "SELECT code, name FROM sol_wbs_element WHERE LOWER(company_code) = LOWER(?) and (LOWER(code) LIKE LOWER(?) or LOWER(name) LIKE LOWER(?)) ORDER BY NAME"
+  },
+  "Companies": {
+    "type": "DB",
+    "translate": true,
+    "title": "sol.invoice.dynkwl.company.tableTitle",
+    "header": [
+      "sol.invoice.dynkwl.company.tableHeaders.no",
+      "sol.invoice.dynkwl.company.tableHeaders.name",
+      "sol.invoice.dynkwl.company.tableHeaders.street",
+      "sol.invoice.dynkwl.company.tableHeaders.postcode",
+      "sol.invoice.dynkwl.company.tableHeaders.city",
+      "sol.invoice.dynkwl.company.tableHeaders.country"
+    ],
+    "output": [
+      "COMPANY_CODE",
+      "COMPANY_NAME",
+      null,
+      null,
+      null,
+      null
+    ],
+    "searchParams": [
+      {
+        "mode": "STARTS_WITH"
+      },
+      {
+        "mode": "CONTAINS"
+      },
+      {
+        "mode": "STARTS_WITH"
+      }
+    ],
+    "sqlQuery": "SELECT code, name, street, zipcode, city, country_code FROM sol_company where LOWER(code) LIKE LOWER(?) OR LOWER(name) like LOWER(?) OR LOWER(gln) LIKE LOWER(?)"
+  },
+  "Cost centers": {
+    "type": "DB",
+    "translate": true,
+    "title": "sol.invoice.dynkwl.costcenter.tableTitle",
+    "header": [
+      "sol.invoice.dynkwl.costcenter.tableHeaders.no",
+      "sol.invoice.dynkwl.costcenter.tableHeaders.name"
+    ],
+    "output": [
+      "IX_MAP_INVI_COST_CENTER_NO{i}",
+      "IX_MAP_INVI_COST_CENTER_NAME{i}"
+    ],
+    "output_": {
+      "Trade charge table": [
+        "IX_MAP_INVOICE_TRADE_CHARGE_COST_CENTER_NO{i}",
+        "IX_MAP_INVOICE_TRADE_CHARGE_COST_CENTER_NAME{i}"
+      ]
+    },
+    "searchParams": [
+      {
+        "name": "COMPANY_CODE",
+        "message": "sol.invoice.dynkwl.message.selectcompany"
+      },
+      {
+        "mode": "STARTS_WITH"
+      },
+      {
+        "mode": "CONTAINS"
+      }
+    ],
+    "sqlQuery": "SELECT no, name from sol_accounting_costcenter WHERE LOWER(company_code) = LOWER(?) AND (LOWER(no) LIKE LOWER(?) OR LOWER(name) LIKE LOWER(?)) ORDER BY name"
+  },
+  "Gl Accounts": {
+    "type": "DB",
+    "translate": true,
+    "title": "sol.invoice.dynkwl.glaccount.tableTitle",
+    "header": [
+      "sol.invoice.dynkwl.glaccount.tableHeaders.no",
+      "sol.invoice.dynkwl.glaccount.tableHeaders.name"
+    ],
+    "output": [
+      "IX_MAP_INVI_GL_ACCOUNT_NO{i}",
+      "IX_MAP_INVI_GL_ACCOUNT_NAME{i}"
+    ],
+    "output_": {
+      "Trade charge table": [
+        "IX_MAP_INVOICE_TRADE_CHARGE_GL_ACCOUNT_NO{i}",
+        "IX_MAP_INVOICE_TRADE_CHARGE_GL_ACCOUNT_NAME{i}"
+      ]
+    },
+    "searchParams": [
+      {
+        "name": "COMPANY_CODE",
+        "message": "sol.invoice.dynkwl.message.selectcompany"
+      },
+      {
+        "mode": "STARTS_WITH"
+      },
+      {
+        "mode": "CONTAINS"
+      }
+    ],
+    "sqlQuery": "SELECT no, name from sol_accounting_gl_account WHERE LOWER(company_code) = LOWER(?) AND (LOWER(no) LIKE LOWER(?) OR LOWER(name) like LOWER(?)) ORDER BY name"
+  },
+  "Vendors": {
+    "type": "DB",
+    "translate": true,
+    "title": "sol.invoice.dynkwl.vendor.tableTitle",
+    "header": [
+      "sol.invoice.dynkwl.vendor.tableHeaders.no",
+      "sol.invoice.dynkwl.vendor.tableHeaders.name",
+      "sol.invoice.dynkwl.vendor.tableHeaders.street",
+      "sol.invoice.dynkwl.vendor.tableHeaders.postcode",
+      "sol.invoice.dynkwl.vendor.tableHeaders.city",
+      "sol.invoice.dynkwl.vendor.tableHeaders.country",
+      "sol.invoice.dynkwl.vendor.tableHeaders.iban",
+      "sol.invoice.dynkwl.vendor.tableHeaders.bic",
+      "sol.invoice.dynkwl.vendor.tableHeaders.vatid",
+      "sol.invoice.dynkwl.vendor.tableHeaders.taxno"
+    ],
+    "output": [
+      "VENDOR_NO",
+      "VENDOR_NAME",
+      "VENDOR_ADDRESS_STREET",
+      "VENDOR_ADDRESS_ZIPCODE",
+      "VENDOR_ADDRESS_CITY",
+      "VENDOR_ADDRESS_COUNTRY",
+      "VENDOR_IBAN",
+      "VENDOR_BIC",
+      "VENDOR_VAT_ID_NO",
+      "VENDOR_TAX_NO"
+    ],
+    "searchParams": [
+      {
+        "name": "COMPANY_CODE",
+        "message": "sol.invoice.dynkwl.message.selectcompany"
+      },
+      {
+        "mode": "STARTS_WITH"
+      },
+      {
+        "mode": "CONTAINS"
+      },
+      {
+        "mode": "CONTAINS"
+      },
+      {
+        "mode": "STARTS_WITH"
+      }
+    ],
+    "sqlQuery": "SELECT no, name, street, zipcode, city, country_code, iban, bic, vat_id, tax_no FROM sol_vendor WHERE LOWER(company_code) = LOWER(?) AND (LOWER(no) LIKE LOWER(?) OR LOWER(name) LIKE LOWER(?) OR LOWER(vat_id) LIKE LOWER(?) OR LOWER(gln) LIKE LOWER(?))"
+  },
+  "Purchase order line": {
+    "type": "DB",
+    "translate": true,
+    "title": "sol.invoice.dynkwl.purchaseorderline.tableTitle",
+    "header": [
+      "sol.invoice.dynkwl.purchaseorderline.tableHeaders.orderno",
+      "sol.invoice.dynkwl.purchaseorderline.tableHeaders.lineno",
+      "sol.invoice.dynkwl.purchaseorderline.tableHeaders.itemno",
+      "sol.invoice.dynkwl.purchaseorderline.tableHeaders.description",
+      "sol.invoice.dynkwl.purchaseorderline.tableHeaders.costcenter",
+      "sol.invoice.dynkwl.purchaseorderline.tableHeaders.costobject",
+      "sol.invoice.dynkwl.purchaseorderline.tableHeaders.glaccount",
+      "sol.invoice.dynkwl.purchaseorderline.tableHeaders.quantity",
+      "sol.invoice.dynkwl.purchaseorderline.tableHeaders.unit",
+      "sol.invoice.dynkwl.purchaseorderline.tableHeaders.unitprice",
+      "sol.invoice.dynkwl.purchaseorderline.tableHeaders.discount",
+      "sol.invoice.dynkwl.purchaseorderline.tableHeaders.totalprice"
+    ],
+    "output": [
+      "IX_MAP_INVI_PURCHASE_ORDER_NO{i}",
+      "IX_MAP_INVI_PURCHASE_ORDER_LINE_NO{i}",
+      "IX_MAP_INVI_ITEM_NO{i}",
+      "IX_MAP_INVI_ITEM_DESCRIPTION{i}",
+      "IX_MAP_INVI_COST_CENTER_NO{i}",
+      "IX_MAP_INVI_COST_OBJECT_NO{i}",
+      "IX_MAP_INVI_GL_ACCOUNT_NO{i}",
+      "IX_MAP_INVI_QUANTITY{i}",
+      "IX_MAP_INVI_QUANTITY_UNIT{i}",
+      "IX_MAP_INVI_SINGLE_NET_PRICE{i}",
+      "IX_MAP_INVI_DISCOUNT_AMOUNT{i}",
+      "IX_MAP_INVI_TOTAL_NET_PRICE{i}"
+    ],
+    "searchParams": [
+      {
+        "name": "COMPANY_CODE",
+        "message": "sol.invoice.dynkwl.message.selectcompany"
+      },
+      {
+        "name": "VENDOR_NO",
+        "message": "sol.invoice.dynkwl.message.selectvendor"
+      },
+      {
+        "name": "IX_MAP_PURCHASE_ORDER_NO{i}"
+      }
+    ],
+    "sqlQuery": "SELECT purchase_order_no, line_no, item_no, item_description, cost_center_no, cost_object_no, gl_account_no,  quantity, quantity_unit, unit_price, discount, line_amount from sol_invoice_po_line WHERE LOWER(company_code) = LOWER(?) AND LOWER(vendor_no) = LOWER(?) AND LOWER(purchase_order_no) = LOWER(?) ORDER BY line_no",
+    "formatting": [
+      {
+        "type": "NUMBER",
+        "columnNames": [
+          "IX_MAP_INVI_QUANTITY{i}"
+        ],
+        "minimumFractionDigits": 0,
+        "maximumFractionDigits": 2,
+        "groupingUsed": false
+      },
+      {
+        "type": "NUMBER",
+        "columnNames": [
+          "IX_MAP_INVI_SINGLE_NET_PRICE{i}"
+        ],
+        "maximumFractionDigits": 4
+      },
+      {
+        "type": "NUMBER",
+        "columnNames": [
+          "IX_MAP_INVI_DISCOUNT_AMOUNT{i}",
+          "IX_MAP_INVI_TOTAL_NET_PRICE{i}"
+        ],
+        "maximumFractionDigits": 2
+      }
+    ]
+  },
+  "Purchase order line no": {
+    "type": "DB",
+    "translate": true,
+    "title": "sol.invoice.dynkwl.purchaseorderlineno.tableTitle",
+    "header": [
+      "sol.invoice.dynkwl.purchaseorderlineno.tableHeaders.lineno",
+      "sol.invoice.dynkwl.purchaseorderlineno.tableHeaders.itemno",
+      "sol.invoice.dynkwl.purchaseorderlineno.tableHeaders.description",
+      "sol.invoice.dynkwl.purchaseorderlineno.tableHeaders.costcenter",
+      "sol.invoice.dynkwl.purchaseorderlineno.tableHeaders.costobject",
+      "sol.invoice.dynkwl.purchaseorderlineno.tableHeaders.glaccount",
+      "sol.invoice.dynkwl.purchaseorderlineno.tableHeaders.quantity",
+      "sol.invoice.dynkwl.purchaseorderlineno.tableHeaders.unit",
+      "sol.invoice.dynkwl.purchaseorderlineno.tableHeaders.unitprice",
+      "sol.invoice.dynkwl.purchaseorderlineno.tableHeaders.discount",
+      "sol.invoice.dynkwl.purchaseorderlineno.tableHeaders.totalprice"
+    ],
+    "output": [
+      "IX_MAP_INVI_PURCHASE_ORDER_LINE_NO{i}",
+      "IX_MAP_INVI_ITEM_NO{i}",
+      "IX_MAP_INVI_ITEM_DESCRIPTION{i}",
+      "IX_MAP_INVI_COST_CENTER_NO{i}",
+      "IX_MAP_INVI_COST_OBJECT_NO{i}",
+      "IX_MAP_INVI_GL_ACCOUNT_NO{i}",
+      "IX_MAP_INVI_QUANTITY{i}",
+      "IX_MAP_INVI_QUANTITY_UNIT{i}",
+      "IX_MAP_INVI_SINGLE_NET_PRICE{i}",
+      "IX_MAP_INVI_DISCOUNT_AMOUNT{i}",
+      "IX_MAP_INVI_TOTAL_NET_PRICE{i}"
+    ],
+    "searchParams": [
+      {
+        "name": "COMPANY_CODE",
+        "message": "sol.invoice.dynkwl.message.selectcompany"
+      },
+      {
+        "name": "VENDOR_NO",
+        "message": "sol.invoice.dynkwl.message.selectvendor"
+      },
+      {
+        "name": "IX_MAP_INVI_PURCHASE_ORDER_NO{i}"
+      }
+    ],
+    "sqlQuery": "SELECT line_no, item_no, item_description, cost_center_no, cost_object_no, gl_account_no,  quantity, quantity_unit, unit_price, discount, line_amount from sol_invoice_po_line WHERE LOWER(company_code) = LOWER(?) AND LOWER(vendor_no) = LOWER(?) AND LOWER(purchase_order_no) = LOWER(?) ORDER BY line_no",
+    "formatting": [
+      {
+        "type": "NUMBER",
+        "columnNames": [
+          "IX_MAP_INVI_QUANTITY{i}"
+        ],
+        "minimumFractionDigits": 0,
+        "maximumFractionDigits": 2,
+        "groupingUsed": false
+      },
+      {
+        "type": "NUMBER",
+        "columnNames": [
+          "IX_MAP_INVI_SINGLE_NET_PRICE{i}"
+        ],
+        "maximumFractionDigits": 4
+      },
+      {
+        "type": "NUMBER",
+        "columnNames": [
+          "IX_MAP_INVI_DISCOUNT_AMOUNT{i}",
+          "IX_MAP_INVI_TOTAL_NET_PRICE{i}"
+        ],
+        "maximumFractionDigits": 2
+      }
+    ]
+  },
+  "Purchase order no": {
+    "type": "DB",
+    "translate": true,
+    "title": "sol.invoice.dynkwl.purchaseorderno.tableTitle",
+    "header": [
+      "sol.invoice.dynkwl.purchaseorderno.tableHeaders.purchaseorderno",
+      "sol.invoice.dynkwl.purchaseorderno.tableHeaders.numberoflines",
+      "sol.invoice.dynkwl.purchaseorderno.tableHeaders.sum",
+      "sol.invoice.dynkwl.purchaseorderno.tableHeaders.currency"
+    ],
+    "output": [
+      "IX_MAP_PURCHASE_ORDER_NO{i}",
+      null,
+      null,
+      null
+    ],
+    "searchParams": [
+      {
+        "name": "COMPANY_CODE",
+        "message": "sol.invoice.dynkwl.message.selectcompany"
+      },
+      {
+        "name": "VENDOR_NO",
+        "message": "sol.invoice.dynkwl.message.selectvendor"
+      },
+      {
+        "mode": "STARTS_WITH"
+      }
+    ],
+    "sqlQuery": "SELECT purchase_order_no, COUNT(purchase_order_no), SUM(line_amount), currency_code FROM sol_invoice_po_line WHERE LOWER(company_code) = LOWER(?) AND LOWER(vendor_no) = LOWER(?) AND LOWER(purchase_order_no) LIKE LOWER(?) GROUP BY purchase_order_no, currency_code",
+    "formatting": [
+      {
+        "type": "NUMBER",
+        "columnIndexes": [
+          2
+        ],
+        "maximumFractionDigits": 2
+      }
+    ]
+  },
+  "Purchase order no lines": {
+    "type": "DB",
+    "translate": true,
+    "title": "sol.invoice.dynkwl.purchaseordernolines.tableTitle",
+    "header": [
+      "sol.invoice.dynkwl.purchaseordernolines.tableHeaders.purchaseorderno",
+      "sol.invoice.dynkwl.purchaseordernolines.tableHeaders.numberoflines",
+      "sol.invoice.dynkwl.purchaseordernolines.tableHeaders.sum",
+      "sol.invoice.dynkwl.purchaseordernolines.tableHeaders.currency"
+    ],
+    "output": [
+      "IX_MAP_INVI_PURCHASE_ORDER_NO{i}",
+      null,
+      null,
+      null
+    ],
+    "searchParams": [
+      {
+        "name": "COMPANY_CODE",
+        "message": "sol.invoice.dynkwl.message.selectcompany"
+      },
+      {
+        "name": "VENDOR_NO",
+        "message": "sol.invoice.dynkwl.message.selectvendor"
+      },
+      {
+        "mode": "STARTS_WITH"
+      }
+    ],
+    "sqlQuery": "SELECT purchase_order_no, COUNT(purchase_order_no), SUM(line_amount), currency_code FROM sol_invoice_po_line WHERE LOWER(company_code) = LOWER(?) AND LOWER(vendor_no) = LOWER(?) AND LOWER(purchase_order_no) like LOWER(?) GROUP BY purchase_order_no, currency_code",
+    "formatting": [
+      {
+        "type": "NUMBER",
+        "columnIndexes": [
+          2
+        ],
+        "maximumFractionDigits": 2
+      }
+    ]
+  },
+  "Currencies": {
+    "type": "DB",
+    "translate": true,
+    "title": "sol.invoice.dynkwl.currency.tableTitle",
+    "header": [
+      "sol.invoice.dynkwl.currency.tableHeaders.isocode",
+      "sol.invoice.dynkwl.currency.tableHeaders.symbol",
+      "sol.invoice.dynkwl.currency.tableHeaders.exchangerate"
+    ],
+    "output": [
+      "INVOICE_CURRENCY_CODE",
+      "IX_MAP_INVOICE_CURRENCY_SYMBOL",
+      "INVOICE_CURRENCY_EXCHANGE_RATE"
+    ],
+    "searchParams": [
+      {
+        "mode": "STARTS_WITH"
+      },
+      {
+        "mode": "STARTS_WITH"
+      }
+    ],
+    "sqlQuery": "SELECT currency_code, currency_symbol, currency_exchange_rate FROM sol_common_fx WHERE LOWER(currency_code) LIKE LOWER(?) OR LOWER(currency_symbol) like LOWER(?) ORDER BY currency_code",
+    "formatting": [
+      {
+        "type": "NUMBER",
+        "columnNames": [
+          "INVOICE_CURRENCY_EXCHANGE_RATE"
+        ],
+        "minimumFractionDigits": 6
+      }
+    ]
+  }
+}

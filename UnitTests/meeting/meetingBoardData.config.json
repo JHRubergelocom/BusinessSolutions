@@ -1,0 +1,238 @@
+{
+  "rootFolder":"ARCPATH:/Testdaten",
+  "kwl": {
+    "sol.meeting.ix.dynkwl.Notification.MeetingBoard.Template.js": {
+      "$VALUE": "default"
+    },
+    "sol.meeting.ix.localizedKwl.notification.ParticipantSearchTemplates": {
+      "keynames": [
+        "$KEY",
+        "$VALUE",
+        "FIELD"
+      ],
+      "header": [
+        "Schlüssel",
+        "Wert",
+        null
+      ],
+      "title": "Empfängergruppe",
+      "data": [
+        [
+          "O",
+          "Organisatoren",
+          "O - Organisatoren"
+        ],
+        [
+          "A",
+          "Alle Teilnehmer und Mitglieder",
+          "A - Alle Teilnehmer und Mitglieder"
+        ],
+        [
+          "M",
+          "Alle Mitglieder",
+          "M - Alle Mitglieder"
+        ],
+        [
+          "P",
+          "Alle Teilnehmer ohne Mitglieder",
+          "P - Alle Teilnehmer ohne Mitglieder"
+        ]
+      ]
+    },
+    "sol.meeting.ix.localizedKwl.CalendarUnit": {
+      "keynames": [
+        "$KEY",
+        "$VALUE",
+        "FIELD"
+      ],
+      "header": [
+        "Schlüssel",
+        "Wert",
+        null
+      ],
+      "title": "Kalendereinheit",
+      "data": [
+        [
+          " ",
+          " ",
+          ""
+        ],
+        [
+          "y",
+          "Jahr(e)",
+          "y - Jahr(e)"
+        ],
+        [
+          "Q",
+          "Quartal(e)",
+          "Q - Quartal(e)"
+        ],
+        [
+          "M",
+          "Monat(e)",
+          "M - Monat(e)"
+        ],
+        [
+          "w",
+          "Woche(n)",
+          "w - Woche(n)"
+        ],
+        [
+          "d",
+          "Tag(e)",
+          "d - Tag(e)"
+        ]
+      ]
+    },
+    "sol.meeting.ix.localizedKwl.PlusMinusSign": {
+      "keynames": [
+        "$KEY",
+        "$VALUE",
+        "FIELD"
+      ],
+      "header": [
+        "Zeichen",
+        "Wert",
+        null
+      ],
+      "title": "Vor / Nach",
+      "data": [
+        [
+          "-",
+          "Vor",
+          "- - Vor"
+        ],
+        [
+          "+",
+          "Nach",
+          "+ - Nach"
+        ]
+      ]
+    },
+    "sol.meeting.ix.localizedKwl.ReferenceDates": {
+      "keynames": [
+        "$KEY",
+        "$VALUE",
+        "FIELD"
+      ],
+      "header": [
+        "Feld",
+        "Feldbezeichnung",
+        null
+      ],
+      "title": "Referenztag",
+      "data": [
+        [
+          "MEETING_STARTDATE",
+          "Startdatum",
+          "MEETING_STARTDATE - Startdatum"
+        ],
+        [
+          "MEETING_ENDDATE",
+          "Enddatum",
+          "MEETING_ENDDATE - Enddatum"
+        ],
+        [
+          "MEETING_REGISTER_DEADLINE",
+          "Anmeldefrist",
+          "MEETING_REGISTER_DEADLINE - Anmeldefrist"
+        ]
+      ]
+    },
+    "sol.meeting.ix.localizedKwl.MeetingPersonRole": {
+      "keynames": [
+        "$KEY",
+        "$VALUE",
+        "UNITTEST_FIELD2"
+      ],
+      "header": [
+        "Schlüssel",
+        "Wert",
+        null
+      ],
+      "title": "Rolle",
+      "data": [
+        [
+          "M",
+          "Mitglied",
+          "M - Mitglied"
+        ],
+        [
+          "P",
+          "Teilnehmer",
+          "P - Teilnehmer"
+        ]
+      ]
+    }
+  },
+  "meetingBoards" : [
+    {
+      "desc": "Beschreibung Meetingboard3",
+      "objKeys": {
+        "MEETING_BOARD_NAME": "Meetingboard3",
+        "MEETING_BOARD_CODE": "TMB3",
+        "MEETING_BOARD_MINUTE_TAKER": "Bodo Kraft",
+        "MEETING_PRODUCT_LINE": "Default"
+      },
+      "mapKeys": {
+        "MEETING_BOARD_SETTING_DEADLINES_ACTIVATE": "",
+        "MEETING_REGISTER_DEADLINE_SHIFT_VALUE": "",
+        "MEETING_REGISTER_DEADLINE_SHIFT_UNIT": ""
+      },
+      "wfMapTableMembers": [
+        ["MEETING_PERSON_FORM_OF_ADDRESS", "MEETING_PERSON_LASTNAME", "MEETING_PERSON_FIRSTNAME"],
+        ["Herr", "Baum", "Gerd"],
+        ["Frau", "Stamm", "Jasmin"]
+      ],
+      "wfMapTableRecuringItems": [
+        ["MEETING_ITEM_TITLE", "MEETING_ITEM_DURATION", "MEETING_ITEM_DESC"],
+        ["Rückblende", "30", "Rückblick vergangene Projekte"],
+        ["Planung", "40", "Zukünftige Projekte"]
+      ],
+      "mapTableNotifications": [
+        ["MEETING_NOTIFICATION_TEMPLATE_", "MEETING_NOTIFICATION_RECIPIENTS_", "MEETING_NOTIFICATION_SHIFT_VALUE_", "MEETING_NOTIFICATION_SHIFT_UNIT_", "MEETING_NOTIFICATION_SIGN_", "MEETING_NOTIFICATION_REFERENCE_DATE_"],
+        ["default", "O - Organisatoren", "", "y - Jahr(e)", "- - Vor", "MEETING_STARTDATE - Startdatum"],
+        ["default", "A - Alle Teilnehmer und Mitglieder", "", "Q - Quartal(e)", "+ - Nach", "MEETING_ENDDATE - Enddatum"]
+      ],
+      "mapTableProposals": [
+        ["PROPOSAL_TYPES"],
+        ["Entscheidungsvorlage"],
+        ["Antrag"],
+        ["Vortrag"]
+      ],
+      "mapTableOrganizers": [
+        ["MEETING_BOARD_ORGANIZER"],
+        ["Jan Eichner"],
+        ["Sandra Renz"]
+      ]
+    },
+    {
+      "desc": "Beschreibung Meetingboard4",
+      "objKeys": {
+        "MEETING_BOARD_NAME": "Meetingboard4",
+        "MEETING_BOARD_CODE": "TMB4",
+        "MEETING_BOARD_MINUTE_TAKER": "David Lee",
+        "MEETING_PRODUCT_LINE": "Premium"
+
+      },
+      "mapKeys": {
+        "MEETING_BOARD_SETTING_DEADLINES_ACTIVATE": 1,
+        "MEETING_REGISTER_DEADLINE_SHIFT_VALUE": 10,
+        "MEETING_REGISTER_DEADLINE_SHIFT_UNIT": "d - Tag(e)"
+      },
+      "wfMapTableMembers": [
+        ["MEETING_PERSON_FORM_OF_ADDRESS", "MEETING_PERSON_LASTNAME", "MEETING_PERSON_FIRSTNAME"],
+        ["Herr", "Eichner", "Jan"]
+      ],
+      "wfMapTableRecuringItems": [],
+      "mapTableNotifications": [],
+      "mapTableProposals": [
+        ["PROPOSAL_TYPES"],
+        ["Entscheidungsvorlage"],
+        ["Antrag"],
+        ["Vortrag"]
+      ],
+      "mapTableOrganizers": []
+    }
+  ]
+}

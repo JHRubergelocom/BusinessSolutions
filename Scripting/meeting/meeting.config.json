@@ -1,0 +1,3858 @@
+{
+  "fields": {
+    "objectType": "SOL_TYPE",
+    "meetingReference": "MEETING_REFERENCE",
+    "meetingName": "MEETING_NAME",
+    "meetingStatus": "MEETING_STATUS",
+    "meetingStartDate": "MEETING_STARTDATE",
+    "meetingEndDate": "MEETING_ENDDATE",
+    "meetingLocation": "MEETING_LOCATION",
+    "meetingSeriesReference": "MEETING_SERIES_REFERENCE",
+    "meetingNoGen": "MEETING_NO_GEN",
+    "meetingShortDescGen": "MEETING_SHORT_DESC_GEN",
+    "meetingItemReference": "MEETING_ITEM_REFERENCE",
+    "meetingItemTitle": "MEETING_ITEM_TITLE",
+    "meetingItemStart": "MEETING_ITEM_START",
+    "meetingItemEnd": "MEETING_ITEM_END",
+    "meetingItemDuration": "MEETING_ITEM_DURATION",
+    "meetingItemFixed": "MEETING_ITEM_FIXED",
+    "meetingItemType": "MEETING_ITEM_TYPE",
+    "meetingItemSpeaker": "MEETING_ITEM_SPEAKER",
+    "meetingItemResponsible": "MEETING_ITEM_RESPONSIBLE",
+    "meetingItemStatus": "MEETING_ITEM_STATUS",
+    "meetingItemNoGen": "MEETING_ITEM_NO_GEN",
+    "meetingItemShortDescGen": "MEETING_ITEM_SHORT_DES_GEN",
+    "meetingParticipantInvitationStatus": "MEETING_INVITATION_STATUS",
+    "meetingParticipantRole": "MEETING_PARTICIPANT_ROLE",
+    "meetingPersonShortDescGen": "MEETING_PERSON_SHORT_DESC_GEN",
+    "meetingPersonEloUserId": "MEETING_PERSON_ELOUSERID",
+    "meetingPersonFirstname": "MEETING_PERSON_FIRSTNAME",
+    "meetingPersonLastname": "MEETING_PERSON_LASTNAME",
+    "meetingPersonEmail": "MEETING_PERSON_EMAIL",
+    "meetingPersonCompanyname": "MEETING_PERSON_COMPANYNAME",
+    "meetingPersonUsername": "MEETING_PERSON_USERNAME",
+    "meetingPersonContactReference": "MEETING_PERSON_CONTACT_REFERENCE",
+    "meetingPersonTitle": "MEETING_PERSON_TITLE",
+    "meetingPersonType": "MEETING_PERSON_TYPE"
+  },
+  "mapFields": {
+    "meetingGuid": "MEETING_GUID",
+    "createContact": "MEETING_PERSON_CREATE_CONTACT",
+    "meetingContactReference": "MEETING_PERSON_CONTACT_REFERENCE",
+    "meetingPersonCreateContact": "MEETING_PERSON_CREATE_CONTACT",
+    "meetingPersonContactReference": "MEETING_PERSON_CONTACT_REFERENCE"
+  },
+  "entities": {
+    "meeting": {
+      "dynkwls": {
+        "meeting": {
+          "const": {
+            "solutiontypes": "MEETING",
+            "status": {
+              "field": "MEETING_STATUS",
+              "value": "A *"
+            },
+            "start": {
+              "field": "MEETING_STARTDATE",
+              "value": "{{formatDate 'YYYYMMDD'}}..."
+            }
+          },
+          "searchParams": [
+            {
+              "name": "MEETING_BOARD_CODE"
+            },
+            {
+              "name": "MEETING_NAME",
+              "mode": "CONTAINS"
+            }
+          ],
+          "tableTitle": "{{translate 'sol.meeting.dynkwl.meeting.tableTitle'}}",
+          "tableHeaders": [
+            null,
+            "{{translate 'sol.meeting.mask.MeetingReference'}}",
+            "{{translate 'sol.meeting.mask.Name'}}",
+            "{{translate 'sol.meeting.mask.StartDate'}}",
+            "{{translate 'sol.meeting.mask.EndDate'}}",
+            "{{translate 'sol.meeting.mask.boardCode'}}",
+            "{{translate 'sol.meeting.mask.boardName'}}",
+            null,
+            null
+          ],
+          "tableKeyNames": [
+            "IX_MAP_MEETING_GUID",
+            "IX_GRP_MEETING_REFERENCE",
+            "IX_GRP_MEETING_NAME",
+            null,
+            null,
+            "IX_GRP_MEETING_BOARD_CODE",
+            "IX_GRP_MEETING_BOARD_NAME",
+            "IX_GRP_MEETING_STARTDATE",
+            "IX_GRP_MEETING_ENDDATE"
+          ],
+          "rowDataFields": [
+            "guid",
+            "MEETING_REFERENCE",
+            "MEETING_NAME",
+            "MEETING_STARTDATE",
+            "MEETING_ENDDATE",
+            "MEETING_BOARD_CODE",
+            "MEETING_BOARD_NAME",
+            "MEETING_STARTDATE",
+            "MEETING_ENDDATE"
+          ],
+          "columnFormatter": [
+            null,
+            null,
+            null,
+            "{{formatDate 'YYYY-MM-DD' MEETING_STARTDATE}}",
+            "{{formatDate 'YYYY-MM-DD' MEETING_ENDDATE}}",
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        "meetingContactWorkflowMap": {
+          "solType": "CONTACT",
+          "searchParams": [
+            {
+              "name": "WF_MAP_MEETING_PERSON_LASTNAME{i}",
+              "searchName": "CONTACT_LASTNAME",
+              "mode": "STARTS_WITH"
+            },
+            {
+              "name": "WF_MAP_MEETING_PERSON_FIRSTNAME{i}",
+              "searchName": "CONTACT_FIRSTNAME",
+              "mode": "STARTS_WITH"
+            },
+            {
+              "name": "WF_MAP_MEETING_PERSON_EMAIL{i}",
+              "searchName": "CONTACT_EMAIL",
+              "mode": "STARTS_WITH"
+            },
+            {
+              "name": "WF_MAP_MEETING_PERSON_CONTACTLIST_NAME{i}",
+              "searchName": "CONTACTLIST_NAME",
+              "mode": "STARTS_WITH"
+            },
+            {
+              "name": "WF_MAP_MEETING_PERSON_COMPANYNAME{i}",
+              "searchName": "COMPANY_NAME",
+              "mode": "STARTS_WITH",
+              "emptyAllowed": true
+            }
+          ],
+          "tableTitle": "{{translate 'sol.meeting.dynkwl.contact.tableTitle'}}",
+          "tableHeaders": [
+            null,
+            null,
+            "{{translate 'sol.meeting.dynkwl.person.lastname'}}",
+            "{{translate 'sol.meeting.dynkwl.person.firstname'}}",
+            "{{translate 'sol.meeting.dynkwl.person.mail'}}",
+            null,
+            "{{translate 'sol.meeting.dynkwl.person.contactlistName'}}",
+            null,
+            "{{translate 'sol.meeting.dynkwl.person.companyname'}}",
+            null,
+            null
+          ],
+          "tableKeyNames": [
+            "WF_MAP_MEETING_PERSON_FORM_OF_ADDRESS{i}",
+            "WF_MAP_MEETING_PERSON_TITLE{i}",
+            "WF_MAP_MEETING_PERSON_LASTNAME{i}",
+            "WF_MAP_MEETING_PERSON_FIRSTNAME{i}",
+            "WF_MAP_MEETING_PERSON_EMAIL{i}",
+            "WF_MAP_MEETING_PERSON_CONTACT_REFERENCE{i}",
+            "WF_MAP_MEETING_PERSON_CONTACTLIST_NAME{i}",
+            "WF_MAP_MEETING_PERSON_CONTACTLIST_REFERENCE{i}",
+            "WF_MAP_MEETING_PERSON_COMPANYNAME{i}",
+            "WF_MAP_MEETING_PERSON_USERNAME{i}",
+            "WF_MAP_MEETING_PERSON_ELOUSERID{i}"
+          ],
+          "rowDataFields": [
+            "CONTACT_FORM_OF_ADDRESS",
+            "CONTACT_TITLE",
+            "CONTACT_LASTNAME",
+            "CONTACT_FIRSTNAME",
+            "CONTACT_EMAIL",
+            "CONTACT_REFERENCE",
+            "CONTACTLIST_NAME",
+            "CONTACTLIST_REFERENCE",
+            "COMPANY_NAME",
+            "CONTACT_USERNAME",
+            "USERINFO.id"
+          ]
+        },
+        "formOfAddress": {
+          "tableTitle": "{{translate 'sol.meeting.dynkwl.formOfAddress.tableTitle'}}",
+          "tableHeaders": [
+            "{{translate 'sol.meeting.dynkwl.formOfAddress.tableHeader'}}"
+          ],
+          "tableKeyNames": [
+            "WF_MAP_MEETING_PERSON_FORM_OF_ADDRESS{i}"
+          ],
+          "parentId": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/meeting/Configuration/Person Form Of Addresses"
+        }
+      },
+      "functions": {
+        "createheadless": {
+          "const": {
+            "templatesFolder": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/meeting/Configuration/Meetings"
+          },
+          "templateSord": {
+            "objKeys": {
+              "MEETING_BOARD_NAME": "{{meetingBoard.objKeys.MEETING_BOARD_NAME}}",
+              "MEETING_BOARD_REFERENCE": "{{meetingBoard.guid}}",
+              "MEETING_PROVIDED_PROPOSALTYPES": "{{meetingBoard.objKeys.MEETING_PROVIDED_PROPOSALTYPES}}",
+              "MEETING_BOARD_CODE": "{{meetingBoard.objKeys.MEETING_BOARD_CODE}}"
+            }
+          },
+          "workflow": {
+            "name": "sol.meeting.CreateMeetingHeadless",
+            "title": "{{translate 'sol.meeting.create.prefix'}}"
+          },
+          "workflowMixins": {
+            "invite": {
+              "scriptProperties": {
+                "elementService": {
+                  "name": "RF_sol_meeting_service_GetMembers",
+                  "args": {
+                    "objId": "{{sord.objKeys.MEETING_BOARD_REFERENCE}}"
+                  }
+                },
+                "options": {
+                  "dryRun": true,
+                  "renderArgsWithElement": true
+                },
+                "callback": {
+                  "name": "RF_sol_function_FillSord",
+                  "args": {
+                    "target": {
+                      "fromService": {
+                        "name": "RF_sol_function_CreateSord",
+                        "params": {
+                          "sourceElement": {
+                            "fromScratch": {
+                              "mask": "Meeting Participant"
+                            }
+                          },
+                          "targetFolder": {
+                            "fromService": {
+                              "name": "RF_sol_meeting_function_FindMeetingParticipantListFolder",
+                              "params": {
+                                "objId": "{{sord.id}}"
+                              }
+                            }
+                          },
+                          "onCreatedElement": {
+                            "setName": "New Participant"
+                          }
+                        }
+                      },
+                      "startWorkflow": {
+                        "name": "sol.meeting.InviteParticipant",
+                        "title": "Invite Participants",
+                        "concluding": true
+                      }
+                    },
+                    "metadataMapping": [
+                      {
+                        "source": {
+                          "id": "MEETING_PERSON_FORM_OF_ADDRESS",
+                          "type": "WFMAP"
+                        },
+                        "target": {
+                          "id": "MEETING_PERSON_FORM_OF_ADDRESS",
+                          "type": "GRP"
+                        }
+                      },
+                      {
+                        "source": {
+                          "id": "MEETING_PERSON_TITLE",
+                          "type": "WFMAP"
+                        },
+                        "target": {
+                          "id": "MEETING_PERSON_TITLE",
+                          "type": "GRP"
+                        }
+                      },
+                      {
+                        "source": {
+                          "id": "MEETING_PERSON_FIRSTNAME",
+                          "type": "WFMAP"
+                        },
+                        "target": {
+                          "id": "MEETING_PERSON_FIRSTNAME",
+                          "type": "GRP"
+                        }
+                      },
+                      {
+                        "source": {
+                          "id": "MEETING_PERSON_LASTNAME",
+                          "type": "WFMAP"
+                        },
+                        "target": {
+                          "id": "MEETING_PERSON_LASTNAME",
+                          "type": "GRP"
+                        }
+                      },
+                      {
+                        "source": {
+                          "id": "MEETING_PERSON_EMAIL",
+                          "type": "WFMAP"
+                        },
+                        "target": {
+                          "id": "MEETING_PERSON_EMAIL",
+                          "type": "GRP"
+                        }
+                      },
+                      {
+                        "source": {
+                          "id": "MEETING_PERSON_COMPANYNAME",
+                          "type": "WFMAP"
+                        },
+                        "target": {
+                          "id": "MEETING_PERSON_COMPANYNAME",
+                          "type": "GRP"
+                        }
+                      },
+                      {
+                        "source": {
+                          "id": "MEETING_PERSON_CONTACT_REFERENCE",
+                          "type": "WFMAP"
+                        },
+                        "target": {
+                          "id": "MEETING_PERSON_CONTACT_REFERENCE",
+                          "type": "GRP"
+                        }
+                      },
+                      {
+                        "source": {
+                          "id": "MEETING_PERSON_CONTACTLIST_NAME",
+                          "type": "WFMAP"
+                        },
+                        "target": {
+                          "id": "MEETING_PERSON_CONTACTLIST_NAME",
+                          "type": "GRP"
+                        }
+                      },
+                      {
+                        "source": {
+                          "id": "MEETING_PERSON_CREATE_CONTACT",
+                          "type": "WFMAP"
+                        },
+                        "target": {
+                          "id": "MEETING_PERSON_CREATE_CONTACT",
+                          "type": "MAP"
+                        }
+                      },
+                      {
+                        "source": {
+                          "id": "MEETING_PERSON_CONTACTLIST_REFERENCE",
+                          "type": "WFMAP"
+                        },
+                        "target": {
+                          "id": "MEETING_PERSON_CONTACTLIST_REFERENCE",
+                          "type": "GRP"
+                        }
+                      },
+                      {
+                        "source": {
+                          "id": "MEETING_PERSON_ELOUSERID",
+                          "type": "WFMAP"
+                        },
+                        "target": {
+                          "id": "MEETING_PERSON_ELOUSERID",
+                          "type": "GRP"
+                        }
+                      },
+                      {
+                        "source": {
+                          "id": "MEETING_PERSON_USERNAME",
+                          "type": "WFMAP"
+                        },
+                        "target": {
+                          "id": "MEETING_PERSON_USERNAME",
+                          "type": "GRP"
+                        }
+                      },
+                      {
+                        "source": {
+                          "id": "MEETING_PARTICIPANT_ROLE",
+                          "type": "WFMAP"
+                        },
+                        "target": {
+                          "id": "MEETING_PARTICIPANT_ROLE",
+                          "type": "GRP"
+                        }
+                      },
+                      {
+                        "target": {
+                          "id": "MEETING_PERSON_SHORT_DESC_GEN",
+                          "type": "GRP",
+                          "value": "Default"
+                        }
+                      },
+                      {
+                        "target": {
+                          "id": "MEETING_BOARD_REFERENCE",
+                          "type": "GRP",
+                          "value": "{{sord.guid}}"
+                        }
+                      },
+                      {
+                        "target": {
+                          "id": "MEETING_REFERENCE",
+                          "type": "GRP",
+                          "value": "{{sord.objKeys.MEETING_REFERENCE}}"
+                        }
+                      },
+                      {
+                        "target": {
+                          "id": "SOL_TYPE",
+                          "type": "GRP",
+                          "value": "PARTICIPANT"
+                        }
+                      }
+                    ],
+                    "options": {
+                      "onlyWriteMappings": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "prepareMeeting": {
+          "useMeetingItemShortDescGenerator": "default",
+          "useMeetingItemReferenceGenerator": "default",
+          "metadataMapping": [
+            {
+              "source": {
+                "id": "MEETING_ITEM_ID",
+                "type": "GRP"
+              },
+              "target": {
+                "id": "MEETING_ITEM_ID",
+                "type": "GRP"
+              }
+            },
+            {
+              "source": {
+                "id": "MEETING_ITEM_START",
+                "type": "GRP"
+              },
+              "target": {
+                "id": "MEETING_ITEM_START",
+                "type": "GRP"
+              }
+            },
+            {
+              "source": {
+                "id": "MEETING_ITEM_END",
+                "type": "GRP"
+              },
+              "target": {
+                "id": "MEETING_ITEM_END",
+                "type": "GRP"
+              }
+            },
+            {
+              "source": {
+                "id": "MEETING_AGENDA_POSITION",
+                "type": "GRP"
+              },
+              "target": {
+                "id": "MEETING_ITEM_OUTLINENUMBER",
+                "type": "GRP"
+              }
+            }
+          ]
+        },
+        "setParticipantsPermissions": {
+          "args": {
+            "users": [
+                { "name": "$CURRENTUSER", "rights": { "r": true, "w": true, "d": true, "e": true, "l": true, "p": true } },
+                { "type": "WFMAP",
+                  "table": true,
+                  "key": ["MEETING_PERSON_USERNAME", "MEETING_PARTICIPANT_ROLE"],
+                  "useField": "MEETING_PERSON_USERNAME",
+                  "rights": { "r": true, "l": true },
+                  "filter": [
+                    { "prop": "MEETING_PARTICIPANT_ROLE", "value": "P -*" }
+                  ]
+                }
+             ],
+            "inherit": true,
+            "mode": "SET",
+            "recursive" : true
+          }
+        },
+        "editParticipantsPermissions": {
+          "args": {
+            "users": [
+                { "type": "WFMAP",
+                  "table": true,
+                  "key": ["MEETING_PERSON_USERNAME", "MEETING_PERSON_CRUD_STATUS"],
+                  "useField": "MEETING_PERSON_USERNAME",
+                  "rights": { "r": true, "l": true },
+                  "filter": [
+                    { "prop": "MEETING_PERSON_CRUD_STATUS", "value": "CREATE" }
+                  ]
+                }
+             ],
+             "cleanup": {
+               "users": [
+                {
+                  "type": "WFMAP",
+                  "table": true,
+                  "key": ["MEETING_PERSON_USERNAME", "MEETING_PERSON_CRUD_STATUS"],
+                  "useField": "MEETING_PERSON_USERNAME",
+                  "filter": [
+                    { "prop": "MEETING_PERSON_CRUD_STATUS", "value": "DELETE" }
+                  ]
+                }
+               ]
+             },
+            "inherit": true,
+            "mode": "ADD",
+            "recursive" : true
+          }
+        }
+      },
+      "generators": {
+        "meetingno": {
+          "type": "generator",
+          "generatorConfig": {
+            "generatorTemplateField": "MEETING_NO_GEN",
+            "templatesFolder": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/meeting/Configuration/Generators/Meeting no",
+            "targetField": "MEETING_REFERENCE"
+          },
+          "kwlConfig": {}
+        },
+        "meetingshortdescription": {
+          "type": "generator",
+          "generatorConfig": {
+            "generatorTemplateField": "MEETING_SHORT_DESC_GEN",
+            "templatesFolder": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/meeting/Configuration/Generators/Meeting short desc"
+          }
+        }
+      },
+      "workflowMixins": {
+        "create": {
+          "initalizePermissions": {
+            "scriptProperties": {
+              "users": [
+                {
+                  "name": "$CURRENTUSER",
+                  "rights": {
+                    "r": true,
+                    "w": true,
+                    "e": true,
+                    "d": true,
+                    "l": true,
+                    "p": true
+                  }
+                }
+              ],
+              "inherit": true,
+              "recursive": true,
+              "mode": "SET"
+            }
+          },
+          "copyRecurringItems": {
+            "scriptProperties": {
+              "sourceElementService": {
+                "name": "RF_sol_meeting_function_FindMeetingBoardRecurringItemFolder",
+                "objId": "fromParams"
+              },
+              "targetElementService": {
+                "name": "RF_sol_meeting_function_FindMeetingItemListFolder",
+                "objId": "fromParams"
+              },
+              "copySourceAcl": false,
+              "inheritDestinationAcl": true,
+              "useTemplate": true,
+              "useQuickCopy": true,
+              "asAdmin": true,
+              "copyOnlyChildrenElements": true,
+              "waitUntilFinished": true
+            }
+          },
+          "collectMembers": {
+            "scriptProperties": {
+              "elementService": {
+                "name": "RF_sol_common_service_SordProvider",
+                "args": {
+                  "masks": [
+                    "Meeting Board Member"
+                  ],
+                  "search": [
+                    {
+                      "key": "SOL_TYPE",
+                      "value": [
+                        "MEMBER"
+                      ]
+                    },
+                    {
+                      "key": "MEETING_BOARD_MEMBER_STATUS",
+                      "value": "A -*"
+                    },
+                    {
+                      "key": "MEETING_BOARD_REFERENCE",
+                      "value": "{{sord.objKeys.MEETING_BOARD_REFERENCE}}"
+                    }
+                  ],
+                  "output": [
+                    {
+                      "source": {
+                        "type": "SORD",
+                        "key": "id"
+                      },
+                      "target": {
+                        "prop": "id"
+                      }
+                    },
+                    {
+                      "source": {
+                        "type": "GRP",
+                        "key": "MEETING_PERSON_FORM_OF_ADDRESS"
+                      },
+                      "target": {
+                        "prop": "formOfAddress"
+                      }
+                    },
+                    {
+                      "source": {
+                        "type": "GRP",
+                        "key": "MEETING_PERSON_TITLE"
+                      },
+                      "target": {
+                        "prop": "title"
+                      }
+                    },
+                    {
+                      "source": {
+                        "type": "GRP",
+                        "key": "MEETING_PERSON_FIRSTNAME"
+                      },
+                      "target": {
+                        "prop": "firstname"
+                      }
+                    },
+                    {
+                      "source": {
+                        "type": "GRP",
+                        "key": "MEETING_PERSON_LASTNAME"
+                      },
+                      "target": {
+                        "prop": "lastname"
+                      }
+                    },
+                    {
+                      "source": {
+                        "type": "GRP",
+                        "key": "MEETING_PERSON_EMAIL"
+                      },
+                      "target": {
+                        "prop": "email"
+                      }
+                    },
+                    {
+                      "source": {
+                        "type": "GRP",
+                        "key": "MEETING_PERSON_CONTACTLIST_NAME"
+                      },
+                      "target": {
+                        "prop": "contactlistName"
+                      }
+                    },
+                    {
+                      "source": {
+                        "type": "GRP",
+                        "key": "MEETING_PERSON_COMPANYNAME"
+                      },
+                      "target": {
+                        "prop": "companyname"
+                      }
+                    },
+                    {
+                      "source": {
+                        "type": "GRP",
+                        "key": "MEETING_PERSON_CONTACTLIST_REFERENCE"
+                      },
+                      "target": {
+                        "prop": "contactlistReference"
+                      }
+                    },
+                    {
+                      "source": {
+                        "type": "GRP",
+                        "key": "MEETING_PERSON_CONTACT_REFERENCE"
+                      },
+                      "target": {
+                        "prop": "contactReference"
+                      }
+                    },
+                    {
+                      "source": {
+                        "type": "GRP",
+                        "key": "MEETING_PERSON_USERNAME"
+                      },
+                      "target": {
+                        "prop": "username"
+                      }
+                    },
+                    {
+                      "source": {
+                        "type": "GRP",
+                        "key": "MEETING_PERSON_ELOUSERID"
+                      },
+                      "target": {
+                        "prop": "elouserId"
+                      }
+                    },
+                    {
+                      "source": {
+                        "type": "GRP",
+                        "key": "MEETING_BOARD_MEMBER_ROLE"
+                      },
+                      "target": {
+                        "prop": "role"
+                      }
+                    },
+                    {
+                      "source": {
+                        "type": "GRP",
+                        "key": "MEETING_INVITATION_STATUS"
+                      },
+                      "target": {
+                        "prop": "status"
+                      }
+                    }
+                  ]
+                }
+              },
+              "options": {
+                "elementArg": "data",
+                "sort": [
+                  {
+                    "prop": "data.role"
+                  },
+                  {
+                    "prop": "data.lastname"
+                  }
+                ],
+                "renderArgsWithElement": true,
+                "dryRun": false
+              },
+              "callback": {
+                "name": "RF_sol_function_Set",
+                "args": {
+                  "objId": "{{sord.id}}",
+                  "flowId": "{{flowId}}",
+                  "entries": [
+                    {
+                      "type": "WFMAP",
+                      "key": "MEETING_PERSON_FORM_OF_ADDRESS{{element.data.$mapIndex}}",
+                      "value": "{{{element.data.formOfAddress}}}"
+                    },
+                    {
+                      "type": "WFMAP",
+                      "key": "MEETING_PERSON_TITLE{{element.data.$mapIndex}}",
+                      "value": "{{{element.data.title}}}"
+                    },
+                    {
+                      "type": "WFMAP",
+                      "key": "MEETING_PERSON_LASTNAME{{element.data.$mapIndex}}",
+                      "value": "{{{element.data.lastname}}}"
+                    },
+                    {
+                      "type": "WFMAP",
+                      "key": "MEETING_PERSON_FIRSTNAME{{element.data.$mapIndex}}",
+                      "value": "{{{element.data.firstname}}}"
+                    },
+                    {
+                      "type": "WFMAP",
+                      "key": "MEETING_PERSON_EMAIL{{element.data.$mapIndex}}",
+                      "value": "{{{element.data.email}}}"
+                    },
+                    {
+                      "type": "WFMAP",
+                      "key": "MEETING_PERSON_CONTACTLIST_NAME{{element.data.$mapIndex}}",
+                      "value": "{{{element.data.contactlistName}}}"
+                    },
+                    {
+                      "type": "WFMAP",
+                      "key": "MEETING_PERSON_COMPANYNAME{{element.data.$mapIndex}}",
+                      "value": "{{{element.data.companyname}}}"
+                    },
+                    {
+                      "type": "WFMAP",
+                      "key": "MEETING_PERSON_CONTACTLIST_REFERENCE{{element.data.$mapIndex}}",
+                      "value": "{{{element.data.contactlistReference}}}"
+                    },
+                    {
+                      "type": "WFMAP",
+                      "key": "MEETING_PERSON_CONTACT_REFERENCE{{element.data.$mapIndex}}",
+                      "value": "{{{element.data.contactReference}}}"
+                    },
+                    {
+                      "type": "WFMAP",
+                      "key": "MEETING_PERSON_USERNAME{{element.data.$mapIndex}}",
+                      "value": "{{{element.data.username}}}"
+                    },
+                    {
+                      "type": "WFMAP",
+                      "key": "MEETING_PERSON_ELOUSERID{{element.data.$mapIndex}}",
+                      "value": "{{{element.data.elouserId}}}"
+                    },
+                    {
+                      "type": "WFMAP",
+                      "key": "MEETING_PARTICIPANT_ROLE{{element.data.$mapIndex}}",
+                      "value": "{{{element.data.role}}}"
+                    },
+                    {
+                      "type": "WFMAP",
+                      "key": "MEETING_PERSON_CRUD_STATUS{{element.data.$mapIndex}}",
+                      "value": "CREATE"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "move": {
+            "scriptProperties": {
+              "path": "ARCPATH:/Meeting-Management/Meetings/{{formatDate 'YYYY' sord.objKeys.MEETING_STARTDATE}}"
+            }
+          },
+          "moveToBoard": {
+            "scriptProperties": {
+              "path": "ARCPATH[{{sord.objKeys.MEETING_BOARD_REFERENCE}}]:/Meetings/{{formatDate 'YYYY' sord.objKeys.MEETING_STARTDATE}}",
+              "mask": "Meeting Board Structure"
+            }
+          },
+          "ruleEngine": {
+            "scriptProperties": {
+              "ruleKeys": [
+                "meetingApprovalRequired"
+              ],
+              "injectConfig": {
+                "elementService": {
+                  "config": "meetingBoard",
+                  "prop": "meetingBoards.services.GetBoardSettings",
+                  "template": true
+                }
+              },
+              "options": {
+                "elementArg": "board"
+              }
+            }
+          },
+          "forEachRepetition": {
+            "columns": {
+              "wfMap": [
+                "MEETING_REPETITION_NAME",
+                "MEETING_REPETITION_DATE",
+                "MEETING_REPETITION_START",
+                "MEETING_REPETITION_END"
+              ]
+            },
+            "options": {
+              "elementArg": "data",
+              "formatAsTemplateSord": true,
+              "renderArgsWithElement": true,
+              "dryRun": false
+            },
+            "callback": {
+              "name": "RF_sol_meeting_function_CreateMeetingHeadless",
+              "args": {
+                "meetingBoardId": "{{sord.objKeys.MEETING_BOARD_REFERENCE}}",
+                "template": {
+                  "name": "Default"
+                },
+                "sordMetadata": {
+                  "objKeys": {
+                    "MEETING_NAME": "{{element.data.MEETING_REPETITION_NAME}}",
+                    "MEETING_STARTDATE": "{{element.data.MEETING_REPETITION_DATE}}",
+                    "MEETING_ENDDATE": "{{element.data.MEETING_REPETITION_DATE}}",
+                    "MEETING_TIMESLOT_DAY": "{{element.data.MEETING_REPETITION_DATE}}",
+                    "MEETING_TIMESLOT_START": "{{element.data.MEETING_REPETITION_START}}",
+                    "MEETING_TIMESLOT_END": "{{element.data.MEETING_REPETITION_END}}"
+                  },
+                  "mapKeys": {
+                    "MEETING_TIMESLOT_DAY1": "{{element.data.MEETING_REPETITION_DATE}}",
+                    "MEETING_TIMESLOT_START1": "{{element.data.MEETING_REPETITION_START}}",
+                    "MEETING_TIMESLOT_END1": "{{element.data.MEETING_REPETITION_END}}"
+                  }
+                }
+              }
+            }
+          },
+          "repetitionDecision": {
+            "checks": [
+              {
+                "type": "WFMAP",
+                "key": "MEETING_REPETITION_CREATE",
+                "regex": "1"
+              }
+            ],
+            "trueStatus": "REPEATED",
+            "falseStatus": "NOT_REPEATED"
+          }
+        }
+      },
+      "services": {
+        "getMeeting": {
+          "name": "RF_sol_common_service_SordProvider",
+          "args": {
+            "masks": [
+              "MEETING"
+            ],
+            "search": [
+              {
+                "key": "SOL_TYPE",
+                "value": [
+                  "MEETING"
+                ]
+              },
+              {
+                "key": "MEETING_REFERENCE",
+                "value": "{{sord.objKeys.MEETING_REFERENCE}}"
+              }
+            ],
+            "output": {
+              "formatter": "sol.common.ObjectFormatter.TemplateSord",
+              "config": {
+                "sordKeys": [
+                  "id",
+                  "name",
+                  "ownerName"
+                ]
+              }
+            },
+            "options": {
+              "allowEmptyMask": true
+            }
+          }
+        },
+        "getmeetings": {
+          "meetings": {
+            "masks": [
+              ""
+            ],
+            "search": [
+              {
+                "key": "SOL_TYPE",
+                "value": [
+                  "MEETING"
+                ]
+              }
+            ],
+            "output": [
+              {
+                "source": {
+                  "type": "SORD",
+                  "key": "guid"
+                },
+                "target": {
+                  "prop": "guid"
+                }
+              },
+              {
+                "source": {
+                  "type": "GRP",
+                  "key": "MEETING_REFERENCE"
+                },
+                "target": {
+                  "prop": "MEETING_REFERENCE"
+                }
+              },
+              {
+                "source": {
+                  "type": "GRP",
+                  "key": "MEETING_NAME"
+                },
+                "target": {
+                  "prop": "MEETING_NAME"
+                }
+              },
+              {
+                "source": {
+                  "type": "GRP",
+                  "key": "MEETING_STATUS"
+                },
+                "target": {
+                  "prop": "MEETING_STATUS"
+                }
+              },
+              {
+                "source": {
+                  "type": "GRP",
+                  "key": "MEETING_STARTDATE"
+                },
+                "target": {
+                  "prop": "MEETING_STARTDATE"
+                }
+              },
+              {
+                "source": {
+                  "type": "GRP",
+                  "key": "MEETING_ENDDATE"
+                },
+                "target": {
+                  "prop": "MEETING_ENDDATE"
+                }
+              },
+              {
+                "source": {
+                  "type": "GRP",
+                  "key": "MEETING_LOCATION"
+                },
+                "target": {
+                  "prop": "MEETING_LOCATION"
+                }
+              },
+              {
+                "source": {
+                  "type": "GRP",
+                  "key": "MEETING_TIMESLOT_DAY"
+                },
+                "target": {
+                  "prop": "MEETING_TIMESLOT_DAY"
+                }
+              },
+              {
+                "source": {
+                  "type": "GRP",
+                  "key": "MEETING_TIMESLOT_START"
+                },
+                "target": {
+                  "prop": "MEETING_TIMESLOT_START"
+                }
+              },
+              {
+                "source": {
+                  "type": "GRP",
+                  "key": "MEETING_TIMESLOT_END"
+                },
+                "target": {
+                  "prop": "MEETING_TIMESLOT_END"
+                }
+              },
+              {
+                "source": {
+                  "type": "GRP",
+                  "key": "MEETING_BOARD_NAME"
+                },
+                "target": {
+                  "prop": "MEETING_BOARD_NAME"
+                }
+              }
+            ],
+            "options": {
+              "allowEmptyMask": true,
+              "formatAsTemplateSord": false
+            },
+            "coverImageSize": "tiny"
+          },
+          "meetingsMin": {
+            "masks": [
+              ""
+            ],
+            "search": [
+              {
+                "key": "SOL_TYPE",
+                "value": [
+                  "MEETING"
+                ]
+              }
+            ],
+            "output": [
+              {
+                "source": {
+                  "type": "SORD",
+                  "key": "guid"
+                },
+                "target": {
+                  "prop": "guid"
+                }
+              },
+              {
+                "source": {
+                  "type": "GRP",
+                  "key": "MEETING_REFERENCE"
+                },
+                "target": {
+                  "prop": "MEETING_REFERENCE"
+                }
+              },
+              {
+                "source": {
+                  "type": "GRP",
+                  "key": "MEETING_NAME"
+                },
+                "target": {
+                  "prop": "MEETING_NAME"
+                }
+              }
+            ],
+            "options": {
+              "allowEmptyMask": true,
+              "formatAsTemplateSord": false
+            },
+            "coverImageSize": "tiny"
+          },
+          "participants": {
+            "masks": [
+              ""
+            ],
+            "search": [
+              {
+                "key": "SOL_TYPE",
+                "value": [
+                  "PARTICIPANT"
+                ]
+              }
+            ],
+            "output": [
+              {
+                "source": {
+                  "type": "SORD",
+                  "key": "guid"
+                },
+                "target": {
+                  "prop": "guid"
+                }
+              },
+              {
+                "source": {
+                  "type": "GRP",
+                  "key": "MEETING_REFERENCE"
+                },
+                "target": {
+                  "prop": "MEETING_REFERENCE"
+                }
+              },
+              {
+                "source": {
+                  "type": "GRP",
+                  "key": "MEETING_INVITATION_STATUS"
+                },
+                "target": {
+                  "prop": "MEETING_INVITATION_STATUS"
+                }
+              },
+              {
+                "source": {
+                  "type": "GRP",
+                  "key": "MEETING_PARTICIPANT_ROLE"
+                },
+                "target": {
+                  "prop": "MEETING_PARTICIPANT_ROLE"
+                }
+              },
+              {
+                "source": {
+                  "type": "GRP",
+                  "key": "MEETING_PERSON_ELOUSERID"
+                },
+                "target": {
+                  "prop": "MEETING_PERSON_ELOUSERID"
+                }
+              },
+              {
+                "source": {
+                  "type": "GRP",
+                  "key": "MEETING_PERSON_FIRSTNAME"
+                },
+                "target": {
+                  "prop": "MEETING_PERSON_FIRSTNAME"
+                }
+              },
+              {
+                "source": {
+                  "type": "GRP",
+                  "key": "MEETING_PERSON_LASTNAME"
+                },
+                "target": {
+                  "prop": "MEETING_PERSON_LASTNAME"
+                }
+              },
+              {
+                "source": {
+                  "type": "GRP",
+                  "key": "MEETING_PERSON_EMAIL"
+                },
+                "target": {
+                  "prop": "MEETING_PERSON_EMAIL"
+                }
+              },
+              {
+                "source": {
+                  "type": "GRP",
+                  "key": "MEETING_PERSON_TITLE"
+                },
+                "target": {
+                  "prop": "MEETING_PERSON_TITLE"
+                }
+              },
+              {
+                "source": {
+                  "type": "GRP",
+                  "key": "MEETING_PERSON_TYPE"
+                },
+                "target": {
+                  "prop": "MEETING_PERSON_TYPE"
+                }
+              }
+            ],
+            "options": {
+              "findDirect": false,
+              "formatAsTemplateSord": false,
+              "allowEmptyMask": true
+            }
+          },
+          "participantsMin": {
+            "masks": [
+              ""
+            ],
+            "search": [
+              {
+                "key": "SOL_TYPE",
+                "value": [
+                  "PARTICIPANT"
+                ]
+              }
+            ],
+            "output": [
+              {
+                "source": {
+                  "type": "SORD",
+                  "key": "guid"
+                },
+                "target": {
+                  "prop": "guid"
+                }
+              },
+              {
+                "source": {
+                  "type": "GRP",
+                  "key": "MEETING_REFERENCE"
+                },
+                "target": {
+                  "prop": "MEETING_REFERENCE"
+                }
+              },
+              {
+                "source": {
+                  "type": "GRP",
+                  "key": "MEETING_INVITATION_STATUS"
+                },
+                "target": {
+                  "prop": "MEETING_INVITATION_STATUS"
+                }
+              },
+              {
+                "source": {
+                  "type": "GRP",
+                  "key": "MEETING_PERSON_ELOUSERID"
+                },
+                "target": {
+                  "prop": "MEETING_PERSON_ELOUSERID"
+                }
+              },
+              {
+                "source": {
+                  "type": "GRP",
+                  "key": "MEETING_PERSON_FIRSTNAME"
+                },
+                "target": {
+                  "prop": "MEETING_PERSON_FIRSTNAME"
+                }
+              },
+              {
+                "source": {
+                  "type": "GRP",
+                  "key": "MEETING_PERSON_LASTNAME"
+                },
+                "target": {
+                  "prop": "MEETING_PERSON_LASTNAME"
+                }
+              },
+              {
+                "source": {
+                  "type": "GRP",
+                  "key": "MEETING_PERSON_EMAIL"
+                },
+                "target": {
+                  "prop": "MEETING_PERSON_EMAIL"
+                }
+              }
+            ],
+            "options": {
+              "findDirect": false,
+              "formatAsTemplateSord": false,
+              "allowEmptyMask": true
+            }
+          },
+          "participations": {
+            "masks": [
+              ""
+            ],
+            "search": [
+              {
+                "key": "SOL_TYPE",
+                "value": [
+                  "PARTICIPANT"
+                ]
+              }
+            ],
+            "output": [
+              {
+                "source": {
+                  "type": "SORD",
+                  "key": "guid"
+                },
+                "target": {
+                  "prop": "guid"
+                }
+              },
+              {
+                "source": {
+                  "type": "GRP",
+                  "key": "MEETING_REFERENCE"
+                },
+                "target": {
+                  "prop": "MEETING_REFERENCE"
+                }
+              },
+              {
+                "source": {
+                  "type": "GRP",
+                  "key": "MEETING_INVITATION_STATUS"
+                },
+                "target": {
+                  "prop": "MEETING_INVITATION_STATUS"
+                }
+              },
+              {
+                "source": {
+                  "type": "GRP",
+                  "key": "MEETING_PARTICIPANT_ROLE"
+                },
+                "target": {
+                  "prop": "MEETING_PARTICIPANT_ROLE"
+                }
+              }
+            ],
+            "options": {
+              "findDirect": false,
+              "formatAsTemplateSord": false,
+              "allowEmptyMask": true
+            }
+          },
+          "participationsMin": {
+            "masks": [
+              ""
+            ],
+            "search": [
+              {
+                "key": "SOL_TYPE",
+                "value": [
+                  "PARTICIPANT"
+                ]
+              }
+            ],
+            "output": [
+              {
+                "source": {
+                  "type": "SORD",
+                  "key": "guid"
+                },
+                "target": {
+                  "prop": "guid"
+                }
+              },
+              {
+                "source": {
+                  "type": "GRP",
+                  "key": "MEETING_REFERENCE"
+                },
+                "target": {
+                  "prop": "MEETING_REFERENCE"
+                }
+              },
+              {
+                "source": {
+                  "type": "GRP",
+                  "key": "MEETING_INVITATION_STATUS"
+                },
+                "target": {
+                  "prop": "MEETING_INVITATION_STATUS"
+                }
+              }
+            ],
+            "options": {
+              "findDirect": false,
+              "formatAsTemplateSord": false,
+              "allowEmptyMask": true
+            }
+          }
+        },
+        "findMeetingsByBoard": {
+          "masks": [
+            "Meeting"
+          ],
+          "search": [
+            {
+              "key": "SOL_TYPE",
+              "value": "Meeting"
+            },
+            {
+              "key": "MEETING_BOARD_CODE",
+              "value": "{{sord.objKeys.MEETING_BOARD_CODE}}"
+            }
+          ],
+          "options": {}
+        },
+        "getParticipants": {
+          "search": {
+            "masks": [
+              "Meeting Participant"
+            ],
+            "search": [
+              {
+                "key": "SOL_TYPE",
+                "value": "PARTICIPANT"
+              },
+              {
+                "key": "MEETING_REFERENCE",
+                "value": "{{source.objKeys.MEETING_REFERENCE}}"
+              }
+            ],
+            "output": [
+              {
+                "source": {
+                  "type": "GRP",
+                  "key": "MEETING_PERSON_EMAIL"
+                },
+                "target": {
+                  "prop": "MEETING_PERSON_EMAIL"
+                }
+              },
+              {
+                "source": {
+                  "type": "GRP",
+                  "key": "MEETING_PERSON_LASTNAME"
+                },
+                "target": {
+                  "prop": "MEETING_PERSON_LASTNAME"
+                }
+              },
+              {
+                "source": {
+                  "type": "GRP",
+                  "key": "MEETING_PERSON_FIRSTNAME"
+                },
+                "target": {
+                  "prop": "MEETING_PERSON_FIRSTNAME"
+                }
+              },
+              {
+                "source": {
+                  "type": "GRP",
+                  "key": "MEETING_PERSON_ELOUSERID"
+                },
+                "target": {
+                  "prop": "MEETING_PERSON_ELOUSERID"
+                }
+              },
+              {
+                "source": {
+                  "type": "GRP",
+                  "key": "MEETING_PARTICIPANT_ROLE"
+                },
+                "target": {
+                  "prop": "MEETING_PARTICIPANT_ROLE"
+                }
+              },
+              {
+                "source": {
+                  "type": "GRP",
+                  "key": "MEETING_INVITATION_STATUS"
+                },
+                "target": {
+                  "prop": "MEETING_INVITATION_STATUS"
+                }
+              }
+            ]
+          }
+        },
+        "getParticipantsEloUserIds": {
+          "name": "RF_sol_common_service_SordProvider",
+          "args": {
+            "masks": [
+              "Meeting Participant"
+            ],
+            "search": [
+              {
+                "key": "SOL_TYPE",
+                "value": "PARTICIPANT"
+              },
+              {
+                "key": "MEETING_REFERENCE",
+                "value": "{{sord.objKeys.MEETING_REFERENCE}}"
+              }
+            ],
+            "output": [
+              {
+                "source": {
+                  "type": "GRP",
+                  "key": "MEETING_PERSON_ELOUSERID"
+                },
+                "target": {
+                  "prop": "MEETING_PERSON_ELOUSERID"
+                }
+              }
+            ],
+            "filter": [
+              {
+                "prop": "objKeys.MEETING_PERSON_ELOUSERID",
+                "value": ".*"
+              }
+            ],
+            "options": {}
+          }
+        },
+        "getItems": {
+          "masks": [
+            "Meeting Item",
+            "Meeting Item Structural"
+          ],
+          "search": [
+            {
+              "key": "SOL_TYPE",
+              "value": [
+                "MEETING_ITEM",
+                "STRUCTURAL_ITEM",
+                "MEETING_ITEM_CONTAINER"
+              ]
+            },
+            {
+              "key": "MEETING_REFERENCE",
+              "value": "{{sord.objKeys.MEETING_REFERENCE}}"
+            }
+          ]
+        },
+        "getAgendaPool": {
+          "masks": [
+            "Meeting Item",
+            "Meeting Item Structural"
+          ],
+          "search": [
+            {
+              "key": "SOL_TYPE",
+              "value": [
+                "MEETING_ITEM",
+                "STRUCTURAL_ITEM"
+              ]
+            },
+            {
+              "key": "MEETING_REFERENCE",
+              "value": "{{sord.objKeys.MEETING_REFERENCE}}"
+            },
+            {
+              "key": "MEETING_ITEM_DAY",
+              "value": "0"
+            }
+          ]
+        },
+        "GetMeetingItemListFolder": {
+          "masks": [
+            "Meeting Structure"
+          ],
+          "search": [
+            {
+              "key": "SOL_TYPE",
+              "value": "MEETING_ITEM_LIST"
+            },
+            {
+              "key": "MEETING_REFERENCE",
+              "value": "{{sord.objKeys.MEETING_REFERENCE}}"
+            }
+          ],
+          "options": {
+            "maxResults": 1,
+            "optimizationName": "meeting-item-list",
+            "returnFirst": true
+          }
+        },
+        "GetMeetingParticipantListFolder": {
+          "masks": [
+            "Meeting Structure"
+          ],
+          "search": [
+            {
+              "key": "SOL_TYPE",
+              "value": "MEETING_PARTICIPANT_LIST"
+            },
+            {
+              "key": "MEETING_REFERENCE",
+              "value": "{{sord.objKeys.MEETING_REFERENCE}}"
+            }
+          ],
+          "options": {
+            "maxResults": 1,
+            "optimizationName": "meeting-participant-list",
+            "returnFirst": true
+          }
+        },
+        "GetMeetingBoardMemberListFolder": {
+          "masks": [
+            "Meeting Board Structure"
+          ],
+          "search": [
+            {
+              "key": "SOL_TYPE",
+              "value": "MEETING_BOARD_MEMBER_LIST"
+            },
+            {
+              "key": "MEETING_BOARD_CODE",
+              "value": "{{sord.objKeys.MEETING_BOARD_CODE}}"
+            }
+          ],
+          "options": {
+            "maxResults": 1,
+            "optimizationName": "meeting-board-member-list",
+            "returnFirst": true
+          }
+        }
+      },
+      "outputs": {
+        "meetingFull": [
+          {
+            "source": {
+              "type": "SORD",
+              "key": "id"
+            },
+            "target": {
+              "prop": "id"
+            }
+          },
+          {
+            "source": {
+              "type": "SORD",
+              "key": "guid"
+            },
+            "target": {
+              "prop": "guid"
+            }
+          },
+          {
+            "source": {
+              "type": "SORD",
+              "key": "desc"
+            },
+            "target": {
+              "prop": "desc"
+            }
+          },
+          {
+            "source": {
+              "type": "GRP",
+              "key": "SOL_TYPE"
+            },
+            "target": {
+              "prop": "solType"
+            }
+          },
+          {
+            "source": {
+              "type": "GRP",
+              "key": "MEETING_REFERENCE"
+            },
+            "target": {
+              "prop": "referenceId"
+            }
+          },
+          {
+            "source": {
+              "type": "GRP",
+              "key": "MEETING_NAME"
+            },
+            "target": {
+              "prop": "name"
+            }
+          },
+          {
+            "source": {
+              "type": "GRP",
+              "key": "MEETING_BOARD_NAME"
+            },
+            "target": {
+              "prop": "boardName"
+            }
+          },
+          {
+            "source": {
+              "type": "GRP",
+              "key": "MEETING_BOARD_REFERENCE"
+            },
+            "target": {
+              "prop": "boardReference"
+            }
+          },
+          {
+            "source": {
+              "type": "GRP",
+              "key": "MEETING_STATUS"
+            },
+            "target": {
+              "prop": "status"
+            }
+          },
+          {
+            "source": {
+              "type": "GRP",
+              "key": "MEETING_STARTDATE"
+            },
+            "target": {
+              "prop": "startdate"
+            }
+          },
+          {
+            "source": {
+              "type": "GRP",
+              "key": "MEETING_ENDDATE"
+            },
+            "target": {
+              "prop": "enddate"
+            }
+          },
+          {
+            "source": {
+              "type": "GRP",
+              "key": "MEETING_LOCATION"
+            },
+            "target": {
+              "prop": "location"
+            }
+          },
+          {
+            "source": {
+              "type": "GRP",
+              "key": "MEETING_ROOM"
+            },
+            "target": {
+              "prop": "room"
+            }
+          },
+          {
+            "source": {
+              "type": "GRP",
+              "key": "MEETING_TIMESLOT_DAY"
+            },
+            "target": {
+              "prop": "gTimeSlotDay"
+            }
+          },
+          {
+            "source": {
+              "type": "GRP",
+              "key": "MEETING_TIMESLOT_START"
+            },
+            "target": {
+              "prop": "gTimeSlotStart"
+            }
+          },
+          {
+            "source": {
+              "type": "GRP",
+              "key": "MEETING_TIMESLOT_END"
+            },
+            "target": {
+              "prop": "gTimeSlotEnd"
+            }
+          },
+          {
+            "source": {
+              "type": "MAP",
+              "key": "MEETING_TIMESLOT_DAY*"
+            },
+            "target": {
+              "prop": "timeslotDay"
+            }
+          },
+          {
+            "source": {
+              "type": "MAP",
+              "key": "MEETING_TIMESLOT_START*"
+            },
+            "target": {
+              "prop": "timeslotBegin"
+            }
+          },
+          {
+            "source": {
+              "type": "MAP",
+              "key": "MEETING_TIMESLOT_END*"
+            },
+            "target": {
+              "prop": "timeslotEnd"
+            }
+          },
+          {
+            "source": {
+              "type": "SORD",
+              "key": "aclItems"
+            },
+            "target": {
+              "prop": "accessCode"
+            }
+          },
+          {
+            "source": {
+              "type": "GRP",
+              "key": "MEETING_BOARD_ADMIN_GROUP"
+            },
+            "target": {
+              "prop": "adminGroup"
+            }
+          }
+        ],
+        "minSord": [
+          {
+            "source": {
+              "type": "SORD",
+              "key": "id"
+            },
+            "target": {
+              "prop": "id"
+            }
+          },
+          {
+            "source": {
+              "type": "SORD",
+              "key": "name"
+            },
+            "target": {
+              "prop": "name"
+            }
+          }
+        ]
+      },
+      "roles": {
+        "availableRoles": [
+          {
+            "name": "sol.meeting.roles.Organizer"
+          },
+          {
+            "name": "sol.meeting.roles.StandardUsers"
+          },
+          {
+            "name": "sol.meeting.roles.Administration"
+          }
+        ]
+      },
+      "fields": {
+        "MEETING_NAME": {
+          "defaultValue": "Default"
+        },
+        "SOL_TYPE": {
+          "defaultValue": "MEETING"
+        },
+        "MEETING_TIMESLOT_START1": {
+          "defaultValue": "0900"
+        },
+        "MEETING_TIMESLOT_END1": {
+          "defaultValue": "1700"
+        }
+      }
+    },
+    "meetingitem": {
+      "actions": {
+        "createheadless": {
+          "const": {
+            "templateService": "RF_sol_common_service_StandardTypes",
+            "templateServiceArgs": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/meeting/Configuration/Meeting item types"
+          }
+        }
+      },
+      "functions": {},
+      "generators": {
+        "meetingitemno": {
+          "type": "generator",
+          "generatorConfig": {
+            "generatorTemplateField": "MEETING_ITEM_NO_GEN",
+            "templatesFolder": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/meeting/Configuration/Generators/Meeting item no",
+            "targetField": "MEETING_ITEM_ID"
+          },
+          "kwlConfig": {}
+        },
+        "meetingitemshortdescription": {
+          "type": "generator",
+          "generatorConfig": {
+            "generatorTemplateField": "MEETING_ITEM_SHORT_DESC_GEN",
+            "templatesFolder": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/meeting/Configuration/Generators/Meeting item short desc"
+          }
+        }
+      },
+      "workflowMixins": {
+        "withdraw": {
+          "reset": {
+            "scriptProperties": {
+              "entries": [
+                {
+                  "type": "GRP",
+                  "key": "MEETING_REFERENCE"
+                },
+                {
+                  "type": "GRP",
+                  "key": "MEETING_NAME"
+                },
+                {
+                  "type": "MAP",
+                  "key": "MEETING_GUID"
+                },
+                {
+                  "type": "GRP",
+                  "key": "MEETING_ITEM_START"
+                },
+                {
+                  "type": "GRP",
+                  "key": "MEETING_ITEM_END"
+                },
+                {
+                  "type": "GRP",
+                  "key": "MEETING_ITEM_DAY"
+                },
+                {
+                  "type": "GRP",
+                  "key": "MEETING_ITEM_PARENT"
+                },
+                {
+                  "type": "GRP",
+                  "key": "MEETING_AGENDA_POSITION"
+                },
+                {
+                  "type": "GRP",
+                  "key": "MEETING_ITEM_OUTLINENUMBER"
+                },
+                {
+                  "type": "GRP",
+                  "key": "MEETING_STARTDATE"
+                },
+                {
+                  "type": "GRP",
+                  "key": "MEETING_ENDDATE"
+                },
+                {
+                  "type": "GRP",
+                  "key": "MEETING_ITEM_LINK"
+                }
+              ]
+            }
+          },
+          "status": {
+            "scriptProperties": {
+              "entries": [
+                {
+                  "type": "GRP",
+                  "key": "MEETING_ITEM_STATUS",
+                  "value": "D",
+                  "useDynKwl": true,
+                  "dynKwlCfg": {
+                    "returnColumn": 2,
+                    "filterColumn": 0
+                  }
+                }
+              ]
+            }
+          },
+          "changerights": {
+            "scriptProperties": {
+              "users": [
+                {
+                  "type": "GRP",
+                  "key": "MEETING_ITEM_SPEAKER",
+                  "rights": {
+                    "r": true,
+                    "w": true,
+                    "e": true,
+                    "d": true,
+                    "l": true,
+                    "p": true
+                  }
+                },
+                {
+                  "type": "GRP",
+                  "key": "MEETING_ITEM_RESPONSIBLE_PERSON",
+                  "rights": {
+                    "r": true,
+                    "w": true,
+                    "e": true,
+                    "d": true,
+                    "l": true,
+                    "p": true
+                  }
+                }
+              ],
+              "recursive": false,
+              "mode": "SET"
+            }
+          }
+        }
+      },
+      "services": {
+        "getmeetingitemtypes": {
+          "cmdLink": {
+            "output": [
+              {
+                "source": {
+                  "type": "SORD",
+                  "key": "id"
+                },
+                "target": {
+                  "prop": "objId"
+                }
+              },
+              {
+                "source": {
+                  "type": "SORD",
+                  "key": "name"
+                },
+                "target": {
+                  "prop": "name"
+                }
+              },
+              {
+                "source": {
+                  "type": "SORD",
+                  "key": "desc"
+                },
+                "target": {
+                  "prop": "desc"
+                }
+              },
+              {
+                "source": {
+                  "type": "MAP",
+                  "key": "LOCALE_MEETING_ITEM_TYPE"
+                },
+                "target": {
+                  "prop": "locale_name"
+                }
+              },
+              {
+                "source": {
+                  "type": "MAP",
+                  "key": "LOCALE_MEETING_ITEM_DESC"
+                },
+                "target": {
+                  "prop": "locale_desc"
+                }
+              }
+            ]
+          },
+          "infos": {
+            "output": [
+              {
+                "source": {
+                  "type": "SORD",
+                  "key": "id"
+                },
+                "target": {
+                  "prop": "id"
+                }
+              },
+              {
+                "source": {
+                  "type": "SORD",
+                  "key": "guid"
+                },
+                "target": {
+                  "prop": "guid"
+                }
+              },
+              {
+                "source": {
+                  "type": "SORD",
+                  "key": "name"
+                },
+                "target": {
+                  "prop": "name"
+                }
+              },
+              {
+                "source": {
+                  "type": "SORD",
+                  "key": "desc"
+                },
+                "target": {
+                  "prop": "desc"
+                }
+              },
+              {
+                "source": {
+                  "type": "MAP",
+                  "key": "LOCALE_*"
+                },
+                "target": {
+                  "prop": "*"
+                }
+              },
+              {
+                "source": {
+                  "type": "MAP",
+                  "key": "SETTING_*"
+                },
+                "target": {
+                  "prop": "*"
+                }
+              }
+            ],
+            "options": {
+              "formatAsTemplateSord": true
+            }
+          }
+        },
+        "actioncheck": {
+          "withdraw": {
+            "meeting": {
+              "key": "SOL_TYPE",
+              "value": [
+                "MEETING"
+              ],
+              "message": "{{translate 'sol.meeting.item.withdraw.meeting.missing'}}"
+            },
+            "message": "{{translate 'sol.meeting.item.withdraw.meeting.status'}}",
+            "allowed": [
+              {
+                "key": "{{meeting.objKeys.MEETING_STATUS}}",
+                "mode": "STARTSWITH",
+                "value": [
+                  "A - ",
+                  "D - "
+                ],
+                "rules": [
+                  {
+                    "mode": "AND",
+                    "rules": [
+                      {
+                        "mode": "OR",
+                        "rules": [
+                          {
+                            "key": "{{sord.ownerName}}",
+                            "mode": "EQUALS",
+                            "value": "{{currentUser}}"
+                          },
+                          {
+                            "key": "{{sord.objKeys.MEETING_ITEM_RESPONSIBLE_PERSON}}",
+                            "mode": "EQUALS",
+                            "value": "{{currentUser}}"
+                          },
+                          {
+                            "key": "{{sord.objKeys.MEETING_ITEM_SPEAKER}}",
+                            "mode": "EQUALS",
+                            "value": "{{currentUser}}"
+                          },
+                          {
+                            "key": "{{meetingBoard.objKeys.MEETING_BOARD_ORGANIZER}}",
+                            "mode": "EQUALS",
+                            "value": "{{currentUser}}"
+                          }
+                        ]
+                      },
+                      {
+                        "key": "{{proposal.objKeys.MEETING_PROPOSAL_STATUS}}",
+                        "mode": "NOT_STARTSWITH",
+                        "value": "I -"
+                      }
+                    ]
+                  }
+                ],
+                "message": "{{translate 'sol.meeting.item.withdraw.responsible'}}"
+              },
+              {
+                "key": "{{meeting.objKeys.MEETING_STATUS}}",
+                "mode": "STARTSWITH",
+                "value": "S - ",
+                "rules": [
+                  {
+                    "mode": "AND",
+                    "rules": [
+                      {
+                        "mode": "OR",
+                        "rules": [
+                          {
+                            "key": "{{meeting.owner}}",
+                            "mode": "EQUALS",
+                            "value": "{{currentUser}}"
+                          },
+                          {
+                            "key": "{{meetingBoard.objKeys.MEETING_BOARD_ORGANIZER}}",
+                            "mode": "EQUALS",
+                            "value": "{{currentUser}}"
+                          }
+                        ]
+                      },
+                      {
+                        "key": "{{proposal.objKeys.MEETING_PROPOSAL_STATUS}}",
+                        "mode": "NOT_STARTS_WITH",
+                        "value": "I -"
+                      }
+                    ]
+                  }
+                ],
+                "message": "{{translate 'sol.meeting.item.withdraw.meeting.started'}}"
+              }
+            ]
+          },
+          "register": {
+            "meeting": {
+              "key": "SOL_TYPE",
+              "value": [
+                "MEETING"
+              ],
+              "message": "{{translate 'sol.meeting.item.register.meeting'}}"
+            },
+            "allowed": {
+              "rules": [
+                {
+                  "mode": "AND",
+                  "rules": [
+                    {
+                      "mode": "OR",
+                      "rules": [
+                        {
+                          "key": "{{sord.ownerName}}",
+                          "mode": "EQUALS",
+                          "value": "{{currentUser}}"
+                        },
+                        {
+                          "key": "{{sord.objKeys.MEETING_ITEM_RESPONSIBLE_PERSON}}",
+                          "mode": "EQUALS",
+                          "value": "{{currentUser}}"
+                        },
+                        {
+                          "key": "{{sord.objKeys.MEETING_ITEM_SPEAKER}}",
+                          "mode": "EQUALS",
+                          "value": "{{currentUser}}"
+                        }
+                      ]
+                    },
+                    {
+                      "key": "{{proposal.objKeys.MEETING_PROPOSAL_STATUS}}",
+                      "mode": "NOT_STARTSWITH",
+                      "value": "I -"
+                    }
+                  ]
+                }
+              ],
+              "message": "{{translate 'sol.meeting.item.register.responsible'}}"
+            }
+          }
+        },
+        "getMeetingItem": {
+          "masks": [
+            "Meeting Item"
+          ],
+          "search": [
+            {
+              "key": "MEETING_ITEM_ID",
+              "value": "{{sord.objKeys.MEETING_ITEM_ID}}"
+            }
+          ]
+        }
+      }
+    },
+    "meetingBoard": {
+      "dynkwls": {
+        "meetingContact": {
+          "solType": "CONTACT",
+          "searchParams": [
+            {
+              "name": "WF_MAP_MEETING_PERSON_LASTNAME{i}",
+              "searchName": "CONTACT_LASTNAME",
+              "mode": "STARTS_WITH"
+            },
+            {
+              "name": "WF_MAP_MEETING_PERSON_FIRSTNAME{i}",
+              "searchName": "CONTACT_FIRSTNAME",
+              "mode": "STARTS_WITH"
+            },
+            {
+              "name": "WF_MAP_MEETING_PERSON_EMAIL{i}",
+              "searchName": "CONTACT_EMAIL",
+              "mode": "STARTS_WITH"
+            },
+            {
+              "name": "WF_MAP_MEETING_PERSON_CONTACTLIST_NAME{i}",
+              "searchName": "CONTACTLIST_NAME",
+              "mode": "STARTS_WITH"
+            },
+            {
+              "name": "WF_MAP_MEETING_PERSON_COMPANYNAME{i}",
+              "searchName": "COMPANY_NAME",
+              "mode": "STARTS_WITH",
+              "emptyAllowed": true
+            }
+          ],
+          "tableTitle": "{{translate 'sol.meeting.dynkwl.contact.tableTitle'}}",
+          "tableHeaders": [
+            null,
+            null,
+            "{{translate 'sol.meeting.dynkwl.person.lastname'}}",
+            "{{translate 'sol.meeting.dynkwl.person.firstname'}}",
+            "{{translate 'sol.meeting.dynkwl.person.mail'}}",
+            null,
+            "{{translate 'sol.meeting.dynkwl.person.contactlistName'}}",
+            null,
+            "{{translate 'sol.meeting.dynkwl.person.companyname'}}",
+            null,
+            null
+          ],
+          "tableKeyNames": [
+            "WF_MAP_MEETING_PERSON_FORM_OF_ADDRESS{i}",
+            "WF_MAP_MEETING_PERSON_TITLE{i}",
+            "WF_MAP_MEETING_PERSON_LASTNAME{i}",
+            "WF_MAP_MEETING_PERSON_FIRSTNAME{i}",
+            "WF_MAP_MEETING_PERSON_EMAIL{i}",
+            "WF_MAP_MEETING_PERSON_CONTACT_REFERENCE{i}",
+            "WF_MAP_MEETING_PERSON_CONTACTLIST_NAME{i}",
+            "WF_MAP_MEETING_PERSON_CONTACTLIST_REFERENCE{i}",
+            "WF_MAP_MEETING_PERSON_COMPANYNAME{i}",
+            "WF_MAP_MEETING_PERSON_USERNAME{i}",
+            "WF_MAP_MEETING_PERSON_ELOUSERID{i}"
+          ],
+          "rowDataFields": [
+            "CONTACT_FORM_OF_ADDRESS",
+            "CONTACT_TITLE",
+            "CONTACT_LASTNAME",
+            "CONTACT_FIRSTNAME",
+            "CONTACT_EMAIL",
+            "CONTACT_REFERENCE",
+            "CONTACTLIST_NAME",
+            "CONTACTLIST_REFERENCE",
+            "COMPANY_NAME",
+            "CONTACT_USERNAME",
+            "USERINFO.id"
+          ]
+        },
+        "formOfAddress": {
+          "tableTitle": "{{translate 'sol.meeting.dynkwl.formOfAddress.tableTitle'}}",
+          "tableHeaders": [
+            "{{translate 'sol.meeting.dynkwl.formOfAddress.tableHeader'}}"
+          ],
+          "tableKeyNames": [
+            "WF_MAP_MEETING_PERSON_FORM_OF_ADDRESS{i}"
+          ],
+          "parentId": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/meeting/Configuration/Person Form Of Addresses"
+        }
+      },
+      "workflowMixins": {
+        "invite": {
+          "setDefaults": {
+            "scriptProperties": {
+              "entries": [
+                {
+                  "type": "GRP",
+                  "key": "MEETING_BOARD_MEMBER_ROLE",
+                  "value": "M",
+                  "useDynKwl": true
+                }
+              ]
+            }
+          }
+        },
+        "collectMeetings": {
+          "scriptProperties": {
+            "elementService": {
+              "name": "RF_sol_common_service_SordProvider",
+              "args": {
+                "masks": [
+                  "Meeting"
+                ],
+                "search": [
+                  {
+                    "key": "SOL_TYPE",
+                    "value": [
+                      "MEETING"
+                    ]
+                  },
+                  {
+                    "key": "MEETING_BOARD_CODE",
+                    "value": "{{sord.objKeys.MEETING_BOARD_CODE}}"
+                  },
+                  {
+                    "key": "MEETING_STARTDATE",
+                    "value": "{{now pattern='YYYYMMDD'}}...",
+                    "type": "date"
+                  }
+                ],
+                "output": [
+                  {
+                    "source": {
+                      "type": "SORD",
+                      "key": "id"
+                    },
+                    "target": {
+                      "prop": "id"
+                    }
+                  },
+                  {
+                    "source": {
+                      "type": "GRP",
+                      "key": "MEETING_REFERENCE"
+                    },
+                    "target": {
+                      "prop": "reference"
+                    }
+                  },
+                  {
+                    "source": {
+                      "type": "GRP",
+                      "key": "MEETING_NAME"
+                    },
+                    "target": {
+                      "prop": "name"
+                    }
+                  },
+                  {
+                    "source": {
+                      "type": "GRP",
+                      "key": "MEETING_STARTDATE"
+                    },
+                    "target": {
+                      "prop": "startDate"
+                    }
+                  },
+                  {
+                    "source": {
+                      "type": "GRP",
+                      "key": "MEETING_ENDDATE"
+                    },
+                    "target": {
+                      "prop": "endDate"
+                    }
+                  },
+                  {
+                    "source": {
+                      "type": "GRP",
+                      "key": "MEETING_STATUS"
+                    },
+                    "target": {
+                      "prop": "status"
+                    }
+                  }
+                ]
+              }
+            },
+            "options": {
+              "elementArg": "data",
+              "renderArgsWithElement": true,
+              "dryRun": false,
+              "sort": [
+                {
+                  "prop": "data.startDate",
+                  "type": "date"
+                },
+                {
+                  "prop": "data.reference"
+                }
+              ]
+            },
+            "callback": {
+              "name": "RF_sol_function_Set",
+              "args": {
+                "objId": "{{sord.id}}",
+                "flowId": "{{flowId}}",
+                "entries": [
+                  {
+                    "type": "WFMAP",
+                    "key": "MEETING_GUID{{element.data.$mapIndex}}",
+                    "value": "{{{element.data.id}}}"
+                  },
+                  {
+                    "type": "WFMAP",
+                    "key": "MEETING_REFERENCE{{element.data.$mapIndex}}",
+                    "value": "{{{element.data.reference}}}"
+                  },
+                  {
+                    "type": "WFMAP",
+                    "key": "MEETING_NAME{{element.data.$mapIndex}}",
+                    "value": "{{{element.data.name}}}"
+                  },
+                  {
+                    "type": "WFMAP",
+                    "key": "MEETING_STARTDATE{{element.data.$mapIndex}}",
+                    "value": "{{{element.data.startDate}}}"
+                  },
+                  {
+                    "type": "WFMAP",
+                    "key": "MEETING_ENDDATE{{element.data.$mapIndex}}",
+                    "value": "{{{element.data.endDate}}}"
+                  },
+                  {
+                    "type": "WFMAP",
+                    "key": "MEETING_STATUS{{element.data.$mapIndex}}",
+                    "value": "{{{element.data.status}}}"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "foreachMeetingApproval": {
+          "scriptProperties": {
+            "columns": {
+              "wfMap": [
+                "MEETING_REFERENCE",
+                "MEETING_NAME",
+                "MEETING_STARTDATE",
+                "MEETING_ENDDATE",
+                "MEETING_APPROVAL_UPDATED",
+                "MEETING_GUID"
+              ]
+            },
+            "options": {
+              "elementArg": "sordMetadata",
+              "elementAsTemplateSord": true,
+              "dryRun": false,
+              "filter": [
+                {
+                  "prop": "sordMetadata.wfMapKeys.MEETING_APPROVAL_UPDATED",
+                  "value": [
+                    "1"
+                  ]
+                }
+              ],
+              "moveValues": {
+                "wfMapKeys.MEETING_GUID": "objId"
+              }
+            },
+            "callback": {
+              "name": "RF_sol_meeting_function_ScheduleMeeting",
+              "args": {
+                "worflow": {
+                  "name": "sol.meeting.ScheduleMeetingHeadless",
+                  "title": "schedule meeting"
+                }
+              }
+            }
+          }
+        },
+        "create": {
+          "foreachMember": {
+            "columns": {
+              "wfMap": [
+                "MEETING_PERSON_FORM_OF_ADDRESS",
+                "MEETING_PERSON_TITLE",
+                "MEETING_PERSON_FIRSTNAME",
+                "MEETING_PERSON_LASTNAME",
+                "MEETING_PERSON_EMAIL",
+                "MEETING_PERSON_COMPANYNAME",
+                "MEETING_PERSON_CONTACT_REFERENCE",
+                "MEETING_PERSON_CONTACTLIST_NAME",
+                "MEETING_PERSON_CONTACTLIST_REFERENCE",
+                "MEETING_PERSON_USERNAME",
+                "MEETING_PERSON_ELOUSERID",
+                "MEETING_PERSON_CREATE_CONTACT",
+                "MEETING_PERSON_CRUD_STATUS"
+              ]
+            },
+            "options": {
+              "elementArg": "sordMetadata",
+              "elementAsTemplateSord": true,
+              "dryRun": false,
+              "moveValues": {
+                "wfMapKeys": "source.templateSord.wfMapKeys"
+              },
+              "filter": [
+                {
+                  "prop": "source.templateSord.wfMapKeys.MEETING_PERSON_CRUD_STATUS",
+                  "value": "CREATE"
+                }
+              ]
+            },
+            "callback": {
+              "name": "RF_sol_function_FillSord",
+              "args": {
+                "target": {
+                  "fromService": {
+                    "name": "RF_sol_function_CreateSord",
+                    "params": {
+                      "sourceElement": {
+                        "fromScratch": {
+                          "mask": "Meeting Board Member"
+                        }
+                      },
+                      "targetFolder": {
+                        "fromService": {
+                          "name": "RF_sol_meeting_service_FindMeetingMemberListFolder",
+                          "params": {
+                            "objId": "{{sord.id}}"
+                          }
+                        }
+                      },
+                      "onCreatedElement": {
+                        "setName": "New Member"
+                      }
+                    }
+                  },
+                  "startWorkflow": {
+                    "name": "sol.meeting.meetingBoard.InviteMember",
+                    "title": "{{translate 'sol.meeting.workflow.meetingBoard.members.invite'}}",
+                    "concluding": true
+                  }
+                },
+                "metadataMapping": [
+                  {
+                    "source": {
+                      "id": "MEETING_PERSON_FORM_OF_ADDRESS",
+                      "type": "WFMAP"
+                    },
+                    "target": {
+                      "id": "MEETING_PERSON_FORM_OF_ADDRESS",
+                      "type": "GRP"
+                    }
+                  },
+                  {
+                    "source": {
+                      "id": "MEETING_PERSON_TITLE",
+                      "type": "WFMAP"
+                    },
+                    "target": {
+                      "id": "MEETING_PERSON_TITLE",
+                      "type": "GRP"
+                    }
+                  },
+                  {
+                    "source": {
+                      "id": "MEETING_PERSON_FIRSTNAME",
+                      "type": "WFMAP"
+                    },
+                    "target": {
+                      "id": "MEETING_PERSON_FIRSTNAME",
+                      "type": "GRP"
+                    }
+                  },
+                  {
+                    "source": {
+                      "id": "MEETING_PERSON_LASTNAME",
+                      "type": "WFMAP"
+                    },
+                    "target": {
+                      "id": "MEETING_PERSON_LASTNAME",
+                      "type": "GRP"
+                    }
+                  },
+                  {
+                    "source": {
+                      "id": "MEETING_PERSON_COMPANYNAME",
+                      "type": "WFMAP"
+                    },
+                    "target": {
+                      "id": "MEETING_PERSON_COMPANYNAME",
+                      "type": "GRP"
+                    }
+                  },
+                  {
+                    "source": {
+                      "id": "MEETING_PERSON_CONTACT_REFERENCE",
+                      "type": "WFMAP"
+                    },
+                    "target": {
+                      "id": "MEETING_PERSON_CONTACT_REFERENCE",
+                      "type": "GRP"
+                    }
+                  },
+                  {
+                    "source": {
+                      "id": "MEETING_PERSON_CONTACTLIST_REFERENCE",
+                      "type": "WFMAP"
+                    },
+                    "target": {
+                      "id": "MEETING_PERSON_CONTACTLIST_REFERENCE",
+                      "type": "GRP"
+                    }
+                  },
+                  {
+                    "source": {
+                      "id": "MEETING_PERSON_CONTACTLIST_NAME",
+                      "type": "WFMAP"
+                    },
+                    "target": {
+                      "id": "MEETING_PERSON_CONTACTLIST_NAME",
+                      "type": "GRP"
+                    }
+                  },
+                  {
+                    "source": {
+                      "id": "MEETING_PERSON_EMAIL",
+                      "type": "WFMAP"
+                    },
+                    "target": {
+                      "id": "MEETING_PERSON_EMAIL",
+                      "type": "GRP"
+                    }
+                  },
+                  {
+                    "source": {
+                      "id": "MEETING_PERSON_USERNAME",
+                      "type": "WFMAP"
+                    },
+                    "target": {
+                      "id": "MEETING_PERSON_USERNAME",
+                      "type": "GRP"
+                    }
+                  },
+                  {
+                    "source": {
+                      "id": "MEETING_PERSON_ELOUSERID",
+                      "type": "WFMAP"
+                    },
+                    "target": {
+                      "id": "MEETING_PERSON_ELOUSERID",
+                      "type": "GRP"
+                    }
+                  },
+                  {
+                    "source": {
+                      "id": "MEETING_PERSON_CREATE_CONTACT",
+                      "type": "WFMAP"
+                    },
+                    "target": {
+                      "id": "MEETING_PERSON_CREATE_CONTACT",
+                      "type": "MAP"
+                    }
+                  },
+                  {
+                    "target": {
+                      "id": "MEETING_PERSON_SHORT_DESC_GEN",
+                      "type": "GRP",
+                      "value": "Default"
+                    }
+                  },
+                  {
+                    "target": {
+                      "id": "MEETING_BOARD_REFERENCE",
+                      "type": "GRP",
+                      "value": "{{sord.guid}}"
+                    }
+                  },
+                  {
+                    "target": {
+                      "id": "SOL_TYPE",
+                      "type": "GRP",
+                      "value": "MEMBER"
+                    }
+                  },
+                  {
+                    "target": {
+                      "id": "MEETING_BOARD_MEMBER_STATUS",
+                      "type": "GRP",
+                      "value": "A -"
+                    }
+                  },
+                  {
+                    "target": {
+                      "id": "MEETING_BOARD_MEMBER_ROLE",
+                      "type": "GRP",
+                      "value": "M -"
+                    }
+                  }
+                ],
+                "options": {
+                  "onlyWriteMappings": true
+                }
+              }
+            }
+          },
+          "foreachRecuringItems": {
+            "columns": {
+              "wfMap": [
+                "MEETING_AGENDA_POSITION",
+                "MEETING_ITEM_TITLE",
+                "MEETING_ITEM_DURATION",
+                "MEETING_ITEM_DESC"
+              ]
+            },
+            "options": {
+              "elementArg": "sordMetadata",
+              "elementAsTemplateSord": true,
+              "dryRun": false,
+              "moveValues": {
+                "wfMapKeys": "source.templateSord.mapKeys"
+              }
+            },
+            "callback": {
+              "name": "RF_sol_function_FillSord",
+              "args": {
+                "target": {
+                  "fromService": {
+                    "name": "RF_sol_function_CreateSord",
+                    "params": {
+                      "sourceElement": {
+                        "objId": "ARCPATH:/Administration/Business Solutions Custom/meeting/Configuration/Meeting item types/Default"
+                      },
+                      "targetFolder": {
+                        "fromService": {
+                          "name": "RF_sol_meeting_function_FindMeetingBoardRecurringItemFolder",
+                          "params": {
+                            "objId": "{{sord.id}}"
+                          }
+                        }
+                      },
+                      "onCreatedElement": {
+                        "setPermissions": {
+                          "mode": "SET",
+                          "inherit": true
+                        },
+                        "setName": "New Agenda Item"
+                      }
+                    },
+                    "template": true
+                  },
+                  "startWorkflow": {
+                    "name": "sol.meeting.meetingBoard.AddRecurringItem",
+                    "title": "Add agenda item",
+                    "concluding": true
+                  }
+                },
+                "metadataMapping": [
+                  {
+                    "source": {
+                      "id": "MEETING_ITEM_TITLE",
+                      "type": "MAP"
+                    },
+                    "target": {
+                      "id": "MEETING_ITEM_TITLE",
+                      "type": "GRP"
+                    }
+                  },
+                  {
+                    "source": {
+                      "id": "MEETING_ITEM_DURATION",
+                      "type": "MAP"
+                    },
+                    "target": {
+                      "id": "MEETING_ITEM_DURATION",
+                      "type": "GRP"
+                    }
+                  },
+                  {
+                    "source": {
+                      "id": "MEETING_AGENDA_POSITION",
+                      "type": "MAP"
+                    },
+                    "target": {
+                      "id": "MEETING_AGENDA_POSITION",
+                      "type": "GRP"
+                    }
+                  },
+                  {
+                    "source": {
+                      "id": "MEETING_ITEM_POSITION",
+                      "type": "MAP"
+                    },
+                    "target": {
+                      "id": "MEETING_ITEM_OUTLINENUMBER",
+                      "type": "GRP"
+                    }
+                  },
+                  {
+                    "source": {
+                      "id": "MEETING_ITEM_DESC",
+                      "type": "MAP"
+                    },
+                    "target": {
+                      "id": "desc",
+                      "type": "SORD"
+                    }
+                  },
+                  {
+                    "target": {
+                      "id": "SOL_TYPE",
+                      "type": "GRP",
+                      "value": "MEETING_ITEM"
+                    }
+                  },
+                  {
+                    "target": {
+                      "id": "MEETING_ITEM_SHORT_DESC_GEN",
+                      "type": "GRP",
+                      "value": "Default"
+                    }
+                  },
+                  {
+                    "target": {
+                      "id": "MEETING_ITEM_NO_GEN",
+                      "type": "GRP",
+                      "value": "Default"
+                    }
+                  },
+                  {
+                    "target": {
+                      "id": "MEETING_ITEM_DAY",
+                      "type": "GRP",
+                      "value": "1"
+                    }
+                  }
+                ],
+                "options": {
+                  "onlyWriteMappings": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "predefinedItems": {
+        "defaults": {
+          "scriptProperties": {
+            "entries": [
+              {
+                "type": "GRP",
+                "key": "MEETING_ITEM_STATUS",
+                "value": "S",
+                "useDynKwl": true
+              },
+              {
+                "type": "GRP",
+                "key": "MEETING_ITEM_DURATION",
+                "value": "30",
+                "onlyIfEmpty": true
+              }
+            ]
+          }
+        }
+      }
+    },
+    "member": {
+      "dynkwls": {
+        "meetingContactTypeMember": {
+          "solType": "CONTACT",
+          "searchParams": [
+            {
+              "name": "IX_GRP_MEETING_PERSON_LASTNAME",
+              "searchName": "CONTACT_LASTNAME",
+              "mode": "STARTS_WITH"
+            },
+            {
+              "name": "IX_GRP_MEETING_PERSON_FIRSTNAME",
+              "searchName": "CONTACT_FIRSTNAME",
+              "mode": "STARTS_WITH"
+            },
+            {
+              "name": "IX_GRP_MEETING_PERSON_EMAIL",
+              "searchName": "CONTACT_EMAIL",
+              "mode": "STARTS_WITH"
+            },
+            {
+              "name": "IX_GRP_MEETING_PERSON_COMPANYNAME",
+              "searchName": "COMPANY_NAME",
+              "mode": "STARTS_WITH"
+            },
+            {
+              "name": "IX_GRP_MEETING_PERSON_CONTACT_REFERENCE",
+              "searchName": "CONTACT_REFERENCE",
+              "mode": "STARTS_WITH",
+              "emptyAllowed": true
+            }
+          ],
+          "tableTitle": "{{translate 'sol.meeting.dynkwl.contact.tableTitle'}}",
+          "tableHeaders": [
+            null,
+            "{{translate 'sol.meeting.dynkwl.person.lastname'}}",
+            "{{translate 'sol.meeting.dynkwl.person.firstname'}}",
+            "{{translate 'sol.meeting.dynkwl.person.mail'}}",
+            "{{translate 'sol.meeting.dynkwl.person.companyname'}}",
+            null,
+            null
+          ],
+          "tableKeyNames": [
+            "IX_GRP_MEETING_PERSON_CONTACT_REFERENCE",
+            "IX_GRP_MEETING_PERSON_LASTNAME",
+            "IX_GRP_MEETING_PERSON_FIRSTNAME",
+            "IX_GRP_MEETING_PERSON_EMAIL",
+            "IX_GRP_MEETING_PERSON_COMPANYNAME",
+            "IX_GRP_MEETING_PERSON_USERNAME",
+            "IX_GRP_MEETING_PERSON_ELOUSERID"
+          ],
+          "rowDataFields": [
+            "CONTACT_REFERENCE",
+            "CONTACT_LASTNAME",
+            "CONTACT_FIRSTNAME",
+            "CONTACT_EMAIL",
+            "COMPANY_NAME",
+            "CONTACT_USERNAME",
+            "USERINFO.id"
+          ]
+        }
+      },
+      "workflowMixins": {
+        "collectMembers": {
+          "scriptProperties": {
+            "elementService": {
+              "name": "RF_sol_common_service_SordProvider",
+              "args": {
+                "masks": [
+                  "Meeting Board Member"
+                ],
+                "search": [
+                  {
+                    "key": "SOL_TYPE",
+                    "value": [
+                      "MEMBER"
+                    ]
+                  },
+                  {
+                    "key": "MEETING_BOARD_MEMBER_STATUS",
+                    "value": "A -*"
+                  },
+                  {
+                    "key": "MEETING_BOARD_CODE",
+                    "value": "{{sord.objKeys.MEETING_BOARD_CODE}}"
+                  }
+                ],
+                "output": [
+                  {
+                    "source": {
+                      "type": "SORD",
+                      "key": "id"
+                    },
+                    "target": {
+                      "prop": "id"
+                    }
+                  },
+                  {
+                    "source": {
+                      "type": "GRP",
+                      "key": "MEETING_PERSON_FORM_OF_ADDRESS"
+                    },
+                    "target": {
+                      "prop": "formOfAddress"
+                    }
+                  },
+                  {
+                    "source": {
+                      "type": "GRP",
+                      "key": "MEETING_PERSON_TITLE"
+                    },
+                    "target": {
+                      "prop": "title"
+                    }
+                  },
+                  {
+                    "source": {
+                      "type": "GRP",
+                      "key": "MEETING_PERSON_FIRSTNAME"
+                    },
+                    "target": {
+                      "prop": "firstname"
+                    }
+                  },
+                  {
+                    "source": {
+                      "type": "GRP",
+                      "key": "MEETING_PERSON_LASTNAME"
+                    },
+                    "target": {
+                      "prop": "lastname"
+                    }
+                  },
+                  {
+                    "source": {
+                      "type": "GRP",
+                      "key": "MEETING_PERSON_EMAIL"
+                    },
+                    "target": {
+                      "prop": "email"
+                    }
+                  },
+                  {
+                    "source": {
+                      "type": "GRP",
+                      "key": "MEETING_PERSON_CONTACTLIST_NAME"
+                    },
+                    "target": {
+                      "prop": "contactlistName"
+                    }
+                  },
+                  {
+                    "source": {
+                      "type": "GRP",
+                      "key": "MEETING_PERSON_COMPANYNAME"
+                    },
+                    "target": {
+                      "prop": "companyname"
+                    }
+                  },
+                  {
+                    "source": {
+                      "type": "GRP",
+                      "key": "MEETING_PERSON_CONTACTLIST_REFERENCE"
+                    },
+                    "target": {
+                      "prop": "contactlistReference"
+                    }
+                  },
+                  {
+                    "source": {
+                      "type": "GRP",
+                      "key": "MEETING_PERSON_CONTACT_REFERENCE"
+                    },
+                    "target": {
+                      "prop": "contactReference"
+                    }
+                  },
+                  {
+                    "source": {
+                      "type": "GRP",
+                      "key": "MEETING_PERSON_USERNAME"
+                    },
+                    "target": {
+                      "prop": "username"
+                    }
+                  },
+                  {
+                    "source": {
+                      "type": "GRP",
+                      "key": "MEETING_PERSON_ELOUSERID"
+                    },
+                    "target": {
+                      "prop": "elouserId"
+                    }
+                  },
+                  {
+                    "source": {
+                      "type": "GRP",
+                      "key": "MEETING_BOARD_MEMBER_ROLE"
+                    },
+                    "target": {
+                      "prop": "role"
+                    }
+                  },
+                  {
+                    "source": {
+                      "type": "GRP",
+                      "key": "MEETING_INVITATION_STATUS"
+                    },
+                    "target": {
+                      "prop": "status"
+                    }
+                  }
+                ]
+              }
+            },
+            "options": {
+              "elementArg": "data",
+              "sort": [
+                {
+                  "prop": "data.role"
+                },
+                {
+                  "prop": "data.lastname"
+                }
+              ],
+              "renderArgsWithElement": true,
+              "dryRun": false
+            },
+            "callback": {
+              "name": "RF_sol_function_Set",
+              "args": {
+                "objId": "{{sord.id}}",
+                "flowId": "{{flowId}}",
+                "entries": [
+                  {
+                    "type": "WFMAP",
+                    "key": "MEETING_PERSON_FORM_OF_ADDRESS{{element.data.$mapIndex}}",
+                    "value": "{{{element.data.formOfAddress}}}"
+                  },
+                  {
+                    "type": "WFMAP",
+                    "key": "MEETING_PERSON_TITLE{{element.data.$mapIndex}}",
+                    "value": "{{{element.data.title}}}"
+                  },
+                  {
+                    "type": "WFMAP",
+                    "key": "MEETING_PERSON_LASTNAME{{element.data.$mapIndex}}",
+                    "value": "{{{element.data.lastname}}}"
+                  },
+                  {
+                    "type": "WFMAP",
+                    "key": "MEETING_PERSON_FIRSTNAME{{element.data.$mapIndex}}",
+                    "value": "{{{element.data.firstname}}}"
+                  },
+                  {
+                    "type": "WFMAP",
+                    "key": "MEETING_PERSON_EMAIL{{element.data.$mapIndex}}",
+                    "value": "{{{element.data.email}}}"
+                  },
+                  {
+                    "type": "WFMAP",
+                    "key": "MEETING_PERSON_CONTACTLIST_NAME{{element.data.$mapIndex}}",
+                    "value": "{{{element.data.contactlistName}}}"
+                  },
+                  {
+                    "type": "WFMAP",
+                    "key": "MEETING_PERSON_COMPANYNAME{{element.data.$mapIndex}}",
+                    "value": "{{{element.data.companyname}}}"
+                  },
+                  {
+                    "type": "WFMAP",
+                    "key": "MEETING_PERSON_CONTACTLIST_REFERENCE{{element.data.$mapIndex}}",
+                    "value": "{{{element.data.contactlistReference}}}"
+                  },
+                  {
+                    "type": "WFMAP",
+                    "key": "MEETING_PERSON_CONTACT_REFERENCE{{element.data.$mapIndex}}",
+                    "value": "{{{element.data.contactReference}}}"
+                  },
+                  {
+                    "type": "WFMAP",
+                    "key": "MEETING_PERSON_USERNAME{{element.data.$mapIndex}}",
+                    "value": "{{{element.data.username}}}"
+                  },
+                  {
+                    "type": "WFMAP",
+                    "key": "MEETING_PERSON_ELOUSERID{{element.data.$mapIndex}}",
+                    "value": "{{{element.data.elouserId}}}"
+                  },
+                  {
+                    "type": "WFMAP",
+                    "key": "MEETING_PARTICIPANT_ROLE{{element.data.$mapIndex}}",
+                    "value": "{{{element.data.role}}}"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "invitation": {
+      "actions": {
+        "createheadless": {
+          "findParticipant": {
+            "masks": [
+              ""
+            ],
+            "search": [
+              {
+                "key": "SOL_TYPE",
+                "value": [
+                  "PARTICIPANT"
+                ]
+              },
+              {
+                "key": "MEETING_INVITATION_STATUS",
+                "value": [
+                  "DRAFT"
+                ]
+              }
+            ],
+            "output": [
+              {
+                "source": {
+                  "type": "SORD",
+                  "key": "id"
+                }
+              }
+            ],
+            "options": {
+              "findDirect": false,
+              "formatAsTemplateSord": false,
+              "allowEmptyMask": true,
+              "maxResults": 1
+            }
+          },
+          "const": {
+            "newSordDef": {
+              "mask": "Meeting Participant",
+              "type": ""
+            },
+            "userField": "MEETING_PERSON_ELOUSERID",
+            "mailField": "MEETING_PERSON_EMAIL",
+            "standardWorkflow": "sol.meeting.InviteParticipant",
+            "workflowMessage": "{{translate 'sol.meeting.workflow.invitation.createheadless.message'}}",
+            "invitationStatusField": "MEETING_INVITATION_STATUS",
+            "meetingReferenceField": "MEETING_REFERENCE",
+            "meetingGuid": "MEETING_GUID"
+          }
+        }
+      },
+      "workflowMixins": {
+        "invite": {
+          "move": {
+            "scriptProperties": {
+              "path": "ARCPATH[{{{sord.mapKeys.MEETING_GUID}}}]:/Participants"
+            }
+          },
+          "setDefaults": {
+            "scriptProperties": {
+              "entries": [
+                {
+                  "type": "GRP",
+                  "key": "MEETING_PARTICIPANT_PRESENCE",
+                  "value": "ABSENT",
+                  "useKwl": true
+                },
+                {
+                  "type": "GRP",
+                  "key": "MEETING_INVITATION_STATUS",
+                  "value": "O",
+                  "useDynKwl": true
+                }
+              ]
+            }
+          }
+        },
+        "addParticipants": {
+          "collectParticipants": {
+            "scriptProperties": {
+              "elementService": {
+                "name": "RF_sol_common_service_SordProvider",
+                "args": {
+                  "masks": [
+                    "Meeting Participant"
+                  ],
+                  "search": [
+                    {
+                      "key": "SOL_TYPE",
+                      "value": [
+                        "PARTICIPANT"
+                      ]
+                    },
+                    {
+                      "key": "MEETING_REFERENCE",
+                      "value": "{{sord.objKeys.MEETING_REFERENCE}}"
+                    }
+                  ],
+                  "output": [
+                    {
+                      "source": {
+                        "type": "SORD",
+                        "key": "id"
+                      },
+                      "target": {
+                        "prop": "id"
+                      }
+                    },
+                    {
+                      "source": {
+                        "type": "GRP",
+                        "key": "MEETING_PERSON_FORM_OF_ADDRESS"
+                      },
+                      "target": {
+                        "prop": "formOfAddress"
+                      }
+                    },
+                    {
+                      "source": {
+                        "type": "GRP",
+                        "key": "MEETING_PERSON_TITLE"
+                      },
+                      "target": {
+                        "prop": "title"
+                      }
+                    },
+                    {
+                      "source": {
+                        "type": "GRP",
+                        "key": "MEETING_PERSON_FIRSTNAME"
+                      },
+                      "target": {
+                        "prop": "firstname"
+                      }
+                    },
+                    {
+                      "source": {
+                        "type": "GRP",
+                        "key": "MEETING_PERSON_LASTNAME"
+                      },
+                      "target": {
+                        "prop": "lastname"
+                      }
+                    },
+                    {
+                      "source": {
+                        "type": "GRP",
+                        "key": "MEETING_PERSON_EMAIL"
+                      },
+                      "target": {
+                        "prop": "email"
+                      }
+                    },
+                    {
+                      "source": {
+                        "type": "GRP",
+                        "key": "MEETING_PERSON_CONTACTLIST_NAME"
+                      },
+                      "target": {
+                        "prop": "contactlistName"
+                      }
+                    },
+                    {
+                      "source": {
+                        "type": "GRP",
+                        "key": "MEETING_PERSON_COMPANYNAME"
+                      },
+                      "target": {
+                        "prop": "companyname"
+                      }
+                    },
+                    {
+                      "source": {
+                        "type": "GRP",
+                        "key": "MEETING_PERSON_CONTACTLIST_REFERENCE"
+                      },
+                      "target": {
+                        "prop": "contactlistReference"
+                      }
+                    },
+                    {
+                      "source": {
+                        "type": "GRP",
+                        "key": "MEETING_PERSON_CONTACT_REFERENCE"
+                      },
+                      "target": {
+                        "prop": "contactReference"
+                      }
+                    },
+                    {
+                      "source": {
+                        "type": "GRP",
+                        "key": "MEETING_PERSON_USERNAME"
+                      },
+                      "target": {
+                        "prop": "username"
+                      }
+                    },
+                    {
+                      "source": {
+                        "type": "GRP",
+                        "key": "MEETING_PERSON_ELOUSERID"
+                      },
+                      "target": {
+                        "prop": "elouserId"
+                      }
+                    },
+                    {
+                      "source": {
+                        "type": "GRP",
+                        "key": "MEETING_INVITATION_STATUS"
+                      },
+                      "target": {
+                        "prop": "status"
+                      }
+                    },
+                    {
+                      "source": {
+                        "type": "GRP",
+                        "key": "MEETING_PARTICIPANT_ROLE"
+                      },
+                      "target": {
+                        "prop": "role"
+                      }
+                    }
+                  ]
+                }
+              },
+              "options": {
+                "elementArg": "data",
+                "sort": [
+                  {
+                    "prop": "data.role"
+                  },
+                  {
+                    "prop": "data.lastname"
+                  }
+                ],
+                "renderArgsWithElement": true,
+                "dryRun": false
+              },
+              "callback": {
+                "name": "RF_sol_function_Set",
+                "args": {
+                  "objId": "{{sord.id}}",
+                  "flowId": "{{flowId}}",
+                  "entries": [
+                    {
+                      "type": "WFMAP",
+                      "key": "MEETING_PERSON_OBJID{{element.data.$mapIndex}}",
+                      "value": "{{{element.data.id}}}"
+                    },
+                    {
+                      "type": "WFMAP",
+                      "key": "MEETING_PERSON_FORM_OF_ADDRESS{{element.data.$mapIndex}}",
+                      "value": "{{{element.data.formOfAddress}}}"
+                    },
+                    {
+                      "type": "WFMAP",
+                      "key": "MEETING_PERSON_TITLE{{element.data.$mapIndex}}",
+                      "value": "{{{element.data.title}}}"
+                    },
+                    {
+                      "type": "WFMAP",
+                      "key": "MEETING_PERSON_LASTNAME{{element.data.$mapIndex}}",
+                      "value": "{{{element.data.lastname}}}"
+                    },
+                    {
+                      "type": "WFMAP",
+                      "key": "MEETING_PERSON_FIRSTNAME{{element.data.$mapIndex}}",
+                      "value": "{{{element.data.firstname}}}"
+                    },
+                    {
+                      "type": "WFMAP",
+                      "key": "MEETING_PERSON_EMAIL{{element.data.$mapIndex}}",
+                      "value": "{{{element.data.email}}}"
+                    },
+                    {
+                      "type": "WFMAP",
+                      "key": "MEETING_PERSON_CONTACTLIST_NAME{{element.data.$mapIndex}}",
+                      "value": "{{{element.data.contactlistName}}}"
+                    },
+                    {
+                      "type": "WFMAP",
+                      "key": "MEETING_PERSON_COMPANYNAME{{element.data.$mapIndex}}",
+                      "value": "{{{element.data.companyname}}}"
+                    },
+                    {
+                      "type": "WFMAP",
+                      "key": "MEETING_PERSON_CONTACTLIST_REFERENCE{{element.data.$mapIndex}}",
+                      "value": "{{{element.data.contactlistReference}}}"
+                    },
+                    {
+                      "type": "WFMAP",
+                      "key": "MEETING_PERSON_CONTACT_REFERENCE{{element.data.$mapIndex}}",
+                      "value": "{{{element.data.contactReference}}}"
+                    },
+                    {
+                      "type": "WFMAP",
+                      "key": "MEETING_PERSON_ELOUSERID{{element.data.$mapIndex}}",
+                      "value": "{{{element.data.elouserId}}}"
+                    },
+                    {
+                      "type": "WFMAP",
+                      "key": "MEETING_INVITATION_STATUS{{element.data.$mapIndex}}",
+                      "value": "{{{element.data.status}}}"
+                    },
+                    {
+                      "type": "WFMAP",
+                      "key": "MEETING_PARTICIPANT_ROLE{{element.data.$mapIndex}}",
+                      "value": "{{{element.data.role}}}"
+                    },
+                    {
+                      "type": "WFMAP",
+                      "key": "MEETING_PERSON_USERNAME{{element.data.$mapIndex}}",
+                      "value": "{{{element.data.username}}}"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "foreach": {
+            "scriptProperties": {
+              "columns": {
+                "wfMap": [
+                  "MEETING_PERSON_OBJID",
+                  "MEETING_PERSON_FORM_OF_ADDRESS",
+                  "MEETING_PERSON_TITLE",
+                  "MEETING_PERSON_FIRSTNAME",
+                  "MEETING_PERSON_LASTNAME",
+                  "MEETING_PERSON_EMAIL",
+                  "MEETING_PERSON_COMPANYNAME",
+                  "MEETING_PERSON_CONTACT_REFERENCE",
+                  "MEETING_PERSON_CONTACTLIST_NAME",
+                  "MEETING_PERSON_CONTACTLIST_REFERENCE",
+                  "MEETING_PERSON_ELOUSERID",
+                  "MEETING_PERSON_USERNAME",
+                  "MEETING_PERSON_CREATE_CONTACT",
+                  "MEETING_PARTICIPANT_ROLE",
+                  "MEETING_PERSON_CRUD_STATUS"
+                ]
+              },
+              "options": {
+                "elementArg": "sordMetadata",
+                "elementAsTemplateSord": true,
+                "dryRun": false,
+                "moveValues": {
+                  "wfMapKeys": "source.templateSord.wfMapKeys"
+                },
+                "filter": [
+                  {
+                    "prop": "source.templateSord.wfMapKeys.MEETING_PERSON_CRUD_STATUS",
+                    "value": "CREATE"
+                  }
+                ]
+              },
+              "callback": {
+                "name": "RF_sol_function_FillSord",
+                "args": {
+                  "target": {
+                    "fromService": {
+                      "name": "RF_sol_function_CreateSord",
+                      "params": {
+                        "sourceElement": {
+                          "fromScratch": {
+                            "mask": "Meeting Participant"
+                          }
+                        },
+                        "targetFolder": {
+                          "fromService": {
+                            "name": "RF_sol_meeting_function_FindMeetingParticipantListFolder",
+                            "params": {
+                              "objId": "{{sord.id}}"
+                            }
+                          }
+                        },
+                        "onCreatedElement": {
+                          "setName": "New Participant"
+                        }
+                      }
+                    },
+                    "startWorkflow": {
+                      "name": "sol.meeting.InviteParticipant",
+                      "title": "Invite Participants",
+                      "concluding": true
+                    }
+                  },
+                  "metadataMapping": [
+                    {
+                      "source": {
+                        "id": "MEETING_PERSON_FORM_OF_ADDRESS",
+                        "type": "WFMAP"
+                      },
+                      "target": {
+                        "id": "MEETING_PERSON_FORM_OF_ADDRESS",
+                        "type": "GRP"
+                      }
+                    },
+                    {
+                      "source": {
+                        "id": "MEETING_PERSON_TITLE",
+                        "type": "WFMAP"
+                      },
+                      "target": {
+                        "id": "MEETING_PERSON_TITLE",
+                        "type": "GRP"
+                      }
+                    },
+                    {
+                      "source": {
+                        "id": "MEETING_PERSON_FIRSTNAME",
+                        "type": "WFMAP"
+                      },
+                      "target": {
+                        "id": "MEETING_PERSON_FIRSTNAME",
+                        "type": "GRP"
+                      }
+                    },
+                    {
+                      "source": {
+                        "id": "MEETING_PERSON_LASTNAME",
+                        "type": "WFMAP"
+                      },
+                      "target": {
+                        "id": "MEETING_PERSON_LASTNAME",
+                        "type": "GRP"
+                      }
+                    },
+                    {
+                      "source": {
+                        "id": "MEETING_PERSON_EMAIL",
+                        "type": "WFMAP"
+                      },
+                      "target": {
+                        "id": "MEETING_PERSON_EMAIL",
+                        "type": "GRP"
+                      }
+                    },
+                    {
+                      "source": {
+                        "id": "MEETING_PERSON_COMPANYNAME",
+                        "type": "WFMAP"
+                      },
+                      "target": {
+                        "id": "MEETING_PERSON_COMPANYNAME",
+                        "type": "GRP"
+                      }
+                    },
+                    {
+                      "source": {
+                        "id": "MEETING_PERSON_CONTACT_REFERENCE",
+                        "type": "WFMAP"
+                      },
+                      "target": {
+                        "id": "MEETING_PERSON_CONTACT_REFERENCE",
+                        "type": "GRP"
+                      }
+                    },
+                    {
+                      "source": {
+                        "id": "MEETING_PERSON_CONTACTLIST_NAME",
+                        "type": "WFMAP"
+                      },
+                      "target": {
+                        "id": "MEETING_PERSON_CONTACTLIST_NAME",
+                        "type": "GRP"
+                      }
+                    },
+                    {
+                      "source": {
+                        "id": "MEETING_PERSON_CREATE_CONTACT",
+                        "type": "WFMAP"
+                      },
+                      "target": {
+                        "id": "MEETING_PERSON_CREATE_CONTACT",
+                        "type": "MAP"
+                      }
+                    },
+                    {
+                      "source": {
+                        "id": "MEETING_PERSON_CONTACTLIST_REFERENCE",
+                        "type": "WFMAP"
+                      },
+                      "target": {
+                        "id": "MEETING_PERSON_CONTACTLIST_REFERENCE",
+                        "type": "GRP"
+                      }
+                    },
+                    {
+                      "source": {
+                        "id": "MEETING_PERSON_ELOUSERID",
+                        "type": "WFMAP"
+                      },
+                      "target": {
+                        "id": "MEETING_PERSON_ELOUSERID",
+                        "type": "GRP"
+                      }
+                    },
+                    {
+                      "source": {
+                        "id": "MEETING_PERSON_USERNAME",
+                        "type": "WFMAP"
+                      },
+                      "target": {
+                        "id": "MEETING_PERSON_USERNAME",
+                        "type": "GRP"
+                      }
+                    },
+                    {
+                      "source": {
+                        "id": "MEETING_PARTICIPANT_ROLE",
+                        "type": "WFMAP"
+                      },
+                      "target": {
+                        "id": "MEETING_PARTICIPANT_ROLE",
+                        "type": "GRP"
+                      }
+                    },
+                    {
+                      "target": {
+                        "id": "MEETING_PERSON_SHORT_DESC_GEN",
+                        "type": "GRP",
+                        "value": "Default"
+                      }
+                    },
+                    {
+                      "target": {
+                        "id": "MEETING_BOARD_REFERENCE",
+                        "type": "GRP",
+                        "value": "{{sord.guid}}"
+                      }
+                    },
+                    {
+                      "target": {
+                        "id": "MEETING_REFERENCE",
+                        "type": "GRP",
+                        "value": "{{sord.objKeys.MEETING_REFERENCE}}"
+                      }
+                    },
+                    {
+                      "target": {
+                        "id": "SOL_TYPE",
+                        "type": "GRP",
+                        "value": "PARTICIPANT"
+                      }
+                    }
+                  ],
+                  "options": {
+                    "onlyWriteMappings": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "participant": {
+      "generators": {
+        "personshortdescription": {
+          "generatorConfig": {
+            "generatorTemplateField": "MEETING_PERSON_SHORT_DESC_GEN",
+            "templatesFolder": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/meeting/Configuration/Generators/Person short desc"
+          }
+        }
+      },
+      "const": {
+        "fieldsFromUser": [
+          "MEETING_PERSON_FIRSTNAME",
+          "MEETING_PERSON_LASTNAME",
+          "MEETING_PERSON_EMAIL"
+        ]
+      },
+      "fields": {
+        "MEETING_PERSON_SHORT_DESC_GEN": {
+          "defaultValue": "Default"
+        },
+        "MEETING_INVITATION_STATUS": {
+          "defaultValue": "Draft"
+        },
+        "SOL_TYPE": {
+          "defaultValue": "PARTICIPANT"
+        }
+      }
+    },
+    "person": {
+      "dynkwls": {
+        "formOfAddress": {
+          "tableTitle": "{{translate 'sol.meeting.dynkwl.formOfAddress.tableTitle'}}",
+          "tableHeaders": [
+            "{{translate 'sol.meeting.dynkwl.formOfAddress.tableHeader'}}"
+          ],
+          "tableKeyNames": [
+            "IX_GRP_MEETING_PERSON_FORM_OF_ADDRESS"
+          ],
+          "parentId": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/meeting/Configuration/Person Form Of Addresses"
+        }
+      }
+    },
+    "proposals": {
+      "generators": {
+        "proposalshortdescription": {
+          "generatorConfig": {
+            "templateName": "Default",
+            "templateFolder": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/meeting/Configuration/Generators/Proposal short desc"
+          }
+        }
+      },
+      "workflowMixins": {
+        "create": {
+          "userToIndexEditor": {
+            "scriptProperties": {
+              "fieldName": "MEETING_PROPOSAL_EDITOR"
+            }
+          }
+        }
+      }
+    }
+  }
+}

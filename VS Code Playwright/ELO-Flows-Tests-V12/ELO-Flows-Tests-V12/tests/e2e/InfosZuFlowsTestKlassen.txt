@@ -1,0 +1,1 @@
+Direkteinstieg Vorlagen -> https://vmjovicflows:9093/ix-ELO_FLOWS/plugin/de.elo.ix.plugin.proxy/flows/?client=ELOac&lang=de#/manual-templates

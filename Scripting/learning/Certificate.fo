@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
+  <fo:layout-master-set>
+    <fo:simple-page-master master-name="DIN-A4" page-height="29.7cm" page-width="21cm" margin-top="1.5cm" margin-bottom="1.5cm" margin-left="2cm" margin-right="2cm">
+      <fo:region-body margin-top="1.5cm" margin-bottom="1.5cm" />
+      <fo:region-before region-name="header" extent="4cm"/>
+      <fo:region-after region-name="footer" extent="0.5cm"/>
+      <fo:region-start region-name="left" extent="0cm"/>
+      <fo:region-end region-name="right" extent="0cm"/>
+    </fo:simple-page-master>
+  </fo:layout-master-set>
+
+  <!-- page title -->
+  <fo:page-sequence master-reference="DIN-A4" font-size="10.5pt" >
+    <fo:flow flow-name="xsl-region-body">
+      <fo:block-container position="absolute" top="10.8mm" right="-2.2mm" width="31mm" height="31mm">
+        <fo:block font-size="11pt">
+		      <fo:external-graphic width="100%"
+            content-height="31mm"
+            content-width="31mm"
+            scaling="uniform"
+            src="url('data:image/png;base64,{{base64Barcode content="elodms://{{COURSE.guid}}" type="QR_CODE"}}')"/>
+        </fo:block>
+      </fo:block-container>
+      <fo:block-container position="absolute" top="1.5cm" right="0mm" width="2.3cm" height="2mm" reference-orientation="90">
+        <fo:block font-size="6pt" text-align-last="justify">
+          ELO<fo:leader leader-pattern="none" /> www.elo.com
+        </fo:block>
+      </fo:block-container>
+      <fo:block font-size="16pt" text-align="left" font-weight="bold" margin-top="10cm" margin-bottom="2cm">{{translate 'sol.learning.mask.courseenrollment'}}</fo:block>
+      <fo:block font-size="20pt" text-align="left" margin-bottom="1mm" >{{COURSE.objKeys.COURSE_REFERENCE}}</fo:block>
+      <fo:block font-size="20pt" text-align="left" font-weight="bold" margin-bottom="1cm">{{COURSE.objKeys.COURSE_NAME}}</fo:block>
+      <fo:table border-style="hidden" table-layout="fixed" width="100%" font-size="11pt" color="#636363">
+        <fo:table-column column-width="4cm" />
+        <fo:table-column column-width="8cm" />
+        <fo:table-body>
+
+          <fo:table-row>
+            <fo:table-cell>
+              <fo:block>{{translate 'sol.learning.form.course'}}</fo:block>
+            </fo:table-cell>
+            <fo:table-cell>
+              <fo:block>{{COURSE.objKeys.COURSE_CATEGORY}}</fo:block>
+              <fo:block>{{COURSE.objKeys.COURSE_NAME}}, {{COURSE.objKeys.COURSE_NAME}}</fo:block>
+            </fo:table-cell>
+          </fo:table-row>
+
+          <fo:table-row>
+            <fo:table-cell>
+              <fo:block>{{translate 'sol.learning.mask.instructor'}}</fo:block>
+            </fo:table-cell>
+            <fo:table-cell>
+              <fo:block>{{COURSE.objKeys.COURSE_INSTRUCTOR}}</fo:block>
+            </fo:table-cell>
+          </fo:table-row>
+
+          <fo:table-row>
+            <fo:table-cell>
+              <fo:block>{{translate 'sol.learning.mask.courseType'}}</fo:block>
+            </fo:table-cell>
+            <fo:table-cell>
+              <fo:block>{{COURSE.objKeys.COURSE_TYPE}}</fo:block>
+            </fo:table-cell>
+          </fo:table-row>
+
+          <fo:table-row>
+            <fo:table-cell>
+              <fo:block>{{translate 'sol.learning.mask.courseEstimatetTime'}}</fo:block>
+            </fo:table-cell>
+            <fo:table-cell>
+              <fo:block>{{formatDate 'DD.MM.YYYY' hierarchy.COURSE.objKeys.COURSE_ESTIMATED_TIME}}</fo:block>
+            </fo:table-cell>
+          </fo:table-row>
+
+          <fo:table-row>
+            <fo:table-cell>
+              <fo:block>{{translate 'sol.learning.mask.difficulty'}}</fo:block>
+            </fo:table-cell>
+            <fo:table-cell>
+              <fo:block>{{COURSE.objKeys.COURSE_DIFFICULTY}}</fo:block>
+            </fo:table-cell>
+          </fo:table-row>
+
+
+        </fo:table-body>
+      </fo:table>
+    </fo:flow>
+  </fo:page-sequence>
+</fo:root>

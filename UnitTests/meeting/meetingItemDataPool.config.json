@@ -1,0 +1,151 @@
+{
+  "kwl": {
+    "sol.meeting.task.ix.localizedKwl.TaskStatus": {
+      "keynames": [
+        "$KEY",
+        "$VALUE",
+        "UNITTEST_FIELD2"
+      ],
+      "header": [
+        "Key",
+        "Value",
+        null
+      ],
+      "title": "Aufgaben Status",
+      "data": [
+        [
+          "O",
+          "Offen",
+          "O - Offen"
+        ],
+        [
+          "D",
+          "Erledigt",
+          "D - Erledigt"
+        ],
+        [
+          "C",
+          "Geschlossen",
+          "C - Geschlossen"
+        ]
+      ]
+    }
+  },
+  "templates": {
+    "voting": [
+      "Yes – no – abstain (Digital)",
+      "Yes – no – abstain (Raise hand)",
+      "Yes – no (Digital)",
+      "Yes – no (Raise hand)"
+    ]
+  },
+  "meetingItems": [
+    {
+      "desc": "Beschreibung Thema1",
+      "objKeys": {
+        "MEETING_BOARD_NAME": "Meetingboard3",
+        "MEETING_BOARD_CODE": "TMB3",
+        "MEETING_ITEM_TITLE": "Thema1",
+        "MEETING_ITEM_DURATION": "40",
+        "MEETING_ITEM_RESPONSIBLE_PERSON": "Adrian Smith"
+      },
+      "mapKeys": {
+        "MEETING_ITEM_POOL_NAME": "Meetingitempool3"
+      },
+      "mapTableSpeakers": [
+        ["MEETING_ITEM_SPEAKER_OF_ADDRESS", "MEETING_ITEM_SPEAKER_LASTNAME", "MEETING_ITEM_SPEAKER_FIRSTNAME"],
+        ["Herr", "Kraft", "Bodo"],
+        ["Frau", "Davis", "Jessica"]
+      ],
+      "tasks": [
+        {
+          "desc": "Beschreibung Aufgabe1",
+          "objKeys": {
+            "MEETING_TASK_TITLE": "Aufgabe1",
+            "MEETING_TASK_ASSIGNEE": "Bodo Kraft",
+            "MEETING_TASK_DUEDATE": "20220604" ,
+            "MEETING_TASK_STATUS": "O - Offen"
+          }
+        },
+        {
+          "desc": "Beschreibung Aufgabe2",
+          "objKeys": {
+            "MEETING_TASK_TITLE": "Aufgabe2",
+            "MEETING_TASK_ASSIGNEE": "Gerd Baum",
+            "MEETING_TASK_DUEDATE": "20220606" ,
+            "MEETING_TASK_STATUS": "O - Offen"
+          }
+        }
+      ],
+      "votings": [
+        {
+          "desc": "Beschreibung Abstimmung1",
+          "objKeys": {
+            "MEETING_VOTING_TITLE": "Yes – no – abstain (Digital)",
+            "MEETING_VOTING_QUESTION": "Frage Abstimmung1",
+            "MEETING_VOTING_MAX_VOTES": 5
+          }
+        },
+        {
+          "desc": "Beschreibung Abstimmung2",
+          "objKeys": {
+            "MEETING_VOTING_TITLE": "Yes – no (Raise hand)",
+            "MEETING_VOTING_QUESTION": "Frage Abstimmung2",
+            "MEETING_VOTING_MAX_VOTES": 10
+          }
+        }
+      ],
+      "notes": [
+        {
+          "text": "Beschreibung Notiz1",
+          "title": "Notiz1",
+          "meetingMinutesRelevant" : true,
+          "visibility" : "PU"
+        },
+        {
+          "text": "Beschreibung Notiz2",
+          "title": "Notiz2",
+          "meetingMinutesRelevant" : false,
+          "visibility" : "PR"
+        }
+      ]
+    },
+    {
+      "desc": "Beschreibung Thema2",
+      "objKeys": {
+        "MEETING_BOARD_NAME": "Meetingboard3",
+        "MEETING_BOARD_CODE": "TMB3",
+        "MEETING_ITEM_TITLE": "Thema2",
+        "MEETING_ITEM_DURATION": "40",
+        "MEETING_ITEM_RESPONSIBLE_PERSON": "David Lee"
+      },
+      "mapKeys": {
+        "MEETING_ITEM_POOL_NAME": "Meetingitempool3"
+      },
+      "mapTableSpeakers": [
+        ["MEETING_ITEM_SPEAKER_OF_ADDRESS", "MEETING_ITEM_SPEAKER_LASTNAME", "MEETING_ITEM_SPEAKER_FIRSTNAME"],
+        ["Frau", "Davis", "Jessica"]
+      ],
+      "tasks": [],
+      "votings": [],
+      "notes": []
+    },
+    {
+      "desc": "Beschreibung Thema1",
+      "objKeys": {
+        "MEETING_BOARD_NAME": "Meetingboard4",
+        "MEETING_BOARD_CODE": "TMB4",
+        "MEETING_ITEM_TITLE": "Thema1",
+        "MEETING_ITEM_DURATION": "30",
+        "MEETING_ITEM_RESPONSIBLE_PERSON": "David Lee"
+      },
+      "mapKeys": {
+        "MEETING_ITEM_POOL_NAME": "Meetingitempool4"
+      },
+      "mapTableSpeakers": [],
+      "tasks": [],
+      "votings": [],
+      "notes": []
+    }
+  ]
+}

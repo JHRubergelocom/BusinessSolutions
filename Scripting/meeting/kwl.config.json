@@ -1,0 +1,472 @@
+{
+  "meetingParticipant": {
+    "type": "DB",
+    "translate": true,
+    "title": "sol.meeting.dynkwl.participants.tableTitle",
+    "sqlQuery": "SELECT lastname, firstname, mail, elouserid FROM sol_meeting_participants WHERE (mail LIKE ?) OR (lastname LIKE ?)",
+    "output": [
+      "IX_MAP_MEETING_PARTICIPANT_LASTNAME{i}",
+      "IX_MAP_MEETING_PARTICIPANT_FIRSTNAME{i}",
+      "IX_MAP_MEETING_PARTICIPANT_EMAIL{i}",
+      "IX_MAP_MEETING_PARTICIPANT_ELOUSER{i}"
+    ],
+    "header": [
+      "sol.meeting.dynkwl.participants.lastname",
+      "sol.meeting.dynkwl.participants.firstname",
+      "sol.meeting.dynkwl.participants.mail",
+      "sol.meeting.dynkwl.participants.userId"
+    ],
+    "searchParams": [
+      {
+        "mode": "CONTAINS"
+      },
+      {
+        "mode": "CONTAINS"
+      }
+    ],
+    "input": {
+      "name": "WF_MAP_MEETING_PARTICIPANT_LASTNAME1",
+      "value": "diet"
+    },
+    "dbName": ""
+  },
+  "workflowMapMeetingParticipant": {
+    "type": "SEARCH",
+    "translate": true,
+    "title": "sol.meeting.dynkwl.participants.tableTitle",
+    "sqlQuery": "SELECT lastname, firstname, mail, elouserid FROM sol_meeting_participants WHERE (mail LIKE ?) OR (lastname LIKE ?)",
+    "output": [
+      "WF_MAP_MEETING_PARTICIPANT_LASTNAME{i}",
+      "WF_MAP_MEETING_PARTICIPANT_FIRSTNAME{i}",
+      "WF_MAP_MEETING_PARTICIPANT_EMAIL{i}",
+      "WF_MAP_MEETING_PARTICIPANT_CONTACTLIST_NAME{i}",
+      "WF_MAP_MEETING_PARTICIPANT_COMPANYNAME{i}",
+      "WF_MAP_MEETING_PARTICIPANT_CONTACT_REFERENCE{i}",
+      "WF_MAP_MEETING_PARTICIPANT_CONTACTLIST_REFERENCE{i}"
+    ],
+    "header": [
+      "sol.meeting.dynkwl.participants.lastname",
+      "sol.meeting.dynkwl.participants.firstname",
+      "sol.meeting.dynkwl.participants.mail",
+      "sol.meeting.dynkwl.participants.contactlistName",
+      "sol.meeting.dynkwl.participants.companyname",
+      null,
+      null
+    ],
+    "searchParams": [
+      {
+        "name": "SOL_TYPE",
+        "value": "CONTACT"
+      },
+      {
+        "mode": "STARTS_WITH",
+        "name": "WF_MAP_MEETING_PARTICIPANT_LASTNAME{i}",
+        "searchName": "CONTACT_LASTNAME"
+      },
+      {
+        "emptyAllowed": false,
+        "name": "WF_MAP_MEETING_PARTICIPANT_FIRSTNAME{i}",
+        "mode": "STARTS_WITH",
+        "searchName": "CONTACT_FIRSTNAME"
+      },
+      {
+        "name": "WF_MAP_MEETING_PARTICIPANT_EMAIL{i}",
+        "mode": "STARTS_WITH",
+        "searchName": "CONTACT_EMAIL"
+      },
+      {
+        "name": "WF_MAP_MEETING_PARTICIPANT_CONTACTLIST_NAME{i}",
+        "mode": "STARTS_WITH",
+        "searchName": "CONTACTLIST_NAME"
+      },
+      {
+        "name": "WF_MAP_MEETING_PARTICIPANT_COMPANYNAME{i}",
+        "mode": "STARTS_WITH",
+        "searchName": "COMPANY_NAME"
+      },
+      {
+        "name": "WF_MAP_MEETING_PARTICIPANT_CONTACT_REFERENCE{i}",
+        "mode": "STARTS_WITH",
+        "searchName": "CONTACT_REFERENCE"
+      }
+    ],
+    "input": {
+      "name": "WF_MAP_MEETING_PARTICIPANT_LASTNAME1",
+      "value": "diet"
+    },
+    "dbName": "",
+    "dataFields": [
+      "CONTACT_LASTNAME",
+      "CONTACT_FIRSTNAME",
+      "CONTACT_EMAIL",
+      "CONTACTLIST_NAME",
+      "COMPANY_NAME",
+      "CONTACT_REFERENCE",
+      "CONTACTLIST_REFERENCE"
+    ]
+  },
+  "participantGroupMember": {
+    "type": "DB",
+    "translate": true,
+    "title": "sol.meeting.dynkwl.participantGroup.member.tableTitle",
+    "sqlQuery": "SELECT lastname, firstname, mail, elouserid FROM sol_meeting_participants WHERE (mail LIKE ?) OR (lastname LIKE ?)",
+    "output": [
+      "IX_MAP_MEETING_PARTICIPANT_LASTNAME{i}",
+      "IX_MAP_MEETING_PARTICIPANT_FIRSTNAME{i}",
+      "IX_MAP_MEETING_PARTICIPANT_EMAIL{i}",
+      "IX_MAP_MEETING_PARTICIPANT_ELOUSER{i}"
+    ],
+    "header": [
+      "sol.meeting.dynkwl.participants.lastname",
+      "sol.meeting.dynkwl.participants.firstname",
+      "sol.meeting.dynkwl.participants.mail",
+      "sol.meeting.dynkwl.participants.userId"
+    ],
+    "searchParams": [
+      {
+        "mode": "CONTAINS"
+      },
+      {
+        "mode": "CONTAINS"
+      }
+    ]
+  },
+  "participantGroups": {
+    "type": "CHILDREN",
+    "translate": true,
+    "title": "sol.meeting.dynkwl.participantGroup.tableTitle",
+    "output": [
+      "IX_MAP_PARTICIPANTGROUP_NAME{i}",
+      null
+    ],
+    "parentId": "ARCPATH:/Sitzungsmanagement/Teilnehmerkreise"
+  },
+  "proposalTypeTemplates": {
+    "type": "CHILDREN",
+    "translate": true,
+    "title": "sol.meeting.dynkwl.notification.template.tableTitle",
+    "parentId": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions Custom/meeting/Configuration/Proposal types",
+    "output": [
+      "IX_MAP_PROPOSAL_TYPES{i}",
+      null
+    ],
+    "input": {
+      "value": "",
+      "name": ""
+    }
+  },
+  "participantContacts": {
+    "type": "SEARCH",
+    "translate": true,
+    "title": "sol.meeting.dynkwl.participants.contact.tableTitle",
+    "header": [
+      "sol.meeting.dynkwl.participants.lastname",
+      "sol.meeting.dynkwl.participants.firstname",
+      "sol.meeting.dynkwl.participants.mail",
+      "sol.meeting.dynkwl.participants.contactlistName",
+      "sol.meeting.dynkwl.participants.companyname",
+      null,
+      null
+    ],
+    "output": [
+      "IX_MAP_MEETING_PARTICIPANT_LASTNAME{i}",
+      "IX_MAP_MEETING_PARTICIPANT_FIRSTNAME{i}",
+      "IX_MAP_MEETING_PARTICIPANT_EMAIL{i}",
+      "IX_MAP_MEETING_PARTICIPANT_CONTACTLIST_NAME{i}",
+      "IX_MAP_MEETING_PARTICIPANT_COMPANYNAME{i}",
+      "IX_MAP_MEETING_PARTICIPANT_CONTACT_REFERENCE{i}",
+      "IX_MAP_MEETING_PARTICIPANT_CONTACTLIST_REFERENCE{i}"
+    ],
+    "searchParams": [
+      {
+        "name": "SOL_TYPE",
+        "value": "CONTACT"
+      },
+      {
+        "name": "IX_MAP_MEETING_PARTICIPANT_LASTNAME{i}",
+        "mode": "STARTS_WITH",
+        "searchName": "CONTACT_LASTNAME"
+      },
+      {
+        "name": "IX_MAP_MEETING_PARTICIPANT_FIRSTNAME{i}",
+        "mode": "STARTS_WITH",
+        "searchName": "CONTACT_FIRSTNAME",
+        "emptyAllowed": false
+      },
+      {
+        "name": "IX_MAP_MEETING_PARTICIPANT_EMAIL{i}",
+        "mode": "STARTS_WITH",
+        "searchName": "CONTACT_EMAIL"
+      },
+      {
+        "name": "IX_MAP_MEETING_PARTICIPANT_CONTACTLIST_NAME{i}",
+        "mode": "STARTS_WITH",
+        "searchName": "CONTACTLIST_NAME"
+      },
+      {
+        "name": "IX_MAP_MEETING_PARTICIPANT_COMPANYNAME{i}",
+        "mode": "STARTS_WITH",
+        "searchName": "COMPANY_NAME"
+      },
+      {
+        "name": "IX_MAP_MEETING_PARTICIPANT_CONTACT_REFERENCE{i}",
+        "mode": "STARTS_WITH",
+        "searchName": "CONTACT_REFERENCE"
+      }
+    ],
+    "dataFields": [
+      "CONTACT_LASTNAME",
+      "CONTACT_FIRSTNAME",
+      "CONTACT_EMAIL",
+      "CONTACTLIST_NAME",
+      "COMPANY_NAME",
+      "CONTACT_REFERENCE",
+      "CONTACTLIST_REFERENCE"
+    ]
+  },
+  "participantContactsTypeMember": {
+    "type": "SEARCH",
+    "translate": true,
+    "title": "sol.meeting.dynkwl.participants.contact.tableTitle",
+    "header": [
+      "sol.meeting.dynkwl.participants.contactReference",
+      "sol.meeting.dynkwl.participants.companyname",
+      "sol.meeting.dynkwl.participants.firstname",
+      "sol.meeting.dynkwl.participants.lastname",
+      "sol.meeting.dynkwl.participants.username",
+      "sol.meeting.dynkwl.participants.mail"
+    ],
+    "output": [
+      "MEETING_PARTICIPANT_CONTACT_REFERENCE",
+      "MEETING_PARTICIPANT_COMPANYNAME",
+      "MEETING_PARTICIPANT_FIRSTNAME",
+      "MEETING_PARTICIPANT_LASTNAME",
+      "MEETING_PARTICIPANT_USERNAME",
+      "MEETING_PARTICIPANT_EMAIL"
+    ],
+    "searchParams": [
+      {
+        "name": "SOL_TYPE",
+        "value": "CONTACT"
+      },
+      {
+        "name": "MEETING_PARTICIPANT_CONTACT_REFERENCE",
+        "mode": "STARTS_WITH",
+        "searchName": "CONTACT_REFERENCE"
+      },
+      {
+        "name": "MEETING_PARTICIPANT_COMPANYNAME",
+        "mode": "STARTS_WITH",
+        "searchName": "COMPANY_NAME",
+        "emptyAllowed": true
+      },
+      {
+        "name": "MEETING_PARTICIPANT_FIRSTNAME",
+        "mode": "STARTS_WITH",
+        "searchName": "CONTACT_FIRSTNAME"
+      },
+      {
+        "name": "MEETING_PARTICIPANT_LASTNAME",
+        "mode": "STARTS_WITH",
+        "searchName": "CONTACT_LASTNAME"
+      }
+    ],
+    "dataFields": [
+      "CONTACT_REFERENCE",
+      "COMPANY_NAME",
+      "CONTACT_FIRSTNAME",
+      "CONTACT_LASTNAME",
+      "CONTACT_USERNAME",
+      "CONTACT_EMAIL"
+    ]
+  },
+  "participantContactlist": {
+    "type": "SEARCH",
+    "translate": true,
+    "title": "sol.meeting.dynkwl.participants.contact.tableTitle",
+    "header": [
+      "sol.meeting.dynkwl.participants.contactlistName",
+      null
+    ],
+    "output": [
+      "IX_MAP_MEETING_PARTICIPANT_CONTACTLIST_NAME{i}",
+      "IX_MAP_MEETING_PARTICIPANT_CONTACTLIST_REFERENCE{i}"
+    ],
+    "searchParams": [
+      {
+        "name": "SOL_TYPE",
+        "value": "CONTACTLIST"
+      },
+      {
+        "name": "IX_MAP_MEETING_PARTICIPANT_CONTACTLIST_NAME{i}",
+        "mode": "STARTS_WITH",
+        "searchName": "CONTACTLIST_NAME"
+      }
+    ],
+    "dataFields": [
+      "CONTACTLIST_NAME",
+      "CONTACTLIST_REFERENCE"
+    ]
+  },
+  "participantCompanyname": {
+    "type": "SEARCH",
+    "translate": true,
+    "title": "sol.meeting.dynkwl.participants.contact.tableTitle",
+    "header": [
+      "sol.meeting.dynkwl.participants.companyname",
+      "sol.meeting.dynkwl.participants.contactlistName",
+      null
+    ],
+    "output": [
+      "IX_MAP_MEETING_PARTICIPANT_COMPANYNAME{i}",
+      "IX_MAP_MEETING_PARTICIPANT_CONTACTLIST_NAME{i}",
+      "IX_MAP_MEETING_PARTICIPANT_CONTACTLIST_REFERENCE{i}"
+    ],
+    "searchParams": [
+      {
+        "name": "SOL_TYPE",
+        "value": "COMPANY"
+      },
+      {
+        "name": "IX_MAP_MEETING_PARTICIPANT_COMPANYNAME{i}",
+        "mode": "STARTS_WITH",
+        "searchName": "COMPANY_NAME"
+      },
+      {
+        "name": "IX_MAP_MEETING_PARTICIPANT_CONTACTLIST_REFERENCE{i}",
+        "searchName": "CONTACTLIST_REFERENCE"
+      }
+    ],
+    "dataFields": [
+      "COMPANY_NAME",
+      "CONTACTLIST_NAME",
+      "CONTACTLIST_REFERENCE"
+    ]
+  },
+  "workflowMapMeetingContactlist": {
+    "type": "SEARCH",
+    "translate": true,
+    "title": "sol.meeting.dynkwl.participants.contact.tableTitle",
+    "output": [
+      "WF_MAP_MEETING_PARTICIPANT_CONTACTLIST_NAME{i}",
+      "WF_MAP_MEETING_PARTICIPANT_CONTACTLIST_REFERENCE{i}"
+    ],
+    "header": [
+      "sol.meeting.dynkwl.participants.contactlistName",
+      null
+    ],
+    "dataFields": [
+      "CONTACTLIST_NAME",
+      "CONTACTLIST_REFERENCE"
+    ],
+    "searchParams": [
+      {
+        "value": "CONTACTLIST",
+        "name": "SOL_TYPE"
+      },
+      {
+        "mode": "STARTS_WITH",
+        "name": "WF_MAP_MEETING_PARTICIPANT_CONTACTLIST_NAME{i}",
+        "searchName": "CONTACTLIST_NAME"
+      }
+    ]
+  },
+  "workflowMapMeetingCompanyname": {
+    "type": "SEARCH",
+    "translate": true,
+    "title": "sol.meeting.dynkwl.participants.contact.tableTitle",
+    "output": [
+      "WF_MAP_MEETING_PARTICIPANT_COMPANYNAME{i}",
+      "WF_MAP_MEETING_PARTICIPANT_CONTACTLIST_NAME{i}",
+      "WF_MAP_MEETING_PARTICIPANT_CONTACTLIST_REFERENCE{i}"
+    ],
+    "header": [
+      "sol.meeting.dynkwl.participants.companyname",
+      "sol.meeting.dynkwl.participants.contactlistName",
+      null
+    ],
+    "dataFields": [
+      "COMPANY_NAME",
+      "CONTACTLIST_NAME",
+      "CONTACTLIST_REFERENCE"
+    ],
+    "searchParams": [
+      {
+        "name": "SOL_TYPE",
+        "value": "COMPANY"
+      },
+      {
+        "name": "WF_MAP_MEETING_PARTICIPANT_COMPANYNAME{i}",
+        "mode": "STARTS_WITH",
+        "searchName": "COMPANY_NAME"
+      },
+      {
+        "name": "WF_MAP_MEETING_PARTICIPANT_CONTACTLIST_REFERENCE{i}",
+        "searchName": "CONTACTLIST_REFERENCE"
+      }
+    ]
+  },
+  "MeetingTypeNotificationTemplates": {
+    "type": "CHILDREN",
+    "translate": true,
+    "title": "sol.meeting.dynkwl.notification.template.tableTitle",
+    "output": [
+      "IX_MAP_MEETING_NOTIFICATION_TEMPLATE_{i}",
+      null
+    ],
+    "header": [
+      "sol.meeting.dynkwl.notification.template.name",
+      "sol.meeting.dynkwl.notification.template.content"
+    ],
+    "parent": {
+      "fieldKey": "IX_MAP_TARGET_PATH_NOTIFICATION_TEMPLATES",
+      "fromService": {
+        "name": "RF_sol_function_CreateSord",
+        "params": {
+          "masks": ["Meeting Type"],
+            "search": [
+                {"key": "SOL_TYPE", "value": ["MEETING_TYPE"]},
+                {"key": "MEETINGTYPE_CODE", "value": "{{sord.objKeys.MEETINGTYPE_CODE}}"}
+            ],
+            "output": [
+                { "source": { "type": "MAP", "key": "TARGET_PATH_NOTIFICATION_TEMPLATES" }, "target": { "prop": "IX_MAP_TARGET_PATH_NOTIFICATION_TEMPLATES" } }
+            ]
+        }
+      }
+    }
+  },
+  "MeetingNotificationTemplate": {
+    "type": "CHILDREN",
+    "translate": true,
+    "title": "sol.meeting.dynkwl.notification.template.tableTitle",
+    "output": [
+      "IX_MAP_MEETING_NOTIFICATION_TEMPLATE_{i}",
+      null
+    ],
+    "header": [
+      "sol.meeting.dynkwl.notification.template.name",
+      "sol.meeting.dynkwl.notification.template.content"
+    ],
+    "parent": {
+      "fieldKey": "TARGET_PATH_NOTIFICATION_TEMPLATES",
+      "fromService": {
+        "fieldKey": "source.mapKeys.TARGET_PATH_NOTIFICATION_TEMPLATES",
+        "name": "RF_sol_common_service_SordProvider",
+        "params": {
+          "masks": ["Meeting Type"],
+            "search": [
+                {"key": "SOL_TYPE", "value": ["MEETING_TYPE"]},
+                {"key": "MEETINGTYPE_CODE", "value": "{{sord.objKeys.MEETINGTYPE_CODE}}"}
+            ],
+            "output": [
+              { "source": { "type": "MAP", "key": "TARGET_PATH_NOTIFICATION_TEMPLATES" }, "target": { "prop": "IX_MAP_TARGET_PATH_NOTIFICATION_TEMPLATES" } },
+              { "source": { "type": "SORD", "key": "id" }, "target": { "prop": "id" } }
+            ],
+            "options": {
+              "formatAsTemplateSord": true
+            }
+        }
+      }
+    }
+  }
+}

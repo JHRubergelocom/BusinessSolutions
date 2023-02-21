@@ -1,0 +1,17 @@
+﻿{
+  "selector": {
+    "ids": [],
+    "arcPath": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/invoice [unit tests]/.eloinst/install"
+  },
+  "view": {
+    "show": "CONTENT",
+    "focus": "APP",
+    "type": "DOCVIEW"
+  },
+  "web": {
+    "id": "InstallConfig",
+    "namespace": "sol.dev.apps",
+    "eloSession": true
+  },
+  "id": "sol.invoice [unit tests].config.Install"
+}

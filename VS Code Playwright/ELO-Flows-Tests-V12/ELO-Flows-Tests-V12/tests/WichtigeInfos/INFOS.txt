@@ -1,0 +1,28 @@
+Projekt anfangen: 
+	npm init -> erzeugt das Projekt, mit Daten wie Name, Version, Description usw..
+	npm install prettier ->prettier installieren (empfohlen, nicht notwendig) -> Formatierungshilfe
+	.prettierrc -> file im Root des Projekts erstellen (prettier autostart)
+	npm install @playwright/test -> installiert Playwright-Runner
+	npx playwright install -> installiert die Browser (Chromium,Firefox,Webkit)
+	
+	neuen Ordner im Root erstellen, neue File erstellen z.B. example.spec.ts
+	1	import {test, expect } from '@playwright/test'
+		
+	2	test("example" , async ({page}) => {
+			
+			//hier Testcode
+		
+		})
+		
+	
+	Test starten:
+	
+		npx playwright test --config=e2e.config.ts --project=chromium
+		npx playwright test --grep manuelleVorlageErstellen --config=e2e.config.ts --project=Chromium
+		npx playwright test --headed
+		npx playwright test -browser=firefox
+		npx playwright test --config=e2e.config.ts --project=chromium --reporter=line (list, junit, html)
+
+		npm run tests:e2e -> einfache art alle Tests zu starten (TypeScript ist ein Compiler, ausführen mit node.js, dann geht auch 
+		die Konsolenausgabe console.log('etwas')) ; um npm run tests:beispiel ausführen zu können, muss das Profil im 
+		package.json eingetragen werden

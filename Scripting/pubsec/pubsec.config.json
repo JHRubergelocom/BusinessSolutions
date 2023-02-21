@@ -1,0 +1,323 @@
+{
+  "rulesetNames": {
+    "importFilingPlan": "sol.pubsec.as.ImportFilingPlan"
+  },
+  "fields": {
+    "filingPlanName": "FILING_PLAN_NAME",
+    "filingPlanReference": "FILING_PLAN_REFERENCE",
+    "filingPlanSort": "FILING_PLAN_REFERENCE",
+    "filingPlanAllowedFiles": "FILING_PLAN_ALLOWED_FILES",
+    "fileName": "FILE_NAME",
+    "fileType": "FILE_TYPE",
+    "fileOwner": "FILE_OWNER",
+    "fileReference": "FILE_REFERENCE",
+    "fileGroupReference": "FILE_GROUP_REFERENCE",
+    "fileParentReference": "FILE_PARENT_REFERENCE",
+    "fileAllowedSubfiles": "FILE_ALLOWED_SUBFILES",
+    "fileAllowedProcesses": "FILE_ALLOWED_PROCESSES",
+    "fileStatus": "FILE_STATUS",
+    "fileParentLookup": "FILING_PLAN_REFERENCE",
+    "fileShortDescriptionTemplate": "FILE_NAME_GEN",
+    "fileReferenceTemplate": "FILE_REFERENCE_GEN",
+    "fileGroupTemplate": "FILE_GROUP_REFERENCE_GEN",
+    "fileRightsCreate": "FILE_RIGHTS_CREATEFILE",
+    "fileRightsRead": "FILE_RIGHTS_READ",
+    "fileRightsWrite": "FILE_RIGHTS_WRITE",
+    "ou": "ORGANISATIONAL_UNIT",
+    "restrictionNoteDescription": "FILE_RESTRICTION_NOTE",
+    "documentReference": "DOCUMENT_REFERENCE",
+    "documentReferenceTemplate": "DOCUMENT_REFERENCE_GEN",
+    "backgroundWorkflowPermission": "PUBSEC_BG_WORKFLOW_PERMISSION"
+  },
+  "mapFields": {
+    "changeRequestName": "SOL_PUBSEC_WF_CHANGEREQUEST_NAME",
+    "restrictionNoteDescription": "RESTRICTION_NOTE"
+  },
+  "requests": {
+    "change": {
+      "folderId": "ARCPATH:/Requests/Change Requests/{{formatDate 'YYYY'}}/{{formatDate 'MM'}}",
+      "maskName": "",
+      "user": {
+        "defaultUser": "PubSec.FilingDepartment"
+      }
+    },
+    "open": {
+      "folderId": "ARCPATH:/Requests/Open Requests/{{formatDate 'YYYY'}}/{{formatDate 'MM'}}",
+      "maskName": "",
+      "permissionIndicator": "open",
+      "childrenTableMapping": [
+        {
+          "from": {
+            "type": "SORD",
+            "key": "maskName"
+          },
+          "to": "SOL_PUBSEC_WF_OPENREQUEST_TYPE"
+        },
+        {
+          "from": {
+            "type": "GRP",
+            "key": "FILE_NAME"
+          },
+          "to": "SOL_PUBSEC_WF_OPENREQUEST_NAME"
+        },
+        {
+          "from": {
+            "type": "GRP",
+            "key": "FILE_REFERENCE"
+          },
+          "to": "SOL_PUBSEC_WF_OPENREQUEST_REFERENCE"
+        },
+        {
+          "from": {
+            "type": "GRP",
+            "key": "PROCESS_NAME"
+          },
+          "to": "SOL_PUBSEC_WF_OPENREQUEST_NAME"
+        },
+        {
+          "from": {
+            "type": "GRP",
+            "key": "PROCESS_REFERENCE"
+          },
+          "to": "SOL_PUBSEC_WF_OPENREQUEST_REFERENCE"
+        }
+      ]
+    },
+    "delete": {
+      "folderId": "ARCPATH:/Requests/Delete Requests/{{formatDate 'YYYY'}}/{{formatDate 'MM'}}",
+      "maskName": "",
+      "permissionIndicator": "delete",
+      "childrenTableMapping": [
+        {
+          "from": {
+            "type": "GRP",
+            "key": "SOL_TYPE"
+          },
+          "to": "SOL_PUBSEC_WF_DELETEREQUEST_TYPE"
+        },
+        {
+          "from": {
+            "type": "GRP",
+            "key": "FILE_NAME"
+          },
+          "to": "SOL_PUBSEC_WF_DELETEREQUEST_NAME"
+        },
+        {
+          "from": {
+            "type": "GRP",
+            "key": "FILE_REFERENCE"
+          },
+          "to": "SOL_PUBSEC_WF_DELETEREQUEST_REFERENCE"
+        }
+      ]
+    }
+  },
+  "filingPlan": {
+    "import": {
+      "fullAccessGroups": [
+        "sol.pubsec.admin.FilingPlan"
+      ],
+      "readAccessGroups": [
+        "Everyone"
+      ],
+      "standardSordType": "sol.Filing Plan"
+    },
+    "templateFolderId": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Imported Filing Plans",
+    "maskName": "Filing Plan",
+    "referenceSeparator": "/",
+    "nameSeparator": " - ",
+    "rightFields": [
+      "FILE_RIGHTS_READ",
+      "FILE_RIGHTS_WRITE",
+      "FILE_RIGHTS_CREATEFILE"
+    ],
+    "userSeparator": "¶",
+    "aclInheritanceBreaker": {
+      "enabled": false,
+      "processedSolTypes": ["FILING_PLAN", "FILING_PLAN_STRUCT"]
+    }
+  },
+  "file": {
+    "templateFolderId": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/pubsec/Configuration/File Types",
+    "createLookupMaskName": "Filing Plan",
+    "close": {
+      "checkContent": true,
+      "checkActiveWF": true,
+      "checkActiveWFTemplates": []
+    },
+    "status": {
+      "open": "OPEN",
+      "closed": "CLOSED"
+    },
+    "useParentNameAsDefault": false,
+    "newFilegroupOnlyOnClosed": true,
+    "creatingUserIsAlwaysOwner": false
+  },
+  "workflows": {
+    "changeRequest": {
+      "workflowTemplate": "sol.pubsec.request.change",
+      "workflowNameTemplate": "{{translate 'sol.pubsec.ix.actions.ChangeRequest.wfPrefix'}} (#{{wfNumber}}): {{formatDate 'YYYY-MM-DD' wfDate}}"
+    },
+    "openRequest": {
+      "workflowTemplate": "sol.pubsec.request.open",
+      "workflowNameTemplate": "{{translate 'sol.pubsec.ix.actions.Open.wfPrefix'}} (#{{wfNumber}}): {{formatDate 'YYYY-MM-DD' wfDate}}"
+    },
+    "deleteRequest": {
+      "workflowTemplate": "sol.pubsec.request.delete",
+      "workflowNameTemplate": "{{translate 'sol.pubsec.ix.actions.Delete.wfPrefix'}} (#{{wfNumber}}): {{formatDate 'YYYY-MM-DD' wfDate}}"
+    },
+    "createFile": {
+      "workflowNameTemplate": "{{translate 'sol.pubsec.ix.actions.CreateFile.wfPrefix'}}: {{fileType}}",
+      "nodes": {
+        "rights": {
+          "users": [
+            {
+              "name": "PubSec.FilingDepartment",
+              "rights": {
+                "r": true,
+                "w": true,
+                "d": true,
+                "e": true,
+                "l": true,
+                "p": true
+              }
+            },
+            {
+              "type": "GRP",
+              "key": "FILE_OWNER",
+              "rights": {
+                "r": true,
+                "w": true,
+                "d": true,
+                "e": true,
+                "l": true,
+                "p": true
+              }
+            },
+            {
+              "type": "GRP",
+              "key": "ORGANISATIONAL_UNIT",
+              "rights": {
+                "r": true,
+                "w": false,
+                "d": false,
+                "e": false,
+                "l": false
+              }
+            }
+          ],
+          "cleanup": {
+            "revokeWfOwnerRights": true
+          }
+        },
+        "fpRights": {
+          "users": [
+            {
+              "type": "GRP",
+              "key": "FILE_RIGHTS_READ",
+              "rights": {
+                "r": true,
+                "w": false,
+                "d": false,
+                "e": false,
+                "l": false
+              }
+            },
+            {
+              "type": "GRP",
+              "key": "FILE_RIGHTS_WRITE",
+              "rights": {
+                "r": true,
+                "w": true,
+                "d": false,
+                "e": true,
+                "l": true,
+                "p": true
+              }
+            }
+          ]
+        }
+      }
+    },
+    "closeFile": {
+      "workflowTemplate": "sol.pubsec.file.close",
+      "workflowNameTemplate": "{{translate 'sol.pubsec.ix.actions.Close.fileWfPrefix'}} (#{{wfNumber}}): {{formatDate 'YYYY-MM-DD' wfDate}}"
+    },
+    "openFile": {
+      "workflowTemplate": "sol.pubsec.file.open",
+      "workflowNameTemplate": "{{translate 'sol.pubsec.ix.functions.OpenChildElements.fileWfPrefix'}}: {{formatDate 'YYYY-MM-DD' wfDate}}"
+    },
+    "deleteFile": {
+      "workflowTemplate": "sol.pubsec.file.delete",
+      "workflowNameTemplate": "{{translate 'sol.pubsec.ix.functions.DeleteChildElements.fileWfPrefix'}}: {{formatDate 'YYYY-MM-DD' wfDate}}"
+    },
+    "restrictionNote": {
+      "workflowTemplate": "sol.pubsec.restrictionNote",
+      "workflowNameTemplate": "{{translate 'sol.pubsec.ix.actions.RestrictionNote.wfName'}}"
+    },
+    "createMultipartDocument": {
+      "workflowTemplate": "sol.pubsec.document.create",
+      "workflowNameTemplate": "{{translate 'sol.pubsec.ix.actions.MutlipartDocument.wfName'}}"
+    }
+  },
+  "fileCoverSheet": {
+    "templateFolderId": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/pubsec/Configuration/Filecoversheet Templates",
+    "fileCoverSheetDefaultName": "{{translate 'sol.pubsec.as.actions.CreateFileCoverSheet.name'}}"
+  },
+  "label": {
+    "labelDefaultName": "{{translate 'sol.pubsec.as.actions.CreateLabel.name'}}",
+    "templateFolderId": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/pubsec/Configuration/Label Templates"
+  },
+  "document": {
+    "templateFolderId": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/pubsec/Configuration/Document Templates",
+    "defaultName": "{{translate 'sol.pubsec.as.actions.CreateDocument.name'}}",
+    "multipartDocumentMask": "Document",
+    "multipartSordType": "sol.MultiDocument"
+  },
+  "reclassify": {
+    "file": {
+      "workflow": "sol.pubsec.reclassify.file",
+      "wfNameTemplate": "{{translate 'sol.pubsec.reclassify.file.wfPrefix'}}: {{name}}"
+    },
+    "process": {
+      "workflow": "sol.pubsec.reclassify.process",
+      "wfNameTemplate": "{{translate 'sol.pubsec.reclassify.process.wfPrefix'}}: {{name}}"
+    },
+    "document": {
+      "workflow": "sol.pubsec.reclassify.document",
+      "wfNameTemplate": "{{translate 'sol.pubsec.reclassify.document.wfPrefix'}}: {{name}}"
+    }
+  },
+  "generators": {
+    "templateFolderIds": {
+      "fileGroupReference": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/pubsec/Configuration/Generators/Reference IDs/Filing group",
+      "fileReference": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/pubsec/Configuration/Generators/Reference IDs/File reference",
+      "shortDescription": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/pubsec/Configuration/Generators/Short description/File",
+      "documentReference": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/pubsec/Configuration/Generators/Reference IDs/Document reference"
+    }
+  },
+  "reporting": {
+    "templateFolderId": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/pubsec/Configuration/Reports",
+    "deletionTemplateId": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/pubsec/Configuration/Reports/Deletion/Aktenbericht",
+    "types": {
+      "file": {
+        "subfolder": "File"
+      },
+      "files": {
+        "subfolder": "Files"
+      },
+      "filingplan": {
+        "subfolder": "Filing Plan"
+      }
+    },
+    "names": {
+      "file": "{{translate 'sol.pubsec.as.actions.CreateFileReport.name'}} {{formatDate 'YYYY-MM-DD' date}}",
+      "fileDeletion": "{{translate 'sol.pubsec.as.functions.CreateFileDeletionReport.name'}} {{formatDate 'YYYY-MM-DD' date}}",
+      "files": "{{translate 'sol.pubsec.as.actions.CreateFilesReport.name'}} {{formatDate 'YYYY-MM-DD' date}}",
+      "filingPlan": "{{translate 'sol.pubsec.as.actions.CreateFilingplanReport.name'}} {{formatDate 'YYYY-MM-DD' date}}"
+    },
+    "targetIds": {
+      "fileDeletion": "ARCPATH:/Reports/File deletion"
+    }
+  }
+}

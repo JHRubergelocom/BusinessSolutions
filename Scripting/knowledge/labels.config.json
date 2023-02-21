@@ -1,0 +1,37 @@
+{
+  "version": "9.00.001",
+  "labels": [
+    {
+      "key": "SUGGESTED",
+      "locale": "{{translate 'sol.knowledge.label.suggested'}}",
+      "contentTypes": [
+        "IDEA"
+      ],
+      "color": "#3386B7"
+    },
+    {
+      "key": "SELECTED",
+      "locale": "{{translate 'sol.knowledge.label.selected'}}",
+      "contentTypes": [
+        "IDEA"
+      ],
+      "color": "#F0AD4E"
+    },
+    {
+      "key": "IMPLEMENTED",
+      "locale": "{{translate 'sol.knowledge.label.implemented'}}",
+      "contentTypes": [
+        "IDEA"
+      ],
+      "color": "#379A52"
+    },
+    {
+      "key": "REJECTED",
+      "locale": "{{translate 'sol.knowledge.label.rejected'}}",
+      "contentTypes": [
+        "IDEA"
+      ],
+      "color": "#D43B50"
+    }
+  ]
+}

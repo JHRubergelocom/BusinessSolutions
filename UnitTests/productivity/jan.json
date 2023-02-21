@@ -1,0 +1,80 @@
+{
+    "dependencies": [
+        {
+            "folder": "../common.git/Business Solutions/common",
+            "elo": "/Business Solutions/common"
+        },
+        {
+            "folder": "../common.git/Business Solutions/common_monitoring",
+            "elo": "/Business Solutions/common_monitoring"
+        },
+        {
+            "folder": "../common.git/Business Solutions/development",
+            "elo": "/Business Solutions/development"
+        },
+        {
+            "folder": "../common.git/Business Solutions/dev_internal",
+            "elo": "/Business Solutions/dev_internal"
+        },
+        {
+            "folder": "./Business Solutions/account",
+            "elo": "/Business Solutions/account"
+        },
+        {
+            "folder": "./Business Solutions Custom/account",
+            "elo": "/Business Solutions Custom/account"
+        },
+        {
+            "folder": "./Business Solutions/contact",
+            "elo": "/Business Solutions/contact"
+        },
+        {
+            "folder": "./Business Solutions Custom/contact",
+            "elo": "/Business Solutions Custom/contact"
+        },
+        {
+            "folder": "./Business Solutions/launchpad",
+            "elo": "/Business Solutions/launchpad"
+        },
+        {
+            "folder": "./Business Solutions Custom/launchpad",
+            "elo": "/Business Solutions Custom/launchpad"
+        },
+        {
+            "folder": "./Business Solutions/notify",
+            "elo": "/Business Solutions/notify"
+        },
+        {
+            "folder": "./Business Solutions Custom/notify",
+            "elo": "/Business Solutions Custom/notify"
+        },
+        {
+            "folder": "./Business Solutions/checklist",
+            "elo": "/Business Solutions/checklist"
+        },
+        {
+            "folder": "./Business Solutions Custom/checklist",
+            "elo": "/Business Solutions Custom/checklist"
+        },
+        {
+            "folder": "./Business Solutions/privacy",
+            "elo": "/Business Solutions/privacy"
+        },
+        {
+            "folder": "./Business Solutions Custom/privacy",
+            "elo": "/Business Solutions Custom/privacy"
+        },
+        {
+            "folder": "../demo.git/Business Solutions/common",
+            "elo": "/Business Solutions/demo"
+        },
+        {
+            "folder": "../demo.git/Business Solutions/privacy_de",
+            "elo": "/Business Solutions/privacy [demo de]"
+        },
+        {
+            "folder": "./Business Solutions/Unit Tests",
+            "elo": "/Business Solutions/productivity [unit tests]"
+        }
+    ]
+}

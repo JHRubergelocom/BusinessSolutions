@@ -1,0 +1,1 @@
+clickConfirmDeleteTemplate von Aktionen zu Checkboxen umziehen

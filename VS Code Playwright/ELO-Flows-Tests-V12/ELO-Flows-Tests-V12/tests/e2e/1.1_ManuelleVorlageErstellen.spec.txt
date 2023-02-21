@@ -1,0 +1,29 @@
+import { test, expect } from '@playwright/test'
+import { Aktionen } from '../../page_objects/Aktionen'
+import { ClickButtonAction } from '../../page_objects/ClickButtonAction'
+import { Checkboxen } from '../../page_objects/Checkboxen'
+import { beforeEach_ } from '../../page_objects/BeforEach_'
+
+//Test
+test('1.1', async ({ page }) => {
+  let aktionen: Aktionen
+  let clickButtonAction: ClickButtonAction
+  let checkboxen: Checkboxen
+  aktionen = new Aktionen(page)
+  clickButtonAction = new ClickButtonAction(page)
+  checkboxen = new Checkboxen(page)
+  await beforeEach_(page)
+  await page.pause()
+//iFrame Zugang
+  await page.goto(
+    'http://vmdbsrv01:9090/ix-Repository1/plugin/de.elo.ix.plugin.proxy/flows/?package=(F3DF0845-5B77-B006-D04E-259A3370F024)&lang=de&client=ELOac'
+  )
+
+ 
+  await aktionen.clickOnManuelleVorlagen()
+  await clickButtonAction.clickNeuerFlow()
+  await aktionen.fillBezeichner('PlaywrightErstellteVorlage')
+  await aktionen.fillBeschreibung('Playwright Erstellte Vorlage')
+  await clickButtonAction.clickButtonErstellen()
+  await clickButtonAction.clickButtonZurueck()
+})

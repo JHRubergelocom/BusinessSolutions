@@ -1,0 +1,167 @@
+{
+  "tasks": {
+
+     "services": {
+       "getTask": {
+          "masks": ["Meeting Task"],
+          "search": [
+            { "key" : "MEETING_TASK_ID" , "value": "{{sord.objKeys.MEETING_TASK_ID}}"}
+          ]
+       },
+       "findTasksByReference": {
+         "masks": ["Meeting Task"],
+         "search": [
+           { "key" : "SOL_REFERENCE" , "value": "{{sord.objKeys.MEETING_ITEM_ID}}"}
+         ]
+       },
+
+       "createTask": {
+         "fromService": {
+            "name": "RF_sol_function_CreateSord",
+            "params": {
+              "sourceElement": {
+                "fromScratch": {
+                  "mask": "Meeting Task"
+                }
+              },
+              "targetFolder": {
+                "objId": "{{params.tasksFolderId}}"
+              }
+            }
+         },
+         "startWorkflow": {
+           "name": "sol.meeting.task.create",
+           "title": "sol.meeting.task.create.title",
+           "concluding": true
+         },
+         "metadataMapping": [
+          { "source": { "id": "MEETING_TASK_TITLE", "type": "GRP" } },
+          { "source": { "id": "MEETING_TASK_ASSIGNEE", "type": "GRP" } },
+          { "source": { "id": "MEETING_TASK_DUEDATE", "type": "GRP" } }
+         ],
+         "mandatoryFields": [
+           { "type": "GRP", "id": "MEETING_TASK_TITLE" },
+           { "type": "GRP", "id": "SOL_REFERENCE" }
+         ],
+         "workflowMixins": {
+           "shortDesc": {
+             "scriptProperties" : {
+                "entries": [
+                  {"type": "GRP", "key": "SOL_TYPE", "value": "MEETING_TASK" },
+                  {"type": "SORD", "key": "name", "value": "{{sord.objKeys.MEETING_TASK_TITLE}}",  "useTemplating": true }
+                ]
+             }
+           },
+           "moveByReference": {
+              "fromService": {
+                "name": "RF_sol_function_FindFirstSord",
+                "params": {
+                   "masks": ["Meeting Item"],
+                   "search": [{ "type": "GRP", "key": "MEETING_ITEM_ID", "value": "{{sord.objKeys.SOL_REFERENCE}}" }]
+                }
+              },
+              "target": {
+                "targetId": "element.id"
+              }
+           }
+         }
+       },
+
+       "editTask": {
+          "target": {
+          "objId": "{{sord.id}}",
+          "startWorkflow": {
+            "name": "sol.meeting.task.edit",
+            "title": "sol.meeting.task.edit.title",
+            "concluding": true
+          }
+        }
+       },
+
+       "deleteTask": {
+          "workflow": {
+            "name": "sol.meeting.task.delete",
+            "title": "sol.meeting.task.delete.title"
+          },
+          "workflowMixins": {}
+       },
+
+       "doneTask": {
+          "templateSord": {},
+          "startWorkflow": {
+            "name": "sol.meeting.task.done",
+            "title": "sol.meeting.task.done.title",
+            "concluding": true
+          },
+          "workflowMixins": {
+             "set": {
+               "scriptProperties": {
+                 "entries": [
+                   { "type" : "GRP", "key": "MEETING_TASK_STATUS", "value": "D", "useDynKwl": true }
+                 ]
+               }
+             }
+          }
+       },
+
+       "openTask": {
+          "templateSord": {},
+          "startWorkflow": {
+            "name": "sol.meeting.task.open",
+            "title": "sol.meeting.task.open.title",
+            "concluding": true
+          },
+          "workflowMixins": {
+            "set": {
+              "scriptProperties": {
+                "entries": [
+                  { "type" : "GRP", "key": "MEETING_TASK_STATUS", "value": "O", "useDynKwl": true }
+                ]
+              }
+            }
+         }
+       },
+
+       "closeTask": {
+        "templateSord": {},
+        "startWorkflow": {
+          "name": "sol.meeting.task.close",
+          "title": "sol.meeting.task.close.title",
+          "concluding": true
+        },
+        "workflowMixins": {
+          "set": {
+            "scriptProperties": {
+              "entries": [
+                { "type" : "GRP", "key": "MEETING_TASK_STATUS", "value": "C", "useDynKwl": true }
+              ]
+            }
+          }
+       }
+     }
+     },
+     "mapping": {
+        "createAndEdit": [
+          { "source": { "id": "MEETING_TASK_TITLE", "type": "GRP" } },
+          { "source": { "id": "MEETING_TASK_ASSIGNEE", "type": "GRP" } },
+          { "source": { "id": "MEETING_TASK_DUEDATE", "type": "GRP" } },
+          { "source": { "id": "SOL_REFERENCE", "type": "GRP" } },
+          { "source": { "id": "desc", "type": "SORD" } }
+        ]
+      },
+     "outputs": {
+        "taskFull": [
+          { "source": { "type": "SORD", "key": "id"}, "target": {"prop": "id"}},
+          { "source": { "type": "SORD", "key": "name"}, "target": {"prop": "name"}},
+          { "source": { "type": "SORD", "key": "desc"}, "target": {"prop": "desc"}},
+          { "source": { "type": "GRP", "key": "SOL_TYPE"}, "target": {"prop": "solType"}},
+          { "source": { "type": "GRP", "key": "MEETING_TASK_ID"}, "target": {"prop": "taskId"}},
+          { "source": { "type": "GRP", "key": "MEETING_TASK_TITLE"}, "target": {"prop": "title"}},
+          { "source": { "type": "GRP", "key": "MEETING_TASK_DUEDATE"}, "target": {"prop": "dueDate"}},
+          { "source": { "type": "GRP", "key": "MEETING_TASK_ASSIGNEE"}, "target": {"prop": "assignee"}},
+          { "source": { "type": "GRP", "key": "MEETING_TASK_STATUS"}, "target": {"prop": "status"}},
+          { "source": { "type": "GRP", "key": "MEETING_ITEM_ID"}, "target": {"prop": "reference"}}
+        ]
+     }
+  }
+}

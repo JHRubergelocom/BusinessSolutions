@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="apache.derby.derbyclient" type="repository">
+    <properties maven-id="org.apache.derby:derbyclient:10.16.1.1" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/derbyclient-10.16.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/derbyshared-10.16.1.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

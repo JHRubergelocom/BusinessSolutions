@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
+  <fo:layout-master-set>
+    <fo:simple-page-master master-name="CR80–ISO7810" page-height="54mm" page-width="85.7mm" margin-top="2mm" margin-bottom="2mm" margin-left="2mm" margin-right="2mm">
+      <fo:region-body />
+    </fo:simple-page-master>
+  </fo:layout-master-set>
+  {{#each visitors.sords}}
+  <fo:page-sequence master-reference="CR80–ISO7810">
+    <fo:flow flow-name="xsl-region-body">
+
+      <!-- company logo -->
+      <fo:block-container position="absolute" top="3mm" right="2mm" width="50mm" height="9mm">
+        <fo:block font-size="11pt" text-align="right">
+        <fo:external-graphic
+          content-height="scale-to-fit" height="9mm" width="50mm"
+          src="url('data:image/jpg;base64,{{base64Image objId='ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/visitor/Configuration/company_image'}}')"/>
+        </fo:block>
+      </fo:block-container>
+
+      <fo:block-container position="absolute" top="14mm" right="0mm" width="48.5mm">
+        <fo:block font-size="8pt" font-weight="normal" margin-bottom="3mm">
+          {{translate 'sol.visitor.output.visitorbadge.visitor'}}
+        </fo:block>
+        <fo:block font-size="14pt" margin-bottom="1mm">
+          {{#if objKeys.VISITOR_ENDDATE}}
+            {{#ifCond objKeys.VISITOR_STARTDATE '!==' objKeys.VISITOR_ENDDATE}}{{formatDate 'DD.MM' objKeys.VISITOR_STARTDATE}} - {{formatDate 'DD.MM.YYYY' objKeys.VISITOR_ENDDATE}}{{/ifCond}}
+            {{#ifCond objKeys.VISITOR_STARTDATE '===' objKeys.VISITOR_ENDDATE}}{{formatDate 'DD.MM.YYYY' objKeys.VISITOR_STARTDATE}}{{/ifCond}}
+          {{else}}
+            {{formatDate 'DD.MM.YYYY' objKeys.VISITOR_STARTDATE}}
+          {{/if}}
+        </fo:block>
+        <fo:block font-size="14pt" font-weight="bold" margin-bottom="0.5mm" line-height="4.1mm">
+          {{objKeys.VISITOR_FIRSTNAME}} {{objKeys.VISITOR_LASTNAME}}
+        </fo:block>
+        <fo:block font-size="8pt" margin-bottom="0mm">
+            {{objKeys.VISITOR_COMPANYNAME}}
+        </fo:block>
+      </fo:block-container>
+
+      <fo:block-container position="absolute" bottom="6.9mm" left="26mm" width="5.5cm" height="4mm" overflow="hidden">
+        <fo:block font-size="11pt">
+          <fo:external-graphic
+            content-height="scale-to-fit" height="4mm" width="6cm" scaling="non-uniform"
+            src="url('data:image/png;base64,{{base64Barcode content="V1.{{padLeft id '000000000'}}" type="CODE_39"}}')"/>
+        </fo:block>
+      </fo:block-container>
+      
+      <fo:block-container position="absolute" bottom="6mm" width="31mm" height="37mm">
+        <fo:block font-size="11pt">
+          {{#if objKeys.VISITOR_PHOTO_GUID}}
+          <fo:external-graphic width="100%"
+            content-height="37mm"
+            content-width="31mm"
+            scaling="uniform"
+            src="url('data:image/jpg;base64,{{base64Image objId='{{objKeys.VISITOR_PHOTO_GUID}}'}}')"/>
+            {{else}}
+              <fo:external-graphic width="100%"
+            content-height="37mm"
+            content-width="31mm"
+            scaling="uniform"
+            src="url('data:image/jpg;base64,{{base64Image objId='ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/visitor/Configuration/badge_standard_image'}}')"/>
+              {{/if}}
+        </fo:block>
+      </fo:block-container>
+
+      <fo:block-container position="absolute" bottom="0mm" left="0mm" width="100%" height="4.5mm" background-color="#2f3237">
+        <fo:block font-size="6pt" margin-top="1.1mm" margin-right="1.5mm" margin-left="1.5mm" color="white" text-align-last="justify">
+          {{translate 'sol.visitor.output.visitorbadge.slogan'}}
+          <fo:leader leader-pattern="space" />
+          www.elo.com
+        </fo:block>
+      </fo:block-container>
+    </fo:flow>
+
+  </fo:page-sequence>
+  {{/each}}
+
+</fo:root>

@@ -1,0 +1,21 @@
+dbo.tranlations
+
+Selektieren:
+USE [Repository1]
+GO
+
+SELECT * FROM [dbo].[translations]
+ where pack = '(F3DF0845-5B77-B006-D04E-259A3370F024)'
+
+
+Um zu löschen:
+ USE [Repository1]
+GO
+
+delete
+FROM [dbo].[translations]
+where pack = '(F3DF0845-5B77-B006-D04E-259A3370F024)'
+
+
+
+

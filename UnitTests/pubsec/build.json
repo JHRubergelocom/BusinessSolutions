@@ -1,0 +1,7 @@
+{
+  "setupName": "sol.pubsec [unit tests]",
+  "fileNamePrefix": "70",
+  "workflowTemplates": ["UnittestStandardWF"],
+  "sordTypes": [],
+  "gitPackagePath": "C:/Git/solutions/pubsec.git/Business Solutions/Unit Tests"
+}

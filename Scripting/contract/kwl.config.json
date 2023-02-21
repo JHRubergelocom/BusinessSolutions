@@ -1,0 +1,288 @@
+{
+
+  "Companies": {
+    "type": "DB",
+    "translate": true,
+    "title": "sol.contract.dynkwl.company.tableTitle",
+    "header": [
+      "sol.contract.dynkwl.company.tableHeaders.no",
+      "sol.contract.dynkwl.company.tableHeaders.name",
+      "sol.contract.dynkwl.company.tableHeaders.street",
+      "sol.contract.dynkwl.company.tableHeaders.postcode",
+      "sol.contract.dynkwl.company.tableHeaders.city",
+      "sol.contract.dynkwl.company.tableHeaders.country"
+    ],
+    "output": ["COMPANY_CODE", "COMPANY_NAME", null, null, null, null],
+    "searchParams": [
+      { "mode": "STARTS_WITH" },
+      { "mode": "CONTAINS" }
+    ],
+    "sqlQuery": "select code, name, street, zipcode, city, country_code from sol_company where code like ? OR name like ?"
+  },
+
+  "Cost centers": {
+    "type": "DB",
+    "translate": true,
+    "title": "sol.contract.dynkwl.costcenter.tableTitle",
+    "header": [
+      "sol.contract.dynkwl.costcenter.tableHeaders.no",
+      "sol.contract.dynkwl.costcenter.tableHeaders.name"
+    ],
+    "output": ["COST_CENTER_NO", "IX_MAP_COST_CENTER_NAME"],
+    "searchParams": [
+      { "name": "COMPANY_CODE", "message": "sol.contract.dynkwl.message.selectcompany" },
+      { "mode": "STARTS_WITH" },
+      { "mode": "CONTAINS" }
+    ],
+    "sqlQuery": "select no, name from sol_accounting_costcenter where company_code = ? and (no like ? or name like ?) order by name"
+  },
+
+  "Cost objects": {
+    "type": "DB",
+    "translate": true,
+    "title": "sol.contract.dynkwl.costobject.tableTitle",
+    "header": [
+      "sol.contract.dynkwl.costobject.tableHeaders.no",
+      "sol.contract.dynkwl.costobject.tableHeaders.name"
+    ],
+    "output": ["COST_OBJECT_NO", "IX_MAP_COST_OBJECT_NAME"],
+    "searchParams": [
+      { "name": "COMPANY_CODE", "message": "sol.contract.dynkwl.message.selectcompany" },
+      { "mode": "STARTS_WITH" },
+      { "mode": "CONTAINS" }
+    ],
+    "sqlQuery": "select no, name from sol_accounting_costobject where company_code = ? and (no like ? or name like ?) order by name"
+  },
+
+  "Currencies": {
+    "type": "DB",
+    "translate": true,
+    "title": "sol.contract.dynkwl.currency.tableTitle",
+    "header": [
+      "sol.contract.dynkwl.currency.tableHeaders.isocode",
+      "sol.contract.dynkwl.currency.tableHeaders.symbol",
+      "sol.contract.dynkwl.currency.tableHeaders.exchangerate"
+    ],
+    "output": ["CONTRACT_CURRENCY_CODE", "IX_MAP_CONTRACT_CURRENCY_SYMBOL", "IX_MAP_CONTRACT_FX_RATE"],
+    "searchParams": [
+      { "mode": "STARTS_WITH" },
+      { "mode": "STARTS_WITH" }
+    ],
+    "sqlQuery": "select currency_code, currency_symbol, currency_exchange_rate from sol_common_fx where currency_code like ? OR currency_symbol like ? order by currency_code"
+  },
+
+  "Projects": {
+    "type": "DB",
+    "translate": true,
+    "title": "sol.contract.dynkwl.project.tableTitle",
+    "header": [
+      "sol.contract.dynkwl.project.tableHeaders.no",
+      "sol.contract.dynkwl.project.tableHeaders.name"
+    ],
+    "output": ["PROJECT_NO", "PROJECT_NAME"],
+    "searchParams": [
+      { "name": "COMPANY_CODE", "message": "sol.contract.dynkwl.message.selectcompany" },
+      { "mode": "STARTS_WITH" },
+      { "mode": "CONTAINS" }
+    ],
+    "sqlQuery": "select no, name from sol_project where company_code = ? and (no like ? or name like ?)"
+  },
+
+  "Contact lists": {
+    "type": "SEARCH",
+    "translate": true,
+    "title": "sol.contact.dynkwl.contactlist.tableTitle",
+    "header": [
+      "sol.contact.mask.contactContactListName",
+      "sol.contact.mask.contactContactListRef"
+    ],
+    "output": [null, "IX_MAP_CONTRACT_CONTACTLIST_REFERENCE"],
+    "searchParams": [
+      { "name": "SOL_TYPE", "value": "CONTACTLIST" },
+      { "name": "IX_MAP_CONTRACT_CONTACTLIST_REFERENCE", "mode": "STARTS_WITH", "searchName": "CONTACTLIST_REFERENCE" }
+    ],
+    "dataFields": [
+      "CONTACTLIST_NAME",
+      "CONTACTLIST_REFERENCE"
+    ]
+  },
+
+  "Contract partners": {
+    "type": "SEARCH",
+    "translate": true,
+    "title": "sol.contact.dynkwl.company.tableTitle",
+    "header": [
+      "sol.contact.mask.companyReference",
+      "sol.contact.mask.companyName",
+      "sol.contact.mask.addressStreet",
+      "sol.contact.mask.addressAddition",
+      "sol.contact.mask.addressZipCode",
+      "sol.contact.mask.addressCity",
+      "sol.contact.mask.addressState",
+      "sol.contact.mask.addressCountry",
+      null
+    ],
+    "output": [
+      "PARTNER_NO",
+      "PARTNER_NAME",
+      "IX_MAP_ADDRESS_STREET",
+      "IX_MAP_ADDRESS_ADDITION",
+      "IX_MAP_ADDRESS_ZIP_CODE",
+      "IX_MAP_ADDRESS_CITY",
+      "IX_MAP_ADDRESS_STATE",
+      "IX_MAP_ADDRESS_COUNTRY",
+      "IX_MAP_CONTRACT_CONTACTLIST_REFERENCE"
+    ],
+    "searchParams": [
+      { "name": "SOL_TYPE", "value": "COMPANY" },
+      { "name": "PARTNER_NAME", "mode": "STARTS_WITH", "searchName": "COMPANY_NAME" },
+      { "name": "PARTNER_NO", "mode": "STARTS_WITH", "searchName": "COMPANY_REFERENCE" }
+    ],
+    "dataFields": [
+      "COMPANY_REFERENCE",
+      "COMPANY_NAME",
+      "ADDRESS_STREET",
+      "ADDRESS_ADDITION",
+      "ADDRESS_ZIP_CODE",
+      "ADDRESS_CITY",
+      "ADDRESS_STATE",
+      "ADDRESS_COUNTRY",
+      "CONTACTLIST_REFERENCE"
+    ]
+  },
+
+  "Additional contract partners": {
+    "type": "SEARCH",
+    "translate": true,
+    "title": "sol.contact.dynkwl.company.tableTitle",
+    "header": [
+      "sol.contact.mask.companyReference",
+      "sol.contact.mask.companyName",
+      "sol.contact.mask.addressStreet",
+      "sol.contact.mask.addressAddition",
+      "sol.contact.mask.addressZipCode",
+      "sol.contact.mask.addressCity",
+      "sol.contact.mask.addressState",
+      "sol.contact.mask.addressCountry",
+      null
+    ],
+    "output": [
+      "IX_MAP_PARTNER_NO{i}",
+      "IX_MAP_PARTNER_NAME{i}",
+      "IX_MAP_ADDRESS_STREET{i}",
+      "IX_MAP_ADDRESS_ADDITION{i}",
+      "IX_MAP_ADDRESS_ZIP_CODE{i}",
+      "IX_MAP_ADDRESS_CITY{i}",
+      "IX_MAP_ADDRESS_STATE{i}",
+      "IX_MAP_ADDRESS_COUNTRY{i}",
+      "IX_MAP_CONTRACT_CONTACTLIST_REFERENCE{i}"
+    ],
+    "searchParams": [
+      { "name": "SOL_TYPE", "value": "COMPANY" },
+      { "name": "IX_MAP_PARTNER_NAME{i}", "mode": "STARTS_WITH", "searchName": "COMPANY_NAME" },
+      { "name": "IX_MAP_PARTNER_NO{i}", "mode": "STARTS_WITH", "searchName": "COMPANY_REFERENCE" }
+    ],
+    "dataFields": [
+      "COMPANY_REFERENCE",
+      "COMPANY_NAME",
+      "ADDRESS_STREET",
+      "ADDRESS_ADDITION",
+      "ADDRESS_ZIP_CODE",
+      "ADDRESS_CITY",
+      "ADDRESS_STATE",
+      "ADDRESS_COUNTRY",
+      "CONTACTLIST_REFERENCE"
+    ]
+  },
+
+  "Contract partner contacts": {
+    "type": "SEARCH",
+    "translate": true,
+    "title": "sol.contact.dynkwl.contact.tableTitle",
+    "header": [
+      "sol.contact.mask.contactReference",
+      "sol.contact.mask.contactLastname",
+      "sol.contact.mask.contactFirstname",
+      "sol.contact.mask.companyTelephone",
+      "sol.contact.mask.companyEmail",
+      null
+    ],
+    "output": [
+      "IX_MAP_CONTRACT_CONTACT_REFERENCE",
+      "CONTACT_LASTNAME",
+      "CONTACT_FIRSTNAME",
+      "IX_MAP_PARTNER_PHONE",
+      "IX_MAP_PARTNER_EMAIL",
+      "IX_MAP_CONTRACT_CONTACTLIST_REFERENCE"
+    ],
+    "searchParams": [
+      { "name": "SOL_TYPE", "value": "CONTACT" },
+      { "name": "PARTNER_NO", "searchName": "COMPANY_REFERENCE" },
+      { "name": "CONTACT_LASTNAME", "mode": "STARTS_WITH" },
+      { "name": "CONTACT_FIRSTNAME", "mode": "STARTS_WITH" },
+      { "name": "IX_MAP_CONTRACT_CONTACT_REFERENCE", "mode": "STARTS_WITH", "searchName": "CONTACT_REFERENCE" }
+    ],
+    "dataFields": [
+      "CONTACT_REFERENCE",
+      "CONTACT_LASTNAME",
+      "CONTACT_FIRSTNAME",
+      "CONTACT_TELEPHONE",
+      "CONTACT_EMAIL",
+      "CONTACTLIST_REFERENCE"
+    ]
+  },
+
+  "Additional contract partner contacts": {
+    "type": "SEARCH",
+    "translate": true,
+    "title": "sol.contact.dynkwl.contact.tableTitle",
+    "header": [
+      "sol.contact.mask.contactReference",
+      "sol.contact.mask.contactLastname",
+      "sol.contact.mask.contactFirstname",
+      "sol.contact.mask.companyTelephone",
+      "sol.contact.mask.companyEmail",
+      null
+    ],
+    "output": [
+      "IX_MAP_CONTRACT_CONTACT_REFERENCE{i}",
+      "IX_MAP_CONTACT_LASTNAME{i}",
+      "IX_MAP_CONTACT_FIRSTNAME{i}",
+      "IX_MAP_PARTNER_PHONE{i}",
+      "IX_MAP_PARTNER_EMAIL{i}",
+      "IX_MAP_CONTRACT_CONTACTLIST_REFERENCE{i}"
+    ],
+    "searchParams": [
+      { "name": "SOL_TYPE", "value": "CONTACT" },
+      { "name": "IX_MAP_PARTNER_NO{i}", "searchName": "COMPANY_REFERENCE" },
+      { "name": "IX_MAP_CONTACT_LASTNAME{i}", "mode": "STARTS_WITH", "searchName": "CONTACT_LASTNAME" },
+      { "name": "IX_MAP_CONTACT_FIRSTNAME{i}", "mode": "STARTS_WITH", "searchName": "CONTACT_FIRSTNAME" },
+      { "name": "IX_MAP_CONTRACT_CONTACT_REFERENCE{i}", "mode": "STARTS_WITH", "searchName": "CONTACT_REFERENCE" }
+    ],
+    "dataFields": [
+      "CONTACT_REFERENCE",
+      "CONTACT_LASTNAME",
+      "CONTACT_FIRSTNAME",
+      "CONTACT_TELEPHONE",
+      "CONTACT_EMAIL",
+      "CONTACTLIST_REFERENCE"
+    ]
+  },
+
+  "Contract shortdescription generators": {
+    "type": "CHILDREN",
+    "translate": true,
+    "title": "sol.contract.dynkwl.generators.contractShortDescription.tableTitle",
+    "output": ["CONTRACT_SHORT_DESC_GEN", null],
+    "parentId": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/contract/Configuration/Generators/Contract short description"
+  },
+
+  "Contract no generators": {
+    "type": "CHILDREN",
+    "translate": true,
+    "title": "sol.contract.dynkwl.generators.contractNo.tableTitle",
+    "output": ["CONTRACT_NO_GEN", null],
+    "parentId": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/contract/Configuration/Generators/Contract no."
+  }
+
+}

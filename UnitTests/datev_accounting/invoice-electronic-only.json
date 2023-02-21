@@ -1,0 +1,12 @@
+{
+    "dependencies": [
+        {
+            "folder": "../invoice.git/Business Solutions/invoice_electronic",
+            "elo": "/Business Solutions/invoice_electronic"
+        },
+        {
+            "folder": "../invoice.git/Business Solutions Custom/invoice_electronic",
+            "elo": "/Business Solutions Custom/invoice_electronic"
+        }
+    ]
+}

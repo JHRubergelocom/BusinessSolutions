@@ -1,0 +1,509 @@
+{
+  "version": "9.00.001",
+  "eloAS": {
+    "server": {
+      "value": "srvpdevbs01vm"
+    },
+    "port": {
+      "value": 8010
+    },
+    "name": {
+      "value": "as-invoice"
+    }
+  },
+  "paths": {
+    "entry": {
+      "value": "/Invoice/Entry"
+    },
+    "indexed": {
+      "value": "¶Invoice¶Archive¶{{{substring sord.objKeys.INVOICE_DATE 0 4}}}¶{{{substring sord.objKeys.VENDOR_NAME 0 1}}}¶{{{sord.objKeys.VENDOR_NAME}}}"
+    }
+  },
+  "entryRights": {
+    "inherit": true,
+    "users": []
+  },
+  "wfTemplate": {
+    "value": "sol.invoice.IncomingInvoice"
+  },
+  "wfNamePattern": {
+    "value": "Invoice: {{{sord.name}}}"
+  },
+  "invoiceMaskName": {
+    "value": "Incoming Invoice"
+  },
+  "useInvoiceContainer": {
+    "value": true
+  },
+  "addToFullTextDatabase": {
+    "value": false
+  },
+  "fields": {
+    "BUSINESS_AREA_CODE": {
+      "value": "BUSINESS_AREA_CODE"
+    },
+    "COMPANY_CODE": {
+      "value": "COMPANY_CODE"
+    },
+    "COMPANY_NAME": {
+      "value": "COMPANY_NAME"
+    },
+    "INVOICE_APPROVAL_ADVISOR": {
+      "value": "INVOICE_APPROVAL_ADVISOR"
+    },
+    "INVOICE_CASH_DISCOUNT_AMOUNT": {
+      "value": "INVOICE_CASH_DISCOUNT_AMOUNT"
+    },
+    "INVOICE_CASH_DISCOUNT_AMOUNT_LOCAL_CURR": {
+      "value": "INVOICE_CASH_DISCOUNT_AMOUNT_LOCAL_CURR"
+    },
+    "INVOICE_CURRENCY_CODE": {
+      "value": "INVOICE_CURRENCY_CODE"
+    },
+    "INVOICE_CURRENCY_EXCHANGE_RATE": {
+      "value": "INVOICE_CURRENCY_EXCHANGE_RATE"
+    },
+    "INVOICE_DATE": {
+      "value": "INVOICE_DATE"
+    },
+    "INVOICE_DELIVERY_DATE": {
+      "value": "INVOICE_DELIVERY_DATE"
+    },
+    "INVOICE_DUE_DATE": {
+      "value": "INVOICE_DUE_DATE"
+    },
+    "INVOICE_STATUS": {
+      "value": "INVOICE_STATUS"
+    },
+    "INVOICE_NET_AMOUNT": {
+      "value": "INVOICE_NET_AMOUNT"
+    },
+    "INVOICE_NET_AMOUNT_LOCAL_CURR": {
+      "value": "INVOICE_NET_AMOUNT_LOCAL_CURR"
+    },
+    "INVOICE_NO_ERP": {
+      "value": "INVOICE_NO_ERP"
+    },
+    "INVOICE_NUMBER": {
+      "value": "INVOICE_NUMBER"
+    },
+    "INVOICE_ORDEREDBY": {
+      "value": "PO_PURCHASE_USER"
+    },
+    "INVOICE_TOTAL_AMOUNT": {
+      "value": "INVOICE_TOTAL_AMOUNT"
+    },
+    "INVOICE_TOTAL_AMOUNT_LOCAL_CURR": {
+      "value": "INVOICE_TOTAL_AMOUNT_LOCAL_CURR"
+    },
+    "INVOICE_TYPE": {
+      "value": "INVOICE_TYPE"
+    },
+    "INVOICE_DATACOLLECTION": {
+      "value": "INVOICE_DATACOLLECTION"
+    },
+    "INVOICE_PAYED": {
+      "value": "INVOICE_PAYED"
+    },
+    "PO_PURCHASE_USER": {
+      "value": "PO_PURCHASE_USER"
+    },
+    "VENDOR_NO": {
+      "value": "VENDOR_NO"
+    },
+    "VENDOR_NAME": {
+      "value": "VENDOR_NAME"
+    },
+    "VENDOR_ADDRESS_STREET": {
+      "value": "VENDOR_ADDRESS_STREET"
+    },
+    "VENDOR_ADDRESS_ZIPCODE": {
+      "value": "VENDOR_ADDRESS_ZIPCODE"
+    },
+    "VENDOR_ADDRESS_CITY": {
+      "value": "VENDOR_ADDRESS_CITY"
+    },
+    "VENDOR_TAX_NO": {
+      "value": "VENDOR_TAX_NO"
+    },
+    "VENDOR_VAT_ID_NO": {
+      "value": "VENDOR_VAT_ID_NO"
+    },
+    "DX_STATUS": {
+      "value": "DX_STATUS"
+    },
+    "CURRENT_USER": {
+      "value": "CURRENT_USER"
+    },
+    "PROCESS_STATUS": {
+      "value": "PROCESS_STATUS"
+    }
+  },
+  "mapFields": {
+    "BUSINESS_AREA_NAME": {
+      "value": "BUSINESS_AREA_NAME"
+    },
+    "COMPL_SMALL_AMOUNT": {
+      "value": "COMPL_SMALL_AMOUNT"
+    },
+    "COMPL_NAME_ADDRESS": {
+      "value": "COMPL_NAME_ADDRESS"
+    },
+    "COMPL_VAT": {
+      "value": "COMPL_VAT"
+    },
+    "COMPL_VAT_ID": {
+      "value": "COMPL_VAT_ID"
+    },
+    "COMPL_INVOICE_DATE": {
+      "value": "COMPL_INVOICE_DATE"
+    },
+    "COMPL_INVOICE_NO": {
+      "value": "COMPL_INVOICE_NO"
+    },
+    "COMPL_SCOPE_TYPE": {
+      "value": "COMPL_SCOPE_TYPE"
+    },
+    "COMPL_DELIVERY_DATE": {
+      "value": "COMPL_DELIVERY_DATE"
+    },
+    "COMPL_SPLIT_BY_VAT_RATE": {
+      "value": "COMPL_SPLIT_BY_VAT_RATE"
+    },
+    "COMPL_VAT_RATE": {
+      "value": "COMPL_VAT_RATE"
+    },
+    "INVI_CHARGE_AMOUNT": {
+      "value": "INVI_CHARGE_AMOUNT"
+    },
+    "INVI_DISCOUNT_AMOUNT": {
+      "value": "INVI_DISCOUNT_AMOUNT"
+    },
+    "INVI_ITEM_DESCRIPTION": {
+      "value": "INVI_ITEM_DESCRIPTION"
+    },
+    "INVI_POS_NO": {
+      "value": "INVI_POS_NO"
+    },
+    "INVI_QUANTITY": {
+      "value": "INVI_QUANTITY"
+    },
+    "INVI_SINGLE_NET_PRICE": {
+      "value": "INVI_SINGLE_NET_PRICE"
+    },
+    "INVI_TOTAL_NET_PRICE": {
+      "value": "INVI_TOTAL_NET_PRICE"
+    },
+    "INVOICE_CASH_DISCOUNT_DAYS": {
+      "value": "INVOICE_CASH_DISCOUNT_DAYS"
+    },
+    "INVOICE_CASH_DISCOUNT_RATE": {
+      "value": "INVOICE_CASH_DISCOUNT_RATE"
+    },
+    "INVOICE_CASH_DISCOUNT_DUE_DATE": {
+      "value": "INVOICE_CASH_DISCOUNT_DUE_DATE"
+    },
+    "INVOICE_CASH_DISCOUNT_AMOUNT": {
+      "value": "INVOICE_CASH_DISCOUNT_AMOUNT"
+    },
+    "INVOICE_CASH_PAYMENT_AMOUNT": {
+      "value": "INVOICE_CASH_PAYMENT_AMOUNT"
+    },
+    "INVOICE_CURRENCY_SYMBOL": {
+      "value": "INVOICE_CURRENCY_SYMBOL"
+    },
+    "INVOICE_CUSTOMS_CHARGE": {
+      "value": "INVOICE_CUSTOMS_CHARGE"
+    },
+    "INVOICE_DISCOUNT_RATE": {
+      "value": "INVOICE_DISCOUNT_RATE"
+    },
+    "INVOICE_DISCOUNT_AMOUNT": {
+      "value": "INVOICE_DISCOUNT_AMOUNT"
+    },
+    "INVOICE_TAX_AMOUNT": {
+      "value": "INVOICE_TAX_AMOUNT"
+    },
+    "INVOICE_TAX_NET_AMOUNT": {
+      "value": "INVOICE_TAX_NET_AMOUNT"
+    },
+    "INVOICE_TAX_RATE": {
+      "value": "INVOICE_TAX_RATE"
+    },
+    "INVOICE_TRADE_CHARGE_AMOUNT": {
+      "value": "INVOICE_TRADE_CHARGE_AMOUNT"
+    },
+    "INVOICE_TRADE_CHARGE_CODE": {
+      "value": "INVOICE_TRADE_CHARGE_CODE"
+    },
+    "INVOICE_TRADE_CHARGE_DESC": {
+      "value": "INVOICE_TRADE_CHARGE_DESC"
+    },
+    "INVOICE_AMOUNT_DIFF": {
+      "value": "INVOICE_AMOUNT_DIFF"
+    },
+    "INVOICE_TOTAL_NET_PRICE_SUM": {
+      "value": "INVOICE_TOTAL_NET_PRICE_SUM"
+    },
+    "PURCHASE_ORDER_NO": {
+      "value": "PURCHASE_ORDER_NO"
+    },
+    "PURCHASE_ORDER_DELIVERY_DATE": {
+      "value": "PURCHASE_ORDER_DELIVERY_DATE"
+    },
+    "SET_TERM_AS_DUE_DATE": {
+      "value": "SET_TERM_AS_DUE_DATE"
+    },
+    "WITH_PO_REFERENCE": {
+      "value": "WITH_PO_REFERENCE"
+    },
+    "ZUGFERD_IMPORTED": {
+      "value": "ZUGFERD_IMPORTED"
+    }
+  },
+  "wfMapFields": {
+    "PREVIOUS_USER": {
+      "value": "PREVIOUS_USER"
+    }
+  },
+  "defaultInvoiceType": {
+    "value": "IN"
+  },
+  "cashDiscountSourceErp": {
+    "value": "ERP"
+  },
+  "COPY_PLACEHOLDER": {
+    "value": "#"
+  },
+  "MAX_LINES": {
+    "value": 1000
+  },
+  "DEFAULT_VAT_RATE": {
+    "value": 19
+  },
+  "ribbon": {
+    "extraTabNo": {
+      "value": 91
+    },
+    "bandBaseNo": {
+      "value": 71
+    }
+  },
+  "invoiceTemplateFolderGuid": {
+    "value": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/invoice/Invoice Templates"
+  },
+  "baseCurrency": {
+    "value": "EUR"
+  },
+  "kwlScripts": {
+    "businessArea": {
+      "value": "sol.invoice.ix.dynkwl.BusinessArea"
+    },
+    "currency": {
+      "value": "sol.invoice.ix.dynkwl.Currency"
+    },
+    "purchaseOrderLine": {
+      "value": "sol.invoice.ix.dynkwl.PurchaseOrderLine"
+    },
+    "termsOfPayment": {
+      "value": "sol.invoice.ix.dynkwl.TermsOfPayment"
+    },
+    "tradeCharge": {
+      "value": "sol.invoice.ix.dynkwl.TradeCharge"
+    }
+  },
+  "compliance": {
+    "smallAmount": {
+      "value": 250
+    }
+  },
+  "form": {
+    "invoiceTabGroupId": {
+      "value": "invoice"
+    },
+    "invoiceTabName": {
+      "value": "Positionsdaten"
+    },
+    "linesAddLineButtonId": {
+      "value": "10"
+    },
+    "titleInformation": {
+      "value": "Information"
+    },
+    "msgPurchaseOrderDataLoaded": {
+      "value": "Bestelldaten geladen"
+    }
+  },
+  "importXML": {
+    "importDirectory": {
+      "value": "C:/temp/InvoiceScans"
+    },
+    "importDestination": {
+      "value": "/Invoice/Import"
+    }
+  },
+  "copyInvoiceTemplate": {
+    "suppressedFields": [
+      "INVOICE_NUMBER",
+      "PROCESS_STATUS"
+    ],
+    "suppressedMapFields": [
+      "INVI_TOTAL_NET_PRICE"
+    ]
+  },
+  "workflow": {
+    "nodes": {
+      "INVOICE_APPROVAL_APPROVE": {
+        "value": "sol.invoice.wf.node.passOnApproval"
+      },
+      "INVOICE_APPROVAL_DECLINE": {
+        "value": "sol.invoice.wf.node.reject"
+      },
+      "INVOICE_ACCOUNTING_FORWARD": {
+        "value": "STATUS : 4 Accounting"
+      }
+    },
+    "approval": {
+      "personNode": {
+        "prefix": {
+          "value": "Freigeben"
+        },
+        "form": {
+          "value": "[sol_invoice(inv00_form_invoice_appr)]"
+        }
+      },
+      "forwardNode": {
+        "prefix": {
+          "value": "Freigeben"
+        },
+        "script": {
+          "value": "sol.common.ix.functions.FeedComment"
+        },
+        "config": {
+          "value": "{ \"file\": \"sol.invoice.workflow\", \"key\": \"WORKFLOW.INVOICE.APPROVAL.APPROVED\", \"data\": [ \"INVOICE_NET_AMOUNT\", \"INVOICE_CURRENCY_CODE\" ] }"
+        }
+      }
+    }
+  },
+  "userRights": {
+    "read": true,
+    "write": true,
+    "del": false,
+    "edit": false,
+    "list": true
+  },
+  "workflows": {
+    "incomingInvoice": {
+      "nodes": {
+        "skipFormalCheck": {
+          "mode": "NEVER"
+        },
+        "move": {
+          "rightsConfig": {
+            "inherit": true,
+            "users": []
+          }
+        },
+        "changeWfName": {
+          "name": "{{{sord.objKeys.VENDOR_NAME}}} - {{{sord.objKeys.INVOICE_NUMBER}}} - {{{formatDate 'YYYY-MM-DD' sord.objKeys.INVOICE_DATE}}}"
+        },
+        "changeInvoiceName": {
+          "entries": [
+            {
+              "type": "SORD",
+              "key": "name",
+              "value": "{{{sord.objKeys.VENDOR_NAME}}} - {{{sord.objKeys.INVOICE_NUMBER}}} - {{{formatDate 'YYYY-MM-DD' sord.objKeys.INVOICE_DATE}}}",
+              "useTemplating": true
+            }
+          ]
+        },
+        "moveRejected": {
+          "path": "¶Invoice¶Rejected¶{{{formatDate 'YYYY'}}}¶{{{formatDate 'MM'}}}¶{{{formatDate 'DD'}}}",
+          "rightsConfig": {
+            "mode": "ADD",
+            "inherit": true
+          }
+        }
+      }
+    }
+  },
+
+  "fileToInvoice": {
+    "selectionDialog": {
+      "columnFields": ["INVOICE_NUMBER", "INVOICE_DATE", "VENDOR_NO", "INVOICE_NET_AMOUNT"]
+    }
+  },
+
+  "export": {
+    "parentId": "/Invoice",
+    "maskName": "Incoming Invoice",
+    "statusFieldName": "INVOICE_STATUS",
+    "preExportStatus": "5",
+    "postExportStatus": "6",
+    "statusKwlScript": "sol.invoice.ix.localizedKwl.Status",
+    "exportDialog": {
+      "translationFileName": "sol.invoice.client",
+      "columnsDefinition": [{
+        "headerTranslationKey": "sol.invoice.jc.dialog.export.header.export",
+        "type": "SELECT",
+        "state": "50"
+      }, {
+        "headerTranslationKey": "sol.invoice.jc.dialog.export.header.companyCode",
+        "type": "GRP",
+        "key": "COMPANY_CODE",
+        "state": "100"
+      }, {
+        "headerTranslationKey": "sol.invoice.jc.dialog.export.header.vendorNo",
+        "type": "GRP",
+        "key": "VENDOR_NO",
+        "state": "100"
+      }, {
+        "headerTranslationKey": "sol.invoice.jc.dialog.export.header.vendorName",
+        "type": "GRP",
+        "key": "VENDOR_NAME",
+        "state": "150"
+      }, {
+        "headerTranslationKey": "sol.invoice.jc.dialog.export.header.invoiceNumber",
+        "type": "GRP",
+        "key": "INVOICE_NUMBER",
+        "state": "100"
+      }, {
+        "headerTranslationKey": "sol.invoice.jc.dialog.export.header.invoiceDate",
+        "type": "GRP",
+        "key": "INVOICE_DATE",
+        "format": "DATE",
+        "state": "100"
+      }, {
+        "headerTranslationKey": "sol.invoice.jc.dialog.export.header.invoiceNetAmount",
+        "type": "GRP",
+        "key": "INVOICE_NET_AMOUNT",
+        "state": "100"
+      }, {
+        "headerTranslationKey": "sol.invoice.jc.dialog.export.header.currency",
+        "type": "GRP",
+        "key": "INVOICE_CURRENCY_CODE",
+        "state": "100"
+      }, {
+        "headerTranslationKey": "sol.invoice.jc.dialog.export.header.shortName",
+        "type": "SORD",
+        "key": "name",
+        "state": "300",
+        "deselect": true
+      }],
+
+      "accountingSystemTranslationKey": "sol.invoice.jc.dialog.export.accountingSystem"
+    },
+
+    "accountingSystems": [{
+      "name": "Datev",
+      "accountingSystemConfigRepoPath": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/invoice/Configuration/sol.invoice.export.accountingSytem.Datev.config"
+    }],
+
+    "chunkSize": 100
+  },
+
+  "taxes": {
+    "calcTaxesAfterDataCollection": true
+  }
+}
+

@@ -1,0 +1,756 @@
+{
+  "rootFolder":"ARCPATH:/Testdaten",
+  "delete": true,
+  "kwl": {
+    "sol.meeting.ix.dynkwl.Notification.MeetingBoard.Template.js": {
+      "$VALUE": "default"
+    },
+    "sol.meeting.ix.localizedKwl.notification.ParticipantSearchTemplates": {
+      "keynames": [
+        "$KEY",
+        "$VALUE",
+        "FIELD"
+      ],
+      "header": [
+        "Schlüssel",
+        "Wert",
+        null
+      ],
+      "title": "Empfängergruppe",
+      "data": [
+        [
+          "O",
+          "Organisatoren",
+          "O - Organisatoren"
+        ],
+        [
+          "A",
+          "Alle Teilnehmer und Mitglieder",
+          "A - Alle Teilnehmer und Mitglieder"
+        ],
+        [
+          "M",
+          "Alle Mitglieder",
+          "M - Alle Mitglieder"
+        ],
+        [
+          "P",
+          "Alle Teilnehmer ohne Mitglieder",
+          "P - Alle Teilnehmer ohne Mitglieder"
+        ]
+      ]
+    },
+    "sol.meeting.ix.localizedKwl.CalendarUnit": {
+      "keynames": [
+        "$KEY",
+        "$VALUE",
+        "FIELD"
+      ],
+      "header": [
+        "Schlüssel",
+        "Wert",
+        null
+      ],
+      "title": "Kalendereinheit",
+      "data": [
+        [
+          " ",
+          " ",
+          ""
+        ],
+        [
+          "y",
+          "Jahr(e)",
+          "y - Jahr(e)"
+        ],
+        [
+          "Q",
+          "Quartal(e)",
+          "Q - Quartal(e)"
+        ],
+        [
+          "M",
+          "Monat(e)",
+          "M - Monat(e)"
+        ],
+        [
+          "w",
+          "Woche(n)",
+          "w - Woche(n)"
+        ],
+        [
+          "d",
+          "Tag(e)",
+          "d - Tag(e)"
+        ]
+      ]
+    },
+    "sol.meeting.ix.localizedKwl.PlusMinusSign": {
+      "keynames": [
+        "$KEY",
+        "$VALUE",
+        "FIELD"
+      ],
+      "header": [
+        "Zeichen",
+        "Wert",
+        null
+      ],
+      "title": "Vor / Nach",
+      "data": [
+        [
+          "-",
+          "Vor",
+          "- - Vor"
+        ],
+        [
+          "+",
+          "Nach",
+          "+ - Nach"
+        ]
+      ]
+    },
+    "sol.meeting.ix.localizedKwl.ReferenceDates": {
+      "keynames": [
+        "$KEY",
+        "$VALUE",
+        "FIELD"
+      ],
+      "header": [
+        "Feld",
+        "Feldbezeichnung",
+        null
+      ],
+      "title": "Referenztag",
+      "data": [
+        [
+          "MEETING_STARTDATE",
+          "Startdatum",
+          "MEETING_STARTDATE - Startdatum"
+        ],
+        [
+          "MEETING_ENDDATE",
+          "Enddatum",
+          "MEETING_ENDDATE - Enddatum"
+        ],
+        [
+          "MEETING_REGISTER_DEADLINE",
+          "Anmeldefrist",
+          "MEETING_REGISTER_DEADLINE - Anmeldefrist"
+        ]
+      ]
+    },
+    "sol.meeting.ix.localizedKwl.MeetingPersonRole": {
+      "keynames": [
+        "$KEY",
+        "$VALUE",
+        "UNITTEST_FIELD2"
+      ],
+      "header": [
+        "Schlüssel",
+        "Wert",
+        null
+      ],
+      "title": "Rolle",
+      "data": [
+        [
+          "M",
+          "Mitglied",
+          "M - Mitglied"
+        ],
+        [
+          "P",
+          "Teilnehmer",
+          "P - Teilnehmer"
+        ]
+      ]
+    },
+    "sol.meeting.task.ix.localizedKwl.TaskStatus": {
+      "keynames": [
+        "$KEY",
+        "$VALUE",
+        "UNITTEST_FIELD2"
+      ],
+      "header": [
+        "Key",
+        "Value",
+        null
+      ],
+      "title": "Aufgaben Status",
+      "data": [
+        [
+          "O",
+          "Offen",
+          "O - Offen"
+        ],
+        [
+          "D",
+          "Erledigt",
+          "D - Erledigt"
+        ],
+        [
+          "C",
+          "Geschlossen",
+          "C - Geschlossen"
+        ]
+      ]
+    }
+  },
+  "templates": {
+    "voting": [
+      "Yes – no – abstain (Digital)",
+      "Yes – no – abstain (Raise hand)",
+      "Yes – no (Digital)",
+      "Yes – no (Raise hand)"
+    ]
+  },
+  "weekday": ["So.","Mo.","Di.","Mi.","Do.","Fr.","Sa."],
+  "meetingBoards" : [
+    {
+      "desc": "Beschreibung Meetingboard eines Projektteams mit Organisator Jan Eichner & Sandra Renz",
+      "objKeys": {
+        "MEETING_BOARD_NAME": "Meetingboard eines Projektteams mit Orga Jan Eichner & Sandra Renz",
+        "MEETING_BOARD_CODE": "MBPT",
+        "MEETING_BOARD_MINUTE_TAKER": "David Lee",
+        "MEETING_PRODUCT_LINE": "Default"
+      },
+      "mapKeys": {
+        "MEETING_BOARD_SETTING_DEADLINES_ACTIVATE": "",
+        "MEETING_REGISTER_DEADLINE_SHIFT_VALUE": "",
+        "MEETING_REGISTER_DEADLINE_SHIFT_UNIT": ""
+      },
+      "wfMapTableMembers": [
+        ["MEETING_PERSON_FORM_OF_ADDRESS", "MEETING_PERSON_LASTNAME", "MEETING_PERSON_FIRSTNAME"],
+        ["Frau", "Thomson", "Emily"],
+        ["Herr", "Lee", "David"],
+        ["Herr", "Unger", "Felix"],
+        ["Frau", "Stamm", "Jasmin"],
+        ["Frau", "Bennett", "Charlotte"],
+        ["Herr", "Baum", "Gerd"],
+        ["Frau", "Testuserin-Testerin", "Margarete Michaela Nicole"]
+      ],
+      "wfMapTableRecuringItems": [
+        ["MEETING_ITEM_TITLE", "MEETING_ITEM_DURATION", "MEETING_ITEM_DESC"],
+        ["Rückblende", "30", "Rückblick vergangene Projekte"],
+        ["Planung", "90", "Zukünftige Projekte"],
+        ["Zusammenfassung", "15", "Zusammenfassung der Aufgaben bis zum nächsten Meeting."]
+      ],
+      "mapTableNotifications": [
+        ["MEETING_NOTIFICATION_TEMPLATE_", "MEETING_NOTIFICATION_RECIPIENTS_", "MEETING_NOTIFICATION_SHIFT_VALUE_", "MEETING_NOTIFICATION_SHIFT_UNIT_", "MEETING_NOTIFICATION_SIGN_", "MEETING_NOTIFICATION_REFERENCE_DATE_"],
+        ["default", "O - Organisatoren", "1", "w - Woche(n)", "- - Vor", "MEETING_STARTDATE - Startdatum"],
+        ["default", "A - Alle Teilnehmer und Mitglieder", "5", "d - Tag(e)", "+ - Nach", "MEETING_ENDDATE - Enddatum"]
+      ],
+      "mapTableProposals": [
+        ["PROPOSAL_TYPES"],
+        ["Entscheidungsvorlage"],
+        ["Antrag"],
+        ["Vortrag"]
+      ],
+      "mapTableOrganizers": [
+        ["MEETING_BOARD_ORGANIZER"],
+        ["Jan Eichner"],
+        ["Sandra Renz"]
+      ],
+      "meetings": [
+        {
+          "settings": {
+            "default": true,
+            "timeslotday": "now+14",
+            "timeslotstart": "09:30",
+            "timeslotend": "16:00",
+            "timeslotcount": 1
+          },
+          "desc": "Beschreibung Meeting1 des Boards Meetingboard eines Projektteams",
+          "objKeys": {
+            "MEETING_NAME": "Projektmeeting ohne Teilnehmer",
+            "MEETING_LOCATION": "Musterdorferstaße 12, 12345 Musterhausen",
+            "MEETING_MINUTE_TAKER": "David Lee"
+          },
+          "mapKeys": {
+            "MEETING_DEADLINE_TYPE": ""
+          },
+          "mapTable": [
+            ["MEETING_TIMESLOT_DAY", "MEETING_TIMESLOT_START", "MEETING_TIMESLOT_END"],
+            ["20230505", "13:00", "17:00"]
+          ],
+          "wfMapTableParticipants": [],
+          "mapTableNotifications": [
+            ["MEETING_NOTIFICATION_TEMPLATE_", "MEETING_NOTIFICATION_RECIPIENTS_", "MEETING_NOTIFICATION_SHIFT_VALUE_", "MEETING_NOTIFICATION_SHIFT_UNIT_", "MEETING_NOTIFICATION_SIGN_", "MEETING_NOTIFICATION_REFERENCE_DATE_"],
+            ["default", "O - Organisatoren", "1", "w - Woche(n)", "- - Vor", "MEETING_STARTDATE - Startdatum"],
+            ["default", "A - Alle Teilnehmer und Mitglieder", "5", "d - Tag(e)", "+ - Nach", "MEETING_ENDDATE - Enddatum"]
+          ],
+          "wfMapTableRepetition": [],
+          "wfMapKeys": {
+            "MEETING_REPETITION_CREATE": 0
+          },
+          "meetingItems": [
+            {
+              "desc": "Beschreibung Thema1 So gibt es Regeln für HTML, CSS, JavaScript oder auch XML; Worte, die Sie vielleicht schon einmal von Ihrem Entwickler gehört haben. Diese Standards sorgen dafür, dass alle Beteiligten aus einer Webseite den größten Nutzen ziehen. Im Gegensatz zu früheren Webseiten müssen wir zum Beispiel nicht mehr zwei verschiedene Webseiten für den Internet Explorer und einen anderen Browser programmieren. Es reicht eine Seite, die - richtig angelegt - sowohl auf verschiedenen Browsern im Netz funktioniert, aber ebenso gut für den Ausdruck oder die Darstellung auf einem Handy geeignet ist. Wohlgemerkt: Eine Seite für alle Formate. Was für eine Erleichterung.",
+              "objKeys": {
+                "MEETING_ITEM_TITLE": "Ein wichtiges Thema von David Lee, das sehr ausführlich diskutiert und abgestimmt werden muss",
+                "MEETING_ITEM_DURATION": "60",
+                "MEETING_ITEM_RESPONSIBLE_PERSON": "David Lee",
+                "MEETING_ITEM_DAY": 1,
+                "MEETING_ITEM_START": "14:00",
+                "MEETING_ITEM_END": "15:00"
+              },
+              "mapTableSpeakers": [
+                ["MEETING_ITEM_SPEAKER_OF_ADDRESS", "MEETING_ITEM_SPEAKER_LASTNAME", "MEETING_ITEM_SPEAKER_FIRSTNAME"],
+                ["Herr", "Lee", "David"],
+                ["Frau", "Bennett", "Charlotte"]
+              ],
+              "tasks": [
+                {
+                  "desc": "Beschreibung Aufgabe1",
+                  "objKeys": {
+                        "MEETING_TASK_TITLE": "Umfangreiche Recherche zu einem wichtigen Thema von David Lee",
+                        "MEETING_TASK_ASSIGNEE": "Bodo Kraft",
+                        "MEETING_TASK_DUEDATE": "now+21",
+                        "MEETING_TASK_STATUS": "O - Offen"
+                  }
+                },
+                {
+                  "desc": "Beschreibung Aufgabe2",
+                  "objKeys": {
+                        "MEETING_TASK_TITLE": "Ein wirklich verantwortungsvolle Aufgabe, die sehr zuverlässig und genau ausgeführt werden muss",
+                        "MEETING_TASK_ASSIGNEE": "Gerd Baum",
+                        "MEETING_TASK_DUEDATE": "now+28" ,
+                        "MEETING_TASK_STATUS": "O - Offen"
+                  }
+                }
+              ],
+              "votings": [
+                {
+                  "desc": "Beschreibung Abstimmung1",
+                  "objKeys": {
+                    "MEETING_VOTING_TITLE": "Yes – no – abstain (Digital)",
+                    "MEETING_VOTING_QUESTION": "Möchten wir diese wirktlich wichtige Thema von David Lee so umsetzen, wie er es vorgeschlagen hat?",
+                    "MEETING_VOTING_MAX_VOTES": 7
+                  }
+                },
+                {
+                  "desc": "Beschreibung Abstimmung2",
+                  "objKeys": {
+                    "MEETING_VOTING_TITLE": "Yes – no (Raise hand)",
+                    "MEETING_VOTING_QUESTION": "Soll David Lee einen Kuchen backen als Entschädgiug, dass er uns mit seinem wirklich wichtigen Thema so intensiv belästigt hat?",
+                    "MEETING_VOTING_MAX_VOTES": 10
+                  }
+                }
+              ],
+              "notes": [
+                {
+                  "text": "Ich bin eine wirkich wichtige Notiz, die unbedingt im Protokoll erscheinen muss. Da ich so wichtig bin, beinahlte ich auch viel tolle Sonderzeichen !§$%&/()=? *'<>|;²³~@`´©«»¼×{}äöüáðñ",
+                  "title": "Protokollrelevante Notiz zum wirklich wichtigen Thema von David Lee",
+                  "meetingMinutesRelevant" : true,
+                  "visibility" : "PU"
+                },
+                {
+                  "text": "Überall dieselbe alte Leier. Das Layout ist fertig, der Text lässt auf sich warten. Damit das Layout nun nicht nackt im Raume steht und sich klein und leer vorkommt, springe ich ein: der Blindtext.",
+                  "title": "Öffentliche Notiz zum wirklich wichtigen Thema von David Lee",
+                  "meetingMinutesRelevant" : false,
+                  "visibility" : "PU"
+                },
+                {
+                  "text": "und wenn doch, dann liegt sie im persönlichen Bereich vom ServiceUser oder vom Admin",
+                  "title": "Eine pirvate Notiz, die ziemlich sicher nicht richtig angelegt wird",
+                  "meetingMinutesRelevant" : false,
+                  "visibility" : "PR"
+                }
+              ]
+            },
+            {
+              "desc": "Beschreibung Thema2",
+              "objKeys": {
+                "MEETING_ITEM_TITLE": "Ein nicht ganz so wichtiges aber sehr schönes Thema von Felix Unger",
+                "MEETING_ITEM_DURATION": "40",
+                "MEETING_ITEM_RESPONSIBLE_PERSON": "Felix Unger",
+                "MEETING_ITEM_DAY": 1,
+                "MEETING_ITEM_START": "15:00",
+                "MEETING_ITEM_END": "15:40"
+              },
+              "mapTableSpeakers": [
+                ["MEETING_ITEM_SPEAKER_OF_ADDRESS", "MEETING_ITEM_SPEAKER_LASTNAME", "MEETING_ITEM_SPEAKER_FIRSTNAME"],
+                ["Herr", "Lee", "David"],
+                ["Frau", "Bennett", "Charlotte"]
+              ],
+              "tasks": [],
+              "votings": [],
+              "notes": []
+            }
+          ]
+        },
+        {
+          "settings": {
+            "default": false,
+            "timeslotday": "now+21",
+            "timeslotstart": "09:00",
+            "timeslotend": "17:00",
+            "timeslotcount": 2
+          },
+          "desc": "Beschreibung Meeting2",
+          "objKeys": {
+            "MEETING_NAME": "Großes Team-Strategie-Meeting",
+            "MEETING_LOCATION": "Eventlocation 'hier geht´s ab' in 12345 Eventhausen",
+            "MEETING_MINUTE_TAKER": "Sandra Renz"
+          },
+          "mapKeys": {
+            "MEETING_DEADLINE_TYPE": ""
+          },
+          "mapTable": [
+            ["MEETING_TIMESLOT_DAY", "MEETING_TIMESLOT_START", "MEETING_TIMESLOT_END"],
+            ["20230705", "11:00", "15:00"],
+            ["20230706", "10:00", "16:00"]
+          ],
+          "wfMapTableParticipants": [
+            ["MEETING_PERSON_FORM_OF_ADDRESS", "MEETING_PERSON_LASTNAME", "MEETING_PERSON_FIRSTNAME"],
+            ["Herr", "Cooper", "Daniel"],
+            ["Frau", "Davis", "Jessica"],
+            ["Herr", "Edwards", "Jack"],
+            ["Frau", "Schenk", "Ute"],
+            ["Herr", "Reuter", "Thomas"],
+            ["Frau", "Saunders", "Elisabeth"]
+          ],
+          "mapTableNotifications": [
+            ["MEETING_NOTIFICATION_TEMPLATE_", "MEETING_NOTIFICATION_RECIPIENTS_", "MEETING_NOTIFICATION_SHIFT_VALUE_", "MEETING_NOTIFICATION_SHIFT_UNIT_", "MEETING_NOTIFICATION_SIGN_", "MEETING_NOTIFICATION_REFERENCE_DATE_"],
+            ["default", "O - Organisatoren", "1", "w - Woche(n)", "- - Vor", "MEETING_STARTDATE - Startdatum"],
+            ["default", "A - Alle Teilnehmer und Mitglieder", "5", "d - Tag(e)", "+ - Nach", "MEETING_ENDDATE - Enddatum"]
+          ],
+          "wfMapTableRepetition": [],
+          "wfMapKeys": {
+            "MEETING_REPETITION_CREATE": 0
+          },
+          "meetingItems": []
+        }
+       ]
+    },
+    {
+      "desc":  "Jan Eichner Sitzungsboard mit 10 Tage-Frist. Mitglieder: Bodo Kraft, Daniel Cooper, Gernd Baum, Emily Thomson",
+      "objKeys": {
+        "MEETING_BOARD_NAME": "Jan Eichner Sitzungsboard mit 10 Tage-Frist",
+        "MEETING_BOARD_CODE": "JESB",
+        "MEETING_BOARD_MINUTE_TAKER": "Jack Edwards",
+        "MEETING_PRODUCT_LINE": "Premium"
+      },
+      "mapKeys": {
+        "MEETING_BOARD_SETTING_DEADLINES_ACTIVATE": 1,
+        "MEETING_REGISTER_DEADLINE_SHIFT_VALUE": 10,
+        "MEETING_REGISTER_DEADLINE_SHIFT_UNIT": "d - Tag(e)"
+      },
+      "wfMapTableMembers": [
+        ["MEETING_PERSON_FORM_OF_ADDRESS", "MEETING_PERSON_LASTNAME", "MEETING_PERSON_FIRSTNAME"],
+        ["Herr", "Baum", "Gerd"],
+        ["Herr", "Kraft", "Bodo"],
+        ["Herr", "Cooper", "Daniel"],
+        ["Frau", "Thomson", "Emily"]
+      ],
+      "wfMapTableRecuringItems": [
+        ["MEETING_ITEM_TITLE", "MEETING_ITEM_DURATION", "MEETING_ITEM_DESC"],
+        ["fixer TOP 1", "30", "Ich bin die Beschreibung von fixer TOP 1"],
+        ["fixer TOP 2 - mit einem längeren Titel", "40", "Ich bin die Beschreibung von fixer TOP 2 - mit einem längeren Titel"]
+      ],
+      "mapTableNotifications": [
+        ["MEETING_NOTIFICATION_TEMPLATE_", "MEETING_NOTIFICATION_RECIPIENTS_", "MEETING_NOTIFICATION_SHIFT_VALUE_", "MEETING_NOTIFICATION_SHIFT_UNIT_", "MEETING_NOTIFICATION_SIGN_", "MEETING_NOTIFICATION_REFERENCE_DATE_"],
+        ["default", "O - Organisatoren", "2", "w - Woche(n)", "- - Vor", "MEETING_STARTDATE - Startdatum"],
+        ["default", "A - Alle Teilnehmer und Mitglieder", "12", "d - Tag(e)", "- - Vor", "MEETING_STARTDATE - Startdatum"]
+      ],
+      "mapTableProposals": [
+        ["PROPOSAL_TYPES"],
+        ["Beschlussvorlage"],
+        ["Unterrichtungsvorlage"],
+        ["Mündliche Vorlage"]
+      ],
+      "mapTableOrganizers": [
+        ["MEETING_BOARD_ORGANIZER"],
+        ["Jan Eichner"],
+        ["Jack Edwards"]
+      ],
+      "meetings": [
+        {
+          "settings": {
+            "default": false,
+            "timeslotday": "now+20",
+            "timeslotstart": "14:00",
+            "timeslotend": "18:00",
+            "timeslotcount": 1
+          },
+          "desc": "Beschreibung Meeting1",
+          "objKeys": {
+            "MEETING_NAME": "Sitzung am Nachmittag mit Ute Schenk & Verona Funk",
+            "MEETING_LOCATION": "Musterstadt",
+            "MEETING_MINUTE_TAKER": "Jack Edwards"
+          },
+          "mapKeys": {
+            "MEETING_DEADLINE_TYPE": "sol.meeting.forms.meetingBoard.settings.boardDeadline"
+          },
+          "mapTable": [
+            ["MEETING_TIMESLOT_DAY", "MEETING_TIMESLOT_START", "MEETING_TIMESLOT_END"],
+            ["20230805", "13:00", "18:00"]
+          ],
+          "wfMapTableParticipants": [
+            ["MEETING_PERSON_FORM_OF_ADDRESS", "MEETING_PERSON_LASTNAME", "MEETING_PERSON_FIRSTNAME"],
+            ["Frau", "Funk", "Verona"],
+            ["Frau", "Schenk", "Ute"]
+          ],
+          "mapTableNotifications": [
+            ["MEETING_NOTIFICATION_TEMPLATE_", "MEETING_NOTIFICATION_RECIPIENTS_", "MEETING_NOTIFICATION_SHIFT_VALUE_", "MEETING_NOTIFICATION_SHIFT_UNIT_", "MEETING_NOTIFICATION_SIGN_", "MEETING_NOTIFICATION_REFERENCE_DATE_"],
+            ["default", "O - Organisatoren", "2", "w - Woche(n)", "- - Vor", "MEETING_STARTDATE - Startdatum"],
+          	["default", "A - Alle Teilnehmer und Mitglieder", "12", "d - Tag(e)", "- - Vor", "MEETING_STARTDATE - Startdatum"],
+            ["default", "A - Alle Teilnehmer und Mitglieder", "5", "d - Tag(e)", "+ - Nach", "MEETING_ENDDATE - Enddatum"]
+          ],
+          "wfMapTableRepetition": [
+            ["MEETING_REPETITION_NAME", "MEETING_REPETITION_DATE", "MEETING_REPETITION_START", "MEETING_REPETITION_END"],
+            ["MR1", "", "13:00", "18:00"],
+            ["MR1", "", "14:00", "18:00"]
+          ],
+          "wfMapKeys": {
+            "MEETING_REPETITION_CREATE": 1
+          },
+          "meetingItems": [
+            {
+              "desc":"Beschreibung Ein Bodo Kraft-TOP direkt in der Agenda",
+              "objKeys": {
+                "MEETING_ITEM_TITLE": "Ein Bodo Kraft-TOP direkt in der Agenda mit Aufgaben, Abstimmungen & Notizen",
+                "MEETING_ITEM_DURATION": "40",
+                "MEETING_ITEM_RESPONSIBLE_PERSON": "Bodo Kraft",
+                "MEETING_ITEM_DAY": 1,
+                "MEETING_ITEM_START": "14:30",
+                "MEETING_ITEM_END": "15:10"
+              },
+              "mapTableSpeakers": [
+                ["MEETING_ITEM_SPEAKER_OF_ADDRESS", "MEETING_ITEM_SPEAKER_LASTNAME", "MEETING_ITEM_SPEAKER_FIRSTNAME"],
+                ["Frau", "Schenk", "Ute"]
+              ],
+              "tasks": [
+                {
+                  "desc": "Beschreibung Aufgabe1",
+                  "objKeys": {
+                        "MEETING_TASK_TITLE": "Aufgabe1: Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
+                        "MEETING_TASK_ASSIGNEE": "Bodo Kraft",
+                        "MEETING_TASK_DUEDATE": "20220604" ,
+                        "MEETING_TASK_STATUS": "O - Offen"
+                  }
+                },
+                {
+                  "desc": "Beschreibung Aufgabe2",
+                  "objKeys": {
+                        "MEETING_TASK_TITLE": "Aufgabe2: Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
+                        "MEETING_TASK_ASSIGNEE": "Gerd Baum",
+                        "MEETING_TASK_DUEDATE": "20220606" ,
+                        "MEETING_TASK_STATUS": "O - Offen"
+                  }
+                }],
+              "votings": [
+                {
+                  "desc": "Beschreibung Abstimmung 1",
+                  "objKeys": {
+                    "MEETING_VOTING_TITLE": "Yes – no – abstain (Digital)",
+                    "MEETING_VOTING_QUESTION": "Frage Abstimmung 1: Überall dieselbe alte Leier. Das Layout ist fertig, der Text lässt auf sich warten?",
+                    "MEETING_VOTING_MAX_VOTES": 5
+                  }
+                },
+                {
+                  "desc": "Beschreibung Abstimmung 2",
+                  "objKeys": {
+                    "MEETING_VOTING_TITLE": "Yes – no (Raise hand)",
+                    "MEETING_VOTING_QUESTION": "Frage Abstimmung 2: Überall dieselbe alte Leier. Das Layout ist fertig, der Text lässt auf sich warten?",
+                    "MEETING_VOTING_MAX_VOTES": 10
+                  }
+                }
+              ],
+              "notes": [
+                {
+                  "text": "Beschreibung Notiz 1: Franz jagt im komplett verwahrlosten Taxi quer durch Bayern. Zwölf Boxkämpfer jagen Viktor quer über den großen Sylter Deich. Vogel Quax zwickt Johnys Pferd Bim. Sylvia wagt quick den Jux bei Pforzheim. Polyfon zwitschernd aßen Mäxchens Vögel Rüben, Joghurt und Quark. Fix, Schwyz! quäkt Jürgen blöd vom Paß. Victor jagt zwölf Boxkämpfer quer über den großen Sylter Deich. Falsches Üben von Xylophonmusik quält jeden größeren Zwerg.",
+                  "title": "Notiz 1: öffentlich & protokollrelevant",
+                  "meetingMinutesRelevant" : true,
+                  "visibility" : "PU"
+                },
+                {
+                  "text": "Beschreibung Notiz 1: Franz jagt im komplett verwahrlosten Taxi quer durch Bayern. Zwölf Boxkämpfer jagen Viktor quer über den großen Sylter Deich. Vogel Quax zwickt Johnys Pferd Bim. Sylvia wagt quick den Jux bei Pforzheim. Polyfon zwitschernd aßen Mäxchens Vögel Rüben, Joghurt und Quark. Fix, Schwyz! quäkt Jürgen blöd vom Paß. Victor jagt zwölf Boxkämpfer quer über den großen Sylter Deich. Falsches Üben von Xylophonmusik quält jeden größeren Zwerg.",
+                  "title": "Notiz 3: öffentlich",
+                  "meetingMinutesRelevant" : false,
+                  "visibility" : "PU"
+                },
+                {
+                  "text": "Beschreibung Notiz 2: Heizölrückstoßabdämpfung. Zwei flinke Boxer jagen die quirlige Eva und ihren Mops durch Sylt. Franz jagt im komplett verwahrlosten Taxi quer durch Bayern. Zwölf Boxkämpfer jagen Viktor quer über den großen Sylter Deich. ",
+                  "title": "Notiz 2: eine privaten Notiz mit einem eeeeeeeeeextra seeeeeeeeeeeeeehr langen Titel",
+                  "meetingMinutesRelevant" : false,
+                  "visibility" : "PR"
+                }
+              ]
+            },
+            {
+              "desc": "Beschreibung Thema2",
+              "objKeys": {
+                "MEETING_ITEM_TITLE": "Ein Daniel Cooper TOP direkt in der Agenda ohne Aufgaben, Abstimmung oder Notizen",
+                "MEETING_ITEM_DURATION": "40",
+                "MEETING_ITEM_RESPONSIBLE_PERSON": "Daniel Cooper",
+                "MEETING_ITEM_DAY": 1,
+                "MEETING_ITEM_START": "15:10",
+                "MEETING_ITEM_END": "15:50"
+              },
+          "mapTableSpeakers": [
+            ["MEETING_ITEM_SPEAKER_OF_ADDRESS", "MEETING_ITEM_SPEAKER_LASTNAME", "MEETING_ITEM_SPEAKER_FIRSTNAME"],
+            ["Frau", "Schenk", "Ute"]
+          ],
+              "tasks": [],
+              "votings": [],
+              "notes": []
+            }
+          ]
+        },
+        {
+          "settings": {
+            "default": false,
+            "timeslotday": "now+17",
+            "timeslotstart": "09:00",
+            "timeslotend": "17:00",
+            "timeslotcount": 2
+          },
+          "desc": "Beschreibung von Meeting mit David Lee & Ute Schenk",
+          "objKeys": {
+            "MEETING_NAME": "2tägiges Meeting mit David Lee & Ute Schenk",
+            "MEETING_LOCATION": "Musterhausen",
+            "MEETING_MINUTE_TAKER": "Jack Edwards"
+          },
+          "mapKeys": {
+            "MEETING_DEADLINE_TYPE": "sol.meeting.forms.meetingBoard.settings.boardDeadline"
+          },
+          "mapTable": [
+            ["MEETING_TIMESLOT_DAY", "MEETING_TIMESLOT_START", "MEETING_TIMESLOT_END"],
+            ["20221005", "11:00", "15:00"],
+            ["20221006", "10:00", "16:00"]
+          ],
+          "wfMapTableParticipants": [
+            ["MEETING_PERSON_FORM_OF_ADDRESS", "MEETING_PERSON_LASTNAME", "MEETING_PERSON_FIRSTNAME"],
+            ["Herr", "Lee", "David"],
+            ["Frau", "Schenk", "Ute"]
+          ],
+          "mapTableNotifications": [],
+          "wfMapTableRepetition": [],
+          "wfMapKeys": {
+            "MEETING_REPETITION_CREATE": 0
+          },
+          "meetingItems": []
+        }
+      ]
+    }
+  ],
+  "meetingItemPools" : [
+    {
+      "desc": "Beschreibung Meetingitempool1",
+      "objKeys": {
+        "MEETING_ITEM_POOL_NAME": "Themen Pool für das Projektteam",
+        "MEETING_BOARD_NAME": "Meetingboard eines Projektteams mit Orga Jan Eichner & Sandra Renz",
+        "MEETING_BOARD_CODE": "MBPT",
+        "MEETING_PRODUCT_LINE": "Default"
+      },
+      "meetingItems": [
+        {
+          "desc": "Beschreibung Thema1 Ideenpool1",
+          "objKeys": {
+            "MEETING_ITEM_TITLE": "Ein tolles Thema von Adrian Smith",
+            "MEETING_ITEM_DURATION": "40",
+            "MEETING_ITEM_RESPONSIBLE_PERSON": "Adrian Smith"
+          },
+          "mapTableSpeakers": [
+            ["MEETING_ITEM_SPEAKER_OF_ADDRESS", "MEETING_ITEM_SPEAKER_LASTNAME", "MEETING_ITEM_SPEAKER_FIRSTNAME"],
+            ["Herr", "Kraft", "Bodo"]
+          ],
+          "tasks": [
+            {
+              "desc": "Beschreibung Aufgabe1",
+              "objKeys": {
+                "MEETING_TASK_TITLE": "Aufgabe1",
+                "MEETING_TASK_ASSIGNEE": "Bodo Kraft",
+                "MEETING_TASK_DUEDATE": "20221104" ,
+                "MEETING_TASK_STATUS": "O - Offen"
+              }
+            },
+            {
+              "desc": "Beschreibung Aufgabe2",
+              "objKeys": {
+                "MEETING_TASK_TITLE": "Aufgabe2",
+                "MEETING_TASK_ASSIGNEE": "Gerd Baum",
+                "MEETING_TASK_DUEDATE": "20221206" ,
+                "MEETING_TASK_STATUS": "O - Offen"
+              }
+            }
+          ],
+          "votings": [
+            {
+              "desc": "Beschreibung Abstimmung1",
+              "objKeys": {
+                "MEETING_VOTING_TITLE": "Yes – no – abstain (Digital)",
+                "MEETING_VOTING_QUESTION": "Frage Abstimmung1",
+                "MEETING_VOTING_MAX_VOTES": 5
+              }
+            },
+            {
+              "desc": "Beschreibung Abstimmung2",
+              "objKeys": {
+                "MEETING_VOTING_TITLE": "Yes – no (Raise hand)",
+                "MEETING_VOTING_QUESTION": "Frage Abstimmung2",
+                "MEETING_VOTING_MAX_VOTES": 10
+              }
+            }
+          ],
+          "notes": [
+            {
+              "text": "Beschreibung Notiz1",
+              "title": "öffentliche Notiz1",
+              "meetingMinutesRelevant" : true,
+              "visibility" : "PU"
+            },
+            {
+              "text": "Beschreibung Notiz2",
+              "title": "private Notiz2",
+              "meetingMinutesRelevant" : false,
+              "visibility" : "PR"
+            }
+          ]
+        },
+        {
+          "desc": "Beschreibung Thema2 Ideenpool1",
+          "objKeys": {
+            "MEETING_ITEM_TITLE": "Thema2 Ideenpool1",
+            "MEETING_ITEM_DURATION": "40",
+            "MEETING_ITEM_RESPONSIBLE_PERSON": "David Lee"
+          },
+          "mapTableSpeakers": [
+            ["MEETING_ITEM_SPEAKER_OF_ADDRESS", "MEETING_ITEM_SPEAKER_LASTNAME", "MEETING_ITEM_SPEAKER_FIRSTNAME"],
+            ["Herr", "Kraft", "Bodo"]
+          ],
+          "tasks": [],
+          "votings": [],
+          "notes": []
+        }
+      ]
+    },
+    {
+      "desc": "Beschreibung Meetingitempool2",
+      "objKeys": {
+        "MEETING_ITEM_POOL_NAME": "Pool/Themensammlung für wichtige TOPs",
+        "MEETING_BOARD_NAME": "Jan Eichner Sitzungsboard mit 10 Tage-Frist",
+        "MEETING_BOARD_CODE": "JESB",
+        "MEETING_PRODUCT_LINE": "Premium"
+      },
+      "meetingItems": [
+        {
+          "desc": "Beschreibung Thema1 Meetingitempool2",
+          "objKeys": {
+            "MEETING_ITEM_TITLE": "Thema1 Meetingitempool2",
+            "MEETING_ITEM_DURATION": "30",
+            "MEETING_ITEM_RESPONSIBLE_PERSON": "David Lee"
+          },
+          "mapTableSpeakers": [
+            ["MEETING_ITEM_SPEAKER_OF_ADDRESS", "MEETING_ITEM_SPEAKER_LASTNAME", "MEETING_ITEM_SPEAKER_FIRSTNAME"],
+            ["Herr", "Kraft", "Bodo"]
+          ],
+          "tasks": [],
+          "votings": [],
+          "notes": []
+        }
+      ]
+    }
+  ]
+}

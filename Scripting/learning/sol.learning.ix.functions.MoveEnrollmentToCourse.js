@@ -1,0 +1,179 @@
+
+importPackage(Packages.de.elo.ix.client);
+
+//@include lib_Class.js
+//@include lib_sol.common.JsonUtils.js
+//@include lib_sol.common.ix.RfUtils.js
+//@include lib_sol.common.IxUtils.js
+//@include lib_sol.common.TranslateTerms.js
+//@include lib_sol.common.ix.FunctionBase.js
+//@include lib_sol.learning.mixins.Configuration.js
+//@include lib_sol.common.Injection.js
+
+/**
+ * @author ESt, ELO Digital Office GmbH
+ * @version 1.0
+ *
+ * @eloix
+ *
+ * @requires sol.common.JsonUtils
+ * @requires sol.common.ix.RfUtils
+ * @requires sol.common.IxUtils
+ * @requires sol.common.ix.FunctionBase
+ */
+sol.define("sol.learning.ix.functions.MoveEnrollmentToCourse", {
+  extend: "sol.common.ix.FunctionBase",
+
+  _optimize: {}, // enables optimization. Will store optimization cache ID
+
+  mixins: ["sol.learning.mixins.Configuration", "sol.common.mixins.Inject"],
+
+  inject: {
+    _config: { config: "learning", prop: "entities.enrollment.functions.moveenrollmenttocourse" } // {}
+  },
+
+  getEnrollment: function (objId) {
+    var me = this;
+    me._config.find.enrollment.id = String(objId);
+    return me.getSords("enrollment")[0];
+  },
+
+  getCourse: function (criteria) {
+    var me = this, courseRef, sessionRef, result, searchFor;
+    criteria || (criteria = {});
+    if (!(courseRef = criteria.course)) {
+      throw "Enrollment did not have a course reference. Moving not possible.";
+    }
+
+    if (sessionRef = criteria.session) {
+      me._config.find[searchFor = "session"].search.push(
+        { key: me._config.find.courseReferenceField, value: courseRef },
+        { key: me._config.find.sessionReferenceField, value: sessionRef }
+      );
+    } else {
+      me._config.find[searchFor = "course"].search.push(
+        { key: me._config.find.courseReferenceField, value: courseRef }
+      );
+    }
+
+    result = me.getSords(searchFor)[0] || {};
+
+    if (!result.guid) {
+      throw "Could not find course or session `" + me._config.find[searchFor].search + "`. Moving not possible.";
+    }
+
+    return result;
+  },
+
+  isLocale: function (str) {
+    return (str.indexOf(".") > 0) && (str.indexOf(" ") === -1);
+  },
+
+  rfAsAdm: function (fct, params) {
+    var any = new (typeof Any !== "undefined" ? Any : de.elo.ix.client.Any);
+    any.type = ixConnect.CONST.ANY.TYPE_STRING;
+    any.stringValue = sol.common.JsonUtils.stringifyAll(params);
+    any = ((ixConnectAdmin === "undefined") ? ixConnect : ixConnectAdmin).ix().executeRegisteredFunction(fct, any);
+    return JSON.parse((any && any.stringValue) ? String(any.stringValue) : "{}");
+  },
+
+  getEnrollmentFolderName: function (courseEnrollmentFolderName, courseLanguage) {
+    var me = this, translationTerm, translationLanguage, translated;
+
+    if (!courseEnrollmentFolderName) {
+      translationTerm = me._config.enrollmentFolder.fallbacks.name;
+    } else {
+      courseEnrollmentFolderName = courseEnrollmentFolderName.trim();
+      if (me.isLocale(courseEnrollmentFolderName)) {
+        translationTerm = courseEnrollmentFolderName;
+      } else {
+        translated = courseEnrollmentFolderName;
+      }
+    }
+
+    if (translationTerm) {
+      translationLanguage = (courseLanguage || me._config.enrollmentFolder.fallbacks.language).toLowerCase();
+      translated = String(sol.common.TranslateTerms.getTerm(translationLanguage, translationTerm));
+      (translationTerm === translated) && (translated = "");  // translation failed
+    }
+
+    return translated || me._config.enrollmentFolder.fallbacks.fixed; // absolute fallback if MAP was empty or translation failed
+  },
+
+
+  saveFolderNameInCourse: function (courseObjId, folderName) {
+    var me = this, fieldConfig = me._config.enrollmentFolder.nameStorageField;
+    fieldConfig.value = folderName;
+    me.rfAsAdm("RF_sol_function_Set", {
+      objId: courseObjId,
+      entries: [fieldConfig]
+    });
+  },
+
+  assembleTargetPath: function (courseGuid, folderName) {
+    return "ARCPATH[" + courseGuid + "]:/" + folderName;
+  },
+
+  moveEnrollmentToCourse: function (enrollmentObjId, targetPath, targetMask) {
+    var me = this;
+    me.rfAsAdm("RF_sol_function_Move", {
+      objId: enrollmentObjId,
+      path: targetPath,
+      mask: targetMask,
+      adjustRights: true
+    });
+  },
+
+  getSords: function (entity) {
+    var me = this;
+    return sol.common.IxUtils.optimizedExecute("RF_sol_common_service_SordProvider", me._config.find[entity], me._optimize, entity, ["output"]).sords;
+  },
+
+  determineFolderMask: function () {
+    var me = this;
+    return me._config.enrollmentFolder.fallbacks.mask;
+  },
+
+  process: function () {
+    var me = this, course, enrollmentFolderName;
+
+    course = me.getCourse(me.getEnrollment(me.objId));
+    enrollmentFolderName = me.getEnrollmentFolderName(course.enrollmentfolder, course.language);
+    me.saveFolderNameInCourse(course.objId, enrollmentFolderName);
+    me.moveEnrollmentToCourse(me.objId, me.assembleTargetPath(course.guid, enrollmentFolderName), me.determineFolderMask());
+  }
+});
+
+/**
+ * @member sol.learning.ix.functions.MoveEnrollmentToCourse
+ * @static
+ * @inheritdoc sol.common.ix.FunctionBase#onEnterNode
+ */
+function onEnterNode(_clInfo, _userId, wfDiagram, nodeId) {
+  var params, fun;
+
+  sol.common.WfUtils.checkMainAdminWf(wfDiagram);
+  params = sol.common.WfUtils.parseAndCheckParams(wfDiagram, nodeId),
+
+  params.objId = wfDiagram.objId;
+  fun = sol.create("sol.learning.ix.functions.MoveEnrollmentToCourse", params);
+
+  fun.process();
+}
+
+/**
+ * @member sol.learning.ix.functions.MoveEnrollmentToCourse
+ * @static
+ * @inheritdoc sol.common.ix.FunctionBase#onExitNode
+ */
+function onExitNode(_clInfo, _userId, wfDiagram, nodeId) {
+  var params, fun;
+
+  sol.common.WfUtils.checkMainAdminWf(wfDiagram);
+  params = sol.common.WfUtils.parseAndCheckParams(wfDiagram, nodeId);
+
+  params.objId = wfDiagram.objId;
+  fun = sol.create("sol.learning.ix.functions.MoveEnrollmentToCourse", params);
+
+  fun.process();
+}

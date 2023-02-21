@@ -1,0 +1,30 @@
+{
+  "reputationPoints": {
+    "POST_CREATE": "0",
+    "POST_CREATE_QUESTION": "50",
+    "POST_CREATE_ARTICLE": "50",
+    "POST_CREATE_IDEA": "50",
+    "POST_UPVOTE": "1",
+    "POST_DOWNVOTE": "1",
+    "REPLY_CREATE": "0",
+    "REPLY_CREATE_QUESTION": "25",
+    "REPLY_CREATE_IDEA": "25",
+    "REPLY_UPVOTE": "1",
+    "REPLY_DOWNVOTE": "1",
+    "MARK_AS_SOLUTION": "50",
+    "MARK_AS_CLOSED": "25",
+    "RECEIVE_POST_UPVOTE": "2",
+    "RECEIVE_POST_DOWNVOTE": "-2",
+    "RECEIVE_REPLY_UPVOTE": "2",
+    "RECEIVE_REPLY_DOWNVOTE": "-2",
+    "RECEIVE_MARK_AS_SOLUTION": "75",
+    "RECEIVE_MARK_AS_CLOSED": "0",
+    "RECEIVE_POST_LABEL_SUGGESTED": "0",
+    "RECEIVE_POST_LABEL_IMPLEMENTED": "30",
+    "RECEIVE_POST_LABEL_SELECTED": "20",
+    "RECEIVE_POST_LABEL_REJECTED": "-10"
+  },
+  "reputationStatistic": {
+    "statisticPath": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/_global/Reputation"
+  }
+}

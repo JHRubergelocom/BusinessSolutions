@@ -1,0 +1,52 @@
+{
+  "encoding": "UTF-8",
+  "xsd": [],
+  "container": false,
+  "sord": {
+    "mask": "Incoming Invoice"
+  },
+  "importSuccessAction": "move:imported",
+  "importErrorAction": "move:error",
+  "files": {
+    "xpath": "/import/file",
+    "importSuccessAction": "move:imported",
+    "importErrorAction": "move:error",
+    "values": {
+      "FILE_PATH": {
+        "xpath": "path"
+      },
+      "FILE_MASK": {
+        "xpath": "mask",
+        "converter": "defaultMask"
+      },
+      "FILE_NAME": {
+        "xpath": "name"
+      },
+      "FILE_COMMENT": {
+        "xpath": "comment",
+        "converter": "defaultComment"
+      },
+      "FILE_VERSION": {
+        "xpath": "version",
+        "converter": "defaultVersion"
+      }
+    }
+  },
+  "converter": [
+    {
+      "name": "defaultMask",
+      "type": "DefaultConverter",
+      "defaultValue": "Incoming Invoice"
+    },
+    {
+      "name": "defaultComment",
+      "type": "DefaultConverter",
+      "defaultValue": "standard import"
+    },
+    {
+      "name": "defaultVersion",
+      "type": "DefaultConverter",
+      "defaultValue": "1.0"
+    }
+  ]
+}

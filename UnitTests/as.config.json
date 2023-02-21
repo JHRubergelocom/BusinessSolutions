@@ -1,0 +1,6 @@
+{
+  "protocol": "http",
+  "serverName": "playground.dev.elo",
+  "port": "80",
+  "serviceName": "as-Solutions"
+}

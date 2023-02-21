@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<fo:root font-family="ELO Sans Pro" xmlns:fo="http://www.w3.org/1999/XSL/Format">
+  <fo:layout-master-set>
+    <fo:simple-page-master master-name="Deckblatt" page-height="29.7cm" page-width="21cm" margin-top="0.5cm" margin-bottom="1.5cm" margin-left="2cm" margin-right="2cm">
+      <fo:region-body />
+    </fo:simple-page-master>
+  </fo:layout-master-set>
+
+  <fo:page-sequence master-reference="Deckblatt">
+    <fo:flow flow-name="xsl-region-body">
+
+      <fo:block-container width="18cm" margin-top="3mm">
+        <fo:block text-align="right">
+          <fo:external-graphic 
+            content-height="scale-to-fit" height="9mm" width="50mm"
+            src="url('data:image/png;base64,{{base64Image objId='ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions Custom/common_document/Configuration/PDF Export Templates/Watermarks/Logo'}}')"/>
+        </fo:block>
+      </fo:block-container>
+
+      <fo:block-container width="17cm" margin-top="3mm">
+
+          <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+          <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+          <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+          <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+
+          <fo:block font-size="24pt" text-align="center" color="#004072">
+             Beschlussvorlage
+          </fo:block>
+
+          <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+
+          <fo:block font-size="24pt" text-align="center" color="#004072">
+             {{sord.objKeys.MEETING_ITEM_TITLE}}
+          </fo:block>
+
+          <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+          <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+          <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+          <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+
+          <fo:block font-size="16pt" text-align="center">
+             {{sord.objKeys.MEETING_NAME}}
+          </fo:block>
+
+          <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+
+          <fo:block font-size="16pt" text-align="center">
+             {{formatDate 'DD.MM.YYYY' sord.objKeys.MEETING_DUE_DATE}}
+          </fo:block>
+
+          <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+          <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+          <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+          <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+          <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+          <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+          <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+          <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+
+          <fo:table border-style="solid" border-width="1pt" table-layout="fixed" width="100%">
+            <fo:table-column column-width="4.25cm"/>
+            <fo:table-column column-width="4.25cm"/>
+            <fo:table-column column-width="4.25cm"/>
+            <fo:table-column column-width="4.25cm"/>
+            <fo:table-body>
+              <fo:table-row>
+                <fo:table-cell border-style="solid" border-width="1pt">
+                  <fo:block line-height="12pt" margin-top="10pt" margin-left="3pt" margin-bottom="10pt" text-align="left" font-weight="bold">Vorlage zu TOP:</fo:block>
+                </fo:table-cell>
+                <fo:table-cell border-style="solid" border-width="1pt" number-columns-spanned="3">
+                  <fo:block line-height="12pt" margin-top="10pt" margin-left="3pt" margin-bottom="10pt" text-align="center">{{sord.objKeys.MEETING_ITEM_TITLE}}</fo:block>
+                </fo:table-cell>
+              </fo:table-row>
+              <fo:table-row>
+                <fo:table-cell border-style="solid" border-width="1pt">
+                  <fo:block line-height="12pt" margin-top="10pt" margin-left="3pt" margin-bottom="10pt" text-align="left" font-weight="bold">Beginn:</fo:block>
+                </fo:table-cell>
+                <fo:table-cell border-style="solid" border-width="1pt">
+                  <fo:block line-height="12pt" margin-top="10pt" margin-left="3pt" margin-bottom="10pt" text-align="center">{{sord.objKeys.MEETING_ITEM_START}}</fo:block>
+                </fo:table-cell>
+                <fo:table-cell border-style="solid" border-width="1pt">
+                  <fo:block line-height="12pt" margin-top="10pt" margin-left="3pt" margin-bottom="10pt" text-align="left" font-weight="bold">Sprecher:</fo:block>
+                </fo:table-cell>
+                <fo:table-cell border-style="solid" border-width="1pt">
+                  <fo:block line-height="12pt" margin-top="10pt" margin-left="3pt" margin-bottom="10pt" text-align="center">{{sord.objKeys.MEETING_ITEM_SPEAKER}}</fo:block>
+                </fo:table-cell>
+              </fo:table-row>
+            </fo:table-body>
+          </fo:table>
+
+          <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+          <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+
+          <fo:table border-style="solid" border-width="1pt" table-layout="fixed" width="100%">
+            <fo:table-column column-width="2.125cm"/>
+            <fo:table-column column-width="2.125cm"/>
+            <fo:table-column column-width="2.125cm"/>
+            <fo:table-column column-width="2.125cm"/>
+            <fo:table-column column-width="1.625cm"/>
+            <fo:table-column column-width="2.625cm"/>
+            <fo:table-column column-width="1.825cm"/>
+            <fo:table-column column-width="2.425cm"/>
+            <fo:table-body>
+              <fo:table-row>
+                <fo:table-cell border-style="solid" border-width="1pt" number-columns-spanned="2">
+                  <fo:block line-height="12pt" margin-top="10pt" margin-left="3pt" margin-bottom="10pt" text-align="left" font-weight="bold">Verfasser:</fo:block>
+                </fo:table-cell>
+                <fo:table-cell border-style="solid" border-width="1pt" number-columns-spanned="2">
+                  <fo:block line-height="12pt" margin-top="10pt" margin-left="3pt" margin-bottom="10pt" text-align="center">{{sord.objKeys.MEETING_PROPOSAL_EDITOR}}</fo:block>
+                </fo:table-cell>
+                <fo:table-cell border-style="solid" border-width="1pt" number-columns-spanned="2">
+                  <fo:block line-height="12pt" margin-top="10pt" margin-left="3pt" margin-bottom="10pt" text-align="left" font-weight="bold">Datum:</fo:block>
+                </fo:table-cell>
+                <fo:table-cell border-style="solid" border-width="1pt" number-columns-spanned="2">
+                  <fo:block line-height="12pt" margin-top="10pt" margin-left="3pt" margin-bottom="10pt" text-align="center">{{formatDate 'DD.MM.YYYY' sord.objKeys.MEETING_DUE_DATE}}</fo:block>
+                </fo:table-cell>
+              </fo:table-row>
+              <fo:table-row>
+                <fo:table-cell border-style="solid" border-width="1pt" number-columns-spanned="2">
+                  <fo:block line-height="12pt" margin-top="10pt" margin-left="3pt" margin-bottom="10pt" text-align="left" font-weight="bold">Eingereicht am:</fo:block>
+                </fo:table-cell>
+                <fo:table-cell border-style="solid" border-width="1pt" number-columns-spanned="2">
+                  <fo:block line-height="12pt" margin-top="10pt" margin-left="3pt" margin-bottom="10pt" text-align="center">{{formatDate 'DD.MM.YYYY' sord.objKeys.MEETING_DUE_DATE}}</fo:block>
+                </fo:table-cell>
+                <fo:table-cell border-style="solid" border-width="1pt" number-columns-spanned="2">
+                  <fo:block line-height="12pt" margin-top="10pt" margin-left="3pt" margin-bottom="10pt" text-align="left" font-weight="bold">Verantwortlicher:</fo:block>
+                </fo:table-cell>
+                <fo:table-cell border-style="solid" border-width="1pt" number-columns-spanned="2">
+                  <fo:block line-height="12pt" margin-top="10pt" margin-left="3pt" margin-bottom="10pt" text-align="center">{{sord.objKeys.MEETING_ITEM_RESPONSIBLE_PERSON}}</fo:block>
+                </fo:table-cell>
+              </fo:table-row>
+            </fo:table-body>
+          </fo:table>
+      </fo:block-container>
+    </fo:flow>
+  </fo:page-sequence>
+
+</fo:root>

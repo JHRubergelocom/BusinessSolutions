@@ -1,0 +1,32 @@
+{
+    "dependencies": [
+        {
+            "folder": "../hr.git/Business Solutions/hr",
+            "elo": "/Business Solutions/hr"
+        },
+        {
+            "folder": "../hr.git/Business Solutions Custom/hr [de]",
+            "elo": "/Business Solutions Custom/hr"
+        },
+        {
+            "folder": "../hr.git/Business Solutions/hr_orgchart",
+            "elo": "/Business Solutions/hr_orgchart"
+        },
+        {
+            "folder": "../hr.git/Business Solutions Custom/hr_orgchart [de]",
+            "elo": "/Business Solutions Custom/hr_orgchart"
+        },
+		{
+            "folder": "../productivity.git/Business Solutions/contact [demo de]",
+            "elo": "/Business Solutions/contact [demo de]"
+        },
+        {
+            "folder": "../hr.git/Business Solutions/hr [demo de]",
+            "elo": "/Business Solutions/hr [demo de]"
+        },
+        {
+            "folder": "../hr.git/Business Solutions/Unit Tests",
+            "elo": "/Business Solutions/hr [unit tests]"
+        }
+    ]
+}

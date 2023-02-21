@@ -1,0 +1,8 @@
+{
+  "setupName": "invoice [unit tests]",
+  "fileNamePrefix": "",
+  "workflowTemplates": [
+    "Unittest"
+  ],
+  "sordTypes": []
+}

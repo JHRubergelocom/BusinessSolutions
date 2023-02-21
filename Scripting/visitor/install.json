@@ -1,0 +1,363 @@
+{
+  "setupName": "sol.visitor",
+  "packageName": "visitor",
+  "createMasks": true,
+  "colors": [
+    {
+      "name": "sol.visitor.preregistered",
+      "rgb": "8750469"
+    },
+    {
+      "name": "sol.visitor.checkedout",
+      "rgb": "13054992"
+    },
+    {
+      "name": "sol.visitor.cancelled",
+      "rgb": "526548"
+    },
+    {
+      "name": "sol.visitor.checkedin",
+      "rgb": 2004510
+    },
+    {
+      "name": "sol.visitor.document.signed",
+      "rgb": 2004510
+    }
+  ],
+  "deleteSords": [
+    "{{packageFolderPath}}/Configuration/as.config"
+  ],
+  "refChildren": [
+    {
+      "source": "{{packageFolderPath}}/All Rhino",
+      "destinations": [
+        "{{ixScriptingBaseFolderPath}}/_ALL/business_solutions"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/ELOwf Base/Feed/Script Locales",
+      "destinations": [
+        "{{wfBaseFolderPath}}/Feed/Script Locales"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/ELOwf Base/Forms",
+      "destinations": [
+        "{{wfBaseFolderPath}}/Forms"
+      ],
+      "refFolders": true
+    },
+    {
+      "source": "{{packageFolderPath}}/ELOwf Base/Images",
+      "destinations": [
+        "{{wfBaseFolderPath}}/Images"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/ELOwf Base/Webapp",
+      "destinations": [
+        "{{wfBaseFolderPath}}/Webapp"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/IndexServer Scripting Base",
+      "destinations": [
+        "{{ixScriptingBaseFolderPath}}/_ALL/business_solutions"
+      ],
+      "ignoreSubfolders": true
+    },
+    {
+      "source": "{{packageFolderPath}}/Java Client Scripting Base",
+      "destinations": [
+        "{{jcScriptingBaseFolderPath}}/business_solutions"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/Localization",
+      "destinations": [
+        "{{localizationBaseFolderPath}}/system"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/Webclient Scripting Base",
+      "destinations": [
+        "{{webClientScriptingBaseFolderPath}}"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/Action definitions",
+      "destinations": [
+        "{{bsFolderPath}}/_global/Action definitions"
+      ],
+      "refFolders": true
+    },
+    {
+      "source": "{{packageFolderPath}}/ELOas Base",
+      "destinations": [
+        "{{asBaseFolderPath}}"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/ELOapps/Apps",
+      "destinations": [
+        "{{appsBaseFolderPath}}/Apps"
+      ],
+      "refFolders": true
+    },
+    {
+      "source": "{{packageFolderPath}}/ELOapps/ClientInfos",
+      "destinations": [
+        "{{appsBaseFolderPath}}/ClientInfos"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/ELOapps/Configuration",
+      "destinations": [
+        "{{appsBaseFolderPath}}/Configuration"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/ELOapps/Icons",
+      "destinations": [
+        "{{appsBaseFolderPath}}/Icons"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/ELOapps/Modules",
+      "destinations": [
+        "{{appsBaseFolderPath}}/Modules"
+      ],
+      "refFolders": true
+    },
+    {
+      "source": "{{packageFolderPath}}/Icons",
+      "destinations": [
+        "{{jcScriptingBaseFolderPath}}/business_solutions",
+        "{{webClientScriptingBaseFolderPath}}",
+        "{{appsBaseFolderPath}}/Icons"
+      ]
+    }
+  ],
+  "ref": [
+    {
+      "source": "{{wfBaseFolderPath}}/Configuration/Frame",
+      "destinations": [
+        "{{wfBaseFolderPath}}/Forms/sol_visitor_signature",
+        "{{wfBaseFolderPath}}/Forms/sol_visitor_visitor"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/Configuration/visitor.config",
+      "destinations": [
+        "{{appsBaseFolderPath}}/Configuration"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/Java Client Scripting Base/ScriptButton740",
+      "destinations": [
+        "{{appsBaseFolderPath}}/Icons"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/Java Client Scripting Base/ScriptButton742",
+      "destinations": [
+        "{{appsBaseFolderPath}}/Icons"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/Java Client Scripting Base/ScriptButton744",
+      "destinations": [
+        "{{appsBaseFolderPath}}/Icons"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/Java Client Scripting Base/ScriptButton746",
+      "destinations": [
+        "{{appsBaseFolderPath}}/Icons"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/Java Client Scripting Base/ScriptButton753",
+      "destinations": [
+        "{{appsBaseFolderPath}}/Icons"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/Java Client Scripting Base/ScriptButton754",
+      "destinations": [
+        "{{appsBaseFolderPath}}/Icons"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/Java Client Scripting Base/ScriptButton797",
+      "destinations": [
+        "{{appsBaseFolderPath}}/Icons"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/Java Client Scripting Base/ScriptButton801",
+      "destinations": [
+        "{{appsBaseFolderPath}}/Icons"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/Java Client Scripting Base/ScriptButton803",
+      "destinations": [
+        "{{appsBaseFolderPath}}/Icons"
+      ]
+    }
+  ],
+  "reloads": {
+    "wfForms": true,
+    "apps": true
+  },
+  "instApps": true,
+  "users": [
+    {
+      "id": "9026",
+      "name": "sol.visitor.roles.Administration",
+      "type": "Group"
+    },
+    {
+      "id": "9030",
+      "name": "sol.visitor.WelcomeScreens",
+      "type": "Group"
+    },
+    {
+      "id": "9029",
+      "name": "sol.visitor.SignatureDevice",
+      "type": "Group"
+    },
+    {
+      "id": "9044",
+      "name": "Welcome Screen",
+      "type": "User",
+      "password": "EloBusinessSolutions@0711",
+      "locked": true
+    },
+    {
+      "id": "9045",
+      "name": "Signature Device",
+      "type": "User",
+      "password": "EloBusinessSolutions@0711",
+      "locked": true,
+      "permissions": [
+        "FLAG2_INTERACTIVE_LOGIN",
+        "FLAG_EDITDOCS"
+      ]
+    },
+    {
+      "id": "9027",
+      "name": "sol.visitor.roles.Employees",
+      "type": "Group"
+    },
+    {
+      "id": "9028",
+      "name": "sol.visitor.roles.Reception",
+      "type": "Group"
+    },
+    {
+      "id": "9025",
+      "name": "sol.visitor.Locations",
+      "type": "Group"
+    },
+    {
+      "id": "9001",
+      "name": "Headquarter",
+      "type": "Group"
+    },
+    {
+      "type": "Group",
+      "name": "sol.visitor.roles.Security",
+      "id": "9078"
+    }
+  ],
+  "previewForms": [
+    {
+      "mask": "Visitor",
+      "form": "sol_visitor_visitor(101_visitor_title,001_preview)"
+    },
+    {
+      "mask": "Visitor Group",
+      "form": "sol_visitor_visitor(101_group_title,001_preview_group)"
+    },
+    {
+      "mask": "Long Term Badge",
+      "form": "sol_visitor_visitor(101_ltb_title,001_preview_ltb)"
+    }
+  ],
+  "profileOpts": [
+    {
+      "user": "2147483647",
+      "entries": [
+        {
+          "key": "EloJ.S.DlgSize.AppDialog-PreRegisterVisitor",
+          "value": "200,150,850,600,0,0,0,0,0,0,0,0,0,0,0,0,0"
+        },
+        {
+          "key": "EloJ.S.DlgSize.AppDialog-PreRegisterGroup",
+          "value": "200,150,850,600,0,0,0,0,0,0,0,0,0,0,0,0,0"
+        },
+        {
+          "key": "EloJ.S.DlgSize.AppDialog-CancelVisitorRegistration",
+          "value": "200,150,850,600,0,0,0,0,0,0,0,0,0,0,0,0,0"
+        },
+        {
+          "key": "EloJ.S.DlgSize.AppDialog-RegisterVisitor",
+          "value": "200,150,850,600,0,0,0,0,0,0,0,0,0,0,0,0,0"
+        },
+        {
+          "key": "EloJ.S.DlgSize.AppDialog-RegisterGroup",
+          "value": "200,150,850,600,0,0,0,0,0,0,0,0,0,0,0,0,0"
+        },
+        {
+          "key": "EloJ.S.DlgSize.AppDialog-CheckInVisitor",
+          "value": "200,150,850,600,0,0,0,0,0,0,0,0,0,0,0,0,0"
+        },
+        {
+          "key": "EloJ.S.DlgSize.AppDialog-CheckOutVisitor",
+          "value": "200,150,850,600,0,0,0,0,0,0,0,0,0,0,0,0,0"
+        },
+        {
+          "key": "EloJ.S.DlgSize.AppDialog-ReCheckInVisitor",
+          "value": "200,150,850,600,0,0,0,0,0,0,0,0,0,0,0,0,0"
+        },
+        {
+          "key": "EloJ.S.DlgSize.AppDialog-CaptureVisitorPicture",
+          "value": "200,150,600,650,0,0,0,0,0,0,0,0,0,0,0,0,0"
+        },
+        {
+          "key": "EloJ.S.DlgSize.AppDialog-RequestSignature",
+          "value": "200,150,600,350,0,0,0,0,0,0,0,0,0,0,0,0,0"
+        },
+        {
+          "key": "EloJ.S.DlgSize.AppDialog-RegisterVisitorBadge",
+          "value": "200,150,850,600,0,0,0,0,0,0,0,0,0,0,0,0,0"
+        },
+        {
+          "key": "EloJ.S.DlgSize.AppDialog-sol.visitor.CreateLongTermBadge",
+          "value": "200,150,850,700,0,0,0,0,0,0,0,0,0,0,0,0,0"
+        }
+      ]
+    }
+  ],
+  "repoPaths": [
+    {
+      "path": "{{bsFolderPath}}/_global/Job queue",
+      "rightsConfig": {
+        "users": [
+          {
+            "name": "sol.as.ServiceUsers",
+            "rights": {
+              "r": true,
+              "w": true,
+              "e": true,
+              "d": true,
+              "l": true
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

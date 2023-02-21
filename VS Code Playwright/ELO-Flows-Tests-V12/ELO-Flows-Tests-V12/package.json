@@ -1,0 +1,20 @@
+{
+    "name": "playwrighttesting",
+    "version": "1.0.0",
+    "description": "Automated software testing with Playwright",
+    "main": "index.js",
+    "scripts": {
+        "tests:chrome": "playwright test --config=playwright.config.ts --project=Chromium",
+        "tests:firefox": "playwright test --config=playwright.config.ts --project=Firefox",
+        "tests:e2e": "playwright test --config=e2e.config.ts --project=Chromium --reporter=list",
+        "tests:api": "playwright test --config=api.config.ts --project=Chromium --reporter=list",
+        "tests:e2eSerie": "playwright test --config=e2eSerie.config.ts --project=Chromium --reporter=list",
+        "tests:none2e": "playwright test --config=none2e.config.ts --project=Chromium --reporter=list"
+    },
+    "author": "Jovic",
+    "license": "ISC",
+    "dependencies": {
+        "@playwright/test": "^1.21.1",
+        "prettier": "^2.6.2"
+    }
+}

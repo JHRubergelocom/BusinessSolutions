@@ -1,0 +1,272 @@
+{
+  "version": "9.00.001",
+  "visitor": {
+    "solTypeVisitor": "VISITOR",
+    "solTypeVisitorGroup": "VISITOR_GROUP",
+    "typeOfVisitors": [
+      "VISITOR",
+      "VISITOR_GROUP",
+      "VISITOR_COMPANY",
+      "LONG_TERM_BADGE"
+    ],
+    "visitorDocumentMask": "Visitor Document",
+    "pathRegistration": "ARCPATH:/Visitor Management/Visitors/{{#if sord.objKeys.VISITOR_ARRIVALDATE}}{{substring sord.objKeys.VISITOR_ARRIVALDATE 0 4}}/{{substring sord.objKeys.VISITOR_ARRIVALDATE 4 6}}{{else}}{{substring sord.objKeys.VISITOR_STARTDATE 0 4}}/{{substring sord.objKeys.VISITOR_STARTDATE 4 6}}{{/if}}",
+    "rightsConfig": {
+      "inherit": true,
+      "users": [
+        {
+          "name": "sol.visitor.WelcomeScreens",
+          "rights": {
+            "r": true,
+            "w": false,
+            "d": false,
+            "e": false,
+            "l": false
+          }
+        },
+        {
+          "type": "GRP",
+          "key": "VISITOR_LOCATION",
+          "rights": {
+            "r": true,
+            "w": true,
+            "d": true,
+            "e": true,
+            "l": true
+          }
+        },
+        {
+          "type": "GRP",
+          "key": "VISITOR_RESPONSIBLEEMPLOYEE",
+          "rights": {
+            "r": true,
+            "w": true,
+            "d": true,
+            "e": true,
+            "l": true
+          }
+        },
+        {
+          "type": "MAP",
+          "key": "VISITOR_PICKUEMPLOYEE",
+          "rights": {
+            "r": true,
+            "w": false,
+            "d": false,
+            "e": false,
+            "l": true
+          }
+        }
+      ]
+    },
+    "folderPathRegistration": "ARCPATH:/Visitor Management/Visitors/",
+    "templateFolderId": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/visitor/Configuration/Visitor Types",
+    "templateFolderIdGroup": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/visitor/Configuration/Visitor Group Types",
+    "createWorkflowNameTemplate": "{{translate \"sol.visitor.ix.actions.PreRegisterVisitor.name\"}}: {{visitorType}}",
+    "createWorkflowNameTemplateGroup": "{{translate \"sol.visitor.ix.actions.PreRegisterGroup.name\"}}: {{visitorType}}",
+    "referenceTemplateNameField": "VISITOR_REFERENCE_GEN",
+    "referenceField": "VISITOR_REFERENCE",
+    "nameTemplateField": "VISITOR_NAME_GEN",
+    "checkinSingleVisitorWF": "sol.visitor.visitor.checkinsinglevisitor",
+    "checkinSingleVisitorWFText": "CheckinSingleVisitor",
+    "checkoutSingleVisitorWF": "sol.visitor.visitor.checkoutsinglevisitor",
+    "checkoutSingleVisitorWFText": "CheckoutSingleVisitor",
+    "signatureVisitorWF": "sol.visitor.visitor.signdocument",
+    "signatureVisitorWorkflowNameTemplate": "{{sord.objKeys.VISITOR_LASTNAME}}, {{sord.objKeys.VISITOR_FIRSTNAME}} ({{sord.objKeys.VISITOR_COMPANYNAME}})",
+    "requestWorkflows": {
+      "registerVisitor": {
+        "workflowTemplateName": "sol.visitor.visitor.registervisitor",
+        "workflowPrefixKey": "sol.visitor.ix.actions.RegisterVisitor.wfPrefix"
+      },
+      "registerGroup": {
+        "workflowTemplateName": "sol.visitor.visitor.registergroup",
+        "workflowPrefixKey": "sol.visitor.ix.actions.RegisterGroup.wfPrefix"
+      },
+      "preRegisterGroup": {
+        "workflowTemplateName": "sol.visitor.visitor.preregistergroup",
+        "workflowPrefixKey": "sol.visitor.ix.actions.PreRegisterGroup.wfPrefix"
+      },
+      "preRegisterGroupMember": {
+        "workflowTemplateName": "sol.visitor.visitor.preregistergroupmember",
+        "workflowPrefixKey": "sol.visitor.ix.actions.PreRegisterGroupMember.wfPrefix"
+      },
+      "checkInVisitor": {
+        "workflowTemplateName": "sol.visitor.visitor.checkinvisitor",
+        "workflowPrefixKey": "sol.visitor.ix.actions.CheckInVisitor.wfPrefix",
+        "interactive": false
+      },
+      "recheckInVisitor": {
+        "workflowTemplateName": "sol.visitor.visitor.recheckinvisitor",
+        "workflowPrefixKey": "sol.visitor.ix.actions.ReCheckInVisitor.wfPrefix"
+      },
+      "checkOutVisitor": {
+        "workflowTemplateName": "sol.visitor.visitor.checkoutvisitor",
+        "workflowPrefixKey": "sol.visitor.ix.actions.CheckOutVisitor.wfPrefix",
+        "interactive": false
+      },
+      "cancelVisitorRegistration": {
+        "workflowTemplateName": "sol.visitor.visitor.cancelvisitorregistration",
+        "workflowPrefixKey": "sol.visitor.ix.actions.CancelVisitorRegistration.wfPrefix"
+      },
+      "cancelGroupRegistration": {
+        "workflowTemplateName": "sol.visitor.visitor.cancelgroupregistration",
+        "workflowPrefixKey": "sol.visitor.ix.actions.CancelGroupRegistration.wfPrefix"
+      },
+      "captureVisitorPicture": {
+        "workflowTemplateName": "sol.visitor.visitor.capturevisitorpicture",
+        "workflowPrefixKey": "sol.visitor.ix.actions.CaptureVisitorPicture.wfPrefix"
+      },
+      "createSignatureRequest": {
+        "workflowTemplateName": "sol.visitor.visitor.createSignatureDocument",
+        "workflowPrefixKey": "sol.visitor.ix.actions.createSignatureDocument.wfPrefix"
+      },
+      "updateVisitor": {
+        "workflowTemplateName": "sol.visitor.visitor.update"
+      },
+      "updateLongtermbadge": {
+        "workflowTemplateName": "sol.visitor.longtermbadge.update"
+      }
+    },
+    "requestWorkflowNameTemplate": "{{wfPrefix}} (#{{wfNumber}}): {{formatDate 'YYYY-MM-DD' wfDate}}",
+    "pictureUpload": {
+      "setWebcamConfig": {
+        "entries": [
+          {
+            "type": "FORMBLOB",
+            "key": "FCVCONFIG",
+            "value": "{ \"photoReferenceField\": \"VISITOR_PHOTO_GUID\", \"photoConfig\": { \"maskName\": \"Visitor Document\", \"pictureName\": \"{{translate 'sol.visitor.ix.services.UploadPhoto.visitorPictureName'}}\" } }",
+            "useTemplating": true
+          }
+        ]
+      }
+    },
+    "longtermbadge": {
+      "templateFolderId": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/visitor/Configuration/Long term badge templates",
+      "referenceTemplateNameField": "LONGTERM_BADGE_REFERENCE_GEN",
+      "referenceField": "LONGTERM_BADGE_REFERENCE",
+      "nameTemplateField": "LONGTERM_BADGE_NAME_GEN",
+      "wfNodes": {
+        "move": {
+          "path": "¶Besuchermanagement¶Dauerausweise¶{{substring sord.objKeys.VISITOR_LASTNAME 0 1 uppercase='true'}}"
+        },
+        "wfNodeUserStart": {
+          "fieldName": "",
+          "rightsConfig": {
+            "rights": {
+              "r": true,
+              "w": true,
+              "d": false,
+              "e": false,
+              "l": false
+            }
+          }
+        }
+      }
+    },
+    "securityClearance": {
+      "enabled": false,
+      "wfNodeUserStart": {
+        "fieldName": "",
+        "rightsConfig": {
+          "rights": {
+            "r": true,
+            "w": true,
+            "d": false,
+            "e": false,
+            "l": false
+          }
+        }
+      }
+    },
+    "autoCheckOut": {
+      "offsetInDays": 1
+    },
+    "signatureGuidFieldName": "VISITOR_SIGNATURE_GUID",
+    "signatureNameTemplate": "{{sord.objKeys.VISITOR_FIRSTNAME}} {{sord.objKeys.VISITOR_LASTNAME}}",
+    "deleteValuesFieldNamesReCheckin": [
+      "VISITOR_ARRIVALTIME",
+      "VISITOR_DEPARTURETIME",
+      "VISITOR_ARRIVALDATE",
+      "VISITOR_DEPARTUREDATE"
+    ],
+    "deleteValuesFieldNamesReCheckinOutRange": [
+      "VISITOR_STARTDATE",
+      "VISITOR_STARTTIME",
+      "VISITOR_ENDDATE",
+      "VISITOR_ENDTIME",
+      "VISITOR_ARRIVALTIME",
+      "VISITOR_DEPARTURETIME",
+      "VISITOR_ARRIVALDATE",
+      "VISITOR_DEPARTUREDATE",
+      "VISITOR_VISITPURPOSE"
+    ],
+    "checkinNotAllowedStatus": "CO",
+    "optionCheckInOnlySameDay": true
+  },
+  "generators": {
+    "templateFolderIds": {
+      "visitorReference": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/visitor/Configuration/Generators/Reference IDs/Visitor",
+      "visitorShortDescription": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/visitor/Configuration/Generators/Short Description/Visitor",
+      "visitorGroupReference": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/visitor/Configuration/Generators/Reference IDs/Group",
+      "visitorGroupShortDescription": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/visitor/Configuration/Generators/Short Description/Group",
+      "visitorTypes": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/visitor/Configuration/Visitor Types",
+      "visitorDocuments": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/visitor/Configuration/Visitor Documents",
+      "longtermBadgeReference": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/visitor/Configuration/Generators/Reference IDs/Long term badge",
+      "longtermBadgeShortDescription": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/visitor/Configuration/Generators/Short Description/Long term badge"
+    }
+  },
+  "fields": {
+    "firstName": "VISITOR_FIRSTNAME",
+    "lastName": "VISITOR_LASTNAME",
+    "companyName": "VISITOR_COMPANYNAME",
+    "mail": "VISITOR_MAIL",
+    "startDate": "VISITOR_STARTDATE"
+  },
+  "mapFields": {
+    "contactRef": "VISITOR_CONTACT_REFERENCE",
+    "createContact": "VISITOR_CREATE_CONTACT"
+  },
+  "visitorBadge": {
+    "visitorBadgeDefaultName": "{{translate 'sol.visitor.as.actions.CreateVisitorBadge.name'}}",
+    "templateFolderId": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/visitor/Configuration/VisitorBadge Templates"
+  },
+  "reporting": {
+    "templateFolderId": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/visitor/Configuration/Reports",
+    "types": {
+      "visitor": {
+        "subfolder": "Visitor"
+      }
+    },
+    "names": {
+      "visitor": "{{translate 'sol.visitor.as.actions.CreateVisitorList.name'}} {{formatDate 'YYYY-MM-DD' date}}"
+    },
+    "visitorListsFolderId": "ARCPATH:/Visitor Management/Visitor lists"
+  },
+  "contactIntegration": {
+    "defaultContactlistReference": "SOL-VISITOR-CONTACTS"
+  },
+  "readVisitorList": {
+    "tableConfig": {
+      "startRowIndex": 5,
+      "startColumnIndex": 1,
+      "columns": [
+        {
+          "key": "lastName",
+          "type": "String"
+        },
+        {
+          "key": "firstName",
+          "type": "String"
+        },
+        {
+          "key": "dateOfBirth",
+          "type": "Date"
+        },
+        {
+          "key": "placeOfBirth",
+          "type": "String"
+        }
+      ]
+    }
+  }
+}

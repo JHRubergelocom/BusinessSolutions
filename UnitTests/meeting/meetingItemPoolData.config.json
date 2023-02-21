@@ -1,0 +1,23 @@
+{
+  "rootFolder":"ARCPATH:/Testdaten",
+  "meetingItemPools" : [
+    {
+      "desc": "Beschreibung Meetingitempool3",
+      "objKeys": {
+        "MEETING_ITEM_POOL_NAME": "Meetingitempool3",
+        "MEETING_BOARD_NAME": "Meetingboard3",
+        "MEETING_BOARD_CODE": "TMB3",
+        "MEETING_PRODUCT_LINE": "Default"
+      }
+    },
+    {
+      "desc": "Beschreibung Meetingitempool4",
+      "objKeys": {
+        "MEETING_ITEM_POOL_NAME": "Meetingitempool4",
+        "MEETING_BOARD_NAME": "Meetingboard4",
+        "MEETING_BOARD_CODE": "TMB4",
+        "MEETING_PRODUCT_LINE": "Premium"
+      }
+    }
+  ]
+}

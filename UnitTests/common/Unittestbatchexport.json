@@ -1,0 +1,6 @@
+{
+  "exporterClassName": "sol.common.as.SimpleExporter",
+  "tplObjId": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common [unit tests]/Resources/Unittest.export.xml",
+  "nameTplString": "ELO_Unittest_{{{formatDate 'YYYYMMDDHHmmss'}}}",
+  "dstDirPath": "c:/Temp"
+}

@@ -1,0 +1,486 @@
+{
+  "setupName": "sol.common",
+  "packageName": "common",
+  "previewForms": [],
+  "undeployHotfix": true,
+  "requiredJavaClientVersion": "10.00.000",
+  "requiredIxVersion": "10.00.000",
+  "users": [
+    {
+      "id": "9100",
+      "name": "Solutions",
+      "type": "Group"
+    },
+    {
+      "id": "9000",
+      "guid": "(E10E1000-E100-E100-E100-F10F10F10F42)",
+      "name": "sol.as.ServiceUsers",
+      "type": "Group"
+    }
+  ],
+  "createMasks": true,
+  "memberships": [
+    {
+      "names": [
+        "9999"
+      ],
+      "memberOf": [
+        "Solutions"
+      ]
+    },
+    {
+      "names": [
+        "ELO Service"
+      ],
+      "memberOf": [
+        "sol.as.ServiceUsers"
+      ]
+    },
+    {
+      "names": [
+        "ELOService"
+      ],
+      "memberOf": [
+        "sol.as.ServiceUsers"
+      ]
+    },
+    {
+      "names": [
+        "serviceelo"
+      ],
+      "memberOf": [
+        "sol.as.ServiceUsers"
+      ]
+    }
+  ],
+  "repoPaths": [
+    {
+      "path": "{{administrationFolderPath}}/Business Solutions",
+      "rightsConfig": {
+        "users": [
+          {
+            "name": "9999",
+            "rights": {
+              "r": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "path": "{{administrationFolderPath}}/Business Solutions Custom",
+      "rightsConfig": {
+        "users": [
+          {
+            "name": "9999",
+            "rights": {
+              "r": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "path": "{{administrationFolderPath}}/Business Solutions Hotfix",
+      "rightsConfig": {
+        "users": [
+          {
+            "name": "9999",
+            "rights": {
+              "r": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "path": "{{bsFolderPath}}/_global/Action definitions",
+      "rightsConfig": {
+        "users": [
+          {
+            "name": "9999",
+            "rights": {
+              "r": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "path": "{{jcScriptingBaseFolderPath}}/business_solutions",
+      "rightsConfig": {
+        "users": [
+          {
+            "name": "Solutions",
+            "rights": {
+              "r": true,
+              "w": false,
+              "e": false,
+              "d": false,
+              "l": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "path": "{{bsFolderPath}}/_global/Job queue",
+      "rightsConfig": {
+        "users": [
+          {
+            "name": "sol.as.ServiceUsers",
+            "rights": {
+              "r": true,
+              "w": true,
+              "e": true,
+              "d": true,
+              "l": true
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "setSordTypes": [
+    {
+      "path": "{{bsFolderPath}}",
+      "name": "sol.Business Solutions"
+    },
+    {
+      "path": "{{administrationFolderPath}}/Business Solutions Custom",
+      "name": "sol.Business Solutions"
+    },
+    {
+      "path": "{{administrationFolderPath}}/Business Solutions Hotfix",
+      "name": "sol.Business Solutions"
+    }
+  ],
+  "refChildren": [
+    {
+      "source": "{{packageFolderPath}}/All",
+      "destinations": [
+        "{{administrationFolderPath}}/ELOwf Base/Webapp",
+        "{{administrationFolderPath}}/ELOas Base/OptionalJsLibs",
+        "{{ixScriptingBaseFolderPath}}/_ALL/business_solutions",
+        "{{packageFolderPath}}/ELOapps/Modules/sol.common.01"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/All Rhino",
+      "destinations": [
+        "{{administrationFolderPath}}/ELOas Base/OptionalJsLibs",
+        "{{ixScriptingBaseFolderPath}}/_ALL/business_solutions"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/ELOas Base",
+      "destinations": [
+        "{{administrationFolderPath}}/ELOas Base"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/ELOwf Base/Webapp",
+      "destinations": [
+        "{{administrationFolderPath}}/ELOwf Base/Webapp"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/IndexServer Scripting Base",
+      "destinations": [
+        "{{ixScriptingBaseFolderPath}}/_ALL/business_solutions"
+      ],
+      "ignoreSubfolders": true
+    },
+    {
+      "source": "{{packageFolderPath}}/Java Client Scripting Base",
+      "destinations": [
+        "{{jcScriptingBaseFolderPath}}/business_solutions"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/Webclient Scripting Base",
+      "destinations": [
+        "{{webClientScriptingBaseFolderPath}}"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/Workflow Icons",
+      "destinations": [
+        "{{administrationFolderPath}}/Workflow Icons"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/ELOapps/Apps",
+      "destinations": [
+        "{{appsBaseFolderPath}}/Apps"
+      ],
+      "refFolders": true
+    },
+    {
+      "source": "{{packageFolderPath}}/ELOapps/ClientInfos",
+      "destinations": [
+        "{{appsBaseFolderPath}}/ClientInfos"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/ELOapps/Modules",
+      "destinations": [
+        "{{appsBaseFolderPath}}/Modules"
+      ],
+      "refFolders": true
+    },
+    {
+      "source": "{{packageFolderPath}}/ELOwf Base/Images",
+      "destinations": [
+        "{{administrationFolderPath}}/ELOwf Base/Images"
+      ],
+      "ignoreSubfolders": false,
+      "refFolders": false
+    },
+    {
+      "source": "{{packageFolderPath}}/Localization",
+      "destinations": [
+        "{{localizationBaseFolderPath}}/system",
+        "{{jcScriptingBaseFolderPath}}/business_solutions"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/ELOapps/Icons",
+      "destinations": [
+        "{{appsBaseFolderPath}}/Icons"
+      ],
+      "ignoreSubfolders": false,
+      "refFolders": false
+    }
+  ],
+  "ref": [
+    {
+      "source": "{{packageFolderPath}}/ELOwf Base/Classes/sol.common.forms.MainForm.css",
+      "destinations": [
+        "{{wfBaseFolderPath}}/Classes",
+        "{{wfBaseFolderPath}}/Webapp"
+      ]
+    },
+    {
+      "source": "{{asBaseFolderPath}}/Direct/sol.common.as.SendMail",
+      "destinations": [
+        "{{asBaseFolderPath}}/Rules"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/All/lib_Class",
+      "destinations": [
+        "{{jcScriptingBaseFolderPath}}/business_solutions",
+        "{{webClientScriptingBaseFolderPath}}"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/All/lib_handlebars",
+      "destinations": [
+        "{{jcScriptingBaseFolderPath}}/business_solutions",
+        "{{webClientScriptingBaseFolderPath}}"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/All/lib_sol.common.DateUtils",
+      "destinations": [
+        "{{jcScriptingBaseFolderPath}}/business_solutions"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/All/lib_sol.common.IxUtils",
+      "destinations": [
+        "{{jcScriptingBaseFolderPath}}/business_solutions",
+        "{{webClientScriptingBaseFolderPath}}"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/All/lib_sol.common.ObjectUtils",
+      "destinations": [
+        "{{jcScriptingBaseFolderPath}}/business_solutions"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/All/lib_sol.common.StringUtils",
+      "destinations": [
+        "{{jcScriptingBaseFolderPath}}/business_solutions"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/All Rhino/lib_moment",
+      "destinations": [
+        "{{jcScriptingBaseFolderPath}}/business_solutions"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/All Rhino/lib_sol.common.AsUtils",
+      "destinations": [
+        "{{jcScriptingBaseFolderPath}}/business_solutions"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/All Rhino/lib_sol.common.AsyncUtils",
+      "destinations": [
+        "{{jcScriptingBaseFolderPath}}/business_solutions"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/All Rhino/lib_sol.common.Cache",
+      "destinations": [
+        "{{jcScriptingBaseFolderPath}}/business_solutions"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/All Rhino/lib_sol.common.Config",
+      "destinations": [
+        "{{jcScriptingBaseFolderPath}}/business_solutions"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/All Rhino/lib_sol.common.AclUtils",
+      "destinations": [
+        "{{jcScriptingBaseFolderPath}}/business_solutions"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/All Rhino/lib_sol.common.ExceptionUtils",
+      "destinations": [
+        "{{jcScriptingBaseFolderPath}}/business_solutions"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/All Rhino/lib_sol.common.ExecUtils",
+      "destinations": [
+        "{{jcScriptingBaseFolderPath}}/business_solutions"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/All Rhino/lib_sol.common.FileUtils",
+      "destinations": [
+        "{{jcScriptingBaseFolderPath}}/business_solutions"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/All Rhino/lib_sol.common.HttpUtils",
+      "destinations": [
+        "{{jcScriptingBaseFolderPath}}/business_solutions"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/All Rhino/lib_sol.common.JsonUtils",
+      "destinations": [
+        "{{jcScriptingBaseFolderPath}}/business_solutions"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/All Rhino/lib_sol.common.ObjectFormatter",
+      "destinations": [
+        "{{jcScriptingBaseFolderPath}}/business_solutions"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/All Rhino/lib_sol.common.RepoUtils",
+      "destinations": [
+        "{{jcScriptingBaseFolderPath}}/business_solutions"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/All Rhino/lib_sol.common.SordTypeUtils",
+      "destinations": [
+        "{{jcScriptingBaseFolderPath}}/business_solutions"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/All Rhino/lib_sol.common.SordUtils",
+      "destinations": [
+        "{{jcScriptingBaseFolderPath}}/business_solutions"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/All Rhino/lib_sol.common.Template",
+      "destinations": [
+        "{{jcScriptingBaseFolderPath}}/business_solutions"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/All Rhino/lib_sol.common.UserProfile",
+      "destinations": [
+        "{{jcScriptingBaseFolderPath}}/business_solutions"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/All Rhino/lib_sol.common.UserUtils",
+      "destinations": [
+        "{{jcScriptingBaseFolderPath}}/business_solutions"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/All Rhino/lib_sol.common.WfUtils",
+      "destinations": [
+        "{{jcScriptingBaseFolderPath}}/business_solutions"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/All Rhino/lib_sol.common.ZipUtils",
+      "destinations": [
+        "{{jcScriptingBaseFolderPath}}/business_solutions"
+      ]
+    }
+  ],
+  "asConfigDialog": {
+    "configDestination": "{{packageFolderPath}}/Configuration/as.config"
+  },
+  "reloads": {
+    "apps": true
+  },
+
+  "uninstApps": [{
+    "namespace": "sol.common.apps",
+    "appId": "BaseConfig"
+  }, {
+    "namespace": "sol.common.apps",
+    "appId": "LocalizedKwlsConfig"
+  }, {
+    "namespace": "sol.common.apps.v02",
+    "appId": "ASConfig"
+  }, {
+    "namespace": "sol.common.apps.v02",
+    "appId": "MailConfig"
+  }],
+
+  "instApps": true,
+  "colors": [
+    {
+      "name": "sol.package.undeployed.warn",
+      "rgb": "8750469"
+    },
+    {
+      "name": "sol.common.disabled",
+      "rgb": "8750469"
+    }
+  ],
+  "reassignGuids": [
+    "(9FD1AC0B-8744-6326-2EFD-FCC6E32DE515)",
+    "(F4CFD23F-5745-367A-FFA1-78E0C19116D8)",
+    "(DFD14BA1-4AC0-36E3-89CE-3CF322E3D607)",
+    "(B7E96A85-0C63-B6AD-42E5-BA9F0018F01F)",
+    "(AD913CFE-BBF2-3D89-48C3-3F156D497BFD)"
+  ],
+  "changeRights": [
+    {
+      "path": "{{jcScriptingBaseFolderPath}}/business_solutions",
+      "mode": "REPLACE",
+      "users": [
+        "Solutions"
+      ],
+      "rights": {
+        "r": true,
+        "w": false,
+        "e": false,
+        "d": false,
+        "l": false
+      }
+    }
+  ],
+  "mergeWorkflowTemplatesStartingIxVersion": "10.17.100"
+}

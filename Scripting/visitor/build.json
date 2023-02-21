@@ -1,0 +1,43 @@
+{
+  "setupName": "sol.visitor",
+  "fileNamePrefix": "40",
+  "installConfigRepoPath": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business solutions/visitor/.eloinst/install",
+  "exportRepoPath": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/visitor",
+  "workflowTemplates": [
+    "sol.visitor.visitor.cancelvisitorregistration",
+    "sol.visitor.visitor.cancelgroupregistration",
+    "sol.visitor.visitor.cancelregistrationgroupmember",
+    "sol.visitor.visitor.checkingroup",
+    "sol.visitor.visitor.checkinsinglevisitor",
+    "sol.visitor.visitor.checkinvisitor",
+    "sol.visitor.visitor.checkoutsinglevisitor",
+    "sol.visitor.visitor.checkoutvisitor",
+    "sol.visitor.visitor.preregister.securityclearance",
+    "sol.visitor.visitor.preregistervisitor",
+    "sol.visitor.visitor.preregistergroupmember",
+    "sol.visitor.visitor.preregistercompany",
+    "sol.visitor.visitor.registervisitor",
+    "sol.visitor.visitor.recheckinvisitor",
+    "sol.visitor.visitor.signdocument",
+    "sol.visitor.visitor.capturevisitorpicture",
+    "sol.visitor.visitor.createSignatureDocument",
+    "sol.visitor.visitor.preregistergroup",
+    "sol.visitor.visitor.registergroup",
+    "sol.visitor.visitor.update",
+    "sol.visitor.longtermbadge.create",
+    "sol.visitor.longtermbadge.update",
+    "sol.visitor.longtermbadge.deactivate"
+  ],
+  "sordTypes": [
+    "sol.Visitor",
+    "sol.Visitor Group",
+    "sol.Visitor Company",
+    "sol.Longterm Badge"
+  ],
+  "preserveAclUserNames": [
+    "sol.visitor.roles.Administration",
+    "sol.visitor.roles.Employees",
+    "sol.visitor.roles.Reception"
+  ],
+  "gitPackagePath": "C:/Git/solutions/visitor.git/Business Solutions/visitor"
+}

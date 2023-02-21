@@ -1,0 +1,42 @@
+{
+  "namespace": "sol.dev.apps",
+  "id": "UnitTests",
+  "version": "55",
+  "build": 76,
+  "defaultLanguage": "en",
+  "jsLibs": [
+    "UnitTests.module.js",
+    "DemoTests.js",
+    "require.js",
+    "UnitTests.config.base.js"
+  ],
+  "cssLibs": [
+    "NavBar.css"
+  ],
+  "modules": [
+    "elo.module.session.01",
+    "elo.third.jasmine.01",
+    "sol.common.01",
+    "sol.common.apps.client.01",
+    "sol.common.apps.forms.01",
+    "sol.third.angularjs.bootstrap.ui.02",
+    "sol.common.apps.dashboards.ui.01",
+    "sol.common.apps.compatibility.01",
+    "sol.third.bootstrap.02"
+  ],
+  "configFiles": [
+    {
+      "id": "UnitTestsBaseConfig",
+      "name": "UnitTests.config.json"
+    }
+  ],
+  "status": 103,
+  "concatenate": false,
+  "minimize": false,
+  "useDefaultModules": true,
+  "useEloSession": true,
+  "archivedBuild": 0,
+  "supportedLocales": [
+    "en"
+  ]
+}

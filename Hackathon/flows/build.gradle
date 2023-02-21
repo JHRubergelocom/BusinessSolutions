@@ -1,0 +1,43 @@
+buildscript {
+    repositories {
+        if (buildType == "local") {
+            flatDir { dirs "${flatDirRepoPath}" }
+        }
+        else {
+            maven {
+                url 'https://nexus.elo.dev/repository/elo-public/'
+            }
+        }
+        gradlePluginPortal()
+        jcenter()
+    }
+    dependencies {
+        if (buildType == "local") {
+            classpath fileTree(dir: "${flatDirRepoPath}", include: '*.jar')
+        } else {
+            classpath "com.elo.gradle:flows-gradle-plugin:1.2.1"
+        }
+    }
+}
+
+allprojects {
+    repositories {
+        if (buildType == "local") {
+            flatDir { dirs "${flatDirRepoPath}" }
+        } else {
+            maven {
+                url 'https://maven.elo.dev:8083/nexus/content/repositories/JavaLib'
+            }
+        }
+		mavenCentral()
+		mavenLocal()
+    }
+}
+
+subprojects {
+    apply plugin: 'java-library'
+    sourceCompatibility = '15'
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+}

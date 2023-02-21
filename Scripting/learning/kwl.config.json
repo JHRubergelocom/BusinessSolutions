@@ -1,0 +1,187 @@
+{
+  "Session Templates": {
+    "type": "CHILDREN",
+    "translate": true,
+    "title": "sol.learning.dynkwl.sessiontemplates.tableTitle",
+    "output": [
+      "WF_MAP_SESSION_TEMPLATE{i}",
+      null
+    ],
+    "parentId": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/learning/Configuration/Session types"
+  },
+  "timedevents_session_reminder_formular": {
+    "type": "TIMED_EVENT_SEARCH",
+    "translate": false,
+    "title": "Reminder",
+    "header": [
+      "Name",
+      "Shift",
+      "Workflow",
+      "Namensraum",
+      "Schlüssel"
+    ],
+    "dataFields": [
+      "name",
+      "shift.value",
+      "action.action",
+      "namespace",
+      "key"
+    ],
+    "output": [
+      null,
+      null,
+      null,
+      "IX_MAP_TIMED_EVENT_SESSION_REMINDER_NAMESPACE",
+      "IX_MAP_TIMED_EVENT_SESSION_REMINDER_ID"
+    ],
+    "searchParams": [
+      {
+        "name": "group",
+        "value": "REMINDER"
+      },
+      {
+        "name": "name",
+        "mode": "CONTAINS"
+      }
+    ],
+    "errorMessage": ""
+  },
+  "timedevents_session_reminder_sessionsList": {
+    "type": "TIMED_EVENT_SEARCH",
+    "translate": false,
+    "title": "Reminder",
+    "header": [
+      "Name",
+      "Shift",
+      "Workflow",
+      "Namensraum",
+      "Schlüssel"
+    ],
+    "dataFields": [
+      "name",
+      "shift.value",
+      "action.action",
+      "namespace",
+      "key"
+    ],
+    "output": [
+      null,
+      null,
+      null,
+      "WF_MAP_TIMED_EVENT_SESSION_REMINDER_NAMESPACE{i}",
+      "WF_MAP_TIMED_EVENT_SESSION_REMINDER_ID{i}"
+    ],
+    "searchParams": [
+      {
+        "name": "group",
+        "value": "REMINDER"
+      },
+      {
+        "name": "name",
+        "mode": "CONTAINS"
+      }
+    ],
+    "errorMessage": ""
+  },
+  "timedevents_course_repetition_formular": {
+    "type": "TIMED_EVENT_SEARCH",
+    "translate": false,
+    "title": "Repetition",
+    "header": [
+      "Name",
+      "Shift",
+      "Workflow",
+      "Namensraum",
+      "Schlüssel"
+    ],
+    "dataFields": [
+      "name",
+      "shift.value",
+      "action.action",
+      "namespace",
+      "key"
+    ],
+    "output": [
+      null,
+      null,
+      null,
+      "IX_MAP_TIMED_EVENT_REPETITION_NAMESPACE",
+      "IX_MAP_TIMED_EVENT_REPETITION_ID"
+    ],
+    "searchParams": [
+      {
+        "name": "group",
+        "value": "REPETITION"
+      },
+      {
+        "operator": "or",
+        "searchParams": [
+          {
+            "name": "name",
+            "mode": "CONTAINS"
+          },
+          {
+            "name": "key",
+            "mode": "CONTAINS"
+          }
+        ]
+      }
+    ],
+    "errorMessage": ""
+  },
+  "notifytemplate": {
+    "type": "CHILDREN",
+    "translate": true,
+    "title": "sol.learning.dynkwl.notification.template.tableTitle",
+    "output": [
+      "WF_MAP_NOTIFY_TEMPLATE",
+      "WF_MAP_COMMUNICATION_SUBJECT",
+      "WF_MAP_DESC"
+    ],
+    "header": [
+      "sol.learning.dynkwl.notification.template.name",
+      "sol.learning.dynkwl.notification.template.subject",
+      "sol.learning.dynkwl.notification.template.content"
+    ],
+    "dataFields": [
+      "name",
+      "COMMUNICATION_SUBJECT",
+      "desc"
+    ],
+    "parentId": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions Custom/learning/Configuration/Communication types/Correspondence",
+    "parent": {
+      "fieldKey": "IX_MAP_NOTIFICATION_TEMPLATE_FOLDER",
+      "fromService": {
+        "name": "RF_sol_common_service_SordProvider",
+        "params": {
+          "masks": [
+            "Course"
+          ],
+          "search": [
+            {
+              "key": "SOL_TYPE",
+              "value": [
+                "Course"
+              ]
+            },
+            {
+              "key": "COURSE_REFERENCE",
+              "value": "{{sord.objKeys.COURSE_REFERENCE}}"
+            }
+          ],
+          "output": [
+            {
+              "source": {
+                "type": "MAP",
+                "key": "NOTIFICATION_TEMPLATE_FOLDER"
+              },
+              "target": {
+                "prop": "IX_MAP_NOTIFICATION_TEMPLATE_FOLDER"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

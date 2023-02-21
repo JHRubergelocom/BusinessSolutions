@@ -1,0 +1,352 @@
+{
+  "version": "9.00.001",
+  "voting": {
+    "templateFolderId": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/meeting_voting/Configuration/Voting types",
+    "services": {
+      "findTemplates": {
+        "masks": [
+          "Meeting Voting"
+        ]
+      },
+      "findVotingsByReference": {
+        "masks": [
+          "Meeting Voting"
+        ],
+        "search": [
+          {
+            "key": "SOL_REFERENCE",
+            "value": "{{sord.objKeys.MEETING_ITEM_ID}}"
+          }
+        ]
+      },
+      "finishVoting": {
+        "target": {
+          "objId": "{{sord.id}}",
+          "startWorkflow": {
+            "name": "sol.meeting.voting.finish",
+            "title": "sol.meeting.voting.finish.title",
+            "concluding": true
+          }
+        },
+        "workflowMixins": {
+          "set": {
+            "scriptProperties": {
+              "entries": [
+                {
+                  "type": "GRP",
+                  "key": "MEETING_VOTING_STATUS",
+                  "value": "F",
+                  "useDynKwl": true
+                }
+              ]
+            }
+          }
+        }
+      },
+      "createVoting": {
+        "fromService": {
+          "name": "RF_sol_function_CreateSord",
+          "params": {
+            "sourceElement": {
+              "fromScratch": {
+                "mask": "Meeting Voting"
+              }
+            },
+            "targetFolder": {
+              "objId": "{{params.votingFolderId}}"
+            }
+          }
+        },
+        "startWorkflow": {
+          "name": "sol.meeting.voting.create",
+          "title": "sol.meeting.voting.create.title",
+          "concluding": true
+        },
+        "metadataMapping": [
+          {
+            "source": {
+              "id": "title",
+              "type": "GRP"
+            },
+            "target": {
+              "id": "MEETING_VOTING_TITLE",
+              "type": "GRP"
+            }
+          },
+          {
+            "source": {
+              "id": "status",
+              "type": "GRP"
+            },
+            "target": {
+              "id": "MEETING_VOTING_STATUS",
+              "type": "GRP"
+            }
+          },
+          {
+            "source": {
+              "id": "implementation",
+              "type": "GRP"
+            },
+            "target": {
+              "id": "MEETING_VOTING_IMPLEMENTATION",
+              "type": "GRP"
+            }
+          },
+          {
+            "source": {
+              "id": "quorumType",
+              "type": "GRP"
+            },
+            "target": {
+              "id": "MEETING_VOTING_QUORUM_TYPE",
+              "type": "GRP"
+            }
+          },
+          {
+            "source": {
+              "id": "question",
+              "type": "GRP"
+            },
+            "target": {
+              "id": "MEETING_VOTING_QUESTION",
+              "type": "GRP"
+            }
+          },
+          {
+            "source": {
+              "id": "maxVotes",
+              "type": "GRP"
+            },
+            "target": {
+              "id": "MEETING_VOTING_MAX_VOTES",
+              "type": "GRP"
+            }
+          },
+          {
+            "source": {
+              "id": "SOL_REFERENCE",
+              "type": "GRP"
+            }
+          }
+        ],
+        "mandatoryFields": [
+          {
+            "type": "GRP",
+            "id": "MEETING_VOTING_TITLE"
+          },
+          {
+            "type": "GRP",
+            "id": "SOL_REFERENCE"
+          }
+        ],
+        "workflowMixins": {
+          "shortDesc": {
+            "scriptProperties": {
+              "entries": [
+                {
+                  "type": "GRP",
+                  "key": "SOL_TYPE",
+                  "value": "MEETING_VOTE"
+                },
+                {
+                  "type": "SORD",
+                  "key": "name",
+                  "value": "{{sord.objKeys.MEETING_VOTING_TITLE}}",
+                  "useTemplating": true
+                }
+              ]
+            }
+          },
+          "moveByReference": {
+            "fromService": {
+              "name": "RF_sol_function_FindFirstSord",
+              "params": {
+                "masks": [
+                  "Meeting Vote"
+                ],
+                "search": [
+                  {
+                    "type": "GRP",
+                    "key": "MEETING_ITEM_ID",
+                    "value": "{{sord.objKeys.SOL_REFERENCE}}"
+                  }
+                ]
+              }
+            },
+            "target": {
+              "targetId": "element.id"
+            }
+          }
+        }
+      },
+      "openVoting": {
+        "target": {
+          "objId": "{{sord.id}}",
+          "startWorkflow": {
+            "name": "sol.meeting.voting.open",
+            "title": "sol.meeting.voting.open.title",
+            "concluding": true
+          }
+        },
+        "workflowMixins": {
+          "set": {
+            "scriptProperties": {
+              "entries": [
+                {
+                  "type": "GRP",
+                  "key": "MEETING_VOTING_STATUS",
+                  "value": "O",
+                  "useDynKwl": true
+                }
+              ]
+            }
+          }
+        }
+      },
+      "emptyOpenVoting": {
+        "target": {
+          "objId": "{{sord.id}}",
+          "startWorkflow": {
+            "name": "sol.meeting.voting.open",
+            "title": "sol.meeting.voting.open.title",
+            "concluding": true
+          }
+        },
+        "workflowMixins": {
+          "set": {
+            "scriptProperties": {
+              "entries": [
+                {
+                  "type": "GRP",
+                  "key": "MEETING_VOTING_STATUS",
+                  "value": "O",
+                  "useDynKwl": true
+                }
+              ]
+            }
+          }
+        }
+      },
+      "deleteVoting": {
+        "workflow": {
+          "name": "sol.meeting.voting.delete",
+          "title": "sol.meeting.voting.delete.title"
+        },
+        "workflowMixins": {}
+      }
+    },
+    "outputs": {
+      "votingFull": [
+        {
+          "source": {
+            "type": "SORD",
+            "key": "id"
+          },
+          "target": {
+            "prop": "id"
+          }
+        },
+        {
+          "source": {
+            "type": "SORD",
+            "key": "name"
+          },
+          "target": {
+            "prop": "name"
+          }
+        },
+        {
+          "source": {
+            "type": "SORD",
+            "key": "desc"
+          },
+          "target": {
+            "prop": "desc"
+          }
+        },
+        {
+          "source": {
+            "type": "GRP",
+            "key": "SOL_TYPE"
+          },
+          "target": {
+            "prop": "solType"
+          }
+        },
+        {
+          "source": {
+            "type": "GRP",
+            "key": "SOL_REFERENCE"
+          },
+          "target": {
+            "prop": "solReference"
+          }
+        },
+        {
+          "source": {
+            "type": "GRP",
+            "key": "MEETING_VOTING_TITLE"
+          },
+          "target": {
+            "prop": "title"
+          }
+        },
+        {
+          "source": {
+            "type": "GRP",
+            "key": "MEETING_VOTING_IMPLEMENTATION"
+          },
+          "target": {
+            "prop": "implementation"
+          }
+        },
+        {
+          "source": {
+            "type": "GRP",
+            "key": "MEETING_VOTING_QUORUM_TYPE"
+          },
+          "target": {
+            "prop": "quorumType"
+          }
+        },
+        {
+          "source": {
+            "type": "GRP",
+            "key": "MEETING_VOTING_QUESTION"
+          },
+          "target": {
+            "prop": "question"
+          }
+        },
+        {
+          "source": {
+            "type": "GRP",
+            "key": "MEETING_VOTING_STATUS"
+          },
+          "target": {
+            "prop": "status"
+          }
+        },
+        {
+          "source": {
+            "type": "GRP",
+            "key": "MEETING_VOTING_MAX_VOTES"
+          },
+          "target": {
+            "prop": "maxVotes"
+          }
+        },
+        {
+          "source": {
+            "type": "MAP",
+            "key": "*"
+          },
+          "target": {
+            "prop": "*"
+          }
+        }
+      ]
+    }
+  }
+}

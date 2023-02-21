@@ -1,0 +1,24 @@
+{
+    "dependencies": [
+        {
+            "folder": "../pubsec.git/Business Solutions/pubsec",
+            "elo": "/Business Solutions/pubsec"
+        },
+        {
+            "folder": "../pubsec.git/Business Solutions Custom/pubsec [de bmi]",
+            "elo": "/Business Solutions Custom/pubsec"
+        },
+        {
+            "folder": "../pubsec.git/Business Solutions/pubsec_process",
+            "elo": "/Business Solutions/pubsec_process"
+        },
+        {
+            "folder": "../pubsec.git/Business Solutions Custom/pubsec_process [de bmi]",
+            "elo": "/Business Solutions Custom/pubsec_process"
+        },
+        {
+            "folder": "../pubsec.git/Business Solutions/Unit Tests",
+            "elo": "/Business Solutions/pubsec [unit tests]"
+        }
+    ]
+}

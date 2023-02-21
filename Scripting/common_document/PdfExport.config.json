@@ -1,0 +1,24 @@
+{
+  "exportFolder": "ARCPATH:/PDF Export",
+  "coversheetBasePath": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions Custom/common_document/Configuration/PDF Export Templates/CoverSheets",
+  "defaultTemplate": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions Custom/common_document/Configuration/PDF Export Templates/Defaults/Default",
+  "errorTemplate": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions Custom/common_document/Configuration/PDF Export Templates/Defaults/Error",
+  "contentsTemplate": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions Custom/common_document/Configuration/PDF Export Templates/Defaults/Contents",
+  "graphicTemplate": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions Custom/common_document/Configuration/PDF Export Templates/Defaults/Graphic",
+  "textTemplate": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions Custom/common_document/Configuration/PDF Export Templates/Defaults/Text",
+  "pdfExport": true,
+  "pdfA": false,
+  "language": "de",
+  "timeZone": "Europe/Berlin",
+  "pagination": true,
+  "whiteListTextFile": ["txt", "fo", "js", "xml", "json"],
+  "metadata": { "sordKeys": true, "objKeys": true,"mapKeys": true },
+  "filter": { "objKeys": {"excludeMaskTabs": ["Administration"], "excludeKeys": ["SOL_TYPE", "ELO_FNAME"], "includeKeys": []}},
+  "watermark": {
+    "image": { "path": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions Custom/common_document/Configuration/PDF Export Templates/Watermarks/Logo", "show": true },
+    "text": { "content" : "Watermark", "show": false }
+  },
+  "marginNotes": true,
+  "annotationNotes": true,
+  "feedInfo": true
+}

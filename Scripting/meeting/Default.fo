@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<fo:root font-family="ELO Sans Pro,Arial,Helvetica" xmlns:fo="http://www.w3.org/1999/XSL/Format">
+  <fo:layout-master-set>
+    <fo:simple-page-master master-name="Deckblatt" page-height="29.7cm" page-width="21cm" margin-top="0.5cm" margin-bottom="1.5cm" margin-left="2cm" margin-right="2cm">
+      <fo:region-body />
+    </fo:simple-page-master>
+  </fo:layout-master-set>
+
+  <fo:page-sequence master-reference="Deckblatt">
+    <fo:flow flow-name="xsl-region-body">
+
+      <fo:block-container width="17cm" margin-top="3mm">
+
+          <fo:block font-size="28pt" text-align="left">
+             {{translate "sol.meeting.document.minutesHeader" settings.mapKeys.CURRENT_LANGUAGE}}
+          </fo:block>
+
+          <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+
+          <fo:block font-size="11pt" text-align="left">
+             {{meeting.sord.referenceId}} {{meeting.sord.name}}
+          </fo:block>
+
+          <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+
+          <fo:block font-size="11pt" text-align="left">
+             {{translate "sol.meeting.document.date" settings.mapKeys.CURRENT_LANGUAGE}}: {{formatDate 'DD.MM.YYYY' meeting.sord.startdate}}
+          </fo:block>
+
+          <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+
+          <fo:block font-size="11pt" text-align="left">
+             {{translate "sol.meeting.document.location" settings.mapKeys.CURRENT_LANGUAGE}}: {{meeting.sord.location}}, {{translate "sol.meeting.document.room" settings.mapKeys.CURRENT_LANGUAGE}}: {{meeting.sord.room}}
+          </fo:block>
+
+          <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+
+          <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+
+          <fo:block font-size="13pt" text-align="left">
+             {{translate "sol.meeting.document.agenda" settings.mapKeys.CURRENT_LANGUAGE}}
+          </fo:block>
+
+          <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+
+          {{#each agenda.sords}}
+           <fo:block font-size="13pt" text-align="left">
+
+            </fo:block>
+
+            {{#ifCond solType '==' 'MEETING_ITEM'}}
+
+              <fo:table border-style="solid" border-width="1pt" border-color="white" table-layout="fixed" width="100%">
+                <fo:table-column column-width="5cm"/>
+                <fo:table-column column-width="4cm"/>
+                <fo:table-column column-width="4cm"/>
+                <fo:table-column column-width="4cm"/>
+                <fo:table-body>
+                  <fo:table-row>
+                    <fo:table-cell border-style="solid" border-width="1pt" border-color="white">
+                      <fo:block line-height="11pt" margin-top="3pt" margin-left="0pt" text-align="left" font-weight="bold">{{translate "sol.meeting.document.meetingItem" ../settings.mapKeys.CURRENT_LANGUAGE}} {{padLeft number "0"}}:</fo:block>
+                    </fo:table-cell>
+                    <fo:table-cell border-style="solid" border-width="1pt" border-color="white">
+                      <fo:block line-height="11pt" margin-top="3pt" margin-left="0pt" text-align="left">{{title}}</fo:block>
+                    </fo:table-cell>
+                    <fo:table-cell border-style="solid" border-width="1pt" border-color="white">
+                      <fo:block line-height="11pt" margin-top="3pt" margin-left="0pt" text-align="left" font-weight="bold">{{translate "sol.meeting.document.speaker" ../settings.mapKeys.CURRENT_LANGUAGE}}:</fo:block>
+                    </fo:table-cell>
+                    <fo:table-cell border-style="solid" border-width="1pt" border-color="white">
+                      <fo:block line-height="11pt" margin-top="3pt" margin-left="0pt" text-align="left">{{speaker}}</fo:block>
+                    </fo:table-cell>
+                  </fo:table-row>
+                </fo:table-body>
+              </fo:table>
+
+
+              <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+
+              <fo:table border-style="solid" border-width="1pt" border-color="white" table-layout="fixed" width="100%">
+                <fo:table-column column-width="5cm"/>
+                <fo:table-column column-width="4cm"/>
+                <fo:table-column column-width="4cm"/>
+                <fo:table-column column-width="4cm"/>
+                <fo:table-body>
+                  <fo:table-row>
+                    <fo:table-cell border-style="solid" border-width="1pt" border-color="white">
+                      <fo:block line-height="11pt" margin-top="3pt" margin-left="0pt" text-align="left" font-weight="bold">{{translate "sol.meeting.document.begin" ../settings.mapKeys.CURRENT_LANGUAGE}} - {{translate "sol.meeting.document.end" ../settings.mapKeys.CURRENT_LANGUAGE}}</fo:block>
+                    </fo:table-cell>
+                    <fo:table-cell border-style="solid" border-width="1pt" border-color="white">
+                      <fo:block line-height="11pt" margin-top="3pt" margin-left="0pt" text-align="left">{{begin}} - {{end}}</fo:block>
+                    </fo:table-cell>
+                    <fo:table-cell border-style="solid" border-width="1pt" border-color="white">
+                      <fo:block line-height="11pt" margin-top="3pt" margin-left="0pt" text-align="left" font-weight="bold">{{translate "sol.meeting.document.duration" ../settings.mapKeys.CURRENT_LANGUAGE}}</fo:block>
+                    </fo:table-cell>
+                    <fo:table-cell border-style="solid" border-width="1pt" border-color="white">
+                      <fo:block line-height="11pt" margin-top="3pt" margin-left="0pt" text-align="left">{{duration}} min</fo:block>
+                    </fo:table-cell>
+                  </fo:table-row>
+
+                </fo:table-body>
+              </fo:table>
+
+              <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+
+              {{#if minutes}}
+              <fo:block font-size="11pt" text-align="left" font-weight="bold">
+                {{translate "sol.meeting.document.discussion" ../settings.mapKeys.CURRENT_LANGUAGE}}:
+              </fo:block>
+
+              <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+
+              <fo:block font-size="11pt" text-align="left">
+                {{minutes}}
+              </fo:block>
+              {{/if}}
+
+              <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+              <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+
+              <fo:block font-size="11pt" text-align="left" font-weight="bold">
+                {{translate "sol.meeting.document.decision" ../settings.mapKeys.CURRENT_LANGUAGE}}:
+              </fo:block>
+
+              <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+
+              <fo:block font-size="11pt" text-align="left">
+                {{resolutionStatus}}
+              </fo:block>
+
+              <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+              <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+
+            {{/ifCond}}
+          {{/each}}
+
+      </fo:block-container>
+    </fo:flow>
+  </fo:page-sequence>
+
+</fo:root>

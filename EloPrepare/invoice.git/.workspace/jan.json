@@ -1,0 +1,56 @@
+{
+    "dependencies": [
+        {
+            "folder": "../common.git/Business Solutions/common",
+            "elo": "/Business Solutions/common"
+        },
+        {
+            "folder": "../common.git/Business Solutions/common_fx",
+            "elo": "/Business Solutions/common_fx"
+        },
+        {
+            "folder": "../common.git/Business Solutions/connector_xml",
+            "elo": "/Business Solutions/connector_xml"
+        },
+        {
+            "folder": "../common.git/Business Solutions/development",
+            "elo": "/Business Solutions/development"
+        },
+		{
+            "folder": "../common.git/Business Solutions/dev_internal",
+            "elo": "/Business Solutions/dev_internal"
+        },
+		{
+            "folder": "../demo.git/Business Solutions/common",
+            "elo": "/Business Solutions/demo"
+        },
+        {
+            "folder": "./Business Solutions/invoice",
+            "elo": "/Business Solutions/invoice"
+        },
+        {
+            "folder": "./Business Solutions/invoice_zugferd",
+            "elo": "/Business Solutions/invoice_zugferd"
+        },
+        {
+            "folder": "./Business Solutions/invoice_electronic",
+            "elo": "/Business Solutions/invoice_electronic"
+        },
+        {
+            "folder": "../demo.git/Business Solutions/invoice_de",
+            "elo": "/Business Solutions/invoice [demo de]"
+        },
+        {
+            "folder": "./Business Solutions Custom/invoice_zugferd",
+            "elo": "/Business Solutions Custom/invoice_zugferd"
+        },
+        {
+            "folder": "./Business Solutions/invoice_datev",
+            "elo": "/Business Solutions/invoice_datev"
+        },
+        {
+            "folder": "./Business Solutions/Unit Tests",
+            "elo": "/Business Solutions/invoice [unit tests]"
+        }
+    ]
+}

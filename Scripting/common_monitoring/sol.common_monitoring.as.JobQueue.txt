@@ -1,0 +1,81 @@
+﻿<ruleset>
+  <base>
+    <name>sol.common_monitoring.as.JobQueue</name>
+    <search>
+      <name>"DIRECT"</name>
+      <value>"1"</value>
+      <mask>(E10E1000-E100-E100-E100-E10E10E10E30)</mask>
+      <max>200</max>
+    </search>
+    <interval>1M</interval>
+    <includes>
+      <name>lib_Class</name>
+      <name>lib_handlebars</name>
+      <name>lib_moment</name>
+      <name>lib_sol.common.Cache</name>
+      <name>lib_sol.common.ObjectUtils</name>
+      <name>lib_sol.common.StringUtils</name>
+      <name>lib_sol.common.SordUtils</name>
+      <name>lib_sol.common.DateUtils</name>
+      <name>lib_sol.common.RepoUtils</name>
+      <name>lib_sol.common.WfUtils</name>
+      <name>lib_sol.common.Template</name>
+      <name>lib_sol.common.Map</name>
+      <name>lib_sol.common.ObjectFormatter</name>
+      <name>lib_sol.common_monitoring.as.MonitorUtils</name>
+      <name>lib_sol.common_monitoring.as.Monitor</name>
+      <name>lib_sol.common_monitoring.as.collectors.ChildrenCollector</name>
+      <name>lib_sol.common_monitoring.as.analyzers.ValueAnalyzer</name>
+      <name>lib_sol.common_monitoring.as.executors.SimpleExecutor</name>
+    </includes>
+  </base>
+<rule>
+  <name>Jobs</name>
+  <condition></condition>
+  <script>    
+    EM_WRITE_CHANGED = false;
+    
+    var logger = sol.create("sol.Logger", { scope: "sol.common_monitoring.as.JobQueue" }),
+        collector, analyzer, executor, cfg, jobQueue;
+    
+    logger.enter("JobQueue");
+    
+    collector = sol.create("sol.common_monitoring.as.collectors.ChildrenCollector", {
+      objId: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/_global/Job queue",
+      readParentMap: ["SOL_UPDATE_WF_TEMPLATE", "SOL_UPDATE_TIMESTAMP"],
+      cleanupParentMap: true,
+      cleanupReferences: true
+    });
+    
+    analyzer = sol.create("sol.common_monitoring.as.analyzers.ValueAnalyzer", {
+      action: { type: "TECHNICAL_WORKFLOW", templateId: "{{ctx.updateWorkflow}}" },
+      values: [
+        { type: "PARENT_MAP", key: "SOL_UPDATE_WF_TEMPLATE", notEmpty: true, toContext: "updateWorkflow" },
+        { type: "PARENT_MAP", key: "SOL_UPDATE_TIMESTAMP", referenceValue: { type: "SORD", key: "TStamp" }, comparator: "&lt;" }
+      ]
+    });
+    
+    executor = sol.create("sol.common_monitoring.as.executors.SimpleExecutor", {});
+    
+    cfg = {
+      collector: collector,
+      analyzer: analyzer,
+      executor: executor
+    };
+    
+    jobQueue = sol.create("sol.common_monitoring.as.Monitor", cfg);
+    jobQueue.run();
+    jobQueue.close();
+    
+    logger.exit("JobQueue");
+    
+  </script>
+</rule>
+<rule>
+  <name>Global Error Rule</name>
+  <condition>OnError</condition>
+  <script>sol.common.ExceptionUtils.logAsException(EM_ERROR);
+
+  </script>
+</rule>
+</ruleset>

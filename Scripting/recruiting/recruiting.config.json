@@ -1,0 +1,1174 @@
+{
+  "version": "9.00.001",
+  "entities": {
+    "communication": {
+      "actions": {
+        "createheadless": {
+          "const": {
+            "templateService": "RF_sol_common_service_StandardTypes",
+            "templateServiceArgs": { "$types": { "path": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/recruiting/Configuration/Communication Templates/Rejection" } },
+            "standardWorkflow": "sol.recruiting.Candidate.RejectHeadless",
+            "workflowMessage": "{{translate 'sol.recruiting.workflow.communication.rejectheadless.message'}}"
+          },
+          "mandatoryFields": []
+        }
+      },
+      "functions": {
+        "generatecommunicationshortdescription": {
+          "type": "generator",
+          "generatorConfig": {
+            "generatorTemplateField": "RECRUITING_COMMUNICATION_SHORT_DESC_GEN",
+            "templatesFolder": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/recruiting/Configuration/Generators/Communication short description"
+          },
+          "kwlConfig": {
+            "tableTitle": "{{translate 'sol.recruiting.dynkwl.generators.communicationShortDesc.tableTitle'}}"
+          }
+        },
+        "renderandsetvalues": {
+          "templatingSordSearches": {
+            "REQUISITION": {
+              "const": {
+                "searchField": "RECRUITING_REQUISITION_NO",
+                "searchValueInSord": "objKeys.RECRUITING_REQUISITION_NO"
+              },
+              "masks": [""],
+              "search": [{ "key": "SOL_TYPE", "value": ["RECRUITING_REQUISITION", "RECRUITING_POOL"] }],
+              "output": [{ "source": { "type": "SORD" , "key": "id" }}],
+              "options": { "allowEmptyMask": true }
+            },
+            "CANDIDATE": {
+              "const": {
+                "searchField": "RECRUITING_CANDIDATE_NO",
+                "searchValueInSord": "objKeys.RECRUITING_CANDIDATE_NO"
+              },
+              "masks": [""],
+              "search": [{ "key": "SOL_TYPE", "value": "RECRUITING_CANDIDATE"}],
+              "output": [{ "source": { "type": "SORD" , "key": "id" }}],
+              "options": { "allowEmptyMask": true }
+            }
+          }
+        }
+      },
+      "services": {
+        "getcommunicationredactortemplates": {
+          "commonServiceConfig": {
+            "templates": [
+              { "desc": "{{translate 'sol.recruiting.form.candidate.no'}}", "value": "{{CANDIDATE.objKeys.RECRUITING_CANDIDATE_NO}}" },
+              { "desc": "{{translate 'sol.recruiting.form.candidate.firstname'}}", "value": "{{CANDIDATE.objKeys.RECRUITING_CANDIDATE_FIRSTNAME}}" },
+              { "desc": "{{translate 'sol.recruiting.form.candidate.lastname'}}", "value": "{{CANDIDATE.objKeys.RECRUITING_CANDIDATE_LASTNAME}}" },
+              { "desc": "{{translate 'sol.recruiting.form.candidate.city'}}", "value": "{{CANDIDATE.objKeys.RECRUITING_CANDIDATE_CITY}}" },
+              { "desc": "{{translate 'sol.recruiting.form.candidate.country'}}", "value": "{{CANDIDATE.objKeys.RECRUITING_CANDIDATE_COUNTRY}}" },
+              { "desc": "{{translate 'sol.recruiting.form.candidate.birthday'}}", "value": "{{CANDIDATE.objKeys.RECRUITING_CANDIDATE_BIRTHDAY}}" },
+              { "desc": "{{translate 'sol.recruiting.form.candidate.statusext'}}", "value": "{{CANDIDATE.objKeys.RECRUITING_CANDIDATE_STATUSEXT}}" },
+              { "desc": "{{translate 'sol.recruiting.form.candidate.jobtitle'}}", "value": "{{CANDIDATE.objKeys.RECRUITING_CANDIDATE_JOBTITLE}}" },
+              { "desc": "{{translate 'sol.recruiting.form.candidate.startdate'}}", "value": "{{CANDIDATE.objKeys.RECRUITING_CANDIDATE_STARTDATE}}" },
+              { "desc": "{{translate 'sol.recruiting.form.candidate.privatephone'}}", "value": "{{CANDIDATE.mapKeys.RECRUITING_CANDIDATE_PRIVATEPHONE}}" },
+              { "desc": "{{translate 'sol.recruiting.form.candidate.privatemobile'}}", "value": "{{CANDIDATE.mapKeys.RECRUITING_CANDIDATE_PIVATEMOBILE}}" },
+              { "desc": "{{translate 'sol.recruiting.form.requisition.no'}}", "value": "{{REQUISITION.objKeys.RECRUITING_CANDIDATE_NO}}" },
+              { "desc": "{{translate 'sol.recruiting.form.requisition.name'}}", "value": "{{REQUISITION.objKeys.RECRUITING_REQUISITION_NAME}}" },
+              { "desc": "{{translate 'sol.recruiting.form.requisition.startdate'}}", "value": "{{REQUISITION.objKeys.RECRUITING_REQUISITION_STARTDATE}}" },
+              { "desc": "{{translate 'sol.recruiting.form.requisition.location'}}", "value": "{{REQUISITION.objKeys.RECRUITING_REQUISITION_LOCATION}}" },
+              { "desc": "{{translate 'sol.recruiting.form.requisition.recruiter'}}", "value": "{{REQUISITION.objKeys.RECRUITING_REQUISITION_RECRUITER}}" },
+              { "desc": "{{translate 'sol.recruiting.form.requisition.hiringmanager'}}", "value": "{{REQUISITION.objKeys.RECRUITING_REQUISITION_HIRINGMANAGER}}" },
+              { "desc": "{{translate 'sol.recruiting.form.requisition.company'}}", "value": "{{REQUISITION.objKeys.RECRUITING_REQUISITION_COMPANY}}" },
+              { "desc": "{{translate 'sol.recruiting.form.requisition.division'}}", "value": "{{REQUISITION.objKeys.RECRUITING_REQUISITION_DIVISION}}" },
+              { "desc": "{{translate 'sol.recruiting.form.requisition.department'}}", "value": "{{REQUISITION.objKeys.RECRUITING_REQUISITION_DEPARTMENT}}" },
+              { "desc": "{{translate 'sol.recruiting.form.requisition.team'}}", "value": "{{REQUISITION.objKeys.RECRUITING_REQUISITION_TEAM}}" }
+            ],
+            "render": {
+              "searchAdditionalData": [
+                { "targetProp": "REQUISITION", "criteria": [{ "key": "SOL_TYPE", "value": ["RECRUITING_REQUISITION", "RECRUITING_POOL"] }] },
+                { "targetProp": "CANDIDATE", "doubleAsSord": true, "criteria": [{ "key": "SOL_TYPE", "value": "RECRUITING_CANDIDATE" }] }
+              ]
+            }
+          },
+          "searchFields": {
+            "REQUISITION": "RECRUITING_REQUISITION_NO",
+            "CANDIDATE": "RECRUITING_CANDIDATE_NO"
+          }
+        }
+      },
+      "workflowMixins": {
+        "candidate": {
+          "move": {
+            "scriptProperties": {
+              "targetIdFromMap": "RECRUITING_CANDIDATE_OBJID"
+            }
+          },
+          "notify": {
+            "scriptProperties": {
+              "mode": "get",
+              "from": "no-reply@elo.com",
+              "to": {
+                "type": "MAP",
+                "key": "RECRUITING_COMMUNICATION_RECIPIENT"
+              },
+              "subject": {
+                "type": "GRP",
+                "key": "RECRUITING_COMMUNICATION_SUBJECT"
+              },
+              "body": {
+                "type": "html",
+                "tplObjId": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions Custom/recruiting/Configuration/Mail templates/Default"
+              }
+            }
+          },
+          "rendertemplate": {
+            "scriptProperties": {
+              "renderFields": [
+                { "key": "RECRUITING_COMMUNICATION_SUBJECT", "type": "GRP", "templatePath": "sord.objKeys.RECRUITING_COMMUNICATION_SUBJECT" },
+                { "key": "desc", "type": "SORD", "templatePath": "sord.desc" }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "requisition": {
+      "actions": {
+        "createheadless": {
+          "const": {
+            "templateService": "RF_sol_common_service_StandardTypes",
+            "templateServiceArgs": { "$types": { "path": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/recruiting/Configuration/Requisition types" } },
+            "standardWorkflow": "sol.recruiting.Requisition.CreateHeadless",
+            "workflowMessage": "{{translate 'sol.recruiting.workflow.requisition.createheadless.message'}}"
+          },
+          "protectedFields": [
+            { "type": "GRP", "id": "RECRUITING_REQUISITION_NO" },
+            { "type": "GRP", "id": "RECRUITING_REQUISITION_STATUS" }
+          ]
+        }
+      },
+      "dynkwls": {
+        "organizationalstructures": {
+          "const": {
+            "solutiontypes": "\"ORGCHART_COMPANY\" OR \"ORGCHART_DIVISION\" OR \"ORGCHART_DEPARTMENT\" OR \"ORGCHART_TEAM\"",
+            "status": {
+              "field": "HR_ORGCHART_STATUS",
+              "value": "1"
+            }
+          },
+          "tableTitle": "{{translate 'sol.recruiting.dynkwl.organizationalstructures.tableTitle'}}",
+          "tableHeaders": [
+            "{{translate 'sol.recruiting.mask.requisition.company'}}",
+            "{{translate 'sol.recruiting.mask.requisition.division'}}",
+            "{{translate 'sol.recruiting.mask.requisition.department'}}",
+            "{{translate 'sol.recruiting.mask.requisition.team'}}",
+            null
+          ],
+          "tableKeyNames": [
+            "RECRUITING_REQUISITION_COMPANY",
+            "RECRUITING_REQUISITION_DIVISION",
+            "RECRUITING_REQUISITION_DEPARTMENT",
+            "RECRUITING_REQUISITION_TEAM",
+            "RECRUITING_REQUISITION_ORG_ID"
+          ],
+          "rowDataFields": [
+            "HR_PERSONNEL_COMPANY",
+            "HR_PERSONNEL_DIVISION",
+            "HR_PERSONNEL_DEPARTMENT",
+            "HR_PERSONNEL_TEAM",
+            "guid"
+          ]
+        },
+        "requisition": {
+          "const": {
+            "solutiontypes": "\"RECRUITING_REQUISITION\" OR \"RECRUITING_POOL\"",
+            "status": {
+              "field": "RECRUITING_REQUISITION_STATUS",
+              "value": "O - *"
+            }
+          },
+          "tableTitle": "{{translate 'sol.recruiting.dynkwl.requisition.tableTitle'}}",
+          "tableHeaders": [
+            "{{translate 'sol.recruiting.mask.requisition.no'}}",
+            "{{translate 'sol.recruiting.mask.requisition.name'}}",
+            null
+          ],
+          "tableKeyNames": [
+            "RECRUITING_REQUISITION_NO",
+            "RECRUITING_REQUISITION_NAME",
+            "IX_MAP_RECRUITING_REQUISITION_GUID"
+          ],
+          "rowDataFields": [
+            "RECRUITING_REQUISITION_NO",
+            "RECRUITING_REQUISITION_NAME",
+            "guid"
+          ]
+        }
+      },
+      "functions": {
+        "generaterequisitionno": {
+          "type": "generator",
+          "generatorConfig": {
+            "generatorTemplateField": "RECRUITING_REQUISITION_NO_GEN",
+            "templatesFolder": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/recruiting/Configuration/Generators/Requisition no.",
+            "targetField": "RECRUITING_REQUISITION_NO"
+          },
+          "kwlConfig": {
+            "tableTitle": "{{translate 'sol.recruiting.dynkwl.generators.requisitionNo.tableTitle'}}"
+          }
+        },
+        "generaterequisitionshortdescription": {
+          "type": "generator",
+          "generatorConfig": {
+            "generatorTemplateField": "RECRUITING_REQUISITION_SHORT_DESC_GEN",
+            "templatesFolder": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/recruiting/Configuration/Generators/Requisition short description"
+          },
+          "kwlConfig": {
+            "tableTitle": "{{translate 'sol.recruiting.dynkwl.generators.requisitionShortDesc.tableTitle'}}"
+          }
+        },
+        "setmetadatainrequisition": {
+          "const": {
+            "searchFieldInSord": "objKeys.RECRUITING_REQUISITION_NO",
+            "searchFieldInRequisition": "RECRUITING_REQUISITION_NO",
+            "targetParam": "status",
+            "targetValueInSord": "wfMapKeys.RECRUITING_REQUISITION_STATUS"
+          },
+          "requisition": {
+            "masks": [""],
+            "search": [{ "key": "SOL_TYPE", "value": "\"RECRUITING_REQUISITION\" OR \"RECRUITING_POOL\""}],
+            "output": [{ "source": { "type": "SORD" , "key": "guid" }}],
+            "options": { "allowEmptyMask": true }
+          }
+        }
+      },
+      "services": {
+        "update": {
+          "targetConfig": {
+            "output": [{ "source": { "type": "SORD" , "key": "id" }, "target": { "prop": "id" } }],
+            "options": { "asAdmin": true, "maxResults": 1 }
+          },
+          "paramMapping": {
+            "status": { "id": "RECRUITING_REQUISITION_STATUS", "type": "GRP" }
+          },
+          "updateWorkflow": "sol.recruiting.Requisition.Update"
+        },
+        "getrequisition": {
+          "masks": [""],
+          "search": [
+            { "key": "SOL_TYPE", "value": "\"RECRUITING_REQUISITION\" OR \"RECRUITING_POOL\""}
+          ],
+          "output": [
+            { "source": { "type": "SORD" , "key": "guid" }, "target": { "prop": "guid" } },
+            { "source": { "type": "SORD" , "key": "id" }, "target": { "prop": "objId" } }
+          ],
+          "options": {
+            "allowEmptyMask": true
+          }
+        },
+        "getrequisitionstatistics": {
+          "masks": ["Recruiting Candidate"],
+          "search": [
+            { "key": "SOL_TYPE", "value": "RECRUITING_CANDIDATE" },
+            { "key": "RECRUITING_CANDIDATE_PHASE", "value": "N - *" }
+          ],
+          "options": {
+            "allowEmptyMask": false,
+            "fuzzy": {
+              "groupBy": { "type": "GRP", "key": "RECRUITING_REQUISITION_NO" }
+            }
+          },
+          "newCriterion": "RECRUITING_CANDIDATE_PHASE"
+        }
+      },
+      "workflowMixins": {
+        "create": {
+          "changerights": {
+            "scriptProperties": {
+              "users": [
+                {
+                  "type": "GRP",
+                  "key": "RECRUITING_REQUISITION_HIRINGMANAGER",
+                  "rights": {
+                    "r": true,
+                    "w": true,
+                    "e": true,
+                    "d": true,
+                    "l": true
+                  }
+                },
+                {
+                  "type": "GRP",
+                  "key": "RECRUITING_REQUISITION_RECRUITER",
+                  "rights": {
+                    "r": true,
+                    "w": true,
+                    "e": true,
+                    "d": true,
+                    "l": true
+                  }
+                },
+                {
+                  "type": "GRP",
+                  "key": "RECRUITING_REQUISITION_REQUESTER",
+                  "rights": {
+                    "r": true,
+                    "w": true,
+                    "e": true,
+                    "d": true,
+                    "l": true
+                  }
+                }
+              ],
+              "recursive": true,
+              "mode": "SET"
+            }
+          },
+          "move": {
+            "scriptProperties": {
+              "path": "ARCPATH:/Recruiting/Requisitions/{{formatDate 'YYYY'}}/{{formatDate 'MM'}}"
+            }
+          },
+          "created": {
+            "scriptProperties": {
+              "group": "RECRUITING_REQUISITION_STATUS",
+              "status": "O",
+              "useDynKwl": true,
+              "dynKwlCfg": {
+                "returnColumn": 2,
+                "filterColumn": 0
+              }
+            }
+          },
+          "approval": {
+            "scriptProperties": {
+              "group": "RECRUITING_REQUISITION_STATUS",
+              "status": "S",
+              "useDynKwl": true,
+              "dynKwlCfg": {
+                "returnColumn": 2,
+                "filterColumn": 0
+              }
+            }
+          },
+          "declined": {
+            "scriptProperties": {
+              "group": "RECRUITING_REQUISITION_STATUS",
+              "status": "X",
+              "useDynKwl": true,
+              "dynKwlCfg": {
+                "returnColumn": 2,
+                "filterColumn": 0
+              }
+            }
+          },
+          "approved": {
+            "scriptProperties": {
+              "group": "RECRUITING_REQUISITION_STATUS",
+              "status": "A",
+              "useDynKwl": true,
+              "dynKwlCfg": {
+                "returnColumn": 2,
+                "filterColumn": 0
+              }
+            }
+          },
+          "decide": {
+            "scriptProperties": {
+              "checks": [
+                {
+                  "type": "MAP",
+                  "key": "RECRUITING_REQUISITION_DYNADHOC_ACTIVE",
+                  "regex": "^1$"
+                }
+              ],
+              "trueStatus": "TRUE",
+              "falseStatus": "FALSE"
+            }
+          }
+        },
+        "staffingrequirement": {
+          "changerights": {
+            "scriptProperties": {
+              "users": [
+                {
+                  "type": "GRP",
+                  "key": "RECRUITING_REQUISITION_HIRINGMANAGER",
+                  "rights": {
+                    "r": true,
+                    "w": true,
+                    "e": true,
+                    "d": true,
+                    "l": true
+                  }
+                },
+                {
+                  "type": "GRP",
+                  "key": "RECRUITING_REQUISITION_REQUESTER",
+                  "rights": {
+                    "r": true,
+                    "w": true,
+                    "e": true,
+                    "d": true,
+                    "l": true
+                  }
+                }
+              ],
+              "recursive": true,
+              "mode": "SET"
+            }
+          },
+          "metadatafromfile": {
+            "scriptProperties": {
+              "metadataMapping": [
+                { "source": {"id": "HR_PERSONNEL_COMPANY", "type": "GRP"}, "target": {"id": "RECRUITING_REQUISITION_COMPANY", "type": "GRP"} },
+                { "source": {"id": "HR_PERSONNEL_DIVISION", "type": "GRP"}, "target": {"id": "RECRUITING_REQUISITION_DIVISION", "type": "GRP"} },
+                { "source": {"id": "HR_PERSONNEL_DEPARTMENT", "type": "GRP"}, "target": {"id": "RECRUITING_REQUISITION_DEPARTMENT", "type": "GRP"} },
+                { "source": {"id": "HR_PERSONNEL_TEAM", "type": "GRP"}, "target": {"id": "RECRUITING_REQUISITION_TEAM", "type": "GRP"} }
+              ]
+            }
+          },
+          "approval": {
+            "scriptProperties": {
+              "group": "RECRUITING_REQUISITION_STATUS",
+              "status": "S",
+              "useDynKwl": true,
+              "dynKwlCfg": {
+                "returnColumn": 2,
+                "filterColumn": 0
+              }
+            }
+          },
+          "declined": {
+            "scriptProperties": {
+              "group": "RECRUITING_REQUISITION_STATUS",
+              "status": "X",
+              "useDynKwl": true,
+              "dynKwlCfg": {
+                "returnColumn": 2,
+                "filterColumn": 0
+              }
+            }
+          },
+          "approved": {
+            "scriptProperties": {
+              "group": "RECRUITING_REQUISITION_STATUS",
+              "status": "A",
+              "useDynKwl": true,
+              "dynKwlCfg": {
+                "returnColumn": 2,
+                "filterColumn": 0
+              }
+            }
+          },
+          "changeuserrecruiter": {
+            "scriptProperties": {
+              "defaultUser": "Administrator",
+              "role": "RECRUITER"
+            }
+          },
+          "usernodestart": {
+            "scriptProperties": {
+              "fieldName": "RECRUITING_REQUISITION_CURRENTUSER",
+              "rightsConfig": {
+                "rights": {
+                  "r": true,
+                  "w": true,
+                  "d": false,
+                  "e": true,
+                  "l": true
+                }
+              }
+            }
+          }
+        },
+        "preparepostings": {
+          "prepare": {
+            "scriptProperties": {
+              "metadataMapping": [
+                { "source": { "id": "RECRUITING_REQUISITION_NO", "type": "GRP" }, "target": {"id": "RECRUITING_REQUISITION_NO", "type": "GRP" } },
+                { "source": { "id": "RECRUITING_REQUISITION_NAME", "type": "GRP" }, "target": {"id": "RECRUITING_REQUISITION_NAME", "type": "GRP" } },
+                { "source": { "id": "RECRUITING_POSTING_NO", "type": "GRP" }, "target": {"id": "RECRUITING_POSTING_NO", "type": "GRP", "value": "" } },
+                { "source": { "id": "RECRUITING_POSTING_STATUS", "type": "GRP" }, "target": {"id": "RECRUITING_POSTING_STATUS", "type": "GRP", "value": "I - Inactive" } },
+                { "source": { "id": "guid", "type": "SORD" }, "target": {"id": "RECRUITING_REQUISITION_GUID", "type": "MAP" } },
+                { "target": { "id": "RECRUITING_POSTING_GUID", "type": "MAP", "valueFromWfMapTableRow": "RECRUITING_POSTING_GUID" } },
+                { "target": { "id": "RECRUITING_POSTING_NAME", "type": "GRP", "valueFromWfMapTableRow": "RECRUITING_POSTING_NAME_NEW" } }
+              ],
+              "templateGuidColumn": "RECRUITING_POSTING_GUID"
+            }
+          }
+        },
+        "conclude": {
+          "preparebulkmailing": {
+            "scriptProperties": {
+              "masks": ["Recruiting Candidate"],
+              "search": [
+                { "key": "RECRUITING_REQUISITION_NO", "value": "{{sord.objKeys.RECRUITING_REQUISITION_NO}}" },
+                { "key": "SOL_TYPE", "value": "RECRUITING_CANDIDATE" },
+                { "key": "RECRUITING_CANDIDATE_PHASE", "value": ["N -*", "S -*", "P -*", "I1 -*", "I2 -*", "A -*"] }
+              ],
+              "setting": "standard",
+              "fillEmptyValues": ["RECRUITING_CANDIDATE_PHOTO_GUID", "RECRUITING_CANDIDATE_MOVETOPOOL"]
+            }
+          },
+          "initiatebulkmailing": {
+            "scriptProperties": {
+              "metadataMapping": [
+                { "source": { "id": "RECRUITING_COMMUNICATION_DATEOFDISPATCH", "type": "MAP" }, "target": {"id": "RECRUITING_COMMUNICATION_DATEOFDISPATCH", "type": "GRP" } },
+                { "target": { "id": "RECRUITING_CANDIDATE_OBJID", "type": "MAP", "valueFromWfMapTableRow": "RECRUITING_CANDIDATE_OBJID" } },
+                { "target": { "id": "RECRUITING_COMMUNICATION_RECIPIENT", "type": "MAP", "valueFromWfMapTableRow": "RECRUITING_CANDIDATE_PRIVATEEMAIL" } },
+                { "target": { "id": "RECRUITING_CANDIDATE_COMMUNICATION_TEMPLATE", "type": "MAP", "valueFromWfMapTableRow": "RECRUITING_CANDIDATE_COMMUNICATION_TEMPLATE" } },
+                { "target": { "id": "RECRUITING_CANDIDATE_MOVETOPOOL", "type": "MAP", "valueFromWfMapTableRow": "RECRUITING_CANDIDATE_MOVETOPOOL" } },
+                { "target": { "id": "RECRUITING_CANDIDATE_NO", "type": "MAP", "valueFromWfMapTableRow": "RECRUITING_CANDIDATE_NO" } }
+              ],
+              "templateNameColumn": "RECRUITING_CANDIDATE_COMMUNICATION_TEMPLATE",
+              "moveToPoolIndicatorColumn": "RECRUITING_CANDIDATE_MOVETOPOOL",
+              "candidateNoColumn": "RECRUITING_CANDIDATE_NO",
+              "targetPoolInSord": "wfMapKeys.RECRUITING_CANDIDATE_TARGETPOOL_NO"
+            }
+          }
+        }
+      }
+    },
+    "pool": {
+      "dynkwls": {
+        "pool": {
+          "const": {
+            "solutiontypes": "RECRUITING_POOL",
+            "status": {
+              "field": "RECRUITING_REQUISITION_STATUS",
+              "value": "O - *"
+            }
+          },
+          "tableTitle": "{{translate 'sol.recruiting.dynkwl.pool.tableTitle'}}",
+          "tableHeaders": [
+            "{{translate 'sol.recruiting.mask.pool.name'}}",
+            null
+          ],
+          "tableKeyNames": [
+            "WF_MAP_RECRUITING_CANDIDATE_TARGETPOOL",
+            "WF_MAP_RECRUITING_CANDIDATE_TARGETPOOL_NO"
+          ],
+          "rowDataFields": [
+            "RECRUITING_REQUISITION_NAME",
+            "RECRUITING_REQUISITION_NO"
+          ]
+        }
+      },
+      "workflowMixins": {
+        "create": {
+          "move": {
+            "scriptProperties": {
+              "targetIdFromMap": "RECRUITING_SELECTED_GUID"
+            }
+          }
+        }
+      }
+    },
+    "candidate": {
+      "actions": {
+        "createheadless": {
+          "const": {
+            "templateService": "RF_sol_common_service_StandardTypes",
+            "templateServiceArgs": { "$types": { "path": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/recruiting/Configuration/Candidate types" } },
+            "standardWorkflow": "sol.recruiting.Candidate.CreateHeadless",
+            "workflowMessage": "{{translate 'sol.recruiting.workflow.candidate.createheadless.message'}}"
+          },
+          "mandatoryFields": [
+            { "type": "MAP", "id": "RECRUITING_POSTING_GUID" }
+          ]
+        }
+      },
+      "functions": {
+        "preparebulkmailing": {
+          "preparationsettings": {
+            "types": {
+              "service": "RF_sol_common_service_StandardTypes",
+              "args": { "$types": { "path": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/recruiting/Configuration/Candidate types" }
+              }
+            },
+            "standard": [
+              { "source": { "type": "SORD" , "key": "id" }, "target": { "prop": "RECRUITING_CANDIDATE_OBJID" } },
+              { "source": { "type": "GRP" , "key": "RECRUITING_CANDIDATE_RANKING" }, "target": { "prop": "RECRUITING_CANDIDATE_RANKING" } },
+              { "source": { "type": "GRP" , "key": "RECRUITING_CANDIDATE_PHOTO_GUID" }, "target": { "prop": "RECRUITING_CANDIDATE_PHOTO_GUID" } },
+              { "source": { "type": "GRP" , "key": "RECRUITING_CANDIDATE_LASTNAME" }, "target": { "prop": "RECRUITING_CANDIDATE_LASTNAME" } },
+              { "source": { "type": "GRP" , "key": "RECRUITING_CANDIDATE_FIRSTNAME" }, "target": { "prop": "RECRUITING_CANDIDATE_FIRSTNAME" } },
+              { "source": { "type": "GRP" , "key": "RECRUITING_CANDIDATE_STATUS" }, "target": { "prop": "RECRUITING_CANDIDATE_STATUS" } },
+              { "source": { "type": "GRP" , "key": "RECRUITING_CANDIDATE_PRIVATEEMAIL" }, "target": { "prop": "RECRUITING_CANDIDATE_PRIVATEEMAIL" } },
+              { "source": { "type": "GRP" , "key": "RECRUITING_CANDIDATE_NO" }, "target": { "prop": "RECRUITING_CANDIDATE_NO" } },
+              { "source": { "type": "MAP" , "key": "RECRUITING_CANDIDATE_AGREEDUPONPOOL" }, "target": { "prop": "RECRUITING_CANDIDATE_MOVETOPOOL" } },
+              { "target": { "prop": "RECRUITING_CANDIDATE_COMMUNICATION_TEMPLATE", "value": "Absage (Talentpool)" } }
+            ],
+            "newEmptyValue": "_"
+          }
+        },
+        "setmetadataincandidate": {
+          "const": {
+            "searchFieldInSord": "objKeys.RECRUITING_CANDIDATE_NO",
+            "searchFieldInCandidate": "RECRUITING_CANDIDATE_NO",
+            "targetParam": "status",
+            "targetValueInSord": "objKeys.RECRUITING_CANDIDATE_STATUS",
+            "cassation": {
+              "targetParam": "cassationdate",
+              "shift": {
+                "value": "6",
+                "unit": "M"
+              }
+            },
+            "poolCassation": {
+              "targetParam": "cassationdate",
+              "shift": {
+                "value": "4",
+                "unit": "y"
+              }
+            }
+          },
+          "candidate": {
+            "masks": [""],
+            "search": [{ "key": "SOL_TYPE", "value": "RECRUITING_CANDIDATE"}],
+            "output": [{ "source": { "type": "SORD" , "key": "guid" }}],
+            "options": { "allowEmptyMask": true }
+          }
+        },
+        "transitioncandidateintofile": {
+          "const": {
+            "fileInCandidateKey": "PERSONNEL_FILE_OBJID",
+            "fileInCandidateType": "MAP",
+            "candidateFileShortDesc": "{{translate 'sol.recruiting.dynkwl.generators.CandidateShortDesc.afterTransitionToFile'}}",
+            "createpersonnelfileheadlessconfig": {
+              "scriptProperties": {
+                "template": {
+                  "name": "{{sord.wfMapKeys.RECRUITING_FILE_TEMPLATE}}"
+                },
+                "metadataMapping": [
+                  { "source": {"id": "RECRUITING_CANDIDATE_FIRSTNAME", "type": "GRP"}, "target": {"id": "HR_PERSONNEL_FIRSTNAME", "type": "GRP"} },
+                  { "source": {"id": "RECRUITING_CANDIDATE_LASTNAME", "type": "GRP"}, "target": {"id": "HR_PERSONNEL_LASTNAME", "type": "GRP"} },
+                  { "source": {"id": "RECRUITING_CANDIDATE_POSTALCODE", "type": "GRP"}, "target": {"id": "HR_PERSONNEL_POSTALCODE", "type": "GRP"} },
+                  { "source": {"id": "RECRUITING_CANDIDATE_CITY", "type": "GRP"}, "target": {"id": "HR_PERSONNEL_CITY", "type": "GRP"} },
+                  { "source": {"id": "RECRUITING_CANDIDATE_COUNTRY", "type": "GRP"}, "target": {"id": "HR_PERSONNEL_COUNTRY", "type": "GRP"} },
+                  { "source": {"id": "RECRUITING_CANDIDATE_GENDER", "type": "GRP"}, "target": {"id": "HR_PERSONNEL_GENDER", "type": "GRP"} },
+                  { "source": {"id": "RECRUITING_CANDIDATE_LANGUAGE", "type": "GRP"}, "target": {"id": "HR_PERSONNEL_FIRSTLANGUAGE", "type": "GRP"} },
+                  { "source": {"id": "RECRUITING_CANDIDATE_BIRTHDAY", "type": "GRP"}, "target": {"id": "HR_PERSONNEL_BIRTHDAY", "type": "GRP"} },
+                  { "source": {"id": "RECRUITING_REQUISITION_NAME", "type": "GRP"}, "target": {"id": "HR_PERSONNEL_JOBTITLE", "type": "GRP"} },
+                  { "source": {"id": "RECRUITING_REQUISITION_HIRINGMANAGER", "type": "GRP"}, "target": {"id": "HR_PERSONNEL_SUPERIOR", "type": "GRP"} },
+                  { "source": {"id": "RECRUITING_REQUISITION_COMPANY", "type": "GRP"}, "target": {"id": "HR_PERSONNEL_COMPANY", "type": "GRP"} },
+                  { "source": {"id": "RECRUITING_REQUISITION_DIVISION", "type": "GRP"}, "target": {"id": "HR_PERSONNEL_DIVISION", "type": "GRP"} },
+                  { "source": {"id": "RECRUITING_REQUISITION_DEPARTMENT", "type": "GRP"}, "target": {"id": "HR_PERSONNEL_DEPARTMENT", "type": "GRP"} },
+                  { "source": {"id": "RECRUITING_REQUISITION_TEAM", "type": "GRP"}, "target": {"id": "HR_PERSONNEL_TEAM", "type": "GRP"} },
+                  { "source": {"id": "RECRUITING_REQUISITION_LOCATION", "type": "GRP"}, "target": {"id": "HR_PERSONNEL_LOCATION", "type": "GRP"} },
+                  { "source": {"id": "RECRUITING_CANDIDATE_PHOTO_GUID", "type": "GRP"}, "target": {"id": "HR_PERSONNEL_PHOTO_GUID", "type": "GRP"} },
+                  { "source": {"id": "RECRUITING_CANDIDATE_START_DATE", "type": "GRP"}, "target": {"id": "HR_PERSONNEL_DATEOFJOINING", "type": "GRP"} },
+                  { "source": {"id": "RECRUITING_CANDIDATE_PHOTO_GUID", "type": "GRP"}, "target": {"id": "HR_PERSONNEL_PHOTO_GUID", "type": "GRP"} },
+                  { "source": {"id": "RECRUITING_CANDIDATE_PRIVATEEMAIL", "type": "GRP"}, "target": {"id": "HR_PERSONNEL_PRIVATEEMAIL", "type": "MAP"} },
+                  { "source": {"id": "RECRUITING_CANDIDATE_PRIVATEPHONE", "type": "MAP"}, "target": {"id": "HR_PERSONNEL_PRIVATEPHONE", "type": "MAP"} },
+                  { "source": {"id": "RECRUITING_CANDIDATE_PRIVATEMOBILE", "type": "MAP"}, "target": {"id": "HR_PERSONNEL_PRIVATEMOBILE", "type": "MAP"} },
+                  { "source": {"id": "RECRUITING_CANDIDATE_STREETADDRESS", "type": "MAP"}, "target": {"id": "HR_PERSONNEL_STREETADDRESS", "type": "MAP"} },
+                  { "source": {"id": "RECRUITING_CANDIDATE_STATE", "type": "MAP"}, "target": {"id": "HR_PERSONNEL_STATE", "type": "MAP"} },
+                  { "source": {"id": "RECRUITING_CANDIDATE_NAMEAFFIX", "type": "MAP"}, "target": {"id": "HR_PERSONNEL_NAMEAFFIX", "type": "MAP"} },
+                  { "source": {"id": "RECRUITING_CANDIDATE_TITLE", "type": "MAP"}, "target": {"id": "HR_PERSONNEL_TITLE", "type": "MAP"} },
+                  { "source": {"id": "guid", "type": "SORD"}, "target": {"id": "RECRUITING_CANDIDATE_GUID", "type": "MAP"} }
+                ],
+                "protectedFields": []
+              }
+            }
+          }
+        },
+        "archivecandidateanonymized": {
+          "const": {
+            "archivedCandidateShortDesc": "Anonymous",
+            "archivalFolder": "ARCPATH:/Recruiting/Archive/{{formatDate 'YYYY'}}/{{formatDate 'MM'}}",
+            "createcandidateheadlessconfig": {
+              "scriptProperties": {
+                "template": {
+                  "name": "Default"
+                },
+                "metadataMapping": [
+                  { "source": {"id": "RECRUITING_CANDIDATE_COUNTRY", "type": "GRP"}, "target": {"id": "RECRUITING_CANDIDATE_COUNTRY", "type": "GRP"} },
+                  { "source": {"id": "RECRUITING_CANDIDATE_GENDER", "type": "GRP"}, "target": {"id": "RECRUITING_CANDIDATE_GENDER", "type": "GRP"} },
+                  { "source": {"id": "RECRUITING_CANDIDATE_LANGUAGE", "type": "GRP"}, "target": {"id": "RECRUITING_CANDIDATE_LANGUAGE", "type": "GRP"} },
+                  { "source": {"id": "RECRUITING_CANDIDATE_BIRTHDAY", "type": "GRP"}, "target": {"id": "RECRUITING_CANDIDATE_BIRTHDAY", "type": "GRP"} },
+                  { "source": {"id": "RECRUITING_CANDIDATE_JOBTITLE", "type": "GRP"}, "target": {"id": "RECRUITING_CANDIDATE_JOBTITLE", "type": "GRP"} },
+                  { "source": {"id": "RECRUITING_REQUISITION_COMPANY", "type": "GRP"}, "target": {"id": "RECRUITING_REQUISITION_COMPANY", "type": "GRP"} },
+                  { "source": {"id": "RECRUITING_REQUISITION_DIVISION", "type": "GRP"}, "target": {"id": "RECRUITING_REQUISITION_DIVISION", "type": "GRP"} },
+                  { "source": {"id": "RECRUITING_REQUISITION_DEPARTMENT", "type": "GRP"}, "target": {"id": "RECRUITING_REQUISITION_DEPARTMENT", "type": "GRP"} },
+                  { "source": {"id": "RECRUITING_REQUISITION_TEAM", "type": "GRP"}, "target": {"id": "RECRUITING_REQUISITION_TEAM", "type": "GRP"} },
+                  { "source": {"id": "RECRUITING_CANDIDATE_STATE", "type": "MAP"}, "target": {"id": "RECRUITING_CANDIDATE_STATE", "type": "MAP"} },
+                  { "target": {"id": "SOL_TYPE", "type": "GRP", "value": "RECRUITING_CANDIDATE_ANONYMOUS" } }
+                ],
+                "protectedFields": [],
+                "startWorkflow": false
+              }
+            }
+          }
+        },
+        "movecandidatetorequisition": {
+          "candidate": {
+            "masks": ["Recruiting Candidate"],
+            "search": [
+              { "key": "SOL_TYPE", "value": "RECRUITING_CANDIDATE"}
+            ],
+            "output": [
+              { "source": { "type": "SORD" , "key": "id" }, "target": { "prop": "id" } },
+              { "source": { "type": "SORD" , "key": "parentId" }, "target": { "prop": "parentId" } },
+              { "source": { "type": "GRP" , "key": "RECRUITING_REQUISITION_NO" }, "target": { "prop": "targetRequisition" } }
+            ],
+            "options": {
+              "allowEmptyMask": false,
+              "maxResults": 1
+            },
+            "candidateKey": "RECRUITING_CANDIDATE_NO"
+          },
+          "requisition": {
+            "masks": ["Recruiting Requisition", "Recruiting Pool"],
+            "search": [
+              { "key": "SOL_TYPE", "value": ["RECRUITING_REQUISITION", "RECRUITING_POOL"] }
+            ],
+            "output": [
+              { "source": { "type": "SORD" , "key": "id" }, "target": { "prop": "id" } }
+            ],
+            "options": {
+              "allowEmptyMask": false,
+              "maxResults": 1
+            },
+            "requisitionKey": "RECRUITING_REQUISITION_NO"
+          }
+        },
+        "setcandidatephoto": {
+          "candidate": {
+            "output": [
+              { "source": { "type": "SORD" , "key": "id" }, "target": { "prop": "objId" } },
+              { "source": { "type": "GRP" , "key": "RECRUITING_CANDIDATE_PHOTO_GUID" }, "target": { "prop": "photoguid" } },
+              { "source": { "type": "GRP" , "key": "RECRUITING_CANDIDATE_PRIVATEEMAIL" }, "target": { "prop": "email" } }
+            ]
+          },
+          "setentries": [ { "type": "GRP", "key": "RECRUITING_CANDIDATE_PHOTO_GUID" } ],
+          "const": {
+            "photoName": "{{translate 'sol.recruiting.candidatepicture.workflow.create.message'}}",
+            "props": {
+              "candidateid": "objId",
+              "candidatephoto": "photoguid",
+              "candidateemail": "email",
+              "userphoto": "photoguid"
+            }
+          }
+        },
+        "generatecandidateno": {
+          "type": "generator",
+          "generatorConfig": {
+            "generatorTemplateField": "RECRUITING_CANDIDATE_NO_GEN",
+            "templatesFolder": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/recruiting/Configuration/Generators/Candidate no.",
+            "targetField": "RECRUITING_CANDIDATE_NO"
+          },
+          "kwlConfig": {
+            "tableTitle": "{{translate 'sol.recruiting.dynkwl.generators.candidateNo.tableTitle'}}"
+          }
+        },
+        "generatecandidateshortdescription": {
+          "type": "generator",
+          "generatorConfig": {
+            "generatorTemplateField": "RECRUITING_CANDIDATE_SHORT_DESC_GEN",
+            "templatesFolder": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/recruiting/Configuration/Generators/Candidate short description"
+          },
+          "kwlConfig": {
+            "tableTitle": "{{translate 'sol.recruiting.dynkwl.generators.candidateShortDesc.tableTitle'}}"
+          }
+        }
+      },
+      "services": {
+        "update": {
+          "targetConfig": {
+            "output": [{ "source": { "type": "SORD" , "key": "id" }, "target": { "prop": "id" } }],
+            "options": { "asAdmin": false, "maxResults": 1 }
+          },
+          "paramMapping": {
+            "phase": { "id": "RECRUITING_CANDIDATE_PHASE", "type": "GRP" },
+            "status": { "id": "RECRUITING_CANDIDATE_STATUS", "type": "GRP" },
+            "cassationdate": { "id": "RECRUITING_CANDIDATE_CASSATIONDATE", "type": "GRP" }
+          },
+          "updateWorkflow": "sol.recruiting.Candidate.Update"
+        }
+      },
+      "workflowMixins": {
+        "create": {
+          "move": {
+            "scriptProperties": {
+              "targetIdFromMap": "RECRUITING_REQUISITION_GUID",
+              "adjustRights": true
+            }
+          },
+          "set": {
+            "scriptProperties": {
+              "entries": [
+                { "key": "RECRUITING_REQUISITION_GUID", "type": "MAP", "value": "" },
+                { "key": "RECRUITING_POSTING_GUID", "type": "MAP", "value": "" }
+              ]
+            }
+          },
+          "setsoltype": {
+            "scriptProperties": {
+              "entries": [
+                { "key": "SOL_TYPE", "type": "GRP", "value": "RECRUITING_CANDIDATE" }
+              ]
+            }
+          }
+        },
+        "hire": {
+          "set": {
+            "scriptProperties": {
+              "entries": [
+                {
+                  "key": "SOL_TYPE",
+                  "type": "GRP",
+                  "value": "RECRUITING_CANDIDATEHIRED"
+                },
+                {
+                  "useDynKwl": true,
+                  "key": "RECRUITING_CANDIDATE_PHASE",
+                  "type": "GRP",
+                  "value": "H",
+                  "dynKwlCfg": {
+                    "returnColumn": 2,
+                    "filterColumn": 0
+                  }
+                },
+                {
+                  "useDynKwl": true,
+                  "useForeignKey": {
+                    "key": "RECRUITING_CANDIDATE_PHASE"
+                  },
+                  "key": "RECRUITING_CANDIDATE_STATUS",
+                  "type": "GRP",
+                  "value": "HI",
+                  "dynKwlCfg": {
+                    "returnColumn": 2,
+                    "filterColumn": 0
+                  }
+                 }
+               ]
+             }
+          }
+        },
+        "update": {
+          "decide": {
+            "scriptProperties": {
+              "checks": [
+                {
+                  "type": "MAP",
+                  "key": "RECRUITING_REQUISITION_GUID",
+                  "regex": "^.+$"
+                }
+              ],
+              "trueStatus": "TRUE",
+              "falseStatus": "FALSE"
+            }
+          },
+          "decidecassation": {
+            "scriptProperties": {
+              "checkEmptyValues": true,
+              "checks": [
+                {
+                  "type": "GRP",
+                  "key": "RECRUITING_CANDIDATE_PHASE",
+                  "regex": "^R - .*$"
+                },
+                {
+                  "type": "GRP",
+                  "key": "SOL_HIERARCHY",
+                  "regex": "^RECRUITING_REQUISITION$"
+                },
+                {
+                  "type": "GRP",
+                  "key": "RECRUITING_CANDIDATE_CASSATIONDATE",
+                  "regex": "^.?$"
+                }
+              ],
+              "trueStatus": "TRUE",
+              "falseStatus": "FALSE"
+            }
+          }
+        },
+        "capturepicture": {
+          "set": {
+            "scriptProperties": {
+              "entries": [
+                {
+                  "type": "FORMBLOB",
+                  "key": "FCVCONFIG",
+                  "asJSON": true,
+                  "value": {
+                    "accept": "image/jpeg, image/jpg, image/png",
+                    "maxSize": "3",
+                    "photoReferenceField": "RECRUITING_CANDIDATE_PHOTO_GUID",
+                    "photoReferenceFieldObjId": "RECRUITING_CANDIDATE_PHOTO_OBJID",
+                    "photoConfig": {
+                      "maskName": "Recruiting Candidate Document",
+                      "pictureName": "Candidate Photo"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "movedtopool": {
+          "decidecassationpool": {
+            "scriptProperties": {
+              "checkEmptyValues": true,
+              "checks": [
+                {
+                  "type": "GRP",
+                  "key": "RECRUITING_CANDIDATE_CASSATIONDATE",
+                  "regex": "^.?$"
+                }
+              ],
+              "trueStatus": "TRUE",
+              "falseStatus": "FALSE"
+            }
+          }
+        }
+      }
+    },
+    "posting": {
+      "actions": {
+        "createheadless": {
+          "const": {
+            "templateService": "RF_sol_common_service_StandardTypes",
+            "templateServiceArgs": { "$types": { "path": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/recruiting/Configuration/Posting types" } },
+            "standardWorkflow": "sol.recruiting.Posting.CreateHeadless",
+            "workflowMessage": "{{translate 'sol.recruiting.workflow.posting.createheadless.message'}}"
+          },
+          "mandatoryFields": []
+        }
+      },
+      "dynkwls": {
+        "posting": {
+          "const": {
+            "solutiontypes": "RECRUITING_POSTING",
+            "status": {
+              "field": "RECRUITING_POSTING_STATUS",
+              "value": "D - *"
+            }
+          },
+          "searchParams": [
+            { "name": "RECRUITING_POSTING_NO", "mode": "STARTS_WITH" },
+            { "name": "RECRUITING_POSTING_NAME", "mode": "STARTS_WITH" }
+          ],
+          "tableTitle": "{{translate 'sol.recruiting.dynkwl.posting.tableTitle'}}",
+          "tableHeaders": [
+            "{{translate 'sol.recruiting.mask.posting.no'}}",
+            "{{translate 'sol.recruiting.mask.posting.name'}}",
+            null
+          ],
+          "tableKeyNames": [
+            "WF_MAP_RECRUITING_POSTING_NO{i}",
+            "WF_MAP_RECRUITING_POSTING_NAME{i}",
+            "WF_MAP_RECRUITING_POSTING_GUID{i}"
+          ],
+          "rowDataFields": [
+            "RECRUITING_POSTING_NO",
+            "RECRUITING_POSTING_NAME",
+            "guid"
+          ]
+        }
+      },
+      "functions": {
+        "generatepostingno": {
+          "type": "generator",
+          "generatorConfig": {
+            "generatorTemplateField": "RECRUITING_POSTING_NO_GEN",
+            "templatesFolder": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/recruiting/Configuration/Generators/Posting no.",
+            "targetField": "RECRUITING_POSTING_NO"
+          },
+          "kwlConfig": {
+            "tableTitle": "{{translate 'sol.recruiting.dynkwl.generators.postingNo.tableTitle'}}"
+          }
+        },
+        "generatepostingshortdescription": {
+          "type": "generator",
+          "generatorConfig": {
+            "generatorTemplateField": "RECRUITING_POSTING_SHORT_DESC_GEN",
+            "templatesFolder": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/recruiting/Configuration/Generators/Posting short description"
+          },
+          "kwlConfig": {
+            "tableTitle": "{{translate 'sol.recruiting.dynkwl.generators.postingShortDesc.tableTitle'}}"
+          }
+        },
+        "movepostingtorequisition": {
+          "posting": {
+            "masks": ["Recruiting Posting"],
+            "search": [
+              { "key": "SOL_TYPE", "value": "RECRUITING_POSTING"}
+            ],
+            "output": [
+              { "source": { "type": "SORD" , "key": "id" }, "target": { "prop": "id" } },
+              { "source": { "type": "SORD" , "key": "parentId" }, "target": { "prop": "parentId" } },
+              { "source": { "type": "GRP" , "key": "RECRUITING_REQUISITION_NO" }, "target": { "prop": "targetRequisition" } }
+            ],
+            "options": {
+              "allowEmptyMask": false,
+              "maxResults": 1
+            },
+            "postingKey": "RECRUITING_POSTING_NO"
+          },
+          "requisition": {
+            "masks": ["Recruiting Requisition", "Recruiting Pool"],
+            "search": [
+              { "key": "SOL_TYPE", "value": ["RECRUITING_REQUISITION", "RECRUITING_POOL"] }
+            ],
+            "output": [
+              { "source": { "type": "SORD" , "key": "id" }, "target": { "prop": "id" } }
+            ],
+            "options": {
+              "allowEmptyMask": false,
+              "maxResults": 1
+            },
+            "requisitionKey": "RECRUITING_REQUISITION_NO"
+          }
+        }
+      },
+      "workflowMixins": {
+        "create": {
+          "set": {
+            "scriptProperties": {
+              "entries": [{
+               "key": "RECRUITING_REQUISITION_STATUS",
+               "type": "WFMAP",
+               "value": "O - Offen"
+               }]
+             }
+          }
+        }
+      },
+      "publish": {
+        "decidejobportal": {
+          "scriptProperties": {
+            "checks": [
+              {
+                "type": "MAP",
+                "key": "RECRUITING_POSTING_PUB_JOBPORTAL",
+                "regex": "^1$"
+              }
+            ],
+            "trueStatus": "TRUE",
+            "falseStatus": "FALSE"
+          }
+        },
+        "decidejobportalremoval": {
+          "scriptProperties": {
+            "checks": [
+              {
+                "type": "MAP",
+                "key": "RECRUITING_POSTING_REM_JOBPORTAL",
+                "regex": "^1$"
+              }
+            ],
+            "trueStatus": "TRUE",
+            "falseStatus": "FALSE"
+          }
+        },
+        "decideintegration1": {
+          "scriptProperties": {
+            "checks": [
+              {
+                "type": "MAP",
+                "key": "RECRUITING_POSTING_PUB_INTEGRATION1",
+                "regex": "^1$"
+              }
+            ],
+            "trueStatus": "TRUE",
+            "falseStatus": "FALSE"
+          }
+        },
+        "alreadypublished": {
+          "scriptProperties": {
+            "checks": [
+              {
+                "type": "GRP",
+                "key": "RECRUITING_POSTING_STATUS",
+                "regex": "^A - .*$"
+              }
+            ],
+            "trueStatus": "TRUE",
+            "falseStatus": "FALSE"
+          }
+        },
+        "activatejobportal": {
+          "scriptProperties": {
+            "entries": [{
+             "key": "RECRUITING_POSTING_STATUS",
+             "type": "GRP",
+             "value": "A - Aktiv"
+             }]
+           }
+        },
+        "deactivatejobportal": {
+          "scriptProperties": {
+            "entries": [{
+             "key": "RECRUITING_POSTING_STATUS",
+             "type": "GRP",
+             "value": "I - Inaktiv"
+             }]
+           }
+        },
+        "resetoptions": {
+          "scriptProperties": {
+            "entries": [
+              {
+                "key": "RECRUITING_POSTING_PUB_JOBPORTAL",
+                "type": "MAP",
+                "value": ""
+              },
+              {
+                "key": "RECRUITING_POSTING_REM_JOBPORTAL",
+                "type": "MAP",
+                "value": ""
+              },
+              {
+                "key": "RECRUITING_POSTING_PUB_INTEGRATION1",
+                "type": "MAP",
+                "value": ""
+              }
+            ]
+           }
+        }
+      }
+    },
+    "monitoring": {
+      "instances": {
+        "candidatecassation": {
+          "collector": {
+            "retrospection": 365,
+            "nextRunField": "RECRUITING_CANDIDATE_CASSATIONDATE",
+            "soltype": "RECRUITING_CANDIDATE"
+          },
+          "rules": [
+            {
+              "action": {
+                "type": "WORKFLOW",
+                "templateId": "sol.recruiting.Candidate.Cassation",
+                "nameTemplate": ""
+              },
+              "date": {
+                "type": "GRP",
+                "key": "RECRUITING_CANDIDATE_CASSATIONDATE"
+              }
+            }
+          ]
+        },
+        "candidatesmanuallymovedtopool": {
+          "collector": {
+            "retrospection": 365,
+            "nextRunField": "",
+            "soltype": "RECRUITING_CANDIDATE",
+            "additionalSearchCriteria": [
+              { "key": "SOL_HIERARCHY", "value": "RECRUITING_POOL" },
+              { "key": "RECRUITING_CANDIDATE_CASSATIONDATE", "value": "" }
+            ]
+          },
+          "rules": [
+            {
+              "action": {
+                "type": "WORKFLOW",
+                "templateId": "sol.recruiting.Candidate.MovedToPool",
+                "nameTemplate": ""
+              },
+              "noAdditionalDateCheck": true
+            }
+          ]
+        }
+      }
+    }
+  }
+}

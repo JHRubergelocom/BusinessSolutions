@@ -1,0 +1,606 @@
+{
+  "ribbon": {
+    "extraTabNo": {
+      "value": 91
+    },
+    "bandBaseNo": {
+      "value": 71
+    }
+  },
+
+  "Parameter": {
+    "ArcPathInvoice": "ARCPATH[1]:/Invoice/Archive",
+    "ArcPathDatev": "ARCPATH[1]:/Invoice/DATEV-Export",
+    "DefaultLanguage": "DE",
+    "DatevExportDirectory": "c:/Temp/DATEV/CSV",
+    "HtmlLogDirectory": "c:/Temp/DATEV/LOGS",
+    "MaskName": "Incoming Invoice",
+    "StatusFieldGrpName": "INVOICE_STATUS",
+    "StatusBeforeExport": "5*",
+    "StatusAfterExport": "6 - Exported",
+    "storeDatexExportCsvInElo": true,
+    "storeDatexHtmlLogInElo": true
+  },
+
+  "Language": {
+    "Scriptfunction": {
+      "DE": "DATEV-Export",
+      "EN": "DATEV-Export"
+    },
+    "Tools": {
+      "DE": "Werkzeuge",
+      "EN": "Tools"
+    },
+    "Title": {
+      "DE": "Titel",
+      "EN": "Title"
+    },
+    "VM": {
+      "DE": "Wert fehlt",
+      "EN": "Value is missing"
+    },
+    "NVN": {
+      "DE": "Ungültige Zahl",
+      "EN": "Unvalid number"
+    },
+    "NTL": {
+      "DE": "Zahl ist zu lang",
+      "EN": "Number is too long"
+    },
+    "NVD": {
+      "DE": "Ungültiges ISO-Datum",
+      "EN": "Unvalid ISO Date"
+    },
+    "TTL": {
+      "DE": "Text ist zu lang",
+      "EN": "Text is too long"
+    },
+    "CSVImport": {
+      "DE": "CSV-Import",
+      "EN": "CSV-Import"
+    },
+    "NCSVSelected": {
+      "DE": "Keine CSV-Datei selektiert",
+      "EN": "No CSV-File selected"
+    },
+    "Exportprotocol": {
+      "DE": "Exportprotokoll",
+      "EN": "Export protocol"
+    },
+    "Langfor": {
+      "DE": "für",
+      "EN": "for"
+    },
+    "on": {
+      "DE": "am",
+      "EN": "on"
+    },
+    "totalof": {
+      "DE": "von insgesamt",
+      "EN": "from a total of"
+    },
+    "errorfreeExport": {
+      "DE": "Datensätzen wurden fehlerfrei exportiert",
+      "EN": "Records were exported without errors"
+    },
+    "Line": {
+      "DE": "Zeile",
+      "EN": "Line"
+    },
+    "Column": {
+      "DE": "Spalte",
+      "EN": "Column"
+    },
+    "DATEVFieldName": {
+      "DE": "DATEV-Feldname",
+      "EN": "DATEV field name"
+    },
+    "DATEVFieldContent": {
+      "DE": "DATEV-Feldinhalt",
+      "EN": "DATEV field content"
+    },
+    "Message": {
+      "DE": "Meldung",
+      "EN": "Message"
+    },
+    "ELODocument": {
+      "DE": "ELO-Dokument",
+      "EN": "ELO document"
+    },
+    "ELOFieldName": {
+      "DE": "ELO-Feldname",
+      "EN": "ELO field name"
+    },
+    "ELOGroup": {
+      "DE": "ELO-Gruppe",
+      "EN": "ELO group"
+    },
+    "ELOData": {
+      "DE": "ELO-Daten",
+      "EN": "ELO data"
+    },
+    "ELOGuid": {
+      "DE": "ELO-GUID",
+      "EN": "ELO guid"
+    },
+    "Created": {
+      "DE": "angelegt",
+      "EN": "Created"
+    },
+    "InvoiceSelection": {
+      "DE": "Rechnungen zum Exportieren auswählen",
+      "EN": "Select Invoices to export"
+    },
+    "NoInvoicesAvaible": {
+      "DE": "Keine Rechnungen zum Exportieren vorhanden!",
+      "EN": "No Invoices available to export!"
+    },
+    "ExportCanceled": {
+      "DE": "Export wurde abgebrochen!",
+      "EN": "Export has been cancelled!"
+    },
+    "NoInvoicesSelected": {
+      "DE": "Keine Rechnungen markiert!",
+      "EN": "No Invoices selected!"
+    },
+    "InvalidArchivePath": {
+      "DE": "Ungültiger Archivpfad!",
+      "EN": "Invalid archive path!"
+    },
+    "ArchivePathInvoice": {
+      "DE": "Archivpfad Rechnungen",
+      "EN": "Archive path invoices"
+    },
+    "ArchivePathDatev": {
+      "DE": "Archivpfad DATEV-Export",
+      "EN": "Archive path DATEV Export"
+    },
+    "SelectArchivePath": {
+      "DE": "Archivpfad auswählen",
+      "EN": "Select archive path"
+    },
+    "ExportedDatasets": {
+      "DE": "Exportierte Datensätze",
+      "EN": "Exported datasets"
+    },
+    "DateOfInvoice": {
+      "DE": "Rechn.-Datum",
+      "EN": "Date of invoice"
+    },
+    "InvoiceNo": {
+      "DE": "Rechn.-Nr",
+      "EN": "Invoice No."
+    },
+    "CustNo": {
+      "DE": "Kd-Nr",
+      "EN": "Cust No."
+    },
+    "Creditor": {
+      "DE": "Kreditor",
+      "EN": "Creditor"
+    },
+    "AmountGross": {
+      "DE": "Betrag (brutto)",
+      "EN": "Amount (gross)"
+    },
+    "Maturity": {
+      "DE": "Fälligkeit",
+      "EN": "Maturity"
+    },
+    "DiscountAmount": {
+      "DE": "Skontobetrag",
+      "EN": "Discount amount"
+    },
+    "DiscountDueDate": {
+      "DE": "Skontofälligkeit",
+      "EN": "Discount due date"
+    },
+    "ShortName": {
+      "DE": "Kurzbezeichnung",
+      "EN": "Short name"
+    },
+    "Errorprotocol": {
+      "DE": "Fehlerprotokoll",
+      "EN": "Error protocol"
+    },
+    "PM": {
+      "DE": "zulässige Währungen",
+      "EN": "Permissible Currencies"
+    },
+    "AM": {
+      "DE": "+/-Betrag",
+      "EN": "+/-Amount"
+    },
+    "DP": {
+      "DE": "Decimalpunkt",
+      "EN": "Decimalpoint"
+    },
+    "NTP": {
+      "DE": "keine Tausenderpunkte",
+      "EN": "No Thousand Points"
+    },
+    "ML": {
+      "DE": "max-Länge",
+      "EN": "max-length"
+    },
+    "AN": {
+      "DE": "alphanumerisch",
+      "EN": "alphanumeric"
+    },
+    "NU": {
+      "DE": "numerisch",
+      "EN": "numeric"
+    },
+    "NOS": {
+      "DE": "keine Trenner",
+      "EN": "no separator"
+    },
+    "IBL": {
+      "DE": "inkl. Blank",
+      "EN": "incl. Blank"
+    },
+    "LDLA": {
+      "DE": "Länge in Abhängigkeit der Sachkontolänge",
+      "EN": "Lenght depends from ledger account"
+    },
+    "PBUK": {
+      "DE": "zulässige BU-Schlüssel",
+      "EN": "Permissible BU-Keys"
+    },
+    "Also": {
+      "DE": "auch",
+      "EN": "also"
+    },
+    "DIAO": {
+      "DE": "Abhängigkeit zum Skontobetrag -> Skontobetrag muss bei Skto_Fällig_am gefüllt sein",
+      "EN": "Depending on the discount amount -> Discount amount must be filled in Skto_Fällig_am"
+    },
+    "ACNU": {
+      "DE": "Kontonummer Kontonummer immer in Verbindung mit Bankleitzahl",
+      "EN": "Account number Account number is always in connection with bank code"
+    },
+    "BACO": {
+      "DE": "Bankleitzahl Bankleitzahl immer in Verbindung mit Kontonummer",
+      "EN": "Bank code Bank code is always in connection with account number"
+    },
+    "GER": {
+      "DE": "Deutschland",
+      "EN": "Germany"
+    }
+  },
+
+  "MappingBelege": {
+    "Währung": {
+      "desc": "Währungskennzeichen",
+      "content": "WKZ | zulässige Währungen: EUR, CAD, CHF, CZK, DKK, GBP, HKD, HUF, JPY, NOK, PLN, SEK, TND und USD",
+      "type": "Text",
+      "length": "3",
+      "nks": "0",
+      "maxlength": "3",
+      "required": "Ja",
+      "eloname": "Währungskürzel",
+      "elogroup": "INVOICE_CURRENCY_CODE",
+      "defaultValue": "EUR"
+    },
+    "VorzBetrag": {
+      "desc": "Vorzeichen und Betrag",
+      "content": "„+/-Betrag | max-Länge 10,2 | Decimalpunkt = , | keine Tausenderpunkte",
+      "type": "Betrag",
+      "length": "10",
+      "nks": "2",
+      "maxlength": "13",
+      "required": "Ja",
+      "eloname": "Rechnungssumme",
+      "elogroup": "INVOICE_TOTAL_AMOUNT"
+    },
+    "RechNr": {
+      "desc": "Rechnungsnummer",
+      "content": "max-Länge 12 | alphanumerisch",
+      "type": "Text",
+      "length": "12",
+      "nks": "0",
+      "maxlength": "12",
+      "required": "Ja",
+      "eloname": "Rechnungsnummer",
+      "elogroup": "INVOICE_NUMBER"
+    },
+    "Belegdatum": {
+      "desc": "Belegdatum",
+      "content": "ttmm | max-Länge 4 | numerisch | keine Trenner",
+      "type": "Datum",
+      "length": "4",
+      "nks": "0",
+      "maxlength": "4",
+      "required": "Ja",
+      "eloname": "Rechnungsdatum",
+      "elogroup": "INVOICE_DATE"
+    },
+    "InterneRechNr": {
+      "desc": "Interne Rechnungsnummer",
+      "content": "max-Länge 12 | alphanumerisch",
+      "type": "Text",
+      "length": "12",
+      "nks": "0",
+      "maxlength": "12",
+      "required": "Nein",
+      "eloname": "null",
+      "elogroup": "null"
+    },
+    "LieferantName": {
+      "desc": "Lieferanten-Name",
+      "content": "max-Länge 40 | alphanumerisch",
+      "type": "Text",
+      "length": "40",
+      "nks": "0",
+      "maxlength": "40",
+      "required": "Nein",
+      "eloname": "Kreditorname",
+      "elogroup": "VENDOR_NAME"
+    },
+    "LieferantOrt": {
+      "desc": "Ort des Lieferanten",
+      "content": "max-Länge 30 | alphanumerisch",
+      "type": "Text",
+      "length": "30",
+      "nks": "0",
+      "maxlength": "30",
+      "required": "Nein",
+      "eloname": "Ort",
+      "elogroup": "VENDOR_ADDRESS_CITY"
+    },
+    "LieferantKonto": {
+      "desc": "Lieferanten-Konto-Nr.",
+      "content": "max-Länge 9 (inkl. Blank 10) | numerisch | Länge in Abhängigkeit der Sachkontolänge",
+      "type": "Text",
+      "length": "3",
+      "nks": "0",
+      "maxlength": "3",
+      "required": "Nein",
+      "eloname": "null",
+      "elogroup": "null"
+    },
+    "BU": {
+      "desc": "B(erichtigungsschlüssel) U(msatzsteuerschlüssel)",
+      "content": "max-Länge 2 | numerisch | zulässige BU-Schlüssel: 7 - 9, 17 - 19, 40, 50 - 59, 91 - 95, 97 - 99",
+      "type": "Zahl",
+      "length": "2",
+      "nks": "0",
+      "maxlength": "2",
+      "required": "Nein",
+      "eloname": "null",
+      "elogroup": "null"
+    },
+    "Konto": {
+      "desc": "Konto-Nr.",
+      "content": "max-Länge 8 (inkl. Blank 9| numerisch | Länge in Abhängigkeit der Sachkontolänge",
+      "type": "Konto",
+      "length": "9",
+      "nks": "0",
+      "maxlength": "9",
+      "required": "Nein",
+      "eloname": "null",
+      "elogroup": "null"
+    },
+    "Kontobezeichnung": {
+      "desc": "Kontobezeichnung",
+      "content": "max-Länge 30 | alphanumerisch",
+      "type": "Text",
+      "length": "30",
+      "nks": "0",
+      "maxlength": "30",
+      "required": "Nein",
+      "eloname": "null",
+      "elogroup": "null"
+    },
+    "Ware/Leistung": {
+      "desc": "Ware/Leistung",
+      "content": "max-Länge 30 | alphanumerisch",
+      "type": "Text",
+      "length": "30",
+      "nks": "0",
+      "maxlength": "30",
+      "required": "Nein",
+      "eloname": "null",
+      "elogroup": "null"
+    },
+    "Fällig_am": {
+      "desc": "Fälligkeitsdatum",
+      "content": "ttmmjjjj | max-Länge 8 | numerisch | keine Trenner",
+      "type": "Datum",
+      "length": "8",
+      "nks": "0",
+      "maxlength": "8",
+      "required": "Nein",
+      "eloname": "Fälligkeit",
+      "elogroup": "INVOICE_DUE_DATE"
+    },
+    "gezahlt_am": {
+      "desc": "Datum gezahlt am",
+      "content": "ttmm | max-Länge 8 | numerisch | keine Trenner",
+      "type": "Datum",
+      "length": "4",
+      "nks": "0",
+      "maxlength": "8",
+      "required": "Nein",
+      "eloname": "Bezahlt",
+      "elogroup": "INVOICE_PAYED"
+    },
+    "UStSatz": {
+      "desc": "Umsatzsteuer-Prozentsatz",
+      "content": "Max-Länge 5 | numerisch | Decimalpunkt = ,",
+      "type": "Zahl",
+      "length": "2",
+      "nks": "2",
+      "maxlength": "5",
+      "required": "Nein",
+      "eloname": "null",
+      "elogroup": "null"
+    },
+    "USt-IdNr. Lieferant": {
+      "desc": "USt-IdNr. Lieferant",
+      "content": "max-Länge 15 | alphanumerisch",
+      "type": "Text",
+      "length": "15",
+      "nks": "0",
+      "maxlength": "15",
+      "required": "Nein",
+      "eloname": "Ust-ldNr.",
+      "elogroup": "VENDOR_VAT_ID_NO"
+    },
+    "Kunden-Nr.": {
+      "desc": "Kunden-Nr.",
+      "content": "max-Länge 15 | alphanumerisch",
+      "type": "Text",
+      "length": "15",
+      "nks": "0",
+      "maxlength": "15",
+      "required": "Nein",
+      "eloname": "Kreditornummer",
+      "elogroup": "VENDOR_NO"
+    },
+    "KOST1": {
+      "desc": "KOST1",
+      "content": "max-Länge 8 | alphanumerisch",
+      "type": "Text",
+      "length": "8",
+      "nks": "0",
+      "maxlength": "8",
+      "required": "Nein",
+      "eloname": "Versandkosten",
+      "elogroup": "INVOICE_POSTAL_CHARGE"
+    },
+    "KOST2": {
+      "desc": "KOST2",
+      "content": "max-Länge 8 | alphanumerisch",
+      "type": "Text",
+      "length": "8",
+      "nks": "0",
+      "maxlength": "8",
+      "required": "Nein",
+      "eloname": "null",
+      "elogroup": "null"
+    },
+    "KOSTmenge": {
+      "desc": "KOST-Mengen-„Betrag",
+      "content": "max-Länge 9,2 | Decimalpunkt = , | keine Tausenderpunkte",
+      "type": "Zahl",
+      "length": "9",
+      "nks": "2",
+      "maxlength": "12",
+      "required": "Nein",
+      "eloname": "null",
+      "elogroup": "null"
+    },
+    "Kurs": {
+      "desc": "Kurs-Umrechnungsbetrag",
+      "content": "max-Länge 4,6 | Decimalpunkt = , | keine Tausenderpunkte",
+      "type": "Zahl",
+      "length": "4",
+      "nks": "6",
+      "maxlength": "11",
+      "required": "Nein",
+      "eloname": "null",
+      "elogroup": "null"
+    },
+    "Skonto": {
+      "desc": "Skonto-Betrag",
+      "content": "max-Länge 8,2 | Decimalpunkt = , | keine Tausenderpunkte",
+      "type": "Betrag",
+      "length": "8",
+      "nks": "2",
+      "maxlength": "11",
+      "required": "Nein",
+      "eloname": "null",
+      "elogroup": "null"
+    },
+    "Nachricht": {
+      "desc": "Nachricht",
+      "content": "max-Länge 120 | alphanumerisch",
+      "type": "Text",
+      "length": "120",
+      "nks": "0",
+      "maxlength": "120",
+      "required": "Nein",
+      "eloname": "Kurzbezeichnung",
+      "elogroup": "Sord.name"
+    },
+    "Skto_Fällig_am": {
+      "desc": "Skonto-Fälligkeit = Nettofälligkeit",
+      "content": "ttmmjjjj | max-Länge 8 | numerisch | keine Trenner auch tt.mm.jjjj :Abhängigkeit zum Skontobetrag -> Skontobetrag muss bei Skto_Fällig_am gefüllt sein ",
+      "type": "Datum",
+      "length": "8",
+      "nks": "0",
+      "maxlength": "8",
+      "required": "Nein",
+      "eloname": "null",
+      "elogroup": "null"
+    },
+    "BankKonto": {
+      "desc": "Konto-Nr.",
+      "content": "Kontonummer Kontonummer immer in Verbindung mit Bankleitzahl max-Länge 10 | numerisch",
+      "type": "Konto",
+      "length": "9",
+      "nks": "0",
+      "maxlength": "9",
+      "required": "Nein",
+      "eloname": "null",
+      "elogroup": "null"
+    },
+    "BankBlz": {
+      "desc": "BLZ",
+      "content": "Bankleitzahl Bankleitzahl immer in Verbindung mit Kontonummer max-Länge 8 | numerisch",
+      "type": "Zahl",
+      "length": "8",
+      "nks": "0",
+      "maxlength": "8",
+      "required": "Nein",
+      "eloname": "null",
+      "elogroup": "null"
+    },
+    "Bankname": {
+      "desc": "Name der Bank",
+      "content": "max-Länge 27 | alphanumerisch",
+      "type": "Text",
+      "length": "27",
+      "nks": "0",
+      "maxlength": "27",
+      "required": "Nein",
+      "eloname": "null",
+      "elogroup": "null"
+    },
+    "BankIban": {
+      "desc": "IBAN",
+      "content": "max-Länge 34 | alphanumerisch (Deutschland: 22 | alphanumerisch)",
+      "type": "Text",
+      "length": "34",
+      "nks": "0",
+      "maxlength": "34",
+      "required": "Nein",
+      "eloname": "IBAN",
+      "elogroup": "VENDOR_IBAN"
+    },
+    "BankBic": {
+      "desc": "BIC",
+      "content": "max-Länge 11 | alphanumerisch",
+      "type": "Text",
+      "length": "11",
+      "nks": "0",
+      "maxlength": "11",
+      "required": "Nein",
+      "eloname": "BIC",
+      "elogroup": "VENDOR_BIC"
+    }
+  },
+
+  "logFileTableFieldDefinition": [
+    ["VENDOR_NO"],
+    ["VENDOR_NAME"],
+    ["VENDOR_ADDRESS_CITY"],
+    ["INVOICE_NUMBER"],
+    ["INVOICE_DATE"],
+    ["Sord.name"],
+    ["INVOICE_TOTAL_AMOUNT"],
+    ["INVOICE_CURRENCY_CODE"],
+    ["INVOICE_DUE_DATE"]
+  ]
+}

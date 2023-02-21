@@ -1,0 +1,1 @@
+Für die richtige Ausführung darf keine Aktivität bereits angelegt sein

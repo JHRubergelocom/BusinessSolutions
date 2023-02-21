@@ -1,0 +1,327 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<fo:root font-family="ELO Sans Pro,Arial,Helvetica" xmlns:fo="http://www.w3.org/1999/XSL/Format">
+  <fo:layout-master-set>
+    <fo:simple-page-master master-name="Deckblatt" page-height="29.7cm" page-width="21cm" margin-top="1.5cm" margin-bottom="1.5cm" margin-left="2cm" margin-right="2cm">
+      <fo:region-body />
+    </fo:simple-page-master>
+  </fo:layout-master-set>
+
+  <fo:page-sequence master-reference="Deckblatt">
+    <fo:flow flow-name="xsl-region-body">
+      <fo:block-container width="17cm" margin-top="3mm">
+
+          <fo:block font-size="18pt" text-align="left" color="#004072">
+             {{maskName}}
+          </fo:block>
+
+          <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+
+          <fo:table border-style="solid" border-width="1pt" border-color="#E3E4E5" table-layout="fixed" width="100%">
+            <fo:table-column column-width="3cm"/>
+            <fo:table-column column-width="14cm"/>
+            <fo:table-body>
+              <fo:table-row>
+                <fo:table-cell border-style="solid" border-width="1pt" border-color="#E3E4E5">
+                  <fo:block line-height="11pt" margin-top="3pt" margin-left="3pt" text-align="left" font-weight="bold">Name</fo:block>
+                </fo:table-cell>
+                <fo:table-cell border-style="solid" border-width="1pt" border-color="#E3E4E5">
+                  <fo:block line-height="11pt" margin-top="3pt" margin-left="3pt" text-align="left">{{sord.name}}</fo:block>
+                </fo:table-cell>
+              </fo:table-row>
+            </fo:table-body>
+          </fo:table>
+
+          <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+
+          {{#if sordKeys}}
+            <fo:block font-size="14px" text-align="left" font-weight="bold" margin-bottom="10pt" margin-top="15pt" color="#004072">
+              {{sordKeysLabel}}
+            </fo:block>
+
+            <fo:block text-align="left" margin-bottom="10pt" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+
+            <fo:table border-style="solid" border-width="1pt" border-color="#E3E4E5" table-layout="fixed" width="100%">
+              <fo:table-column column-width="7cm"/>
+              <fo:table-column column-width="10cm"/>
+              <fo:table-body>
+                <fo:table-row>
+                  <fo:table-cell border-style="solid" border-width="1pt" border-color="#E3E4E5">
+                    <fo:block line-height="11pt" margin-top="3pt" margin-left="3pt" text-align="left" font-weight="bold">Id</fo:block>
+                  </fo:table-cell>
+                  <fo:table-cell border-style="solid" border-width="1pt" border-color="#E3E4E5">
+                    <fo:block line-height="11pt" margin-top="3pt" margin-left="3pt" text-align="left">{{sord.id}}</fo:block>
+                  </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row>
+                  <fo:table-cell border-style="solid" border-width="1pt" border-color="#E3E4E5">
+                    <fo:block line-height="11pt" margin-top="3pt" margin-left="3pt" text-align="left" font-weight="bold">Guid</fo:block>
+                  </fo:table-cell>
+                  <fo:table-cell border-style="solid" border-width="1pt" border-color="#E3E4E5">
+                    <fo:block line-height="11pt" margin-top="3pt" margin-left="3pt" text-align="left">{{sord.guid}}</fo:block>
+                  </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row>
+                  <fo:table-cell border-style="solid" border-width="1pt" border-color="#E3E4E5">
+                    <fo:block line-height="11pt" margin-top="3pt" margin-left="3pt" text-align="left" font-weight="bold">{{maskNameLabel}}</fo:block>
+                  </fo:table-cell>
+                  <fo:table-cell border-style="solid" border-width="1pt" border-color="#E3E4E5">
+                    <fo:block line-height="11pt" margin-top="3pt" margin-left="3pt" text-align="left">{{sord.maskName}}</fo:block>
+                  </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row>
+                  <fo:table-cell border-style="solid" border-width="1pt" border-color="#E3E4E5">
+                    <fo:block line-height="11pt" margin-top="3pt" margin-left="3pt" text-align="left" font-weight="bold">{{nameLabel}}</fo:block>
+                  </fo:table-cell>
+                  <fo:table-cell border-style="solid" border-width="1pt" border-color="#E3E4E5">
+                    <fo:block line-height="11pt" margin-top="3pt" margin-left="3pt" text-align="left">{{sord.name}}</fo:block>
+                  </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row>
+                  <fo:table-cell border-style="solid" border-width="1pt" border-color="#E3E4E5">
+                    <fo:block line-height="11pt" margin-top="3pt" margin-left="3pt" text-align="left" font-weight="bold">{{descLabel}}</fo:block>
+                  </fo:table-cell>
+                  <fo:table-cell border-style="solid" border-width="1pt" border-color="#E3E4E5">
+                    <fo:block line-height="11pt" margin-top="3pt" margin-left="3pt" text-align="left">{{sord.desc}}</fo:block>
+                  </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row>
+                  <fo:table-cell border-style="solid" border-width="1pt" border-color="#E3E4E5">
+                    <fo:block line-height="11pt" margin-top="3pt" margin-left="3pt" text-align="left" font-weight="bold">{{IDateIsoLabel}}</fo:block>
+                  </fo:table-cell>
+                  <fo:table-cell border-style="solid" border-width="1pt" border-color="#E3E4E5">
+                    <fo:block line-height="11pt" margin-top="3pt" margin-left="3pt" text-align="left">{{sord.IDateIso}}</fo:block>
+                  </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row>
+                  <fo:table-cell border-style="solid" border-width="1pt" border-color="#E3E4E5">
+                    <fo:block line-height="11pt" margin-top="3pt" margin-left="3pt" text-align="left" font-weight="bold">{{XDateIsoLabel}}</fo:block>
+                  </fo:table-cell>
+                  <fo:table-cell border-style="solid" border-width="1pt" border-color="#E3E4E5">
+                    <fo:block line-height="11pt" margin-top="3pt" margin-left="3pt" text-align="left">{{sord.XDateIso}}</fo:block>
+                  </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row>
+                  <fo:table-cell border-style="solid" border-width="1pt" border-color="#E3E4E5">
+                    <fo:block line-height="11pt" margin-top="3pt" margin-left="3pt" text-align="left" font-weight="bold">{{ownerNameLabel}}</fo:block>
+                  </fo:table-cell>
+                  <fo:table-cell border-style="solid" border-width="1pt" border-color="#E3E4E5">
+                    <fo:block line-height="11pt" margin-top="3pt" margin-left="3pt" text-align="left">{{sord.ownerName}}</fo:block>
+                  </fo:table-cell>
+                </fo:table-row>
+              </fo:table-body>
+            </fo:table>
+
+            <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+          {{/if}}
+
+          {{#if objKeys}}
+            {{#ifCond sord.objKeysArray.length '>' '0'}}
+              <fo:block font-size="14px" text-align="left" font-weight="bold" margin-bottom="10pt" margin-top="15pt" color="#004072">
+                {{objKeysLabel}}
+              </fo:block>
+
+              <fo:block text-align="left" margin-bottom="10pt" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+
+              <fo:table border-style="solid" border-width="1pt" border-color="#E3E4E5" table-layout="fixed" width="100%">
+                <fo:table-column column-width="7cm"/>
+                <fo:table-column column-width="10cm"/>
+                <fo:table-body>
+                  {{#each sord.objKeysArray}}
+                    <fo:table-row>
+                      <fo:table-cell border-style="solid" border-width="1pt" border-color="#E3E4E5">
+                        <fo:block line-height="11pt" margin-top="3pt" margin-left="3pt" text-align="left" font-weight="bold">{{key}}</fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell border-style="solid" border-width="1pt" border-color="#E3E4E5">
+                        <fo:block line-height="11pt" margin-top="3pt" margin-left="3pt" text-align="left">{{value}}</fo:block>
+                      </fo:table-cell>
+                    </fo:table-row>
+                  {{/each}}
+                </fo:table-body>
+              </fo:table>
+
+              <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+
+            {{/ifCond}}
+          {{/if}}
+
+          {{#if mapKeys}}
+            {{#ifCond sord.mapKeysArray.length '>' '0'}}
+              <fo:block font-size="14px" text-align="left" font-weight="bold" margin-bottom="10pt" margin-top="15pt" color="#004072">
+                {{mapKeysLabel}}
+              </fo:block>
+
+              <fo:block text-align="left" margin-bottom="10pt" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+
+              <fo:table border-style="solid" border-width="1pt" border-color="#E3E4E5" table-layout="fixed" width="100%">
+                <fo:table-column column-width="7cm"/>
+                <fo:table-column column-width="10cm"/>
+                <fo:table-body>
+                  {{#each sord.mapKeysArray}}
+                    <fo:table-row>
+                      <fo:table-cell border-style="solid" border-width="1pt" border-color="#E3E4E5">
+                        <fo:block line-height="11pt" margin-top="3pt" margin-left="3pt" text-align="left" font-weight="bold">{{key}}</fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell border-style="solid" border-width="1pt" border-color="#E3E4E5">
+                        <fo:block line-height="11pt" margin-top="3pt" margin-left="3pt" text-align="left">{{value}}</fo:block>
+                      </fo:table-cell>
+                    </fo:table-row>
+                  {{/each}}
+                </fo:table-body>
+              </fo:table>
+
+              <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+
+            {{/ifCond}}
+          {{/if}}
+
+          {{#if showMarginNotes}}
+            {{#ifCond marginNotes.size '>' '0'}}
+              <fo:block font-size="14px" text-align="left" font-weight="bold" margin-bottom="10pt" margin-top="15pt" color="#004072">
+                {{headerMarginNotes}}
+              </fo:block>
+            {{/ifCond}}
+
+            {{#ifCond marginNotes.typeNormal.length '>' '0'}}
+              <fo:block font-size="14px" text-align="left" font-weight="bold" margin-bottom="10pt" margin-top="15pt" color="#004072">
+                {{headerGeneralMarginNote}}
+              </fo:block>
+
+              <fo:block text-align="left" margin-bottom="10pt" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+
+              <fo:table border-style="solid" border-width="1pt" border-color="#E3E4E5" table-layout="fixed" width="100%">
+                <fo:table-column column-width="7cm"/>
+                <fo:table-column column-width="10cm"/>
+                <fo:table-body>
+                  {{#each marginNotes.typeNormal}}
+                    <fo:table-row>
+                      <fo:table-cell border-style="solid" border-width="1pt" border-color="#E3E4E5">
+                        <fo:block line-height="11pt" margin-top="3pt" margin-left="3pt" text-align="left" font-weight="bold">{{date}}</fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell border-style="solid" border-width="1pt" border-color="#E3E4E5">
+                        <fo:block line-height="11pt" margin-top="3pt" margin-left="3pt" text-align="left">{{desc}}</fo:block>
+                      </fo:table-cell>
+                    </fo:table-row>
+                  {{/each}}
+                </fo:table-body>
+              </fo:table>
+
+              <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+
+            {{/ifCond}}
+
+            {{#ifCond marginNotes.typePersonal.length '>' '0'}}
+              <fo:block font-size="14px" text-align="left" font-weight="bold" margin-bottom="10pt" margin-top="15pt" color="#004072">
+                {{headerPersonalMarginNote}}
+              </fo:block>
+
+              <fo:block text-align="left" margin-bottom="10pt" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+
+              <fo:table border-style="solid" border-width="1pt" border-color="#E3E4E5" table-layout="fixed" width="100%">
+                <fo:table-column column-width="7cm"/>
+                <fo:table-column column-width="10cm"/>
+                <fo:table-body>
+                  {{#each marginNotes.typePersonal}}
+                    <fo:table-row>
+                      <fo:table-cell border-style="solid" border-width="1pt" border-color="#E3E4E5">
+                        <fo:block line-height="11pt" margin-top="3pt" margin-left="3pt" text-align="left" font-weight="bold">{{date}}</fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell border-style="solid" border-width="1pt" border-color="#E3E4E5">
+                        <fo:block line-height="11pt" margin-top="3pt" margin-left="3pt" text-align="left">{{desc}}</fo:block>
+                      </fo:table-cell>
+                    </fo:table-row>
+                  {{/each}}
+                </fo:table-body>
+              </fo:table>
+
+              <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+
+            {{/ifCond}}
+
+            {{#ifCond marginNotes.typeStamp.length '>' '0'}}
+              <fo:block font-size="14px" text-align="left" font-weight="bold" margin-bottom="10pt" margin-top="15pt" color="#004072">
+                {{headerPermanentMarginNote}}
+              </fo:block>
+
+              <fo:block text-align="left" margin-bottom="10pt" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+
+              <fo:table border-style="solid" border-width="1pt" border-color="#E3E4E5" table-layout="fixed" width="100%">
+                <fo:table-column column-width="7cm"/>
+                <fo:table-column column-width="10cm"/>
+                <fo:table-body>
+                  {{#each marginNotes.typeStamp}}
+                    <fo:table-row>
+                      <fo:table-cell border-style="solid" border-width="1pt" border-color="#E3E4E5">
+                        <fo:block line-height="11pt" margin-top="3pt" margin-left="3pt" text-align="left" font-weight="bold">{{date}}</fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell border-style="solid" border-width="1pt" border-color="#E3E4E5">
+                        <fo:block line-height="11pt" margin-top="3pt" margin-left="3pt" text-align="left">{{desc}}</fo:block>
+                      </fo:table-cell>
+                    </fo:table-row>
+                  {{/each}}
+                </fo:table-body>
+              </fo:table>
+
+              <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+
+            {{/ifCond}}
+
+          {{/if}}
+
+          {{#if showFeedInfo}}
+
+            {{#ifCond actions.length '>' '0'}}
+              <fo:block font-size="14px" text-align="left" font-weight="bold" margin-bottom="10pt" margin-top="15pt" color="#004072">
+                {{userFeeds}}
+              </fo:block>
+            {{else}}
+              <fo:block font-size="14px" text-align="left" font-weight="bold" margin-bottom="10pt" margin-top="15pt" color="#004072">
+                {{noUserFeeds}}
+              </fo:block>
+            {{/ifCond}}
+
+            {{#ifCond actions.length '>' '0'}}
+              <fo:block text-align="left" margin-bottom="10pt" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+
+              {{#each actions}}
+                <fo:table border-style="solid" border-width="1pt" border-color="#E3E4E5" table-layout="fixed" width="100%">
+                  <fo:table-column column-width="7cm"/>
+                  <fo:table-column column-width="10cm"/>
+                  <fo:table-body>
+
+                      <fo:table-row>
+                        <fo:table-cell border-style="solid" border-width="1pt" border-color="#E3E4E5">
+                          <fo:block line-height="11pt" margin-top="3pt" margin-left="3pt" text-align="left" font-weight="bold">{{userName}}</fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell border-style="solid" border-width="1pt" border-color="#E3E4E5">
+                          <fo:block line-height="11pt" margin-top="3pt" margin-left="3pt" text-align="left">{{createDateIso}}</fo:block>
+                        </fo:table-cell>
+                      </fo:table-row>
+
+                      <fo:table-row>
+                        <fo:table-cell border-style="solid" border-width="1pt" border-color="#E3E4E5">
+                          <fo:block line-height="11pt" margin-top="3pt" margin-left="3pt" text-align="left" font-weight="bold"></fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell border-style="solid" border-width="1pt" border-color="#E3E4E5">
+                          <fo:block line-height="11pt" margin-top="3pt" margin-left="3pt" text-align="left">{{commentText}}</fo:block>
+                        </fo:table-cell>
+                      </fo:table-row>
+
+                  </fo:table-body>
+                </fo:table>
+
+                <fo:block font-size="11pt" text-align="left" font-weight="bold" margin-bottom="10pt" margin-top="15pt"></fo:block>
+
+              {{/each}}
+
+              <fo:block text-align="left" margin-top="15pt" border-bottom="solid 1pt white" font-weight="bold"></fo:block>
+
+            {{/ifCond}}
+
+          {{/if}}
+
+      </fo:block-container>
+    </fo:flow>
+  </fo:page-sequence>
+
+</fo:root>

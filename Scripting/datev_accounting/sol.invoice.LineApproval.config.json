@@ -1,0 +1,74 @@
+{
+  "approverSets": {
+    "APPROVAL_COST_CENTER_NO_1000_2999": [
+      {
+        "user": {
+          "type": "GRP",
+          "key": "PO_PURCHASE_USER"
+        },
+        "description": "Approval cost center 1000-2999 - step 1"
+      },
+      {
+        "conditions": [
+          {
+            "type": "MAP",
+            "key": "INVI_TOTAL_NET_PRICE{i}",
+            "dataType": "number",
+            "relation": "GE",
+            "value": 1000,
+            "converter": ""
+          }
+        ],
+        "user": {
+          "name": "sol.accounting"
+        },
+        "description": "Approval cost center 1000-2999 - step 2"
+      },
+      {
+        "conditions": [
+          {
+            "type": "MAP",
+            "key": "INVI_TOTAL_NET_PRICE{i}",
+            "dataType": "number",
+            "relation": "GE",
+            "value": 5000,
+            "converter": ""
+          }
+        ],
+        "user": {
+          "name": "sol.management"
+        },
+        "description": "Approval cost center 1000-2999 - step 3"
+      }
+    ],
+    "CLEARING": [
+      {
+        "user": {
+          "name": "sol.accounting"
+        },
+        "description": "Clearing"
+      }
+    ]
+  },
+  "rules": [
+    {
+      "conditions": [
+        {
+          "type": "MAP",
+          "key": "INVI_COST_CENTER_NO{i}",
+          "dataType": "number",
+          "relation": "BETWEEN",
+          "valueStart": 1000,
+          "valueEnd": 2999,
+          "converter": ""
+        }
+      ],
+      "description": "Cost center 1000-2999",
+      "approverSet": "APPROVAL_COST_CENTER_NO_1000_2999"
+    },
+    {
+      "type": "default",
+      "approverSet": "CLEARING"
+    }
+  ]
+}

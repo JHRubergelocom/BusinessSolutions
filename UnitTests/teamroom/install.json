@@ -1,0 +1,42 @@
+{
+  "setupName": "teamroom [unit tests]",
+  "packageName": "teamroom [unit tests]",
+  "deleteSords": [
+    "{{packageFolderPath}}/Configuration/as.config"
+  ],
+  "previewForms": [],
+  "createMasks": true,
+  "refChildren": [
+    {
+      "source": "{{packageFolderPath}}/Unit Tests",
+      "destinations": [
+        "{{bsFolderPath}}/_global/Unit Tests"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/ELOas Base",
+      "destinations": [
+        "{{asBaseFolderPath}}"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/IndexServer Scripting Base",
+      "destinations": [
+        "{{ixScriptingBaseFolderPath}}/_ALL/business_solutions"
+      ],
+      "ignoreSubfolders": true
+    }
+  ],
+  "ref": [],
+  "users": [],
+  "memberships": [
+    {
+      "names": [
+        "Administrator"
+      ],
+      "memberOf": [
+        "sol.teamroom.roles.Approver"
+      ]
+    }
+  ]
+}

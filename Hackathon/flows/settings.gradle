@@ -1,0 +1,3 @@
+
+rootProject.name = "elo-flows-components"
+include('HelloWord')

@@ -1,0 +1,345 @@
+{
+  "kwl": {
+    "sol.meeting.ix.dynkwl.Notification.MeetingBoard.Template.js": {
+      "$VALUE": "default"
+    },
+    "sol.meeting.ix.localizedKwl.notification.ParticipantSearchTemplates": {
+      "keynames": [
+        "$KEY",
+        "$VALUE",
+        "FIELD"
+      ],
+      "header": [
+        "Schlüssel",
+        "Wert",
+        null
+      ],
+      "title": "Empfängergruppe",
+      "data": [
+        [
+          "O",
+          "Organisatoren",
+          "O - Organisatoren"
+        ],
+        [
+          "A",
+          "Alle Teilnehmer und Mitglieder",
+          "A - Alle Teilnehmer und Mitglieder"
+        ],
+        [
+          "M",
+          "Alle Mitglieder",
+          "M - Alle Mitglieder"
+        ],
+        [
+          "P",
+          "Alle Teilnehmer ohne Mitglieder",
+          "P - Alle Teilnehmer ohne Mitglieder"
+        ]
+      ]
+    },
+    "sol.meeting.ix.localizedKwl.CalendarUnit": {
+      "keynames": [
+        "$KEY",
+        "$VALUE",
+        "FIELD"
+      ],
+      "header": [
+        "Schlüssel",
+        "Wert",
+        null
+      ],
+      "title": "Kalendereinheit",
+      "data": [
+        [
+          " ",
+          " ",
+          ""
+        ],
+        [
+          "y",
+          "Jahr(e)",
+          "y - Jahr(e)"
+        ],
+        [
+          "Q",
+          "Quartal(e)",
+          "Q - Quartal(e)"
+        ],
+        [
+          "M",
+          "Monat(e)",
+          "M - Monat(e)"
+        ],
+        [
+          "w",
+          "Woche(n)",
+          "w - Woche(n)"
+        ],
+        [
+          "d",
+          "Tag(e)",
+          "d - Tag(e)"
+        ]
+      ]
+    },
+    "sol.meeting.ix.localizedKwl.PlusMinusSign": {
+      "keynames": [
+        "$KEY",
+        "$VALUE",
+        "FIELD"
+      ],
+      "header": [
+        "Zeichen",
+        "Wert",
+        null
+      ],
+      "title": "Vor / Nach",
+      "data": [
+        [
+          "-",
+          "Vor",
+          "- - Vor"
+        ],
+        [
+          "+",
+          "Nach",
+          "+ - Nach"
+        ]
+      ]
+    },
+    "sol.meeting.ix.localizedKwl.ReferenceDates": {
+      "keynames": [
+        "$KEY",
+        "$VALUE",
+        "FIELD"
+      ],
+      "header": [
+        "Feld",
+        "Feldbezeichnung",
+        null
+      ],
+      "title": "Referenztag",
+      "data": [
+        [
+          "MEETING_STARTDATE",
+          "Startdatum",
+          "MEETING_STARTDATE - Startdatum"
+        ],
+        [
+          "MEETING_ENDDATE",
+          "Enddatum",
+          "MEETING_ENDDATE - Enddatum"
+        ],
+        [
+          "MEETING_REGISTER_DEADLINE",
+          "Anmeldefrist",
+          "MEETING_REGISTER_DEADLINE - Anmeldefrist"
+        ]
+      ]
+    },
+    "sol.meeting.ix.localizedKwl.MeetingPersonRole": {
+      "keynames": [
+        "$KEY",
+        "$VALUE",
+        "UNITTEST_FIELD2"
+      ],
+      "header": [
+        "Schlüssel",
+        "Wert",
+        null
+      ],
+      "title": "Rolle",
+      "data": [
+        [
+          "M",
+          "Mitglied",
+          "M - Mitglied"
+        ],
+        [
+          "P",
+          "Teilnehmer",
+          "P - Teilnehmer"
+        ]
+      ]
+    }
+  },
+  "weekday": ["So.","Mo.","Di.","Mi.","Do.","Fr.","Sa."],
+  "meetings": [
+    {
+      "settings": {
+        "default": true,
+        "timeslotday": "now+2",
+        "timeslotstart": "09:00",
+        "timeslotend": "17:00",
+        "timeslotcount": 5
+      },
+      "desc": "Beschreibung Meeting1",
+      "objKeys": {
+        "MEETING_BOARD_NAME": "Meetingboard3",
+        "MEETING_BOARD_CODE": "TMB3",
+        "MEETING_NAME": "Meeting1",
+        "MEETING_LOCATION": "Musterstadt",
+        "MEETING_MINUTE_TAKER": "Charlotte Bennett"
+      },
+      "mapKeys": {
+        "MEETING_DEADLINE_TYPE": ""
+      },
+      "mapTable": [
+        ["MEETING_TIMESLOT_DAY", "MEETING_TIMESLOT_START", "MEETING_TIMESLOT_END"],
+        ["20230505", "13:00", "17:00"],
+        ["20230506", "14:00", "16:00"],
+        ["20230507", "15:00", "18:00"]
+      ],
+      "wfMapTableParticipants": [
+        ["MEETING_PERSON_FORM_OF_ADDRESS", "MEETING_PERSON_LASTNAME", "MEETING_PERSON_FIRSTNAME"],
+        ["Herr", "Cooper", "Daniel"],
+        ["Frau", "Davis", "Jessica"]
+      ],
+      "mapTableNotifications": [
+        ["MEETING_NOTIFICATION_TEMPLATE_", "MEETING_NOTIFICATION_RECIPIENTS_", "MEETING_NOTIFICATION_SHIFT_VALUE_", "MEETING_NOTIFICATION_SHIFT_UNIT_", "MEETING_NOTIFICATION_SIGN_", "MEETING_NOTIFICATION_REFERENCE_DATE_"],
+        ["default", "O - Organisatoren", "", "y - Jahr(e)", "- - Vor", "MEETING_STARTDATE - Startdatum"],
+        ["default", "A - Alle Teilnehmer und Mitglieder", "", "Q - Quartal(e)", "+ - Nach", "MEETING_ENDDATE - Enddatum"],
+        ["default", "P - Alle Teilnehmer ohne Mitglieder", "", "M - Monat(e)", "- - Vor", "MEETING_STARTDATE - Startdatum"]
+      ],
+      "wfMapTableRepetition": [],
+      "wfMapKeys": {
+        "MEETING_REPETITION_CREATE": 0
+      }
+    },
+    {
+      "settings": {
+        "default": false,
+        "timeslotday": "now",
+        "timeslotstart": "09:00",
+        "timeslotend": "17:00",
+        "timeslotcount": 5
+      },
+      "desc": "Beschreibung Meeting2",
+      "objKeys": {
+        "MEETING_BOARD_NAME": "Meetingboard3",
+        "MEETING_BOARD_CODE": "TMB3",
+        "MEETING_NAME": "Meeting2",
+        "MEETING_LOCATION": "Musterhausen",
+        "MEETING_MINUTE_TAKER": "Bodo Kraft"
+      },
+      "mapKeys": {
+        "MEETING_DEADLINE_TYPE": ""
+      },
+      "mapTable": [
+        ["MEETING_TIMESLOT_DAY", "MEETING_TIMESLOT_START", "MEETING_TIMESLOT_END"],
+        ["20230705", "11:00", "15:00"],
+        ["20230706", "10:00", "16:00"]
+      ],
+      "wfMapTableParticipants": [],
+      "mapTableNotifications": [],
+      "wfMapTableRepetition": [],
+      "wfMapKeys": {
+        "MEETING_REPETITION_CREATE": 0
+      }
+    },
+    {
+      "settings": {
+        "default": true,
+        "timeslotday": "20220805+3",
+        "timeslotstart": "11:00",
+        "timeslotend": "16:00",
+        "timeslotcount": 2
+      },
+      "desc": "Beschreibung Meeting1",
+      "objKeys": {
+        "MEETING_BOARD_NAME": "Meetingboard4",
+        "MEETING_BOARD_CODE": "TMB4",
+        "MEETING_NAME": "Meeting1",
+        "MEETING_LOCATION": "Musterdorf",
+        "MEETING_MINUTE_TAKER": "Bodo Kraft"
+      },
+      "mapKeys": {
+        "MEETING_DEADLINE_TYPE": "sol.meeting.forms.meetingBoard.settings.noDeadline"
+      },
+      "mapTable": [
+        ["MEETING_TIMESLOT_DAY", "MEETING_TIMESLOT_START", "MEETING_TIMESLOT_END"],
+        ["20230805", "13:00", "18:00"]
+      ],
+      "wfMapTableParticipants": [],
+      "mapTableNotifications": [],
+      "wfMapTableRepetition": [
+        ["MEETING_REPETITION_NAME", "MEETING_REPETITION_DATE", "MEETING_REPETITION_START", "MEETING_REPETITION_END"],
+        ["MR1", "20230705", "13:00", "15:00"],
+        ["MR1", "20230706", "10:00", "16:00"]
+      ],
+      "wfMapKeys": {
+        "MEETING_REPETITION_CREATE": 1
+      }
+    },
+    {
+      "settings": {
+        "default": true,
+        "timeslotday": "20220805+3",
+        "timeslotstart": "11:00",
+        "timeslotend": "16:00",
+        "timeslotcount": 2
+      },
+      "desc": "Beschreibung Meeting2",
+      "objKeys": {
+        "MEETING_BOARD_NAME": "Meetingboard4",
+        "MEETING_BOARD_CODE": "TMB4",
+        "MEETING_NAME": "Meeting2",
+        "MEETING_LOCATION": "Musterdorf",
+        "MEETING_MINUTE_TAKER": "Bodo Kraft"
+      },
+      "mapKeys": {
+        "MEETING_DEADLINE_TYPE": "sol.meeting.forms.meetingBoard.settings.customDeadline"
+      },
+      "mapTable": [
+        ["MEETING_TIMESLOT_DAY", "MEETING_TIMESLOT_START", "MEETING_TIMESLOT_END"],
+        ["20230805", "13:00", "18:00"]
+      ],
+      "wfMapTableParticipants": [],
+      "mapTableNotifications": [],
+      "wfMapTableRepetition": [
+        ["MEETING_REPETITION_NAME", "MEETING_REPETITION_DATE", "MEETING_REPETITION_START", "MEETING_REPETITION_END"],
+        ["MR1", "20230705", "13:00", "15:00"],
+        ["MR1", "20230706", "10:00", "16:00"]
+      ],
+      "wfMapKeys": {
+        "MEETING_REPETITION_CREATE": 1
+      }
+    },
+
+    {
+      "settings": {
+        "default": true,
+        "timeslotday": "20240805+3",
+        "timeslotstart": "11:00",
+        "timeslotend": "16:00",
+        "timeslotcount": 2
+      },
+      "desc": "Beschreibung Meeting3",
+      "objKeys": {
+        "MEETING_BOARD_NAME": "Meetingboard4",
+        "MEETING_BOARD_CODE": "TMB4",
+        "MEETING_NAME": "Meeting3",
+        "MEETING_LOCATION": "Musterdorf",
+        "MEETING_MINUTE_TAKER": "Bodo Kraft"
+      },
+      "mapKeys": {
+        "MEETING_DEADLINE_TYPE": "sol.meeting.forms.meetingBoard.settings.boardDeadline"
+      },
+      "mapTable": [
+        ["MEETING_TIMESLOT_DAY", "MEETING_TIMESLOT_START", "MEETING_TIMESLOT_END"],
+        ["20230805", "13:00", "18:00"]
+      ],
+      "wfMapTableParticipants": [],
+      "mapTableNotifications": [],
+      "wfMapTableRepetition": [
+        ["MEETING_REPETITION_NAME", "MEETING_REPETITION_DATE", "MEETING_REPETITION_START", "MEETING_REPETITION_END"],
+        ["MR1", "20230705", "13:00", "15:00"],
+        ["MR1", "20230706", "10:00", "16:00"]
+      ],
+      "wfMapKeys": {
+        "MEETING_REPETITION_CREATE": 1
+      }
+    }
+  ]
+}

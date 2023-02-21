@@ -1,0 +1,10 @@
+plugins {
+    id 'com.elo.flows'
+}
+
+group = "HelloWorld"
+description = "HelloWord"
+version = "1.0.0-SNAPSHOT"
+
+dependencies {}
+

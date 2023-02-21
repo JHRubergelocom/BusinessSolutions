@@ -1,0 +1,8 @@
+{
+  "localCurrency": "EUR",
+  "precision": 6,
+  "proxyHost": "",
+  "proxyPort": "3128",
+  "daysInPast": 7,
+  "daysInFuture": 7
+}

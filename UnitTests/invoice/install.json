@@ -1,0 +1,32 @@
+{
+  "setupName": "invoice [unit tests]",
+  "packageName": "invoice [unit tests]",
+  "deleteSords": [
+    "{{packageFolderPath}}/Configuration/as.config"
+  ],
+  "previewForms": [
+  ],
+  "refChildren": [
+    {
+      "source": "{{packageFolderPath}}/ELOas Base",
+      "destinations": ["{{asBaseFolderPath}}"]
+    },
+    {
+      "source": "{{packageFolderPath}}/IndexServer Scripting Base",
+      "destinations": [
+        "{{ixScriptingBaseFolderPath}}/_ALL/business_solutions"
+      ],
+      "ignoreSubfolders": true
+    },
+    {
+      "source": "{{packageFolderPath}}/Unit Tests",
+      "destinations": [
+        "{{bsFolderPath}}/_global/Unit Tests"
+      ],
+      "ignoreSubfolders": false,
+      "refFolders": false
+    }
+  ],
+  "ref": [
+  ]
+}

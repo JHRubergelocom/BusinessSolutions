@@ -1,0 +1,53 @@
+{
+  "roles": [
+    {
+      "name": "FORMAL_CHECKER",
+      "users": [
+        {
+          "user": "sol.accounting"
+        }
+      ]
+    },
+    {
+      "name": "APPROVAL",
+      "users": [
+        {
+          "user": {
+            "type": "GRP",
+            "key": "PO_PURCHASE_USER"
+          },
+          "mandatory": true
+        },
+        {
+          "user": "sol.management",
+          "conditions": [
+            {
+              "type": "GRP",
+              "key": "INVOICE_NET_AMOUNT_LOCAL_CURR",
+              "rel": "GT",
+              "val": 100,
+              "dataType": "number"
+            }
+          ],
+          "mandatory": true
+        }
+      ]
+    },
+    {
+      "name": "ACCOUNTING",
+      "users": [
+        {
+          "user": "sol.accounting"
+        }
+      ]
+    },
+    {
+      "name": "CLEARING",
+      "users": [
+        {
+          "user": "sol.clearing"
+        }
+      ]
+    }
+  ]
+}

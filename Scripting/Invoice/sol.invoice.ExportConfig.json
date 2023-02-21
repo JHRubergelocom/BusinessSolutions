@@ -1,0 +1,11 @@
+{
+  "exporterClassName": "sol.common.as.SimpleExporter",
+  "tplObjId": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions Custom/invoice/Configuration/Export Templates/sol.invoice.xml",
+  "dstDirPath": "/root/test",
+  "extension": "xml",
+  "encoding": "UTF-8",
+  "payload": true,
+  "overwrite": true,
+  "bom": false,
+  "createPath": false
+}

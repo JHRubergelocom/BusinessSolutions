@@ -1,0 +1,19 @@
+{
+    "documentGeneratorConfig": {
+      "fields": {
+        "versionComment": "MEETING_MINUTES_VERSION_COMMENT",
+        "documentName": "MEETING_MINUTES_DOCUMENTNAME",
+        "settingPartial": "SETTING_MINUTES_CREATE_PARTIAL",
+        "settingTotal": "SETTING_MINUTES_CREATE_TOTAL"
+      },
+      "solType": "MEETING_MINUTES_DOCUMENT",
+      "template": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions Custom/meeting/Configuration/Meeting minutes templates/Default",
+      "subFolder": "{{translate 'sol.meeting.meetingMinutes.document.subFolderName' settings.language}}",
+      "fileName": {
+        "partial": {
+          "prefix": "{{translate 'sol.meeting.meetingMinutes.document.partialPrefix' settings.language}} - "
+        },
+        "prefix": "{{translate 'sol.meeting.meetingMinutes.document.prefix' settings.language}} - "
+      }
+    }
+}

@@ -1,0 +1,113 @@
+- npx playwright test -> fürt tests headless aus
+- npx playwright test --headed -> führt tests headed aus
+- npx playwright test --browser=firefox -> führt tests in firefox aus
+- npx playwright test --headed --browser=firefox -> führt tests in firefox headed aus
+- npx playwright test --headed --browser=all -> führt tests in allen 3 browser headed aus
+- npx playwright test tests/example.spec.ts -> führt nur diesen test aus
+- skip -> test.skip('Selectors', async ({ page }) => {}) -> dieser Test wird nicht ausgeführt
+- only -> test.only('Selectors', async ({ page }) => {}) -> nur dieser test wird ausgeführt
+- describe -> test.describe('Selectors', async ({ page }) => {
+		test('Working with inputs', async ({ page }) => {})
+		})
+		-> kann mehrere Tests umfassen, -> Testsuite
+		
+- @Tag -> test('Working with inputs @myTest', async ({ page }) => {}) -> 
+		test starten mit: npx playwright test --grep @myTest -> führt nur Tests mit diesem Tag aus.
+		-> oder ignorieren mit: npx playwright test --grep-invert @myTest -> ignoriert die Tests mit diesem Tag
+		
+		
+- Reporters -> npx playwright test --config=playwright.config.ts --project=Chromium --reporter=html -> gibt Report aus
+		und speichert im Projekt unter Playwright-Report/index.html. Andere Optionen sind line, list, dot
+		Mit <npx play show-report> -> wird eine html Seite mit Report angezeigt
+		
+		
+- package.json anpassen -> 
+		"scripts": {
+    "tests:chrome": "plawright test --config=playwright.config.ts --project=Chromium",
+    "tests:firefox": "plawright test --config=playwright.config.ts --project=Firefox"
+	jetzt nur das Befehl z.B: npm run tests:chromium eingeben. die Parameter können übergeben werden so: 
+	npm run tests:chromium -- --headed (überschreiben mit --)
+	npm run tests:e2e -> startet tests gemäß Konfiguration e2e.config.ts
+		
+		
+	DEBUGGING	
+- Inspector: in plawright ist es möglich, "Debug-Pause" in den Code einzubauen: await page.pause() an gewünschter Stelle eingeben. Hier stopt
+		die Ausführung, Inspector-Fenster geht auf. 
+		
+		
+	REPORTING	
+- Screenshots und Videos: in die Testkonfiguration playwright.config.ts eintragen: video: 'retain-on-failure',
+        screenshot: 'only-on-failure', -> bei einem Fehler wird dann ein Ordner "test-results" angelegt. Dort sind 
+		die Videos ind die Screenshots zu finden. Weitere Optionen sind: on, off, on-first-retry
+		
+		
+- Parellele Ausführung: z.B: test.describe.parallel('Test',() =>{}) -> Tests die sich innerhalb der Testsuite befinden, werden 
+		im Extra-Worker parallel zu anderen Tests ausgeführt. Auf dieser Weise kann man beliebig viele Worker schalten. 
+
+
+_____________________________________________________________________________________________________________________________
+TEST-STANDARDISIERUNG
+
+- PAGE_OBJECT_MODEL-> sollte als vorlage (Vorgabe) für meine Tests beachtet werden
+- Es soll ein Standard erarbeitet werden, wie die Flows zu Erzeugen sind, testfallbezogen. 
+
+
+__________________________________________________________________________________________________________
+- sudo apt install openjdk-17-jre-headless -> java installiert
+- java -jar jenkins.war --httpPort=8080 --enable-future-java -> jenkins installiert (gestartet)
+
+
+Benutzer: Jovic
+Password: Bienc...
+______________________________________________________________
+
+- pwd -> zeigt den Pfad an
+- npm -i -D playwright   -> installiert playwright (node.js Bedingung)
+______________________________________________________________
+TAGING
+
+- npx playwright test --config=playwright.config.ts --project=Chromium -> Test starten
+
+- npx playwright test --grep @Loeschen -> führt den Test mit dem Tag @Loeschen aus. 
+
+- npx playwright test --grep-invert @Loeschen -> ignoriert den Test mit dem Tag @Loeschen
+
+- npx playwright test --grep @NeuenVorgangErstellen --config=e2e.config.ts --project=Chromium -> startet nur den getagten Test, mit 
+	der Konfiguration aus e2e.config.ts
+---------------------------------------------------------------------------------
+TRACING
+
+test aufnehmen.
+- await context.tracing.start({ screenshots: true, snapshots: true });
+<<<<<<<<<<<<<TESTCODE>>>>>>>>>>>
+- stop tracing
+
+abspielen:
+- npx playwright show-trace trace.zip -> abspielen von trace.zip datei
+----------------------------------------------------------------------------
+CODEGEN PARAMETER (OPTIONEN)
+Options:
+  -o, --output <file name>     saves the generated script to a file
+  --target <language>          language to generate, one of javascript, test, python, python-async, csharp (default: "test")
+  -b, --browser <browserType>  browser to use, one of cr, chromium, ff, firefox, wk, webkit (default: "chromium")
+  --channel <channel>          Chromium distribution channel, "chrome", "chrome-beta", "msedge-dev", etc
+  --color-scheme <scheme>      emulate preferred color scheme, "light" or "dark"
+  --device <deviceName>        emulate device, for example  "iPhone 11"
+  --geolocation <coordinates>  specify geolocation coordinates, for example "37.819722,-122.478611"
+  --ignore-https-errors        ignore https errors
+  --load-storage <filename>    load context storage state from the file, previously saved with --save-storage
+  --lang <language>            specify language / locale, for example "en-GB"
+  --proxy-server <proxy>       specify proxy server, for example "http://myproxy:3128" or "socks5://myproxy:8080"
+  --save-storage <filename>    save context storage state at the end, for later use with --load-storage
+  --save-trace <filename>      record a trace for the session and save it to a file
+  --timezone <time zone>       time zone to emulate, for example "Europe/Rome"
+  --timeout <timeout>          timeout for Playwright actions in milliseconds (default: "10000")
+  --user-agent <ua string>     specify user agent string
+  --viewport-size <size>       specify browser viewport size in pixels, for example "1280, 720"
+  -h, --help                   display help for command
+
+  Beispiele:
+   $ codegen
+  $ codegen --target=python
+  $ codegen -b webkit https://example.com
+---------------------------------------------------------

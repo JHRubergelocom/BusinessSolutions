@@ -1,0 +1,164 @@
+{
+  "relation": {
+    "tableTitle": "sol.contract.localizedKwl.relation.tableTitle",
+    "columnHeaders": ["sol.contract.localizedKwl.relation.header.key", "sol.contract.localizedKwl.relation.header.value"],
+
+    "entries": [{
+      "key": "O",
+      "value": "sol.contract.localizedKwl.relation.entry.outgoing"
+    }, {
+      "key": "I",
+      "value": "sol.contract.localizedKwl.relation.entry.incoming"
+    }]
+  },
+
+  "riskClassification": {
+    "tableTitle": "sol.contract.localizedKwl.riskClassification.tableTitle",
+    "columnHeaders": ["sol.contract.localizedKwl.riskClassification.header.key", "sol.contract.localizedKwl.riskClassification.header.value"],
+
+    "entries": [{
+      "key": "L",
+      "value": "sol.contract.localizedKwl.riskClassification.entry.low"
+    }, {
+      "key": "N",
+      "value": "sol.contract.localizedKwl.riskClassification.entry.normal"
+    }, {
+      "key": "H",
+      "value": "sol.contract.localizedKwl.riskClassification.entry.high"
+    }]
+  },
+
+  "reasonEnd": {
+    "tableTitle": "sol.contract.localizedKwl.reasonEnd.tableTitle",
+    "columnHeaders": ["sol.contract.localizedKwl.reasonEnd.header.key", "sol.contract.localizedKwl.reasonEnd.header.value"],
+
+    "entries": [{
+      "key": "E",
+      "value": "sol.contract.localizedKwl.reasonEnd.entry.ended"
+    }, {
+      "key": "A",
+      "value": "sol.contract.localizedKwl.reasonEnd.entry.accepted"
+    }, {
+      "key": "C",
+      "value": "sol.contract.localizedKwl.reasonEnd.entry.quotaconsumed"
+    }, {
+      "key": "T",
+      "value": "sol.contract.localizedKwl.reasonEnd.entry.terminated"
+    }, {
+      "key": "N",
+      "value": "sol.contract.localizedKwl.reasonEnd.entry.annulment"
+    }, {
+      "key": "O",
+      "value": "sol.contract.localizedKwl.reasonEnd.entry.others"
+    }]
+  },
+
+  "status": {
+    "tableTitle": "sol.contract.localizedKwl.status.tableTitle",
+    "columnHeaders": ["sol.contract.localizedKwl.status.header.key", "sol.contract.localizedKwl.status.header.value"],
+
+    "entries": [{
+      "key": "D",
+      "value": "sol.contract.localizedKwl.status.entry.draft"
+    }, {
+      "key": "I",
+      "value": "sol.contract.localizedKwl.status.entry.approvalInitiated"
+    }, {
+      "key": "A",
+      "value": "sol.contract.localizedKwl.status.entry.approved"
+    }, {
+      "key": "N",
+      "value": "sol.contract.localizedKwl.status.entry.negotiation"
+    }, {
+      "key": "S",
+      "value": "sol.contract.localizedKwl.status.entry.signed"
+    }, {
+      "key": "T",
+      "value": "sol.contract.localizedKwl.status.entry.terminated"
+    }, {
+      "key": "E",
+      "value": "sol.contract.localizedKwl.status.entry.ended"
+    }, {
+      "key": "C",
+      "value": "sol.contract.localizedKwl.status.entry.canceled"
+    }]
+  },
+
+  "calendarUnit": {
+    "tableTitle": "sol.contract.localizedKwl.calendarUnit.tableTitle",
+    "columnHeaders": ["sol.contract.localizedKwl.calendarUnit.header.key", "sol.contract.localizedKwl.calendarUnit.header.value"],
+
+    "entries": [{
+      "key": "y",
+      "value": "sol.contract.localizedKwl.calendarUnit.entry.years"
+    }, {
+      "key": "hy",
+      "value": "sol.contract.localizedKwl.calendarUnit.entry.halfyears"
+    }, {
+      "key": "Q",
+      "value": "sol.contract.localizedKwl.calendarUnit.entry.quarters"
+    }, {
+      "key": "M",
+      "value": "sol.contract.localizedKwl.calendarUnit.entry.months"
+    }, {
+      "key": "w",
+      "value": "sol.contract.localizedKwl.calendarUnit.entry.weeks"
+    }, {
+      "key": "d",
+      "value": "sol.contract.localizedKwl.calendarUnit.entry.days"
+    }]
+  },
+
+  "terminationPoint": {
+    "tableTitle": "sol.contract.localizedKwl.terminationPoint.tableTitle",
+    "columnHeaders": ["sol.contract.localizedKwl.terminationPoint.header.key", "sol.contract.localizedKwl.terminationPoint.header.value"],
+
+    "entries": [{
+      "key": "d",
+      "value": "sol.contract.localizedKwl.terminationPoint.entry.day"
+    }, {
+      "key": "y",
+      "value": "sol.contract.localizedKwl.terminationPoint.entry.endOfYear"
+    }, {
+      "key": "hy",
+      "value": "sol.contract.localizedKwl.terminationPoint.entry.endOfHalfYear"
+    }, {
+      "key": "Q",
+      "value": "sol.contract.localizedKwl.terminationPoint.entry.endOfQuarter"
+    }, {
+      "key": "M",
+      "value": "sol.contract.localizedKwl.terminationPoint.entry.endOfMonths"
+    }, {
+      "key": "w",
+      "value": "sol.contract.localizedKwl.terminationPoint.entry.endOfWeek"
+    }]
+  },
+
+   "cashflowRecurring": {
+    "tableTitle": "sol.contract.localizedKwl.cashflowRecurring.tableTitle",
+    "columnHeaders": ["sol.contract.localizedKwl.cashflowRecurring.header.key", "sol.contract.localizedKwl.cashflowRecurring.header.value"],
+
+    "entries": [{
+      "key": "O",
+      "value": "sol.contract.localizedKwl.cashflowRecurring.entry.once"
+    }, {
+      "key": "y",
+      "value": "sol.contract.localizedKwl.cashflowRecurring.entry.years"
+    }, {
+      "key": "hy",
+      "value": "sol.contract.localizedKwl.cashflowRecurring.entry.halfyears"
+    }, {
+      "key": "Q",
+      "value": "sol.contract.localizedKwl.cashflowRecurring.entry.quarters"
+    }, {
+      "key": "M",
+      "value": "sol.contract.localizedKwl.cashflowRecurring.entry.months"
+    }, {
+      "key": "w",
+      "value": "sol.contract.localizedKwl.cashflowRecurring.entry.weeks"
+    }, {
+      "key": "d",
+      "value": "sol.contract.localizedKwl.cashflowRecurring.entry.days"
+    }]
+  }
+}

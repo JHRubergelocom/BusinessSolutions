@@ -1,0 +1,267 @@
+{
+  "version": "9.00.001",
+  "entities": {
+    "chartelement": {
+      "actions": {
+        "create": {
+          "const": {
+            "temporaryAttributes": {
+              "shortDescription": "{{translate 'sol.hr.orgchart.createchartelement.temporaryName'}}",
+              "targetDirectory": "{{params.typeSelectedGuid}}"
+            }
+          },
+          "options": {
+            "addReferences": [
+              {
+                "fieldName": "SOL_TYPE",
+                "fieldType": "GRP",
+                "value": "{{params.typeTargetSoltype}}"
+              },
+              {
+                "fieldName": "HR_CHARTELEMENT_AUTHORITY_ROLENAME",
+                "fieldType": "GRP",
+                "value": "{{params.typeStandardAuthorityRoleName}}"
+              },
+              {
+                "fieldName": "HR_CHARTELEMENT_DEPUTY_ROLENAME",
+                "fieldType": "GRP",
+                "value": "{{params.typeStandardDeputyRoleName}}"
+              }
+            ],
+            "changeRights": {
+              "users": [
+                {
+                    "name": "HR",
+                    "rights": { "r": true, "w": true, "e": true, "d": true, "l": true }
+                }
+              ],
+              "recursive": false,
+              "mode": "SET"
+            }
+          },
+          "workflow": {
+            "maskStandardWorkflow": {
+              "start": false,
+              "field": ""
+            },
+            "customWorkflow": {
+              "name": "No workflow defined. Custom workflow must be defined in service config."
+            },
+            "message": "{{translate 'sol.hr.orgchart.workflow.chartelement.create.message'}}"
+          }
+        }
+      },
+      "dynkwls":{
+        "organizationalstructures": {
+          "const": {
+            "solutiontypes": "\"ORGCHART_COMPANY\" OR \"ORGCHART_DIVISION\" OR \"ORGCHART_DEPARTMENT\" OR \"ORGCHART_TEAM\"",
+            "status": {
+              "field": "HR_ORGCHART_STATUS",
+              "value": "1"
+            }
+          },
+          "tableTitle": "{{translate 'sol.hr.dynkwl.organizationalstructures.tableTitle'}}",
+          "tableHeaders": [
+            "{{translate 'sol.hr.mask.orgchart.company'}}",
+            "{{translate 'sol.hr.mask.orgchart.division'}}",
+            "{{translate 'sol.hr.mask.orgchart.department'}}",
+            "{{translate 'sol.hr.mask.orgchart.team'}}",
+            null
+          ],
+          "tableKeyNames": [
+            "HR_PERSONNEL_COMPANY",
+            "HR_PERSONNEL_DIVISION",
+            "HR_PERSONNEL_DEPARTMENT",
+            "HR_PERSONNEL_TEAM",
+            "HR_PERSONNEL_ORG_ID"
+          ],
+          "rowDataFields": [
+            "HR_PERSONNEL_COMPANY",
+            "HR_PERSONNEL_DIVISION",
+            "HR_PERSONNEL_DEPARTMENT",
+            "HR_PERSONNEL_TEAM",
+            "guid"
+          ]
+        }
+      },
+      "functions": {
+        "generatechartelementshortdescription": {
+          "type": "generator",
+          "generatorConfig": {
+            "generatorTemplateField": "HR_CHARTELEMENT_SHORT_DESC_GEN",
+            "templatesFolder": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/hr_orgchart/Configuration/Generators/Chart element short description"
+          },
+          "kwlConfig": {
+            "tableTitle": "{{translate 'sol.hr.dynkwl.generators.chartElementShortDesc.tableTitle'}}"
+          }
+        },
+        "updatePersonnelFiles": {
+          "chartElementLookupTypes": "\"ORGCHART_DIVISION\" OR \"ORGCHART_DEPARTMENT\" OR \"ORGCHART_TEAM\"",
+          "updateReferences": {
+            "objId": "{{orgChartElementGuid}}",
+            "configs": [
+              {
+                "search": { "keys": { "SOL_TYPE": "PERSONNELFILE" , "HR_PERSONNEL_ORG_ID": "{{orgChartElementGuid}}" } },
+                "update": {
+                  "mappings": [
+                    { "source": { "id": "HR_PERSONNEL_COMPANY", "type": "GRP" }, "target": { "id": "HR_PERSONNEL_COMPANY", "type": "GRP" } },
+                    { "source": { "id": "HR_PERSONNEL_DIVISION", "type": "GRP" }, "target": { "id": "HR_PERSONNEL_DIVISION", "type": "GRP" } },
+                    { "source": { "id": "HR_PERSONNEL_DEPARTMENT", "type": "GRP" }, "target": { "id": "HR_PERSONNEL_DEPARTMENT", "type": "GRP" } },
+                    { "source": { "id": "HR_PERSONNEL_TEAM", "type": "GRP" }, "target": { "id": "HR_PERSONNEL_TEAM", "type": "GRP" } }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
+      "services": {
+        "chartelementtypes": {
+          "contextTypes": {
+            "types": {
+              "chartroot": {
+                "targetMaskName": "HR Company",
+                "targetSordTypeName": "sol.HR Company",
+                "targetSoltype": "ORGCHART_COMPANY",
+                "standardAuthorityRoleName": "",
+                "standardDeputyRoleName": "",
+                "workflow": "sol.hr.orgchart.ChartRoot.Create",
+                "name": "{{translate 'sol.hr.orgchart.elementtypes.chartroot.name'}}",
+                "desc": "{{translate 'sol.hr.orgchart.elementtypes.chartroot.desc'}}"
+              },
+              "company": {
+                "targetMaskName": "HR Company",
+                "targetSordTypeName": "sol.HR Company",
+                "targetSoltype": "ORGCHART_COMPANY",
+                "standardAuthorityRoleName": "",
+                "standardDeputyRoleName": "",
+                "workflow": "sol.hr.orgchart.Company.Create",
+                "name": "{{translate 'sol.hr.orgchart.elementtypes.company.name'}}",
+                "desc": "{{translate 'sol.hr.orgchart.elementtypes.company.desc'}}"
+              },
+              "division": {
+                "targetMaskName": "HR Division",
+                "targetSordTypeName": "sol.HR Division",
+                "targetSoltype": "ORGCHART_DIVISION",
+                "standardAuthorityRoleName": "",
+                "standardDeputyRoleName": "",
+                "workflow": "sol.hr.orgchart.Division.Create",
+                "name": "{{translate 'sol.hr.orgchart.elementtypes.division.name'}}",
+                "desc": "{{translate 'sol.hr.orgchart.elementtypes.division.desc'}}"
+              },
+              "department": {
+                "targetMaskName": "HR Department",
+                "targetSordTypeName": "sol.HR Department",
+                "targetSoltype": "ORGCHART_DEPARTMENT",
+                "standardAuthorityRoleName": "",
+                "standardDeputyRoleName": "",
+                "workflow": "sol.hr.orgchart.Department.Create",
+                "name": "{{translate 'sol.hr.orgchart.elementtypes.department.name'}}",
+                "desc": "{{translate 'sol.hr.orgchart.elementtypes.department.desc'}}"
+              },
+              "team": {
+                "targetMaskName": "HR Team",
+                "targetSordTypeName": "sol.HR Team",
+                "targetSoltype": "ORGCHART_TEAM",
+                "standardAuthorityRoleName": "",
+                "standardDeputyRoleName": "",
+                "workflow": "sol.hr.orgchart.Team.Create",
+                "name": "{{translate 'sol.hr.orgchart.elementtypes.team.name'}}",
+                "desc": "{{translate 'sol.hr.orgchart.elementtypes.team.desc'}}"
+              }
+            },
+            "availability": {
+              "notAvailableIn": {
+                "soltypes": ["ORGCHART_TEAM"]
+              },
+              "bySoltype": {
+                "ORGCHART_COMPANY": ["division", "department", "team"],
+                "ORGCHART_DIVISION": ["division", "department", "team"],
+                "ORGCHART_DEPARTMENT": ["department", "team"]
+              },
+              "fallbacks": ["chartroot"]
+            }
+          }
+        },
+        "chartroottypes": {
+          "contextTypes": {
+            "types": {
+              "chartroot": {
+                "targetMaskName": "HR Company",
+                "targetSordTypeName": "sol.HR Company",
+                "targetSoltype": "ORGCHART_COMPANY",
+                "workflow": "sol.hr.orgchart.ChartRoot.Create",
+                "name": "{{translate 'sol.hr.orgchart.elementtypes.chartroot.name'}}",
+                "desc": "{{translate 'sol.hr.orgchart.elementtypes.chartroot.desc'}}"
+              }
+            },
+            "availability": {
+              "notAvailableIn": {
+                "soltypes": ["ORGCHART_COMPANY", "ORGCHART_DIVISION", "ORGCHART_DEPARTMENT", "ORGCHART_TEAM"]
+              },
+              "bySoltype": {},
+              "fallbacks": ["chartroot"]
+            }
+          }
+        }
+      }
+    },
+    "orgchart": {
+      "services": {
+        "organizationalchart": {
+          "companies": {
+            "lookupType": "ORGCHART_COMPANY"
+          },
+          "structure": {
+            "chartElementFilter": {
+              "SOL_TYPE": "\"ORGCHART_COMPANY\" OR \"ORGCHART_DIVISION\" OR \"ORGCHART_DEPARTMENT\" OR \"ORGCHART_TEAM\"",
+              "HR_ORGCHART_STATUS": "1"
+            },
+            "defaultNodeMappings": [
+              { "property": "id", "from": "{{id}}" },
+              { "property": "title", "from": "{{name}}" },
+              { "property": "text", "from": "{{objKeys.HR_CHARTELEMENT_AUTHORITY_NAME}}" },
+              { "property": "open", "from": "{{#ifCond objKeys.HR_ORGCHART_COLLAPSED '==' 0}}true{{/ifCond}}", "type": "boolean"},
+              { "property": "dir", "from": "{{#ifCond objKeys.HR_ORGCHART_VERTICAL '==' '1'}}vertical{{/ifCond}}" },
+              { "property": "color", "from": "#808080" },
+              { "property": "css", "from": "{{objKeys.SOL_TYPE}}" },
+              { "property": "width", "from": "220", "type": "number" }
+            ],
+            "nodeMappings": {
+              "ORGCHART_COMPANY": [
+                { "property": "title", "from": "{{objKeys.HR_PERSONNEL_COMPANY}}" },
+                { "property": "color", "from": "#FF9800" },
+              { "property": "width", "from": "250", "type": "number" }
+              ],
+              "ORGCHART_DIVISION": [
+                { "property": "title", "from": "{{objKeys.HR_PERSONNEL_DIVISION}}" },
+                { "property": "color", "from": "#607D8B" }
+              ],
+              "ORGCHART_DEPARTMENT": [
+                { "property": "title", "from": "{{objKeys.HR_PERSONNEL_DEPARTMENT}}" },
+                { "property": "color", "from": "#00C7B5" }
+              ],
+              "ORGCHART_TEAM": [
+                { "property": "title", "from": "{{objKeys.HR_PERSONNEL_TEAM}}" },
+                { "property": "color", "from": "#03A9F4" },
+              { "property": "width", "from": "200", "type": "number" }
+              ]
+            },
+            "assocMappings": [
+              { "property": "id", "from": "{{parentId}}-{{id}}" },
+              { "property": "from", "from": "{{parentId}}" },
+              { "property": "to", "from": "{{id}}" },
+              { "property": "type", "from": "line" }
+            ],
+            "translations": {
+              "ORGCHART_COMPANY": "{{translate 'sol.hr.orgchart.elementtypes.chartroot.name'}}",
+              "ORGCHART_DIVISION": "{{translate 'sol.hr.orgchart.elementtypes.division.name'}}",
+              "ORGCHART_DEPARTMENT": "{{translate 'sol.hr.orgchart.elementtypes.department.name'}}",
+              "ORGCHART_TEAM": "{{translate 'sol.hr.orgchart.elementtypes.team.name'}}"
+            }
+          }
+        }
+      }
+    }
+  }
+}

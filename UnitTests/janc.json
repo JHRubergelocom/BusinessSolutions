@@ -1,0 +1,56 @@
+{
+    "dependencies": [
+        {
+            "folder": "./Business Solutions/common",
+            "elo": "/Business Solutions/common"
+        },
+        {
+            "folder": "./Business Solutions/common_document",
+            "elo": "/Business Solutions/common_document"
+        },
+        {
+            "folder": "./Business Solutions/common_fx",
+            "elo": "/Business Solutions/common_fx"
+        },
+        {
+            "folder": "./Business Solutions/common_monitoring",
+            "elo": "/Business Solutions/common_monitoring"
+        },
+        {
+            "folder": "./Business Solutions/common_signature",
+            "elo": "/Business Solutions/common_signature"
+        },
+        {
+            "folder": "./Business Solutions/connector_xml",
+            "elo": "/Business Solutions/connector_xml"
+        },
+        {
+            "folder": "./Business Solutions/dev_internal",
+            "elo": "/Business Solutions/dev_internal"
+        },
+        {
+            "folder": "./Business Solutions/development",
+            "elo": "/Business Solutions/development"
+        },
+        {
+            "folder": "./Business Solutions/Unit Tests",
+            "elo": "/Business Solutions/common [unit tests]"
+        },
+        {
+            "folder": "./Business Solutions Custom/common",
+            "elo": "/Business Solutions Custom/common"
+        },
+        {
+            "folder": "./Business Solutions Custom/common_signature",
+            "elo": "/Business Solutions Custom/common_signature"
+        },
+        {
+            "folder": "./Business Solutions Custom/dev_internal",
+            "elo": "/Business Solutions Custom/dev_internal"
+        },
+        {
+            "folder": "../demo.git/Business Solutions/common",
+            "elo": "/Business Solutions/demo"
+        }
+    ]
+}

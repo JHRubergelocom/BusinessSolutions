@@ -1,0 +1,257 @@
+{
+    "meetingBoards": {
+        "workflowMixins": {
+          "create": {
+            "initalizePermissions": {
+              "scriptProperties": {
+                "users": [
+                  {
+                    "name": "$CURRENTUSER",
+                    "rights": {
+                      "r": true,
+                      "w": true,
+                      "e": true,
+                      "d": true,
+                      "l": true,
+                      "p": true
+                    }
+                  }
+                ],
+                "inherit": true,
+                "recursive": true,
+                "mode": "SET"
+              }
+            },
+
+            "createBoardAdminGroup": {
+              "scriptProperties": {
+                "groupName": "sol.meeting.groups.{{sord.objKeys.MEETING_BOARD_CODE}}_ORGANIZER",
+                "memberOf": ["sol.meeting.roles.Organizer"],
+                "addMembers": [
+                  {"type" : "GRP", "key": "MEETING_BOARD_ORGANIZER" },
+                  {"type" : "SORD", "key": "ownerName" }
+                ],
+                "saveGroupToField": {"type":"GRP", "key": "MEETING_BOARD_ADMIN_GROUP" },
+                "asAdmin": true
+              }
+            },
+
+            "createBoardGroup": {
+              "scriptProperties": {
+                "groupName": "sol.meeting.groups.{{sord.objKeys.MEETING_BOARD_CODE}}",
+                "addMembers": [
+                  { "type" : "GRP", "key": "MEETING_BOARD_PRESENTER" },
+                  { "type" : "GRP", "key": "MEETING_BOARD_MINUTE_TAKER" },
+                  {
+                    "type": "WFMAP",
+                    "key": "MEETING_PERSON_USERNAME",
+                    "table": true,
+                    "propSelector": "MEETING_PERSON_USERNAME"
+                  }
+                ],
+                "saveGroupToField": {"type":"GRP", "key": "MEETING_BOARD_GROUP" },
+                "asAdmin": true
+              }
+            },
+
+            "changeRights": {
+              "scriptProperties": {
+                "users": [
+                  {
+                    "type": "GRP" ,
+                    "key": "MEETING_BOARD_ADMIN_GROUP",
+                    "rights": { "r": true, "w": true, "d": true, "e": true, "l": true, "p": true }
+                  },
+                  {
+                    "type": "GRP",
+                    "key": "MEETING_BOARD_GROUP",
+                    "rights": { "r": true, "w": false, "d": false, "e": false, "l": true, "p": false }
+                  },
+                  {
+                    "name": "$CURRENTUSER",
+                    "rights": { "r": true, "w": true, "d": true, "e": true, "l": true, "p": true }
+                  }
+                ],
+                "mode": "SET"
+              }
+            }
+          },
+          "shortDescription": {
+            "scriptProperties": {
+              "entries": [
+                {
+                  "type": "SORD",
+                  "key": "name",
+                  "value": "{{{sord.objKeys.MEETING_BOARD_NAME}}}",
+                  "useTemplating": true
+                }
+              ]
+            }
+          }
+        },
+        "functions": {
+          "editMemberGroupList": {
+            "name": "RF_sol_function_ChangeGroup",
+            "args": {
+              "groupName": { "type": "GRP", "key": "MEETING_BOARD_GROUP" },
+              "addMembers": [
+                {
+                  "type": "WFMAP",
+                  "key": ["MEETING_PERSON_USERNAME", "MEETING_PERSON_CRUD_STATUS"],
+                  "table": true,
+                  "propSelector": "MEETING_PERSON_USERNAME",
+                  "filter": [
+                    { "prop": "MEETING_PERSON_CRUD_STATUS", "value": "CREATE" }
+                  ]
+                }
+              ],
+              "asAdmin": true
+             }
+          },
+          "updatePersonsInGroup": {
+            "name": "RF_sol_function_ChangeGroup",
+            "args": {
+              "groupName": { "type": "GRP", "key": "MEETING_BOARD_GROUP" },
+              "addMembers": [
+                { "type": "GRP", "key": "MEETING_BOARD_MINUTE_TAKER" },
+                { "type": "GRP", "key": "MEETING_BOARD_PRESENTER" }
+              ],
+              "asAdmin": true
+            }
+          }
+        },
+        "services": {
+          "GetBoardTypes": {
+            "provider": "RF_sol_common_service_SordProvider",
+            "args": {
+              "masks": ["Meeting Board"],
+              "search": [
+                { "key": "SOL_TYPE" , "value": "MEETING_BOARD" }
+              ],
+              "output": {
+                "formatter": "sol.common.ObjectFormatter.TemplateSord",
+                "config": {
+                  "mapKeys": ["MEETING_BOARD_MEETING_DEFAULT_NAME"],
+                  "descMaxLen": 120
+                }
+              },
+              "options": {
+                "optimization": "GetMeetingBoardTypes"
+              }
+            }
+          },
+          "GetMembers": {
+                "provider": "RF_sol_common_service_SordProvider",
+                "optimization": "GetMember",
+                "args": {
+                    "masks": ["Meeting Board Member"],
+                    "search": [
+                        {"key": "SOL_TYPE", "value": ["MEMBER"]},
+                        {"key": "MEETING_BOARD_CODE", "value": "{{source.objKeys.MEETING_BOARD_CODE}}"}
+                    ],
+                    "output": [
+                        { "source": { "type": "SORD", "key": "id" }, "target": { "prop": "id" } },
+                        { "source": { "type": "GRP", "key": "MEETING_PERSON_FORM_OF_ADDRESS" }, "target": { "prop": "MEETING_PERSON_FORM_OF_ADDRESS" }},
+                        { "source": { "type": "GRP", "key": "MEETING_PERSON_TITLE" }, "target": { "prop": "MEETING_PERSON_TITLE" }},
+                        { "source": { "type": "GRP", "key": "MEETING_PERSON_FIRSTNAME" }, "target": { "prop": "MEETING_PERSON_FIRSTNAME" }},
+                        { "source": { "type": "GRP", "key": "MEETING_PERSON_LASTNAME" }, "target": { "prop": "MEETING_PERSON_LASTNAME" } },
+                        { "source": { "type": "GRP", "key": "MEETING_PERSON_EMAIL" }, "target": { "prop": "MEETING_PERSON_EMAIL" } },
+                        { "source": { "type": "GRP", "key": "MEETING_PERSON_COMPANYNAME" }, "target": { "prop": "MEETING_PERSON_COMPANYNAME" } },
+                        { "source": { "type": "GRP", "key": "MEETING_PERSON_CONTACT_REFERENCE" }, "target": { "prop": "MEETING_PERSON_CONTACT_REFERENCE" } },
+                        { "source": { "type": "GRP", "key": "MEETING_PERSON_CONTACTLIST_NAME" }, "target": { "prop": "MEETING_PERSON_CONTACTLIST_NAME" } },
+                        { "source": { "type": "GRP", "key": "MEETING_PERSON_CONTACTLIST_REFERENCE" }, "target": { "prop": "MEETING_PERSON_CONTACTLIST_REFERENCE" } },
+                        { "source": { "type": "GRP", "key": "MEETING_PERSON_USERNAME" }, "target": { "prop": "MEETING_PERSON_USERNAME" } },
+                        { "source": { "type": "GRP", "key": "MEETING_PERSON_ELOUSERID" }, "target": { "prop": "MEETING_PERSON_ELOUSERID" } },
+                        { "source": { "type": "GRP", "key": "MEETING_BOARD_MEMBER_STATUS" }, "target": { "prop": "MEETING_BOARD_MEMBER_STATUS" } },
+                        { "source": { "type": "MAP", "key": "MEETING_PERSON_CREATE_CONTACT" }, "target": { "prop": "MEETING_PERSON_CREATE_CONTACT" } }
+                    ]
+                }
+          },
+          "GetMembersForPermissions": {
+                "name": "RF_sol_meeting_service_GetMembers",
+                "args": {
+                  "objId": "{{sord.id}}"
+                }
+          },
+          "GetBoard": {
+              "name": "RF_sol_common_service_SordProvider",
+              "args": {
+                "masks": ["Meeting Board"],
+                "search": [
+                  {"key": "SOL_TYPE", "value": ["MEETING_BOARD"]},
+                  {"key": "MEETING_BOARD_CODE", "value": ["{{sord.objKeys.MEETING_BOARD_CODE}}"]}
+                ],
+                "output": {
+                  "formatter": "sol.common.ObjectFormatter.TemplateSord",
+                  "config": {
+                    "sordKeys": [ "id", "name", "ownerName" ]
+                  }
+                },
+                "options": {
+                  "formatAsTemplateSord": true
+                }
+              }
+          },
+          "GetBoardSettings": {
+                "name": "RF_sol_common_service_SordProvider",
+                "args": {
+                    "masks": ["Meeting Board"],
+                    "search": [
+                        {"key": "SOL_TYPE", "value": ["MEETING_BOARD"]},
+                        {"key": "MEETING_BOARD_CODE", "value": ["{{sord.objKeys.MEETING_BOARD_CODE}}"]}
+                    ],
+                    "output": [
+                        { "source": { "type": "SORD", "key": "id" }, "target": { "prop": "id" } },
+                        { "source": { "type": "MAP", "key": "MEETING_BOARD_SETTING_*" }, "target": { "prop": "*" } }
+                    ],
+                    "options": {
+                        "formatAsTemplateSord": true
+                    }
+                }
+          },
+          "GetBoardRecurringItemFolder": {
+              "masks": ["Meeting Board Structure"],
+              "search": [
+                { "key": "SOL_TYPE", "value": "MEETING_BOARD_RECURRING_ITEM_LIST" },
+                { "key": "MEETING_BOARD_CODE", "value": "{{sord.objKeys.MEETING_BOARD_CODE}}" }
+              ],
+              "options": {
+                "maxResults": 1,
+                "optimizationName": "meeting-board-recurring-item-list",
+                "returnFirst": true
+              }
+          }
+        },
+
+        "outputs": {
+          "proposalTypes": [
+            {
+              "source": { "type": "SORD", "key": "id" },
+              "target": { "prop": "id" }
+            },
+            {
+              "source": { "type": "GRP", "key": "MEETING_PROVIDED_PROPOSALTYPES" },
+              "target": { "prop": "proposalTypes" }
+            }
+          ],
+          "meetingBoard": [
+            {
+              "source": { "type": "SORD", "key": "id" },
+              "target": { "prop": "id" }
+            },
+            {
+              "source": { "type": "GRP", "key": "MEETING_BOARD_NAME" },
+              "target": { "prop": "meetingBoardName" }
+            },
+            {
+              "source": { "type": "GRP", "key": "MEETING_BOARD_CODE" },
+              "target": { "prop": "meetingBoardCode" }
+            }
+          ],
+          "minSord": [
+            { "source": { "type": "SORD", "key": "id" }, "target": { "prop": "id" } },
+            { "source": { "type": "SORD", "key": "name" }, "target": { "prop": "name" } }
+          ]
+        }
+    }
+}

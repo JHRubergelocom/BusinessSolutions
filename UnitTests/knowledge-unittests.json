@@ -1,0 +1,20 @@
+{
+    "dependencies": [
+        {
+            "folder": "../knowledge.git/Business Solutions/knowledge",
+            "elo": "/Business Solutions/knowledge"
+        },
+        {
+            "folder": "../knowledge.git/Business Solutions/knowledge [demo de]",
+            "elo": "/Business Solutions/knowledge [demo de]"
+        },
+        {
+            "folder": "../knowledge.git/Business Solutions Custom/knowledge",
+            "elo": "/Business Solutions Custom/knowledge"
+        },
+        {
+            "folder": "../knowledge.git/Business Solutions/Unit Tests",
+            "elo": "/Business Solutions/knowledge [unit tests]"
+        }
+    ]
+}

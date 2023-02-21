@@ -1,0 +1,68 @@
+﻿<ruleset>
+  <base>
+    <name>sol.visitor.as.functions.CreateVisitorBadge</name>
+    <search>
+      <name>"DIRECT"</name>
+      <value>"1"</value>
+      <mask>(E10E1000-E100-E100-E100-E10E10E10E30)</mask>
+      <max>200</max>
+    </search>
+    <interval>0H</interval>
+    <includes>
+      <name>lib_Class</name>
+      <name>lib_moment</name>
+      <name>lib_handlebars</name>
+      <name>lib_sol.common.Cache</name>
+      <name>lib_sol.common.Config</name>
+      <name>lib_sol.common.AclUtils</name>
+      <name>lib_sol.common.ObjectUtils</name>
+      <name>lib_sol.common.StringUtils</name>
+      <name>lib_sol.common.JsonUtils</name>
+      <name>lib_sol.common.IxUtils</name>
+      <name>lib_sol.common.RepoUtils</name>
+      <name>lib_sol.common.SordUtils</name>
+      <name>lib_sol.common.CounterUtils</name>
+      <name>lib_sol.common.UserUtils</name>
+      <name>lib_sol.common.ExceptionUtils</name>
+      <name>lib_sol.common.Template</name>
+      <name>lib_sol.common.TranslateTerms</name>
+      <name>lib_sol.common.ActionBase</name>
+      <name>lib_sol.common.as.Utils</name>
+      <name>lib_sol.common.as.BarcodeUtils</name>
+      <name>lib_sol.common.as.DocumentGenerator</name>
+      <name>lib_sol.common.as.ActionBase</name>
+      <name>lib_sol.common.as.renderer.Fop</name>
+      <name>lib_sol.visitor.as.actions.CreateVisitorBadge</name>
+    </includes>
+  </base>
+  <rule>
+    <name>CreateVisitorBadge</name>
+    <condition></condition>
+    <script>
+      sol.common.as.Utils.requiresUserSession(this);
+
+      var params, createVisitorBadge;
+      params = JSON.parse(EM_PARAM2);
+      params.user = EM_USERID;
+
+      createVisitorBadge = sol.create("sol.visitor.as.actions.CreateVisitorBadge", {
+        parentId: params.objId,
+        targetId: params.objId,
+        template: params.template,
+        useLongtermBadgeTemplates: params.useLongtermBadgeTemplates,
+        longTermBadgeName: params.longTermBadgeName 
+      });
+      createVisitorBadge.execute();
+      ruleset.setStatusMessage(JSON.stringify({ passOn: true }));
+
+      sol.common.as.Utils.cleanupUserSession(this);
+    </script>
+  </rule>
+  <rule>
+    <name>Global Error Rule</name>
+    <condition>OnError</condition>
+    <script>
+      sol.common.ExceptionUtils.logAsException(EM_ERROR);
+    </script>
+  </rule>
+</ruleset>

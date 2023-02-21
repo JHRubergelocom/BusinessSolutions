@@ -1,0 +1,789 @@
+{
+    "meetingItem": {
+      "actions": {
+        "recordDecision": {
+          "templateSord" : {
+            "mask": "Meeting Proposal",
+            "type": "sol.Company",
+            "name": "{{sord.objKeys.MEETING_ITEM_TITLE}}",
+            "objKeys": {
+              "SOL_TYPE": "MEETING_PROPOSAL",
+              "MEETING_PROPOSAL_NAME": "{{sord.objKeys.MEETING_ITEM_TITLE}}",
+              "MEETING_PROPOSAL_CODE": "SIMPLE"
+            }
+          },
+          "copySordKeys": ["name"],
+          "workflow": {
+            "template": "sol.meeting.item.RecordDecision",
+            "name": "{{translate 'sol.meeting.item.recordDecision.workflowName'}}"
+          }
+        }
+      },
+      "services": {
+        "createStructuralItem": {
+            "source": { "objId": "{{params.templateId}}" },
+            "fromService": {
+                "name": "RF_sol_function_CreateSord",
+                "params": {
+                    "sourceElement": {
+                        "fromScratch": {
+                          "mask": "Meeting Item",
+                          "type": "sol.Meeting Structural Item" }
+                    },
+                    "targetFolder": {
+                        "objId": "{{params.targetFolder}}"
+                    }
+                }
+            },
+            "workflow": {
+                "name": "sol.meeting.item.CreateStructural",
+                "title": "Create structural item",
+                "concluding": true
+              }
+        },
+        "createContainerItem": {
+            "defaultTemplateSord": {
+                "objKeys": {
+                  "MEETING_ITEM_NO_GEN": "Default",
+                  "MEETING_ITEM_SHORT_DESC_GEN": "Default",
+                  "SOL_TYPE": "MEETING_ITEM_CONTAINER"
+                }
+            },
+            "fromService": {
+              "name": "RF_sol_function_CreateSord",
+              "params": {
+                  "sourceElement": {
+                      "fromScratch": {
+                        "mask": "Meeting Item",
+                        "type": "sol.Meeting Item Group"
+                      }
+                  },
+                  "targetFolder": {
+                      "mask": "Meeting structure"
+                  }
+              }
+            },
+            "workflow": {
+              "name": "sol.meeting.item.CreateContainer",
+              "title": "Create container item",
+              "concluding": true
+            }
+        },
+        "getItemStatus": {
+          "name": "RF_sol_common_service_SordProvider",
+          "args": {
+              "masks": ["Meeting Item"],
+              "search": [
+                {"type": "GRP", "key": "SOL_TYPE", "value": ["MEETING_ITEM"]},
+                {"type": "GRP", "key": "MEETING_ITEM_ID", "value": ["{{sord.objKeys.MEETING_ITEM_ID}}"]}
+              ],
+              "output": [
+                { "source": { "type": "SORD", "key": "id" }, "target": { "prop": "itemId" } },
+                { "source": { "type": "GRP", "key": "MEETING_ITEM_STATUS" }, "target": { "prop": "status" } }
+              ],
+              "options": {
+                  "formatAsTemplateSord": true
+              }
+          }
+        },
+        "getItem": {
+          "name": "RF_sol_common_service_SordProvider",
+          "args": {
+              "masks": ["Meeting Item"],
+              "search": [
+                {"type": "GRP", "key": "SOL_TYPE", "value": ["MEETING_ITEM"]},
+                {"type": "GRP", "key": "MEETING_ITEM_ID", "value": ["{{sord.objKeys.MEETING_ITEM_ID}}"]}
+              ],
+              "output": {
+                "formatter": "sol.common.ObjectFormatter.TemplateSord",
+                "config": {
+                  "sordKeys": [ "id", "name", "ownerName" ]
+                }
+              },
+              "options": {
+                  "formatAsTemplateSord": true
+              }
+          }
+        },
+        "getVotingFolder": {
+          "name": "RF_sol_meeting_voting_service_Voting_Folder_Get",
+          "args": {
+            "throwError": false,
+            "objId": "{{sord.id}}",
+            "asElementService": true
+          }
+        }
+      },
+      "workflowMixins": {
+        "create": {
+          "currentUser": {
+            "users": [
+              "$CURRENTUSER",
+              { "type": "GRP", "key": "MEETING_ITEM_RESPONSIBLE_PERSON" },
+              { "type": "GRP", "key": "MEETING_ITEM_SPEAKER" }
+            ],
+            "rights": {
+              "r": true, "w": true, "d": true, "e": true, "l": true, "p": true
+            },
+            "mode": "SET",
+            "inherit": false
+          },
+          "defaultPermissions": {
+            "scriptProperties": {
+              "users": [
+                { "type": "GRP", "key": "MEETING_ITEM_RESPONSIBLE_PERSON" },
+                { "type": "GRP", "key": "MEETING_ITEM_SPEAKER" }
+              ],
+              "rights": {
+                "r": true, "w": true, "d": true, "e": true, "l": true, "p": true
+              },
+              "inherit": true,
+              "mode": "ADD"
+            }
+          }
+        },
+        "update": {
+          "name": "RF_sol_function_Set",
+          "args": {
+            "entries": [
+              { "type": "SORD", "key": "name", "value": "{{#if sord.objKeys.MEETING_ITEM_DAY}} [{{sord.objKeys.MEETING_ITEM_DAY}}] {{sord.objKeys.MEETING_ITEM_OUTLINENUMBER}} {{{sord.objKeys.MEETING_ITEM_TITLE}}} ({{sord.objKeys.MEETING_ITEM_START}}) {{else}} {{{sord.objKeys.MEETING_ITEM_TITLE}}} {{/if}}", "useTemplating": true}
+            ]
+          }
+        },
+        "register": {
+          "defaultValues": {
+            "args": {
+              "entries": [
+                { "type": "GRP", "key": "MEETING_ITEM_DAY", "value": "0", "onlyIfEmpty": true }
+              ]
+            }
+          }
+        }
+      },
+      "functions": {
+        "create": {
+          "userToIndex": {
+            "fieldName": "MEETING_ITEM_RESPONSIBLE_PERSON"
+          }
+        },
+        "personalSpace": {
+          "name": "RF_sol_function_Move",
+          "scriptProperties": {
+            "path": "ARCPATH[{{userFolder 'private' user=sord.ownerName}}]:/Meeting-Management/{{sord.objKeys.MEETING_BOARD_NAME}}",
+            "referencePaths": [
+            ],
+            "asAdmin": true
+          }
+        },
+        "appendMissingAgendaSettings": {
+          "scriptProperties": {
+            "entries": [
+              {
+                "type": "GRP",
+                "key": "SOL_TYPE",
+                "value": "MEETING_ITEM"
+              },
+              {
+                "type": "GRP",
+                "key": "MEETING_ITEM_DAY",
+                "value": "0",
+                "onlyIfEmpty": true
+              }
+            ]
+          }
+        },
+        "submitToMeeting": {
+          "name": "RF_sol_function_Move",
+          "args": {
+            "targetFromElementService": {
+              "objId": "fromParams",
+              "name": "RF_sol_meeting_function_FindMeetingItemListFolder"
+            },
+            "rightsConfig": {
+              "users": [
+                "$CURRENTUSER",
+                { "type": "GRP", "key": "MEETING_ITEM_RESPONSIBLE_PERSON" },
+                { "type": "GRP", "key": "MEETING_ITEM_SPEAKER" }
+              ],
+              "rights": {
+                "r": true, "w": true, "d": true, "e": true, "l": true, "p": true
+              },
+              "mode": "ADD",
+              "inherit": true
+            },
+            "refOldParentId": true
+          }
+        },
+        "moveToMeeting": {
+          "name": "RF_sol_function_Move",
+          "args": {
+            "targetFromElementService": {
+                "objId": "fromParams",
+                "name": "RF_sol_meeting_function_FindMeetingItemListFolder"
+            },
+            "rightsConfig": {
+              "users": [
+                "$CURRENTUSER",
+                { "type": "GRP", "key": "MEETING_ITEM_RESPONSIBLE_PERSON" },
+                { "type": "GRP", "key": "MEETING_ITEM_SPEAKER" }
+              ],
+              "rights": {
+                "r": true, "w": true, "d": true, "e": true, "l": true, "p": true
+              },
+              "mode": "ADD",
+              "inherit": true }
+          }
+        },
+        "moveToPool": {
+          "args": {
+            "targetIdFromMap": "MEETING_ITEM_POOL_GUID",
+            "rightsConfig": { "mode": "ADD", "inherit": true }
+          }
+        },
+
+        "cancelAction": {
+          "args": {
+            "asAdmin": true
+          }
+        },
+
+        "fillItemShell": {
+          "source": {
+            "objId": "fromParams"
+          },
+          "target": {
+            "fromService": {
+              "name": "RF_sol_function_CreateSord",
+              "params": {
+                "sourceElement": { "fromScratch": { "mask": "Meeting Item", "type": "sol.Meeting Item"}},
+                "targetFolder": {
+                  "objId": "0"
+                },
+                "onCreatedElement": {
+                  "setPermissions": {
+                    "users": [{"name": "9999", "rights": { "r": false, "w": false, "d": false, "e": false, "l": false, "p": false}}],
+                    "mode": "SET"
+                  }
+                }
+              }
+            },
+            "startWorkflow": {
+              "name": "sol.meeting.item.CreateShell",
+              "title": "Item Shell",
+              "concluding": true
+            }
+          },
+          "metadataMapping": [
+            { "source": { "type": "SORD", "id": "guid" }, "target": { "id": "MEETING_ITEM_LINK", "type": "GRP" }},
+            { "source": { "type": "SORD", "id": "name" }, "target": { "id": "name", "type": "SORD" }},
+            { "target": { "type":"GRP", "id": "MEETING_ITEM_ID", "value": "T{{count 'sol.meeting.item.shell' '0000'}}" } },
+            { "target": { "id": "SOL_TYPE", "type": "GRP", "value": "MEETING_ITEM" }, "comment": "set fix value" },
+            { "target": { "id": "MEETING_ITEM_DAY", "type": "GRP", "value": "0", "onlyIfEmpty": true } }
+          ],
+          "storeTargetSord": {
+            "field": { "type" : "GRP", "key": "MEETING_ITEM_LINK" }
+          }
+        },
+
+        "deleteShellItem": {
+          "args": {
+            "target": {
+              "fromField": {
+                "type": "GRP", "key": "MEETING_ITEM_LINK"
+              }
+            }
+          }
+        },
+
+        "submitStatus": {
+          "args": {
+            "group": "MEETING_ITEM_STATUS",
+            "status": "S",
+            "useDynKwl": true,
+            "dynKwlCfg": {
+              "returnColumn": 2,
+              "filterColumn": 0
+            }
+          }
+        },
+
+        "registerStatus": {
+          "args": {
+            "group": "MEETING_ITEM_STATUS",
+            "status": "R",
+            "useDynKwl": true,
+            "dynKwlCfg": {
+              "returnColumn": 2,
+              "filterColumn": 0
+            }
+          }
+        },
+      
+       "updateShellItem": {
+          "scriptProperties": {
+            "set": {
+              "name": "RF_sol_function_Set", 
+              "args": {
+                "objId": "{{sord.objKeys.MEETING_ITEM_LINK}}",
+                "asAdmin": true,
+                "entries": [
+                  {
+                    "type": "GRP",
+                    "key": "MEETING_ITEM_STATUS",
+                    "value": "W",
+                    "useDynKwl": true
+                  },
+                  {
+                    "type": "GRP",
+                    "key": "MEETING_ITEM_LINK",
+                    "value": ""
+                  }
+                ]
+              }
+            },
+            "color": {
+              "name": "RF_sol_function_ChangeColor", 
+              "args": {
+                "objId": "{{sord.objKeys.MEETING_ITEM_LINK}}",
+                "color": "red"
+              }
+            },
+            "delete": {
+              "name": "RF_sol_function_Delete", 
+              "args": {
+                "objId": "{{sord.objKeys.MEETING_ITEM_LINK}}"
+              }
+            }
+          }
+        }
+        
+      },
+      "outputs": {
+          "itemContainer": [
+              { "source": { "type": "SORD", "key": "id" }, "target": { "prop": "id" }},
+              { "source": { "type": "SORD", "key": "name" }, "target": { "prop": "name" }},
+              { "source": { "type": "GRP", "key": "SOL_TYPE" }, "target": { "prop": "solType" }},
+              { "source": { "type": "GRP", "key": "MEETING_ITEM_TITLE" }, "target": { "prop": "title" }},
+              { "source": { "type": "GRP", "key": "MEETING_ITEM_ID" }, "target": { "prop": "itemId" }},
+              { "source": { "type": "GRP", "key": "MEETING_ITEM_ICON" }, "target": { "prop": "icon" }},
+              { "source": { "type": "GRP", "key": "MEETING_ITEM_START" }, "target": { "prop": "begin" }},
+              { "source": { "type": "GRP", "key": "MEETING_ITEM_END" }, "target": { "prop": "end" }},
+              { "source": { "type": "GRP", "key": "MEETING_ITEM_DURATION" }, "target": { "prop": "duration" }},
+              { "source": { "type": "GRP", "key": "MEETING_AGENDA_POSITION" }, "target": { "prop": "position" }},
+              { "source": { "type": "GRP", "key": "MEETING_ITEM_OUTLINENUMBER" }, "target": { "prop": "number" }},
+              { "source": { "type": "GRP", "key": "MEETING_ITEM_DAY" }, "target": { "prop": "dayIndex" }}
+            ],
+          "structuralItem": [
+              { "source": { "type": "SORD", "key": "id" }, "target": { "prop": "id" }},
+              { "source": { "type": "SORD", "key": "name" }, "target": { "prop": "name" }},
+              { "source": { "type": "GRP", "key": "SOL_TYPE" }, "target": { "prop": "solType" }},
+              { "source": { "type": "GRP", "key": "MEETING_ITEM_TITLE" }, "target": { "prop": "title" }},
+              { "source": { "type": "GRP", "key": "MEETING_ITEM_ID" }, "target": { "prop": "itemId" }},
+              { "source": { "type": "GRP", "key": "MEETING_ITEM_ICON" }, "target": { "prop": "icon" }},
+              { "source": { "type": "GRP", "key": "MEETING_ITEM_START" }, "target": { "prop": "begin" }},
+              { "source": { "type": "GRP", "key": "MEETING_ITEM_END" }, "target": { "prop": "end" }},
+              { "source": { "type": "GRP", "key": "MEETING_ITEM_DURATION" }, "target": { "prop": "duration" }},
+              { "source": { "type": "GRP", "key": "MEETING_AGENDA_POSITION" }, "target": { "prop": "position" }},
+              { "source": { "type": "GRP", "key": "MEETING_ITEM_OUTLINENUMBER" }, "target": { "prop": "number" }},
+              { "source": { "type": "GRP", "key": "MEETING_ITEM_DAY" }, "target": { "prop": "dayIndex" }}
+          ],
+          "itemFull": [
+            {
+              "source": {
+                "type": "SORD",
+                "key": "id"
+              },
+              "target": {
+                "prop": "id"
+              }
+            },
+            {
+              "source": {
+                "type": "SORD",
+                "key": "guid"
+              },
+              "target": {
+                "prop": "guid"
+              }
+            },
+            {
+              "source": {
+                "type": "SORD",
+                "key": "desc"
+              },
+              "target": {
+                "prop": "desc"
+              }
+            },
+            {
+              "source": {
+                "type": "GRP",
+                "key": "SOL_TYPE"
+              },
+              "target": {
+                "prop": "solType"
+              }
+            },
+            {
+              "source": {
+                "type": "GRP",
+                "key": "MEETING_ITEM_TITLE"
+              },
+              "target": {
+                "prop": "title"
+              }
+            },
+            {
+              "source": {
+                "type": "GRP",
+                "key": "MEETING_ITEM_ID"
+              },
+              "target": {
+                "prop": "itemId"
+              }
+            },
+            {
+              "source": {
+                "type": "GRP",
+                "key": "MEETING_ITEM_ICON"
+              },
+              "target": {
+                "prop": "icon"
+              }
+            },
+            {
+              "source": {
+                "type": "GRP",
+                "key": "MEETING_ITEM_START"
+              },
+              "target": {
+                "prop": "begin"
+              }
+            },
+            {
+              "source": {
+                "type": "GRP",
+                "key": "MEETING_ITEM_END"
+              },
+              "target": {
+                "prop": "end"
+              }
+            },
+            {
+              "source": {
+                "type": "GRP",
+                "key": "MEETING_ITEM_DURATION"
+              },
+              "target": {
+                "prop": "duration"
+              }
+            },
+            {
+              "source": {
+                "type": "GRP",
+                "key": "MEETING_ITEM_STATUS"
+              },
+              "target": {
+                "prop": "status"
+              }
+            },
+            {
+              "source": {
+                "type": "GRP",
+                "key": "MEETING_ITEM_SPEAKER"
+              },
+              "target": {
+                "prop": "speaker"
+              }
+            },
+            {
+              "source": {
+                "type": "GRP",
+                "key": "MEETING_ITEM_LINK"
+              },
+              "target": {
+                "prop": "itemLink"
+              }
+            },
+            {
+              "source": {
+                "type": "MAP",
+                "key": "MEETING_ITEM_SPEAKER_ID"
+              },
+              "target": {
+                "prop": "speakerId"
+              }
+            },
+            {
+              "source": {
+                "type": "GRP",
+                "key": "MEETING_ITEM_FIXED"
+              },
+              "target": {
+                "prop": "fixed"
+              }
+            },
+            {
+              "source": {
+                "type": "GRP",
+                "key": "MEETING_AGENDA_POSITION"
+              },
+              "target": {
+                "prop": "position"
+              }
+            },
+            {
+              "source": {
+                "type": "GRP",
+                "key": "MEETING_ITEM_OUTLINENUMBER"
+              },
+              "target": {
+                "prop": "number"
+              }
+            },
+            {
+              "source": {
+                "type": "GRP",
+                "key": "MEETING_ITEM_RESPONSIBLE_PERSON"
+              },
+              "target": {
+                "prop": "responsiblePerson"
+              }
+            },
+            {
+              "source": {
+                "type": "MAP",
+                "key": "MEETING_ITEM_RESPONSIBLE_PERSON_ID"
+              },
+              "target": {
+                "prop": "responsiblePersonId"
+              }
+            },
+            {
+              "source": {
+                "type": "GRP",
+                "key": "MEETING_ITEM_DAY"
+              },
+              "target": {
+                "prop": "dayIndex"
+              }
+            },
+            {
+              "source": {
+                "type": "GRP",
+                "key": "MEETING_PROPOSAL_CODE"
+              },
+              "target": {
+                "prop": "proposalCode"
+              }
+            },
+            {
+              "source": {
+                "type": "GRP",
+                "key": "MEETING_ITEM_PARENT"
+              },
+              "target": {
+                "prop": "parent"
+              }
+            },
+            {
+              "source": {
+                "type": "GRP",
+                "key": "MEETING_REFERENCE"
+              },
+              "target": {
+                "prop": "meetingReference"
+              }
+            },
+            {
+              "source": {
+                "type": "GRP",
+                "key": "MEETING_RESOLUTION_STATUS"
+              },
+              "target": {
+                "prop": "resolutionStatus"
+              }
+            },
+            {
+              "source": {
+                "type": "GRP",
+                "key": "MEETING_BOARD_REFERENCE"
+              },
+              "target": {
+                "prop": "boardReference"
+              }
+            },
+            {
+              "source": {
+                "type": "GRP",
+                "key": "MEETING_BOARD_NAME"
+              },
+              "target": {
+                "prop": "boardName"
+              }
+            },
+            {
+              "source": {
+                "type": "GRP",
+                "key": "MEETING_BOARD_CODE"
+              },
+              "target": {
+                "prop": "boardCode"
+              }
+            },
+            {
+              "source": {
+                "type": "FORMBLOB",
+                "key": "MEETING_ITEM_MINUTES"
+              },
+              "target": {
+                "prop": "minutes"
+              }
+            },
+            {
+              "source": {
+                "type": "SORD",
+                "key": "aclItems"
+              },
+              "target": {
+                "prop": "accessCode"
+              }
+            },
+            {
+              "source": {
+                "type": "GRP",
+                "key": "MEETING_ITEM_MINUTES_LASTEDITED"
+              },
+              "target": {
+                "prop": "minutesLastEdited"
+              }
+            }
+          ],
+          "itemMin": [
+            {
+              "source": {
+                "type": "SORD",
+                "key": "id"
+              },
+              "target": {
+                "prop": "id"
+              }
+            },
+            {
+              "source": {
+                "type": "SORD",
+                "key": "name"
+              },
+              "target": {
+                "prop": "name"
+              }
+            }
+          ],
+          "itemWithdraw": [
+            {
+              "source": {
+                "type": "SORD",
+                "key": "id"
+              },
+              "target": {
+                "prop": "id"
+              }
+            },
+            {
+              "source": {
+                "type": "SORD",
+                "key": "guid"
+              },
+              "target": {
+                "prop": "guid"
+              }
+            },
+            {
+              "source": {
+                "type": "SORD",
+                "key": "deleted"
+              },
+              "target": {
+                "prop": "deleted"
+              }
+            },
+            {
+              "source": {
+                "type": "GRP",
+                "key": "SOL_TYPE"
+              },
+              "target": {
+                "prop": "solType"
+              }
+            },
+            {
+              "source": {
+                "type": "GRP",
+                "key": "MEETING_ITEM_ID"
+              },
+              "target": {
+                "prop": "itemId"
+              }
+            },
+            {
+              "source": {
+                "type": "GRP",
+                "key": "MEETING_ITEM_DAY"
+              },
+              "target": {
+                "prop": "dayIndex"
+              }
+            }
+          ]
+      },
+      "generators": {
+        "shortDesc": {
+          "default": {
+            "source": "[{{item.objKeys.MEETING_ITEM_DAY}}] {{item.objKeys.MEETING_AGENDA_POSITION}} {{{item.objKeys.MEETING_ITEM_TITLE}}} ({{item.objKeys.MEETING_ITEM_START}})"
+          }
+        },
+        "reference": {
+            "default": {
+              "source": "TOP-{{count 'sol.meeting.meeetingItemNo' '0000'}}"
+            },
+            "structuralItem": {
+              "source": "O-{{count 'sol.meeting.meeetingItemStructuralNo' '0000'}}"
+            }
+        }
+      }
+    },
+    "structuralItem": {
+      "functions": {
+        "create": {
+          "defaults": {
+            "args": {
+              "entries": [
+                { "type": "GRP", "key": "SOL_TYPE", "value": "STRUCTURAL_ITEM" }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "itemPool": {
+      "generators": {
+        "shortDesc": {
+          "default": {
+            "name": "RF_sol_function_Set",
+            "args": {
+              "entries": [
+                { "type": "SORD", "key": "name", "value": "{{{sord.objKeys.MEETING_ITEM_POOL_NAME}}}", "useTemplating": true }
+              ]
+            }
+          }
+        },
+        "no": {
+          "default": {
+            "path":  "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/meeting/Configuration/Generators/Meeting item pool no",
+            "name": "Default",
+            "targetField": "MEETING_ITEM_POOL_REFERENCE"
+          }
+        }
+      }
+    }
+}

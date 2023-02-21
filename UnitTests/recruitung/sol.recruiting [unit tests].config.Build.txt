@@ -1,0 +1,17 @@
+{
+  "selector": {
+    "ids": [],
+    "arcPath": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/recruiting [unit tests]/.eloinst/build"
+  },
+  "view": {
+    "show": "CONTENT",
+    "focus": "APP",
+    "type": "DOCVIEW"
+  },
+  "web": {
+    "id": "BuildConfig",
+    "namespace": "sol.dev.apps",
+    "eloSession": true
+  },
+  "id": "sol.recruiting [unit tests].config.Build"
+}

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<fo:root font-family="ELO Sans Pro,Arial,Helvetica" xmlns:fo="http://www.w3.org/1999/XSL/Format">
+  <fo:layout-master-set>
+    <fo:simple-page-master master-name="Deckblatt" page-height="29.7cm" page-width="21cm" margin-top="1.5cm" margin-bottom="1.5cm" margin-left="2cm" margin-right="2cm">
+      <fo:region-body />
+    </fo:simple-page-master>
+  </fo:layout-master-set>
+
+  <fo:page-sequence master-reference="Deckblatt">
+    <fo:flow flow-name="xsl-region-body">
+
+      <fo:block-container margin-top="3mm">
+        <fo:block>
+          <fo:external-graphic width="100%"
+            scaling="uniform" content-width="scale-to-fit"
+            {{#if sord.guid}}
+            src="url('data:image/{{ext}};base64,{{base64Image objId='{{sord.guid}}'}}')"/>
+            {{/if}}
+            {{#if filePath}}
+            src="url('{{filePath}}')"/>
+            {{/if}}
+        </fo:block>
+      </fo:block-container>
+
+    </fo:flow>
+  </fo:page-sequence>
+
+</fo:root>

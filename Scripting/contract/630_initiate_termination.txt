@@ -1,0 +1,42 @@
+﻿<tbody id="eloedit" tableid="tb" bigtable="false" tablebreak="false" eloelems="IX_GRP_CONTRACT_REASON_END,IX_MAP_CONTRACT_REASON_END_OTHER,WF_MAP_TERM_INITIATOR_COMMENT">
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+<tr><td class="responsive" colspan="9"></td></tr>
+<tr><td class="" colspan="9"></td></tr><tr><td class="formgradientgray formbold" colspan="1"></td><td class="formgradientgray formbold" colspan="7"><div elonodename="TEXT" style="left: 0px; top: 0px;" id=""><elowf:text>sol.contract.form.termination.comment</elowf:text></div></td><td class="formgradientgray formbold"></td></tr><tr><td class="" colspan="9"></td></tr><tr><td class="" colspan="7"></td><td class="row required"><div elonodename="TEXT" id="" style="left: 0px; top: 0px;"><elowf:text>sol.contract.form.termination.reasonEnd</elowf:text></div></td><td></td></tr><tr><td class="" colspan="9"></td></tr><tr><td class="" colspan="7"></td><td class="input100 row"><div elonodename="INPUT" style="left: 0px; top: 0px;"><input type="text" size="30" name="IX_GRP_CONTRACT_REASON_END" value="" restricttoswl="" eloverify="  notempty" title="" accesskey="" eloverifymsg=""><a swlname="DYNSWL_sol.contract.ix.localizedKwl.ReasonEnd" inpname="IX_GRP_CONTRACT_REASON_END" filterfields="" style="visibility: visible;"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="swlOnlyButton" border="0"></a></div></td><td></td></tr><tr><td class="" colspan="7"></td><td class="input100 row"><div elonodename="INPUT" style="left: 0px; top: 0px;"><input type="text" size="30" name="IX_MAP_CONTRACT_REASON_END_OTHER" value="" title="" eloverify="" accesskey=""></div></td><td></td></tr><tr><td class="" colspan="9"></td></tr><tr><td class="" colspan="1"></td><td class="row required" colspan="7"><div elonodename="TEXT" style="left: 0px; top: 0px;" id=""><elowf:text>sol.contract.form.termination.commentDescr</elowf:text></div></td><td></td></tr><tr><td class="" colspan="9"></td></tr><tr><td></td><td class="input100 row" colspan="7" style=""><div style="left: 0px; top: 0px;" elonodename="MEMO"><textarea name="WF_MAP_TERM_INITIATOR_COMMENT" title="" accesskey="" rows="5" cols="70" eloverify="text max:255 notemptyforward"></textarea></div></td><td></td></tr><tr><td class="" colspan="9"></td></tr><tr><td class="" colspan="9"></td></tr>
+</tbody>
+
+          
+
+ELO_END_OF_TEMPLATE
+{"ver":1,"relationNames":[],"elocompl":[],"eloswl":["DYNSWL_sol.contract.ix.localizedKwl.ReasonEnd"]}

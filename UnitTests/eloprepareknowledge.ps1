@@ -1,0 +1,1 @@
+elo prepare -stack ruberg-knowledge -workspace default -version 11.00

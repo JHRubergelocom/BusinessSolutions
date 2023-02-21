@@ -1,0 +1,11 @@
+{
+  "$protected": true,
+  "smtpHost": "mail.elo.com",
+  "user": "",
+  "password": "",
+  "port": "",
+  "useSsl": false,
+  "useStartTls": false,
+  "trustAllHosts": true,
+  "passwordEncrypted": true
+}

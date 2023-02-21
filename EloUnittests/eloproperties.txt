@@ -1,0 +1,8 @@
+#EloProperties
+#Fri Feb 17 14:48:47 CET 2023
+Pattern=sol.learning.ix.functions.ForEach
+SelectedEloServices=KnowledgeBoard
+CaseSensitiv=false
+SelectedStack=ruberg-hr
+SelectedEloCli=eloPrepare
+SelectedUnittestTools=show

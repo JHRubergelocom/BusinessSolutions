@@ -1,0 +1,139 @@
+﻿<script type="text/javascript" src="lib_Class"></script>
+<script type="text/javascript" src="lib_webcamjs"></script>
+<script type="text/javascript" src="lib_sol.common.IxUtils"></script>
+<script type="text/javascript" src="lib_sol.common.ObjectUtils"></script>
+<script type="text/javascript" src="lib_sol.common.forms.Utils"></script>
+<script type="text/javascript" src="lib_sol.common.forms.FileChooserVariants"></script>
+<script type="text/javascript" src="lib_sol.common.forms.Webcam"></script>
+<script type="text/javascript" src="lib_sol.common.forms.FileUpload"></script>
+<script type="text/javascript" src="lib_sol.visitor.forms.Utils"></script>
+<script type='text/javascript'>
+
+  function inputChanged(source) {
+    var me = this,
+        dialogTitle;
+
+    if (source == null) {
+      window.setTimeout(function() {
+        sol.common.forms.Utils.initializeForm();
+        sol.visitor.forms.Utils.initOnChange();
+      }, 100);
+
+      if ($var("IX_BLOB_FCVCONFIG")) {
+        me.filePicker = me.filePicker || sol.create("sol.common.forms.FileChooserVariants", ($val("IX_BLOB_FCVCONFIG") ? JSON.parse($val("IX_BLOB_FCVCONFIG")) : {}));
+      }
+      if ($var("JS_IMPORT_VISITORS")) {
+        dialogTitle = elo.locale.store["sol.visitor.form.chooseVisitorList"];
+        me.fileUpload = sol.create("sol.common.forms.FileUpload", { buttonName: "JS_IMPORT_VISITORS", dialogTitle: dialogTitle, onload: sol.visitor.forms.Utils.insertGroupMembers });
+      }
+    } else {
+      sol.visitor.forms.Utils.onFieldChanged(source);
+    }
+  }
+
+  function nextClicked(id) {
+    var me = this,
+        startDate, startTime, promise;
+
+    if (sol.common.forms.Utils.disableCancelButtonValidation(id, ["sol.common.wf.node.cancel"])) { return true; }
+
+    if (me.filePicker && document.getElementById('part_113_visitor_capturepic_webcam') && (typeof me.filePicker.displayImage === "undefined" || !me.filePicker.displayImage.src)) {
+      // don't allow submit if webcam picture was not taken but is mandatory.
+      return false;
+    }
+
+    verifyAllInputs(function (isValid) {
+      if (isValid && me.filePicker) {
+        me.filePicker.uploadFile();
+      }
+      sol.visitor.forms.Utils.onNextClicked();
+    });
+
+    startDate = $val("IX_GRP_VISITOR_STARTDATE");
+    startTime = $val("IX_GRP_VISITOR_STARTTIME");
+    if (!startDate && !startTime) {
+      startDate = $val("IX_GRP_VISITOR_ARRIVALDATE");
+      startTime = $val("IX_GRP_VISITOR_ARRIVALTIME");
+      $update("IX_GRP_VISITOR_STARTDATE", startDate);
+      $update("IX_GRP_VISITOR_STARTTIME", startTime);
+    }
+
+    sol.visitor.forms.Utils.clearLicenseTag();
+    sol.visitor.forms.Utils.registerUpdate();
+
+    if (ELO_PARAMS.WF_TEMPLATE == "sol.visitor.visitor.cancelgroupregistration") {return true;}
+
+    promise = sol.visitor.forms.Utils.updateGroupMembers({ solType: ELO_PARAMS.IX_GRP_SOL_TYPE });
+
+    return promise;
+  }
+
+  function saveClicked() {
+    var me = this,
+        promise, result, params;
+
+    verifyAllInputs(function (isValid) {
+      if (isValid && me.filePicker) {
+        me.filePicker.uploadFile();
+      }
+    });
+
+    sol.visitor.forms.Utils.clearLicenseTag();
+    sol.visitor.forms.Utils.clearTime();
+    if ((!ELO_PARAMS.IX_GRP_VISITOR_GROUP_NAME && (ELO_PARAMS.IX_GRP_SOL_TYPE === "VISITOR" || ELO_PARAMS.IX_GRP_SOL_TYPE === "LONG_TERM_BADGE"))
+        || ELO_PARAMS.IX_GRP_SOL_TYPE === "VISITOR_GROUP") {
+      sol.visitor.forms.Utils.registerUpdate();
+    }
+
+    if (ELO_PARAMS.WF_TEMPLATE == "sol.visitor.visitor.cancelgroupregistration") {return true;}
+
+    promise = sol.visitor.forms.Utils.updateGroupMembers({ solType: ELO_PARAMS.IX_GRP_SOL_TYPE });
+
+    return promise;
+  }
+
+  function removeLineClicked(addLineId, groupIndex) {
+    return true;
+  }
+
+  function tabChanged(id) {
+  }
+
+  function onDynListItemSelected(item) {
+    sol.common.forms.Utils.callInputChangedForDynKwlChanges(item);
+  }
+
+  function  JS_SIGNATURE_RESET()  {
+    signaturePad.clear();
+  }
+
+  function JS_VAL_VALIDATETIME(name,value,param){
+    if  (!sol.visitor.forms.Utils.validateTime(value)){
+      var acronym = document.querySelector("div[id='TXT_TIMEFORMATINVALID'] > acronym");
+      if (acronym) {
+        var txtValue = acronym.innerText;
+        if (!txtValue) { txtValue = "Invalid time"}
+        return txtValue.toString();
+      }
+    }
+  }
+
+  function JS_VAL_VALIDATEMAIL(name,value,param){
+     if  (!sol.visitor.forms.Utils.validateMail(value)){
+      var acronym = document.querySelector("div[id='TXT_MAILFORMATINVALID'] > acronym");
+      if (acronym) {
+        var txtValue = acronym.innerText;
+        if (!txtValue) { txtValue = "Invalid mail format"}
+        return txtValue.toString();
+      }
+    }
+  }
+
+
+</script>
+
+<link rel="stylesheet" type="text/css" href="sol.common.forms.MainForm.css">
+<link rel="stylesheet" type="text/css" href="sol.visitor.forms.css">
+<style type='text/css'>
+
+</style>

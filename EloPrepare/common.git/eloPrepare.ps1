@@ -1,0 +1,1 @@
+elo prepare -stack ruberg-common -workspace jan -version 12.00

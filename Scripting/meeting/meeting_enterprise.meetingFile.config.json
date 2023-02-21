@@ -1,0 +1,17 @@
+{
+  "documentGeneratorConfig": {
+    "fields": {
+      "versionComment": "MEETING_FILE_VERSION_COMMENT",
+      "documentName": "MEETING_FILE_DOCUMENTNAME"
+    },
+    "solType": "MEETING_FILE_DOCUMENT",
+    "template": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions Custom/meeting_enterprise/Configuration/Meeting file templates/Default",
+    "subFolder": "{{translate 'sol.meeting_enterprise.meetingFile.document.subFolderName' settings.language}}",
+    "fileName": {
+      "partial": {
+        "prefix": "{{translate 'sol.meeting_enterprise.meetingFile.document.partialPrefix' settings.language}} - "
+      },
+      "prefix": "{{translate 'sol.meeting_enterprise.meetingFile.document.prefix' settings.language}} - "
+    }
+  }
+}

@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:fox="http://xmlgraphics.apache.org/fop/extensions">
+  <fo:layout-master-set>
+		<fo:simple-page-master master-name="A4" page-height="10.5cm" page-width="21cm" margin-top="1.5cm" margin-bottom="1.5cm" margin-left="2cm" margin-right="2cm">
+			<fo:region-body />
+		</fo:simple-page-master>
+	</fo:layout-master-set>
+
+  <fo:page-sequence master-reference="A4">
+    <fo:flow flow-name="xsl-region-body">
+    <fo:block-container position="absolute" top="0mm" left="0mm" width="100%" height="4.5mm" background-color="#2f3237">
+        <fo:block font-size="6pt" margin-top="1.1mm" margin-right="1.5mm" margin-left="1.5mm" color="white">
+		    {{translate "sol.visitor.report.signature.singedby"}}
+        </fo:block>
+    </fo:block-container>   
+    
+    <fo:block font-size="14pt" font-weight="bold" margin-top="8mm" margin-bottom="0.5mm" line-height="4.1mm">
+      {{ sord.mapKeys.VISITOR_FIRSTNAME}} {{ sord.mapKeys.VISITOR_LASTNAME }}
+    </fo:block>
+    <fo:block font-size="8pt" margin-bottom="10mm">
+      {{ sord.mapKeys.VISITOR_COMPANYNAME }}
+    </fo:block>
+    <fo:block>
+		    <fo:external-graphic width="15cm"
+        			content-width="15cm" src="url('data:image/png;base64,{{imageData}}')"/>
+    </fo:block>
+    <fo:block-container position="absolute" bottom="0mm" left="0mm" width="100%" height="4.5mm">
+        <fo:block font-size="8pt" margin-top="1.1mm" margin-right="1.5mm" margin-left="1.5mm">
+		   {{formatDate 'dddd' objKeys.IDateIso}}, {{formatDate 'DD.MM.YYYY' objKeys.IDateIso}} 
+
+        </fo:block>
+    </fo:block-container>   
+    </fo:flow>
+  </fo:page-sequence>
+ 
+</fo:root>

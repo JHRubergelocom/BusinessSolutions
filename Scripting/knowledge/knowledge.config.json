@@ -1,0 +1,332 @@
+{
+  "version": "9.00.001",
+  "fields": {
+    "defaultWorkflow": "DEFAULT_WORKFLOW",
+    "knowledgeCountReplies": "KNOWLEDGE_COUNT_REPLIES",
+    "knowledgeEditedBy": "KNOWLEDGE_LAST_EDITED_BY",
+    "knowledgeSpaceReferenceGen": "KNOWLEDGE_SPACE_REFERENCE_GEN",
+    "knowledgeSpaceReference": "KNOWLEDGE_SPACE_REFERENCE",
+    "knowledgeBoardReferenceGen": "KNOWLEDGE_BOARD_REFERENCE_GEN",
+    "knowledgeBoardReference": "KNOWLEDGE_BOARD_REFERENCE",
+    "knowledgePostReferenceGen": "KNOWLEDGE_POST_REFERENCE_GEN",
+    "knowledgePostReference": "KNOWLEDGE_POST_REFERENCE",
+    "knowledgePostSubject": "KNOWLEDGE_POST_SUBJECT",
+    "knowledgePostType": "KNOWLEDGE_POST_TYPE",
+    "knowledgeReplyReference": "KNOWLEDGE_REPLY_REFERENCE",
+    "knowledgeReplyReferenceGen": "KNOWLEDGE_REPLY_REFERENCE_GEN",
+    "knowledgeScore": "KNOWLEDGE_SCORE",
+    "knowledgeSolved": "KNOWLEDGE_SOLVED",
+    "knowledgeStatus": "KNOWLEDGE_STATUS",
+    "knowledgeTopics": "KNOWLEDGE_TOPICS",
+    "knowledgePinnedAt": "KNOWLEDGE_PINNED_AT",
+    "knowledgeLanguage": "KNOWLEDGE_LANGUAGE",
+    "knowledgeLabel": "KNOWLEDGE_LABEL",
+    "objectType": "SOL_TYPE"
+  },
+  "mapFields": {},
+  "objectTypes": {
+    "reply": "KNOWLEDGE_REPLY",
+    "post": "KNOWLEDGE_POST",
+    "space": "KNOWLEDGE_SPACE",
+    "board": "KNOWLEDGE_BOARD"
+  },
+  "postTypeTemplateFolderId": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/knowledge/Configuration/Post types",
+  "replyTypeTemplateFolderId": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/knowledge/Configuration/Reply types",
+  "services": {
+    "createPost": {
+      "status": "OPEN",
+      "objectType": "KNOWLEDGE_POST",
+      "userRights": {
+        "r": true,
+        "w": true,
+        "d": false,
+        "e": true,
+        "l": true
+      }
+    },
+    "createReply": {
+      "mask": "Knowledge Reply",
+      "objectType": "KNOWLEDGE_REPLY",
+      "copyFieldNames": [
+        "KNOWLEDGE_POST_SUBJECT",
+        "KNOWLEDGE_CATEGORY",
+        "KNOWLEDGE_CONTENT_TYPE",
+        "KNOWLEDGE_POST_TYPE"
+      ],
+      "userRights": {
+        "r": true,
+        "w": true,
+        "d": false,
+        "e": true,
+        "l": true
+      }
+    },
+    "getAdditionalInfo": {
+      "sordKeys": [
+        "name",
+        "guid",
+        "IDateIso",
+        "XDateIso",
+        "TStamp",
+        "ownerId",
+        "ownerName"
+      ],
+      "objKeys": [
+        "KNOWLEDGE_POST_SUBJECT",
+        "KNOWLEDGE_SCORE",
+        "KNOWLEDGE_SOLVED",
+        "KNOWLEDGE_SPACE_REFERENCE",
+        "KNOWLEDGE_LANGUAGE",
+        "KNOWLEDGE_POST_TYPE",
+        "KNOWLEDGE_CONTENT_TYPE",
+        "KNOWLEDGE_BOARD_REFERENCE",
+        "KNOWLEDGE_COUNT_VIEWS",
+        "KNOWLEDGE_TOPICS",
+        "KNOWLEDGE_PINNED_AT",
+        "KNOWLEDGE_COUNT_REPLIES",
+        "KNOWLEDGE_CATEGORY",
+        "KNOWLEDGE_LABEL",
+        "KNOWLEDGE_STATUS",
+        "KNOWLEDGE_LANGUAGE",
+        "KNOWLEDGE_LAST_EDITED_BY",
+        "KNOWLEDGE_LAST_EDITED_DATE"
+      ],
+      "stopWordDefaultListRepoPath": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/knowledge/Configuration/Stop words/Stop words"
+    }
+  },
+  "updateXDateServices": [
+    "sol.knowledge.ix.services.CreatePost",
+    "sol.knowledge.ix.services.EditPost",
+    "sol.knowledge.ix.services.CreateReply",
+    "sol.knowledge.ix.services.EditReply",
+    "sol.knowledge.ix.services.Comment",
+    "sol.knowledge.ix.services.ChangePostType",
+    "sol.knowledge.ix.services.MovePost"
+  ],
+  "generators": {
+    "templateFolderIds": {
+      "postReference": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/knowledge/Configuration/Generators/Reference IDs/Post",
+      "replyReference": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/knowledge/Configuration/Generators/Reference IDs/Reply",
+      "spaceReference": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/knowledge/Configuration/Generators/Reference IDs/Space",
+      "boardReference": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/knowledge/Configuration/Generators/Reference IDs/Board"
+    }
+  },
+  "workflows": {
+    "createPost": {
+      "workflowTemplateFieldName": "DEFAULT_WORKFLOW",
+      "workflowNameTemplate": "{{translate 'sol.knowledge.wf.post.create'}}: {{sordName}}",
+      "nodes": {
+        "setShortDescription": {
+          "entries": [
+            {
+              "type": "SORD",
+              "key": "name",
+              "value": "{{{sord.objKeys.KNOWLEDGE_POST_SUBJECT}}}",
+              "useTemplating": true
+            }
+          ]
+        },
+        "setStatusOpen": {
+          "entries": [
+            {
+              "type": "GRP",
+              "key": "KNOWLEDGE_STATUS",
+              "value": "OPEN"
+            }
+          ]
+        },
+        "writeFeedCommentToKnowledgeSpace": {
+          "file": "sol.knowledge",
+          "key": "knowledge.post.created",
+          "data": [
+            "KNOWLEDGE_POST_REFERENCE",
+            "KNOWLEDGE_POST_SUBJECT"
+          ],
+          "writeToParent": true
+        }
+      }
+    },
+    "editPost": {
+      "workflowTemplate": "sol.knowledge.post.edit",
+      "workflowNameTemplate": "{{translate 'sol.knowledge.wf.post.edit'}}: {{sordName}}",
+      "nodes": {
+        "appendUser": {
+          "fieldName": "KNOWLEDGE_LAST_EDITED_BY"
+        },
+        "editedDate": {
+          "group": "KNOWLEDGE_LAST_EDITED_DATE",
+          "adjustToConnectionTimeZone": true
+        }
+      }
+    },
+    "createReply": {
+      "workflowTemplateFieldName": "DEFAULT_WORKFLOW",
+      "workflowNameTemplate": "{{translate 'sol.knowledge.wf.reply.create'}}: {{sordName}}",
+      "nodes": {
+        "setShortDescription": {
+          "entries": [
+            {
+              "type": "SORD",
+              "key": "name",
+              "value": "Re: {{{sord.objKeys.KNOWLEDGE_POST_SUBJECT}}}",
+              "useTemplating": true
+            }
+          ]
+        },
+        "writeFeedCommentToPost": {
+          "file": "sol.knowledge",
+          "key": "knowledge.reply.created",
+          "writeToParent": true
+        }
+      }
+    },
+    "editReply": {
+      "workflowTemplate": "sol.knowledge.reply.edit",
+      "workflowNameTemplate": "{{translate 'sol.knowledge.wf.reply.edit'}}: {{sordName}}",
+      "nodes": {
+        "appendUser": {
+          "fieldName": "KNOWLEDGE_LAST_EDITED_BY"
+        },
+        "editedDate": {
+          "group": "KNOWLEDGE_LAST_EDITED_DATE"
+        }
+      }
+    },
+    "changePostType": {
+      "workflowTemplate": "sol.knowledge.post.changeType",
+      "workflowNameTemplate": "{{translate 'sol.knowledge.wf.post.changeType'}}: {{sordName}}",
+      "nodes": {
+        "writeFeedCommentToPost": {
+          "file": "sol.knowledge",
+          "key": "knowledge.post.changeType",
+          "data": [
+            "KNOWLEDGE_POST_REFERENCE",
+            "KNOWLEDGE_POST_SUBJECT"
+          ]
+        },
+        "appendUser": {
+          "fieldName": "KNOWLEDGE_LAST_EDITED_BY"
+        },
+        "editedDate": {
+          "group": "KNOWLEDGE_LAST_EDITED_DATE"
+        }
+      }
+    },
+    "updatePost": {
+      "workflowTemplateName": "sol.knowledge.post.update"
+    },
+    "updateReply": {
+      "workflowTemplateName": "sol.knowledge.reply.update"
+    },
+    "deletePost": {
+      "workflowTemplate": "sol.knowledge.post.delete",
+      "workflowNameTemplate": "{{translate 'sol.knowledge.wf.post.delete'}}: {{sordName}}"
+    },
+    "deleteReply": {
+      "workflowTemplate": "sol.knowledge.reply.delete",
+      "workflowNameTemplate": "{{translate 'sol.knowledge.wf.reply.delete'}}: {{sordName}}"
+    },
+    "replyMarkSolved": {
+      "workflowTemplateName": "sol.knowledge.reply.markSolved",
+      "workflowNameTemplate": "{{translate 'sol.knowledge.wf.reply.markSolved'}}: {{sordName}}"
+    },
+    "postMarkSolved": {
+      "workflowTemplateName": "sol.knowledge.post.markSolved",
+      "workflowNameTemplate": "{{translate 'sol.knowledge.wf.post.markSolved'}}: {{sordName}}"
+    },
+    "replyUnMarkSolved": {
+      "workflowTemplateName": "sol.knowledge.reply.unMarkSolved",
+      "workflowNameTemplate": "{{translate 'sol.knowledge.wf.reply.unMarkSolved'}}: {{sordName}}"
+    },
+    "postUnMarkSolved": {
+      "workflowTemplateName": "sol.knowledge.post.unMarkSolved",
+      "workflowNameTemplate": "{{translate 'sol.knowledge.wf.post.unMarkSolved'}}: {{sordName}}"
+    },
+    "postOpen": {
+      "workflowTemplateName": "sol.knowledge.post.open",
+      "workflowNameTemplate": "{{translate 'sol.knowledge.wf.post.open'}}: {{sordName}}"
+    },
+    "postClosed": {
+      "workflowTemplateName": "sol.knowledge.post.closed",
+      "workflowNameTemplate": "{{translate 'sol.knowledge.wf.post.closed'}}: {{sordName}}"
+    },
+    "movePost": {
+      "workflowTemplate": "sol.knowledge.post.move",
+      "workflowNameTemplate": "{{translate 'sol.knowledge.wf.post.move'}}: {{sordName}}",
+      "nodes": {
+        "appendUser": {
+          "fieldName": "KNOWLEDGE_LAST_EDITED_BY"
+        },
+        "editedDate": {
+          "group": "KNOWLEDGE_LAST_EDITED_DATE"
+        }
+      }
+    }
+  },
+  "boardView": {
+    "postPerPage": 25,
+    "replyPerPage": 10,
+    "boardName": "ELO Community",
+    "cacheReloadInSeconds": 5,
+    "earliestReloadCacheInMinutes": 1,
+    "allowEditReplyBeforeChangeToComment": false,
+    "defaultFlagForUpdateDateOnMove": false,
+    "additionalPostInfo": {
+      "maxUsers": 10,
+      "maxRelatedPosts": 8
+    },
+    "topicMaxLength": 30,
+    "boardsAtHome": 6
+  },
+  "boardUpload": {
+    "imageUpload": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Knowledge Board Upload/Image",
+    "fileUpload": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Knowledge Board Upload/File",
+    "mask": "Knowledge Document"
+  },
+  "boardDefaultPostType": "Question",
+  "pageStyles": {
+    "standalone": {
+      "css": ".standalone-header {\n\tmargin: 0;\n\tposition: static;\n\twidth: auto;\n\tpadding: 0;\n}\n\n.standalone-header .inline {\n\tdisplay: inline;\n}\n\n.standalone-header .navbar {\n\tbackground-color: #3b414d;\n\tposition: relative;\n\tbox-shadow: none;\n\tmargin: 0;\n\tpadding: 0;\n\tborder: none;\n\tborder-radius: 0;\n\tcolor: #b4b4b4;\n}\n\n.standalone-header .mobile-navigation {\n\tpadding-top: 18px;\n\tdisplay: none;\n}\n\n.standalone-header .mobile-navigation > button {\n\tborder-radius: 4px;\n\tmargin-right: 5px;\n}\n\n.standalone-header .mobile-popover {\n\tdisplay: none;\n\ttop: 59px;\n\tleft: auto;\n\tright: 0;\n}\n\n.standalone-header .mobile-popover > .arrow {\n\tleft: auto !important;\n\tright: 16px;\n}\n\n.standalone-header .mobile-popover .popover-content {\n\tcolor: #333;\n}\n\n.standalone-header .mobile-popover .popover-content span {\n\tdisplay: block;\n}\n\n.standalone-header .mobile-popover #popover-login-user {\n        margin: 5px 0 0;\n        font-weight: bold;\n}\n\n.standalone-header .mobile-popover #popover-logout-btn {\n        font-weight: normal;\n        color: #444;\n        background: #e8e8e8;\n        width: 100%;\n        margin-top: 10px;\n}\n\n.standalone-header .mobile-popover #popover-logout-btn:hover {\n        background: #ccc;\n}\n\n.standalone-header .logo {\n\tdisplay: table;\n\tfloat: left;\n\tpadding: 22px 0 23px 0;\n\tletter-spacing: 0.08em;\n}\n\n.standalone-header .logo .btn {\n\theight: 42px;\n\tbox-shadow: none;\n\t-webkit-box-shadow: none;\n\tpadding: 4px 18px 5px 18px;\n\tborder-radius: 4px;\n\tfont-size: 16px;\n\tfont-weight: 600;\n}\n\n.standalone-header .btn.btn-grey {\n\tcolor: #ffffff !important;\n\tbackground-color: #4e5661;\n\tborder-color: transparent;\n}\n\n.standalone-header .btn-grey:hover,\n.standalone-header .btn-grey:focus,\n.standalone-header .btn-grey.focus {\n\tcolor: #ffffff;\n\tbackground-color: #3a3b3f;\n\tborder-color: rgba(0, 0, 0, 0);\n}\n\n.standalone-header .logo .fa {\n\ttop: 6px;\n\tfont-size: 19px;\n\tposition: relative;\n\tleft: -3px;\n}\n\n.standalone-header .logo .fa path {\n\tfill: white;\n}\n\n.standalone-header .font-orange {\n\tcolor: #f59c00 !important;\n}\n\n.standalone-header .font-white {\n\tcolor: #ffffff !important;\n}\n\n.standalone-header .metanavi {\n\tmin-height: 40px;\n\tfont-size: 13px;\n}\n\n.standalone-header .metanavi > .pull-right {\n\tposition: relative;\n}\n\n.standalone-header .bg-metanavi {\n\tdisplay: inline-table;\n\tpadding: 7px;\n\tbackground: #4e5661;\n\tcolor: #4c4d52;\n\tmargin-left: 1px;\n}\n\n.standalone-header .metanavi .language-nav {\n\tpadding-top: 8px;\n}\n\n.standalone-header .metanavi .language {\n\ttop: 1px;\n\tposition: relative;\n\tpadding: 0 2px;\n\ttext-decoration: none;\n\tcursor: default;\n}\n\n.standalone-header .metanavi-bodytext {\n\tvertical-align: middle;\n\tmargin-right: 7px;\n\tcursor: default;\n\n}\n\n.standalone-header .logged-in-label {\n\tcolor: #ccc;\n}\n\n.standalone-header .login-name a {\n\tcursor: pointer;\n\tcolor: #fff;\n}\n\n.standalone-header .login-name a:hover {\n\tcolor: #f59c00;\n}\n\n.standalone-header .metanavi .btn {\n\tpadding: 2px 8px;\n\tmargin: 0;\n\tfont-size: 13px;\n\tmin-width: initial;\n\tborder-radius: 3px;\n}\n\n.standalone-header .btn-metanav:hover,\n.standalone-header .btn-metanav:focus,\n.standalone-header .btn-metanav.focus {\n\tcolor: #ffffff;\n\tbackground-color: #3a3b3f;\n\tborder-color: rgba(0, 0, 0, 0);\n}\n\n.standalone-header .btn-metanav {\n\tcolor: #ffffff !important;\n\tbackground-color: #717880;\n\tborder-color: transparent;\n}\n\n.standalone-header .bg-metanavi::before {\n\tcontent: \" \";\n\tdisplay: table;\n}\n\n.standalone-header .bg-metanavi .flag {\n\tposition: relative;\n\ttop: -2px;\n\tmargin-right: 5px;\n}\n\n.standalone-header .powered-by {\n\tfloat: right;\n\tpadding-right: 10px;\n\tmargin-top: 13px;\n}\n\n.standalone-header .powered-by .powered-text {\n\tfont-size: 13px;\n\tmargin-right: 8px;\n\tvertical-align: middle;\n\tcursor: default;\n}\n\n.standalone-header .powered-by .powered-logo {\n\theight: 13px;\n}\n\n@media (max-width:767px) {\n\n\t.standalone-header .mobile-navigation {\n\t\tdisplay: block;\n\t}\n\n\t.standalone-header .metanavi,\n\t.standalone-header .powered-by {\n\t\tdisplay: none;\n\t}\n}",
+      "js": "setTimeout(function(){\r\n\tif (api && api.userId >= 0 && api.userName) {\r\n\t    var userLink, location, root;\r\n\t    angular.element(document).ready(function () {\r\n\t        var element = angular.element(document.getElementById(\"sol-knowledge-main\"));\r\n\t        try {\r\n    \t        location = element.injector().get('$location');\r\n    \t        root = element.injector().get('$rootScope');\r\n    \t        nameSettings(location, root);\r\n\t        }\r\n    \t    catch (err) {\r\n\t            nameSettings();\r\n    \t    }\r\n    \t   \r\n    \t    \r\n\t    });\r\n  }\r\n  if (elo && elo.locale && elo.locale.language != 'de') {\r\n    document.getElementById('knowledge-login-label').innerHTML = 'Logged in as: ';\r\n    document.getElementById('popover-login-label').innerHTML = 'Logged in as:';\r\n    document.getElementById('community-logout-btn').innerHTML = 'Logout';\r\n    document.getElementById('popover-logout-btn').innerHTML = 'Logout';\r\n    document.getElementById('community-help-link').href = \"https://partner.elo.com/en-us/elo-community-faq.html\";\r\n  }\r\n  if (elo && elo.helpers && elo.data && elo.session) {\r\n    document.getElementById('community-logout-btn').onclick = communityLogout;\r\n    document.getElementById('popover-logout-btn').onclick = communityLogout;\r\n  }\r\n});\r\n\r\nfunction nameSettings(location, root) {\r\n    if (!!location && !!root) {\r\n        var board = location.search().board || '';\r\n        \t    \r\n        root.$on('$locationChangeSuccess', function($event, next, current) { \r\n            var pos1, str, arr, board = \"\";\r\n            pos1 = next.indexOf(\"board=\");\r\n            if (pos1 > -1) {\r\n                str = next.substring(pos1);\r\n                arr = str.split(\"&\");\r\n                board = arr[0].substring(6)\r\n            }\r\n    \t    if (board) {\r\n    \t        userLink = '<a href=\"#/?board=' + board + '&user=' + api.userId + '\" onclick=\"setTimeout(function(){document.location.reload(true);})\">' + api.userName + '</a>';\r\n    \t    }\r\n    \t    else {\r\n    \t        if (root.boardCount > 0) {\r\n    \t            userLink = api.userName;  \r\n    \t        }\r\n    \t        else {\r\n    \t\t        userLink = '<a href=\"#/?user=' + api.userId + '\" onclick=\"setTimeout(function(){document.location.reload(true);})\">' + api.userName + '</a>';\r\n    \t        }\r\n    \t    }\r\n            document.getElementById('knowledge-login-user').innerHTML = userLink;\r\n    \t\tdocument.getElementById('popover-login-user').innerHTML = userLink;\r\n        });\r\n        \r\n        if (board) {\r\n            userLink = '<a href=\"#/?board=' + board + '&user=' + api.userId + '\" onclick=\"setTimeout(function(){document.location.reload(true);})\">' + api.userName + '</a>';\r\n        }\r\n        else {\r\n            if (root.boardCount > 0) {\r\n                userLink = api.userName;  \r\n            }\r\n            else {\r\n                userLink = '<a href=\"#/?user=' + api.userId + '\" onclick=\"setTimeout(function(){document.location.reload(true);})\">' + api.userName + '</a>';\r\n            }\r\n        }\r\n    }\r\n    else {\r\n        userLink = api.userName;\r\n    }\r\n    \r\n\tdocument.getElementById('knowledge-login-user').innerHTML = userLink;\r\n\tdocument.getElementById('popover-login-user').innerHTML = userLink;\r\n\tdocument.getElementById('mobile-toggle-nav').onclick = function () {\r\n\t\tvar mobilePopover = document.getElementById('mobile-nav-popover');\r\n\t\tif (mobilePopover && mobilePopover.style.display == 'block') {\r\n\t\t\tmobilePopover.style.display = 'none';\r\n\t\t} else if(mobilePopover) {\r\n\t\t\tmobilePopover.style.display = 'block';\r\n\t\t}\r\n\t};\r\n}\r\n\r\nfunction communityLogout() {\r\n  elo.helpers.Ajax.call({\r\n      method: \"GET\",\r\n      url: elo.data.server.relativeAppUrl + '/apps/app/' + elo.data.server.appNamespace + '.' + elo.data.server.appId + '/api/ping',\r\n      params: { logout: \"true\", ticket: elo.session.SessionLight.ticket }\r\n    },\r\n    function (data) {\r\n      elo.session.SessionLight.redirectToGoodbye();\r\n    }, function (e) {\r\n      elo.session.SessionLight.redirectToGoodbye();  \r\n  });\r\n}",
+      "htmlHeader": "<div class=\"sol-knowledge standalone-header\">\n\t<nav class=\"navbar navbar-default navbar-static-top\">\n\t\t<div class=\"main-wrapper\">\n\t\t\t<div class=\"logo\">\n\t\t\t\t<div class=\"btn-group\">\n\t\t\t\t\t<a href=\"#/\" onclick=\"setTimeout(function(){document.location.reload(true);})\" title=\"ELO Digital Office\" class=\"btn btn-grey\">\n\t\t\t\t\t\t<i class=\"fa\">\n\t\t\t\t\t\t\t<svg class=\"community-icon\" width=\"20\" height=\"22\" viewBox=\"0 0 512 512\">\n\t\t\t\t\t\t\t\t<path d=\"m448 160l-32 0l0 32c0 49-47 96-96 96l-147 0l-45 45l0 19c0 32 32 64 64 64l160 0l96 96l0 0l0-96c32 0 64-32 64-64l0-128c0-32-32-64-64-64z m-288 96l160 0c32 0 64-32 64-64l0-128c0-32-32-64-64-64l-256 0c-32 0-64 32-64 64l0 128c0 32 32 64 64 64l0 96z\"></path>\n\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t</i>\n\t\t\t\t\t\t<span>ELO</span> <span class=\"font-orange\">Community</span>\n\t\t\t\t\t</a>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class=\"metanavi\">\n\t\t\t\t<div class=\"pull-right position-relative\">\n\t\t\t\t\t<div class=\"bg-metanavi font-white language-nav\" style=\"display: none;\">\n\t\t\t\t\t\t<a class=\"text-unstyled language font-white\" title=\"Deutsch\">\n\t\t\t\t\t\t\t<img class=\"flag\" width=\"24\" height=\"24\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAZdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuMTZEaa/1AAAAlElEQVRoQ+3PQQqAMBBD0d7/bN6ppgsX0iw7xgwpvFEHofxRfeacpcoPu/Sk8sMuPan8sEtP+uSSSglQ6xOwHk4SoJYAtQSoJUCtXwBe16cPzD4B62w//B1mAqQwewQ8L9sPf4eZACnMBEhhvgMuPJwkQC0BaglQS4BaAtS2AFN06YQundClE7p0QpdO6NIJXfqY4wbKF9BuVpOeCwAAAABJRU5ErkJggg==\">\n\t\t\t\t\t\t\t<span class=\"text-uppercase\">de</span>\n\t\t\t\t\t\t</a>\n\t\t\t\t\t</div><div class=\"bg-metanavi font-white\" style=\"padding-left: 12px;\">\n\t\t\t\t\t\t<div class=\"metanavi-bodytext inline\">\n\t\t\t\t\t\t\t<span id=\"knowledge-login-label\" class=\"logged-in-label\">Angemeldet als: </span>\n\t\t\t\t\t\t\t<span id=\"knowledge-login-user\" class=\"login-name\">unbekannt</span>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"inline\">\n\t\t\t\t\t\t\t<a id=\"community-logout-btn\" class=\"btn btn-metanav btn-sm\">Abmelden</a>\n\t\t\t\t\t\t\t<a id=\"community-help-link\" class=\"btn btn-metanav btn-sm\" href=\"https://partner.elo.com/de-de/faq-elo-community.html\">?</a>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class=\"powered-by\">\n\t\t\t\t<span class=\"powered-text\">powered by</span>\n\t\t\t\t<img class=\"powered-logo\" src=\"data:image/png;base64,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\">\n\t\t\t</div>\n\t\t\t<div class=\"mobile-navigation\">\n\t\t\t\t<button type=\"button\" id=\"mobile-toggle-nav\" class=\"navbar-toggle\">\n\t\t\t\t\t<span class=\"sr-only\">Toggle navigation</span>\n\t\t\t\t\t<span class=\"icon-bar\"></span>\n\t\t\t\t\t<span class=\"icon-bar\"></span>\n\t\t\t\t\t<span class=\"icon-bar\"></span>\n\t\t\t\t</button>\n\t\t\t\t<div id=\"mobile-nav-popover\" class=\"popover mobile-popover fade bottom in\">\n\t\t\t\t\t<div class=\"arrow\"></div>\n\t\t\t\t\t<div class=\"popover-content\">\n\t\t\t\t\t\t<span id=\"popover-login-label\">Angemeldet als:</span>\n\t\t\t\t\t\t<span id=\"popover-login-user\">unbekannt</span>\n\t\t\t\t\t\t<a id=\"popover-logout-btn\" class=\"btn\">Abmelden</a>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t</nav>\n</div>",
+      "htmlFooter": ""
+    },
+    "embedded": {
+      "css": "",
+      "js": "",
+      "htmlHeader": "",
+      "htmlFooter": ""
+    }
+  },
+  "postLocales": {
+    "active": true,
+    "defaultLocale": "en",
+    "allowedLocales": [
+      {
+        "locale": "de",
+        "text": "{{translate 'sol.knowledge.lang.de'}}",
+        "options": {
+          "homeImage": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/knowledge/Configuration/Resources/homeHeaderImage",
+          "homeContent": "",
+          "homeHeadline": "ELO Community",
+          "homePreHeadline": "Herzlich willkommen in der",
+          "homeSubHeadline": ""
+        }
+      },
+      {
+        "locale": "en",
+        "text": "{{translate 'sol.knowledge.lang.en'}}",
+        "options": {
+          "homeImage": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/knowledge/Configuration/Resources/homeHeaderImage",
+          "homeContent": "",
+          "homeHeadline": "ELO Community",
+          "homePreHeadline": "Welcome to the",
+          "homeSubHeadline": ""
+        }
+      }
+    ]
+  },
+  "cleanupImages": {
+    "threshold": 5
+  }
+}

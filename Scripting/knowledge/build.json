@@ -1,0 +1,42 @@
+{
+  "setupName": "sol.knowledge",
+  "fileNamePrefix": "40",
+  "workflowTemplates": [
+    "sol.knowledge.post.article.create",
+    "sol.knowledge.post.guide.create",
+    "sol.knowledge.post.closed",
+    "sol.knowledge.post.edit",
+    "sol.knowledge.post.idea.create",
+    "sol.knowledge.post.markSolved",
+    "sol.knowledge.post.open",
+    "sol.knowledge.post.question.create",
+    "sol.knowledge.post.unMarkSolved",
+    "sol.knowledge.post.update",
+    "sol.knowledge.reply.create",
+    "sol.knowledge.reply.edit",
+    "sol.knowledge.reply.markSolved",
+    "sol.knowledge.reply.unMarkSolved",
+    "sol.knowledge.reply.update",
+    "sol.knowledge.space.create",
+    "sol.knowledge.board.create",
+    "sol.knowledge.post.changeType",
+    "sol.knowledge.post.delete",
+    "sol.knowledge.reply.delete",
+    "sol.knowledge.post.move"
+  ],
+  "sordTypes": [
+    "sol.Knowledge Space",
+    "sol.Knowledge Reply",
+    "sol.Knowledge Question",
+    "sol.Knowledge Article",
+    "sol.Knowledge Idea",
+    "sol.Knowledge Board"
+  ],
+  "preserveAclUserNames": [
+    "sol.knowledge.roles.Moderators",
+    "sol.knowledge.roles.Administrators",
+    "sol.knowledge.roles.Users",
+    "Solutions"
+  ],
+  "gitPackagePath": "C:/Git/solutions/knowledge.git/Business Solutions/knowledge"
+}

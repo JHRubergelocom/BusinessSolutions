@@ -1,0 +1,28 @@
+{
+    "dependencies": [
+        {
+            "folder": "../hr_recruiting.git/Business Solutions/recruiting",
+            "elo": "/Business Solutions/recruiting"
+        },
+        {
+            "folder": "../hr_recruiting.git/Business Solutions Custom/recruiting [de]",
+            "elo": "/Business Solutions Custom/recruiting"
+        },
+        {
+            "folder": "../hr_recruiting.git/Business Solutions/recruiting_jobportal",
+            "elo": "/Business Solutions/recruiting_jobportal"
+        },
+        {
+            "folder": "../hr_recruiting.git/Business Solutions/recruiting [demo de]",
+            "elo": "/Business Solutions/recruiting [demo de]"
+        },
+        {
+            "folder": "../hr_recruiting.git/Business Solutions Custom/recruiting_jobportal [de]",
+            "elo": "/Business Solutions Custom/recruiting_jobportal"
+        },
+        {
+            "folder": "../hr_recruiting.git/Business Solutions/Unit Tests",
+            "elo": "/Business Solutions/recruiting [unit tests]"
+        }
+    ]
+}

@@ -1,0 +1,10 @@
+{
+  "setupName": "common [unit tests]",
+  "fileNamePrefix": "",
+  "workflowTemplates": [
+    "Unittest",
+    "UnittestStandardWF"
+  ],
+  "sordTypes": [],
+  "gitPackagePath": "C:/Git/solutions/common.git/Business Solutions/Unit Tests"
+}

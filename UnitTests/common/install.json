@@ -1,0 +1,37 @@
+{
+  "setupName": "common [unit tests]",
+  "packageName": "common [unit tests]",
+  "deleteSords": [
+    "{{packageFolderPath}}/Configuration/as.config"
+  ],
+  "previewForms": [],
+  "refChildren": [
+    {
+      "source": "{{packageFolderPath}}/Unit Tests",
+      "destinations": [
+        "{{bsFolderPath}}/_global/Unit Tests"
+      ]
+    },
+    {
+      "source": "{{packageFolderPath}}/IndexServer Scripting Base",
+      "destinations": [
+        "{{ixScriptingBaseFolderPath}}/_ALL/business_solutions"
+      ],
+      "ignoreSubfolders": true
+    },
+    {
+      "source": "{{packageFolderPath}}/ELOas Base",
+      "destinations": [
+        "{{administrationFolderPath}}/ELOas Base"
+      ]
+    }
+  ],
+  "ref": [],
+  "users": [
+    {
+      "id": "9522",
+      "name": "Unittest",
+      "type": "User"
+    }
+  ]
+}

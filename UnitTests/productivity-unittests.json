@@ -1,0 +1,52 @@
+{
+    "dependencies": [
+        {
+            "folder": "../productivity.git/Business Solutions/account",
+            "elo": "/Business Solutions/account"
+        },
+        {
+            "folder": "../productivity.git/Business Solutions Custom/account",
+            "elo": "/Business Solutions Custom/account"
+        },
+        {
+            "folder": "../productivity.git/Business Solutions/checklist",
+            "elo": "/Business Solutions/checklist"
+        },
+        {
+            "folder": "../productivity.git/Business Solutions Custom/checklist",
+            "elo": "/Business Solutions Custom/checklist"
+        },
+        {
+            "folder": "../productivity.git/Business Solutions/contact",
+            "elo": "/Business Solutions/contact"
+        },
+        {
+            "folder": "../productivity.git/Business Solutions Custom/contact",
+            "elo": "/Business Solutions Custom/contact"
+        },
+        {
+            "folder": "../productivity.git/Business Solutions/launchpad",
+            "elo": "/Business Solutions/launchpad"
+        },
+        {
+            "folder": "../productivity.git/Business Solutions Custom/launchpad",
+            "elo": "/Business Solutions Custom/launchpad"
+        },
+        {
+            "folder": "../productivity.git/Business Solutions/notify",
+            "elo": "/Business Solutions/notify"
+        },
+        {
+            "folder": "../productivity.git/Business Solutions Custom/notify",
+            "elo": "/Business Solutions Custom/notify"
+        },
+        {
+            "folder": "../productivity.git/Business Solutions/Unit Tests",
+            "elo": "/Business Solutions/common [unit tests]"
+        },
+        {
+            "folder": "../productivity.git/Business Solutions Custom/Unit Tests",
+            "elo": "/Business Solutions Custom/common [unit tests]"
+        }
+    ]
+}

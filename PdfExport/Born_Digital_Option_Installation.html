@@ -1,0 +1,110 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf8">
+	</head>
+	<body lang="EN">
+		<h2>Installation of the Born Digital Conversion Option for PDF Compressor</h2>
+
+		<p>The following conditions must be met for successful installation of the Born Digital
+		document conversion option.</p>
+		<ol>
+			<li>
+				PDF Compressor must be installed on a 32-Bit Windows(TM) Server 2003 or Server 2008 system.<br>
+                Microsoft Terminal Services are used and appropriate Microsoft licenses are required.</li>
+			<li>
+				For conversion of Microsoft Office(TM) Documents the appropriate components of 
+				Office 2003 or 2007 must be installed first, such that all Office document 
+				types submitted to conversion can be opened.<br></li>
+			<li>
+				The Born Digital document conversion conflicts with virtual PDF printers 
+				installed, such as the LuraDocument PDF Printer. It is strongly recommended to 
+				uninstall such printers before installing the LuraDocument PDF Compressor with 
+				Born Digital document conversion.<br></li>
+			<li>
+				Remote Desktop connections must be enabled. This can be done via
+				<p>
+                    Start&#8594;Control Panel&#8594;System Properties&#8594;Remote.</p>
+				<ul>
+					<li>
+						Ensure that security settings relating to Terminal Services ("Local Policies", 
+						"User Rights Assignments") are set to "Allow log on through Terminal Services".</li>
+					<li>
+						Verify Terminal Services Configuration in "Administrative Tools". 
+						The following restriction in "Server Settings" must not apply: "Restrict each user to one session".
+						For connection RDP-TCP the properties have to allow automatic logon.
+						"Always prompt for password" must be disabled in Logon Settings.</li>
+					<li>
+						If using Windows (TM) Server 2008, the role "Terminal Services" must be installed
+						and enabled. This can be done through Start&#8594;Manage Your Server&#8594;Add or remove a role.</li>
+				</ul>
+				<br>
+			</li>
+			<li>
+				Before installing PDF Compressor Enterprise, create dedicated user account(s) for 
+				conversion worker sessions.
+				<ul>
+					<li>
+						You should create one such account per processor core licensed for conversion.</li>
+					<li>
+						The accounts can be local or regular domain user accounts, but they must
+						belong to the "Remote Users" group which can also be configured via
+						"Administrative Tools". In any case, please verify that all accounts can
+						log in remotely.</li>
+					<li>
+					    The accounts must have sufficient permissions to access the actual files
+					    to convert. 
+					<li>
+						It is highly preferable to create new accounts upon installation and not to use 
+						pre-existing ones or share accounts of actual desktop users.</li>
+					<li>
+						After installation the worker service accounts should not be used to log on 
+						interactively - this is likely to interfere with the Born Digital conversion 
+						process!</li>
+					<li>
+						Supply the accounts with non-empty passwords and note the user names and 
+						passwords. You will be prompted to enter them during PDF Compressor 
+						installation and you must specify them in fully-qualified form there, either
+						as &lt;computer name&gt;\&lt;user name&gt; for local users or
+						&lt;domain name&gt;\&lt;user name&gt; for domain users.
+						</li>
+				</ul>
+				<br>
+			</li>
+			<li>
+				Log in to each of the service accounts via Remote Desktop (mstsc.exe) and start 
+				each of the installed Office applications.
+				<ul>
+					<li>
+						Verify that all required input file types can be opened properly in Microsoft 
+						Office(TM) (e.g. open a .WPD document in Word, an .SVG document in Visio, etc.). 
+						This procedure is required to complete the Office installation and to ensure 
+						its completeness.</li>
+					<li>
+						In Microsoft Office Outlook(TM) take care to disable automatic features (such as 
+						"AutoArchive" or automatic printing of mail attachments) for each of the 
+						service accounts.</li>
+				</ul>
+				<br>
+			</li>
+			<li>
+				Once this procedure has been completed you are ready to install PDF Compressor 
+				with the Born Digital document conversion option.
+				<ul>
+					<li>
+						Keep the list of worker service account names and passwords at hand as you are 
+						required to enter them during installation.
+                        <br />
+                        <br />
+                    </li>
+				</ul>
+			</li>
+            <li>
+                When using Windows (TM) Server 2008, after installing the PDF Compressor the executable O2PWSC.exe
+                in the PDF Compressor installation directory must be added to the list of remote applications under
+                Start&#8594;Control Panel&#8594;Terminal Services&#8594;Terminal Services Remote App Manager.
+                It is essential to select the "Allow any command-line arguments" option in this application's
+                properties.
+            </li>
+        </ol>
+	</body>
+</html>

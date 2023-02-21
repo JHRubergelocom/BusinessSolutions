@@ -1,0 +1,28 @@
+{
+    "dependencies": [
+        {
+            "folder": "../invoice.git/Business Solutions/invoice",
+            "elo": "/Business Solutions/invoice"
+        },
+        {
+            "folder": "../invoice.git/Business Solutions Custom/invoice",
+            "elo": "/Business Solutions Custom/invoice"
+        },
+        {
+            "folder": "../invoice.git/Business Solutions/invoice_zugferd",
+            "elo": "/Business Solutions/invoice_zugferd"
+        },
+        {
+            "folder": "../invoice.git/Business Solutions Custom/invoice_zugferd",
+            "elo": "/Business Solutions Custom/invoice_zugferd"
+        },
+        {
+            "folder": "../invoice.git/Business Solutions/invoice_datev",
+            "elo": "/Business Solutions/invoice_datev"
+        },
+        {
+            "folder": "../invoice.git/Business Solutions/Unit Tests",
+            "elo": "/Business Solutions/invoice [unit tests]"
+        }
+    ]
+}

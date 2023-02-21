@@ -1,0 +1,17 @@
+{
+  "reputationPoints": {
+    "COURSE_CREATE": "0",
+    "COURSE_UPVOTE": "1",
+    "COURSE_DOWNVOTE": "1",
+    "LEARNINGPATH_CREATE": "0",
+    "LEARNINGPATH_UPVOTE": "1",
+    "LEARNINGPATH_DOWNVOTE": "1",
+    "RECEIVE_COURSE_UPVOTE": "2",
+    "RECEIVE_COURSE_DOWNVOTE": "-2",
+    "RECEIVE_LEARNINGPATH_UPVOTE": "2",
+    "RECEIVE_LEARNINGPATH_DOWNVOTE": "-2"
+  },
+  "reputationStatistic": {
+    "statisticPath": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/_global/Reputation"
+  }
+}

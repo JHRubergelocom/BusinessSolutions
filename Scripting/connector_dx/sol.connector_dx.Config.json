@@ -1,0 +1,7 @@
+{
+  "exchangeDirectory": "",
+  "dxStatusFieldName": "DX_STATUS",
+  "dxDocClassFieldName": "DX_DOC_CLASS",
+  "dataCollectionFieldName": "INVOICE_DATACOLLECTION",
+  "skipAdditionalFiles": true
+}

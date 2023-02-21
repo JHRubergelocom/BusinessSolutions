@@ -1,0 +1,16 @@
+{
+  "exportFolder": "ARCPATH:/PDF Export",
+  "coversheetBasePath": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions Custom/common_document/Configuration/PDF Export Templates/CoverSheets",
+  "coverSheets": [
+    { "mask": "Folder", "template": "/Folder" },
+    { "mask": "E-mail", "template": "/E-mail" }
+  ],
+  "defaultTemplate": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions Custom/common_document/Configuration/PDF Export Templates/Defaults/Default",
+  "errorTemplate": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions Custom/common_document/Configuration/PDF Export Templates/Defaults/Error",
+  "contentsTemplate": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions Custom/common_document/Configuration/PDF Export Templates/Defaults/Contents",
+  "workflow": "",
+  "pdfExport": true,
+  "pdfA": false,
+  "language": "de",
+  "pagination": true
+}
