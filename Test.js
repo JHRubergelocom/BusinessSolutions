@@ -572,10 +572,6 @@ common
 
 elo-sol prepare -stack ruberg-common -workspace jan -version 20.00
 
-https://eloticksy.elo.com/browse/BS-1888
-
-BS Common BS-1888 Unittests erweitern
-
 
 contract
 
@@ -590,11 +586,6 @@ elo-sol prepare -stack ruberg-hr -workspace de -version 20.00
 invoice
 
 elo-sol prepare -stack ruberg-invoice -workspace jan -version 20.00
-
-https://eloticksy.elo.com/browse/BSI-733
-
-BS Invoice BSI-733 Unittests erweitern
-
 
 
 knowledge
@@ -828,137 +819,75 @@ Mechanismus Stichwortlisten mit Locatoren und waitevents statt mit Thread-Sleep 
 
 ===========================================================================================================================
 
-TODO 21.01.2023
+TODO 21.02.2023
 
 
-feature/BSXX-362 
+feature/BSXX-402
 
-https://eloticksy.elo.com/browse/BSXX-362
+https://eloticksy.elo.com/browse/BSXX-402
 
-BS Intern BSXX-362 Testdatengenerierung Meeting Solution mit Playwright Refinement     (Meeting, HR)
-
-
-Refinement Datastructures Entwicklung in neuen Branch durchführen!
-
-
-1.) ELOControl um Feldtyp erweitern ("text", "dynkwl", "checkbox", "button", "radiobutton", "redactor" )
-
-
-2.) Tabpage fields, table, checkboxes mit ELOControl aufbauen
-
-
-3.) Tabpage erweitern mit radiobuttons, redactorfields mit ELOControl
+BS Intern BSXX-402 Testdatengenerierung mit Playwright Erweiterungen
 
 
 
-"xpath=//*[@id=\"tile-1013\"]"
+Ideen für Erweiterungen Testdatengenerierung
 
-$x("//*[@id=\"tile-1772\"]")
-
-
-Solutions-Kachel
-
-
-$x("//*[@title=\"Solutions\"]")
-
-
-TODO 30.01.23
-
-Vorgehen, Idee Refactoring Action
-
-1.) class Action komplett entfernen, vorher startFormula aufheben für class WebclientSession
-
-2.) Funktionen private selectRibbonMenu und selectButton in class WebclientSession implementieren und in startFormula verwenden
-
-3.) Funktion private startFormula in class WebclientSession implementieren
-
-4.) class DataConfig überarbeiten, eloActionDefData aus DataConfig entfernen
-    class ELOaction  actionName mit ELOActionDef ersetzten 
+    Lokalisierung der Tests
 	
-5.) selectsaasignment ersetzten durch init in class Formula	
+    Optionale Entfernung von Testdaten 
+
+
+
+
+
+import com.microsoft.playwright.*;
+import com.microsoft.playwright.options.*;
+import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
+import java.util.*;
+
+public class Example {
+  public static void main(String[] args) {
+    try (Playwright playwright = Playwright.create()) {
+      Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions()
+        .setHeadless(false));
+      BrowserContext context = browser.newContext();
+      page.getByRole(AriaRole.CELL, new Page.GetByRoleOptions().setName("Solutions")).getByText("Solutions").click();
+      page.getByRole(AriaRole.CELL, new Page.GetByRoleOptions().setName("Personalmanagement")).getByRole(AriaRole.IMG).nth(2).click();
+      page.getByRole(AriaRole.CELL, new Page.GetByRoleOptions().setName("Personalmanagement")).getByRole(AriaRole.IMG).nth(1).click();
+      page.locator("#ext-gen2976").getByRole(AriaRole.IMG).nth(2).click();
+      page.locator("#ext-gen2979").getByRole(AriaRole.IMG).nth(3).click();
+      page.locator("#ext-comp-2093").click();
+    }
+  }
+}
+
+
+
+    
+	Screenshot bei Exception ausgeben (fehlerhafte Test)  erledigt
 	
-6.) Eintrag Treeview auswählen
-
-7.) Auswahl zwischen Viewer Formular und externem Formular
-
-8.) Optional Auswahldialog vor dem Formularaufruf (Hr->Organisation erweitern)
-
-9.) In tabpage table auf tables erweitern
-
-
-Playwright DataConfig Hr, Meeting, multiple tables in tabpage
 	
-
-Redactorfelder
-
-
-Meeting "Hinterlegen Sie eine Beschreibung des Meetings."
-
-MeetingItem "Hinterlegen Sie eine Beschreibung des Themas."
+	
+	
+	    "stack": "ruberg-hr.dev.elo"
 
 
+    public String getIxUrl() {
+        return  "http://" + getStack() + ".dev.elo/ix-Solutions/ix";
+    }
+	
+	
+	  "eloDeleteData": {
+    "arcPaths": [
+      "ARCPATH:/Solutions/Personalmanagement/Personalakten/H/Hansen, Hans"
+    ]
+  }
 
-Premium
-
-Meeting "Hinterlegen Sie eine Beschreibung der Sitzung." 
-
-MeetingItem "Hinterlegen Sie eine Beschreibung des TOPs."
-
-
-Tests für hr
-
-Neu->Personal->Neuer Mitarbeiter
-
-IX_GRP_HR_PERSONNEL_FIRSTNAME   Hans
-IX_GRP_HR_PERSONNEL_LASTNAME    Hansen
-IX_GRP_HR_PERSONNEL_PERSONNELNO 12345
-IX_GRP_HR_PERSONNEL_ELOUSERID dynkwl "Jan Eichner"
-IX_GRP_HR_PERSONNEL_RESPONSIBLE dynkwl "Bodo Kraft"
-IX_GRP_HR_PERSONNEL_SUPERIOR dynkwl "Bodo Kraft"
-IX_GRP_HR_PERSONNEL_DATEOFJOINING dynkwl 20220301
-
-Neu->Personal->Neue Organisation
-
-IX_GRP_HR_PERSONNEL_COMPANY   Y Firma
-
-"Speichern"
-
-Weitere Ideen
--------------
-
-Testeinträge optional entfernen
-
-
-Lokalisierung
-
-
-
-Playwright Parametrisierung
-
-
-Videos, Traces auch bei abbrechenden Tests
-
-BrowserType in PlaywrightConfig.json konfigurierbar machen
-
-
-Logging von Fehlermeldungen (z.B.: Website nicht erreichbar!) und Screenshot (png-Datei) bei Exception erzeugen
-
-Tracing und Screenshots von Tests
-
-Löschen von Einträgen
-
-
--Dfile.encoding=UTF-8
-
-
-
-
-JHRubergelocom/BusinessSolutions
-
-
-
-origin
-
-git@github.com:JHRubergelocom/EloTest.git
-
-C:\Users\ruberg\.ssh\Testkey.ppk
+	
+        // Fill LoginData
+        final ELOControl textUserName = new ELOControl("Name", "Administrator", ELOControlType.TEXT);
+        final ELOControl textPassword = new ELOControl("Passwort", "elo", ELOControlType.TEXT);
+        final ELOControl buttonLogin = new ELOControl("Anmelden", "Login", ELOControlType.BUTTON);
+        final String stack = "ruberg-hr.dev.elo";
+		
+        final LoginData loginData = new LoginData(textUserName, textPassword, buttonLogin,stack);
