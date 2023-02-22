@@ -832,62 +832,14 @@ BS Intern BSXX-402 Testdatengenerierung mit Playwright Erweiterungen
 
 Ideen für Erweiterungen Testdatengenerierung
 
-    Lokalisierung der Tests
 	
-    Optionale Entfernung von Testdaten 
+    Optionale Entfernung von Testdaten erledigt
 
-
-
-
-
-import com.microsoft.playwright.*;
-import com.microsoft.playwright.options.*;
-import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
-import java.util.*;
-
-public class Example {
-  public static void main(String[] args) {
-    try (Playwright playwright = Playwright.create()) {
-      Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions()
-        .setHeadless(false));
-      BrowserContext context = browser.newContext();
-      page.getByRole(AriaRole.CELL, new Page.GetByRoleOptions().setName("Solutions")).getByText("Solutions").click();
-      page.getByRole(AriaRole.CELL, new Page.GetByRoleOptions().setName("Personalmanagement")).getByRole(AriaRole.IMG).nth(2).click();
-      page.getByRole(AriaRole.CELL, new Page.GetByRoleOptions().setName("Personalmanagement")).getByRole(AriaRole.IMG).nth(1).click();
-      page.locator("#ext-gen2976").getByRole(AriaRole.IMG).nth(2).click();
-      page.locator("#ext-gen2979").getByRole(AriaRole.IMG).nth(3).click();
-      page.locator("#ext-comp-2093").click();
-    }
-  }
-}
-
-
-
-    
 	Screenshot bei Exception ausgeben (fehlerhafte Test)  erledigt
 	
+	Bestimmte Felder auf bestimmten Inhalt prüfen! (assert in Playwright, Java untersuchen)
 	
+	Testreport erstellen (HTML Report in Playwright untersuchen)
 	
+    Lokalisierung der Tests (später!)
 	
-	    "stack": "ruberg-hr.dev.elo"
-
-
-    public String getIxUrl() {
-        return  "http://" + getStack() + ".dev.elo/ix-Solutions/ix";
-    }
-	
-	
-	  "eloDeleteData": {
-    "arcPaths": [
-      "ARCPATH:/Solutions/Personalmanagement/Personalakten/H/Hansen, Hans"
-    ]
-  }
-
-	
-        // Fill LoginData
-        final ELOControl textUserName = new ELOControl("Name", "Administrator", ELOControlType.TEXT);
-        final ELOControl textPassword = new ELOControl("Passwort", "elo", ELOControlType.TEXT);
-        final ELOControl buttonLogin = new ELOControl("Anmelden", "Login", ELOControlType.BUTTON);
-        final String stack = "ruberg-hr.dev.elo";
-		
-        final LoginData loginData = new LoginData(textUserName, textPassword, buttonLogin,stack);
