@@ -833,9 +833,9 @@ BS Intern BSXX-402 Testdatengenerierung mit Playwright Erweiterungen
 Ideen für Erweiterungen Testdatengenerierung
 
 	
-    Optionale Entfernung von Testdaten erledigt
+    Optionale Entfernung von Testdaten 						erledigt
 
-	Screenshot bei Exception ausgeben (fehlerhafte Test)  erledigt
+	Screenshot bei Exception ausgeben (fehlerhafte Test)  	erledigt
 	
 	Bestimmte Felder auf bestimmten Inhalt prüfen! (assert in Playwright, Java untersuchen)
 	
