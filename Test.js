@@ -837,9 +837,14 @@ Ideen für Erweiterungen Testdatengenerierung
 
 	Screenshot bei Exception ausgeben (fehlerhafte Test)  	erledigt
 	
-	Bestimmte Felder auf bestimmten Inhalt prüfen! (assert in Playwright, Java untersuchen)
+	Screenshot nach jeder Eingabe ausgeben 					erledigt
 	
-	Testreport erstellen (HTML Report in Playwright untersuchen)
+	Testreport erstellen, Testprotokollierung (HTML Report in Playwright untersuchen) in Arbeit
+		
+    Screenshots von Ribbon, Menü, Button click !
+		
+	
+	Bestimmte Felder auf bestimmten Inhalt prüfen! (Assertions (assertThat) in Playwright, Java untersuchen)
 	
     Lokalisierung der Tests (später!)
 	
