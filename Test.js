@@ -560,7 +560,7 @@ executeAdvancedAction
 
 =====================================================================================================================================================================
 
-15.02.2022 TODO Unittests überprüfen (nach Änderungen 21.04 Stack aufbauen und Tests durchlaufen lassen!)
+27.02.2022 TODO Unittests überprüfen (nach Änderungen 21.04 Stack aufbauen und Tests durchlaufen lassen!)
 
 
 QoL Feature für Entwickler: JIRA Issues+Branch via der ELO CLI erstellen
@@ -571,6 +571,48 @@ elo-sol create-issue
 common
 
 elo-sol prepare -stack ruberg-common -workspace jan -version 20.00
+
+[action] sol.common_document.ix.actions.CreateCommunication test finish createcommunication finish input forwarding workflow
+Failed: [ELOIX:9000][[TICKET:6CA2FC...][Internal error.]][Wrapped java.lang.RuntimeException: Error while searching for service [jakarta.activation.spi.MailcapRegistryProvider] (sol.common.ix.functions.notify.js#29787)]
+
+[function] sol.common.ix.functions.CreateFromTemplate test cases create from template strTestA should be equal resultA
+Expected 'undefined' to equal 'The first with string TestA generates ResultA'.
+
+[function] sol.common.ix.functions.Move move folder contents references objRefId31, objRefId32, objRefId33 to objSourceId3 must exist
+Expected '¶_TestTemp¶Move¶Ref32' to equal '¶_TestTemp¶Move¶Ref31'.
+
+[function] sol.dev.ix.functions.GeneratePackage Test Lib Functions sol.dev.ix.functions.GeneratePackage create sord temp
+Error: Timeout - Async callback was not invoked within timeout specified by jasmine.DEFAULT_TIMEOUT_INTERVAL. in http://ruberg-common.dev.elo/ix-Solutions/plugin/de.elo.ix.plugin.proxy/wf/apps/app/sol.dev.apps.UnitTests/modules/elo.third.jasmine.01/jasmine.js?_build=1&_version=21.04.001 (line 1909)
+Q
+
+[lib] sol.unittest.ix.services.SolCommonHttpUtils Test Lib Functions sol.common.HttpUtils getPasswordAuthentication
+Failed: [ELOIX:1000][[TICKET:-...][; nested exception is: 
+	org.mozilla.javascript.EcmaError: TypeError: [JavaPackage javax.mail.PasswordAuthentication] is not a function, it is object. (sol.unittest.ix.services.executelib.js#31762)]]
+	
+[lib] sol.unittest.ix.services.SolCommonMail Test Lib Functions sol.common.Mail addBody
+Failed: [ELOIX:1000][[TICKET:-...][; nested exception is: 
+	org.mozilla.javascript.EcmaError: ReferenceError: "MimeMultipart" is not defined. (sol.unittest.ix.services.executelib6.js#21705)]]
+
+[lib] sol.unittest.ix.services.SolDevBuildPackage Test Lib Functions sol.dev.BuildPackage execute
+Error: Timeout - Async callback was not invoked within timeout specified by jasmine.DEFAULT_TIMEOUT_INTERVAL. in http://ruberg-common.dev.elo/ix-Solutions/plugin/de.elo.ix.plugin.proxy/wf/apps/app/sol.dev.apps.UnitTests/modules/elo.third.jasmine.01/jasmine.js?_build=1&_version=21.04.001 (line 1909)
+QueueRunner.prototype.run/attemptAsync/timeoutId<@http://ruberg-common.dev.elo/ix-Solutions/plugin/de.elo.ix.plugin.proxy/wf/apps/app/sol.dev.apps.UnitTests/modules/elo.third.jasmine.01/jasmine.js?_build=1&_version=21.04.001:1909:23
+setTimeout handler*attemptAsync@http://ruberg-common.dev.elo/ix-Solutions/plugin/de.elo.ix.plugin.proxy/wf/apps/app/sol.dev.apps.UnitTests/modules/elo.third.jasmine.01/jasmine.js?_build=1&_version=21.04.001:1908:46
+QueueRunner.prototype.run@http://ruberg-common.dev.elo/ix-Solutions/plugin/de.elo.ix.plugin.proxy/wf/apps/app/sol.dev.apps.UnitTests/modules/elo.third.jasmine.01/jasmine.js?_build=1&_version=21.04.001:1871:21
+QueueRunner.prototype.execute@http://ruberg-common.dev.elo/ix-Solutions/plugin/de.elo.ix.plugin.proxy/wf/apps/app/sol.dev.apps.UnitTests/modules/elo.third.jasmine.01/jasmine.js?_build=1&_version=21.04.001:1859:10
+queueRunnerFactory@http://ruberg-common.dev.elo/ix-Solutions/plugin/de.elo.ix.plugin.proxy/wf/apps/app/sol.dev.apps.UnitTests/modules/elo.third.jasmine.01/jasmine.js?_build=1&_version=21.04.001:697:35
+Spec.prototype.execute@http://ruberg-common.dev.elo/ix-Solutions/plugin/de.elo.ix.plugin.proxy/wf/apps/app/sol.dev.apps.UnitTests/modules/elo.third.jasmine.01/jasmine.js?_build=1&_version=21.04.001:359:10
+fn@http://ruberg-common.dev.elo/ix-Solutions/plugin/de.elo.ix.plugin.proxy/wf/apps/app/sol.dev.apps.UnitTests/modules/elo.third.jasmine.01/jasmine.js?_build=1&_version=21.04.001:2479:37
+
+[service] sol.common.ix.services.DownloadFileContent test downloadfilecontent strTest should be equal strDownload
+Expected 'undefined' to equal 'Init Document Content'.
+
+	
+
+
+All Rhino lib matching Unittest
+
+sol.common.Template 	executeTemplate 	false
+sol.common.Template 	executeTemplateSynchronized 	false
 
 
 contract
@@ -591,6 +633,9 @@ elo-sol prepare -stack ruberg-invoice -workspace jan -version 20.00
 knowledge
 
 elo-sol prepare -stack ruberg-knowledge -workspace default -version 20.00
+
+
+testen!
 
 
 learning
@@ -841,7 +886,7 @@ Ideen für Erweiterungen Testdatengenerierung
 	
 	Testreport erstellen, Testprotokollierung (HTML Report in Playwright untersuchen) in Arbeit
 		
-    Screenshots von Ribbon, Menü, Button click !
+    Screenshots von Ribbon, Menü, Button click erstellen (Testen ob Zugriff auf Button möglich, auch mit anderen Usern) in Arbeit
 		
 	
 	Bestimmte Felder auf bestimmten Inhalt prüfen! (Assertions (assertThat) in Playwright, Java untersuchen)
