@@ -635,12 +635,13 @@ knowledge
 elo-sol prepare -stack ruberg-knowledge -workspace default -version 20.00
 
 
-testen!
-
-
 learning
 
 elo-sol prepare -stack ruberg-learning -workspace default -version 20.00
+
+
+[action] sol.learning.ix.actions.CreateCorrespondence test create correspondence test finish createcorrespondence finish workflow
+Failed: [ELOIX:9000][[TICKET:FDD96A...][Internal error.]][Wrapped java.lang.RuntimeException: Error while searching for service [jakarta.activation.spi.MailcapRegistryProvider] (sol.common.ix.functions.notify.js#29787)]
 
 
 productivity
@@ -658,9 +659,23 @@ recruiting
 elo-sol prepare -stack ruberg-recruiting -workspace de -version 20.00
 
 
+[action] sol.recruiting.ix.actions.CandidateCorrespondence test candidate correspondence test finish candidatecorrespondence finish input forwarding workflow
+Failed: [ELOIX:9000][[TICKET:7F847F...][Internal error.]][Wrapped java.lang.RuntimeException: Error while searching for service [jakarta.activation.spi.MailcapRegistryProvider] (sol.common.ix.functions.notify.js#29787)]
+
+[action] sol.recruiting.ix.actions.CandidateRequest test candidate request test finish candidaterequest finish input forwarding workflow
+Failed: [ELOIX:9000][[TICKET:7F847F...][Internal error.]][Wrapped java.lang.RuntimeException: Error while searching for service [jakarta.activation.spi.MailcapRegistryProvider] (sol.common.ix.functions.notify.js#29787)]
+
+
 visitor
 
 elo-sol prepare -stack ruberg-visitor -workspace de -version 20.00
+
+
+
+[function] sol.visitor.ix.functions.SendInvitation Tests Registered Functions RF_sol_function_SendInvitation send Invitation
+Failed: [ELOIX:1000][[TICKET:-...][; nested exception is: 
+	org.mozilla.javascript.WrappedException: Wrapped java.lang.RuntimeException: Error while searching for service [jakarta.activation.spi.MailcapRegistryProvider] (sol.visitor.ix.functions.sendinvitation.js#29787)]]
+
 
 
 teamroom
@@ -668,9 +683,21 @@ teamroom
 elo-sol prepare -stack ruberg-teamroom -workspace jan -version 20.00
 
 
+
 meeting
 
 elo-sol prepare -stack ruberg-meeting -workspace premium-groupware -version 20.00
+
+
+[function] sol.meeting.ix.functions.Notify Tests Registered Functions RF_sol_meeting_function_Notify notify
+Failed: [ELOIX:1000][[TICKET:-...][; nested exception is: 
+	org.mozilla.javascript.WrappedException: Wrapped java.lang.RuntimeException: Error while searching for service [jakarta.activation.spi.MailcapRegistryProvider] (sol.meeting.ix.functions.notify.js#2103)]]
+
+
+IndexServer Scripting Base/Functions lib matching Unittest
+
+sol.meeting_groupware.ix.functions.ProcessEvent 	clearTeamsBlobs 	false
+
 
 
 Masken updaten!
@@ -877,17 +904,6 @@ BS Intern BSXX-402 Testdatengenerierung mit Playwright Erweiterungen
 
 Ideen für Erweiterungen Testdatengenerierung
 
-	
-    Optionale Entfernung von Testdaten 						erledigt
-
-	Screenshot bei Exception ausgeben (fehlerhafte Test)  	erledigt
-	
-	Screenshot nach jeder Eingabe ausgeben 					erledigt
-	
-	Testreport erstellen, Testprotokollierung (HTML Report in Playwright untersuchen) in Arbeit
-		
-    Screenshots von Ribbon, Menü, Button click erstellen (Testen ob Zugriff auf Button möglich, auch mit anderen Usern) in Arbeit
-		
 	
 	Bestimmte Felder auf bestimmten Inhalt prüfen! (Assertions (assertThat) in Playwright, Java untersuchen)
 	
