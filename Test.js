@@ -572,41 +572,9 @@ common
 
 elo-sol prepare -stack ruberg-common -workspace jan -version 20.00
 
-[action] sol.common_document.ix.actions.CreateCommunication test finish createcommunication finish input forwarding workflow
-Failed: [ELOIX:9000][[TICKET:6CA2FC...][Internal error.]][Wrapped java.lang.RuntimeException: Error while searching for service [jakarta.activation.spi.MailcapRegistryProvider] (sol.common.ix.functions.notify.js#29787)]
+BS Common BS-1903 Unittests überprüfen
 
-[function] sol.common.ix.functions.CreateFromTemplate test cases create from template strTestA should be equal resultA
-Expected 'undefined' to equal 'The first with string TestA generates ResultA'.
-
-[function] sol.common.ix.functions.Move move folder contents references objRefId31, objRefId32, objRefId33 to objSourceId3 must exist
-Expected '¶_TestTemp¶Move¶Ref32' to equal '¶_TestTemp¶Move¶Ref31'.
-
-[function] sol.dev.ix.functions.GeneratePackage Test Lib Functions sol.dev.ix.functions.GeneratePackage create sord temp
-Error: Timeout - Async callback was not invoked within timeout specified by jasmine.DEFAULT_TIMEOUT_INTERVAL. in http://ruberg-common.dev.elo/ix-Solutions/plugin/de.elo.ix.plugin.proxy/wf/apps/app/sol.dev.apps.UnitTests/modules/elo.third.jasmine.01/jasmine.js?_build=1&_version=21.04.001 (line 1909)
-Q
-
-[lib] sol.unittest.ix.services.SolCommonHttpUtils Test Lib Functions sol.common.HttpUtils getPasswordAuthentication
-Failed: [ELOIX:1000][[TICKET:-...][; nested exception is: 
-	org.mozilla.javascript.EcmaError: TypeError: [JavaPackage javax.mail.PasswordAuthentication] is not a function, it is object. (sol.unittest.ix.services.executelib.js#31762)]]
-	
-[lib] sol.unittest.ix.services.SolCommonMail Test Lib Functions sol.common.Mail addBody
-Failed: [ELOIX:1000][[TICKET:-...][; nested exception is: 
-	org.mozilla.javascript.EcmaError: ReferenceError: "MimeMultipart" is not defined. (sol.unittest.ix.services.executelib6.js#21705)]]
-
-[lib] sol.unittest.ix.services.SolDevBuildPackage Test Lib Functions sol.dev.BuildPackage execute
-Error: Timeout - Async callback was not invoked within timeout specified by jasmine.DEFAULT_TIMEOUT_INTERVAL. in http://ruberg-common.dev.elo/ix-Solutions/plugin/de.elo.ix.plugin.proxy/wf/apps/app/sol.dev.apps.UnitTests/modules/elo.third.jasmine.01/jasmine.js?_build=1&_version=21.04.001 (line 1909)
-QueueRunner.prototype.run/attemptAsync/timeoutId<@http://ruberg-common.dev.elo/ix-Solutions/plugin/de.elo.ix.plugin.proxy/wf/apps/app/sol.dev.apps.UnitTests/modules/elo.third.jasmine.01/jasmine.js?_build=1&_version=21.04.001:1909:23
-setTimeout handler*attemptAsync@http://ruberg-common.dev.elo/ix-Solutions/plugin/de.elo.ix.plugin.proxy/wf/apps/app/sol.dev.apps.UnitTests/modules/elo.third.jasmine.01/jasmine.js?_build=1&_version=21.04.001:1908:46
-QueueRunner.prototype.run@http://ruberg-common.dev.elo/ix-Solutions/plugin/de.elo.ix.plugin.proxy/wf/apps/app/sol.dev.apps.UnitTests/modules/elo.third.jasmine.01/jasmine.js?_build=1&_version=21.04.001:1871:21
-QueueRunner.prototype.execute@http://ruberg-common.dev.elo/ix-Solutions/plugin/de.elo.ix.plugin.proxy/wf/apps/app/sol.dev.apps.UnitTests/modules/elo.third.jasmine.01/jasmine.js?_build=1&_version=21.04.001:1859:10
-queueRunnerFactory@http://ruberg-common.dev.elo/ix-Solutions/plugin/de.elo.ix.plugin.proxy/wf/apps/app/sol.dev.apps.UnitTests/modules/elo.third.jasmine.01/jasmine.js?_build=1&_version=21.04.001:697:35
-Spec.prototype.execute@http://ruberg-common.dev.elo/ix-Solutions/plugin/de.elo.ix.plugin.proxy/wf/apps/app/sol.dev.apps.UnitTests/modules/elo.third.jasmine.01/jasmine.js?_build=1&_version=21.04.001:359:10
-fn@http://ruberg-common.dev.elo/ix-Solutions/plugin/de.elo.ix.plugin.proxy/wf/apps/app/sol.dev.apps.UnitTests/modules/elo.third.jasmine.01/jasmine.js?_build=1&_version=21.04.001:2479:37
-
-[service] sol.common.ix.services.DownloadFileContent test downloadfilecontent strTest should be equal strDownload
-Expected 'undefined' to equal 'Init Document Content'.
-
-	
+https://eloticksy.elo.com/browse/BS-1903
 
 
 All Rhino lib matching Unittest
@@ -639,6 +607,10 @@ learning
 
 elo-sol prepare -stack ruberg-learning -workspace default -version 20.00
 
+BS Learning BSL-586 Unittests überprüfen
+
+https://eloticksy.elo.com/browse/BSL-586
+
 
 [action] sol.learning.ix.actions.CreateCorrespondence test create correspondence test finish createcorrespondence finish workflow
 Failed: [ELOIX:9000][[TICKET:FDD96A...][Internal error.]][Wrapped java.lang.RuntimeException: Error while searching for service [jakarta.activation.spi.MailcapRegistryProvider] (sol.common.ix.functions.notify.js#29787)]
@@ -658,6 +630,10 @@ recruiting
 
 elo-sol prepare -stack ruberg-recruiting -workspace de -version 20.00
 
+BS HR Recruiting BSHRR-612 Unittests überprüfen
+
+https://eloticksy.elo.com/browse/BSHRR-612
+
 
 [action] sol.recruiting.ix.actions.CandidateCorrespondence test candidate correspondence test finish candidatecorrespondence finish input forwarding workflow
 Failed: [ELOIX:9000][[TICKET:7F847F...][Internal error.]][Wrapped java.lang.RuntimeException: Error while searching for service [jakarta.activation.spi.MailcapRegistryProvider] (sol.common.ix.functions.notify.js#29787)]
@@ -670,6 +646,9 @@ visitor
 
 elo-sol prepare -stack ruberg-visitor -workspace de -version 20.00
 
+BS Visitor BSVM-487 Unittests überprüfen
+
+https://eloticksy.elo.com/browse/BSVM-487
 
 
 [function] sol.visitor.ix.functions.SendInvitation Tests Registered Functions RF_sol_function_SendInvitation send Invitation
@@ -687,6 +666,10 @@ elo-sol prepare -stack ruberg-teamroom -workspace jan -version 20.00
 meeting
 
 elo-sol prepare -stack ruberg-meeting -workspace premium-groupware -version 20.00
+
+BS Meeting BSMM-2805 Unittests überprüfen
+
+https://eloticksy.elo.com/browse/BSMM-2805
 
 
 [function] sol.meeting.ix.functions.Notify Tests Registered Functions RF_sol_meeting_function_Notify notify
@@ -891,21 +874,29 @@ Mechanismus Stichwortlisten mit Locatoren und waitevents statt mit Thread-Sleep 
 
 ===========================================================================================================================
 
-TODO 21.02.2023
+TODO 01.03.2023
 
 
-feature/BSXX-402
+feature/BSXX-412
 
-https://eloticksy.elo.com/browse/BSXX-402
+https://eloticksy.elo.com/browse/BSXX-412
 
 BS Intern BSXX-402 Testdatengenerierung mit Playwright Erweiterungen
 
 
 
+
+
 Ideen für Erweiterungen Testdatengenerierung
 
+    Felder auf bestimmten Inhalt prüfen und protokollieren
 	
-	Bestimmte Felder auf bestimmten Inhalt prüfen! (Assertions (assertThat) in Playwright, Java untersuchen)
+		Pflichtfelder prüfen, ob gefüllt   (Maskenfeld-Definitionen)
+		Stichwortlistenfelder(dynamisch/statisch) prüfen
+		Felder mit bestimmten Werten gefüllt
+		Berechtigungen
 	
-    Lokalisierung der Tests (später!)
+    Lokalisierung der Tests
+
 	
+===========================================================================================================================

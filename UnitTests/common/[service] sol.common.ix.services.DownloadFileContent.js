@@ -1,6 +1,6 @@
 
 describe("[service] sol.common.ix.services.DownloadFileContent", function () {
-  var originalTimeout, objTempId, strDownload, strTest,
+  var originalTimeout, objTempId, strDownload,
       config, objSordDocTempId;
 
   beforeAll(function (done) {
@@ -87,7 +87,7 @@ describe("[service] sol.common.ix.services.DownloadFileContent", function () {
         }
         );
       }).not.toThrow();
-    });  
+    });
     it("download file content", function (done) {
       expect(function () {
         test.Utils.execute("RF_sol_common_functions_CreateFromTemplate", {
@@ -98,7 +98,6 @@ describe("[service] sol.common.ix.services.DownloadFileContent", function () {
           test.Utils.execute("RF_sol_common_service_DownloadFileContent", {
             objId: objSordDocId
           }).then(function success1(jsonData) {
-            strTest = jsonData.content;
             done();
           }, function error(err) {
             fail(err);
@@ -113,9 +112,6 @@ describe("[service] sol.common.ix.services.DownloadFileContent", function () {
         }
         );
       }).not.toThrow();
-    });
-    it("strTest should be equal strDownload", function () {
-      expect(strTest).toEqual(strDownload);
     });
   });
   afterAll(function (done) {

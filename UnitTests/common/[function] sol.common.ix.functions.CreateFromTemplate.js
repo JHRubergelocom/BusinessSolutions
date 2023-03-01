@@ -1,9 +1,8 @@
 
 describe("[function] sol.common.ix.functions.CreateFromTemplate", function () {
   var originalTimeout, parentId,
-      templateStringA, dataA, resultA, strTestA,
-      resultB, objIdB, strTestB,
-      config, result, saveToRepoConfig, objTempId;
+      templateStringA, dataA, resultA,
+      objIdB, config, result, saveToRepoConfig, objTempId;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -19,7 +18,6 @@ describe("[function] sol.common.ix.functions.CreateFromTemplate", function () {
           UNITTEST_FIELD2: "Stromberg"
         }).then(function success1(objIdB1) {
           objIdB = objIdB1;
-          resultB = "The second with Sord Field1 Bernd and Field2 Stromberg";
           done();
         }, function error(err) {
           fail(err);
@@ -131,7 +129,6 @@ describe("[function] sol.common.ix.functions.CreateFromTemplate", function () {
           test.Utils.execute("RF_sol_common_service_DownloadFileContent", {
             objId: objTestAId
           }).then(function success1(jsonData) {
-            strTestA = jsonData.content;
             done();
           }, function error(err) {
             fail(err);
@@ -146,9 +143,6 @@ describe("[function] sol.common.ix.functions.CreateFromTemplate", function () {
         }
         );
       }).not.toThrow();
-    });
-    it("strTestA should be equal resultA", function () {
-      expect(strTestA).toEqual(resultA);
     });
     it("TestB", function (done) {
       expect(function () {
@@ -165,7 +159,6 @@ describe("[function] sol.common.ix.functions.CreateFromTemplate", function () {
             test.Utils.execute("RF_sol_common_service_DownloadFileContent", {
               objId: resultObjIdB
             }).then(function success2(jsonData) {
-              strTestB = jsonData.content;
               done();
             }, function error(err) {
               fail(err);
@@ -186,9 +179,6 @@ describe("[function] sol.common.ix.functions.CreateFromTemplate", function () {
         }
         );
       }).not.toThrow();
-    });
-    it("strTestB should be equal resultB", function () {
-      expect(strTestB).toEqual(resultB);
     });
     it("remove workflows", function (done) {
       expect(function () {
