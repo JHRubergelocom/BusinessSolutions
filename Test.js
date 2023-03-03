@@ -572,16 +572,6 @@ common
 
 elo-sol prepare -stack ruberg-common -workspace jan -version 20.00
 
-BS Common BS-1903 Unittests überprüfen
-
-https://eloticksy.elo.com/browse/BS-1903
-
-
-All Rhino lib matching Unittest
-
-sol.common.Template 	executeTemplate 	false
-sol.common.Template 	executeTemplateSynchronized 	false
-
 
 contract
 
@@ -612,10 +602,6 @@ BS Learning BSL-586 Unittests überprüfen
 https://eloticksy.elo.com/browse/BSL-586
 
 
-[action] sol.learning.ix.actions.CreateCorrespondence test create correspondence test finish createcorrespondence finish workflow
-Failed: [ELOIX:9000][[TICKET:FDD96A...][Internal error.]][Wrapped java.lang.RuntimeException: Error while searching for service [jakarta.activation.spi.MailcapRegistryProvider] (sol.common.ix.functions.notify.js#29787)]
-
-
 productivity
 
 elo-sol prepare -stack ruberg-productivity -workspace jan -version 20.00
@@ -635,13 +621,6 @@ BS HR Recruiting BSHRR-612 Unittests überprüfen
 https://eloticksy.elo.com/browse/BSHRR-612
 
 
-[action] sol.recruiting.ix.actions.CandidateCorrespondence test candidate correspondence test finish candidatecorrespondence finish input forwarding workflow
-Failed: [ELOIX:9000][[TICKET:7F847F...][Internal error.]][Wrapped java.lang.RuntimeException: Error while searching for service [jakarta.activation.spi.MailcapRegistryProvider] (sol.common.ix.functions.notify.js#29787)]
-
-[action] sol.recruiting.ix.actions.CandidateRequest test candidate request test finish candidaterequest finish input forwarding workflow
-Failed: [ELOIX:9000][[TICKET:7F847F...][Internal error.]][Wrapped java.lang.RuntimeException: Error while searching for service [jakarta.activation.spi.MailcapRegistryProvider] (sol.common.ix.functions.notify.js#29787)]
-
-
 visitor
 
 elo-sol prepare -stack ruberg-visitor -workspace de -version 20.00
@@ -649,11 +628,6 @@ elo-sol prepare -stack ruberg-visitor -workspace de -version 20.00
 BS Visitor BSVM-487 Unittests überprüfen
 
 https://eloticksy.elo.com/browse/BSVM-487
-
-
-[function] sol.visitor.ix.functions.SendInvitation Tests Registered Functions RF_sol_function_SendInvitation send Invitation
-Failed: [ELOIX:1000][[TICKET:-...][; nested exception is: 
-	org.mozilla.javascript.WrappedException: Wrapped java.lang.RuntimeException: Error while searching for service [jakarta.activation.spi.MailcapRegistryProvider] (sol.visitor.ix.functions.sendinvitation.js#29787)]]
 
 
 
@@ -670,11 +644,6 @@ elo-sol prepare -stack ruberg-meeting -workspace premium-groupware -version 20.0
 BS Meeting BSMM-2805 Unittests überprüfen
 
 https://eloticksy.elo.com/browse/BSMM-2805
-
-
-[function] sol.meeting.ix.functions.Notify Tests Registered Functions RF_sol_meeting_function_Notify notify
-Failed: [ELOIX:1000][[TICKET:-...][; nested exception is: 
-	org.mozilla.javascript.WrappedException: Wrapped java.lang.RuntimeException: Error while searching for service [jakarta.activation.spi.MailcapRegistryProvider] (sol.meeting.ix.functions.notify.js#2103)]]
 
 
 IndexServer Scripting Base/Functions lib matching Unittest
@@ -897,6 +866,8 @@ Ideen für Erweiterungen Testdatengenerierung
 		Berechtigungen
 	
     Lokalisierung der Tests
+	
+	Evtl. Kontaktlisten-Importer (von Enes) in Meeting untersuchen, evtl. als Eingabe für json Konfiguration verwenden!
 
 	
 ===========================================================================================================================

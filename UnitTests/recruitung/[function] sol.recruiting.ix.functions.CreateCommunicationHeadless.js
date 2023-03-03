@@ -16,15 +16,7 @@ describe("[function] sol.recruiting.ix.functions.CreateCommunicationHeadless", f
         interval = 4000;
         test.Utils.getSord("ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/recruiting [unit tests]/Test data/Requisition/Posting").then(function success1(sordPosting) {
           postingGuid = sordPosting.guid;
-          test.Utils.getMapValue(sordPosting.id, "RECRUITING_REQUISITION_GUID").then(function success2(requisitionGuid1) {
-            requisitionGuid = requisitionGuid1;
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
+          done();
         }, function error(err) {
           fail(err);
           console.error(err);
@@ -153,6 +145,19 @@ describe("[function] sol.recruiting.ix.functions.CreateCommunicationHeadless", f
   });
   describe("Tests Registered Functions", function () {
     describe("Create Candidate", function () {
+      it("get Requisition guid", function (done) {
+        expect(function () {
+          test.Utils.getSord("ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/recruiting [unit tests]/Test data/Requisition").then(function success1(sordRequisition) {
+            requisitionGuid = sordRequisition.guid;
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("create Candidate", function (done) {
         expect(function () {
           candidateState = "Baden-Württemberg";

@@ -10,15 +10,7 @@ describe("[function] sol.recruiting.ix.functions.CreateCandidateHeadless", funct
       test.Utils.createTempSord("CreateCandidateHeadless").then(function success(objTempId) {
         test.Utils.getSord("ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/recruiting [unit tests]/Test data/Requisition/Posting").then(function success1(sordPosting) {
           postingGuid = sordPosting.guid;
-          test.Utils.getMapValue(sordPosting.id, "RECRUITING_REQUISITION_GUID").then(function success2(requisitionGuid1) {
-            requisitionGuid = requisitionGuid1;
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
+          done();
         }, function error(err) {
           fail(err);
           console.error(err);
@@ -154,6 +146,19 @@ describe("[function] sol.recruiting.ix.functions.CreateCandidateHeadless", funct
             fail(jsonResult);
             done();
           }, function error(err) {
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("get Requisition guid", function (done) {
+        expect(function () {
+          test.Utils.getSord("ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/recruiting [unit tests]/Test data/Requisition").then(function success1(sordRequisition) {
+            requisitionGuid = sordRequisition.guid;
+            done();
+          }, function error(err) {
+            fail(err);
             console.error(err);
             done();
           }
