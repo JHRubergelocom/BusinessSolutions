@@ -632,34 +632,6 @@ BS Meeting BSMM-2805 Unittests überprüfen
 https://eloticksy.elo.com/browse/BSMM-2805
 
 
-
-[function] sol.meeting.as.functions.CreateMeetingMinutes test CreateMeetingMinutes start as functions CreateMeetingMinutes
-Failed: [ELOIX:1000][[TICKET:-...][; nested exception is: 
-	org.mozilla.javascript.JavaScriptException: HTTP status code 500 (sol.common.ix.services.executeasaction.js#28792)]]
-	
-
-[function] sol.meeting.as.functions.CreateMeetingMinutes
-
-	test CreateMeetingMinutes
-		start as functions CreateMeetingMinutes	
-	
-	
-	
-	
-
-[function] sol.meeting.as.functions.PdfExport test PdfExport start as functions PdfExport
-Failed: [ELOIX:1000][[TICKET:-...][; nested exception is: 
-	org.mozilla.javascript.JavaScriptException: HTTP status code 500 (sol.common.ix.services.executeasaction.js#28792)]]
-
-
-[function] sol.meeting.as.functions.PdfExport
-
-	test PdfExport
-		start as functions PdfExport
-	
-	
-
-
 testen und merge request erstellen, reviewer Florian!
 
 
