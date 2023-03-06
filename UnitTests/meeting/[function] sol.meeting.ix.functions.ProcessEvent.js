@@ -27,6 +27,25 @@ describe("[function] sol.meeting.ix.functions.ProcessEvent", function () {
   });
   describe("Test Lib Functions", function () {
     describe("sol.meeting_groupware.ix.functions.ProcessEvent", function () {
+      it("clearTeamsBlobs", function (done) {
+        expect(function () {
+          day = 1;
+          test.Utils.execute("RF_sol_unittest_meeting_service_ExecuteLib1", {
+            className: "sol.meeting_groupware.ix.functions.ProcessEvent",
+            classConfig: { objId: objMeetingId },
+            method: "clearTeamsBlobs",
+            params: [day]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+
       it("convertToLocalDateTime", function (done) {
         expect(function () {
           isoDate = "20200505";

@@ -597,10 +597,6 @@ learning
 
 elo-sol prepare -stack ruberg-learning -workspace default -version 20.00
 
-BS Learning BSL-586 Unittests überprüfen
-
-https://eloticksy.elo.com/browse/BSL-586
-
 
 productivity
 
@@ -616,25 +612,15 @@ recruiting
 
 elo-sol prepare -stack ruberg-recruiting -workspace de -version 20.00
 
-BS HR Recruiting BSHRR-612 Unittests überprüfen
-
-https://eloticksy.elo.com/browse/BSHRR-612
-
 
 visitor
 
 elo-sol prepare -stack ruberg-visitor -workspace de -version 20.00
 
-BS Visitor BSVM-487 Unittests überprüfen
-
-https://eloticksy.elo.com/browse/BSVM-487
-
-
 
 teamroom
 
 elo-sol prepare -stack ruberg-teamroom -workspace jan -version 20.00
-
 
 
 meeting
@@ -646,10 +632,35 @@ BS Meeting BSMM-2805 Unittests überprüfen
 https://eloticksy.elo.com/browse/BSMM-2805
 
 
-IndexServer Scripting Base/Functions lib matching Unittest
 
-sol.meeting_groupware.ix.functions.ProcessEvent 	clearTeamsBlobs 	false
+[function] sol.meeting.as.functions.CreateMeetingMinutes test CreateMeetingMinutes start as functions CreateMeetingMinutes
+Failed: [ELOIX:1000][[TICKET:-...][; nested exception is: 
+	org.mozilla.javascript.JavaScriptException: HTTP status code 500 (sol.common.ix.services.executeasaction.js#28792)]]
+	
 
+[function] sol.meeting.as.functions.CreateMeetingMinutes
+
+	test CreateMeetingMinutes
+		start as functions CreateMeetingMinutes	
+	
+	
+	
+	
+
+[function] sol.meeting.as.functions.PdfExport test PdfExport start as functions PdfExport
+Failed: [ELOIX:1000][[TICKET:-...][; nested exception is: 
+	org.mozilla.javascript.JavaScriptException: HTTP status code 500 (sol.common.ix.services.executeasaction.js#28792)]]
+
+
+[function] sol.meeting.as.functions.PdfExport
+
+	test PdfExport
+		start as functions PdfExport
+	
+	
+
+
+testen und merge request erstellen, reviewer Florian!
 
 
 Masken updaten!
