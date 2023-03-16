@@ -560,7 +560,7 @@ executeAdvancedAction
 
 =====================================================================================================================================================================
 
-27.02.2022 TODO Unittests überprüfen (nach Änderungen 21.04 Stack aufbauen und Tests durchlaufen lassen!)
+27.02.2022 TODO Unittests überprüfen (nach Änderungen 23.00 Stack aufbauen und Tests durchlaufen lassen!)
 
 
 QoL Feature für Entwickler: JIRA Issues+Branch via der ELO CLI erstellen
@@ -836,21 +836,86 @@ https://eloticksy.elo.com/browse/BSXX-412
 BS Intern BSXX-402 Testdatengenerierung mit Playwright Erweiterungen
 
 
+===========================================================================================================================
+
+TODO 16.03.2023
+
+
+feature/BSXX-426
+
+
+https://eloticksy.elo.com/browse/BSXX-426
+
+BS Intern BSXX-426 Testautomatisierung mit Playwright
 
 
 
-Ideen für Erweiterungen Testdatengenerierung
 
-    Felder auf bestimmten Inhalt prüfen und protokollieren
-	
-		Pflichtfelder prüfen, ob gefüllt   (Maskenfeld-Definitionen)
-		Stichwortlistenfelder(dynamisch/statisch) prüfen
-		Felder mit bestimmten Werten gefüllt
-		Berechtigungen
-	
-    Lokalisierung der Tests
-	
-	Evtl. Kontaktlisten-Importer (von Enes) in Meeting untersuchen, evtl. als Eingabe für json Konfiguration verwenden!
+Ideen für Erweiterungen automatisierte Tests
+
+    Alle Pflichtfelder prüfen, ob gefüllt
+    Felder auf erwarteten Inhalt prüfen
+    Benutzer-Berechtigungen prüfen
+    Möglichkeiten Lokalisierung untersuchen
+
+
+
+
+
+===========================================================================================================================
+
+
+
+Pflichtfeld
+===========
+
+
+<input size="30" value="" name="IX_GRP_HR_PERSONNEL_FIRSTNAME" title="" eloverify="notemptyforward" accesskey="" type="text" aria-labelledby="LBL_IX_GRP_HR_PERSONNEL_FIRSTNAME" aria-required="true" class="focusedOcrInput" autovalidval="">
+
+
+Plichtfeld Attribut eloverify="notemptyforward" prüfen
+
+
+Mandatory field
+
+
+
+
+Feldwert prüfen
+
+<input size="30" name="IX_GRP_HR_PERSONNEL_PERSONNELNO" value="" title="" eloverify="" accesskey="" type="text" aria-labelledby="LBL_IX_GRP_HR_PERSONNEL_PERSONNELNO" class="focusedOcrInput" autovalidval="12345" __playwright_target__="after@call@91">
+
+
+
+
+<input type="text" size="30" name="IX_GRP_HR_PERSONNEL_ELOUSERID" elocompl="ELOUSERNAMES-" restricttoswl="" value="" title="" eloverify="" accesskey="" id="autocompleteid10003" autocomplete="off" aria-labelledby="LBL_IX_GRP_HR_PERSONNEL_ELOUSERID" class="focusedOcrInput" autovalidval="Jan Eichner">
+
 
 	
 ===========================================================================================================================
+
+
+
+Hackathon
+
+Aspekte
+
+Feldtype nicht änderbar
+Über
+
+
+Prüfen Export/Import
+
+
+import AdminConsole
+
+Masken, Aspekte, Stichwortlisten, Workspace-Typen sind vorhanden
+
+Flows fehlen!
+
+
+Webclient, Javaclient
+
+Workspaces fehlen
+
+Angelegte Ordner, Dokumente im Archivbaum nicht vorhanden bzw. sichtbar! 
