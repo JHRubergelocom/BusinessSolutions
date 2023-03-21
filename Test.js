@@ -826,18 +826,6 @@ Mechanismus Stichwortlisten mit Locatoren und waitevents statt mit Thread-Sleep 
 
 ===========================================================================================================================
 
-TODO 01.03.2023
-
-
-feature/BSXX-412
-
-https://eloticksy.elo.com/browse/BSXX-412
-
-BS Intern BSXX-402 Testdatengenerierung mit Playwright Erweiterungen
-
-
-===========================================================================================================================
-
 TODO 16.03.2023
 
 
@@ -849,17 +837,14 @@ https://eloticksy.elo.com/browse/BSXX-426
 BS Intern BSXX-426 Testautomatisierung mit Playwright
 
 
-
-
 Ideen für Erweiterungen automatisierte Tests
 
-    Alle Pflichtfelder prüfen, ob gefüllt
-    Felder auf erwarteten Inhalt prüfen
+    Alle Pflichtfelder prüfen, ob gefüllt erledigt!
+	
+	
+    Felder auf erwarteten Inhalt prüfen, testen!
     Benutzer-Berechtigungen prüfen
     Möglichkeiten Lokalisierung untersuchen
-
-
-
 
 
 ===========================================================================================================================
@@ -876,12 +861,15 @@ Pflichtfeld
 Plichtfeld Attribut eloverify="notemptyforward" prüfen
 
 
+
+
 Mandatory field
 
 
 
 
 Feldwert prüfen
+===============
 
 <input size="30" name="IX_GRP_HR_PERSONNEL_PERSONNELNO" value="" title="" eloverify="" accesskey="" type="text" aria-labelledby="LBL_IX_GRP_HR_PERSONNEL_PERSONNELNO" class="focusedOcrInput" autovalidval="12345" __playwright_target__="after@call@91">
 
@@ -890,32 +878,6 @@ Feldwert prüfen
 
 <input type="text" size="30" name="IX_GRP_HR_PERSONNEL_ELOUSERID" elocompl="ELOUSERNAMES-" restricttoswl="" value="" title="" eloverify="" accesskey="" id="autocompleteid10003" autocomplete="off" aria-labelledby="LBL_IX_GRP_HR_PERSONNEL_ELOUSERID" class="focusedOcrInput" autovalidval="Jan Eichner">
 
-
 	
 ===========================================================================================================================
 
-
-
-Hackathon
-
-Aspekte
-
-Feldtype nicht änderbar
-Über
-
-
-Prüfen Export/Import
-
-
-import AdminConsole
-
-Masken, Aspekte, Stichwortlisten, Workspace-Typen sind vorhanden
-
-Flows fehlen!
-
-
-Webclient, Javaclient
-
-Workspaces fehlen
-
-Angelegte Ordner, Dokumente im Archivbaum nicht vorhanden bzw. sichtbar! 
