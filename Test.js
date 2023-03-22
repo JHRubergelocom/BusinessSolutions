@@ -572,6 +572,10 @@ common
 
 elo-sol prepare -stack ruberg-common -workspace jan -version 20.00
 
+https://eloticksy.elo.com/browse/BS-1923
+
+BS Common BS-1923 Unittests überprüfen
+
 
 contract
 
@@ -582,11 +586,11 @@ hr
 
 elo-sol prepare -stack ruberg-hr -workspace de -version 20.00
 
-
 invoice
 
 elo-sol prepare -stack ruberg-invoice -workspace jan -version 20.00
 
+weitertesten!
 
 knowledge
 
@@ -626,13 +630,6 @@ elo-sol prepare -stack ruberg-teamroom -workspace jan -version 20.00
 meeting
 
 elo-sol prepare -stack ruberg-meeting -workspace premium-groupware -version 20.00
-
-BS Meeting BSMM-2805 Unittests überprüfen
-
-https://eloticksy.elo.com/browse/BSMM-2805
-
-
-testen und merge request erstellen, reviewer Florian!
 
 
 Masken updaten!
@@ -842,7 +839,10 @@ Ideen für Erweiterungen automatisierte Tests
     Alle Pflichtfelder prüfen, ob gefüllt erledigt!
 	
 	
-    Felder auf erwarteten Inhalt prüfen, testen!
+    Felder auf erwarteten Inhalt prüfen, testen! (Radiobutton-Felder testen!)
+	Testreport Refactoring, erledigt!
+	
+	
     Benutzer-Berechtigungen prüfen
     Möglichkeiten Lokalisierung untersuchen
 
