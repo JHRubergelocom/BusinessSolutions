@@ -560,7 +560,7 @@ executeAdvancedAction
 
 =====================================================================================================================================================================
 
-27.02.2022 TODO Unittests überprüfen (nach Änderungen 23.00 Stack aufbauen und Tests durchlaufen lassen!)
+23.03.2022 TODO Unittests überprüfen (nach Änderungen 23.00 Stack aufbauen (vorher ELOas JavaScript Library "C:\Users\ruberg\OneDrive - ELO Digital Office GmbH\Dokumente\Entwicklung\ELOas\ELOasJavaScriptLibrary211DE.eloinst" installieren) und Tests durchlaufen lassen!)
 
 
 QoL Feature für Entwickler: JIRA Issues+Branch via der ELO CLI erstellen
@@ -586,15 +586,25 @@ hr
 
 elo-sol prepare -stack ruberg-hr -workspace de -version 20.00
 
+
 invoice
 
 elo-sol prepare -stack ruberg-invoice -workspace jan -version 20.00
 
-weitertesten!
+
+https://eloticksy.elo.com/browse/BSI-745
+
+BS Invoice BSI-745 Unittests überprüfen
+
 
 knowledge
 
 elo-sol prepare -stack ruberg-knowledge -workspace default -version 20.00
+
+
+https://eloticksy.elo.com/browse/BSK-1024
+
+BS Knowledge BSK-1024 Unittests überprüfen
 
 
 learning
@@ -616,6 +626,7 @@ recruiting
 
 elo-sol prepare -stack ruberg-recruiting -workspace de -version 20.00
 
+testen!
 
 visitor
 
@@ -839,7 +850,7 @@ Ideen für Erweiterungen automatisierte Tests
     Alle Pflichtfelder prüfen, ob gefüllt erledigt!
 	
 	
-    Felder auf erwarteten Inhalt prüfen, testen! (Radiobutton-Felder testen!)
+    Felder auf erwarteten Inhalt prüfen, testen! (Radiobutton-Felder testen! Personalakte -> Ein-/Austritt -> Arbeitsverhältnis auf "befristet" setzen) erledigt
 	Testreport Refactoring, erledigt!
 	
 	
@@ -847,37 +858,5 @@ Ideen für Erweiterungen automatisierte Tests
     Möglichkeiten Lokalisierung untersuchen
 
 
-===========================================================================================================================
-
-
-
-Pflichtfeld
-===========
-
-
-<input size="30" value="" name="IX_GRP_HR_PERSONNEL_FIRSTNAME" title="" eloverify="notemptyforward" accesskey="" type="text" aria-labelledby="LBL_IX_GRP_HR_PERSONNEL_FIRSTNAME" aria-required="true" class="focusedOcrInput" autovalidval="">
-
-
-Plichtfeld Attribut eloverify="notemptyforward" prüfen
-
-
-
-
-Mandatory field
-
-
-
-
-Feldwert prüfen
-===============
-
-<input size="30" name="IX_GRP_HR_PERSONNEL_PERSONNELNO" value="" title="" eloverify="" accesskey="" type="text" aria-labelledby="LBL_IX_GRP_HR_PERSONNEL_PERSONNELNO" class="focusedOcrInput" autovalidval="12345" __playwright_target__="after@call@91">
-
-
-
-
-<input type="text" size="30" name="IX_GRP_HR_PERSONNEL_ELOUSERID" elocompl="ELOUSERNAMES-" restricttoswl="" value="" title="" eloverify="" accesskey="" id="autocompleteid10003" autocomplete="off" aria-labelledby="LBL_IX_GRP_HR_PERSONNEL_ELOUSERID" class="focusedOcrInput" autovalidval="Jan Eichner">
-
-	
 ===========================================================================================================================
 
