@@ -1454,10 +1454,10 @@
   },
   "eloDeleteData": {
     "arcPaths": [
-      "ARCPATH:/Meetingboard1",
-      "ARCPATH:/Meetingboard2",
-      "ARCPATH:/Meetingitempool1",
-      "ARCPATH:/Meetingitempool2"
+      "ARCPATH:/Administrator/Meetingboard1",
+      "ARCPATH:/Administrator/Meetingboard2",
+      "ARCPATH:/Administrator/Meetingitempool1",
+      "ARCPATH:/Administrator/Meetingitempool2"
     ]
   }
 }

@@ -171,6 +171,26 @@
           "selectorButton": ""
         },
         "tabPages": {
+          "Ein-/ Austritt": {
+            "initTabPage": [],
+            "controls": [
+              {
+                "selector": "befristet",
+                "value": "true",
+                "type": "RADIO",
+                "checkValue": true
+              }
+            ],
+            "tables": [],
+            "expectedValueControls": [
+              {
+                "selector": "IX_MAP_DURATION_TYPE",
+                "value": "sol.hr.form.personnelfile.fixedterm",
+                "type": "RADIO",
+                "checkValue": true
+              }
+            ]
+          },
           "Persönlich": {
             "initTabPage": [],
             "controls": [

@@ -626,12 +626,12 @@ recruiting
 
 elo-sol prepare -stack ruberg-recruiting -workspace de -version 20.00
 
-testen!
 
 visitor
 
 elo-sol prepare -stack ruberg-visitor -workspace de -version 20.00
 
+testen!
 
 teamroom
 
@@ -850,7 +850,7 @@ Ideen für Erweiterungen automatisierte Tests
     Alle Pflichtfelder prüfen, ob gefüllt erledigt!
 	
 	
-    Felder auf erwarteten Inhalt prüfen, testen! (Radiobutton-Felder testen! Personalakte -> Ein-/Austritt -> Arbeitsverhältnis auf "befristet" setzen) erledigt
+    Felder auf erwarteten Inhalt prüfen, testen! (Radiobutton-Felder testen! Personalakte -> Ein-/Austritt -> Arbeitsverhältnis auf "befristet" setzen) erledigt!
 	Testreport Refactoring, erledigt!
 	
 	

@@ -612,7 +612,7 @@
   },
   "eloDeleteData": {
     "arcPaths": [
-      "ARCPATH:/Meetingboard1"
+      "ARCPATH:/Administrator/Meetingboard1"
     ]
   }
 }
