@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 
 describe("[lib] sol.unittest.ix.services.SolCommonHttpUtils", function () {
   var originalTimeout, url, bytes, str, inputStream, urlConn, urlString, config, resultObj, data;
@@ -40,7 +41,6 @@ describe("[lib] sol.unittest.ix.services.SolCommonHttpUtils", function () {
       });
       it("buildResultObj", function (done) {
         expect(function () {
-          url = url;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.HttpUtils",
             classConfig: {},
@@ -181,7 +181,6 @@ describe("[lib] sol.unittest.ix.services.SolCommonHttpUtils", function () {
       it("prepareRequest", function (done) {
         expect(function () {
           urlString = url;
-          config = config;
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.HttpUtils",
             classConfig: {},
@@ -215,9 +214,26 @@ describe("[lib] sol.unittest.ix.services.SolCommonHttpUtils", function () {
           );
         }).not.toThrow();
       });
+      it("sendDelete", function (done) {
+        expect(function () {
+          urlString = url;
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.HttpUtils",
+            classConfig: {},
+            method: "sendDelete",
+            params: [urlString, config]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("sendGet", function (done) {
         expect(function () {
-          url = url;
           config = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.HttpUtils",
@@ -236,7 +252,6 @@ describe("[lib] sol.unittest.ix.services.SolCommonHttpUtils", function () {
       });
       it("sendPost", function (done) {
         expect(function () {
-          url = url;
           data = "";
           config = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
@@ -275,7 +290,6 @@ describe("[lib] sol.unittest.ix.services.SolCommonHttpUtils", function () {
       });
       it("resolveUrl", function (done) {
         expect(function () {
-          url = url;
           config = {};
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
             className: "sol.common.HttpUtils",

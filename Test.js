@@ -577,6 +577,25 @@ https://eloticksy.elo.com/browse/BS-1923
 BS Common BS-1923 Unittests überprüfen
 
 
+
+IndexServer Scripting Base lib matching Unittest
+sol.common.ix.DynAdHocFlowUtils 	addUserToApprovalHistory 	false
+sol.common.ix.DynAdHocFlowUtils 	clearPreviousUserFromApprovalHistory 	false
+sol.common.ix.DynAdHocFlowUtils 	getHistoryUserIds 	false
+sol.common.ix.DynAdHocFlowUtils 	getNextUserIds 	false
+sol.common.ix.DynAdHocFlowUtils 	hasLessThanApprovalCount 	false
+sol.common.ix.DynAdHocFlowUtils 	loadApprovalHistoryTable 	false
+
+IndexServer Scripting Base/Functions lib matching Unittest
+sol.common.ix.functions.UserToDynAdHocFlowHistory 	initialize 	false
+sol.common.ix.functions.UserToDynAdHocFlowHistory 	process 	false
+
+
+
+
+
+
+
 contract
 
 elo-sol prepare -stack ruberg-contract -workspace de -version 20.00
@@ -631,7 +650,6 @@ visitor
 
 elo-sol prepare -stack ruberg-visitor -workspace de -version 20.00
 
-testen!
 
 teamroom
 
@@ -641,6 +659,15 @@ elo-sol prepare -stack ruberg-teamroom -workspace jan -version 20.00
 meeting
 
 elo-sol prepare -stack ruberg-meeting -workspace premium-groupware -version 20.00
+
+
+Dynamic Keyword Lists matching Unittest
+sol.meeting.ix.dynkwl.MeetingContactWorkflowMapImport 	false
+
+https://eloticksy.elo.com/browse/BSMM-2824
+
+BS Meeting BSMM-2824 Unittests überprüfen
+
 
 
 Masken updaten!
