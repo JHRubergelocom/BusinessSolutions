@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 
 describe("[libas] sol.unittest.as.services.SolInvoiceElectronicFunctionsExtractData", function () {
   var originalTimeout, content, xmlDoc, xpathChecks, xmlPath,
@@ -32,6 +33,31 @@ describe("[libas] sol.unittest.as.services.SolInvoiceElectronicFunctionsExtractD
           );
         }).not.toThrow();
       });
+      it("checkIsPureXml", function (done) {
+        expect(function () {
+          sord = intrayDocumentSord.id;
+          test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
+            action: "sol.unittest.invoice.as.services.ExecuteLib",
+            config: {
+              className: "sol.invoice_electronic.as.functions.ExtractData",
+              classConfig: {},
+              method: "checkIsPureXml",
+              params: [sord]
+            }
+          }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") != -1) {
+              fail(jsonResult.content);
+            }
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("checkXpaths", function (done) {
         expect(function () {
           xmlDoc = "";
@@ -43,6 +69,31 @@ describe("[libas] sol.unittest.as.services.SolInvoiceElectronicFunctionsExtractD
               classConfig: {},
               method: "checkXpaths",
               params: [xmlDoc, xpathChecks]
+            }
+          }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") != -1) {
+              fail(jsonResult.content);
+            }
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("createPdfFromXml", function (done) {
+        expect(function () {
+          sord = intrayDocumentSord.id;
+          test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
+            action: "sol.unittest.invoice.as.services.ExecuteLib",
+            config: {
+              className: "sol.invoice_electronic.as.functions.ExtractData",
+              classConfig: {},
+              method: "createPdfFromXml",
+              params: [sord]
             }
           }).then(function success(jsonResult) {
             content = jsonResult.content;

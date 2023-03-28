@@ -123,6 +123,10 @@ sol.define("sol.unittest.invoice.as.services.ExecuteLib", {
         break;
       case "sol.invoice_electronic.as.functions.ExtractData":
         switch (me.method) {
+          case "checkIsPureXml":
+          case "createPdfFromXml":
+            me.params[0] = ixConnect.ix().checkoutSord(me.params[0], new SordZ(SordC.mbAll), LockC.NO);
+            break;
           case "getElectronicInvoiceType":
             new File(me.params[0]).createNewFile();
             sol.common.FileUtils.writeStringToFile(me.params[0], "<?xml version=\"1.0\"?><Items></Items>");

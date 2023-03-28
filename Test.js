@@ -598,6 +598,20 @@ https://eloticksy.elo.com/browse/BSI-745
 BS Invoice BSI-745 Unittests überprüfen
 
 
+ELOas Base/OptionalJsLibs lib matching Unittest
+
+sol.invoice_electronic.as.functions.ExtractData 	checkIsPureXml 	false
+sol.invoice_electronic.as.functions.ExtractData 	createPdfFromXml 	false
+
+IndexServer Scripting Base/Functions lib matching Unittest
+
+sol.invoice.ix.functions.InvoiceUserStart 	searchDuplicateUsers 	false
+sol.invoice.ix.functions.MoveInvoice 	getConfig 	false
+sol.invoice.ix.functions.MoveInvoice 	provideMoveOptions 	false
+
+
+
+
 knowledge
 
 elo-sol prepare -stack ruberg-knowledge -workspace default -version 20.00

@@ -24,8 +24,11 @@
       <name>lib_sol.common.StringUtils</name>
       <name>lib_sol.common.SordUtils</name>
       <name>lib_sol.common.Template</name>
+      <name>lib_sol.common.TranslateTerms</name>
       <name>lib_sol.common.XmlUtils</name>
+      <name>lib_sol.common.as.DocumentGenerator</name>
       <name>lib_sol.common.as.FunctionBase</name>
+      <name>lib_sol.common.as.renderer.Fop</name>
       <name>lib_sol.common.as.Utils</name>
       <name>lib_sol.connector_dx.DXUtils</name>
       <name>sol.connector_dx.as.functions.Export</name>
