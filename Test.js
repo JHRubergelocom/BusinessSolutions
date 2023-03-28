@@ -578,24 +578,6 @@ BS Common BS-1923 Unittests überprüfen
 
 
 
-IndexServer Scripting Base lib matching Unittest
-sol.common.ix.DynAdHocFlowUtils 	addUserToApprovalHistory 	false
-sol.common.ix.DynAdHocFlowUtils 	clearPreviousUserFromApprovalHistory 	false
-sol.common.ix.DynAdHocFlowUtils 	getHistoryUserIds 	false
-sol.common.ix.DynAdHocFlowUtils 	getNextUserIds 	false
-sol.common.ix.DynAdHocFlowUtils 	hasLessThanApprovalCount 	false
-sol.common.ix.DynAdHocFlowUtils 	loadApprovalHistoryTable 	false
-
-IndexServer Scripting Base/Functions lib matching Unittest
-sol.common.ix.functions.UserToDynAdHocFlowHistory 	initialize 	false
-sol.common.ix.functions.UserToDynAdHocFlowHistory 	process 	false
-
-
-
-
-
-
-
 contract
 
 elo-sol prepare -stack ruberg-contract -workspace de -version 20.00

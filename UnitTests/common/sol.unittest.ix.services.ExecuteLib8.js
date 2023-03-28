@@ -108,6 +108,7 @@ sol.define("sol.unittest.ix.services.ExecuteLib8", {
       case "sol.common.ix.functions.UserDispatcher":
       case "sol.common.ix.functions.UserNodeStart":
       case "sol.common.ix.functions.UserRolesToMap":
+      case "sol.common.ix.functions.UserToDynAdHocFlowHistory":
       case "sol.common.ix.functions.UserToIndex":
       case "sol.common_document.ix.functions.EditWordParts":
       case "sol.common_monitoring.ix.events.Update":

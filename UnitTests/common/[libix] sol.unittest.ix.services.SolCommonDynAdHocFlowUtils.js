@@ -1,6 +1,8 @@
+/* eslint-disable linebreak-style */
 
 describe("[libix] sol.unittest.ix.services.SolCommonDynAdHocFlowUtils", function () {
-  var obSolCommonDynAdHocFlowUtilsId, userName, originalTimeout, flowId, objId, config, userEntries, initEmpty;
+  var obSolCommonDynAdHocFlowUtilsId, userName, originalTimeout, flowId, objId, config,
+      userEntries, initEmpty, userInfo;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -19,6 +21,27 @@ describe("[libix] sol.unittest.ix.services.SolCommonDynAdHocFlowUtils", function
   });
   describe("Test Lib Functions", function () {
     describe("sol.common.ix.DynAdHocFlowUtils", function () {
+      it("addUserToApprovalHistory", function (done) {
+        expect(function () {
+          userInfo = "Administrator";
+          flowId = "flowId1";
+          objId = obSolCommonDynAdHocFlowUtilsId;
+          config = {};
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib2", {
+            className: "sol.common.ix.DynAdHocFlowUtils",
+            classConfig: {},
+            method: "addUserToApprovalHistory",
+            params: [userInfo, flowId, objId, config]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("backToPreviousUser", function (done) {
         expect(function () {
           flowId = "flowId1";
@@ -77,6 +100,26 @@ describe("[libix] sol.unittest.ix.services.SolCommonDynAdHocFlowUtils", function
           );
         }).not.toThrow();
       });
+      it("clearPreviousUserFromApprovalHistory", function (done) {
+        expect(function () {
+          flowId = "flowId1";
+          objId = obSolCommonDynAdHocFlowUtilsId;
+          config = {};
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib2", {
+            className: "sol.common.ix.DynAdHocFlowUtils",
+            classConfig: {},
+            method: "clearPreviousUserFromApprovalHistory",
+            params: [flowId, objId, config]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("createDynAdHocFlow", function (done) {
         expect(function () {
           flowId = "flowId1";
@@ -88,6 +131,46 @@ describe("[libix] sol.unittest.ix.services.SolCommonDynAdHocFlowUtils", function
             classConfig: {},
             method: "createDynAdHocFlow",
             params: [flowId, objId, userEntries, config]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("getHistoryUserIds", function (done) {
+        expect(function () {
+          flowId = "flowId1";
+          objId = obSolCommonDynAdHocFlowUtilsId;
+          config = {};
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib2", {
+            className: "sol.common.ix.DynAdHocFlowUtils",
+            classConfig: {},
+            method: "getHistoryUserIds",
+            params: [flowId, objId, config]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("getNextUserIds", function (done) {
+        expect(function () {
+          flowId = "flowId1";
+          objId = obSolCommonDynAdHocFlowUtilsId;
+          config = {};
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib2", {
+            className: "sol.common.ix.DynAdHocFlowUtils",
+            classConfig: {},
+            method: "getNextUserIds",
+            params: [flowId, objId, config]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
@@ -118,6 +201,26 @@ describe("[libix] sol.unittest.ix.services.SolCommonDynAdHocFlowUtils", function
           );
         }).not.toThrow();
       });
+      it("hasLessThanApprovalCount", function (done) {
+        expect(function () {
+          flowId = "flowId1";
+          objId = obSolCommonDynAdHocFlowUtilsId;
+          config = {};
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib2", {
+            className: "sol.common.ix.DynAdHocFlowUtils",
+            classConfig: {},
+            method: "hasLessThanApprovalCount",
+            params: [flowId, objId, config]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("hasNextUser", function (done) {
         expect(function () {
           flowId = "flowId1";
@@ -128,6 +231,27 @@ describe("[libix] sol.unittest.ix.services.SolCommonDynAdHocFlowUtils", function
             classConfig: {},
             method: "hasNextUser",
             params: [flowId, objId, config]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("loadApprovalHistoryTable", function (done) {
+        expect(function () {
+          flowId = "flowId1";
+          objId = obSolCommonDynAdHocFlowUtilsId;
+          initEmpty = false;
+          config = {};
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib2", {
+            className: "sol.common.ix.DynAdHocFlowUtils",
+            classConfig: {},
+            method: "loadApprovalHistoryTable",
+            params: [flowId, objId, initEmpty, config]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
