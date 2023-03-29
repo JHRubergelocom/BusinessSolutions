@@ -1,6 +1,6 @@
 
 describe("[function] sol.invoice.ix.functions.InvoiceUserStart", function () {
-  var originalTimeout;
+  var originalTimeout, userId;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -42,6 +42,24 @@ describe("[function] sol.invoice.ix.functions.InvoiceUserStart", function () {
             classConfig: {},
             method: "process",
             params: []
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("searchDuplicateUsers", function (done) {
+        expect(function () {
+          userId = 0;
+          test.Utils.execute("RF_sol_unittest_invoice_service_ExecuteLib1", {
+            className: "sol.invoice.ix.functions.InvoiceUserStart",
+            classConfig: {},
+            method: "searchDuplicateUsers",
+            params: [userId]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {

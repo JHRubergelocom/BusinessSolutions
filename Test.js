@@ -572,11 +572,6 @@ common
 
 elo-sol prepare -stack ruberg-common -workspace jan -version 20.00
 
-https://eloticksy.elo.com/browse/BS-1923
-
-BS Common BS-1923 Unittests überprüfen
-
-
 
 contract
 
@@ -596,20 +591,6 @@ elo-sol prepare -stack ruberg-invoice -workspace jan -version 20.00
 https://eloticksy.elo.com/browse/BSI-745
 
 BS Invoice BSI-745 Unittests überprüfen
-
-
-ELOas Base/OptionalJsLibs lib matching Unittest
-
-sol.invoice_electronic.as.functions.ExtractData 	checkIsPureXml 	false
-sol.invoice_electronic.as.functions.ExtractData 	createPdfFromXml 	false
-
-IndexServer Scripting Base/Functions lib matching Unittest
-
-sol.invoice.ix.functions.InvoiceUserStart 	searchDuplicateUsers 	false
-sol.invoice.ix.functions.MoveInvoice 	getConfig 	false
-sol.invoice.ix.functions.MoveInvoice 	provideMoveOptions 	false
-
-
 
 
 knowledge

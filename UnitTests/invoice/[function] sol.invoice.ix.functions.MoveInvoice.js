@@ -1,6 +1,6 @@
 
 describe("[function] sol.invoice.ix.functions.MoveInvoice", function () {
-  var originalTimeout;
+  var originalTimeout, config;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -18,6 +18,23 @@ describe("[function] sol.invoice.ix.functions.MoveInvoice", function () {
   });
   describe("Test Lib Functions", function () {
     describe("sol.invoice.ix.functions.MoveInvoice", function () {
+      it("getConfig", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_invoice_service_ExecuteLib1", {
+            className: "sol.invoice.ix.functions.MoveInvoice",
+            classConfig: {},
+            method: "getConfig",
+            params: []
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("initialize", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_unittest_invoice_service_ExecuteLib1", {
@@ -42,6 +59,24 @@ describe("[function] sol.invoice.ix.functions.MoveInvoice", function () {
             classConfig: {},
             method: "process",
             params: []
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("provideMoveOptions", function (done) {
+        expect(function () {
+          config = {};
+          test.Utils.execute("RF_sol_unittest_invoice_service_ExecuteLib1", {
+            className: "sol.invoice.ix.functions.MoveInvoice",
+            classConfig: {},
+            method: "provideMoveOptions",
+            params: [config]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {

@@ -18,6 +18,7 @@
       <name>lib_sol.common.DateUtils</name>
       <name>lib_sol.common.ExceptionUtils</name>
       <name>lib_sol.common.FileUtils</name>
+      <name>lib_sol.common.IxUtils</name>
       <name>lib_sol.common.ObjectFormatter</name>
       <name>lib_sol.common.ObjectUtils</name>
       <name>lib_sol.common.RepoUtils</name>

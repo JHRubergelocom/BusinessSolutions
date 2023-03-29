@@ -2,13 +2,14 @@
 
 describe("[libas] sol.unittest.as.services.SolInvoiceElectronicFunctionsExtractData", function () {
   var originalTimeout, content, xmlDoc, xpathChecks, xmlPath,
-      tempDir, sord, config, intrayDocumentSord;
+      tempDir, sord, config, intrayDocumentSord, obSolInvoiceElectronicFunctionsExtractDataId;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
-      test.Utils.createTempSord("SolInvoiceElectronicFunctionsExtractData").then(function success(obSolInvoiceElectronicFunctionsExtractDataId) {
+      test.Utils.createTempSord("SolInvoiceElectronicFunctionsExtractData").then(function success(obSolInvoiceElectronicFunctionsExtractDataId1) {
+        obSolInvoiceElectronicFunctionsExtractDataId = obSolInvoiceElectronicFunctionsExtractDataId1;
         done();
       }, function error(err) {
         fail(err);
@@ -86,7 +87,7 @@ describe("[libas] sol.unittest.as.services.SolInvoiceElectronicFunctionsExtractD
       });
       it("createPdfFromXml", function (done) {
         expect(function () {
-          sord = intrayDocumentSord.id;
+          sord = obSolInvoiceElectronicFunctionsExtractDataId;
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.unittest.invoice.as.services.ExecuteLib",
             config: {
