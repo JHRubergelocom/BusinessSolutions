@@ -67,7 +67,7 @@ describe("[action] sol.knowledge.ix.actions.CreateBoard", function () {
             template: {
               name: "sol.knowledge.board.create"
             },
-            name: "Create Board {{formatDate 'YYYY-MM-DD HH:mm:ss'}}"
+            name: "{{translate 'sol.knowledge.workflow.board.create.message'}}"
           },
           $name: "CreateBoard",
           $events: [
@@ -84,13 +84,13 @@ describe("[action] sol.knowledge.ix.actions.CreateBoard", function () {
               mode: "SELECTED"
             },
             template: {
-              name: "Board",
+              name: boardTypes[0].name,
               base: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/knowledge/Configuration/Board types"
             }
           },
           $permissions: {
             mode: "SET",
-            copySource: false,
+            copySource: true,
             inherit: {
               fromDirectParent: true
             }

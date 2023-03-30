@@ -2,7 +2,7 @@
 describe("[service] sol.knowledge.ix.services.Post", function () {
   var objTempId, objSpaceId, objPostId, views, postStatus, labelkey, postLabel,
       originalTimeout, config, objSpaceTId, objPostTId, sordName, statusClosed,
-      sord, objId, templateId, name;
+      sord, objId, templateId, name, list, nameField, idField;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -260,6 +260,40 @@ describe("[service] sol.knowledge.ix.services.Post", function () {
           );
         }).not.toThrow();
       });
+      it("setAuthors", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_knowledge_service_ExecuteLib1", {
+            className: "sol.knowledge.ix.services.Post",
+            classConfig: { objId: objPostTId, authors: [] },
+            method: "setAuthors",
+            params: []
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("setContactpersons", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_knowledge_service_ExecuteLib1", {
+            className: "sol.knowledge.ix.services.Post",
+            classConfig: { objId: objPostTId, contactpersons: [] },
+            method: "setContactpersons",
+            params: []
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("setLabelPost", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_unittest_knowledge_service_ExecuteLib1", {
@@ -267,6 +301,27 @@ describe("[service] sol.knowledge.ix.services.Post", function () {
             classConfig: { objId: objPostTId },
             method: "setLabelPost",
             params: []
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("setPersons", function (done) {
+        expect(function () {
+          sord = objPostTId;
+          list = [];
+          nameField = "nameField1";
+          idField = "idField1";
+          test.Utils.execute("RF_sol_unittest_knowledge_service_ExecuteLib1", {
+            className: "sol.knowledge.ix.services.Post",
+            classConfig: { objId: objPostTId },
+            method: "setPersons",
+            params: [sord, list, nameField, idField]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
@@ -465,6 +520,102 @@ describe("[service] sol.knowledge.ix.services.Post", function () {
                 done();
               }
               );
+            }, function error(err) {
+              fail(err);
+              console.error(err);
+              done();
+            }
+            );
+          }).not.toThrow();
+        });
+      });
+    });
+    describe("RF_sol_knowledge_service_Post_SetAuthors", function () {
+      describe("post set authors", function () {
+        it("should throw if executed without 'objId'", function (done) {
+          expect(function () {
+            test.Utils.execute("RF_sol_knowledge_service_Post_SetAuthors", {
+            }).then(function success(jsonResult) {
+              fail(jsonResult);
+              done();
+            }, function error(err) {
+              console.error(err);
+              done();
+            }
+            );
+          }).not.toThrow();
+        });
+        it("should throw if executed without 'authors'", function (done) {
+          expect(function () {
+            test.Utils.execute("RF_sol_knowledge_service_Post_SetAuthors", {
+              objId: objPostId
+            }).then(function success(jsonResult) {
+              fail(jsonResult);
+              done();
+            }, function error(err) {
+              console.error(err);
+              done();
+            }
+            );
+          }).not.toThrow();
+        });
+        it("post set authors", function (done) {
+          expect(function () {
+            test.Utils.execute("RF_sol_knowledge_service_Post_SetAuthors", {
+              objId: objPostId,
+              authors: []
+            }).then(function success(result) {
+              expect(result.success).toEqual(true);
+              expect(result.users).toBeDefined();
+              done();
+            }, function error(err) {
+              fail(err);
+              console.error(err);
+              done();
+            }
+            );
+          }).not.toThrow();
+        });
+      });
+    });
+    describe("RF_sol_knowledge_service_Post_SetContactpersons", function () {
+      describe("post set contactpersons", function () {
+        it("should throw if executed without 'objId'", function (done) {
+          expect(function () {
+            test.Utils.execute("RF_sol_knowledge_service_Post_SetContactpersons", {
+            }).then(function success(jsonResult) {
+              fail(jsonResult);
+              done();
+            }, function error(err) {
+              console.error(err);
+              done();
+            }
+            );
+          }).not.toThrow();
+        });
+        it("should throw if executed without 'contactpersons'", function (done) {
+          expect(function () {
+            test.Utils.execute("RF_sol_knowledge_service_Post_SetContactpersons", {
+              objId: objPostId
+            }).then(function success(jsonResult) {
+              fail(jsonResult);
+              done();
+            }, function error(err) {
+              console.error(err);
+              done();
+            }
+            );
+          }).not.toThrow();
+        });
+        it("post set contactpersons", function (done) {
+          expect(function () {
+            test.Utils.execute("RF_sol_knowledge_service_Post_SetContactpersons", {
+              objId: objPostId,
+              contactpersons: []
+            }).then(function success(result) {
+              expect(result.success).toEqual(true);
+              expect(result.users).toBeDefined();
+              done();
             }, function error(err) {
               fail(err);
               console.error(err);

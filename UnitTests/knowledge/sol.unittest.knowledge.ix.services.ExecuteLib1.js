@@ -72,6 +72,7 @@ sol.define("sol.unittest.knowledge.ix.services.ExecuteLib1", {
       case "sol.knowledge.ix.functions.generators.GenerateReplyReference":
       case "sol.knowledge.ix.functions.generators.GenerateSpaceReference":
       case "sol.knowledge.ix.services.ChangePostType":
+      case "sol.knowledge.ix.services.ChildrenDataCollector":
       case "sol.knowledge.ix.services.Comment":
       case "sol.knowledge.ix.services.CreatePost":
       case "sol.knowledge.ix.services.CreateReply":
@@ -93,6 +94,7 @@ sol.define("sol.unittest.knowledge.ix.services.ExecuteLib1", {
       case "sol.knowledge.ix.services.Search":
       case "sol.knowledge.ix.services.SolType":
       case "sol.knowledge.ix.services.Space":
+      case "sol.knowledge.ix.services.UserGroup":
       case "sol.knowledge.ix.services.UserInfo":
         return result;
       default:

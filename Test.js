@@ -588,11 +588,6 @@ invoice
 elo-sol prepare -stack ruberg-invoice -workspace jan -version 20.00
 
 
-https://eloticksy.elo.com/browse/BSI-745
-
-BS Invoice BSI-745 Unittests überprüfen
-
-
 knowledge
 
 elo-sol prepare -stack ruberg-knowledge -workspace default -version 20.00
@@ -601,6 +596,45 @@ elo-sol prepare -stack ruberg-knowledge -workspace default -version 20.00
 https://eloticksy.elo.com/browse/BSK-1024
 
 BS Knowledge BSK-1024 Unittests überprüfen
+
+
+Philipp reviewen lassen!
+
+
+
+
+Register Functions matching Unittest
+
+RF_sol_knowledge_services_GetLinkedPosts 	false
+
+
+Dynamic Keyword Lists matching Unittest
+
+sol.knowledge.ix.DynKwlCategories 	false
+
+
+IndexServer Scripting Base/DynKwl lib matching Unittest
+
+sol.knowledge.ix.DynKwlCategories 	_open 	false
+sol.knowledge.ix.DynKwlCategories 	getHeader 	false
+sol.knowledge.ix.DynKwlCategories 	getKeyNames 	false
+sol.knowledge.ix.DynKwlCategories 	getNextRow 	false
+sol.knowledge.ix.DynKwlCategories 	getTitle 	false
+sol.knowledge.ix.DynKwlCategories 	hasMoreRows 	false
+sol.knowledge.ix.DynKwlCategories 	initialize 	false
+sol.knowledge.ix.DynKwlCategories 	map 	false
+sol.knowledge.ix.DynKwlCategories 	open 	false
+sol.knowledge.ix.DynKwlCategories 	openMap 	false
+
+
+IndexServer Scripting Base/Services lib matching Unittest
+
+sol.knowledge.ix.services.ChildrenDataCollector 	getFormattedJson 	false
+sol.knowledge.ix.services.EditBoardOrSpace 	process 	false
+sol.knowledge.ix.services.GetAdditionalInfo 	executeLinkedPosts 	false
+sol.knowledge.ix.services.GetConfig 	getBoards 	false
+sol.knowledge.ix.services.GetConfig 	getEditorOptions 	false
+
 
 
 learning
@@ -822,45 +856,23 @@ C:\Users\ruberg\.ssh\Testkey.ppk
 "npx playwright codegen"  Codegenerator starten
 
 
-=====================================================================================================================================================================
-
-
-13.01.2023
-
-Todo Testdaten playwright
-
-Locatoren überprüfen, vereinfachen
-
-Redactorfelder Meeting, MeetingItem
-
-Mechanismus Stichwortlisten mit Locatoren und waitevents statt mit Thread-Sleep überarbeiten!
-
-
 ===========================================================================================================================
 
-TODO 16.03.2023
+
+TODO 30.03.2023
 
 
-feature/BSXX-426
+feature/BSXX-432
 
 
-https://eloticksy.elo.com/browse/BSXX-426
+https://eloticksy.elo.com/browse/BSXX-432
 
-BS Intern BSXX-426 Testautomatisierung mit Playwright
+BS Intern BSXX-432 Testautomatisierung mit Playwright
+
 
 
 Ideen für Erweiterungen automatisierte Tests
 
-    Alle Pflichtfelder prüfen, ob gefüllt erledigt!
-	
-	
-    Felder auf erwarteten Inhalt prüfen, testen! (Radiobutton-Felder testen! Personalakte -> Ein-/Austritt -> Arbeitsverhältnis auf "befristet" setzen) erledigt!
-	Testreport Refactoring, erledigt!
-	
-	
     Benutzer-Berechtigungen prüfen
     Möglichkeiten Lokalisierung untersuchen
-
-
-===========================================================================================================================
 

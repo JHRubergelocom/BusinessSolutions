@@ -59,6 +59,8 @@ sol.define("sol.knowledge.ix.services.Post", {
    */
   sordZ: SordC.mbAllIndex,
 
+  pilcrow: "\u00b6",
+
   initialize: function (config) {
     var me = this;
     me.$super("sol.common.ix.ServiceBase", "initialize", [config]);
@@ -71,7 +73,7 @@ sol.define("sol.knowledge.ix.services.Post", {
    */
   getPost: function () {
     var me = this,
-        post, views, sord, space, result, solution;
+      post, views, sord, space, result, solution;
 
     post = sol.common.RepoUtils.getSord(me.objId);
 
@@ -104,6 +106,30 @@ sol.define("sol.knowledge.ix.services.Post", {
       }
     };
 
+    if (result.sord.objKeys.KNOWLEDGE_POST_AUTHORS_IDS.length > 0) {
+      result.sord.objKeys.KNOWLEDGE_POST_AUTHORS_IDS = (result.sord.objKeys.KNOWLEDGE_POST_AUTHORS_IDS || "").split(me.pilcrow);
+    } else {
+      result.sord.objKeys.KNOWLEDGE_POST_AUTHORS_IDS = [];
+    }
+
+    if (result.sord.objKeys.KNOWLEDGE_POST_AUTHORS.length > 0) {
+      result.sord.objKeys.KNOWLEDGE_POST_AUTHORS = (result.sord.objKeys.KNOWLEDGE_POST_AUTHORS || "").split(me.pilcrow);
+    } else {
+      result.sord.objKeys.KNOWLEDGE_POST_AUTHORS = [];
+    }
+    
+    if (result.sord.objKeys.KNOWLEDGE_POST_CONTACTPERSONS_IDS.length > 0) {
+      result.sord.objKeys.KNOWLEDGE_POST_CONTACTPERSONS_IDS = (result.sord.objKeys.KNOWLEDGE_POST_CONTACTPERSONS_IDS || "").split(me.pilcrow);
+    } else {
+      result.sord.objKeys.KNOWLEDGE_POST_CONTACTPERSONS_IDS = [];
+    }
+
+    if (result.sord.objKeys.KNOWLEDGE_POST_CONTACTPERSONS.length > 0) {
+      result.sord.objKeys.KNOWLEDGE_POST_CONTACTPERSONS = (result.sord.objKeys.KNOWLEDGE_POST_CONTACTPERSONS || "").split(me.pilcrow);
+    } else {
+      result.sord.objKeys.KNOWLEDGE_POST_CONTACTPERSONS = [];
+    }
+
     if (me.hasSolution(post)) {
       solution = me.getSolution(post);
       if (solution) {
@@ -131,7 +157,6 @@ sol.define("sol.knowledge.ix.services.Post", {
         data: sord,
         config: {
           sordKeys: ["id", "guid", "maskName", "name", "desc", "IDateIso", "XDateIso", "ownerName", "ownerId"],
-          allMapFields: false,
           feedActions: true,
           feedActionTypes: ["UserComment"]
         }
@@ -159,7 +184,7 @@ sol.define("sol.knowledge.ix.services.Post", {
    */
   getSolution: function (sord) {
     var solution = null,
-        solutions;
+      solutions;
 
     solutions = sol.common.RepoUtils.findChildren(sord.id, {
       includeFolders: true,
@@ -183,7 +208,7 @@ sol.define("sol.knowledge.ix.services.Post", {
    */
   buildElementName: function (sordName, statusClosed) {
     var me = this,
-        wfName;
+      wfName;
 
     if (statusClosed) {
       wfName = sol.create("sol.common.Template", { source: me.config.workflows.postClosed.workflowNameTemplate }).apply({ sordName: sordName });
@@ -204,7 +229,7 @@ sol.define("sol.knowledge.ix.services.Post", {
    */
   getWfTemplate: function (statusClosed) {
     var me = this,
-        wfTemplate;
+      wfTemplate;
 
     if (statusClosed) {
       wfTemplate = me.config.workflows.postClosed.workflowTemplateName;
@@ -233,8 +258,8 @@ sol.define("sol.knowledge.ix.services.Post", {
    */
   openPost: function () {
     var me = this,
-        postSord, spaceSord, name, wfTemplate, flowIdPost,
-        hasWriteRightsSpace, hasWriteRightsPost;
+      postSord, spaceSord, name, wfTemplate, flowIdPost,
+      hasWriteRightsSpace, hasWriteRightsPost;
 
     postSord = sol.common.RepoUtils.getSord(me.objId);
     spaceSord = sol.knowledge.ix.KnowledgeUtils.findSpace(postSord.id);
@@ -258,8 +283,8 @@ sol.define("sol.knowledge.ix.services.Post", {
    */
   closedPost: function () {
     var me = this,
-        postSord, spaceSord, name, wfTemplate, flowIdPost,
-        hasWriteRightsSpace, hasWriteRightsPost;
+      postSord, spaceSord, name, wfTemplate, flowIdPost,
+      hasWriteRightsSpace, hasWriteRightsPost;
 
     postSord = sol.common.RepoUtils.getSord(me.objId);
     spaceSord = sol.knowledge.ix.KnowledgeUtils.findSpace(postSord.id);
@@ -284,8 +309,8 @@ sol.define("sol.knowledge.ix.services.Post", {
    */
   setLabelPost: function () {
     var me = this,
-        postSord, spaceSord, sord,
-        hasWriteRightsSpace, hasWriteRightsPost;
+      postSord, spaceSord, sord,
+      hasWriteRightsSpace, hasWriteRightsPost;
 
     postSord = sol.common.RepoUtils.getSord(me.objId);
     spaceSord = sol.knowledge.ix.KnowledgeUtils.findSpace(postSord.id);
@@ -309,6 +334,68 @@ sol.define("sol.knowledge.ix.services.Post", {
       }
     }
     return { success: false };
+  },
+
+  /**
+   * Set Authors in post.
+   * @return {Object} Result check
+   */
+  setAuthors: function () {
+    var me = this,
+      postSord = sol.common.RepoUtils.getSord(me.objId);
+    if (Array.isArray(me.authors)) {
+      if (sol.common.AclUtils.hasEffectiveRights(postSord, { rights: { w: true } })) {
+        return me.setPersons(postSord, me.authors, "KNOWLEDGE_POST_AUTHORS", "KNOWLEDGE_POST_AUTHORS_IDS");
+      } else {
+        return { success: false, message: "User has not the rights to set authors" }
+      }
+    } else {
+      return { success: false, message: "authors not provided" }
+    }
+  },
+
+  /**
+   * Set Authors in post.
+   * @return {Object} Result check
+   */
+  setContactpersons: function () {
+    var me = this,
+      postSord = sol.common.RepoUtils.getSord(me.objId);
+    if (Array.isArray(me.contactpersons)) {
+      if (sol.common.AclUtils.hasEffectiveRights(postSord, { rights: { w: true } })) {
+        return me.setPersons(postSord, me.contactpersons, "KNOWLEDGE_POST_CONTACTPERSONS", "KNOWLEDGE_POST_CONTACTPERSONS_IDS");
+      } else {
+        return { success: false, message: "User has not the rights to set contactpersons" }
+      }
+    } else {
+      return { success: false, message: "contactpersons not provided" }
+    }
+  },
+
+  setPersons: function (sord, list, nameField, idField) {
+    var me = this,
+        names, 
+        ids;
+
+    try {
+      if(list.length > 0) {
+        names = list.map(function (person) { return person.name }).reduce(function (names, name) { return names + me.pilcrow + name });
+        sol.common.SordUtils.setObjKeyValue(sord, nameField, names);
+  
+        ids = list.map(function (person) { return person.id }).reduce(function (ids, id) { return ids + me.pilcrow + id });
+        sol.common.SordUtils.setObjKeyValue(sord, idField, ids);
+      } else {
+        // delete field
+        sol.common.SordUtils.setObjKeyValue(sord, nameField, "");
+        sol.common.SordUtils.setObjKeyValue(sord, idField, "");
+      }
+
+      ixConnectAdmin.ix().checkinSord(sord, me.sordZ, LockC.NO);
+
+      return { success: true, users: list, ids: ids, names: names };
+    } catch (e) {
+      return { success: false, error: e };
+    }
   }
 
 });
@@ -321,7 +408,7 @@ sol.define("sol.knowledge.ix.services.Post", {
  */
 function RF_sol_knowledge_service_Post_Get(ec, args) {
   var rfUtils = sol.common.ix.RfUtils,
-      params, service, result;
+    params, service, result;
 
   logger.enter("RF_sol_knowledge_service_Post_Get", args);
 
@@ -342,7 +429,7 @@ function RF_sol_knowledge_service_Post_Get(ec, args) {
  */
 function RF_sol_knowledge_service_Post_Open(ec, args) {
   var rfUtils = sol.common.ix.RfUtils,
-      params, service, result;
+    params, service, result;
 
   logger.enter("RF_sol_knowledge_service_Post_Open", args);
 
@@ -363,7 +450,7 @@ function RF_sol_knowledge_service_Post_Open(ec, args) {
  */
 function RF_sol_knowledge_service_Post_Closed(ec, args) {
   var rfUtils = sol.common.ix.RfUtils,
-      params, service, result;
+    params, service, result;
 
   logger.enter("RF_sol_knowledge_service_Post_Closed", args);
 
@@ -384,7 +471,7 @@ function RF_sol_knowledge_service_Post_Closed(ec, args) {
  */
 function RF_sol_knowledge_service_Post_SetLabel(ec, args) {
   var rfUtils = sol.common.ix.RfUtils,
-      params, service, result;
+    params, service, result;
 
   logger.enter("RF_sol_knowledge_service_Post_SetLabel", args);
 
@@ -393,6 +480,48 @@ function RF_sol_knowledge_service_Post_SetLabel(ec, args) {
   result = rfUtils.stringify(service.setLabelPost());
 
   logger.exit("RF_sol_knowledge_service_Post_SetLabel", result);
+
+  return result;
+}
+
+/**
+ * @member sol.knowledge.ix.services.Post
+ * @method RF_sol_knowledge_service_Post_SetAuthors
+ * @static
+ * @inheritdoc sol.common.ix.ServiceBase#RF_ServiceBaseName
+ */
+function RF_sol_knowledge_service_Post_SetAuthors(ec, args) {
+  var rfUtils = sol.common.ix.RfUtils,
+    params, service, result;
+
+  logger.enter("RF_sol_knowledge_service_Post_SetAuthors", args);
+
+  params = rfUtils.parseAndCheckParams(ec, arguments.callee.name, args, "objId", "authors");
+  service = sol.create("sol.knowledge.ix.services.Post", params);
+  result = rfUtils.stringify(service.setAuthors());
+
+  logger.exit("RF_sol_knowledge_service_Post_SetAuthors", result);
+
+  return result;
+}
+
+/**
+ * @member sol.knowledge.ix.services.Post
+ * @method RF_sol_knowledge_service_Post_SetContactpersons
+ * @static
+ * @inheritdoc sol.common.ix.ServiceBase#RF_ServiceBaseName
+ */
+function RF_sol_knowledge_service_Post_SetContactpersons(ec, args) {
+  var rfUtils = sol.common.ix.RfUtils,
+    params, service, result;
+
+  logger.enter("RF_sol_knowledge_service_Post_SetContactpersons", args);
+
+  params = rfUtils.parseAndCheckParams(ec, arguments.callee.name, args, "objId", "contactpersons");
+  service = sol.create("sol.knowledge.ix.services.Post", params);
+  result = rfUtils.stringify(service.setContactpersons());
+
+  logger.exit("RF_sol_knowledge_service_Post_SetContactpersons", result);
 
   return result;
 }
