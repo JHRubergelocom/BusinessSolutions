@@ -601,13 +601,6 @@ BS Knowledge BSK-1024 Unittests überprüfen
 Philipp reviewen lassen!
 
 
-
-
-Register Functions matching Unittest
-
-RF_sol_knowledge_services_GetLinkedPosts 	false
-
-
 Dynamic Keyword Lists matching Unittest
 
 sol.knowledge.ix.DynKwlCategories 	false
@@ -629,9 +622,7 @@ sol.knowledge.ix.DynKwlCategories 	openMap 	false
 
 IndexServer Scripting Base/Services lib matching Unittest
 
-sol.knowledge.ix.services.ChildrenDataCollector 	getFormattedJson 	false
 sol.knowledge.ix.services.EditBoardOrSpace 	process 	false
-sol.knowledge.ix.services.GetAdditionalInfo 	executeLinkedPosts 	false
 sol.knowledge.ix.services.GetConfig 	getBoards 	false
 sol.knowledge.ix.services.GetConfig 	getEditorOptions 	false
 

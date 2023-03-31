@@ -105,6 +105,23 @@ describe("[service] sol.knowledge.ix.services.GetAdditionalInfo", function () {
           );
         }).not.toThrow();
       });
+      it("executeLinkedPosts", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_knowledge_service_ExecuteLib1", {
+            className: "sol.knowledge.ix.services.GetAdditionalInfo",
+            classConfig: { postObjId: objPostTId },
+            method: "executeLinkedPosts",
+            params: []
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("executeRelatedTopics", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_unittest_knowledge_service_ExecuteLib1", {
@@ -230,53 +247,94 @@ describe("[service] sol.knowledge.ix.services.GetAdditionalInfo", function () {
   });
   describe("Tests Registered Functions", function () {
     describe("RF_sol_knowledge_services_GetAdditionalInfo", function () {
-      describe("post get", function () {
-        it("should throw if executed without 'postObjId'", function (done) {
-          expect(function () {
-            test.Utils.execute("RF_sol_knowledge_services_GetAdditionalInfo", {
-            }).then(function success(jsonResult) {
-              fail(jsonResult);
-              done();
-            }, function error(err) {
-              console.error(err);
-              done();
-            }
-            );
-          }).not.toThrow();
-        });
-        it("post get", function (done) {
-          expect(function () {
-            test.Utils.execute("RF_sol_knowledge_services_GetAdditionalInfo", {
-              postObjId: objPostId
-            }).then(function success(result) {
-              expect(result).toBeDefined();
-              done();
-            }, function error(err) {
-              fail(err);
-              console.error(err);
-              done();
-            }
-            );
-          }).not.toThrow();
-        });
+      it("should throw if executed without 'postObjId'", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_knowledge_services_GetAdditionalInfo", {
+          }).then(function success(jsonResult) {
+            fail(jsonResult);
+            done();
+          }, function error(err) {
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("get additional info", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_knowledge_services_GetAdditionalInfo", {
+            postObjId: objPostId
+          }).then(function success(result) {
+            expect(result).toBeDefined();
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+    });
+    describe("RF_sol_knowledge_services_GetLinkedPosts", function () {
+      it("should throw if executed without 'postObjId'", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_knowledge_services_GetLinkedPosts", {
+          }).then(function success(jsonResult) {
+            fail(jsonResult);
+            done();
+          }, function error(err) {
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("get linked posts", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_knowledge_services_GetLinkedPosts", {
+            postObjId: objPostId
+          }).then(function success(result) {
+            expect(result).toBeDefined();
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
       });
     });
     describe("RF_sol_knowledge_services_GetRelatedTopics", function () {
-      describe("post get", function () {
-        it("should throw if executed without 'postObjId'", function (done) {
-          expect(function () {
-            test.Utils.execute("RF_sol_knowledge_services_GetRelatedTopics", {
-            }).then(function success(result) {
-              expect(result).toBeDefined();
-              done();
-            }, function error(err) {
-              fail(err);
-              console.error(err);
-              done();
-            }
-            );
-          }).not.toThrow();
-        });
+      it("should not throw if executed without 'postObjId'", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_knowledge_services_GetRelatedTopics", {
+          }).then(function success(result) {
+            expect(result).toBeDefined();
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("get related topics", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_knowledge_services_GetRelatedTopics", {
+            postObjId: objPostId
+          }).then(function success(result) {
+            expect(result).toBeDefined();
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
       });
     });
   });

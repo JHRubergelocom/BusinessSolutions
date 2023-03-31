@@ -124,7 +124,7 @@ sol.define("sol.knowledge.ix.services.GetAdditionalInfo", {
    */
   execute: function () {
     var me = this,
-        result, linkedPostsResult;
+      result, linkedPostsResult;
 
     me.postSord = sol.common.RepoUtils.getSord(me.postObjId);
 
@@ -157,7 +157,7 @@ sol.define("sol.knowledge.ix.services.GetAdditionalInfo", {
 
   executeRelatedTopics: function () {
     var me = this,
-        result;
+      result;
 
     me.sordKeys = me.sordKeys || me.knowledgeConfig.services.getAdditionalInfo.sordKeys;
     me.objKeys = me.objKeys || me.knowledgeConfig.services.getAdditionalInfo.objKeys;
@@ -173,6 +173,26 @@ sol.define("sol.knowledge.ix.services.GetAdditionalInfo", {
     return JSON.stringify(result);
   },
 
+  executeLinkedPosts: function () {
+    var me = this,
+      result;
+
+    me.postSord = sol.common.RepoUtils.getSord(me.postObjId || me.objId);
+
+    me.sordKeys = me.sordKeys || me.knowledgeConfig.services.getAdditionalInfo.sordKeys;
+    me.objKeys = me.objKeys || me.knowledgeConfig.services.getAdditionalInfo.objKeys;
+
+    result = {};
+    try {
+      result.linkedPosts = me.getLinkedPosts();
+    } catch (ex) {
+      me.logger.warn("Elastic search not available", ex);
+      result.linkedPosts = [];
+    }
+
+    return JSON.stringify(result);
+  },
+
   /**
    * Retrieves the participants of a post
    * @private
@@ -180,10 +200,10 @@ sol.define("sol.knowledge.ix.services.GetAdditionalInfo", {
    */
   getParticipants: function () {
     var me = this,
-        participants = [],
-        ownerIds = [],
-        query, findInfo, i,
-        contextTerms, contextTerm, num, userInfo, ownerName, ownerId;
+      participants = [],
+      ownerIds = [],
+      query, findInfo, i,
+      contextTerms, contextTerm, num, userInfo, ownerName, ownerId;
 
     query = "(" + ixConnect.CONST.FIND_DIRECT.FIELD_OBJ_KEY + me.knowledgeConfig.fields.knowledgePostReference + ':"' + me.postReference + '")';
 
@@ -226,7 +246,7 @@ sol.define("sol.knowledge.ix.services.GetAdditionalInfo", {
    */
   getRelatedPosts: function (linkedPosts) {
     var me = this,
-        suppressedPostsCount, query, relatedPosts, filteredRelatedPosts;
+      suppressedPostsCount, query, relatedPosts, filteredRelatedPosts;
 
     linkedPosts = linkedPosts || {};
     linkedPosts[me.postSord.guid] = true;
@@ -250,7 +270,7 @@ sol.define("sol.knowledge.ix.services.GetAdditionalInfo", {
 
   getRelatedTopics: function () {
     var me = this,
-        suppressedPostsCount, query, contextTopics, resultTopics;
+      suppressedPostsCount, query, contextTopics, resultTopics;
 
     suppressedPostsCount = 0;
 
@@ -268,7 +288,7 @@ sol.define("sol.knowledge.ix.services.GetAdditionalInfo", {
 
   buildQueryConfig: function (suppressedPostsCount) {
     var me = this,
-        topics, subject, language, words, query, i, filter;
+      topics, subject, language, words, query, i, filter;
 
     me.maxRelatedPosts = me.maxRelatedPosts || 8;
     me.topicsStartBoostFactor = me.topicsStartBoostFactor || 2;
@@ -335,9 +355,10 @@ sol.define("sol.knowledge.ix.services.GetAdditionalInfo", {
    */
   getLinkedPosts: function () {
     var me = this,
-        linkedPosts = [],
-        linkedPostsGuids = {},
-        objIds, sords, i, sord, tplSord;
+      linkedPosts = [],
+      linkedPostsGuids = {},
+      objIds, sords, i, sord, tplSord;
+
 
     objIds = sol.common.SordUtils.getLinks(me.postSord);
     sords = sol.common.RepoUtils.getSords(objIds);
@@ -372,8 +393,8 @@ sol.define("sol.knowledge.ix.services.GetAdditionalInfo", {
    */
   getReferenceInPosts: function () {
     var me = this,
-        referenceInPosts = [],
-        sord, tplSord;
+      referenceInPosts = [],
+      sord, tplSord;
 
     me.postSord.parentIds.forEach(function (parentId) {
       if (parentId != me.postSord.parentId) {
@@ -447,6 +468,36 @@ function RF_sol_knowledge_services_GetRelatedTopics(ec, configAny) {
   result = relatedTopicsService.executeRelatedTopics();
 
   logger.exit("RF_sol_knowledge_services_GetRelatedTopics");
+
+  return result;
+}
+
+/**
+ * @member sol.knowledge.ix.services.GetAdditionalInfo
+ * @method RF_sol_knowledge_services_GetRelatedTopics
+ * @static
+ * @inheritdoc sol.common.ix.ServiceBase#RF_ServiceBaseName
+ *
+ * Example:
+ *
+ *     RF_sol_knowledge_services_GetLinkedPosts
+ *     {
+ *       "objId": "4711"
+ *     }
+ */
+function RF_sol_knowledge_services_GetLinkedPosts(ec, configAny) {
+
+  var config, linkedPosts, result;
+
+  logger.enter("RF_sol_knowledge_services_GetLinkedPosts");
+
+  config = sol.common.ix.RfUtils.parseAndCheckParams(ec, arguments.callee.name, configAny);
+  config.ec = ec;
+
+  linkedPosts = sol.create("sol.knowledge.ix.services.GetAdditionalInfo", config);
+  result = linkedPosts.executeLinkedPosts();
+
+  logger.exit("RF_sol_knowledge_services_GetLinkedPosts");
 
   return result;
 }

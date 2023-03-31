@@ -5,6 +5,7 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_Class.js
 //@include lib_sol.common.ix.ServiceBase.js
 //@include lib_sol.common.ix.GenericDynKwl.js
+//@include sol.knowledge.ix.DynKwlCategories.js
 //@include sol.knowledge.ix.dynkwl.generators.PostReference.js
 //@include sol.knowledge.ix.dynkwl.generators.ReplyReference.js
 
@@ -93,7 +94,6 @@ sol.define("sol.unittest.knowledge.ix.services.ExecuteDynKwl", {
       result.header = provider.getHeader();
       result.title = provider.getTitle();
       result.data = resultData;
-      
     } catch (ex) {
       result.error = String(ex);
     } finally {

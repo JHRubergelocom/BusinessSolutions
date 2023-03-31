@@ -63,6 +63,7 @@ sol.define("sol.unittest.knowledge.ix.services.ExecuteLib1", {
         cls, func;
 
     switch (me.className) {
+      case "sol.knowledge.ix.DynKwlCategories":
       case "sol.knowledge.ix.dynkwl.generators.PostReference":
       case "sol.knowledge.ix.dynkwl.generators.ReplyReference":
       case "sol.knowledge.ix.functions.Reputation":
