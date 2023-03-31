@@ -83,7 +83,7 @@ sol.define("sol.knowledge.ix.services.GetConfig", {
   process: function () {
     var me = this,
         environment, path, sords, postTypes, replyTypes, spaces, labels, postLocales, cleanedConfig, pageStyle,
-        userInbox, boards;
+        userInbox, boards, editorOptions;
 
     me._lang = ixConnect.loginResult.clientInfo.language;
     if (me.lang && (me.lang.length === 2)) {
@@ -113,16 +113,15 @@ sol.define("sol.knowledge.ix.services.GetConfig", {
         accessRights: true
       });
 
-      sords = me.getAllSolTypes("KNOWLEDGE_BOARD");
-      boards = me.convert(sords, {
-        accessRights: true
-      });
+      boards = me.getBoards();
 
       labels = me.getLabels();
 
       postLocales = me.getPostLocales();
 
       cleanedConfig = me.getCleanedConfig();
+
+      editorOptions = me.getEditorOptions();
 
       pageStyle = me.getPageStyle();
     } finally {
@@ -131,7 +130,7 @@ sol.define("sol.knowledge.ix.services.GetConfig", {
 
     try {
       userInbox = sol.common.RepoUtils.getSord("OKEY:ELOINDEX=/users/inbox#" + ixConnect.loginResult.user.guid);
-    } catch (e) {}
+    } catch (e) { }
 
     return {
       environment: environment,
@@ -143,6 +142,7 @@ sol.define("sol.knowledge.ix.services.GetConfig", {
       postLocales: postLocales,
       config: cleanedConfig,
       pageStyle: pageStyle,
+      editorOptions: editorOptions,
       user: {
         userGuid: ixConnect.loginResult.user.guid,
         inboxGuid: userInbox ? userInbox.guid : ""
@@ -168,6 +168,18 @@ sol.define("sol.knowledge.ix.services.GetConfig", {
     };
 
     return env;
+  },
+
+  getBoards: function (options) {
+    var me = this, sords;
+
+    options = options || {
+      accessRights: true
+    };
+
+    sords = me.getAllSolTypes("KNOWLEDGE_BOARD");
+    return me.convert(sords, options);
+
   },
 
   /**
@@ -337,6 +349,12 @@ sol.define("sol.knowledge.ix.services.GetConfig", {
     return pageStyle;
   },
 
+  getEditorOptions: function () {
+    var me = this;
+    
+    return me.knowledgeConfig.editorOptions;
+  },
+
   /**
    * @private
    * Converts from Sords to Objects
@@ -357,7 +375,21 @@ sol.define("sol.knowledge.ix.services.GetConfig", {
             data: sord,
             config: {
               sordKeys: ["name", "id", "guid", "maskName", "desc"],
-              objKeys: ["KNOWLEDGE_SPACE_REFERENCE", "KNOWLEDGE_BOARD_REFERENCE", "KNOWLEDGE_CONTENT_TYPE", "KNOWLEDGE_DEFAULT_POSTTYPE", "KNOWLEDGE_PROVIDED_POSTTYPES", "KNOWLEDGE_PINNED"]
+              objKeys: [
+                "KNOWLEDGE_SPACE_REFERENCE",
+                "KNOWLEDGE_SPACE_PREVIEW_IMAGE",
+                "KNOWLEDGE_BOARD_REFERENCE",
+                "KNOWLEDGE_CATEGORY",
+                "KNOWLEDGE_CONTENT_TYPE",
+                "KNOWLEDGE_DEFAULT_POSTTYPE",
+                "KNOWLEDGE_BOARD_TYPE",
+                "KNOWLEDGE_PROVIDED_POSTTYPES",
+                "KNOWLEDGE_PINNED"
+              ],
+              mapKeys: [
+                "SETTING_*",
+                "LOCALE_*"
+              ]
             }
           }
         });

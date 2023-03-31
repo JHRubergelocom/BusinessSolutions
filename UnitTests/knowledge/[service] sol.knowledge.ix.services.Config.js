@@ -2,7 +2,7 @@
 describe("[service] sol.knowledge.ix.services.Config", function () {
   var originalTimeout,
       config, reportTemplateSords, params, tplSord, solType,
-      path, packageName;
+      path, packageName, options;
 
   beforeAll(function () {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -84,12 +84,47 @@ describe("[service] sol.knowledge.ix.services.Config", function () {
           );
         }).not.toThrow();
       });
+      it("getBoards", function (done) {
+        expect(function () {
+          options = {};
+          test.Utils.execute("RF_sol_unittest_knowledge_service_ExecuteLib1", {
+            className: "sol.knowledge.ix.services.GetConfig",
+            classConfig: {},
+            method: "getBoards",
+            params: [options]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("getCleanedConfig", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_unittest_knowledge_service_ExecuteLib1", {
             className: "sol.knowledge.ix.services.GetConfig",
             classConfig: {},
             method: "getCleanedConfig",
+            params: []
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("getEditorOptions", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_knowledge_service_ExecuteLib1", {
+            className: "sol.knowledge.ix.services.GetConfig",
+            classConfig: {},
+            method: "getEditorOptions",
             params: []
           }).then(function success(jsonResult) {
             done();

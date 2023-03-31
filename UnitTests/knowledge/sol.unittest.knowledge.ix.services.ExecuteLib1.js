@@ -79,6 +79,7 @@ sol.define("sol.unittest.knowledge.ix.services.ExecuteLib1", {
       case "sol.knowledge.ix.services.CreateReply":
       case "sol.knowledge.ix.services.DeletePost":
       case "sol.knowledge.ix.services.DeleteReply":
+      case "sol.knowledge.ix.services.EditBoardOrSpace":
       case "sol.knowledge.ix.services.EditPost":
       case "sol.knowledge.ix.services.EditReply":
       case "sol.knowledge.ix.services.GetAdditionalInfo":

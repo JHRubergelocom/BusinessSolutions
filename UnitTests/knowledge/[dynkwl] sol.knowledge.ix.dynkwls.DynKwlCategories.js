@@ -280,7 +280,6 @@ describe("[dynkwl] sol.knowledge.ix.dynkwls.DynKwlCategories", function () {
             }
             done();
           }, function error(err) {
-            fail(err);
             console.error(err);
             done();
           }

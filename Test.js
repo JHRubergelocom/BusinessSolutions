@@ -598,35 +598,6 @@ https://eloticksy.elo.com/browse/BSK-1024
 BS Knowledge BSK-1024 Unittests überprüfen
 
 
-Philipp reviewen lassen!
-
-
-Dynamic Keyword Lists matching Unittest
-
-sol.knowledge.ix.DynKwlCategories 	false
-
-
-IndexServer Scripting Base/DynKwl lib matching Unittest
-
-sol.knowledge.ix.DynKwlCategories 	_open 	false
-sol.knowledge.ix.DynKwlCategories 	getHeader 	false
-sol.knowledge.ix.DynKwlCategories 	getKeyNames 	false
-sol.knowledge.ix.DynKwlCategories 	getNextRow 	false
-sol.knowledge.ix.DynKwlCategories 	getTitle 	false
-sol.knowledge.ix.DynKwlCategories 	hasMoreRows 	false
-sol.knowledge.ix.DynKwlCategories 	initialize 	false
-sol.knowledge.ix.DynKwlCategories 	map 	false
-sol.knowledge.ix.DynKwlCategories 	open 	false
-sol.knowledge.ix.DynKwlCategories 	openMap 	false
-
-
-IndexServer Scripting Base/Services lib matching Unittest
-
-sol.knowledge.ix.services.EditBoardOrSpace 	process 	false
-sol.knowledge.ix.services.GetConfig 	getBoards 	false
-sol.knowledge.ix.services.GetConfig 	getEditorOptions 	false
-
-
 
 learning
 
@@ -668,7 +639,7 @@ sol.meeting.ix.dynkwl.MeetingContactWorkflowMapImport 	false
 
 https://eloticksy.elo.com/browse/BSMM-2824
 
-BS Meeting BSMM-2824 Unittests überprüfen
+BS Meeting BSMM-2824 Unittests überprüfen (nächster Sprint!)
 
 
 
