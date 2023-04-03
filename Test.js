@@ -598,7 +598,6 @@ https://eloticksy.elo.com/browse/BSK-1024
 BS Knowledge BSK-1024 Unittests überprüfen
 
 
-
 learning
 
 elo-sol prepare -stack ruberg-learning -workspace default -version 20.00
@@ -836,5 +835,41 @@ BS Intern BSXX-432 Testautomatisierung mit Playwright
 Ideen für Erweiterungen automatisierte Tests
 
     Benutzer-Berechtigungen prüfen
-    Möglichkeiten Lokalisierung untersuchen
+    Testfälle HR Personalakte erstellen
 
+
+===========================================================================================================================
+
+
+TODO 31.03.2023
+
+https://eloticksy.elo.com/browse/BS-1925
+
+
+BS Common BS-1925 Leere Tags führen zu Problemen bei der Protokoll-Erstellung
+
+
+
+
+{
+"$directRule": "sol.meeting.as.functions.CreateMeetingMinutes",
+"$config": "/meeting/Configuration/minutes.config"
+}
+
+
+
+
+{{htmlToFo desc}}
+
+
+lib_sol.common.Template.js
+
+
+
+
+<p>Neues Meeting</p><ul><li>Punkt1</li><li>Punkt2</li></ul>
+<p></p><ol><li>Punkt3</li><li>Punkt4</li></ol>
+
+
+
+<p>Punkte Thema1</p> mit einem leeren <ol></ol>

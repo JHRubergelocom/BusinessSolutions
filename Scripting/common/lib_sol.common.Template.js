@@ -13,6 +13,7 @@
 //@include lib_sol.common.TranslateTerms.js
 //@include lib_sol.common.WfUtils.js
 //@include lib_sol.common.UserUtils.js
+//@include lib_sol.common.XmlUtils.js
 
 importPackage(Packages.java.io);
 importPackage(Packages.de.elo.ix.client);
@@ -367,12 +368,12 @@ importPackage(Packages.de.elo.ix.client);
  *
  *
  * ## Helper 'currentLanguage'
- * 
+ *
  * Returns the current language of ix connection
- * 
- *    {{currentLanguage}} 
- * 
- * 
+ *
+ *    {{currentLanguage}}
+ *
+ *
  * ## Helper 'math'
  *
  * Calculates a field
@@ -384,10 +385,75 @@ importPackage(Packages.de.elo.ix.client);
  * Converts a real boolean (true, false) or string ("True", "true", "FALSE") to elo compatible boolean version,
  * so you can handle value in checkbox form component easily.
  * Hint: Checkbox in formdesigner only supports value "1" (checked) or "0" (not checked)
- * If value type is not matched to boolean or string default converter is used. This means that javascript "!!" operator will be applied to the value. 
+ * If value type is not matched to boolean or string default converter is used. This means that javascript "!!" operator will be applied to the value.
  * After conversation the boolean value will be mapped to the elo compatible version again.
  *
  *     {{toEloCheckboxValue sord.objkey.FIELD_FLAG}}
+ *
+ * ## Helper 'app-link'
+ *
+ * Returns the URL for the specified app
+ *
+ *      {{app-link 'sol.meeting.apps.Meeting' sord.guid}}
+ *
+ * ## Helper 'web-link'
+ *
+ * Returns the Webclient-URL for the specified sord
+ *
+ *      {{web-link sord.guid}}
+ *
+ * ## Helper 'dms-link'
+ *
+ * Returns the elodms link for the specified sord
+ *
+ *      {{dms-link sord.guid}}
+ *
+ * ## Helper 'xslt'
+ *
+ * Transforms xml based content into another one with the given transformation file.
+ *
+ *     {{xslt sord.desc 'ARCPATH:/Administration/Business Solutions/common/Configuration/XSLT/htmlToFo'}}
+ *
+ * Hint: At this moment we have included just one transformation configuration from HTML to XSL-FO.
+ * Therefore we have an own helper 'htmlToFo' which handles specific HTML transformation rules.
+ *
+ * ## Helper 'htmlToFo'
+ *
+ * Transforms HTML content into XSL-FO content.
+ *
+ * By default we use the transformation configuration of this file 'ARCPATH:/Administration/Business Solutions/common/Configuration/XSLT/htmlToFo'
+ *
+ *     {{htmlToFo sord.desc}}
+ *
+ *
+ *      Example
+ *
+ *      Input:
+ *      <html><p>Dies ist ein Text</p></html>
+ *
+ *      Output:
+ *      <fo:block-container xmlns:fo="http://www.w3.org/1999/XSL/Format" margin-top="3mm" width="17cm">
+ *        <fo:block linefeed-treatment="preserve" space-after="4pt" space-before="4pt">Dies ist ein Text</fo:block>
+ *      </fo:block-container>
+ *
+ * It is possible to add your own transformation configuration by passing the ARCPATH of your own file to this helper. (optional)
+ *
+ *     {{htmlToFo sord.desc 'ARCPATH:/Administration/Business Solutions Custom/common/Configuration/XSLT/ownHtmlToFo'}}
+ *
+ *
+ * ## productLine
+ *
+ * The ProductLine class translate the {{package}} in the basic package or in the package_premium.
+ * The default package is meeting.
+ * You get only package_premium in your tranlation inviorment variable when the value is Premium.
+ *
+ * If you use the function then use folowing syntax.
+ * {{translate (productLine 'sol.{{package}}.forms.meeting.createMeetingTitle' sord.objKeys.MEETING_PRODUCT_LINE package=‘meeting‘) 'de'}}
+ *
+ * ## SafeString
+ * Information about the SafeString helper when you work with nested helpers:
+ * The SafeString helper returns an object that has a string as an attribute.
+ * If you expect a string as input for a helper, you have to cast the object to a string.
  *
  * ## Custom
  *
@@ -413,7 +479,7 @@ importPackage(Packages.de.elo.ix.client);
  *
  *     }());
  *
- * It is important this registration is executed bevor a custom helper will be used for the first time.
+ * It is important this registration is executed before a custom helper will be used for the first time.
  * E.g. when the scripts are loaded like in the example above.
  *
  * The helper will used with `{{custom '%HELPER_NAME%' %ADDITIONAL_ARGS% }}`:
@@ -442,7 +508,6 @@ importPackage(Packages.de.elo.ix.client);
  *
  *
  * @author ELO Digital Office GmbH
- * @version 1.03.000
  *
  * @eloix
  * @eloas
@@ -458,7 +523,14 @@ importPackage(Packages.de.elo.ix.client);
  * @requires sol.common.UserUtils
  * @requires sol.common.ObjectFormatter.TemplateSord
  * @requires sol.common.as.BarcodeUtils
+ * @requires sol.common.XmlUtils
  */
+
+var templateSemaphore = {},
+    isRhino;
+
+isRhino = (typeof Graal == "undefined");
+
 sol.define("sol.common.Template", {
 
   /**
@@ -548,19 +620,55 @@ sol.define("sol.common.Template", {
   },
 
   /**
-  * Apply the template with the object data.
-  * @param {Object} paramObj Data object which contains the data to fill in.
-  * @returns {String}
-  */
+   * Apply the template with the object data.
+   * @param {Object} paramObj Data object which contains the data to fill in.
+   * @returns {String}
+   */
   apply: function (paramObj) {
-    var me = this;
+    var me = this,
+        executeSynchronizer, result;
+
     if (!me.template) {
       throw "Template is empty";
     }
-    me.logger.enter("apply", arguments);
-    me.result = me.template(paramObj);
-    me.logger.exit("apply", me.result);
-    return me.result;
+
+    // The template shoud be executed synchronously to make Handlebars work in multi-threaded environments
+    if (isRhino) {
+      executeSynchronizer = new Packages.org.mozilla.javascript.Synchronizer(me.executeTemplateSynchronized, templateSemaphore);
+      result = executeSynchronizer.call(me, paramObj);
+    } else {
+      result = me.executeTemplate(paramObj);
+    }
+
+    return result;
+  },
+
+  /**
+   * @private
+   */
+  executeTemplate: function (paramObj) {
+    var me = this,
+        result;
+
+    me.logger.enter("executeTemplate", arguments);
+    result = me.template(paramObj);
+    me.logger.exit("executeTemplate", result);
+
+    return result;
+  },
+
+  /**
+   * @private
+   */
+  executeTemplateSynchronized: function (paramObj) {
+    var me = this,
+        result;
+
+    me.logger.enter("executeTemplateSynchronized", arguments);
+    result = me.template(paramObj);
+    me.logger.exit("executeTemplateSynchronized", result);
+
+    return result;
   },
 
   /**
@@ -572,6 +680,7 @@ sol.define("sol.common.Template", {
   applySord: function (sord, flowId) {
     var me = this, templateSord,
         _result;
+
     me.logger.enter("applySord", arguments);
     if (!sord) {
       me.logger.exit("applySord");
@@ -697,6 +806,7 @@ Handlebars.registerHelper("padLeft", function (str, padLeft) {
 Handlebars.registerHelper("eachObjKey", function (context, options) {
   var ret = "",
       i, objKey, value;
+
   for (i = 0; i < context.length; i++) {
     objKey = context[i];
     value = "";
@@ -833,6 +943,9 @@ Handlebars.registerHelper("replace", function (str, find, replace, options) {
 
 Handlebars.registerHelper("translate", function (key, language) {
   var translatedStr = "";
+
+  key = "" + key;
+
   try {
     // additional check necessary, because if language is omitted in template string, language parameter has accidentally the context parameter
     if (!language || ((typeof language === "object") && (language.name === "translate"))) {
@@ -844,6 +957,19 @@ Handlebars.registerHelper("translate", function (key, language) {
     translatedStr = key;
   }
   return new Handlebars.SafeString(translatedStr);
+});
+
+Handlebars.registerHelper("productLine", function (key, value, options) {
+  var bspackage = options.hash.package || "meeting";
+  key = "" + key;
+
+  if ((value || "").toLowerCase() === "premium") {
+    bspackage += "_premium";
+  }
+
+  key = key.replace("{{package}}", bspackage);
+
+  return new Handlebars.SafeString(key);
 });
 
 Handlebars.registerHelper("ifCond", function (v1, operator, v2, options) {
@@ -880,6 +1006,7 @@ Handlebars.registerHelper("base64Barcode", function (options) {
   var me = this,
       config = options.hash,
       contentTemplate, base64String;
+
   config.returnBase64 = true;
   contentTemplate = sol.common.TemplateUtils.compileUsingCache(config.content);
   config.content = contentTemplate(me);
@@ -891,6 +1018,7 @@ Handlebars.registerHelper("base64Image", function (options) {
   var me = this,
       config = options.hash,
       objIdTemplate, base64Content;
+
   objIdTemplate = sol.common.TemplateUtils.compileUsingCache(config.objId);
   config.objId = objIdTemplate(me);
   if (!config.objId) {
@@ -910,7 +1038,7 @@ Handlebars.registerHelper("ifContains", function (input, searchString, options) 
   input = input || "";
   if (input.toString().indexOf(searchString) != -1) {
     return options.fn(this);
-  }	else {
+  } else {
     return options.inverse(this);
   }
 });
@@ -924,7 +1052,7 @@ Handlebars.registerHelper("ifKey", function (input, key, options) {
 
   if (parts && (parts.length > 0) && (parts[0] == key)) {
     return options.fn(this);
-  }	else {
+  } else {
     return options.inverse(this);
   }
 });
@@ -936,7 +1064,7 @@ Handlebars.registerHelper("ifNegative", function (input, options) {
 
   if ((input.length > 0) && (input[0] == "-")) {
     return options.fn(this);
-  }	else {
+  } else {
     return options.inverse(this);
   }
 });
@@ -1080,11 +1208,11 @@ Handlebars.registerHelper("dateTimeShift", function (options) {
   // convert dateTime option to a moment object. If no dateTime is passed
   // use now datetime object
   dateTime =
-      dateTime === undefined
-        ? moment()
-        : typeof dateTime === "string"
-          ? moment(dateTime)
-          : dateTime;
+    dateTime === undefined
+      ? moment()
+      : typeof dateTime === "string"
+        ? moment(dateTime)
+        : dateTime;
 
   if (typeof options === "object" && options.hash) {
     modifiers = [
@@ -1281,6 +1409,147 @@ Handlebars.registerHelper("currentLanguage", function () {
   return new Handlebars.SafeString(language);
 });
 
+Handlebars.registerHelper("app-link", function (appName, guid) {
+  var appUrl, params;
+
+  params = {
+    guid: guid,
+    lang: ixConnect.loginResult.clientInfo.language
+  };
+
+  appUrl = sol.common.WfUtils.getAppUrl(appName, params);
+
+  return new Handlebars.SafeString(appUrl);
+});
+
+Handlebars.registerHelper("dms-link", function (guid) {
+  var link = sol.common.RepoUtils.getEloDmsLink(guid);
+
+  return new Handlebars.SafeString(link);
+});
+
+Handlebars.registerHelper("web-link", function (guid) {
+  var link = sol.common.RepoUtils.getWebLink(guid);
+
+  return new Handlebars.SafeString(link);
+});
+
+Handlebars.registerHelper("xslt", function () {
+  var xslPath, inputString, resultString;
+
+  inputString = (arguments.length > 1) ? arguments[0] : null;
+  xslPath = (arguments.length > 2) ? arguments[1] : null;
+
+  if (!inputString) {
+    throw "inputString is empty";
+  }
+
+  if (!xslPath) {
+    throw "xslPath is empty";
+  }
+
+  resultString = sol.common.TemplateXslUtils.transform(inputString, xslPath);
+
+  if (!resultString) {
+    throw "Could not transform xml";
+  }
+
+  return new Handlebars.SafeString(resultString);
+});
+
+Handlebars.registerHelper("htmlToFo", function () {
+  var htmlString, xslPath, foString;
+
+  htmlString = (arguments.length > 1) ? arguments[0] : null;
+  xslPath = (arguments.length > 2) ? arguments[1] : null;
+
+  if (!htmlString) {
+    throw "htmlString is empty";
+  }
+
+  if (!xslPath) {
+    xslPath = "ARCPATH:/Administration/Business Solutions/common/Configuration/XSLT/htmlToFo";
+  }
+
+  htmlString = sol.common.TemplateXslUtils.formatHtml(htmlString);
+  foString = sol.common.TemplateXslUtils.transform(htmlString, xslPath);
+
+  if (!foString) {
+    throw "Could not transform HTML to FO. HTML: " + htmlString;
+  }
+
+  return new Handlebars.SafeString(foString);
+});
+
+sol.define("sol.common.TemplateXslUtils", {
+  singleton: true,
+
+  transform: function (inputString, xslPath) {
+    var me = this, xslObjId, xslStream, inputStream, transformedString;
+
+    if (!inputString) {
+      throw "inputString is empty";
+    }
+
+    if (!xslPath) {
+      throw "xlsPath is empty";
+    }
+
+    if (!sol.common.XmlUtils) {
+      throw "'lib_sol.common.XmlUtils.js' is not included. Please include it and retry!";
+    }
+
+    xslObjId = sol.common.RepoUtils.getObjId(xslPath);
+    if (!xslObjId) {
+      throw "Could not find object";
+    }
+
+    xslStream = sol.common.RepoUtils.downloadToStream(xslObjId);
+    inputStream = new java.io.ByteArrayInputStream(new java.lang.String(inputString).getBytes(java.nio.charset.StandardCharsets.UTF_8));
+
+    transformedString = sol.common.XmlUtils.transformByXslt(inputStream, xslStream);
+    transformedString = me.replaceXmlProlog(transformedString);
+
+    return transformedString;
+  },
+
+  replaceXmlProlog: function (xmlString) {
+    return String(xmlString).replace(/(\<\?xml).*\?>/g, "");
+  },
+
+  formatHtml: function (html) {
+    var me = this;
+
+    html = me.normalizeHtml(html);
+
+    //we have to add at least one tag to extract the content
+    if (!(html.indexOf("<") > -1)) {
+      html = "<p>" + html + "</p>";
+    }
+
+    if (!(html.indexOf("<html>") > -1)) {
+      html = "<html>" + html + "</html>";
+    }
+    return html;
+  },
+
+  normalizeHtml: function (html) {
+    if (!html) {
+      return "";
+    }
+
+    return html
+      .replaceAll("<ol></ol>", "") // replace empty list tags with empty string
+      .replaceAll("<ul></ul>", "") // replace empty list tags with empty string
+      .replaceAll("<li></li>", "") // replace empty list tags with empty string
+      .replace(/&nbsp;/g, " ") // replace all non breaking spaces with whitespace
+      .replace(/<br\s*>/g, "<br/>") // format line break tags to xhtml tags
+      .replace(/<!--StartFragment-->/g, "<p>") // replace all clipboard text with own paragraph
+      .replace(/<!--EndFragment-->/g, "</p>") // replace end tag of clipboard copied text
+      .replace(/&(?!.{1,6};)/ig, "&amp;"); // replace special characters
+  }
+});
+
 
 /**
  * @private
@@ -1341,6 +1610,7 @@ sol.define("sol.common.TemplateUtils", {
   render: function (tpl, tplData, options) {
     var fallbackToTplStr = (options = (options || {})).emptyNonRendered !== true,
         stringifyResults = options.stringifyResults === true;
+
     function isString(str) {
       return (typeof str === "string")
         || (typeof java !== "undefined" && str instanceof java.lang.String);
@@ -1366,7 +1636,7 @@ sol.define("sol.common.TemplateUtils", {
         .forEach(function (key) {
           try {
             obj[key] = render(obj[key]); // recursion
-          } catch (e) {} // setting the property value may fail
+          } catch (e) { } // setting the property value may fail
         });
     }
     function processAny(any) {
