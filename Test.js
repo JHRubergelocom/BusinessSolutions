@@ -838,38 +838,208 @@ Ideen für Erweiterungen automatisierte Tests
     Testfälle HR Personalakte erstellen
 
 
-===========================================================================================================================
+Testfälle HR Personalakte
+
+Login:
+
+Gruppe sol.hr.roles.Creators
+
+Bodo Kraft
 
 
-TODO 31.03.2023
+"Felder ausfüllen:
+- Anstellungsart (Register Personal)      IX_GRP_HR_PERSONNEL_WORKSCHEDULE "KWL" "F - Vollzeit", "P-Teilzeit"
+// - Schlüsselnummer (Register Personal) ?	  IX_GRP_HR_PERSONNEL_PERSONNELNO "Text" "PX0000055"	
+- Firmenfahrzeug (Register Personal)	  IX_GRP_HR_PERSONNEL_LICENSEPLATE "S-AA 1234"
+- Geburtsdatum (Register Persönlich, Tag und Monat auf heutiges Datum setzen)
+					IX_GRP_HR_PERSONNEL_BIRTHDAY "25.03.1960"					  
+speichern"
 
-https://eloticksy.elo.com/browse/BS-1925
 
 
-BS Common BS-1925 Leere Tags führen zu Problemen bei der Protokoll-Erstellung
+Eintrittsprozess starten
+
+Personal - > Eintrittsprozess starten           "startonboarding"
+
+
+TODO: WF "Eintrittsprozess starten" durch Vorgesetzten, Hr, weiterleiten!
+
+User "Gerd Baum" WF Mitarbeitereintritt mit (Benutzereingabe "Stammdaten vervollständigen" ) OK weiterleiten!
+
+1.) Aufgaben von "Gerd Baum" bestimmen -> WF mit "OK" weiterleiten!
+
+WF "sol.hr.personnel.StartOnboarding"
+
+"Complete data entry" sol.hr.personnel.wf.user.startonboarding.employeeentrysuperior   KnotenID 30 -> "OK"  sol.common.wf.node.ok
+
+2.) "Stammdaten vervollständigen"  mit Freigeben weiterleiten
+
+"Data entry completed" sol.hr.personnel.wf.user.startonboarding.employeeentrypersonnel KnotenID 15 -> "Approval" sol.common.wf.node.approve
+
+
+toNodesName
+
+
+        // Remove Workflows
+        List<WFDiagram> finishedWorkflows = getFinishedWorkflows(ixConn);
+        WfUtils.removeFinishedWorkflows(ixConn, finishedWorkflows);
 
 
 
+
+
+
+
+
+        // Forward Workflow
+        final List<String> toNodesName = new ArrayList<>();
+        toNodesName.add("sol.common.wf.node.ok");
+        toNodesName.add("sol.common.wf.node.approve");
+
+        final ELOForwardWorkflow eloForwardWorkflow = new ELOForwardWorkflow(toNodesName);
+
+
+
+
+
+            // Delete Data
+            List<String> arcPaths = dataConfig.getEloDeleteData().getArcPaths();
+            if(arcPaths.size() > 0) {
+                ws.deleteData(dataConfig);
+            }
+
+
+
+    private void deleteData(DataConfig dataConfig) throws Exception {
+        // Ix Connect
+        IXConnection ixConn = ELOIxConnection.getIxConnection(dataConfig.getLoginData(), true);
+        System.out.println("IxConn: " + ixConn);
+
+        // Delete arcpath
+        for (String arcPath: dataConfig.getEloDeleteData().getArcPaths()) {
+            RepoUtils.DeleteSord(ixConn, arcPath);
+        }
+
+        ixConn.close();
+    }
+
+
+
+
+
+
+
+    @Test
+    public void testForwardWorkflow() {
+
+        // Fill LoginData
+        final ELOControl textUserName = new ELOControl("Name", "Gerd Baum", ELOControlType.TEXT);
+        final ELOControl textPassword = new ELOControl("Passwort", "elo", ELOControlType.TEXT);
+        final ELOControl buttonLogin = new ELOControl("Anmelden", "Login", ELOControlType.BUTTON);
+        final String stack = "ruberg-hr.dev.elo";
+        final LoginData loginData = new LoginData(textUserName, textPassword, buttonLogin,stack);
+
+        // Ix Connect
+        IXConnection ixConn;
+        try {
+            ixConn = ELOIxConnection.getIxConnection(loginData, false);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("IxConn: " + ixConn);
+        System.out.println( "ixConn.getLoginResult().getUser(): " + ixConn.getLoginResult().getUser());
+
+        // Get Active Workflow
+        WFDiagram activeWorkflow = getActiveWorkflow(ixConn);
+
+        // Get Active User Node
+        WFNode activeUserNode = getActiveUserNode(activeWorkflow);
+
+        // Get Successor Nodes
+        // List<WFNode> successorNodes = getSuccessorNodes(activeWorkflow, activeUserNode, "sol.common.wf.node.ok");
+        List<WFNode> successorNodes = getSuccessorNodes(activeWorkflow, activeUserNode, "sol.common.wf.node.approve");
+
+        // Forward Workflow
+        WfUtils.forwardWorkflow(ixConn, activeWorkflow, activeUserNode, successorNodes);
+
+        ixConn.close();
+    }
+
+
+
+
+<script>
+    EM_WRITE_CHANGED = false;
+    var reminder = sol.create("sol.hr.as.PersonnelFileReminder");
+    reminder.process();
+  </script>
+
+
+
+      it("process", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
+            action: "sol.unittest.hr.as.services.ExecuteLib",
+            config: {
+              className: "sol.hr.as.PersonnelFileReminder",
+              classConfig: {},
+              method: "process",
+              params: []
+            }
+          }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") != -1) {
+              fail(jsonResult.content);
+            }
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+
+
+
+
+
+Gruppe HR Bodo Kraft
+
+
+AS-Regel starten "sol.hr.PersonnelFileReminder"
+
+
+RF_sol_common_service_ExecuteAsAction
+{
+            "action": "sol.hr.PersonnelFileReminder",
+            "config": {}
+}
 
 {
-"$directRule": "sol.meeting.as.functions.CreateMeetingMinutes",
-"$config": "/meeting/Configuration/minutes.config"
+  "url": "http://ruberg-hr.dev.elo:80/as-Solutions/as?cmd=get&name=sol.hr.PersonnelFileReminder&param2=%7B%7D&param3=%7B%22language%22%3A%22de%22%2C%22timeZone%22%3A%22Europe%2FBerlin%22%7D&ticket=7347EF2...",
+  "responseOk": true,
+  "responseCode": 200,
+  "content": "Process: Solutions\n"
 }
 
 
 
+Der erste Arbeitstag
 
-{{htmlToFo desc}}
-
-
-lib_sol.common.Template.js
+WF "sol.hr.personnel.firstdayofwork.reminder"
 
 
 
 
-<p>Neues Meeting</p><ul><li>Punkt1</li><li>Punkt2</li></ul>
-<p></p><ol><li>Punkt3</li><li>Punkt4</li></ol>
 
+        try {
+            connFact = new IXConnFactory(getIxUrl(loginData), "IXConnection", "1.0");
+        } catch (Exception ex) {
+            System.err.println("ELO ELOIxConnection Falsche Verbindungsdaten zu ELO \n: " + ex.getMessage());
+            System.err.println("IllegalStateException message: " +  ex.getMessage());
+            throw new Exception("ELOIxConnection");
 
+        }
 
-<p>Punkte Thema1</p> mit einem leeren <ol></ol>
