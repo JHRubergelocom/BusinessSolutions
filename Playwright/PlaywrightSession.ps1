@@ -1,1 +1,1 @@
-java "-Dfile.encoding=UTF-8" -jar PlaywrightSession.jar DataConfigTest.json PlaywrightConfig.json
+java "-Dfile.encoding=UTF-8" -jar PlaywrightSession.jar DataConfigMeeting.json PlaywrightConfig.json

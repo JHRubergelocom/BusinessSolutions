@@ -1,5 +1,5 @@
 {
-  "notHeadless": true,
+  "notHeadless": false,
   "recordVideo": true,
   "screenShots": true,
   "snapShots": true,
