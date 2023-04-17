@@ -560,7 +560,7 @@ executeAdvancedAction
 
 =====================================================================================================================================================================
 
-23.03.2022 TODO Unittests überprüfen (nach Änderungen 23.00 Stack aufbauen (vorher ELOas JavaScript Library "C:\Users\ruberg\OneDrive - ELO Digital Office GmbH\Dokumente\Entwicklung\ELOas\ELOasJavaScriptLibrary211DE.eloinst" installieren) und Tests durchlaufen lassen!)
+13.04.2023 TODO Unittests überprüfen (nach Änderungen 23.00 Stack aufbauen (vorher ELOas JavaScript Library "C:\Users\ruberg\OneDrive - ELO Digital Office GmbH\Dokumente\Entwicklung\ELOas\ELOasJavaScriptLibrary211DE.eloinst" installieren) und Tests durchlaufen lassen!)
 
 
 QoL Feature für Entwickler: JIRA Issues+Branch via der ELO CLI erstellen
@@ -591,11 +591,6 @@ elo-sol prepare -stack ruberg-invoice -workspace jan -version 20.00
 knowledge
 
 elo-sol prepare -stack ruberg-knowledge -workspace default -version 20.00
-
-
-https://eloticksy.elo.com/browse/BSK-1024
-
-BS Knowledge BSK-1024 Unittests überprüfen
 
 
 learning
@@ -633,12 +628,15 @@ meeting
 elo-sol prepare -stack ruberg-meeting -workspace premium-groupware -version 20.00
 
 
-Dynamic Keyword Lists matching Unittest
-sol.meeting.ix.dynkwl.MeetingContactWorkflowMapImport 	false
-
 https://eloticksy.elo.com/browse/BSMM-2824
 
-BS Meeting BSMM-2824 Unittests überprüfen (nächster Sprint!)
+BS Meeting BSMM-2824 Unittests überprüfen
+
+
+IndexServer Scripting Base/Services lib matching Unittest
+
+sol.meeting.voting.ix.services.FindTemplates 	localizeDynamicKeyword 	false
+
 
 
 
@@ -836,4 +834,31 @@ Ideen für Erweiterungen automatisierte Tests
      Benutzer-Berechtigungen prüfen
      Testfälle HR Personalakte erstellen
      Automatisiertes Starten von AS-Regeln
+
+
+
+
+
+TODO Austrittsprozess starten
+
+Maske "Austrittsprozess starten"
+
+Kündigungsdatum "IX_MAP_HR_PERSONNEL_DATEOFNOTICE"
+
+Austrittsdatum "IX_GRP_HR_PERSONNEL_DATEOFLEAVING" heutiges Datum
+
+Kommentar "IX_BLOB_HR_PERSONNEL_TERMINATIONCOMMENT"   textareafeld mit TEXT probieren
+
+
+Prüfungen Status "C gekündigt"
+
+AS-Regeln starten
+
+"sol.common.as.WfController"
+"sol.common_monitoring.as.JobQueue"
+
+
+Prüfung Mitarbeiter unter  Ordner "Ausgeschiedene Mitarbeiter"
+
+Prüfung Status "B - ausgeschieden"
 

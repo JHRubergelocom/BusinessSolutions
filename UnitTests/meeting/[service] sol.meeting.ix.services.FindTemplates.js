@@ -1,6 +1,6 @@
 
 describe("[service] sol.meeting.ix.services.FindTemplates", function () {
-  var originalTimeout;
+  var originalTimeout, tplSord, dynKwlField;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -18,6 +18,25 @@ describe("[service] sol.meeting.ix.services.FindTemplates", function () {
   });
   describe("Test Lib Functions", function () {
     describe("sol.meeting.voting.ix.services.FindTemplates", function () {
+      it("localizeDynamicKeyword", function (done) {
+        expect(function () {
+          tplSord = {};
+          dynKwlField = "dynKwlField1";
+          test.Utils.execute("RF_sol_unittest_meeting_service_ExecuteLib1", {
+            className: "sol.meeting.voting.ix.services.FindTemplates",
+            classConfig: {},
+            method: "localizeDynamicKeyword",
+            params: [tplSord, dynKwlField]
+          }).then(function success(jsonResult) {
+            fail(jsonResult);
+            done();
+          }, function error(err) {
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("process", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_unittest_meeting_service_ExecuteLib1", {

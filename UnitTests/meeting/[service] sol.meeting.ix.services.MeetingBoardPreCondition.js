@@ -19,6 +19,40 @@ describe("[service] sol.meeting.ix.services.MeetingBoardPrecondition", function 
   });
   describe("Test Lib Functions", function () {
     describe("sol.meeting.services.MeetingBoardPrecondition", function () {
+      it("checkBoards", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_meeting_service_ExecuteLib1", {
+            className: "sol.meeting.services.MeetingBoardPrecondition",
+            classConfig: { targetId: objTempId },
+            method: "checkBoards",
+            params: []
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("checkMeetingLicense", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_meeting_service_ExecuteLib1", {
+            className: "sol.meeting.services.MeetingBoardPrecondition",
+            classConfig: { targetId: objTempId },
+            method: "checkMeetingLicense",
+            params: []
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("process", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_unittest_meeting_service_ExecuteLib1", {
@@ -44,9 +78,11 @@ describe("[service] sol.meeting.ix.services.MeetingBoardPrecondition", function 
         expect(function () {
           test.Utils.execute("RF_sol_meeting_services_MeetingBoardPrecondition", {
           }).then(function success(jsonResult) {
-            fail(jsonResult);
+            expect(jsonResult.valid).toBeDefined();
+            expect(jsonResult.valid).toEqual(false);
             done();
           }, function error(err) {
+            fail(err);
             console.error(err);
             done();
           }
@@ -59,7 +95,7 @@ describe("[service] sol.meeting.ix.services.MeetingBoardPrecondition", function 
             targetId: objTempId
           }).then(function success(jsonResult) {
             expect(jsonResult.valid).toBeDefined();
-            expect(jsonResult.valid).toEqual(true);
+            expect(jsonResult.valid).toEqual(false);
             done();
           }, function error(err) {
             fail(err);

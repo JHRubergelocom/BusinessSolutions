@@ -28,6 +28,7 @@ importPackage(Packages.de.elo.ix.client);
 //@include sol.meeting.ix.dynkwl.MeetingContact.js
 //@include sol.meeting.ix.dynkwl.MeetingContactTypeMember.js
 //@include sol.meeting.ix.dynkwl.MeetingContactWorkflowMap.js
+//@include sol.meeting.ix.dynkwl.MeetingContactWorkflowMapImport.js
 //@include sol.meeting.ix.dynkwl.MoveToMeeting.js
 //@include sol.meeting.ix.dynkwl.ProposalTypesMultiIndex.js
 //@include sol.meeting.ix.dynkwl.MeetingIterator.js
