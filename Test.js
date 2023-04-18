@@ -635,7 +635,7 @@ BS Meeting BSMM-2824 Unittests überprüfen
 
 IndexServer Scripting Base/Services lib matching Unittest
 
-sol.meeting.voting.ix.services.FindTemplates 	localizeDynamicKeyword 	false
+sol.meeting.voting.ix.services.FindTemplates 	localizeDynamicKeyword 	false   (tplSord, dynKwlField)
 
 
 
@@ -862,3 +862,10 @@ Prüfung Mitarbeiter unter  Ordner "Ausgeschiedene Mitarbeiter"
 
 Prüfung Status "B - ausgeschieden"
 
+
+
+
+
+TODO 19.04.2023
+
+Screenshots Playwright mit Index benennen bei Neuanlage Objekt
