@@ -868,4 +868,13 @@ Prüfung Status "B - ausgeschieden"
 
 TODO 19.04.2023
 
-Screenshots Playwright mit Index benennen bei Neuanlage Objekt
+
+DataConfigDeleteData.json
+
+DataConfigCreateFilesAmelie.json
+
+
+int index = 1;
+
+
+Screenshots Playwright mit Index benennen bei Neuanlage Objekt (...Button.png nach ...Button<index>.png), evtl. Ribbon.png und Menu.png
