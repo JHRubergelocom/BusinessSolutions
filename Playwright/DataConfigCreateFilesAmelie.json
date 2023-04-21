@@ -34,8 +34,9 @@
           "selectorMenu": "Personal",
           "selectorButton": "Neuer Mitarbeiter"
         },
-        "tabPages": {
-          "": {
+        "tabPages": [
+          {
+            "tabName": "",
             "initTabPage": [],
             "controls": [
               {
@@ -55,9 +56,9 @@
               }
             ],
             "tables": [],
-            "expectedValueControls": []
+            "checkValueControls": []
           }
-        }
+        ]
       },
       {
         "entryPath": "Solutions/Personalmanagement/Personalakten/L/Leutheusser-Schnarrenberger, Geneviève-Gabrielle",
@@ -70,8 +71,9 @@
           "selectorMenu": "",
           "selectorButton": ""
         },
-        "tabPages": {
-          "Persönlich": {
+        "tabPages": [
+          {
+            "tabName": "Persönlich",
             "initTabPage": [],
             "controls": [
               {
@@ -176,9 +178,10 @@
               }
             ],
             "tables": [],
-            "expectedValueControls": []
+            "checkValueControls": []
           },
-          "Personal": {
+          {
+            "tabName": "Personal",
             "initTabPage": [],
             "controls": [
               {
@@ -238,9 +241,10 @@
               }
             ],
             "tables": [],
-            "expectedValueControls": []
+            "checkValueControls": []
           },
-          "Ein-/ Austritt": {
+          {
+            "tabName": "Ein-/ Austritt",
             "initTabPage": [],
             "controls": [
               {
@@ -290,9 +294,9 @@
               }
             ],
             "tables": [],
-            "expectedValueControls": []
+            "checkValueControls": []
           }
-        }
+        ]
       },
       {
         "entryPath": "",
@@ -305,8 +309,9 @@
           "selectorMenu": "Personal",
           "selectorButton": "Neuer Mitarbeiter"
         },
-        "tabPages": {
-          "": {
+        "tabPages": [
+          {
+            "tabName": "",
             "initTabPage": [],
             "controls": [
               {
@@ -326,9 +331,9 @@
               }
             ],
             "tables": [],
-            "expectedValueControls": []
+            "checkValueControls": []
           }
-        }
+        ]
       },
       {
         "entryPath": "Solutions/Personalmanagement/Personalakten/B/Buhl, Karl-Theodor Maria Nikolaus Johann Jacob Philipp Franz Joseph",
@@ -341,8 +346,9 @@
           "selectorMenu": "",
           "selectorButton": ""
         },
-        "tabPages": {
-          "Persönlich": {
+        "tabPages": [
+          {
+            "tabName": "Persönlich",
             "initTabPage": [],
             "controls": [
               {
@@ -367,9 +373,9 @@
               }
             ],
             "tables": [],
-            "expectedValueControls": []
+            "checkValueControls": []
           }
-        }
+        ]
       },
       {
         "entryPath": "",
@@ -382,8 +388,9 @@
           "selectorMenu": "Personal",
           "selectorButton": "Neuer Mitarbeiter"
         },
-        "tabPages": {
-          "": {
+        "tabPages": [
+          {
+            "tabName": "",
             "initTabPage": [],
             "controls": [
               {
@@ -403,9 +410,9 @@
               }
             ],
             "tables": [],
-            "expectedValueControls": []
+            "checkValueControls": []
           }
-        }
+        ]
       },
       {
         "entryPath": "Solutions/Personalmanagement/Personalakten/B/Bärenfänger, Adoración",
@@ -418,8 +425,9 @@
           "selectorMenu": "",
           "selectorButton": ""
         },
-        "tabPages": {
-          "Persönlich": {
+        "tabPages": [
+          {
+            "tabName": "Persönlich",
             "initTabPage": [],
             "controls": [
               {
@@ -444,9 +452,9 @@
               }
             ],
             "tables": [],
-            "expectedValueControls": []
+            "checkValueControls": []
           }
-        }
+        ]
       },
       {
         "entryPath": "",
@@ -459,8 +467,9 @@
           "selectorMenu": "Personal",
           "selectorButton": "Neuer Mitarbeiter"
         },
-        "tabPages": {
-          "": {
+        "tabPages": [
+          {
+            "tabName": "",
             "initTabPage": [],
             "controls": [
               {
@@ -480,9 +489,9 @@
               }
             ],
             "tables": [],
-            "expectedValueControls": []
+            "checkValueControls": []
           }
-        }
+        ]
       },
       {
         "entryPath": "Solutions/Personalmanagement/Personalakten/M/Montaña Lucena, Françoise Andrés Evaristo",
@@ -495,8 +504,9 @@
           "selectorMenu": "",
           "selectorButton": ""
         },
-        "tabPages": {
-          "Persönlich": {
+        "tabPages": [
+          {
+            "tabName": "Persönlich",
             "initTabPage": [],
             "controls": [
               {
@@ -521,9 +531,9 @@
               }
             ],
             "tables": [],
-            "expectedValueControls": []
+            "checkValueControls": []
           }
-        }
+        ]
       },
       {
         "entryPath": "",
@@ -536,8 +546,9 @@
           "selectorMenu": "Personal",
           "selectorButton": "Neuer Mitarbeiter"
         },
-        "tabPages": {
-          "": {
+        "tabPages": [
+          {
+            "tabName": "",
             "initTabPage": [],
             "controls": [
               {
@@ -557,9 +568,9 @@
               }
             ],
             "tables": [],
-            "expectedValueControls": []
+            "checkValueControls": []
           }
-        }
+        ]
       },
       {
         "entryPath": "Solutions/Personalmanagement/Personalakten/S/Stephan, Annaëlle",
@@ -572,8 +583,9 @@
           "selectorMenu": "",
           "selectorButton": ""
         },
-        "tabPages": {
-          "Persönlich": {
+        "tabPages": [
+          {
+            "tabName": "Persönlich",
             "initTabPage": [],
             "controls": [
               {
@@ -593,9 +605,9 @@
               }
             ],
             "tables": [],
-            "expectedValueControls": []
+            "checkValueControls": []
           }
-        }
+        ]
       },
       {
         "entryPath": "",
@@ -608,8 +620,9 @@
           "selectorMenu": "Personal",
           "selectorButton": "Neuer Mitarbeiter"
         },
-        "tabPages": {
-          "": {
+        "tabPages": [
+          {
+            "tabName": "",
             "initTabPage": [],
             "controls": [
               {
@@ -629,9 +642,9 @@
               }
             ],
             "tables": [],
-            "expectedValueControls": []
+            "checkValueControls": []
           }
-        }
+        ]
       },
       {
         "entryPath": "Solutions/Personalmanagement/Personalakten/Ç/Çamurcuoğlu, Sançar Ömür",
@@ -644,8 +657,9 @@
           "selectorMenu": "",
           "selectorButton": ""
         },
-        "tabPages": {
-          "Persönlich": {
+        "tabPages": [
+          {
+            "tabName": "Persönlich",
             "initTabPage": [],
             "controls": [
               {
@@ -670,9 +684,9 @@
               }
             ],
             "tables": [],
-            "expectedValueControls": []
+            "checkValueControls": []
           }
-        }
+        ]
       }
     ]
   },

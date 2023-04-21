@@ -34,8 +34,9 @@
           "selectorMenu": "Personal",
           "selectorButton": "Neuer Mitarbeiter"
         },
-        "tabPages": {
-          "": {
+        "tabPages": [
+          {
+            "tabName": "",
             "initTabPage": [],
             "controls": [
               {
@@ -50,9 +51,9 @@
               }
             ],
             "tables": [],
-            "expectedValueControls": []
+            "checkValueControls": []
           }
-        }
+        ]
       },
       {
         "entryPath": "Solutions/Personalmanagement/Personalakten/H/Hansen, Hans",
@@ -65,20 +66,28 @@
           "selectorMenu": "",
           "selectorButton": ""
         },
-        "tabPages": {
-          "Personal": {
+        "tabPages": [
+          {
+            "tabName": "Personal",
             "initTabPage": [],
             "controls": [],
             "tables": [],
-            "expectedValueControls": [
+            "checkValueControls": [
               {
                 "selector": "IX_GRP_HR_PERSONNEL_PERSONNELSTATUS",
                 "value": "O - In Vorbereitung",
-                "type": "KWL"
+                "type": "KWL",
+                "operator": "EQUAL"
+              },
+              {
+                "selector": "IX_GRP_HR_PERSONNEL_PERSONNELNO",
+                "value": "",
+                "type": "TEXT",
+                "operator": "EXIST"
               }
             ]
           }
-        }
+        ]
       },
       {
         "entryPath": "Solutions/Personalmanagement/Personalakten/H/Hansen, Hans",
@@ -91,8 +100,9 @@
           "selectorMenu": "",
           "selectorButton": ""
         },
-        "tabPages": {
-          "Personal": {
+        "tabPages": [
+          {
+            "tabName": "Personal",
             "initTabPage": [],
             "controls": [
               {
@@ -107,9 +117,10 @@
               }
             ],
             "tables": [],
-            "expectedValueControls": []
+            "checkValueControls": []
           },
-          "Persönlich": {
+          {
+            "tabName": "Persönlich",
             "initTabPage": [],
             "controls": [
               {
@@ -119,9 +130,9 @@
               }
             ],
             "tables": [],
-            "expectedValueControls": []
+            "checkValueControls": []
           }
-        }
+        ]
       }
     ]
   },

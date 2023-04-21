@@ -863,18 +863,21 @@ Prüfung Mitarbeiter unter  Ordner "Ausgeschiedene Mitarbeiter"
 Prüfung Status "B - ausgeschieden"
 
 
+TODO 20.04.2023
+
+Feldprüfung erweitern mit Wert vorhanden (Refactoring mit Operator EXIST und EQUAL)
 
 
 
-TODO 19.04.2023
+Installationsanleitung von Playwright
+
+1.) Java 17 installieren
+
+https://www.oracle.com/java/technologies/downloads/#jdk17-windows
 
 
-DataConfigDeleteData.json
+2.) Systemvariablen setzen
 
-DataConfigCreateFilesAmelie.json
-
-
-int index = 1;
+PLAYWRIGHT_JAVA_SRC 	C:\Users\ruberg\OneDrive - ELO Digital Office GmbH\Dokumente\Entwicklung\Playwright
 
 
-Screenshots Playwright mit Index benennen bei Neuanlage Objekt (...Button.png nach ...Button<index>.png), evtl. Ribbon.png und Menu.png

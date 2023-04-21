@@ -34,8 +34,9 @@
           "selectorMenu": "Personal",
           "selectorButton": "Eintrittsprozess"
         },
-        "tabPages": {
-          "": {
+        "tabPages": [
+          {
+            "tabName": "",
             "initTabPage": [],
             "controls": [
               {
@@ -75,9 +76,9 @@
               }
             ],
             "tables": [],
-            "expectedValueControls": []
+            "checkValueControls": []
           }
-        }
+        ]
       }
     ]
   },
