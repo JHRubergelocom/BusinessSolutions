@@ -299,7 +299,7 @@
         ]
       },
       {
-        "entryPath": "Solutions/Firma Hansens",
+        "entryPath": "Solutions/Administrator/Firma Hansens",
         "formulaType": "EXTERNAL",
         "formulaSaveButton": "OK",
         "formulaCancelButton": "Abbrechen",
@@ -331,7 +331,7 @@
         ]
       },
       {
-        "entryPath": "Solutions/Firma Hansens",
+        "entryPath": "Solutions/Administrator/Firma Hansens",
         "formulaType": "EXTERNAL",
         "formulaSaveButton": "OK",
         "formulaCancelButton": "Abbrechen",
@@ -363,7 +363,7 @@
         ]
       },
       {
-        "entryPath": "Solutions/Firma Hansens",
+        "entryPath": "Solutions/Administrator/Firma Hansens",
         "formulaType": "EXTERNAL",
         "formulaSaveButton": "OK",
         "formulaCancelButton": "Abbrechen",
@@ -399,7 +399,7 @@
   "eloDeleteData": {
     "arcPaths": [
       "ARCPATH:/Personalmanagement/Personalakten/H/Hansen, Hans",
-      "ARCPATH:/Firma Hansens"
+      "ARCPATH:/Administrator/Firma Hansens"
     ]
   },
   "eloForwardWorkflow": {

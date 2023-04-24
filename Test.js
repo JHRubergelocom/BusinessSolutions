@@ -818,54 +818,21 @@ C:\Users\ruberg\.ssh\Testkey.ppk
 ===========================================================================================================================
 
 
-TODO 12.04.2023
+TODO 27.04.2023 (nächster Sprint)
 
 
-feature/BSXX-437
+BS Intern BSXX-446 Testautomatisierung mit Playwright
 
-
-https://eloticksy.elo.com/browse/BSXX-437
-
-BS Intern BSXX-437 Testautomatisierung mit Playwright
+https://eloticksy.elo.com/browse/BSXX-446
 
 
 Ideen für Erweiterungen automatisierte Tests
 
      Benutzer-Berechtigungen prüfen
-     Testfälle HR Personalakte erstellen
-     Automatisiertes Starten von AS-Regeln
 
 
+===========================================================================================================================
 
-
-
-TODO Austrittsprozess starten
-
-Maske "Austrittsprozess starten"
-
-Kündigungsdatum "IX_MAP_HR_PERSONNEL_DATEOFNOTICE"
-
-Austrittsdatum "IX_GRP_HR_PERSONNEL_DATEOFLEAVING" heutiges Datum
-
-Kommentar "IX_BLOB_HR_PERSONNEL_TERMINATIONCOMMENT"   textareafeld mit TEXT probieren
-
-
-Prüfungen Status "C gekündigt"
-
-AS-Regeln starten
-
-"sol.common.as.WfController"
-"sol.common_monitoring.as.JobQueue"
-
-
-Prüfung Mitarbeiter unter  Ordner "Ausgeschiedene Mitarbeiter"
-
-Prüfung Status "B - ausgeschieden"
-
-
-TODO 20.04.2023
-
-Feldprüfung erweitern mit Wert vorhanden (Refactoring mit Operator EXIST und EQUAL)
 
 
 
@@ -880,4 +847,19 @@ https://www.oracle.com/java/technologies/downloads/#jdk17-windows
 
 PLAYWRIGHT_JAVA_SRC 	C:\Users\ruberg\OneDrive - ELO Digital Office GmbH\Dokumente\Entwicklung\Playwright
 
+
+
+===========================================================================================================================
+
+
+Von gitlab holen
+
+git@git.elo.dev:bs/testautomation.git   -> PlaywrightSession
+
+git clone git@git.elo.dev:bs/testautomation.git PlaywrightSession
+
+
+Nach github
+
+git@github.com:JHRubergelocom/PlaywrightSession.git
 
