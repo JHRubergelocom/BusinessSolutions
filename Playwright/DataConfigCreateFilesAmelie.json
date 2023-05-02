@@ -17,6 +17,9 @@
     },
     "stack": "ruberg-hr.dev.elo"
   },
+  "eloAclData": {
+    "arcPaths": []
+  },
   "eloSolutionArchiveData": {
     "selectorSolutionTile": "xpath\u003d//*[@title\u003d\"Solutions\"]",
     "selectorSolutionsFolder": "Solutions"

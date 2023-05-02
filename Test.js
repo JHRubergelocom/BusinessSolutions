@@ -560,7 +560,7 @@ executeAdvancedAction
 
 =====================================================================================================================================================================
 
-13.04.2023 TODO Unittests überprüfen (nach Änderungen 23.00 Stack aufbauen (vorher ELOas JavaScript Library "C:\Users\ruberg\OneDrive - ELO Digital Office GmbH\Dokumente\Entwicklung\ELOas\ELOasJavaScriptLibrary211DE.eloinst" installieren) und Tests durchlaufen lassen!)
+26.04.2023 TODO Unittests überprüfen (nach Änderungen 23.00 Stack aufbauen  und Tests durchlaufen lassen!)
 
 
 QoL Feature für Entwickler: JIRA Issues+Branch via der ELO CLI erstellen
@@ -572,6 +572,10 @@ common
 
 elo-sol prepare -stack ruberg-common -workspace jan -version 20.00
 
+BS Common BS-1942 Unittests überprüfen
+
+https://eloticksy.elo.com/browse/BS-1942
+
 
 contract
 
@@ -581,6 +585,10 @@ elo-sol prepare -stack ruberg-contract -workspace de -version 20.00
 hr
 
 elo-sol prepare -stack ruberg-hr -workspace de -version 20.00
+
+BS HR Personnel File BSHR-398 Unittests überprüfen
+
+https://eloticksy.elo.com/browse/BSHR-398
 
 
 invoice
@@ -612,6 +620,15 @@ recruiting
 
 elo-sol prepare -stack ruberg-recruiting -workspace de -version 20.00
 
+BS HR Recruiting BSHRR-615 Unittests überprüfen
+
+https://eloticksy.elo.com/browse/BSHRR-615
+
+
+[function] sol.recruiting.ix.functions.GetRedirectRequest Tests Registered Functions RF_sol_recruiting_function_GetRedirectRequest should not throw if executed without Parameter
+Failed: [ELOIX:5023][[TICKET:848...][The object with ID functionName=RF_GoHiring_Execute does not exist.]]   (In Version 23.00)
+
+
 
 visitor
 
@@ -627,16 +644,14 @@ meeting
 
 elo-sol prepare -stack ruberg-meeting -workspace premium-groupware -version 20.00
 
+BS Meeting BSMM-2846 Unittests überprüfen
 
-https://eloticksy.elo.com/browse/BSMM-2824
-
-BS Meeting BSMM-2824 Unittests überprüfen
+https://eloticksy.elo.com/browse/BSMM-2846
 
 
-IndexServer Scripting Base/Services lib matching Unittest
-
-sol.meeting.voting.ix.services.FindTemplates 	localizeDynamicKeyword 	false   (tplSord, dynKwlField)
-
+[service] sol.meeting.ix.services.MeetingBoardPrecondition Tests Registered Functions RF_sol_meeting_services_MeetingBoardPrecondition check meeting board precondition
+Expected true to equal false.
+Error: Expected true to equal false.
 
 
 
@@ -831,8 +846,6 @@ Ideen für Erweiterungen automatisierte Tests
 
 
 ===========================================================================================================================
-
-
 
 ===========================================================================================================================
 
