@@ -878,3 +878,241 @@ Nach github
 
 git@github.com:JHRubergelocom/PlaywrightSession.git
 
+
+=====================================================================================================================================================================
+
+02.05.2023
+
+BS Common BS-1943 Ordnerinhalt PDF Export stabiler machen
+
+https://eloticksy.elo.com/browse/BS-1943
+
+
+Invoice 5245
+
+
+ new Packages.org.apache.pdfbox.multipdf.PDFMergerUtility();
+pdfMerger.mergeDocuments(); "deprecated"
+
+
+
+
+
+
+  /**
+   * Export folder as pdf or zip filde.
+   * @param {String} folderId
+   * @param {String} baseDstDirPath
+   * @param {Object} config
+   * @return {Object} result of folder export
+   */
+  pdfExport: function (folderId, baseDstDirPath, config) {
+    var me = this,
+        result, i, j, sord, dstDir, pathParts, dstDirPath, sords, dstDirPathFile, folderSord, addPathPart, partPath,
+        subDirPath, subDirPathFile, zipFile, zipDir, parentId, folderName, mergedOutputStream, pdfName, ext,
+        pdfInputStreams, pdfInputStream, pdfContents, dstFile, os;
+
+    me.logger.enter("pdfExport");
+    if (me.logger.debugEnabled) {
+      me.logger.debug(["Start pdfExport with folderId: '{0}', baseDstDirPath: '{1}', config: '{2}'", folderId, baseDstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
+    }
+
+    me.language = ixConnect.loginResult.clientInfo.language;
+    if (config.language) {
+      me.language = config.language;
+    }
+
+    pdfContents = [];
+
+    if (!folderId) {
+      me.logger.debug("pdfExport 'Folder ID is empty'");
+      throw "Folder ID is empty";
+    }
+
+    if (!baseDstDirPath) {
+      me.logger.debug("pdfExport 'Destination directory path is empty'");
+      throw "Destination directory path is empty";
+    }
+
+    result = {};
+    dstDir = new java.io.File(baseDstDirPath);
+    sol.common.FileUtils.delete(baseDstDirPath, { quietly: true });
+    sol.common.FileUtils.makeDirectories(dstDir);
+    sol.common.FileUtils.deleteFiles({ dirPath: baseDstDirPath });
+
+
+    folderSord = ixConnect.ix().checkoutSord(folderId, new SordZ(SordC.mbAll), LockC.NO);
+    pdfName = sol.common.FileUtils.sanitizeFilename(folderSord.name) + ".cover";
+    me.createCoverSheetSord(folderSord, baseDstDirPath, pdfName, config, pdfContents);
+
+    folderName = sol.common.FileUtils.sanitizeFilename(folderSord.name);
+    dstDirPath = baseDstDirPath + java.io.File.separator + folderName;
+    dstDirPathFile = new File(dstDirPath);
+    if (!dstDirPathFile.exists()) {
+      try {
+        dstDirPathFile.mkdirs();
+      } catch (e) {
+        me.logger.debug("error creating destination directory", e);
+      }
+    }
+
+    sords = sol.common.RepoUtils.findChildren(folderId, { recursive: true, level: -1, includeDocuments: true, includeFolders: true, includeReferences: true });
+
+    for (i = 0; i < sords.length; i++) {
+      sord = sords[i];
+      pathParts = [dstDirPathFile];
+      addPathPart = false;
+
+      for (j = 0; j < sord.refPaths[0].path.length; j++) {
+        partPath = sol.common.FileUtils.sanitizeFilename(sord.refPaths[0].path[j].name);
+        if (addPathPart == true) {
+          pathParts.push(partPath);
+        }
+        if (partPath == sol.common.FileUtils.sanitizeFilename(folderSord.name)) {
+          addPathPart = true;
+        }
+      }
+      if (sol.common.SordUtils.isFolder(sord)) {
+
+        subDirPath = pathParts.join(File.separator);
+        subDirPathFile = new File(subDirPath);
+        if (!subDirPathFile.exists()) {
+          try {
+            subDirPathFile.mkdirs();
+          } catch (e) {
+            me.logger.debug("error creating destination directory", e);
+          }
+        }
+        pdfName = sol.common.FileUtils.sanitizeFilename(sord.name) + ".cover";
+        me.createCoverSheetSord(sord, subDirPath, pdfName, config, pdfContents);
+        partPath = sol.common.FileUtils.sanitizeFilename(sord.name);
+        if (addPathPart == true) {
+          pathParts.push(partPath);
+        }
+      }
+      subDirPath = pathParts.join(File.separator);
+      subDirPathFile = new File(subDirPath);
+      if (!subDirPathFile.exists()) {
+        try {
+          subDirPathFile.mkdirs();
+        } catch (e) {
+          me.logger.debug("error creating destination directory", e);
+        }
+      }
+      if (!sol.common.SordUtils.isFolder(sord)) {
+        try {
+          ext = (sord && sord.docVersion && sord.docVersion.ext) ? sord.docVersion.ext : null;
+          if (ext) {
+            pdfName = sol.common.FileUtils.sanitizeFilename(sord.name) + ".cover." + ext;
+          } else {
+            pdfName = sol.common.FileUtils.sanitizeFilename(sord.name) + ".cover";
+          }
+          me.createCoverSheetSord(sord, subDirPath, pdfName, config, pdfContents);
+          me.createPdfDocument(sord, subDirPath, config, pdfContents);
+        } catch (e) {
+          me.logger.debug("error downloadDocument ", e);
+          me.logger.debug(["error downloadDocument id = '{0}' name = '{1}'", sord.id, sord.name]);
+        }
+      }
+    }
+
+    if (config.pdfExport === true) {
+      mergedOutputStream = new ByteArrayOutputStream();
+
+      if (me.logger.debugEnabled) {
+        me.logger.debug("pdfContents before sort");
+        pdfContents.forEach(function (pdfContent) {
+          me.logger.debug(["refpath = '{0}', contentName = '{1}', pdfPages = '{2}', contentType = '{3}', contentMask = '{4}', contentHint = '{5}'", pdfContent.refPath, pdfContent.contentName, pdfContent.pdfPages, pdfContent.contentType, pdfContent.contentMask, pdfContent.contentHint]);
+        });
+      }
+
+      pdfContents.sort(function (a, b) {
+        var refPathA = a.refPath.toUpperCase(),
+            refPathB = b.refPath.toUpperCase();
+
+        if (refPathA < refPathB) {
+          return -1;
+        }
+        if (refPathA > refPathB) {
+          return 1;
+        }
+        return 0;
+      });
+
+
+      if (me.logger.debugEnabled) {
+        me.logger.debug("pdfContents after sort");
+        pdfContents.forEach(function (pdfContent) {
+          me.logger.debug(["refpath = '{0}', contentName = '{1}', pdfPages = '{2}', contentType = '{3}', contentMask = '{4}', contentHint = '{5}'", pdfContent.refPath, pdfContent.contentName, pdfContent.pdfPages, pdfContent.contentType, pdfContent.contentMask, pdfContent.contentHint]);
+        });
+      }
+      pdfInputStreams = [];
+      pdfInputStream = me.createContent(folderName, dstDirPath, config, pdfContents);
+      if (pdfInputStream) {
+        pdfInputStreams.push(pdfInputStream);
+      }
+      pdfContents.forEach(function (pdfContent) {
+        if (pdfContent.pdfInputStream) {
+          pdfInputStreams.push(pdfContent.pdfInputStream);
+        }
+      });
+      sol.common.as.PdfUtils.mergePdfStreams(pdfInputStreams, mergedOutputStream);
+      parentId = me.getExportFolder(config);
+
+      try {
+        if (config.pdfA === true) {
+          dstFile = me.writePdfOutputStreamToFile(mergedOutputStream, dstDirPath, "All.pdf");
+          me.convertPDFtoPDFA(dstFile);
+          mergedOutputStream = me.writeFileToPdfOutputStream(dstFile);
+          sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
+        }
+
+        if (config.pagination === true) {
+          dstFile = me.writePdfOutputStreamToFile(mergedOutputStream, dstDirPath, "All.pdf");
+          me.setPagination(dstFile);
+          mergedOutputStream = me.writeFileToPdfOutputStream(dstFile);
+          sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
+        }
+
+        if (config.watermark.image.show === true) {
+          dstFile = me.writePdfOutputStreamToFile(mergedOutputStream, dstDirPath, "All.pdf");
+          me.setWatermarkImage(dstFile, dstDirPath, config.watermark.image.path);
+          mergedOutputStream = me.writeFileToPdfOutputStream(dstFile);
+          sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
+        }
+
+        os = String(java.lang.System.getProperty("os.name").toLowerCase());
+
+        if (sol.common.StringUtils.contains(os, "win")) {
+          if (config.watermark.text.show === true) {
+            dstFile = me.writePdfOutputStreamToFile(mergedOutputStream, dstDirPath, "All.pdf");
+            me.setWatermarkText(dstFile, config.watermark.text.content);
+            mergedOutputStream = me.writeFileToPdfOutputStream(dstFile);
+            sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
+          }
+        }
+      } catch (ex) {
+        me.logger.error(["error pdfExport with folderId: '{0}', baseDstDirPath: '{1}', config: '{2}'", folderId, baseDstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })], ex);
+      }
+
+      result.objId = sol.common.RepoUtils.saveToRepo({ parentId: parentId, name: folderName, outputStream: mergedOutputStream, extension: "pdf" });
+    } else {
+      zipFile = new File(baseDstDirPath + ".zip");
+      zipDir = new File(baseDstDirPath);
+      sol.common.ZipUtils.zipFolder(zipDir, zipFile);
+      parentId = me.getExportFolder(config);
+      result.objId = sol.common.RepoUtils.saveToRepo({ name: folderName, file: zipFile, parentId: parentId });
+      sol.common.FileUtils.delete(zipFile, { quietly: true });
+    }
+
+    if (me.logger.debugEnabled) {
+      me.logger.debug(["Finish pdfExport with result: '{0}'", sol.common.JsonUtils.stringifyAll(result, { tabStop: 2 })]);
+    }
+    me.logger.exit("pdfExport");
+
+    return result;
+  }
+
+
+
+

@@ -42,7 +42,7 @@ sol.define("sol.common.as.PdfUtils", {
     });
 
     pdfMerger.destinationStream = outputStream;
-    pdfMerger.mergeDocuments();
+    pdfMerger.mergeDocuments(Packages.org.apache.pdfbox.io.MemoryUsageSetting.setupTempFileOnly());
 
     inputStreams.forEach(function (inputStream) {
       inputStream.close();
