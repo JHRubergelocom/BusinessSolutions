@@ -96,6 +96,7 @@ sol.define("sol.unittest.hr.ix.services.ExecuteLib1", {
       case "sol.hr.ix.localizedKwl.WorkscheduleRegulation":
       case "sol.hr.ix.functions.ChangeSuperiorFile":
       case "sol.hr.ix.functions.CreatePersonnelFileHeadless":
+      case "sol.hr.ix.functions.DeletePhoto":
       case "sol.hr.ix.functions.DoubleCheck":
       case "sol.hr.ix.functions.FeedCommentPersonnelFile":
       case "sol.hr.ix.functions.FillSordByApi":
@@ -104,7 +105,6 @@ sol.define("sol.unittest.hr.ix.services.ExecuteLib1", {
       case "sol.hr.ix.functions.UpdatePersonnelFileMetadata":
       case "sol.hr.ix.functions.UpdateReferences":
       case "sol.hr.ix.functions.generators.GenerateChartElementShortDesc":
-      case "sol.hr.ix.functions.generators.GenerateFileShortDesc":
       case "sol.hr.ix.functions.generators.GenerateFileShortDesc":
       case "sol.hr.ix.functions.generators.GeneratePersonnelNo":
       case "sol.hr.ix.services.GetChartElementTypes":
@@ -127,7 +127,7 @@ sol.define("sol.unittest.hr.ix.services.ExecuteLib1", {
     }
 
     me.classConfig.ec = me.ec;
-    me.classConfig.ci = me.ec.ci;   
+    me.classConfig.ci = me.ec.ci;
 
     switch (me.className) {
       case "sol.hr.ix.actions.CreateChartElement":

@@ -591,6 +591,19 @@ BS HR Personnel File BSHR-398 Unittests überprüfen
 https://eloticksy.elo.com/browse/BSHR-398
 
 
+IndexServer Scripting Base/Functions lib matching Unittest
+
+sol.hr.ix.functions.DeletePhoto 	process 	false
+
+
+RF_sol_hr_function_DeletePhoto{} objId
+
+
+{"objId": 7603}
+
+
+
+
 invoice
 
 elo-sol prepare -stack ruberg-invoice -workspace jan -version 20.00
