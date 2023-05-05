@@ -215,10 +215,10 @@ sol.define("sol.common_document.as.Utils", {
     dstFile = new java.io.File(dstDirPath + java.io.File.separator + pdfName + ".pdf");
 
     try {
-      fop = new FileOutputStream(dstFile);
       if (!dstFile.exists()) {
         dstFile.createNewFile();
       }
+      fop = new FileOutputStream(dstFile);
 
       contentInBytes = pdfOutputStream.toByteArray();
       fop.write(contentInBytes);
@@ -1400,10 +1400,10 @@ sol.define("sol.common_document.as.Utils", {
     dstFile = new java.io.File(dstDirPath + java.io.File.separator + "All.pdf");
 
     try {
-      fop = new FileOutputStream(dstFile);
       if (!dstFile.exists()) {
         dstFile.createNewFile();
       }
+      fop = new FileOutputStream(dstFile);
       contentInBytes = result.outputStream.toByteArray();
       fop.write(contentInBytes);
       fop.flush();
@@ -2666,6 +2666,84 @@ sol.define("sol.common_document.as.Utils", {
     me.logger.exit("pdfExport");
 
     return result;
+  },
+
+  // TODO ConvertZipToPdf
+
+  // In PdfUtils überführen
+
+  listDir: function (dir, filePaths) {
+    var me = this,
+        files, i;
+
+    files = dir.listFiles();
+    if (files != null) {
+      for (i = 0; i < files.length; i++) {
+        // me.logger.debug(files[i].getAbsolutePath());
+        if (files[i].isDirectory()) {
+          // me.logger.debug(" (Ordner)\n");
+          me.listDir(files[i], filePaths);
+        } else {
+          // me.logger.debug(" (Datei)\n");
+          filePaths.push(({ path: files[i].getAbsolutePath() }));
+        }
+      }
+    }
+  },
+
+  convertZipToPdf: function (baseDstDirPath) {
+    var me = this,
+        zipFile, zipDir, filePaths, inputFileNames,
+        outputFile, outputFileName, index;
+
+    zipFile = new File(baseDstDirPath + ".zip");
+    zipDir = new File(baseDstDirPath);
+
+    sol.common.ZipUtils.unzip(zipFile, zipDir);
+    filePaths = [];
+    me.listDir(zipDir, filePaths);
+
+    me.logger.debug("filePaths before sort");
+    filePaths.forEach(function (filePath) {
+      me.logger.debug(["path = '{0}'", filePath.path]);
+    });
+
+
+    filePaths.sort(function (a, b) {
+      var pathA = a.path.toUpperCase(),
+          pathB = b.path.toUpperCase();
+
+      if (pathA < pathB) {
+        return -1;
+      }
+      if (pathA > pathB) {
+        return 1;
+      }
+      return 0;
+    });
+
+    me.logger.debug("filePaths after sort");
+    filePaths.forEach(function (filePath) {
+      me.logger.debug(["path = '{0}'", filePath.path]);
+    });
+    outputFileName = baseDstDirPath + ".pdf";
+    outputFile = new File(outputFileName);
+    if (!outputFile.exists()) {
+      outputFile.createNewFile();
+    }
+
+    inputFileNames = [];
+    me.logger.debug("append filePaths to inputFileNames");
+    index = 0;
+    filePaths.forEach(function (filePath) {
+      if (index < 2000) {
+        inputFileNames.push(new File(filePath.path));
+      }
+      index++;
+    });
+
+    sol.common.as.PdfUtils.mergePdfFiles(inputFileNames, outputFileName);
+
   }
 
 });

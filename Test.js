@@ -146,6 +146,19 @@ http://www.forum.elo.com/javadoc/as/20/de/elo/mover/main/pdf/PdfFileHelper.html#
     });
 
 
+
+https://docs.oracle.com/javase/7/docs/api/java/io/File.html
+
+
+https://commons.apache.org/proper/commons-io/javadocs/api-2.5/org/apache/commons/io/FileUtils.html#deleteQuietly(java.io.File)
+
+
+https://pdfbox.apache.org/docs/2.0.8/javadocs/
+
+
+
+
+
 ruberg-pdfexport.dev.elo
 
 static  de.elo.mover.main.helper.ConvertHelper.convertToPdf​(java.io.File sourceFile, java.io.File targetFile)   testen !!
@@ -586,23 +599,6 @@ hr
 
 elo-sol prepare -stack ruberg-hr -workspace de -version 20.00
 
-BS HR Personnel File BSHR-398 Unittests überprüfen
-
-https://eloticksy.elo.com/browse/BSHR-398
-
-
-IndexServer Scripting Base/Functions lib matching Unittest
-
-sol.hr.ix.functions.DeletePhoto 	process 	false
-
-
-RF_sol_hr_function_DeletePhoto{} objId
-
-
-{"objId": 7603}
-
-
-
 
 invoice
 
@@ -904,11 +900,6 @@ https://eloticksy.elo.com/browse/BS-1943
 Invoice 5245
 
 
- new Packages.org.apache.pdfbox.multipdf.PDFMergerUtility();
-pdfMerger.mergeDocuments(); "deprecated"
-
-
-
 
 
 
@@ -1127,5 +1118,113 @@ pdfMerger.mergeDocuments(); "deprecated"
   }
 
 
+
+
+
+      if (me.logger.debugEnabled) {
+        me.logger.debug("pdfContents before sort");
+        pdfContents.forEach(function (pdfContent) {
+          me.logger.debug(["refpath = '{0}', contentName = '{1}', pdfPages = '{2}', contentType = '{3}', contentMask = '{4}', contentHint = '{5}'", pdfContent.refPath, pdfContent.contentName, pdfContent.pdfPages, pdfContent.contentType, pdfContent.contentMask, pdfContent.contentHint]);
+        });
+      }
+
+      pdfContents.sort(function (a, b) {
+        var refPathA = a.refPath.toUpperCase(),
+            refPathB = b.refPath.toUpperCase();
+
+        if (refPathA < refPathB) {
+          return -1;
+        }
+        if (refPathA > refPathB) {
+          return 1;
+        }
+        return 0;
+      });
+
+
+      if (me.logger.debugEnabled) {
+        me.logger.debug("pdfContents after sort");
+        pdfContents.forEach(function (pdfContent) {
+          me.logger.debug(["refpath = '{0}', contentName = '{1}', pdfPages = '{2}', contentType = '{3}', contentMask = '{4}', contentHint = '{5}'", pdfContent.refPath, pdfContent.contentName, pdfContent.pdfPages, pdfContent.contentType, pdfContent.contentMask, pdfContent.contentHint]);
+        });
+      }
+
+
+
+
+
+
+
+
+    pdfOutputStream = me.writeFileToPdfOutputStream(dstFile);
+
+
+    if (pdfOutputStream) {
+      pdfInputStream = me.convertOutputStreamToInputStream(pdfOutputStream);
+    } else {
+      pdfInputStream = null;
+    }
+
+
+
+        pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstFile);
+
+
+
+
+      if (!dstFile.exists()) {
+        dstFile.createNewFile();
+      }
+
+
+
+
+TODO pdf jeweils aus 20 Dateien zusammenbauen, dann zum Schluß alle Dateien in eine Datei packen!
+
+
+
+
+
+ggf. rekursiv
+
+
+
+  /**
+   * Merges PDF streams
+   * @param {Array} inputStreams PDF input streams
+   * @param {java.io.OutputStream} outputStream
+   */
+  mergePdfStreams: function (inputStreams, outputStream) {
+    var me = this,
+        pdfBoxVersion, pdfMerger;
+
+    if (!inputStreams) {
+      throw "Input streams are empty";
+    }
+
+    pdfBoxVersion = (new Packages.org.apache.pdfbox.pdmodel.PDDocument()).class.package.implementationVersion;
+    me.logger.debug(["PDF box version: {0}", pdfBoxVersion]);
+
+    if (pdfBoxVersion > "2.0.0") {
+      pdfMerger = new Packages.org.apache.pdfbox.multipdf.PDFMergerUtility();
+    } else {
+      pdfMerger = new Packages.org.apache.pdfbox.util.PDFMergerUtility();
+    }
+
+    inputStreams.forEach(function (inputStream) {
+      pdfMerger.addSource(inputStream);
+    });
+
+    pdfMerger.destinationStream = outputStream;
+    pdfMerger.mergeDocuments(Packages.org.apache.pdfbox.io.MemoryUsageSetting.setupTempFileOnly());
+
+    inputStreams.forEach(function (inputStream) {
+      inputStream.close();
+    });
+  }
+});
+
+
+analog funktion mergePdfFiles in PdfUtils bauen
 
 
