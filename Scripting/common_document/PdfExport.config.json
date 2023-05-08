@@ -7,7 +7,7 @@
   "graphicTemplate": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions Custom/common_document/Configuration/PDF Export Templates/Defaults/Graphic",
   "textTemplate": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions Custom/common_document/Configuration/PDF Export Templates/Defaults/Text",
   "pdfExport": false,
-  "pdfExportLarge": false,
+  "pdfExportLarge": true,
   "pdfA": false,
   "language": "de",
   "timeZone": "Europe/Berlin",

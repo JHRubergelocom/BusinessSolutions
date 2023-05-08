@@ -161,6 +161,9 @@ sol.define("sol.common_document.as.Utils", {
     var sordName, pdfName;
 
     sordName = sol.common.FileUtils.sanitizeFilename(sord.name);
+    // TODO trim
+    sordName = sordName.trim();
+
     if (ext) {
       pdfName = sordName + "." + ext;
     } else {
@@ -677,6 +680,12 @@ sol.define("sol.common_document.as.Utils", {
       me.logger.debug(["Start createPdfFromSord with sord: '{0}', templateId: '{1}', dstDirPath: '{2}', ext: '{3}', pdfName: '{4}', config: '{5}'", sord, templateId, dstDirPath, ext, pdfName, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
     }
 
+    // TODO test JKT Truck Wash
+    if (sol.common.StringUtils.contains(pdfName, "JKT Truck Wash")) {
+      me.logger.debug("createCoverSheetSord TODO test JKT Truck Wash: " + pdfName);
+    }
+    // TODO test JKT Truck Wash
+
     timeZone = config.timeZone;
     utcOffset = sol.common.SordUtils.getTimeZoneOffset(timeZone);
 
@@ -787,8 +796,8 @@ sol.define("sol.common_document.as.Utils", {
       data.userFeeds = sol.common.TranslateTerms.getTerm(me.language, "sol.common_document.as.Utils.pdfExport.userFeeds");
       data.noUserFeeds = sol.common.TranslateTerms.getTerm(me.language, "sol.common_document.as.Utils.pdfExport.noUserFeeds");
     }
-
-    if (config.pdfExport === true) {
+    // TODO pdfExportLarge
+    if (config.pdfExport === true || config.pdfExportLarge === true) {
       fopRenderer = sol.create("sol.common.as.renderer.Fop", { templateId: templateId, toStream: true });
       if (data.mapKeys) {
         data.sord.mapKeysArray.forEach(function (mapKey) {
@@ -798,7 +807,10 @@ sol.define("sol.common_document.as.Utils", {
         });
       }
       result = fopRenderer.render(pdfName, data);
-      pdfInputStream = me.convertOutputStreamToInputStream(result.outputStream);
+      if (config.pdfExport === true) {
+        pdfInputStream = me.convertOutputStreamToInputStream(result.outputStream);
+      }
+
       isCover = null;
       if (pdfName.indexOf(".cover") > -1) {
         isCover = true;
@@ -812,7 +824,12 @@ sol.define("sol.common_document.as.Utils", {
         pdfPages = 0;
         me.logger.error(["error createPdfFromSord with sord: '{0}', templateId: '{1}', dstDirPath: '{2}', ext: '{3}', pdfName: '{4}', config: '{5}'", sord, templateId, dstDirPath, ext, pdfName, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })], ex);
       }
-      me.pushContent(sord, pdfContents, pdfInputStream, refPath, pdfName, pdfPages, "", dstFile.getAbsolutePath());
+      if (config.pdfExport === true) {
+        me.pushContent(sord, pdfContents, pdfInputStream, refPath, pdfName, pdfPages, "", dstFile.getAbsolutePath());
+      }
+      if (config.pdfExportLarge === true) {
+        me.pushContent(sord, pdfContents, "", refPath, pdfName, pdfPages, "", dstFile.getAbsolutePath());
+      }
     } else {
       fopRenderer = sol.create("sol.common.as.renderer.Fop", { templateId: templateId, toStream: true });
       if (data.mapKeys) {
@@ -823,29 +840,7 @@ sol.define("sol.common_document.as.Utils", {
         });
       }
       result = fopRenderer.render(pdfName, data);
-
-      // TODO pdfExportLarge
-      if (config.pdfExportLarge === true) {
-        isCover = null;
-        if (pdfName.indexOf(".cover") > -1) {
-          isCover = true;
-        }
-        refPath = me.getRefPath(sord, isCover);
-      }
-      // TODO pdfExportLarge
-
       dstFile = me.writePdfOutputStreamToFile(result.outputStream, dstDirPath, pdfName);
-
-      // TODO pdfExportLarge
-      try {
-        pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstFile);
-      } catch (ex) {
-        pdfPages = 0;
-        me.logger.error(["error createPdfFromSord with sord: '{0}', templateId: '{1}', dstDirPath: '{2}', ext: '{3}', pdfName: '{4}', config: '{5}'", sord, templateId, dstDirPath, ext, pdfName, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })], ex);
-      }
-      me.pushContent(sord, pdfContents, "", refPath, pdfName, pdfPages, "", dstFile.getAbsolutePath());
-      // TODO pdfExportLarge
-
     }
 
     if (config.pdfA === true) {
@@ -872,6 +867,12 @@ sol.define("sol.common_document.as.Utils", {
     if (me.logger.debugEnabled) {
       me.logger.debug(["Start createCoverSheetSord with sord: '{0}', dstDirPath: '{1}', pdfName: '{2}', config: '{3}'", sord, dstDirPath, pdfName, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
     }
+
+    // TODO test JKT Truck Wash
+    if (sol.common.StringUtils.contains(pdfName, "JKT Truck Wash")) {
+      me.logger.debug("createCoverSheetSord TODO test JKT Truck Wash: " + pdfName);
+    }
+    // TODO test JKT Truck Wash
 
     templateId = me.getTemplateCoverSheetSord(sord, config);
     me.createPdfFromSord(sord, templateId, dstDirPath, "pdf", pdfName, config, pdfContents);
@@ -909,10 +910,14 @@ sol.define("sol.common_document.as.Utils", {
     data.hint = sol.common.TranslateTerms.getTerm(me.language, "sol.common_document.as.Utils.pdfExport.conversionFailed");
     pdfName = me.getPdfName(sord, ext);
 
-    if (config.pdfExport === true) {
+    // TODO pdfExportLarge
+    if (config.pdfExport === true || config.pdfExportLarge === true) {
       fopRenderer = sol.create("sol.common.as.renderer.Fop", { templateId: templateId, toStream: true });
       result = fopRenderer.render(pdfName, data);
-      pdfInputStream = me.convertOutputStreamToInputStream(result.outputStream);
+      if (config.pdfExport === true) {
+        pdfInputStream = me.convertOutputStreamToInputStream(result.outputStream);
+      }
+
       refPath = me.getRefPath(sord);
 
       if (ext) {
@@ -928,42 +933,20 @@ sol.define("sol.common_document.as.Utils", {
         me.logger.error(["error createErrorConversionPdf with sord: '{0}', ext: '{1}', dstDirPath: '{2}', config: '{3}'", sord, ext, dstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })], ex);
       }
       hint = sol.common.TranslateTerms.getTerm(me.language, "sol.common_document.as.Utils.pdfExport.conversionFailed");
-      me.pushContent(sord, pdfContents, pdfInputStream, refPath, contentName, pdfPages, hint, dstFile.getAbsolutePath());
 
-      sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
+      if (config.pdfExport === true) {
+        me.pushContent(sord, pdfContents, pdfInputStream, refPath, contentName, pdfPages, hint, dstFile.getAbsolutePath());
+        sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
+      }
+      if (config.pdfExportLarge === true) {
+        me.pushContent(sord, pdfContents, "", refPath, contentName, pdfPages, hint, dstFile.getAbsolutePath());
+      }
 
     } else {
       fopRenderer = sol.create("sol.common.as.renderer.Fop", { templateId: templateId, toStream: true });
       result = fopRenderer.render(pdfName, data);
 
-      // TODO pdfExportLarge
-      if (config.pdfExportLarge === true) {
-        refPath = me.getRefPath(sord);
-
-        if (ext) {
-          contentName = sord.name + "." + ext;
-        } else {
-          contentName = sord.name;
-        }
-      }
-      // TODO pdfExportLarge
-
       dstFile = me.writePdfOutputStreamToFile(result.outputStream, dstDirPath, pdfName);
-
-      // TODO pdfExportLarge
-      if (config.pdfExportLarge === true) {
-        try {
-          pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstFile);
-        } catch (ex) {
-          pdfPages = 0;
-          me.logger.error(["error createErrorConversionPdf with sord: '{0}', ext: '{1}', dstDirPath: '{2}', config: '{3}'", sord, ext, dstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })], ex);
-        }
-        hint = sol.common.TranslateTerms.getTerm(me.language, "sol.common_document.as.Utils.pdfExport.conversionFailed");
-        me.pushContent(sord, pdfContents, "", refPath, contentName, pdfPages, hint, dstFile.getAbsolutePath());
-
-      }
-      // TODO pdfExportLarge
-
     }
     me.logger.debug(["Finish createErrorConversionPdf"]);
     me.logger.exit("createErrorConversionPdf");
@@ -1069,6 +1052,8 @@ sol.define("sol.common_document.as.Utils", {
     try {
       inputStream = sol.common.RepoUtils.downloadToStream(sord.id);
       fileName = sol.common.FileUtils.sanitizeFilename(sord.name);
+      // TODO trim
+      fileName = fileName.trim();
 
       sourceFile = me.writeInputStreamToFile(inputStream, dstDirPath, fileName, ext);
       targetFile = new File(dstDirPath + java.io.File.separator + fileName + ".pdf");
@@ -1163,6 +1148,9 @@ sol.define("sol.common_document.as.Utils", {
     try {
       inputStream = sol.common.RepoUtils.downloadToStream(sord.id);
       fileName = sol.common.FileUtils.sanitizeFilename(sord.name);
+      // TODO trim
+      fileName = fileName.trim();
+
       sourceFile = me.writeInputStreamToFile(inputStream, dstDirPath, fileName, ext);
       pdfInputStream = me.createPdfStreamFromHtml(dstDirPath, fileName, sourceFile);
     } catch (ex) {
@@ -1349,9 +1337,11 @@ sol.define("sol.common_document.as.Utils", {
         me.setAnnotationNotes(dstFile, sord);
       }
 
-      if (config.pdfExport === true) {
-        pdfInputStream = new ByteArrayInputStream(Packages.org.apache.commons.io.FileUtils.readFileToByteArray(dstFile));
-
+      // TODO pdfExportLarge
+      if (config.pdfExport === true || config.pdfExportLarge === true) {
+        if (config.pdfExport === true) {
+          pdfInputStream = new ByteArrayInputStream(Packages.org.apache.commons.io.FileUtils.readFileToByteArray(dstFile));
+        }
         refPath = me.getRefPath(sord);
         if (ext) {
           contentName = sord.name + "." + ext;
@@ -1359,23 +1349,15 @@ sol.define("sol.common_document.as.Utils", {
           contentName = sord.name;
         }
         pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstFile);
-        me.pushContent(sord, pdfContents, pdfInputStream, refPath, contentName, pdfPages, "", dstFile.getAbsolutePath());
-        sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
-      }
-
-      // TODO pdfExportLarge
-      if (config.pdfExportLarge === true) {
-        refPath = me.getRefPath(sord);
-        if (ext) {
-          contentName = sord.name + "." + ext;
-        } else {
-          contentName = sord.name;
+        if (config.pdfExport === true) {
+          me.pushContent(sord, pdfContents, pdfInputStream, refPath, contentName, pdfPages, "", dstFile.getAbsolutePath());
+          sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
         }
-        pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstFile);
-        me.pushContent(sord, pdfContents, "", refPath, contentName, pdfPages, "", dstFile.getAbsolutePath());
-      }
+        if (config.pdfExportLarge === true) {
+          me.pushContent(sord, pdfContents, "", refPath, contentName, pdfPages, "", dstFile.getAbsolutePath());
+        }
       // TODO pdfExportLarge
-
+      }
     } else {
       me.createErrorConversionPdf(sord, ext, dstDirPath, config, pdfContents);
     }
@@ -1609,6 +1591,57 @@ sol.define("sol.common_document.as.Utils", {
 
     return pdfInputStream;
   },
+
+  // TODO pdfExportLarge
+  /**
+   * Get inputfilepath of content pdf.
+   * @private
+   * @param {String} folderName
+   * @param {String} dstDirPath
+   * @param {Object} config Pdf export configuration
+   * @param {Object[]} pdfContents
+   * @return {String} inputfilepath of content pdf
+   */
+  createContentFile: function (folderName, dstDirPath, config, pdfContents) {
+    var me = this,
+        templateId, fopRenderer, result, data, pdfInputFilePath, sumPages, dstFile;
+
+    me.logger.enter("createContentFile");
+    if (me.logger.debugEnabled) {
+      me.logger.debug(["Start createContentFile with folderName: '{0}', dstDirPath: '{1}', config: '{2}'", folderName, dstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })]);
+    }
+
+    templateId = me.getTemplateContents(config);
+    data = {};
+    data.header = { name: folderName };
+    data.overview = sol.common.TranslateTerms.getTerm(me.language, "sol.common_document.as.Utils.pdfExport.contents.overview");
+    data.content = sol.common.TranslateTerms.getTerm(me.language, "sol.common_document.as.Utils.pdfExport.contents.content");
+    data.noContentFound = sol.common.TranslateTerms.getTerm(me.language, "sol.common_document.as.Utils.pdfExport.contents.noContentFound");
+    data.contents = [];
+
+    sumPages = me.getOffsetSumPages(folderName, dstDirPath, config, pdfContents);
+
+    pdfContents.forEach(function (pdfContent) {
+      sumPages += pdfContent.pdfPages;
+      data.contents.push({ name: pdfContent.contentName, pageno: sumPages, type: pdfContent.contentType, mask: pdfContent.contentMask, hint: pdfContent.contentHint });
+    });
+
+    data.contents = me.adjustContent(data.contents);
+    fopRenderer = sol.create("sol.common.as.renderer.Fop", { templateId: templateId, toStream: true });
+    result = fopRenderer.render("Content", data);
+
+    dstFile = me.writePdfOutputStreamToFile(result.outputStream, dstDirPath, "Content.pdf");
+    me.setHyperlinks(dstFile, data.contents);
+
+    pdfInputFilePath = dstFile.getAbsolutePath();
+
+    me.logger.debug(["Finish createContentFile with pdfInputFilePath: '{0}'", pdfInputFilePath]);
+    me.logger.exit("createContentFile");
+
+    return pdfInputFilePath;
+  },
+
+  // TODO pdfExportLarge
 
   /**
    * Converts a PDF to the PDF/A standard.
@@ -2043,6 +2076,9 @@ sol.define("sol.common_document.as.Utils", {
       ext = (sord && sord.docVersion && sord.docVersion.ext) ? sord.docVersion.ext : null;
       inputStream = sol.common.RepoUtils.downloadToStream(sord.id);
       fileName = sol.common.FileUtils.sanitizeFilename(sord.name);
+      // TODO trim
+      fileName = fileName.trim();
+
       watermarkImageFile = me.writeInputStreamToFile(inputStream, dstDirPath, fileName, ext);
 
       pdfDocument = new Packages.com.aspose.pdf.Document(dstPdfFile.getPath());
@@ -2375,6 +2411,8 @@ sol.define("sol.common_document.as.Utils", {
 
       inputStream = sol.common.RepoUtils.downloadToStream(sord.id);
       fileName = sol.common.FileUtils.sanitizeFilename(sord.name);
+      // TODO trim
+      fileName = fileName.trim();
 
       me.writeInputStreamToFile(inputStream, dstDirPath, fileName, "eml");
       emlFilePath = dstDirPath + java.io.File.separator + fileName + ".eml";
@@ -2448,6 +2486,8 @@ sol.define("sol.common_document.as.Utils", {
 
       inputStream = sol.common.RepoUtils.downloadToStream(sord.id);
       fileName = sol.common.FileUtils.sanitizeFilename(sord.name);
+      // TODO trim
+      fileName = fileName.trim();
 
       me.writeInputStreamToFile(inputStream, dstDirPath, fileName, "msg");
       msgFilePath = dstDirPath + java.io.File.separator + fileName + ".msg";
@@ -2535,7 +2575,8 @@ sol.define("sol.common_document.as.Utils", {
     var me = this,
         result, i, j, sord, dstDir, pathParts, dstDirPath, sords, dstDirPathFile, folderSord, addPathPart, partPath,
         subDirPath, subDirPathFile, zipFile, zipDir, parentId, folderName, mergedOutputStream, pdfName, ext,
-        pdfInputStreams, pdfInputStream, pdfContents, dstFile, os;
+        pdfInputStreams, pdfInputStream, pdfContents, dstFile, os,
+        outputFileName, outputFile, inputFileNames, pdfContentFilePath;
 
     me.logger.enter("pdfExport");
     if (me.logger.debugEnabled) {
@@ -2584,6 +2625,9 @@ sol.define("sol.common_document.as.Utils", {
     me.createCoverSheetSord(folderSord, baseDstDirPath, pdfName, config, pdfContents);
 
     folderName = sol.common.FileUtils.sanitizeFilename(folderSord.name);
+    // TODO trim
+    folderName = folderName.trim();
+
     dstDirPath = baseDstDirPath + java.io.File.separator + folderName;
     dstDirPathFile = new File(dstDirPath);
     if (!dstDirPathFile.exists()) {
@@ -2603,10 +2647,17 @@ sol.define("sol.common_document.as.Utils", {
 
       for (j = 0; j < sord.refPaths[0].path.length; j++) {
         partPath = sol.common.FileUtils.sanitizeFilename(sord.refPaths[0].path[j].name);
+        // TODO trim
+        partPath = partPath.trim();
+
         if (addPathPart == true) {
           pathParts.push(partPath);
         }
-        if (partPath == sol.common.FileUtils.sanitizeFilename(folderSord.name)) {
+        folderName = sol.common.FileUtils.sanitizeFilename(folderSord.name);
+        // TODO trim
+        folderName = folderName.trim();
+
+        if (partPath == folderName) {
           addPathPart = true;
         }
       }
@@ -2624,6 +2675,8 @@ sol.define("sol.common_document.as.Utils", {
         pdfName = sol.common.FileUtils.sanitizeFilename(sord.name) + ".cover";
         me.createCoverSheetSord(sord, subDirPath, pdfName, config, pdfContents);
         partPath = sol.common.FileUtils.sanitizeFilename(sord.name);
+        // TODO trim
+        partPath = partPath.trim();
         if (addPathPart == true) {
           pathParts.push(partPath);
         }
@@ -2653,8 +2706,8 @@ sol.define("sol.common_document.as.Utils", {
         }
       }
     }
-
-    if (config.pdfExport === true) {
+    // TODO pdfExportLarge
+    if (config.pdfExport === true || config.pdfExportLarge === true) {
       mergedOutputStream = new ByteArrayOutputStream();
 
       if (me.logger.debugEnabled) {
@@ -2677,70 +2730,116 @@ sol.define("sol.common_document.as.Utils", {
         return 0;
       });
 
-
       if (me.logger.debugEnabled) {
         me.logger.debug("pdfContents after sort");
         pdfContents.forEach(function (pdfContent) {
           me.logger.debug(["refpath = '{0}', contentName = '{1}', pdfPages = '{2}', contentType = '{3}', contentMask = '{4}', contentHint = '{5}', pdfInputFilePath = '{6}'", pdfContent.refPath, pdfContent.contentName, pdfContent.pdfPages, pdfContent.contentType, pdfContent.contentMask, pdfContent.contentHint, pdfContent.pdfInputFilePath]);
         });
       }
-      pdfInputStreams = [];
-      pdfInputStream = me.createContent(folderName, dstDirPath, config, pdfContents);
-      if (pdfInputStream) {
-        pdfInputStreams.push(pdfInputStream);
-      }
-      pdfContents.forEach(function (pdfContent) {
-        if (pdfContent.pdfInputStream) {
-          pdfInputStreams.push(pdfContent.pdfInputStream);
+
+      if (config.pdfExport === true) {
+        pdfInputStreams = [];
+        pdfInputStream = me.createContent(folderName, dstDirPath, config, pdfContents);
+        if (pdfInputStream) {
+          pdfInputStreams.push(pdfInputStream);
         }
-      });
-      sol.common.as.PdfUtils.mergePdfStreams(pdfInputStreams, mergedOutputStream);
+        pdfContents.forEach(function (pdfContent) {
+          if (pdfContent.pdfInputStream) {
+            pdfInputStreams.push(pdfContent.pdfInputStream);
+          }
+        });
+        sol.common.as.PdfUtils.mergePdfStreams(pdfInputStreams, mergedOutputStream);
+      }
+
+      if (config.pdfExportLarge === true) {
+        // TODO pdfExportLarge
+        outputFileName = baseDstDirPath + java.io.File.separator + "All.pdf";
+        outputFile = new File(outputFileName);
+        if (!outputFile.exists()) {
+          outputFile.createNewFile();
+        }
+
+        inputFileNames = [];
+        pdfContentFilePath = me.createContentFile(folderName, dstDirPath, config, pdfContents);
+        if (pdfContentFilePath) {
+          inputFileNames.push(pdfContentFilePath);
+        }
+
+        pdfContents.forEach(function (pdfContent) {
+          inputFileNames.push(pdfContent.pdfInputFilePath);
+        });
+        sol.common.as.PdfUtils.mergePdfFiles(inputFileNames, outputFileName);
+        // TODO pdfExportLarge
+      }
+
       parentId = me.getExportFolder(config);
 
-      try {
-        if (config.pdfA === true) {
-          dstFile = me.writePdfOutputStreamToFile(mergedOutputStream, dstDirPath, "All.pdf");
-          me.convertPDFtoPDFA(dstFile);
-          mergedOutputStream = me.writeFileToPdfOutputStream(dstFile);
-          sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
-        }
-
-        if (config.pagination === true) {
-          dstFile = me.writePdfOutputStreamToFile(mergedOutputStream, dstDirPath, "All.pdf");
-          me.setPagination(dstFile);
-          mergedOutputStream = me.writeFileToPdfOutputStream(dstFile);
-          sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
-        }
-
-        if (config.watermark.image.show === true) {
-          dstFile = me.writePdfOutputStreamToFile(mergedOutputStream, dstDirPath, "All.pdf");
-          me.setWatermarkImage(dstFile, dstDirPath, config.watermark.image.path);
-          mergedOutputStream = me.writeFileToPdfOutputStream(dstFile);
-          sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
-        }
-
-        os = String(java.lang.System.getProperty("os.name").toLowerCase());
-
-        if (sol.common.StringUtils.contains(os, "win")) {
-          if (config.watermark.text.show === true) {
+      // TODO pdfExportLarge
+      if (config.pdfExport === true) {
+        try {
+          if (config.pdfA === true) {
             dstFile = me.writePdfOutputStreamToFile(mergedOutputStream, dstDirPath, "All.pdf");
-            me.setWatermarkText(dstFile, config.watermark.text.content);
+            me.convertPDFtoPDFA(dstFile);
             mergedOutputStream = me.writeFileToPdfOutputStream(dstFile);
             sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
           }
+
+          if (config.pagination === true) {
+            dstFile = me.writePdfOutputStreamToFile(mergedOutputStream, dstDirPath, "All.pdf");
+            me.setPagination(dstFile);
+            mergedOutputStream = me.writeFileToPdfOutputStream(dstFile);
+            sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
+          }
+
+          if (config.watermark.image.show === true) {
+            dstFile = me.writePdfOutputStreamToFile(mergedOutputStream, dstDirPath, "All.pdf");
+            me.setWatermarkImage(dstFile, dstDirPath, config.watermark.image.path);
+            mergedOutputStream = me.writeFileToPdfOutputStream(dstFile);
+            sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
+          }
+
+          os = String(java.lang.System.getProperty("os.name").toLowerCase());
+
+          if (sol.common.StringUtils.contains(os, "win")) {
+            if (config.watermark.text.show === true) {
+              dstFile = me.writePdfOutputStreamToFile(mergedOutputStream, dstDirPath, "All.pdf");
+              me.setWatermarkText(dstFile, config.watermark.text.content);
+              mergedOutputStream = me.writeFileToPdfOutputStream(dstFile);
+              sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
+            }
+          }
+        } catch (ex) {
+          me.logger.error(["error pdfExport with folderId: '{0}', baseDstDirPath: '{1}', config: '{2}'", folderId, baseDstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })], ex);
         }
-      } catch (ex) {
-        me.logger.error(["error pdfExport with folderId: '{0}', baseDstDirPath: '{1}', config: '{2}'", folderId, baseDstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })], ex);
       }
 
+      if (config.pdfExportLarge === true) {
+        try {
+          if (config.pdfA === true) {
+            me.convertPDFtoPDFA(outputFile);
+          }
+          if (config.pagination === true) {
+            me.setPagination(outputFile);
+          }
+          if (config.watermark.image.show === true) {
+            me.setWatermarkImage(outputFile, dstDirPath, config.watermark.image.path);
+          }
+
+          os = String(java.lang.System.getProperty("os.name").toLowerCase());
+
+          if (sol.common.StringUtils.contains(os, "win")) {
+            if (config.watermark.text.show === true) {
+              me.setWatermarkText(outputFile, config.watermark.text.content);
+            }
+          }
+          mergedOutputStream = me.writeFileToPdfOutputStream(outputFile);
+        } catch (ex) {
+          me.logger.error(["error pdfExport with folderId: '{0}', baseDstDirPath: '{1}', config: '{2}'", folderId, baseDstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })], ex);
+        }
+      }
+      // TODO pdfExportLarge
+
       result.objId = sol.common.RepoUtils.saveToRepo({ parentId: parentId, name: folderName, outputStream: mergedOutputStream, extension: "pdf" });
-    } else if (config.pdfExportLarge === true) {
-      // TODO pdfExportLarge
-
-
-
-      // TODO pdfExportLarge
-
     } else {
       zipFile = new File(baseDstDirPath + ".zip");
       zipDir = new File(baseDstDirPath);
