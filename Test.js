@@ -854,6 +854,8 @@ Ideen für Erweiterungen automatisierte Tests
      Benutzer-Berechtigungen prüfen
 
 
+
+
 ===========================================================================================================================
 
 ===========================================================================================================================
@@ -907,4 +909,13 @@ Invoice 5245
 
 4139 "Test data/PdfExport"
 
+
+
+TODO
+
+
+
+Stack ruberg-common neu erstellen
+
+Prüfen ob setPaginationText auch im Linux Stack funktioniert, sonst bisherige Funktion setPagination nutzen
 

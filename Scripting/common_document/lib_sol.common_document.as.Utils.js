@@ -189,6 +189,9 @@ sol.define("sol.common_document.as.Utils", {
       pdfOutputStream = new ByteArrayOutputStream(bytes.length);
       pdfOutputStream.write(bytes, 0, bytes.length);
     } catch (ex) {
+      if (pdfOutputStream) {
+        pdfOutputStream.close();
+      }
       pdfOutputStream = null;
       me.logger.error(["error writeFileToPdfOutputStream with dstFile: '{0}'", dstFile], ex);
     }
@@ -226,6 +229,7 @@ sol.define("sol.common_document.as.Utils", {
       fop.write(contentInBytes);
       fop.flush();
       fop.close();
+      pdfOutputStream.close();
     } catch (ex) {
       me.logger.error(["error writePdfOutputStreamToFile with dstDirPath: '{0}', pdfName: '{1}'", dstDirPath, pdfName], ex);
     }
@@ -2037,11 +2041,12 @@ sol.define("sol.common_document.as.Utils", {
 
   // TODO Seitenzahlen analog Watermarktext setzen
   /**
-   * Set watermark text in a PDF.
+   * Set pagination text in a PDF.
    * @private
    * @param {java.io.File} dstPdfFile PDF File
+   * @param {Number} offset offset page number
    */
-  setPaginationText: function (dstPdfFile) {
+  setPaginationText: function (dstPdfFile, offset) {
     var me = this,
         pdfDocument, textStamp, pages, page, i;
 
@@ -2052,7 +2057,7 @@ sol.define("sol.common_document.as.Utils", {
       pdfDocument = new Packages.com.aspose.pdf.Document(dstPdfFile.getPath());
       pages = pdfDocument.getPages();
       for (i = 1; i <= pages.size(); i++) {
-        textStamp = new Packages.com.aspose.pdf.TextStamp(i + "");
+        textStamp = new Packages.com.aspose.pdf.TextStamp(i + offset + "");
 
         textStamp.setHorizontalAlignment(Packages.com.aspose.pdf.HorizontalAlignment.Center);
         textStamp.setVerticalAlignment(Packages.com.aspose.pdf.VerticalAlignment.Bottom);
@@ -2590,7 +2595,8 @@ sol.define("sol.common_document.as.Utils", {
         subDirPath, subDirPathFile, zipFile, zipDir, parentId, folderName, mergedOutputStream, pdfName, ext,
         pdfInputStreams, pdfInputStream, pdfContents, dstFile, os,
         outputFileName, outputFile, inputFileNames, pdfContentFilePath,
-        size, inputFileNamesArray, outputFileNames_, outputFileName_, outputFile_;
+        size, inputFileNamesArray, outputFileNames_, outputFileName_, outputFile_,
+        offset, pdfPages, outputFiles_;
 
     me.logger.enter("pdfExport");
     if (me.logger.debugEnabled) {
@@ -2783,15 +2789,49 @@ sol.define("sol.common_document.as.Utils", {
         }
 
         outputFileNames_ = [];
+        outputFiles_ = [];
         for (i = 0; i < inputFileNamesArray.length; i++) {
-          outputFileName_ = outputFileName + "_" + i;
+          outputFileName_ = outputFileName + "_" + i + ".pdf";
           outputFile_ = new File(outputFileName_);
           if (!outputFile_.exists()) {
             outputFile_.createNewFile();
           }
           sol.common.as.PdfUtils.mergePdfFiles(inputFileNamesArray[i], outputFileName_);
           outputFileNames_.push(outputFileName_);
+          outputFiles_.push(outputFile_);
         }
+
+        // TODO Paginierung, Wasserzeichen setzen etc. auf einzelnen Dateien seperat durchführen, und dann zum Schluß alles mergen!
+        outputFileNames_.forEach(function (outputFileName_1) {
+          me.logger.debug(["outputFileName_1 = '{0}'", outputFileName_1]);
+          outputFile_ = new File(outputFileName_1);
+          try {
+            if (config.pdfA === true) {
+              me.convertPDFtoPDFA(outputFile_);
+            }
+            if (config.pagination === true) {
+              offset = 0;
+              pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(outputFile_);
+              me.setPaginationText(outputFile_, offset);
+              offset += pdfPages;
+            }
+            if (config.watermark.image.show === true) {
+              me.setWatermarkImage(outputFile_, dstDirPath, config.watermark.image.path);
+            }
+
+            os = String(java.lang.System.getProperty("os.name").toLowerCase());
+
+            if (sol.common.StringUtils.contains(os, "win")) {
+              if (config.watermark.text.show === true) {
+                me.setWatermarkText(outputFile_, config.watermark.text.content);
+              }
+            }
+          } catch (ex) {
+            me.logger.error(["error pdfExport with folderId: '{0}', baseDstDirPath: '{1}', config: '{2}'", folderId, baseDstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })], ex);
+          }
+        });
+        // TODO Paginierung, Wasserzeichen setzen etc. auf einzelnen Dateien seperat durchführen, und dann zum Schluß alles mergen!
+
         sol.common.as.PdfUtils.mergePdfFiles(outputFileNames_, outputFileName);
 
         // sol.common.as.PdfUtils.mergePdfFiles(inputFileNames, outputFileName);
@@ -2840,15 +2880,16 @@ sol.define("sol.common_document.as.Utils", {
       }
       // TODO pdfExportLarge
       if (config.pdfExportLarge === true) {
+        /*
         try {
           if (config.pdfA === true) {
             me.convertPDFtoPDFA(outputFile);
           }
           if (config.pagination === true) {
-            me.setPaginationText(outputFile);
+            me.setPaginationText(outputFile, 0);
           }
           if (config.watermark.image.show === true) {
-            // me.setWatermarkImage(outputFile, dstDirPath, config.watermark.image.path);
+            me.setWatermarkImage(outputFile, dstDirPath, config.watermark.image.path);
           }
 
           os = String(java.lang.System.getProperty("os.name").toLowerCase());
@@ -2861,6 +2902,7 @@ sol.define("sol.common_document.as.Utils", {
         } catch (ex) {
           me.logger.error(["error pdfExport with folderId: '{0}', baseDstDirPath: '{1}', config: '{2}'", folderId, baseDstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })], ex);
         }
+        */
         result.objId = sol.common.RepoUtils.saveToRepo({ parentId: parentId, name: folderName, file: outputFile, extension: "pdf" });
       }
       // TODO pdfExportLarge
