@@ -2774,6 +2774,7 @@ sol.define("sol.common_document.as.Utils", {
           outputFiles_.push(outputFile_);
         }
 
+        offset = 0;
         outputFileNames_.forEach(function (outputFileName_1) {
           me.logger.debug(["outputFileName_1 = '{0}'", outputFileName_1]);
           outputFile_ = new File(outputFileName_1);
@@ -2782,7 +2783,6 @@ sol.define("sol.common_document.as.Utils", {
               me.convertPDFtoPDFA(outputFile_);
             }
             if (config.pagination === true) {
-              offset = 0;
               pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(outputFile_);
               me.setPagination(outputFile_, offset);
               offset += pdfPages;
