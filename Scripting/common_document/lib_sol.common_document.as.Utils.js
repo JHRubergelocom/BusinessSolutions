@@ -207,7 +207,7 @@ sol.define("sol.common_document.as.Utils", {
    * @private
    * @param {java.io.OutputStream} pdfOutputStream
    * @param {String} dstDirPath
-   * @param {String} pdfName;
+   * @param {String} pdfName
    * @return {java.io.File} dstFile
    */
   writePdfOutputStreamToFile: function (pdfOutputStream, dstDirPath, pdfName) {
@@ -245,7 +245,7 @@ sol.define("sol.common_document.as.Utils", {
    * @private
    * @param {java.io.InputStream} pdfInputStream
    * @param {String} dstDirPath
-   * @param {String} pdfName;
+   * @param {String} pdfName
    * @return {java.io.File} dstFile
    */
   writePdfInputStreamToFile: function (pdfInputStream, dstDirPath, pdfName) {
@@ -268,6 +268,18 @@ sol.define("sol.common_document.as.Utils", {
     return dstFile;
   },
 
+  /**
+   * Collect internal pdf contents
+   * @private
+   * @param {de.elo.ix.client.Sord} sord
+   * @param {Object[]} pdfContents
+   * @param {java.io.InputStream} pdfInputStream
+   * @param {String} refPath
+   * @param {String} contentName
+   * @param {Number} pdfPages
+   * @param {String} hint
+   * @param {String} pdfInputFilePath
+   */
   pushContent: function (sord, pdfContents, pdfInputStream, refPath, contentName, pdfPages, hint, pdfInputFilePath) {
     var me = this,
         contentType, contentMask, dm;
@@ -2020,10 +2032,11 @@ sol.define("sol.common_document.as.Utils", {
    * Set pagination in a PDF.
    * @private
    * @param {java.io.File} dstPdfFile PDF File
+   * @param {Number} offset Offset page numbers
    */
-  setPagination: function (dstPdfFile) {
+  setPagination: function (dstPdfFile, offset) {
     var me = this,
-        pdfPages, i, page;
+        pdfPages, i, page, pageTest;
 
     me.logger.enter("setPagination");
     me.logger.debug(["Start setPagination with dstPdfFile: '{0}'", dstPdfFile]);
@@ -2031,51 +2044,13 @@ sol.define("sol.common_document.as.Utils", {
     pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstPdfFile);
     for (i = 0; i < pdfPages; i++) {
       page = i + 1;
-      page = String(page) + "";
-      Packages.de.elo.mover.main.pdf.PdfFileHelper.insertTextInPdf(page, dstPdfFile, page, 500, 10, 10, 0, 0, 0, 1.0, 0);
+      pageTest = page + offset + "";
+      Packages.de.elo.mover.main.pdf.PdfFileHelper.insertTextInPdf(pageTest, dstPdfFile, page, 500, 10, 10, 0, 0, 0, 1.0, 0);
     }
 
     me.logger.debug(["Finish setPagination"]);
     me.logger.exit("setPagination");
   },
-
-  // TODO Seitenzahlen analog Watermarktext setzen
-  /**
-   * Set pagination text in a PDF.
-   * @private
-   * @param {java.io.File} dstPdfFile PDF File
-   * @param {Number} offset offset page number
-   */
-  setPaginationText: function (dstPdfFile, offset) {
-    var me = this,
-        pdfDocument, textStamp, pages, page, i;
-
-    me.logger.enter("setPaginationText");
-    me.logger.debug(["Start setPaginationText with dstPdfFile: '{0}'", dstPdfFile]);
-
-    try {
-      pdfDocument = new Packages.com.aspose.pdf.Document(dstPdfFile.getPath());
-      pages = pdfDocument.getPages();
-      for (i = 1; i <= pages.size(); i++) {
-        textStamp = new Packages.com.aspose.pdf.TextStamp(i + offset + "");
-
-        textStamp.setHorizontalAlignment(Packages.com.aspose.pdf.HorizontalAlignment.Center);
-        textStamp.setVerticalAlignment(Packages.com.aspose.pdf.VerticalAlignment.Bottom);
-        textStamp.getTextState().setFontSize(10.0);
-
-        page = pages.get_Item(i);
-        page.addStamp(textStamp);
-      }
-      pdfDocument.save(dstPdfFile.getPath());
-    } catch (ex) {
-      me.logger.error(["error setPaginationText with dstPdfFile: '{0}'", dstPdfFile], ex);
-    }
-
-    me.logger.debug(["Finish setPaginationText"]);
-    me.logger.exit("setPaginationText");
-  },
-  // TODO Seitenzahlen analog Watermarktext setzen
-
 
   /**
    * Set watermark image in a PDF.
@@ -2780,8 +2755,6 @@ sol.define("sol.common_document.as.Utils", {
         pdfContents.forEach(function (pdfContent) {
           inputFileNames.push(pdfContent.pdfInputFilePath);
         });
-        // TODO pdfExportLarge
-        // Eingabedatei Array in kleinere Arrays splitten
         inputFileNamesArray = [];
         size = 50;
         for (i = 0; i < inputFileNames.length; i += size) {
@@ -2801,7 +2774,6 @@ sol.define("sol.common_document.as.Utils", {
           outputFiles_.push(outputFile_);
         }
 
-        // TODO Paginierung, Wasserzeichen setzen etc. auf einzelnen Dateien seperat durchführen, und dann zum Schluß alles mergen!
         outputFileNames_.forEach(function (outputFileName_1) {
           me.logger.debug(["outputFileName_1 = '{0}'", outputFileName_1]);
           outputFile_ = new File(outputFileName_1);
@@ -2812,7 +2784,7 @@ sol.define("sol.common_document.as.Utils", {
             if (config.pagination === true) {
               offset = 0;
               pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(outputFile_);
-              me.setPaginationText(outputFile_, offset);
+              me.setPagination(outputFile_, offset);
               offset += pdfPages;
             }
             if (config.watermark.image.show === true) {
@@ -2830,12 +2802,7 @@ sol.define("sol.common_document.as.Utils", {
             me.logger.error(["error pdfExport with folderId: '{0}', baseDstDirPath: '{1}', config: '{2}'", folderId, baseDstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })], ex);
           }
         });
-        // TODO Paginierung, Wasserzeichen setzen etc. auf einzelnen Dateien seperat durchführen, und dann zum Schluß alles mergen!
-
         sol.common.as.PdfUtils.mergePdfFiles(outputFileNames_, outputFileName);
-
-        // sol.common.as.PdfUtils.mergePdfFiles(inputFileNames, outputFileName);
-        // TODO pdfExportLarge
       }
 
       parentId = me.getExportFolder(config);
@@ -2851,7 +2818,7 @@ sol.define("sol.common_document.as.Utils", {
 
           if (config.pagination === true) {
             dstFile = me.writePdfOutputStreamToFile(mergedOutputStream, dstDirPath, "All.pdf");
-            me.setPagination(dstFile);
+            me.setPagination(dstFile, 0);
             mergedOutputStream = me.writeFileToPdfOutputStream(dstFile);
             sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
           }
@@ -2878,35 +2845,9 @@ sol.define("sol.common_document.as.Utils", {
         }
         result.objId = sol.common.RepoUtils.saveToRepo({ parentId: parentId, name: folderName, outputStream: mergedOutputStream, extension: "pdf" });
       }
-      // TODO pdfExportLarge
       if (config.pdfExportLarge === true) {
-        /*
-        try {
-          if (config.pdfA === true) {
-            me.convertPDFtoPDFA(outputFile);
-          }
-          if (config.pagination === true) {
-            me.setPaginationText(outputFile, 0);
-          }
-          if (config.watermark.image.show === true) {
-            me.setWatermarkImage(outputFile, dstDirPath, config.watermark.image.path);
-          }
-
-          os = String(java.lang.System.getProperty("os.name").toLowerCase());
-
-          if (sol.common.StringUtils.contains(os, "win")) {
-            if (config.watermark.text.show === true) {
-              me.setWatermarkText(outputFile, config.watermark.text.content);
-            }
-          }
-        } catch (ex) {
-          me.logger.error(["error pdfExport with folderId: '{0}', baseDstDirPath: '{1}', config: '{2}'", folderId, baseDstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })], ex);
-        }
-        */
         result.objId = sol.common.RepoUtils.saveToRepo({ parentId: parentId, name: folderName, file: outputFile, extension: "pdf" });
       }
-      // TODO pdfExportLarge
-
     } else {
       zipFile = new File(baseDstDirPath + ".zip");
       zipDir = new File(baseDstDirPath);
@@ -2922,80 +2863,6 @@ sol.define("sol.common_document.as.Utils", {
     me.logger.exit("pdfExport");
 
     return result;
-  },
-
-  // TODO ConvertZipToPdf
-
-  // In PdfUtils überführen
-
-  listDir: function (dir, filePaths) {
-    var me = this,
-        files, i;
-
-    files = dir.listFiles();
-    if (files != null) {
-      for (i = 0; i < files.length; i++) {
-        // me.logger.debug(files[i].getAbsolutePath());
-        if (files[i].isDirectory()) {
-          // me.logger.debug(" (Ordner)\n");
-          me.listDir(files[i], filePaths);
-        } else {
-          // me.logger.debug(" (Datei)\n");
-          filePaths.push(({ path: files[i].getAbsolutePath() }));
-        }
-      }
-    }
-  },
-
-  convertZipToPdf: function (baseDstDirPath) {
-    var me = this,
-        zipFile, zipDir, filePaths, inputFileNames,
-        outputFile, outputFileName;
-
-    zipFile = new File(baseDstDirPath + ".zip");
-    zipDir = new File(baseDstDirPath);
-
-    sol.common.ZipUtils.unzip(zipFile, zipDir);
-    filePaths = [];
-    me.listDir(zipDir, filePaths);
-
-    me.logger.debug("filePaths before sort");
-    filePaths.forEach(function (filePath) {
-      me.logger.debug(["path = '{0}'", filePath.path]);
-    });
-
-
-    filePaths.sort(function (a, b) {
-      var pathA = a.path.toUpperCase(),
-          pathB = b.path.toUpperCase();
-
-      if (pathA < pathB) {
-        return -1;
-      }
-      if (pathA > pathB) {
-        return 1;
-      }
-      return 0;
-    });
-
-    me.logger.debug("filePaths after sort");
-    filePaths.forEach(function (filePath) {
-      me.logger.debug(["path = '{0}'", filePath.path]);
-    });
-    outputFileName = baseDstDirPath + ".pdf";
-    outputFile = new File(outputFileName);
-    if (!outputFile.exists()) {
-      outputFile.createNewFile();
-    }
-
-    inputFileNames = [];
-    me.logger.debug("append filePaths to inputFileNames");
-    filePaths.forEach(function (filePath) {
-      inputFileNames.push(new File(filePath.path));
-    });
-
-    sol.common.as.PdfUtils.mergePdfFiles(inputFileNames, outputFileName);
-
   }
 
 });

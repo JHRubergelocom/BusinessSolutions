@@ -841,12 +841,12 @@ C:\Users\ruberg\.ssh\Testkey.ppk
 
 ===========================================================================================================================
 
-TODO 27.04.2023 (nächster Sprint)
+TODO 11.05.2023 (nächster Sprint)
 
 
-BS Intern BSXX-446 Testautomatisierung mit Playwright
+BS Intern BSXX-456 Testautomatisierung mit Playwright
 
-https://eloticksy.elo.com/browse/BSXX-446
+https://eloticksy.elo.com/browse/BSXX-456
 
 
 Ideen für Erweiterungen automatisierte Tests
