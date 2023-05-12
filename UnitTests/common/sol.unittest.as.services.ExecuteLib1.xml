@@ -19,6 +19,7 @@
       <name>lib_sol.common.IxUtils</name>
       <name>lib_sol.common.ObjectFormatter</name>
       <name>lib_sol.common.ExceptionUtils</name>
+      <name>lib_sol.common.JsonUtils</name>
       <name>lib_sol.common.Injection</name>
       <name>lib_sol.common.Map</name>
       <name>lib_sol.common.ObjectFormatter</name>

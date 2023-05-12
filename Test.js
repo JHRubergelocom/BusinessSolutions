@@ -590,6 +590,15 @@ BS Common BS-1942 Unittests überprüfen
 https://eloticksy.elo.com/browse/BS-1942
 
 
+[lib] sol.unittest.ix.services.SolCommonRepoUtils Test Lib Functions sol.common.RepoUtils getObjIdByIndex
+Failed: [ELOIX:1000][[TICKET:-...][; nested exception is: 
+	org.mozilla.javascript.JavaScriptException: no element found (sol.unittest.ix.services.executelib.js#22228)]]
+
+
+
+
+
+
 contract
 
 elo-sol prepare -stack ruberg-contract -workspace de -version 20.00
@@ -920,21 +929,5 @@ Stack ruberg-common neu erstellen
 Prüfen ob setPaginationText auch im Linux Stack funktioniert, sonst bisherige Funktion setPagination nutzen
 
 
-
-=================================
-
-Test Version 23
-
-
-[libas] sol.unittest.as.services.SolCommonMonitoringAnalyzersRuleAnalyzer Test Lib Functions sol.common_monitoring.as.analyzers.RuleAnalyzer updateExecution
-Failed: {"exception":"Cannot call method \"stringifyAll\" of undefined (sol.unittest.as.services.ExecuteLib1#23258)\r\n\tat sol.unittest.as.services.ExecuteLib1:23258\n\tat sol.unittest.as.services.ExecuteLib1:28423\n\tat sol.unittest.as.services.ExecuteLib1:29780\n\tat sol.unittest.as.services.ExecuteLib1:26295\n\tat sol.unittest.as.services.ExecuteLib1:223\n\tat sol.unittest.as.services.ExecuteLib1:210\n\tat sol.unittest.as.services.ExecuteLib1:422\n\tat sol.unittest.as.services.ExecuteLib1:374\n\tat sol.unittest.as.services.ExecuteLib1:311 (btExecuteRuleset)\n"}
-
-[lib] sol.unittest.ix.services.SolCommonHttpUtils Test Lib Functions sol.common.HttpUtils getPasswordAuthentication
-Failed: [ELOIX:1000][[TICKET:-...][; nested exception is: 
-	org.mozilla.javascript.EcmaError: TypeError: [JavaPackage javax.mail.PasswordAuthentication] is not a function, it is object. (sol.unittest.ix.services.executelib.js#31797)]]
-
-[lib] sol.unittest.ix.services.SolCommonMail Test Lib Functions sol.common.Mail addBody
-Failed: [ELOIX:1000][[TICKET:-...][; nested exception is: 
-	org.mozilla.javascript.EcmaError: ReferenceError: "MimeMultipart" is not defined. (sol.unittest.ix.services.executelib6.js#21702)]]
-
+=====================================================================================================================================================================
 

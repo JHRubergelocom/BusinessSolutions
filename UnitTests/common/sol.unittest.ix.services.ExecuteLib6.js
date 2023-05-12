@@ -105,7 +105,11 @@ sol.define("sol.unittest.ix.services.ExecuteLib6", {
       case "sol.common.Mail":
         switch (me.method) {
           case "addBody":
-            me.params[0] = new MimeMultipart();
+            if (sol.common.ExecUtils.classExists("jakarta.mail.Session")) {
+              me.params[0] = new Packages.jakarta.mail.internet.MimeMultipart();
+            } else {
+              me.params[0] = new javax.mail.internet.MimeMultipart();
+            }
             break;
           default:
         }

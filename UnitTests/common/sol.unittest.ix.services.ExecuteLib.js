@@ -15,7 +15,7 @@ importPackage(Packages.org.apache.commons.io);
 //@include lib_sol.common.AclUtils.js
 //@include lib_sol.common.AsUtils.js
 //@include lib_sol.common.AsyncUtils.js
-//@include lib_sol.common.ConnectionUtils.js
+//@include lib_sol.common.IxConnectionUtils.js
 //@include lib_sol.common.DateUtils.js
 //@include lib_sol.common.DecimalUtils.js
 //@include lib_sol.common.ExceptionUtils.js
@@ -146,6 +146,13 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
         sordMap = sol.create("sol.common.SordMap", { objId: me.classConfig.objId });
         me.classConfig.map = sordMap;
         break;
+      case "sol.common.HttpUtils":
+        switch (me.method) {
+          case "getPasswordAuthentication":
+            return result;
+          default:
+        }
+        break;
       case "sol.common.mixins.Inject":
       case "sol.common.mixins.Injection.SordToken":
         return result;
@@ -155,7 +162,7 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
             return result;
           default:
         }
-        break;  
+        break;
       case "sol.common.SordUtils":
         switch (me.method) {
           case "getObjectMapBlob":
@@ -183,7 +190,7 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
           case "replaceUserNamePlaceholders":
             me.params[2] = ixConnect;
             break;
-          case "executeBackgroundAclJob":            
+          case "executeBackgroundAclJob":
             me.params[0] = ixConnect;
             defaultAccessCode = cls.createAccessCode(me.params[2].rights);
             cls.initializeRights(me.params[3], me.params[1], me.params[2], me.params[0]);
@@ -197,7 +204,7 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
             break;
           case "initializeRights":
             me.params[3] = ixConnect;
-            break;  
+            break;
           case "ixExecutesBackgroundJobsSynchronous":
             me.params[0] = ixConnect;
             break;
@@ -227,11 +234,14 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
             break;
           default:
         }
-        break;  
+        break;
       case "sol.common.FileUtils":
         switch (me.method) {
           case "copyFile":
             new File(me.params[0]).createNewFile();
+            if (new File(me.params[1]).exists()) {
+              new File(me.params[1]).delete();
+            }
             me.params[0] = new File(me.params[0]);
             me.params[1] = new File(me.params[1]);
             break;

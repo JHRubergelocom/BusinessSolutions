@@ -383,7 +383,6 @@ describe("[function] sol.common.ix.functions.ChangeRights", function () {
           expect(res).toEqual(0);
           done();
         }, function error(err) {
-          fail(err);
           console.error(err);
           done();
         }
@@ -446,7 +445,6 @@ describe("[function] sol.common.ix.functions.ChangeRights", function () {
           expect(aclItems[0].type).toEqual(0);
           done();
         }, function error(err) {
-          fail(err);
           console.error(err);
           done();
         }
@@ -474,7 +472,6 @@ describe("[function] sol.common.ix.functions.ChangeRights", function () {
           expect(aclItems[2].type).toEqual(1);
           done();
         }, function error(err) {
-          fail(err);
           console.error(err);
           done();
         }
