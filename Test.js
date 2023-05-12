@@ -590,10 +590,10 @@ BS Common BS-1942 Unittests überprüfen
 https://eloticksy.elo.com/browse/BS-1942
 
 
-[lib] sol.unittest.ix.services.SolCommonRepoUtils Test Lib Functions sol.common.RepoUtils getObjIdByIndex
-Failed: [ELOIX:1000][[TICKET:-...][; nested exception is: 
-	org.mozilla.javascript.JavaScriptException: no element found (sol.unittest.ix.services.executelib.js#22228)]]
+All Rhino lib matching Unittest
 
+sol.dev.BuildPackage 	deleteBuzzwordFiles 	false
+sol.dev.BuildPackage 	exportMasks 	false
 
 
 

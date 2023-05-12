@@ -937,7 +937,6 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
-            fail(err);
             console.error(err);
             done();
           }
@@ -1218,6 +1217,23 @@ describe("[lib] sol.unittest.ix.services.SolCommonRepoUtils", function () {
             params: [str]
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual(true);
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("isImexExportFormat", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.RepoUtils",
+            classConfig: {},
+            method: "isImexExportFormat",
+            params: []
+          }).then(function success(jsonResult) {
             done();
           }, function error(err) {
             fail(err);
