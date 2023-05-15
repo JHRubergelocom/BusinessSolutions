@@ -118,6 +118,23 @@ describe("[lib] sol.unittest.ix.services.SolDevBuildPackage", function () {
           );
         }).not.toThrow();
       });
+      it("deleteBuzzwordFiles", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib1", {
+            className: "sol.dev.BuildPackage",
+            classConfig: { buildConfig: {} },
+            method: "deleteBuzzwordFiles",
+            params: []
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("deleteLogFileSords", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib1", {
@@ -174,6 +191,23 @@ describe("[lib] sol.unittest.ix.services.SolDevBuildPackage", function () {
             className: "sol.dev.BuildPackage",
             classConfig: { objId: "ARCPATH:/Administration/Business Solutions/dev_internal", exportDirPath: "C:\\Temp" },
             method: "execute",
+            params: []
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("exportMasks", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib1", {
+            className: "sol.dev.BuildPackage",
+            classConfig: { buildConfig: {},  imexExport: true },
+            method: "exportMasks",
             params: []
           }).then(function success(jsonResult) {
             done();

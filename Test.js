@@ -585,19 +585,6 @@ common
 
 elo-sol prepare -stack ruberg-common -workspace jan -version 20.00
 
-BS Common BS-1942 Unittests überprüfen
-
-https://eloticksy.elo.com/browse/BS-1942
-
-
-All Rhino lib matching Unittest
-
-sol.dev.BuildPackage 	deleteBuzzwordFiles 	false
-sol.dev.BuildPackage 	exportMasks 	false
-
-
-
-
 
 contract
 
@@ -646,6 +633,7 @@ https://eloticksy.elo.com/browse/BSHRR-615
 [function] sol.recruiting.ix.functions.GetRedirectRequest Tests Registered Functions RF_sol_recruiting_function_GetRedirectRequest should not throw if executed without Parameter
 Failed: [ELOIX:5023][[TICKET:848...][The object with ID functionName=RF_GoHiring_Execute does not exist.]]   (In Version 23.00)
 
+Wird noch von Philipp geklärt
 
 
 visitor
@@ -665,6 +653,39 @@ elo-sol prepare -stack ruberg-meeting -workspace premium-groupware -version 20.0
 BS Meeting BSMM-2846 Unittests überprüfen
 
 https://eloticksy.elo.com/browse/BSMM-2846
+
+
+
+[function] sol.meeting.ix.functions.DeleteItem Test Lib Functions sol.meeting.ix.function.DeleteItem deleteMeetingItem
+Error: Timeout - Async callback was not invoked within timeout specified by jasmine.DEFAULT_TIMEOUT_INTERVAL.
+Error: Timeout - Async callback was not invoked within timeout specified by jasmine.DEFAULT_TIMEOUT_INTERVAL.
+    at http://ruberg-meeting.dev.elo/ix-Solutions/plugin/de.elo.ix.plugin.proxy/wf/apps/app/sol.dev.apps.UnitTests/modules/elo.third.jasmine.01/jasmine.js?_build=1&_version=20.10.001:1909:23
+[function] sol.meeting.ix.functions.DeleteItem Test Lib Functions sol.meeting.ix.function.DeleteItem initialize
+Error: Timeout - Async callback was not invoked within timeout specified by jasmine.DEFAULT_TIMEOUT_INTERVAL.
+Error: Timeout - Async callback was not invoked within timeout specified by jasmine.DEFAULT_TIMEOUT_INTERVAL.
+    at http://ruberg-meeting.dev.elo/ix-Solutions/plugin/de.elo.ix.plugin.proxy/wf/apps/app/sol.dev.apps.UnitTests/modules/elo.third.jasmine.01/jasmine.js?_build=1&_version=20.10.001:1909:23
+[function] sol.meeting.ix.functions.DeleteItem Test Lib Functions sol.meeting.ix.function.DeleteItem isAgendaItem
+Error: Timeout - Async callback was not invoked within timeout specified by jasmine.DEFAULT_TIMEOUT_INTERVAL.
+Error: Timeout - Async callback was not invoked within timeout specified by jasmine.DEFAULT_TIMEOUT_INTERVAL.
+    at http://ruberg-meeting.dev.elo/ix-Solutions/plugin/de.elo.ix.plugin.proxy/wf/apps/app/sol.dev.apps.UnitTests/modules/elo.third.jasmine.01/jasmine.js?_build=1&_version=20.10.001:1909:23
+[function] sol.meeting.ix.functions.DeleteItem Test Lib Functions sol.meeting.ix.function.DeleteItem process
+Error: Timeout - Async callback was not invoked within timeout specified by jasmine.DEFAULT_TIMEOUT_INTERVAL.
+Error: Timeout - Async callback was not invoked within timeout specified by jasmine.DEFAULT_TIMEOUT_INTERVAL.
+    at http://ruberg-meeting.dev.elo/ix-Solutions/plugin/de.elo.ix.plugin.proxy/wf/apps/app/sol.dev.apps.UnitTests/modules/elo.third.jasmine.01/jasmine.js?_build=1&_version=20.10.001:1909:23
+[function] sol.meeting.ix.functions.DeleteItem Tests Registered Functions RF_sol_meeting_function_Item_Delete should not throw if executed without Parameter
+Error: Timeout - Async callback was not invoked within timeout specified by jasmine.DEFAULT_TIMEOUT_INTERVAL.
+Error: Timeout - Async callback was not invoked within timeout specified by jasmine.DEFAULT_TIMEOUT_INTERVAL.
+    at http://ruberg-meeting.dev.elo/ix-Solutions/plugin/de.elo.ix.plugin.proxy/wf/apps/app/sol.dev.apps.UnitTests/modules/elo.third.jasmine.01/jasmine.js?_build=1&_version=20.10.001:1909:23
+[function] sol.meeting.ix.functions.DeleteItem Tests Registered Functions RF_sol_meeting_function_Item_Delete delete item
+Error: Timeout - Async callback was not invoked within timeout specified by jasmine.DEFAULT_TIMEOUT_INTERVAL.
+Error: Timeout - Async callback was not invoked within timeout specified by jasmine.DEFAULT_TIMEOUT_INTERVAL.
+    at http://ruberg-meeting.dev.elo/ix-Solutions/plugin/de.elo.ix.plugin.proxy/wf/apps/app/sol.dev.apps.UnitTests/modules/elo.third.jasmine.01/jasmine.js?_build=1&_version=20.10.001:1909:23
+[s
+
+
+
+
+
 
 
 [service] sol.meeting.ix.services.MeetingBoardPrecondition Tests Registered Functions RF_sol_meeting_services_MeetingBoardPrecondition check meeting board precondition
