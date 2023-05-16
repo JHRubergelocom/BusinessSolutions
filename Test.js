@@ -596,6 +596,75 @@ hr
 elo-sol prepare -stack ruberg-hr -workspace de -version 20.00
 
 
+BS HR Personnel File BSHR-407 Unittests überprüfen
+
+https://eloticksy.elo.com/browse/BSHR-407
+
+
+Register Functions matching Unittest
+
+RF_sol_hr_function_GetRenderedTemplate 	false
+RF_sol_hr_function_Notify 	false
+RF_sol_hr_services_GetMessageAttachment 	false
+
+
+Action Definitions matching Unittest
+
+actions.EmployeeCorrespondence 	false
+
+
+Dynamic Keyword Lists matching Unittest
+
+sol.hr.ix.dynkwl.NotifyTemplate 	false
+sol.hr.ix.dynkwl.config.Base 	false
+sol.hr.ix.dynkwl.config.Recipient 	false
+sol.hr.ix.dynkwl.config.Sender 	false
+sol.hr.ix.dynkwl.notification.template.base 	false
+
+
+IndexServer Scripting Base/DynKwl lib matching Unittest
+
+sol.hr.ix.dynkwl.config.Base 	CONTAINS 	false
+sol.hr.ix.dynkwl.config.Base 	ENDS_WITH 	false
+sol.hr.ix.dynkwl.config.Base 	STARTS_WITH 	false
+sol.hr.ix.dynkwl.config.Base 	_open 	false
+sol.hr.ix.dynkwl.config.Base 	close 	false
+sol.hr.ix.dynkwl.config.Base 	compare 	false
+sol.hr.ix.dynkwl.config.Base 	default 	false
+sol.hr.ix.dynkwl.config.Base 	getHeader 	false
+sol.hr.ix.dynkwl.config.Base 	getIndexFromName 	false
+sol.hr.ix.dynkwl.config.Base 	getIterator 	false
+sol.hr.ix.dynkwl.config.Base 	getKeyNames 	false
+sol.hr.ix.dynkwl.config.Base 	getMessage 	false
+sol.hr.ix.dynkwl.config.Base 	getNextRow 	false
+sol.hr.ix.dynkwl.config.Base 	getResults 	false
+sol.hr.ix.dynkwl.config.Base 	getRowData 	false
+sol.hr.ix.dynkwl.config.Base 	getTitle 	false
+sol.hr.ix.dynkwl.config.Base 	hasMoreRows 	false
+sol.hr.ix.dynkwl.config.Base 	initialize 	false
+sol.hr.ix.dynkwl.config.Base 	open 	false
+sol.hr.ix.dynkwl.config.Base 	openMap 	false
+sol.hr.ix.dynkwl.config.Base 	useOperator 	false
+
+sol.hr.ix.dynkwl.notification.template.base 	getHeader 	false
+sol.hr.ix.dynkwl.notification.template.base 	getRowData 	false
+sol.hr.ix.dynkwl.notification.template.base 	open 	false
+sol.hr.ix.dynkwl.notification.template.base 	openMap 	false
+
+
+IndexServer Scripting Base/Functions lib matching Unittest
+
+sol.hr.ix.functions.GetRenderedTemplate 	process 	false
+sol.hr.ix.functions.Notify 	process 	false
+
+
+IndexServer Scripting Base/Services lib matching Unittest
+
+sol.hr.ix.services.GetMessageAttachment 	process 	false
+
+
+
+
 invoice
 
 elo-sol prepare -stack ruberg-invoice -workspace jan -version 20.00
@@ -610,6 +679,7 @@ learning
 
 elo-sol prepare -stack ruberg-learning -workspace default -version 20.00
 
+Weitertesten!
 
 productivity
 
@@ -834,6 +904,22 @@ https://eloticksy.elo.com/browse/BSXX-456
 Ideen für Erweiterungen automatisierte Tests
 
      Benutzer-Berechtigungen prüfen
+
+
+TODO 16.05.2023 Besprechung Testautomatisierung mit Playwright
+
+Weitere Ideen:
+
+
+- Before und/oder After Feldprüfungen in Masken Eingabe
+
+- Nach Eingabe von neuen Daten (Mitarbeiter) GOTO Event von WF prüfen, ob zum Archiveintrag der angelegten Daten (Mitarbeiter) 
+  gesprungen wird
+  
+- Testfälle https://eloticksy.elo.com/browse/QBSHR-50 , https://eloticksy.elo.com/browse/QBSHR-49 untersuchen, analysieren
+
+
+
 
 
 
