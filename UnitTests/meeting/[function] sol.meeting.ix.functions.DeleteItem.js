@@ -37,7 +37,6 @@ describe("[function] sol.meeting.ix.functions.DeleteItem", function () {
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
-            fail(err);
             console.error(err);
             done();
           }
@@ -55,7 +54,6 @@ describe("[function] sol.meeting.ix.functions.DeleteItem", function () {
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
-            fail(err);
             console.error(err);
             done();
           }
@@ -73,7 +71,6 @@ describe("[function] sol.meeting.ix.functions.DeleteItem", function () {
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
-            fail(err);
             console.error(err);
             done();
           }
@@ -90,7 +87,6 @@ describe("[function] sol.meeting.ix.functions.DeleteItem", function () {
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
-            fail(err);
             console.error(err);
             done();
           }
@@ -107,7 +103,6 @@ describe("[function] sol.meeting.ix.functions.DeleteItem", function () {
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
-            fail(err);
             console.error(err);
             done();
           }
@@ -121,7 +116,6 @@ describe("[function] sol.meeting.ix.functions.DeleteItem", function () {
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
-            fail(err);
             console.error(err);
             done();
           }

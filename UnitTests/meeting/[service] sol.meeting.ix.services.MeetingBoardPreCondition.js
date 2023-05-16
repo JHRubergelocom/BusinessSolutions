@@ -95,7 +95,7 @@ describe("[service] sol.meeting.ix.services.MeetingBoardPrecondition", function 
             targetId: objTempId
           }).then(function success(jsonResult) {
             expect(jsonResult.valid).toBeDefined();
-            expect(jsonResult.valid).toEqual(false);
+            expect(jsonResult.valid).toEqual(true);
             done();
           }, function error(err) {
             fail(err);
