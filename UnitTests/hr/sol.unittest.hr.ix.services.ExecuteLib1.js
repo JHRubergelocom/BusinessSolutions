@@ -100,6 +100,7 @@ sol.define("sol.unittest.hr.ix.services.ExecuteLib1", {
       case "sol.hr.ix.functions.DoubleCheck":
       case "sol.hr.ix.functions.FeedCommentPersonnelFile":
       case "sol.hr.ix.functions.FillSordByApi":
+      case "sol.hr.ix.functions.GetRenderedTemplate":
       case "sol.hr.ix.functions.MapToMap":
       case "sol.hr.ix.functions.ParamServiceFunctionPipe":
       case "sol.hr.ix.functions.UpdatePersonnelFileMetadata":

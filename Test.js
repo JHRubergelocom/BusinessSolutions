@@ -603,8 +603,88 @@ https://eloticksy.elo.com/browse/BSHR-407
 
 Register Functions matching Unittest
 
-RF_sol_hr_function_GetRenderedTemplate 	false
+
+
 RF_sol_hr_function_Notify 	false
+
+elodms://(9301FF57-95FE-076B-513E-AE91CCF8393A)
+
+
+Search Results Workflow Templates matching 'sol.hr.ix.functions.Notify'
+Workflow 	Lineno 	Line
+sol.hr.personnel.correspondence 	258 	"onExit": "sol.hr.ix.functions.Notify",
+
+{
+"$config":"/hr/Configuration/hr.config",
+"$property":"entities.file.workflowMixins.notify.scriptProperties"
+}
+
+
+        "notify": {
+          "scriptProperties": {
+            "mode": "get",
+            "from": {
+              "type": "GRP",
+              "key": "COMMUNICATION_SENDER"
+            },
+            "to": {
+              "type": "GRP",
+              "key": "COMMUNICATION_RECIPIENT"
+            },
+            "subject": {
+              "type": "GRP",
+              "key": "COMMUNICATION_SUBJECT"
+            },
+            "body": {
+              "type": "html",
+              "tplObjId": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common_document/Configuration/Mail"
+            },
+            "attachments": {
+              "fields": {
+                "mapPrefix": {
+                  "guid": "ATTACHMENT_GUID_",
+                  "convert_pdf": "ATTACHMENT_CONVERT_PDF_",
+                  "convert_ecd": "ATTACHMENT_CONVERT_ECD_"
+                }
+              }
+            }
+          },
+          "sender": [
+            {
+              "name": "{{translate 'sol.hr.form.employeecorrespondence.sender.ownMailAddress'}}",
+              "value": "{{currentUser}}"
+            },
+            {
+              "name": "Eine feste E-Mail Adresse",
+              "value": "p.boecker@elo.com"
+            },
+            {
+              "name": "{{translate 'sol.hr.form.employeecorrespondence.sender.hrDepartment'}}",
+              "value": "personal@elo.com"
+            }
+          ],
+          "recipient": [
+            {
+              "name": "{{translate 'sol.hr.form.employeecorrespondence.recipient.employeeBusiness'}}",
+              "value":  "{{sord.mapKeys.HR_PERSONNEL_BUSINESSEMAIL}}"
+            },
+            {
+              "name": "{{translate 'sol.hr.form.employeecorrespondence.recipient.employeePrivate'}}",
+              "value": "{{sord.mapKeys.HR_PERSONNEL_PRIVATEEMAIL}}"
+            },
+            {
+              "name": "{{translate 'sol.hr.form.employeecorrespondence.recipient.superior'}}",
+              "value": "{{sord.objKeys.HR_PERSONNEL_SUPERIOR_GUID}}"
+            }
+          ]
+        }
+
+
+
+
+
+
+
 RF_sol_hr_services_GetMessageAttachment 	false
 
 
@@ -654,8 +734,8 @@ sol.hr.ix.dynkwl.notification.template.base 	openMap 	false
 
 IndexServer Scripting Base/Functions lib matching Unittest
 
-sol.hr.ix.functions.GetRenderedTemplate 	process 	false
 sol.hr.ix.functions.Notify 	process 	false
+
 
 
 IndexServer Scripting Base/Services lib matching Unittest
@@ -679,7 +759,6 @@ learning
 
 elo-sol prepare -stack ruberg-learning -workspace default -version 20.00
 
-Weitertesten!
 
 productivity
 
@@ -709,10 +788,6 @@ elo-sol prepare -stack ruberg-teamroom -workspace jan -version 20.00
 meeting
 
 elo-sol prepare -stack ruberg-meeting -workspace premium-groupware -version 20.00
-
-BS Meeting BSMM-2846 Unittests überprüfen
-
-https://eloticksy.elo.com/browse/BSMM-2846
 
 
 
@@ -910,17 +985,11 @@ TODO 16.05.2023 Besprechung Testautomatisierung mit Playwright
 
 Weitere Ideen:
 
+- Bei Feldprüfungen nur speichern, wenn Feldinhalte überschrieben wurden
 
-- Before und/oder After Feldprüfungen in Masken Eingabe
-
-- Nach Eingabe von neuen Daten (Mitarbeiter) GOTO Event von WF prüfen, ob zum Archiveintrag der angelegten Daten (Mitarbeiter) 
-  gesprungen wird
   
+    
 - Testfälle https://eloticksy.elo.com/browse/QBSHR-50 , https://eloticksy.elo.com/browse/QBSHR-49 untersuchen, analysieren
-
-
-
-
 
 
 
