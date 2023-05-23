@@ -70,9 +70,11 @@ sol.define("sol.unittest.hr.ix.services.ExecuteLib1", {
       case "sol.hr.ix.actions.StartOffboarding":
       case "sol.hr.ix.actions.StartOnboarding":
       case "sol.hr.ix.dynkwl.AuthorityIterator":
+      case "sol.hr.ix.dynkwl.config.Base":
       case "sol.hr.ix.dynkwl.CostCenter":
       case "sol.hr.ix.dynkwl.DeputyIterator":
       case "sol.hr.ix.dynkwl.MentorIterator":
+      case "sol.hr.ix.dynkwl.notification.template.base":
       case "sol.hr.ix.dynkwl.OrganizationalStructuresIterator":
       case "sol.hr.ix.dynkwl.PersonnelFileIterator":
       case "sol.hr.ix.dynkwl.SuperiorIterator":
@@ -102,6 +104,7 @@ sol.define("sol.unittest.hr.ix.services.ExecuteLib1", {
       case "sol.hr.ix.functions.FillSordByApi":
       case "sol.hr.ix.functions.GetRenderedTemplate":
       case "sol.hr.ix.functions.MapToMap":
+      case "sol.hr.ix.functions.Notify":
       case "sol.hr.ix.functions.ParamServiceFunctionPipe":
       case "sol.hr.ix.functions.UpdatePersonnelFileMetadata":
       case "sol.hr.ix.functions.UpdateReferences":
@@ -116,6 +119,7 @@ sol.define("sol.unittest.hr.ix.services.ExecuteLib1", {
       case "sol.hr.ix.services.GetFileProviderParams":
       case "sol.hr.ix.services.GetGenericSearchFolderContent":
       case "sol.hr.ix.services.GetOffboardingTypes":
+      case "sol.hr.ix.services.GetMessageAttachment":
       case "sol.hr.ix.services.GetOnboardingConclusionParams":
       case "sol.hr.ix.services.GetOnboardingTypes":
       case "sol.hr.ix.services.GetPersonnelFileTypes":

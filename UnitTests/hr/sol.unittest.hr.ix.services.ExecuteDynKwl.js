@@ -12,6 +12,7 @@ importPackage(Packages.de.elo.ix.client);
 //@include sol.hr.ix.dynkwl.generators.FileShortDesc.js
 //@include sol.hr.ix.dynkwl.generators.PersonnelNo.js
 //@include sol.hr.ix.dynkwl.MentorIterator.js
+//@include sol.hr.ix.dynkwl.NotifyTemplate.js
 //@include sol.hr.ix.dynkwl.OrganizationalStructuresIterator.js
 //@include sol.hr.ix.dynkwl.PersonnelFileIterator.js
 //@include sol.hr.ix.dynkwl.SuperiorIterator.js
@@ -116,7 +117,7 @@ sol.define("sol.unittest.hr.ix.services.ExecuteDynKwl", {
       result.header = provider.getHeader();
       result.title = provider.getTitle();
       result.data = resultData;
-      
+
     } catch (ex) {
       result.error = String(ex);
     } finally {

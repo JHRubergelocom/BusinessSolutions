@@ -601,148 +601,161 @@ BS HR Personnel File BSHR-407 Unittests überprüfen
 https://eloticksy.elo.com/browse/BSHR-407
 
 
-Register Functions matching Unittest
-
-
-
-RF_sol_hr_function_Notify 	false
-
-elodms://(9301FF57-95FE-076B-513E-AE91CCF8393A)
-
-
-Search Results Workflow Templates matching 'sol.hr.ix.functions.Notify'
-Workflow 	Lineno 	Line
-sol.hr.personnel.correspondence 	258 	"onExit": "sol.hr.ix.functions.Notify",
-
-{
-"$config":"/hr/Configuration/hr.config",
-"$property":"entities.file.workflowMixins.notify.scriptProperties"
-}
-
-
-        "notify": {
-          "scriptProperties": {
-            "mode": "get",
-            "from": {
-              "type": "GRP",
-              "key": "COMMUNICATION_SENDER"
-            },
-            "to": {
-              "type": "GRP",
-              "key": "COMMUNICATION_RECIPIENT"
-            },
-            "subject": {
-              "type": "GRP",
-              "key": "COMMUNICATION_SUBJECT"
-            },
-            "body": {
-              "type": "html",
-              "tplObjId": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/common_document/Configuration/Mail"
-            },
-            "attachments": {
-              "fields": {
-                "mapPrefix": {
-                  "guid": "ATTACHMENT_GUID_",
-                  "convert_pdf": "ATTACHMENT_CONVERT_PDF_",
-                  "convert_ecd": "ATTACHMENT_CONVERT_ECD_"
-                }
-              }
-            }
-          },
-          "sender": [
-            {
-              "name": "{{translate 'sol.hr.form.employeecorrespondence.sender.ownMailAddress'}}",
-              "value": "{{currentUser}}"
-            },
-            {
-              "name": "Eine feste E-Mail Adresse",
-              "value": "p.boecker@elo.com"
-            },
-            {
-              "name": "{{translate 'sol.hr.form.employeecorrespondence.sender.hrDepartment'}}",
-              "value": "personal@elo.com"
-            }
-          ],
-          "recipient": [
-            {
-              "name": "{{translate 'sol.hr.form.employeecorrespondence.recipient.employeeBusiness'}}",
-              "value":  "{{sord.mapKeys.HR_PERSONNEL_BUSINESSEMAIL}}"
-            },
-            {
-              "name": "{{translate 'sol.hr.form.employeecorrespondence.recipient.employeePrivate'}}",
-              "value": "{{sord.mapKeys.HR_PERSONNEL_PRIVATEEMAIL}}"
-            },
-            {
-              "name": "{{translate 'sol.hr.form.employeecorrespondence.recipient.superior'}}",
-              "value": "{{sord.objKeys.HR_PERSONNEL_SUPERIOR_GUID}}"
-            }
-          ]
-        }
-
-
-
-
-
-
-
-RF_sol_hr_services_GetMessageAttachment 	false
-
-
 Action Definitions matching Unittest
 
 actions.EmployeeCorrespondence 	false
 
+sol.hr.personnel.client.ribbon.btnEmployeeCorrespondence=Nachricht senden
+
+auf employee sord
+
+
+{
+"type": "ADVANCED_ACTION",
+"action": {
+"fct": "RF_sol_common_action_Standard",
+"cfgTemplate": "{\"$name\":\"EmployeeCorrespondence\",\"objId\":\"{{objId}}\",\"$metadata\":{\"solType\":\"HR_COMMUNICATION\",\"owner\":{\"fromConnection\":true},\"objKeys\":[],\"mapItems\":[{\"key\":\"HR_COMMUNICATION_RECIPIENT\",\"value\":\"{{sord.objKeys.RECRUITING_CANDIDATE_PRIVATEEMAIL}}\"},{\"key\":\"HR_PERSONNEL_FILE\",\"value\":\"{{sord.guid}}\"}]},\"$wf\":{\"template\":{\"name\":\"sol.hr.personnel.correspondence\"},\"name\":\"{{translate 'sol.hr.personnel.workflow.employeecorrespondence.message'}}\"},\"$events\":[{\"id\":\"DIALOG\"},{\"id\":\"FEEDBACK\",\"onWfStatus\":\"SENT\",\"message\":\"{{translate 'sol.hr.personnel.workflow.employeecorrespondence.feedback'}}\"}],\"$new\":{\"target\":{\"mode\":\"SELECTED\"},\"name\":\"Correspondence\",\"template\":{\"objId\":\"ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/hr/Configuration/Communication Templates/Base\"}},\"$permissions\":{\"mode\":\"SET\",\"copySource\":false,\"inherit\":{\"fromDirectParent\":true}}}",
+"type": "IX",
+"locale": {
+"errorDlgTitle": "sol.hr.personnel.client.employeecorrespondence.dialog.error.title"
+}
+},
+"actionType": 3,
+"ribbons": [
+{
+"ribbonTab": {
+"name": "TAB_SOL_HR",
+"text": "sol.hr.client.ribbon.tabHR",
+"iconName": "tab-sol-hr",
+"position": 96
+},
+"buttongroup": {
+"name": "GRP_SOL_HR_DOCUMENTS",
+"mode": "big",
+"text": "sol.hr.client.ribbon.bandDocuments",
+"position": 30
+},
+"button": {
+"name": "BTN_SOL_HR_CORRESPONDENCE",
+"text": "sol.hr.personnel.client.ribbon.btnEmployeeCorrespondence",
+"splitText": "sol.hr.personnel.client.ribbon.btnEmployeeCorrespondenceSplit",
+"tooltipText": "sol.hr.personnel.client.ribbon.btnEmployeeCorrespondence.tooltip",
+"web": {
+"smallIcon": "sol-hr-employeecorrespondence16",
+"smallIconHighRes": "sol-hr-employeecorrespondence16-200",
+"bigIcon": "sol-hr-employeecorrespondence32",
+"bigIconHighRes": "sol-hr-employeecorrespondence32-200",
+"iconName": ""
+},
+"jc": {
+"buttonId": "834"
+},
+"position": 21,
+"asTile": false,
+"access": {
+"solTypes": [
+"PERSONNELFILE"
+],
+"folder": true,
+"document": true
+},
+"iconName": "sol-hr-employeecorrespondence"
+},
+"additionalButtonPositions": [
+{
+"ribbonTab": {
+"name": "TAB_SOL_HR",
+"text": "sol.hr.client.ribbon.tabHR",
+"position": 96,
+"access": {
+"solTypes": [
+"PERSONNELFILE",
+"PERSONNELFILE_STRUCTURE"
+]
+},
+"iconName": "tab-sol-hr"
+},
+"buttongroup": {
+"name": "GRP_SOL_HR_DOCUMENTS",
+"text": "sol.hr.client.ribbon.bandDocuments",
+"position": 30
+},
+"button": {
+"position": 21,
+"pinned": true
+}
+}
+]
+}
+]
+}
+
+
+
+
+WF "sol.hr.personnel.correspondence"
+
+
+Data entry "[sol_hr_correspondence(510_message,511_message_atachment)]"
+
+
+510_message
+
+sol.hr.form.employeecorrespondence.template.label  WF_MAP_NOTIFY_TEMPLATE     sol.hr.ix.dynkwl.NotifyTemplate
+
+sol.common_document.form.sender    IX_GRP_COMMUNICATION_SENDER       sol.hr.ix.dynkwl.config.Sender  WF_MAP_HR_PERSONNEL_SENDER   sol.hr.ix.dynkwl.config.Sender
+sol.common_document.form.recipient    IX_GRP_COMMUNICATION_RECIPIENT       sol.hr.ix.dynkwl.config.Recipient  WF_MAP_HR_PERSONNEL_RECIPIENT   sol.hr.ix.dynkwl.config.Recipient
+sol.common_document.form.subject    IX_GRP_COMMUNICATION_SUBJECT    
+                                    IX_DESC
+
+
+
+511_message_atachment
+
+Table
+
+sol.hr.form.employeecorrespondence.attachment.shortdesc  IX_MAP_ATTACHMENT_SHORTDESCR_1  Schreibgeschützt
+sol.hr.form.employeecorrespondence.attachment.megabyte   IX_MAP_ATTACHMENT_FILESIZE_1	 Schreibgeschützt
+
+
+sol.hr.form.employeecorrespondence.attachment.megabyte.total IX_MAP_ATTACHMENT_MAX_FILESIZE  Schreibgeschützt
+
 
 Dynamic Keyword Lists matching Unittest
 
-sol.hr.ix.dynkwl.NotifyTemplate 	false
-sol.hr.ix.dynkwl.config.Base 	false
+RF_sol_unittest_hr_service_ExecuteDynKwl
+
+{
+            "objId": 5212,
+            "dynKwl": "sol.hr.ix.dynkwl.NotifyTemplate",
+            "providerConfig": {},
+            "inputFieldName": "UNITTEST_FIELD2"
+}
+
+{
+  "keynames": [
+    "WF_MAP_NOTIFY_TEMPLATE",
+    "IX_GRP_COMMUNICATION_SUBJECT",
+    "IX_DESC"
+  ],
+  "header": [
+    "Vorlage",
+    "Betreff",
+    "Inhalt"
+  ],
+  "title": "sol.hr.dynkwl.notification.template.tableTitle",
+  "data": [
+    [
+      "Default",
+      "Erinnerung Brandschutzschulung",
+      "<p>\n{{#ifKey sord.objKeys.HR_PERSONNEL_GENDER 'M'}}Sehr geehrter Herr {{/ifKey}}\n{{#ifKey sord.objKeys.HR_PERSONNEL_GENDER 'F'}}Sehr geehrte Frau {{/ifKey}}{{sord.mapKeys.HR_PERSONNEL_TITLE}} {{sord.objKeys.HR_PERSONNEL_FIRSTNAME}} {{sord.objKeys.HR_PERSONNEL_LASTNAME}},</p>\n<p>...</p>"
+    ]
+  ]
+}
+
+
 sol.hr.ix.dynkwl.config.Recipient 	false
 sol.hr.ix.dynkwl.config.Sender 	false
-sol.hr.ix.dynkwl.notification.template.base 	false
-
-
-IndexServer Scripting Base/DynKwl lib matching Unittest
-
-sol.hr.ix.dynkwl.config.Base 	CONTAINS 	false
-sol.hr.ix.dynkwl.config.Base 	ENDS_WITH 	false
-sol.hr.ix.dynkwl.config.Base 	STARTS_WITH 	false
-sol.hr.ix.dynkwl.config.Base 	_open 	false
-sol.hr.ix.dynkwl.config.Base 	close 	false
-sol.hr.ix.dynkwl.config.Base 	compare 	false
-sol.hr.ix.dynkwl.config.Base 	default 	false
-sol.hr.ix.dynkwl.config.Base 	getHeader 	false
-sol.hr.ix.dynkwl.config.Base 	getIndexFromName 	false
-sol.hr.ix.dynkwl.config.Base 	getIterator 	false
-sol.hr.ix.dynkwl.config.Base 	getKeyNames 	false
-sol.hr.ix.dynkwl.config.Base 	getMessage 	false
-sol.hr.ix.dynkwl.config.Base 	getNextRow 	false
-sol.hr.ix.dynkwl.config.Base 	getResults 	false
-sol.hr.ix.dynkwl.config.Base 	getRowData 	false
-sol.hr.ix.dynkwl.config.Base 	getTitle 	false
-sol.hr.ix.dynkwl.config.Base 	hasMoreRows 	false
-sol.hr.ix.dynkwl.config.Base 	initialize 	false
-sol.hr.ix.dynkwl.config.Base 	open 	false
-sol.hr.ix.dynkwl.config.Base 	openMap 	false
-sol.hr.ix.dynkwl.config.Base 	useOperator 	false
-
-sol.hr.ix.dynkwl.notification.template.base 	getHeader 	false
-sol.hr.ix.dynkwl.notification.template.base 	getRowData 	false
-sol.hr.ix.dynkwl.notification.template.base 	open 	false
-sol.hr.ix.dynkwl.notification.template.base 	openMap 	false
-
-
-IndexServer Scripting Base/Functions lib matching Unittest
-
-sol.hr.ix.functions.Notify 	process 	false
-
-
-
-IndexServer Scripting Base/Services lib matching Unittest
-
-sol.hr.ix.services.GetMessageAttachment 	process 	false
-
-
 
 
 invoice
@@ -990,6 +1003,23 @@ Weitere Ideen:
   
     
 - Testfälle https://eloticksy.elo.com/browse/QBSHR-50 , https://eloticksy.elo.com/browse/QBSHR-49 untersuchen, analysieren
+
+
+TODO 23.05.2023
+
+Hallo Jan, 
+
+folgende Test Cases habe ich nochmal überarbeitet, so dass sie theoretisch 1:1 automatisiert abzubilden sein sollten. Versuch das mal bitte. Ich bin gespannt, ob das klappt. 
+
+https://eloticksy.elo.com/browse/QBSHR-50
+
+
+
+
+https://eloticksy.elo.com/browse/QBSHR-51
+
+
+
 
 
 
