@@ -18,6 +18,11 @@
 importPackage(Packages.java.io);
 importPackage(Packages.de.elo.ix.client);
 
+var templateSemaphore = {},
+    isRhino;
+
+isRhino = (typeof Graal == "undefined");
+
 /**
  * This class encapsulates templating operations by handlebars.js.
  *
@@ -525,12 +530,6 @@ importPackage(Packages.de.elo.ix.client);
  * @requires sol.common.as.BarcodeUtils
  * @requires sol.common.XmlUtils
  */
-
-var templateSemaphore = {},
-    isRhino;
-
-isRhino = (typeof Graal == "undefined");
-
 sol.define("sol.common.Template", {
 
   /**
@@ -626,7 +625,7 @@ sol.define("sol.common.Template", {
    */
   apply: function (paramObj) {
     var me = this,
-        executeSynchronizer, result;
+        executeSynchronizer;
 
     if (!me.template) {
       throw "Template is empty";
@@ -635,12 +634,12 @@ sol.define("sol.common.Template", {
     // The template shoud be executed synchronously to make Handlebars work in multi-threaded environments
     if (isRhino) {
       executeSynchronizer = new Packages.org.mozilla.javascript.Synchronizer(me.executeTemplateSynchronized, templateSemaphore);
-      result = executeSynchronizer.call(me, paramObj);
+      me.result = executeSynchronizer.call(me, paramObj);
     } else {
-      result = me.executeTemplate(paramObj);
+      me.result = me.executeTemplate(paramObj);
     }
 
-    return result;
+    return me.result;
   },
 
   /**
@@ -754,14 +753,22 @@ Handlebars.registerHelper("custom", function () {
   return globalScope.$handlebars.customhelper[customHelperName].apply(this, Array.prototype.slice.call(arguments, 1));
 });
 
+// TODO language
 Handlebars.registerHelper("formatDate", function () {
   var defaultFormat = "YYYYMMDDHHmmss",
-      outputFormat, inputDate, inputFormat, isDate, date;
+      outputFormat, inputDate, inputFormat, isDate, date,
+      language;
 
   defaultFormat = "YYYYMMDDHHmmss";
   outputFormat = (arguments.length > 1) ? arguments[0] : defaultFormat;
   inputDate = (arguments.length > 2) ? arguments[1] : null;
   inputFormat = (arguments.length > 3) ? arguments[2] : null;
+  language = (arguments.length > 4) ? arguments[3] : null;
+
+  if (language) {
+    moment.locale(language);
+  }
+
   isDate = sol.common.ObjectUtils.isDate(inputDate);
 
   if (inputDate) {
@@ -1382,6 +1389,27 @@ Handlebars.registerHelper("monthName", function (options) {
   return new Handlebars.SafeString(monthName);
 });
 
+// TODO weekdayName
+Handlebars.registerHelper("weekdayName", function (options) {
+  var weekDayName = "",
+      isoDate, zoneId, javaDate, dow,
+      textStyleString, textStyle, localeString;
+
+  isoDate = options.hash.isoDate || moment().format("YYYYMMDD");
+  if (/^\d{8}/.test(isoDate)) {
+    zoneId = java.time.ZoneId.of("Europe/Paris");
+    javaDate = java.time.ZonedDateTime.of(java.time.LocalDate.of(java.lang.Integer.parseInt(isoDate.substring(0, 4)), java.lang.Integer.parseInt(isoDate.substring(4, 6)), java.lang.Integer.parseInt(isoDate.substring(6, 8))), java.time.LocalTime.of(0, 0), zoneId);
+    textStyleString = options.hash.textStyle || "FULL";
+    textStyle = java.time.format.TextStyle[textStyleString.toUpperCase()];
+    localeString = options.hash.locale || "en";
+    dow = javaDate.getDayOfWeek();
+    weekDayName = dow.getDisplayName(textStyle, new java.util.Locale(localeString));
+  }
+
+  return new Handlebars.SafeString(weekDayName);
+});
+// TODO weekdayName
+
 Handlebars.registerHelper("toEloCheckboxValue", function (value) {
   var result, converters = [];
 
@@ -1523,7 +1551,7 @@ sol.define("sol.common.TemplateXslUtils", {
     html = me.normalizeHtml(html);
 
     //we have to add at least one tag to extract the content
-    if (!(html.indexOf("<") > -1)) {
+    if (!html.startsWith("<p") && !html.startsWith("<html")) {
       html = "<p>" + html + "</p>";
     }
 
@@ -1534,18 +1562,16 @@ sol.define("sol.common.TemplateXslUtils", {
   },
 
   normalizeHtml: function (html) {
-    if (!html) {
+    if (!html || !html.trim()) {
       return "";
     }
 
     return html
-      .replaceAll("<ol></ol>", "") // replace empty list tags with empty string
-      .replaceAll("<ul></ul>", "") // replace empty list tags with empty string
-      .replaceAll("<li></li>", "") // replace empty list tags with empty string
+      .replace(/<[ou]l><\/[ou]l>/g, "") // replace empty list tags with empty string
       .replace(/&nbsp;/g, " ") // replace all non breaking spaces with whitespace
       .replace(/<br\s*>/g, "<br/>") // format line break tags to xhtml tags
-      .replace(/<!--StartFragment-->/g, "<p>") // replace all clipboard text with own paragraph
-      .replace(/<!--EndFragment-->/g, "</p>") // replace end tag of clipboard copied text
+      .replace(/<!--StartFragment-->(.*)<!--EndFragment-->/g, "<p>$1</p>") // replace start and closing with paragraph
+      .replace(/<!--StartFragment-->/g, "") // remaining fragments should replaced as well
       .replace(/&(?!.{1,6};)/ig, "&amp;"); // replace special characters
   }
 });

@@ -132,9 +132,8 @@
 				<fo:block font-size="12pt" font-weight="bold" margin-top="3pt" margin-left="0pt">{{objKeys.MEETING_ITEM_START}} Uhr</fo:block>
 
 				<fo:block font-size="12pt" font-weight="bold" margin-top="0pt" margin-left="0pt">
-					 <fo:basic-link internal-destination="{{padLeft objKeys.MEETING_ITEM_OUTLINENUMBER "0"}}">
+					 <fo:basic-link internal-destination="{{@../key}}{{padLeft objKeys.MEETING_ITEM_OUTLINENUMBER "0"}}">
 				   TOP {{padLeft objKeys.MEETING_ITEM_OUTLINENUMBER "0"}} &#160;&#160;&#160;&#160;&#160;{{objKeys.MEETING_ITEM_TITLE}}
-					 <fo:page-number-citation ref-id="{{padLeft objKeys.MEETING_ITEM_OUTLINENUMBER "0"}}"/>
            </fo:basic-link>
 				</fo:block>
 
@@ -209,7 +208,7 @@
 	<fo:page-sequence master-reference="Layout">
 		<fo:flow flow-name="xsl-region-body">
 			<fo:block-container width="17cm" margin-top="3mm" text-align="left">
-				<fo:block id="{{padLeft objKeys.MEETING_ITEM_OUTLINENUMBER "0"}}" font-size="14pt" color="#004072" margin-bottom="14pt" font-weight="bold">{{padLeft objKeys.MEETING_ITEM_OUTLINENUMBER "0"}}. {{objKeys.MEETING_ITEM_TITLE}}</fo:block>
+				<fo:block id="{{@../key}}{{padLeft objKeys.MEETING_ITEM_OUTLINENUMBER "0"}}" font-size="14pt" color="#004072" margin-bottom="14pt" font-weight="bold">{{padLeft objKeys.MEETING_ITEM_OUTLINENUMBER "0"}}. {{objKeys.MEETING_ITEM_TITLE}}</fo:block>
 				<fo:block font-size="12pt" color="#004072" margin-top="3pt">{{translate "sol.meeting_premium.document.duration" ../../settings.mapKeys.CURRENT_LANGUAGE}}: {{objKeys.MEETING_ITEM_START}} - {{objKeys.MEETING_ITEM_END}} ({{objKeys.MEETING_ITEM_DURATION}} min)</fo:block>
 				<fo:block font-size="12pt" color="#004072" margin-top="3pt">{{translate "sol.meeting_premium.document.speaker" ../../settings.mapKeys.CURRENT_LANGUAGE}}: {{#if objKeys.MEETING_ITEM_SPEAKER}}{{objKeys.MEETING_ITEM_SPEAKER}}{{else}}<fo:inline font-style="italic">{{translate "sol.meeting_premium.document.notDefined" ../../settings.mapKeys.CURRENT_LANGUAGE}}</fo:inline>{{/if}}</fo:block>
 				{{#if desc}}{{htmlToFo desc}}{{/if}}

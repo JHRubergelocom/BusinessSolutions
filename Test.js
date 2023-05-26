@@ -988,3 +988,50 @@ Handlebars.registerHelper("translate", function (key, language) {
   }
   return new Handlebars.SafeString(translatedStr);
 });
+
+
+Testen !
+
+
+=====================================================================================================================================================================
+
+05.06.23 (Stack ruberg-common)
+
+TODO common für Erweiterungen pdfExport in Meeting (Sitzungsmappe)
+
+helper weekdayname hinzufügen:
+
+
+// TODO weekdayName
+Handlebars.registerHelper("weekdayName", function (options) {
+  var weekDayName = "",
+      isoDate, zoneId, javaDate, dow,
+      textStyleString, textStyle, localeString;
+
+  isoDate = options.hash.isoDate || moment().format("YYYYMMDD");
+  if (/^\d{8}/.test(isoDate)) {
+    zoneId = java.time.ZoneId.of("Europe/Paris");
+    javaDate = java.time.ZonedDateTime.of(java.time.LocalDate.of(java.lang.Integer.parseInt(isoDate.substring(0, 4)), java.lang.Integer.parseInt(isoDate.substring(4, 6)), java.lang.Integer.parseInt(isoDate.substring(6, 8))), java.time.LocalTime.of(0, 0), zoneId);
+    textStyleString = options.hash.textStyle || "FULL";
+    textStyle = java.time.format.TextStyle[textStyleString.toUpperCase()];
+    localeString = options.hash.locale || "en";
+    dow = javaDate.getDayOfWeek();
+    weekDayName = dow.getDisplayName(textStyle, new java.util.Locale(localeString));
+  }
+
+  return new Handlebars.SafeString(weekDayName);
+});
+// TODO weekdayName
+
+// Einbauen in Unittests common
+
+RF_sol_unittest_service_ExecuteLib
+
+{
+	"className": "sol.common.Template",
+	"classConfig": { "source": "{{weekdayName isoDate='20230525' textStyle='FULL' locale='de'}}" },
+	"method": "apply",
+	"params": []
+}
+
+
