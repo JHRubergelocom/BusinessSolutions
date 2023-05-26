@@ -6,6 +6,8 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_sol.common.ix.ServiceBase.js
 //@include lib_sol.common.ix.GenericDynKwl.js
 //@include sol.hr.ix.dynkwl.AuthorityIterator.js
+//@include sol.hr.ix.dynkwl.config.Recipient.js
+//@include sol.hr.ix.dynkwl.config.Sender.js
 //@include sol.hr.ix.dynkwl.CostCenter.js
 //@include sol.hr.ix.dynkwl.DeputyIterator.js
 //@include sol.hr.ix.dynkwl.generators.ChartElementShortDesc.js

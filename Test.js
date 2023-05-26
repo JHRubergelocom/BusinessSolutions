@@ -596,168 +596,6 @@ hr
 elo-sol prepare -stack ruberg-hr -workspace de -version 20.00
 
 
-BS HR Personnel File BSHR-407 Unittests überprüfen
-
-https://eloticksy.elo.com/browse/BSHR-407
-
-
-Action Definitions matching Unittest
-
-actions.EmployeeCorrespondence 	false
-
-sol.hr.personnel.client.ribbon.btnEmployeeCorrespondence=Nachricht senden
-
-auf employee sord
-
-
-{
-"type": "ADVANCED_ACTION",
-"action": {
-"fct": "RF_sol_common_action_Standard",
-"cfgTemplate": "{\"$name\":\"EmployeeCorrespondence\",\"objId\":\"{{objId}}\",\"$metadata\":{\"solType\":\"HR_COMMUNICATION\",\"owner\":{\"fromConnection\":true},\"objKeys\":[],\"mapItems\":[{\"key\":\"HR_COMMUNICATION_RECIPIENT\",\"value\":\"{{sord.objKeys.RECRUITING_CANDIDATE_PRIVATEEMAIL}}\"},{\"key\":\"HR_PERSONNEL_FILE\",\"value\":\"{{sord.guid}}\"}]},\"$wf\":{\"template\":{\"name\":\"sol.hr.personnel.correspondence\"},\"name\":\"{{translate 'sol.hr.personnel.workflow.employeecorrespondence.message'}}\"},\"$events\":[{\"id\":\"DIALOG\"},{\"id\":\"FEEDBACK\",\"onWfStatus\":\"SENT\",\"message\":\"{{translate 'sol.hr.personnel.workflow.employeecorrespondence.feedback'}}\"}],\"$new\":{\"target\":{\"mode\":\"SELECTED\"},\"name\":\"Correspondence\",\"template\":{\"objId\":\"ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/hr/Configuration/Communication Templates/Base\"}},\"$permissions\":{\"mode\":\"SET\",\"copySource\":false,\"inherit\":{\"fromDirectParent\":true}}}",
-"type": "IX",
-"locale": {
-"errorDlgTitle": "sol.hr.personnel.client.employeecorrespondence.dialog.error.title"
-}
-},
-"actionType": 3,
-"ribbons": [
-{
-"ribbonTab": {
-"name": "TAB_SOL_HR",
-"text": "sol.hr.client.ribbon.tabHR",
-"iconName": "tab-sol-hr",
-"position": 96
-},
-"buttongroup": {
-"name": "GRP_SOL_HR_DOCUMENTS",
-"mode": "big",
-"text": "sol.hr.client.ribbon.bandDocuments",
-"position": 30
-},
-"button": {
-"name": "BTN_SOL_HR_CORRESPONDENCE",
-"text": "sol.hr.personnel.client.ribbon.btnEmployeeCorrespondence",
-"splitText": "sol.hr.personnel.client.ribbon.btnEmployeeCorrespondenceSplit",
-"tooltipText": "sol.hr.personnel.client.ribbon.btnEmployeeCorrespondence.tooltip",
-"web": {
-"smallIcon": "sol-hr-employeecorrespondence16",
-"smallIconHighRes": "sol-hr-employeecorrespondence16-200",
-"bigIcon": "sol-hr-employeecorrespondence32",
-"bigIconHighRes": "sol-hr-employeecorrespondence32-200",
-"iconName": ""
-},
-"jc": {
-"buttonId": "834"
-},
-"position": 21,
-"asTile": false,
-"access": {
-"solTypes": [
-"PERSONNELFILE"
-],
-"folder": true,
-"document": true
-},
-"iconName": "sol-hr-employeecorrespondence"
-},
-"additionalButtonPositions": [
-{
-"ribbonTab": {
-"name": "TAB_SOL_HR",
-"text": "sol.hr.client.ribbon.tabHR",
-"position": 96,
-"access": {
-"solTypes": [
-"PERSONNELFILE",
-"PERSONNELFILE_STRUCTURE"
-]
-},
-"iconName": "tab-sol-hr"
-},
-"buttongroup": {
-"name": "GRP_SOL_HR_DOCUMENTS",
-"text": "sol.hr.client.ribbon.bandDocuments",
-"position": 30
-},
-"button": {
-"position": 21,
-"pinned": true
-}
-}
-]
-}
-]
-}
-
-
-
-
-WF "sol.hr.personnel.correspondence"
-
-
-Data entry "[sol_hr_correspondence(510_message,511_message_atachment)]"
-
-
-510_message
-
-sol.hr.form.employeecorrespondence.template.label  WF_MAP_NOTIFY_TEMPLATE     sol.hr.ix.dynkwl.NotifyTemplate
-
-sol.common_document.form.sender    IX_GRP_COMMUNICATION_SENDER       sol.hr.ix.dynkwl.config.Sender  WF_MAP_HR_PERSONNEL_SENDER   sol.hr.ix.dynkwl.config.Sender
-sol.common_document.form.recipient    IX_GRP_COMMUNICATION_RECIPIENT       sol.hr.ix.dynkwl.config.Recipient  WF_MAP_HR_PERSONNEL_RECIPIENT   sol.hr.ix.dynkwl.config.Recipient
-sol.common_document.form.subject    IX_GRP_COMMUNICATION_SUBJECT    
-                                    IX_DESC
-
-
-
-511_message_atachment
-
-Table
-
-sol.hr.form.employeecorrespondence.attachment.shortdesc  IX_MAP_ATTACHMENT_SHORTDESCR_1  Schreibgeschützt
-sol.hr.form.employeecorrespondence.attachment.megabyte   IX_MAP_ATTACHMENT_FILESIZE_1	 Schreibgeschützt
-
-
-sol.hr.form.employeecorrespondence.attachment.megabyte.total IX_MAP_ATTACHMENT_MAX_FILESIZE  Schreibgeschützt
-
-
-Dynamic Keyword Lists matching Unittest
-
-RF_sol_unittest_hr_service_ExecuteDynKwl
-
-{
-            "objId": 5212,
-            "dynKwl": "sol.hr.ix.dynkwl.NotifyTemplate",
-            "providerConfig": {},
-            "inputFieldName": "UNITTEST_FIELD2"
-}
-
-{
-  "keynames": [
-    "WF_MAP_NOTIFY_TEMPLATE",
-    "IX_GRP_COMMUNICATION_SUBJECT",
-    "IX_DESC"
-  ],
-  "header": [
-    "Vorlage",
-    "Betreff",
-    "Inhalt"
-  ],
-  "title": "sol.hr.dynkwl.notification.template.tableTitle",
-  "data": [
-    [
-      "Default",
-      "Erinnerung Brandschutzschulung",
-      "<p>\n{{#ifKey sord.objKeys.HR_PERSONNEL_GENDER 'M'}}Sehr geehrter Herr {{/ifKey}}\n{{#ifKey sord.objKeys.HR_PERSONNEL_GENDER 'F'}}Sehr geehrte Frau {{/ifKey}}{{sord.mapKeys.HR_PERSONNEL_TITLE}} {{sord.objKeys.HR_PERSONNEL_FIRSTNAME}} {{sord.objKeys.HR_PERSONNEL_LASTNAME}},</p>\n<p>...</p>"
-    ]
-  ]
-}
-
-
-sol.hr.ix.dynkwl.config.Recipient 	false
-sol.hr.ix.dynkwl.config.Sender 	false
-
-
 invoice
 
 elo-sol prepare -stack ruberg-invoice -workspace jan -version 20.00
@@ -981,31 +819,19 @@ C:\Users\ruberg\.ssh\Testkey.ppk
 
 ===========================================================================================================================
 
-TODO 11.05.2023 (nächster Sprint)
+TODO 24.05.2023 (BS Sprint 69)
 
+BS Intern BSXX-461 Testautomatisierung mit Playwright
 
-BS Intern BSXX-456 Testautomatisierung mit Playwright
-
-https://eloticksy.elo.com/browse/BSXX-456
-
+https://eloticksy.elo.com/browse/BSXX-461
 
 Ideen für Erweiterungen automatisierte Tests
 
-     Benutzer-Berechtigungen prüfen
+    Testfälle HR Personalakte erstellen
+
+QS BS HR Personnel File
 
 
-TODO 16.05.2023 Besprechung Testautomatisierung mit Playwright
-
-Weitere Ideen:
-
-- Bei Feldprüfungen nur speichern, wenn Feldinhalte überschrieben wurden
-
-  
-    
-- Testfälle https://eloticksy.elo.com/browse/QBSHR-50 , https://eloticksy.elo.com/browse/QBSHR-49 untersuchen, analysieren
-
-
-TODO 23.05.2023
 
 Hallo Jan, 
 
@@ -1089,3 +915,76 @@ Prüfen ob setPaginationText auch im Linux Stack funktioniert, sonst bisherige F
 
 =====================================================================================================================================================================
 
+25.05.2023
+
+BS Meeting BSMM-2856 Überarbeitung Sitzungsmappe
+
+https://eloticksy.elo.com/browse/BSMM-2856
+
+
+
+sol.meeting_premium.client.ribbon.btnCreateMeetingFile=Sitzungsmappe erstellen
+
+
+WF "sol.meeting_premium.CreateMeetingFile"
+
+
+
+
+{
+  "$directRule": "sol.meeting_premium.as.functions.CreateMeetingFile",
+  "$config": "/meeting_premium/Configuration/meeting_premium.meetingFile.config"
+}
+
+
+<rule>
+  <name>Regel1</name>
+  <condition></condition>
+  <script>
+    sol.common.as.Utils.requiresUserSession(this);
+
+    var params = JSON.parse(EM_PARAM2);
+    params.user = EM_USERID;
+
+    var pdfExport = sol.create("sol.meeting.as.functions.StandardDocumentGenerator", params);
+    ruleset.setStatusMessage(JSON.stringify(pdfExport.execute()));
+
+    sol.common.as.Utils.cleanupUserSession(this);
+  </script>
+</rule>
+
+
+MEETING_NAME
+MEETING_LOCATION
+MEETING_ROOM
+
+MEETING_WEEKDAY1
+
+
+
+IX_MAP_MEETING_WEEKDAY1
+
+
+
+Meeting objId 5324
+
+
+
+
+Handlebars.registerHelper("translate", function (key, language) {
+  var translatedStr = "";
+
+  key = "" + key;
+
+  try {
+    // additional check necessary, because if language is omitted in template string, language parameter has accidentally the context parameter
+    if (!language || ((typeof language === "object") && (language.name === "translate"))) {
+      translatedStr = sol.common.TranslateTerms.translate(key);
+    } else {
+      translatedStr = sol.common.TranslateTerms.getTerm(language, key);
+    }
+  } catch (ex) {
+    translatedStr = key;
+  }
+  return new Handlebars.SafeString(translatedStr);
+});
