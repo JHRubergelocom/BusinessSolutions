@@ -24,7 +24,10 @@ in "Zusatztest"  '!+WHERE objparent = 0' eintragen
 J-H.Ruberg@elo.com
  
 No-Reply@elo.com
+
+===============================================================================================================================================================================================
  
+Inhouse Support https://eloticksy.elo.com/servicedesk/customer/portals
 
 ===============================================================================================================================================================================================
  
@@ -840,6 +843,74 @@ folgende Test Cases habe ich nochmal überarbeitet, so dass sie theoretisch 1:1 
 https://eloticksy.elo.com/browse/QBSHR-50
 
 
+sol.hr.personnel.client.ribbon.btnCreateFile=Neuer Mitarbeiter
+sol.hr.form.personnelfile.personalData=Persönlich
+sol.hr.form.personnelfile.coverSheet=Überblick
+sol.hr.form.personnelfile.personnelData=Personal
+sol.hr.mask.personnelfile.department=Abteilung
+
+
+weitere Felder befüllen:
+
+Vorgesetzter					IX_GRP_HR_PERSONNEL_SUPERIOR		DYNKWL			"Verona Funk"
+Fachlich Verantwortlicher		IX_MAP_HR_PERSONNEL_MENTOR			DYNKWL			"Daniel Cooper"
+Stellenbezeichnung				IX_GRP_HR_PERSONNEL_JOBTITLE		DYNKWL			"Berater"
+Standort						IX_GRP_HR_PERSONNEL_LOCATION		DYNKWL			"Stuttgart"
+Sicherheitsstufe				IX_GRP_HR_PERSONNEL_SECURITYCLEARANCE		DYNKWL	"Keine"
+Organisation					IX_GRP_HR_PERSONNEL_COMPANY		DYNKWL				"Contelo AG"
+Bereich							IX_GRP_HR_PERSONNEL_DIVISION		DYNKWL			"Produktion"
+Abteilung						IX_GRP_HR_PERSONNEL_DEPARTMENT		DYNKWL			"Produktentwicklung"
+Team							IX_GRP_HR_PERSONNEL_TEAM		DYNKWL				"Techn. Dokumentation"
+
+
+sol.hr.form.personnelfile.timePhasesData=Ein-/ Austritt
+
+
+"Ein-/Austritt"
+
+weitere Felder befüllen:
+
+Arbeitsverhältnis				IX_MAP_DURATION_TYPE					RADIOBUTTON		"befristet"
+Eintrittsdatum					IX_GRP_HR_PERSONNEL_DATEOFJOINING   	TEXT			"01.02.2023"
+Kündigungsfrist					IX_MAP_HR_PERSONNEL_PERIODOFNOTICE  	TEXT            "4"
+Kündigung zum					IX_MAP_HR_PERSONNEL_PERIODOFNOTICE_UNIT	KWL "M - Monatsende"
+
+Probezeit						IX_MAP_HR_PERSONNEL_PROBATIONARYPERIODDURATION  TEXT "2"
+
+
+Ende der Probezeit				IX_MAP_HR_PERSONNEL_ENDOFPROBATIONARY   TEXT "08.02.2023"
+
+Kündigunsfrist (In Probezeit)	IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY  TEXT "2"
+								IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY_UNIT  KWL "d - Tage"
+
+Kündigung zum                   IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY_TP  KWL "w - Ende der Woche"
+
+
+
+
+TODO 
+
+Überprüfung Berechnung Frühestmögliches Datum:
+heute + 3 Monate > letzter Tag des Monats (? -> die korrekte Berechnung sollte theoretisch in einem Unittest abgedeckt sein)
+umsetzen
+
+
+
+<input type="text" size="30" id="INP153606" eloverify="date " name="IX_MAP_HR_PERSONNEL_NEXTPOSSIBLEDISMISSAL" accesskey="" readonly="" aria-labelledby="LBL_IX_MAP_HR_PERSONNEL_NEXTPOSSIBLEDISMISSAL" tabindex="-1" localdate="30.09.2023" isodate="20230930" savedtitle="Bei der Aussprache einer Kündigung am heutigen Tag (außerhalb der Probezeit) wäre das hier angezeigte Datum der fristgemäße letzte Arbeitstag des Mitarbeiters. Die Berechnung erfolgt anhand der in der Probezeit definierten Fristen." autovalidval="30.09.2023">
+
+
+
+Auf den aktuellen Eintrag im Repository die Metadaten mit F4 öffnen und auf den Reiter "Berechtigungen" navigieren
+
+
+
+"eloAclData": {
+    "arcPaths": [
+      "ARCPATH:/Administration/Business Solutions/_global/Action definitions/sol.hr.personnel.StartOnboarding"
+    ]
+  },
+
+
 
 
 https://eloticksy.elo.com/browse/QBSHR-51
@@ -847,9 +918,39 @@ https://eloticksy.elo.com/browse/QBSHR-51
 
 
 
+"entryPath": "Solutions/Personalmanagement/Personalakten/H/Hansen, Hans",
 
 
-===========================================================================================================================
+if (control.getValue().equals("#nowdate#")) {
+            Date nowDate = new Date();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
+            value = simpleDateFormat.format(nowDate);
+        }
+
+
+
+
+
+        // Ein-/ Austritt
+        initTabPage = new ArrayList<>();
+
+        controls = new ArrayList<>();
+        controls.add(new ELOControl("unbefristet", "true", ELOControlType.RADIO));
+        controls.add(new ELOControl("IX_GRP_HR_PERSONNEL_DATEOFJOINING", "01.04.2023", ELOControlType.TEXT));
+        controls.add(new ELOControl("IX_MAP_HR_PERSONNEL_PERIODOFNOTICE", "3", ELOControlType.TEXT));
+        controls.add(new ELOControl("IX_MAP_HR_PERSONNEL_PERIODOFNOTICE_UNIT", "Monate", ELOControlType.KWL));
+        controls.add(new ELOControl("IX_MAP_HR_PERSONNEL_PERIODOFNOTICE_TP", "Monatsende", ELOControlType.KWL));
+        controls.add(new ELOControl("IX_MAP_HR_PERSONNEL_PROBATIONARYPERIODDURATION", "6", ELOControlType.TEXT));
+        controls.add(new ELOControl("IX_MAP_HR_PERSONNEL_PROBATIONARYPERIODDURATION_UNIT", "Monate", ELOControlType.KWL));
+        controls.add(new ELOControl("IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY", "1", ELOControlType.TEXT));
+        controls.add(new ELOControl("IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY_UNIT", "Monate", ELOControlType.KWL));
+
+        tables = new ArrayList<>();
+        expectedValueControls = new ArrayList<>();
+
+        tabPage = new TabPage("Ein-/ Austritt", initTabPage, controls, tables, expectedValueControls);
+        tabPages.add(tabPage);
+
 
 ===========================================================================================================================
 

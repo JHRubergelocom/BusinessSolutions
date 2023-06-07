@@ -116,16 +116,33 @@
 		<fo:flow flow-name="xsl-region-body">
 			<fo:block-container width="17cm" margin-top="3mm" text-align="left">
 			{{#ifCond @first '&&' @last}}
-				<fo:block font-size="14pt" font-weight="bold" margin-top="14pt" margin-bottom="14pt" color="#004072">{{translate "sol.meeting_premium.document.agenda" ../settings.mapKeys.CURRENT_LANGUAGE}}</fo:block>
+				<fo:block font-size="14pt" text-align="center" font-weight="bold" margin-top="14pt" margin-bottom="14pt" color="#004072">{{translate "sol.meeting_premium.document.agenda" ../settings.mapKeys.CURRENT_LANGUAGE}}</fo:block>
+				<fo:block font-size="12pt" text-align="center" margin-top="3pt">{{../meeting.objKeys.MEETING_NAME}}</fo:block>
+				<fo:block font-size="12pt" text-align="center" font-weight="bold" margin-top="3pt">{{../meeting.mapKeys.MEETING_WEEKDAY1}} {{formatDate 'DD.MM.YYYY' ../meeting.objKeys.MEETING_STARTDATE}}, {{begin}} - {{end}} Uhr</fo:block>
+				<fo:block font-size="12pt" text-align="center" margin-top="3pt">{{../meeting.objKeys.MEETING_LOCATION}}, {{../meeting.objKeys.MEETING_ROOM}}</fo:block>
 			{{else}}
-				<fo:block font-size="14pt" font-weight="bold" margin-top="14pt" margin-bottom="14pt" color="#004072">{{translate "sol.meeting_premium.document.agenda" ../settings.mapKeys.CURRENT_LANGUAGE}} [{{translate "sol.meeting_premium.document.day" ../settings.mapKeys.CURRENT_LANGUAGE}} {{@key}} / {{formatDate 'DD.MM.YYYY' date}}]</fo:block>
+				<fo:block font-size="14pt" text-align="center" font-weight="bold" margin-top="14pt" margin-bottom="14pt" color="#004072">{{translate "sol.meeting_premium.document.agenda" ../settings.mapKeys.CURRENT_LANGUAGE}} [{{translate "sol.meeting_premium.document.day" ../settings.mapKeys.CURRENT_LANGUAGE}} {{@key}} / {{formatDate 'DD.MM.YYYY' date}}]</fo:block>
+				<fo:block font-size="12pt" text-align="center" margin-top="3pt">{{../meeting.objKeys.MEETING_NAME}}</fo:block>
+				<fo:block font-size="12pt" text-align="center" font-weight="bold" margin-top="3pt">{{formatDate 'DD.MM.YYYY' date}}, {{begin}} - {{end}} Uhr</fo:block>
+				<fo:block font-size="12pt" text-align="center" margin-top="3pt">{{../meeting.objKeys.MEETING_LOCATION}}, {{../meeting.objKeys.MEETING_ROOM}}</fo:block>
+
 			{{/ifCond}}
 			{{#each items}}
 				{{#ifCond objKeys.SOL_TYPE '==' 'MEETING_ITEM'}}
-				<fo:block font-size="12pt" margin-top="3pt" margin-left="0pt">{{padLeft objKeys.MEETING_ITEM_OUTLINENUMBER "0"}}. {{objKeys.MEETING_ITEM_TITLE}} ({{objKeys.MEETING_ITEM_START}})</fo:block>
+				<fo:block font-size="12pt" font-weight="bold" margin-top="3pt" margin-left="0pt">{{objKeys.MEETING_ITEM_START}} Uhr</fo:block>
+
+				<fo:block font-size="12pt" font-weight="bold" margin-top="0pt" margin-left="0pt">
+					 <fo:basic-link internal-destination="{{@../key}}{{padLeft objKeys.MEETING_ITEM_OUTLINENUMBER "0"}}">
+				   TOP {{padLeft objKeys.MEETING_ITEM_OUTLINENUMBER "0"}} &#160;&#160;&#160;&#160;&#160;{{objKeys.MEETING_ITEM_TITLE}}
+           </fo:basic-link>
+				</fo:block>
+
+				<fo:block font-size="12pt" margin-top="0pt" margin-left="0pt">Gast: &#160;&#160;&#160;&#160;&#160;{{#if objKeys.MEETING_ITEM_SPEAKER}}{{objKeys.MEETING_ITEM_SPEAKER}}{{else}}<fo:inline font-style="italic">{{translate "sol.meeting_premium.document.notDefined" ../../settings.mapKeys.CURRENT_LANGUAGE}}</fo:inline>{{/if}}</fo:block>
+				<fo:block font-size="12pt" margin-top="0pt" margin-left="0pt">&#160;&#160;&#160;&#160;&#160;</fo:block>
 					{{/ifCond}}
 					{{#ifCond objKeys.SOL_TYPE '==' 'MEETING_ITEM_CONTAINER'}}
-				<fo:block font-size="12pt" margin-top="3pt" margin-left="0pt">{{padLeft objKeys.MEETING_ITEM_OUTLINENUMBER "0"}}. {{objKeys.MEETING_ITEM_TITLE}}</fo:block>
+				<fo:block font-size="12pt" font-weight="bold" margin-top="3pt" margin-left="0pt">TOP {{padLeft objKeys.MEETING_ITEM_OUTLINENUMBER "0"}} &#160;&#160;&#160;&#160;&#160;{{objKeys.MEETING_ITEM_TITLE}}</fo:block>
+				<fo:block font-size="12pt" margin-top="0pt" margin-left="0pt">&#160;&#160;&#160;&#160;&#160;</fo:block>
 					{{/ifCond}}
 				{{/each}}
 			</fo:block-container>
@@ -191,7 +208,7 @@
 	<fo:page-sequence master-reference="Layout">
 		<fo:flow flow-name="xsl-region-body">
 			<fo:block-container width="17cm" margin-top="3mm" text-align="left">
-				<fo:block font-size="14pt" color="#004072" margin-bottom="14pt" font-weight="bold">{{padLeft objKeys.MEETING_ITEM_OUTLINENUMBER "0"}}. {{objKeys.MEETING_ITEM_TITLE}}</fo:block>
+				<fo:block id="{{@../key}}{{padLeft objKeys.MEETING_ITEM_OUTLINENUMBER "0"}}" font-size="14pt" color="#004072" margin-bottom="14pt" font-weight="bold">{{padLeft objKeys.MEETING_ITEM_OUTLINENUMBER "0"}}. {{objKeys.MEETING_ITEM_TITLE}}</fo:block>
 				<fo:block font-size="12pt" color="#004072" margin-top="3pt">{{translate "sol.meeting_premium.document.duration" ../../settings.mapKeys.CURRENT_LANGUAGE}}: {{objKeys.MEETING_ITEM_START}} - {{objKeys.MEETING_ITEM_END}} ({{objKeys.MEETING_ITEM_DURATION}} min)</fo:block>
 				<fo:block font-size="12pt" color="#004072" margin-top="3pt">{{translate "sol.meeting_premium.document.speaker" ../../settings.mapKeys.CURRENT_LANGUAGE}}: {{#if objKeys.MEETING_ITEM_SPEAKER}}{{objKeys.MEETING_ITEM_SPEAKER}}{{else}}<fo:inline font-style="italic">{{translate "sol.meeting_premium.document.notDefined" ../../settings.mapKeys.CURRENT_LANGUAGE}}</fo:inline>{{/if}}</fo:block>
 				{{#if desc}}{{htmlToFo desc}}{{/if}}
