@@ -92,7 +92,8 @@
                 "type": "DYNKWL",
                 "operator": "EQUAL"
               }
-            ]
+            ],
+            "selectDocumentDialogs": []
           },
           {
             "tabName": "Themen",
@@ -140,7 +141,8 @@
                 ]
               }
             ],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           },
           {
             "tabName": "Benachrichtigungen",
@@ -218,7 +220,8 @@
                 ]
               }
             ],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           },
           {
             "tabName": "Einstellungen",
@@ -243,12 +246,14 @@
                 "type": "CHECKBOX",
                 "operator": "EQUAL"
               }
-            ]
+            ],
+            "selectDocumentDialogs": []
           }
-        ]
+        ],
+        "testShouldFail": false
       },
       {
-        "entryPath": "",
+        "entryPath": "Solutions/Administrator",
         "formulaType": "EXTERNAL",
         "formulaSaveButton": "OK",
         "formulaCancelButton": "Abbrechen",
@@ -329,7 +334,8 @@
                 "type": "REDACTOR",
                 "operator": "EQUAL"
               }
-            ]
+            ],
+            "selectDocumentDialogs": []
           },
           {
             "tabName": "Teilnehmende",
@@ -365,7 +371,8 @@
                 ]
               }
             ],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           },
           {
             "tabName": "Benachrichtigungen",
@@ -443,12 +450,14 @@
                 ]
               }
             ],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           }
-        ]
+        ],
+        "testShouldFail": false
       },
       {
-        "entryPath": "",
+        "entryPath": "Solutions/Administrator",
         "formulaType": "EXTERNAL",
         "formulaSaveButton": "OK",
         "formulaCancelButton": "Abbrechen",
@@ -550,9 +559,11 @@
                 "type": "REDACTOR",
                 "operator": "EQUAL"
               }
-            ]
+            ],
+            "selectDocumentDialogs": []
           }
-        ]
+        ],
+        "testShouldFail": false
       }
     ]
   },

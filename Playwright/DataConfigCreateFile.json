@@ -54,12 +54,14 @@
               }
             ],
             "tables": [],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           }
-        ]
+        ],
+        "testShouldFail": false
       },
       {
-        "entryPath": "Solutions/Personalmanagement/Personalakten/H/Hansen, Hans",
+        "entryPath": "",
         "formulaType": "VIEWER",
         "formulaSaveButton": "Speichern",
         "formulaCancelButton": "",
@@ -88,12 +90,14 @@
                 "type": "TEXT",
                 "operator": "EXIST"
               }
-            ]
+            ],
+            "selectDocumentDialogs": []
           }
-        ]
+        ],
+        "testShouldFail": false
       },
       {
-        "entryPath": "Solutions/Personalmanagement/Personalakten/H/Hansen, Hans",
+        "entryPath": "",
         "formulaType": "VIEWER",
         "formulaSaveButton": "Speichern",
         "formulaCancelButton": "",
@@ -120,7 +124,8 @@
               }
             ],
             "tables": [],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           },
           {
             "tabName": "Persönlich",
@@ -133,9 +138,11 @@
               }
             ],
             "tables": [],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           }
-        ]
+        ],
+        "testShouldFail": false
       }
     ]
   },

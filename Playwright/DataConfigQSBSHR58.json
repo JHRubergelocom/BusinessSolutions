@@ -2,7 +2,7 @@
   "loginData": {
     "textUserName": {
       "selector": "Name",
-      "value": "Gerd Baum",
+      "value": "Ute Schenk",
       "type": "TEXT"
     },
     "textPassword": {
@@ -19,7 +19,7 @@
   },
   "eloAclData": {
     "arcPaths": [
-      "ARCPATH:/Administration/Business Solutions/_global/Action definitions/sol.hr.personnel.StartOnboarding"
+      "ARCPATH:/Personalmanagement/Personalakten/H/Hansen, Hans"
     ]
   },
   "eloSolutionArchiveData": {
@@ -37,7 +37,30 @@
         "eloActionDef": {
           "selectorRibbon": "Personal",
           "selectorMenu": "Personal",
-          "selectorButton": "Eintrittsprozess"
+          "selectorButton": "Nachricht"
+        },
+        "tabPages": [
+          {
+            "tabName": "",
+            "initTabPage": [],
+            "controls": [],
+            "tables": [],
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
+          }
+        ],
+        "testShouldFail": true
+      },
+      {
+        "entryPath": "",
+        "formulaType": "EXTERNAL",
+        "formulaSaveButton": "OK",
+        "formulaCancelButton": "Abbrechen",
+        "selectionDialogItem": "",
+        "eloActionDef": {
+          "selectorRibbon": "Personal",
+          "selectorMenu": "Personal",
+          "selectorButton": "Nachricht"
         },
         "tabPages": [
           {
@@ -45,44 +68,34 @@
             "initTabPage": [],
             "controls": [
               {
-                "selector": "IX_GRP_HR_PERSONNEL_SUPERIOR",
-                "value": "Gerd Baum",
-                "type": "DYNKWL"
-              },
-              {
-                "selector": "IX_GRP_HR_PERSONNEL_JOBTITLE",
-                "value": "Consultant",
+                "selector": "IX_MAP_HR_PERSONNEL_SENDER",
+                "value": "test-business-solutions@elo.local",
                 "type": "TEXT"
               },
               {
-                "selector": "IX_GRP_HR_PERSONNEL_COMPANY",
-                "value": "Contelo AG",
+                "selector": "IX_MAP_CORRESPONDENT_RECIPIENT_NAME_1",
+                "value": "test-business-solutions@elo.local",
                 "type": "TEXT"
               },
               {
-                "selector": "IX_GRP_HR_PERSONNEL_DIVISION",
-                "value": "Projekte \u0026 Services",
+                "selector": "IX_GRP_COMMUNICATION_SUBJECT",
+                "value": "Geschäftsnachricht",
                 "type": "TEXT"
               },
               {
-                "selector": "IX_GRP_HR_PERSONNEL_DEPARTMENT",
-                "value": "Consulting",
-                "type": "TEXT"
-              },
-              {
-                "selector": "IX_GRP_HR_PERSONNEL_TEAM",
-                "value": "",
-                "type": "TEXT"
-              },
-              {
-                "selector": "IX_GRP_HR_PERSONNEL_DATEOFJOINING",
-                "value": "#nowdate#",
-                "type": "TEXT"
+                "selector": "",
+                "value": "Inhalt Geschäftsnachricht",
+                "type": "REDACTOR"
               }
             ],
             "tables": [],
             "checkValueControls": [],
-            "selectDocumentDialogs": []
+            "selectDocumentDialogs": [
+              {
+                "startButton": "Anhang hinzufügen",
+                "documentPath": "Solutions/PDF Export/bob ipsum PDF"
+              }
+            ]
           }
         ],
         "testShouldFail": false
@@ -93,17 +106,9 @@
     "arcPaths": []
   },
   "eloForwardWorkflow": {
-    "toNodesName": [
-      "sol.common.wf.node.ok",
-      "sol.common.wf.node.approve"
-    ]
+    "toNodesName": []
   },
   "eloExecuteRf": {
-    "eloRfs": [
-      {
-        "funcName": "RF_sol_common_service_ExecuteAsAction",
-        "jsonParam": "{ \"action\": \"sol.hr.PersonnelFileReminder\", \"config\": {} }"
-      }
-    ]
+    "eloRfs": []
   }
 }

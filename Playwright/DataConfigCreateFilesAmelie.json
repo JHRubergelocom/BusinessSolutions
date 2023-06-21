@@ -59,12 +59,14 @@
               }
             ],
             "tables": [],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           }
-        ]
+        ],
+        "testShouldFail": false
       },
       {
-        "entryPath": "Solutions/Personalmanagement/Personalakten/L/Leutheusser-Schnarrenberger, Geneviève-Gabrielle",
+        "entryPath": "",
         "formulaType": "VIEWER",
         "formulaSaveButton": "Speichern",
         "formulaCancelButton": "",
@@ -181,7 +183,8 @@
               }
             ],
             "tables": [],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           },
           {
             "tabName": "Personal",
@@ -244,7 +247,8 @@
               }
             ],
             "tables": [],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           },
           {
             "tabName": "Ein-/ Austritt",
@@ -297,12 +301,14 @@
               }
             ],
             "tables": [],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           }
-        ]
+        ],
+        "testShouldFail": false
       },
       {
-        "entryPath": "",
+        "entryPath": "Solutions/Personalakten",
         "formulaType": "EXTERNAL",
         "formulaSaveButton": "OK",
         "formulaCancelButton": "Abbrechen",
@@ -334,12 +340,14 @@
               }
             ],
             "tables": [],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           }
-        ]
+        ],
+        "testShouldFail": false
       },
       {
-        "entryPath": "Solutions/Personalmanagement/Personalakten/B/Buhl, Karl-Theodor Maria Nikolaus Johann Jacob Philipp Franz Joseph",
+        "entryPath": "",
         "formulaType": "VIEWER",
         "formulaSaveButton": "Speichern",
         "formulaCancelButton": "",
@@ -376,12 +384,14 @@
               }
             ],
             "tables": [],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           }
-        ]
+        ],
+        "testShouldFail": false
       },
       {
-        "entryPath": "",
+        "entryPath": "Solutions/Personalakten",
         "formulaType": "EXTERNAL",
         "formulaSaveButton": "OK",
         "formulaCancelButton": "Abbrechen",
@@ -413,12 +423,14 @@
               }
             ],
             "tables": [],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           }
-        ]
+        ],
+        "testShouldFail": false
       },
       {
-        "entryPath": "Solutions/Personalmanagement/Personalakten/B/Bärenfänger, Adoración",
+        "entryPath": "",
         "formulaType": "VIEWER",
         "formulaSaveButton": "Speichern",
         "formulaCancelButton": "",
@@ -455,12 +467,14 @@
               }
             ],
             "tables": [],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           }
-        ]
+        ],
+        "testShouldFail": false
       },
       {
-        "entryPath": "",
+        "entryPath": "Solutions/Personalakten",
         "formulaType": "EXTERNAL",
         "formulaSaveButton": "OK",
         "formulaCancelButton": "Abbrechen",
@@ -492,12 +506,14 @@
               }
             ],
             "tables": [],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           }
-        ]
+        ],
+        "testShouldFail": false
       },
       {
-        "entryPath": "Solutions/Personalmanagement/Personalakten/M/Montaña Lucena, Françoise Andrés Evaristo",
+        "entryPath": "",
         "formulaType": "VIEWER",
         "formulaSaveButton": "Speichern",
         "formulaCancelButton": "",
@@ -534,12 +550,14 @@
               }
             ],
             "tables": [],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           }
-        ]
+        ],
+        "testShouldFail": false
       },
       {
-        "entryPath": "",
+        "entryPath": "Solutions/Personalakten",
         "formulaType": "EXTERNAL",
         "formulaSaveButton": "OK",
         "formulaCancelButton": "Abbrechen",
@@ -571,12 +589,14 @@
               }
             ],
             "tables": [],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           }
-        ]
+        ],
+        "testShouldFail": false
       },
       {
-        "entryPath": "Solutions/Personalmanagement/Personalakten/S/Stephan, Annaëlle",
+        "entryPath": "",
         "formulaType": "VIEWER",
         "formulaSaveButton": "Speichern",
         "formulaCancelButton": "",
@@ -608,12 +628,14 @@
               }
             ],
             "tables": [],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           }
-        ]
+        ],
+        "testShouldFail": false
       },
       {
-        "entryPath": "",
+        "entryPath": "Solutions/Personalakten",
         "formulaType": "EXTERNAL",
         "formulaSaveButton": "OK",
         "formulaCancelButton": "Abbrechen",
@@ -645,12 +667,14 @@
               }
             ],
             "tables": [],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           }
-        ]
+        ],
+        "testShouldFail": false
       },
       {
-        "entryPath": "Solutions/Personalmanagement/Personalakten/Ç/Çamurcuoğlu, Sançar Ömür",
+        "entryPath": "",
         "formulaType": "VIEWER",
         "formulaSaveButton": "Speichern",
         "formulaCancelButton": "",
@@ -687,9 +711,11 @@
               }
             ],
             "tables": [],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           }
-        ]
+        ],
+        "testShouldFail": false
       }
     ]
   },

@@ -122,39 +122,14 @@
                 "type": "TEXT",
                 "operator": "EQUAL"
               }
-            ]
+            ],
+            "selectDocumentDialogs": []
           }
-        ]
+        ],
+        "testShouldFail": false
       },
       {
         "entryPath": "",
-        "formulaType": "EXTERNAL",
-        "formulaSaveButton": "OK",
-        "formulaCancelButton": "Abbrechen",
-        "selectionDialogItem": "",
-        "eloActionDef": {
-          "selectorRibbon": "Neu",
-          "selectorMenu": "Personal",
-          "selectorButton": "Neue Organisation"
-        },
-        "tabPages": [
-          {
-            "tabName": "",
-            "initTabPage": [],
-            "controls": [
-              {
-                "selector": "IX_GRP_HR_PERSONNEL_COMPANY",
-                "value": "Firma Hansens",
-                "type": "TEXT"
-              }
-            ],
-            "tables": [],
-            "checkValueControls": []
-          }
-        ]
-      },
-      {
-        "entryPath": "Solutions/Personalmanagement/Personalakten/H/Hansen, Hans",
         "formulaType": "VIEWER",
         "formulaSaveButton": "Speichern",
         "formulaCancelButton": "",
@@ -277,7 +252,8 @@
                 "type": "KWL",
                 "operator": "EQUAL"
               }
-            ]
+            ],
+            "selectDocumentDialogs": []
           },
           {
             "tabName": "Ein-/ Austritt",
@@ -297,12 +273,43 @@
                 "type": "RADIO",
                 "operator": "EQUAL"
               }
-            ]
+            ],
+            "selectDocumentDialogs": []
           }
-        ]
+        ],
+        "testShouldFail": false
       },
       {
-        "entryPath": "Solutions/Administrator/Firma Hansens",
+        "entryPath": "Solutions/Administrator",
+        "formulaType": "EXTERNAL",
+        "formulaSaveButton": "OK",
+        "formulaCancelButton": "Abbrechen",
+        "selectionDialogItem": "",
+        "eloActionDef": {
+          "selectorRibbon": "Neu",
+          "selectorMenu": "Personal",
+          "selectorButton": "Neue Organisation"
+        },
+        "tabPages": [
+          {
+            "tabName": "",
+            "initTabPage": [],
+            "controls": [
+              {
+                "selector": "IX_GRP_HR_PERSONNEL_COMPANY",
+                "value": "Firma Hansens",
+                "type": "TEXT"
+              }
+            ],
+            "tables": [],
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
+          }
+        ],
+        "testShouldFail": false
+      },
+      {
+        "entryPath": "",
         "formulaType": "EXTERNAL",
         "formulaSaveButton": "OK",
         "formulaCancelButton": "Abbrechen",
@@ -329,12 +336,14 @@
               }
             ],
             "tables": [],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           }
-        ]
+        ],
+        "testShouldFail": false
       },
       {
-        "entryPath": "Solutions/Administrator/Firma Hansens",
+        "entryPath": "",
         "formulaType": "EXTERNAL",
         "formulaSaveButton": "OK",
         "formulaCancelButton": "Abbrechen",
@@ -361,12 +370,14 @@
               }
             ],
             "tables": [],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           }
-        ]
+        ],
+        "testShouldFail": false
       },
       {
-        "entryPath": "Solutions/Administrator/Firma Hansens",
+        "entryPath": "",
         "formulaType": "EXTERNAL",
         "formulaSaveButton": "OK",
         "formulaCancelButton": "Abbrechen",
@@ -393,9 +404,11 @@
               }
             ],
             "tables": [],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           }
-        ]
+        ],
+        "testShouldFail": false
       }
     ]
   },

@@ -50,9 +50,11 @@
                 "type": "KWL",
                 "operator": "EQUAL"
               }
-            ]
+            ],
+            "selectDocumentDialogs": []
           }
-        ]
+        ],
+        "testShouldFail": false
       }
     ]
   },

@@ -641,7 +641,7 @@ elo-sol prepare -stack ruberg-teamroom -workspace jan -version 20.00
 
 meeting
 
-elo-sol prepare -stack ruberg-meeting -workspace premium-groupware -version 20.00
+e
 
 
 
@@ -822,134 +822,104 @@ C:\Users\ruberg\.ssh\Testkey.ppk
 
 ===========================================================================================================================
 
-TODO 24.05.2023 (BS Sprint 69)
 
-BS Intern BSXX-461 Testautomatisierung mit Playwright
-
-https://eloticksy.elo.com/browse/BSXX-461
-
-Ideen für Erweiterungen automatisierte Tests
-
-    Testfälle HR Personalakte erstellen
-
-QS BS HR Personnel File
+TODO 20.06.2023
 
 
+BS Intern BSXX-471 Testautomatisierung mit Playwright
 
-Hallo Jan, 
-
-folgende Test Cases habe ich nochmal überarbeitet, so dass sie theoretisch 1:1 automatisiert abzubilden sein sollten. Versuch das mal bitte. Ich bin gespannt, ob das klappt. 
-
-https://eloticksy.elo.com/browse/QBSHR-50
+https://eloticksy.elo.com/browse/BSXX-471
 
 
-sol.hr.personnel.client.ribbon.btnCreateFile=Neuer Mitarbeiter
-sol.hr.form.personnelfile.personalData=Persönlich
-sol.hr.form.personnelfile.coverSheet=Überblick
-sol.hr.form.personnelfile.personnelData=Personal
-sol.hr.mask.personnelfile.department=Abteilung
+Testautomatisierung mit Playwright
 
+deen für Erweiterungen automatisierte Tests
 
-weitere Felder befüllen:
-
-Vorgesetzter					IX_GRP_HR_PERSONNEL_SUPERIOR		DYNKWL			"Verona Funk"
-Fachlich Verantwortlicher		IX_MAP_HR_PERSONNEL_MENTOR			DYNKWL			"Daniel Cooper"
-Stellenbezeichnung				IX_GRP_HR_PERSONNEL_JOBTITLE		DYNKWL			"Berater"
-Standort						IX_GRP_HR_PERSONNEL_LOCATION		DYNKWL			"Stuttgart"
-Sicherheitsstufe				IX_GRP_HR_PERSONNEL_SECURITYCLEARANCE		DYNKWL	"Keine"
-Organisation					IX_GRP_HR_PERSONNEL_COMPANY		DYNKWL				"Contelo AG"
-Bereich							IX_GRP_HR_PERSONNEL_DIVISION		DYNKWL			"Produktion"
-Abteilung						IX_GRP_HR_PERSONNEL_DEPARTMENT		DYNKWL			"Produktentwicklung"
-Team							IX_GRP_HR_PERSONNEL_TEAM		DYNKWL				"Techn. Dokumentation"
-
-
-sol.hr.form.personnelfile.timePhasesData=Ein-/ Austritt
-
-
-"Ein-/Austritt"
-
-weitere Felder befüllen:
-
-Arbeitsverhältnis				IX_MAP_DURATION_TYPE					RADIOBUTTON		"befristet"
-Eintrittsdatum					IX_GRP_HR_PERSONNEL_DATEOFJOINING   	TEXT			"01.02.2023"
-Kündigungsfrist					IX_MAP_HR_PERSONNEL_PERIODOFNOTICE  	TEXT            "4"
-Kündigung zum					IX_MAP_HR_PERSONNEL_PERIODOFNOTICE_UNIT	KWL "M - Monatsende"
-
-Probezeit						IX_MAP_HR_PERSONNEL_PROBATIONARYPERIODDURATION  TEXT "2"
-
-
-Ende der Probezeit				IX_MAP_HR_PERSONNEL_ENDOFPROBATIONARY   TEXT "08.02.2023"
-
-Kündigunsfrist (In Probezeit)	IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY  TEXT "2"
-								IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY_UNIT  KWL "d - Tage"
-
-Kündigung zum                   IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY_TP  KWL "w - Ende der Woche"
-
-
-
-
-TODO 
-
-Überprüfung Berechnung Frühestmögliches Datum:
-heute + 3 Monate > letzter Tag des Monats (? -> die korrekte Berechnung sollte theoretisch in einem Unittest abgedeckt sein)
-umsetzen
-
-
-
-<input type="text" size="30" id="INP153606" eloverify="date " name="IX_MAP_HR_PERSONNEL_NEXTPOSSIBLEDISMISSAL" accesskey="" readonly="" aria-labelledby="LBL_IX_MAP_HR_PERSONNEL_NEXTPOSSIBLEDISMISSAL" tabindex="-1" localdate="30.09.2023" isodate="20230930" savedtitle="Bei der Aussprache einer Kündigung am heutigen Tag (außerhalb der Probezeit) wäre das hier angezeigte Datum der fristgemäße letzte Arbeitstag des Mitarbeiters. Die Berechnung erfolgt anhand der in der Probezeit definierten Fristen." autovalidval="30.09.2023">
-
-
-
-Auf den aktuellen Eintrag im Repository die Metadaten mit F4 öffnen und auf den Reiter "Berechtigungen" navigieren
-
-
-
-"eloAclData": {
-    "arcPaths": [
-      "ARCPATH:/Administration/Business Solutions/_global/Action definitions/sol.hr.personnel.StartOnboarding"
-    ]
-  },
-
-
-
-
-https://eloticksy.elo.com/browse/QBSHR-51
-
-
-
-
-"entryPath": "Solutions/Personalmanagement/Personalakten/H/Hansen, Hans",
-
-
-if (control.getValue().equals("#nowdate#")) {
-            Date nowDate = new Date();
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
-            value = simpleDateFormat.format(nowDate);
-        }
+    Testfälle für QS BS HR Personnel File erstellen
+     https://eloticksy.elo.com/browse/QBSHR-52	"aut. Eintrittsprozess starten"
+     https://eloticksy.elo.com/browse/QBSHR-54	"aut. Eintrittsprozess: Stammdaten vervollständigen"
+     https://eloticksy.elo.com/browse/QBSHR-56	"aut. Eintrittsprozess: Stammdaten kontrollieren"
+     Einarbeiten XRay und Zusammenspiel mit Playwright untersuchen
 
 
 
 
 
-        // Ein-/ Austritt
-        initTabPage = new ArrayList<>();
 
-        controls = new ArrayList<>();
-        controls.add(new ELOControl("unbefristet", "true", ELOControlType.RADIO));
-        controls.add(new ELOControl("IX_GRP_HR_PERSONNEL_DATEOFJOINING", "01.04.2023", ELOControlType.TEXT));
-        controls.add(new ELOControl("IX_MAP_HR_PERSONNEL_PERIODOFNOTICE", "3", ELOControlType.TEXT));
-        controls.add(new ELOControl("IX_MAP_HR_PERSONNEL_PERIODOFNOTICE_UNIT", "Monate", ELOControlType.KWL));
-        controls.add(new ELOControl("IX_MAP_HR_PERSONNEL_PERIODOFNOTICE_TP", "Monatsende", ELOControlType.KWL));
-        controls.add(new ELOControl("IX_MAP_HR_PERSONNEL_PROBATIONARYPERIODDURATION", "6", ELOControlType.TEXT));
-        controls.add(new ELOControl("IX_MAP_HR_PERSONNEL_PROBATIONARYPERIODDURATION_UNIT", "Monate", ELOControlType.KWL));
-        controls.add(new ELOControl("IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY", "1", ELOControlType.TEXT));
-        controls.add(new ELOControl("IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY_UNIT", "Monate", ELOControlType.KWL));
 
-        tables = new ArrayList<>();
-        expectedValueControls = new ArrayList<>();
+Playwright mit XRay kombinieren Idee untersuchen !!
 
-        tabPage = new TabPage("Ein-/ Austritt", initTabPage, controls, tables, expectedValueControls);
-        tabPages.add(tabPage);
+
+https://www.atlassian.com/de/devops/testing-tutorials/jira-xray-integration-manage-test-cases
+
+
+https://docs.getxray.app/display/XRAY/Testing+web+applications+using+Playwright#
+
+
+https://academy.getxray.app/
+
+
+
+
+https://eloticksy.elo.com/browse/QBSHR-54  "aut. Eintrittsprozess: Stammdaten vervollständigen"
+
+sol.hr.personnel.wf.user.startonboarding.employeeentrysuperior=Stammdaten vervollständigen
+
+import com.microsoft.playwright.*;
+import com.microsoft.playwright.options.*;
+import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
+import java.util.*;
+
+public class Example {
+  public static void main(String[] args) {
+    try (Playwright playwright = Playwright.create()) {
+      Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions()
+        .setHeadless(false));
+      BrowserContext context = browser.newContext();
+      page.getByText("Stammdaten vervollständigen").click();
+      page.locator("#button-1642").click();
+      page.frameLocator("#IFramePanelIFrame-FormularViewer30-160-1687179165391").locator("input[name=\"IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY\"]").click();
+      page.frameLocator("#IFramePanelIFrame-FormularViewer30-160-1687179165391").locator("input[name=\"IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY\"]").fill("2");
+      page.frameLocator("#IFramePanelIFrame-FormularViewer30-160-1687179165391").getByRole(AriaRole.BUTTON, new FrameLocator.GetByRoleOptions().setName("OK")).click();
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+https://eloticksy.elo.com/browse/QBSHR-56  "aut. Eintrittsprozess: Stammdaten kontrollieren"
+
+sol.hr.personnel.wf.user.startonboarding.employeeentrypersonnel=Stammdaten kontrollieren
+
+
+import com.microsoft.playwright.*;
+import com.microsoft.playwright.options.*;
+import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
+import java.util.*;
+
+public class Example {
+  public static void main(String[] args) {
+    try (Playwright playwright = Playwright.create()) {
+      Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions()
+        .setHeadless(false));
+      BrowserContext context = browser.newContext();
+      page.locator("#button-1212").click();
+      page.locator("#button-1217").click();
+      page.locator("#ext-comp-1434").click();
+      page.frameLocator("#IFramePanelIFrame-FormularViewer15-160-1687182433908").locator("input[name=\"IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY\"]").click();
+      page.frameLocator("#IFramePanelIFrame-FormularViewer15-160-1687182433908").locator("input[name=\"IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY\"]").fill("1");
+      page.frameLocator("#IFramePanelIFrame-FormularViewer15-160-1687182433908").getByRole(AriaRole.BUTTON, new FrameLocator.GetByRoleOptions().setName("Freigeben")).click();
+    }
+  }
+}
+
+
 
 
 ===========================================================================================================================
@@ -1134,5 +1104,18 @@ RF_sol_unittest_service_ExecuteLib
 	"method": "apply",
 	"params": []
 }
+
+
+=====================================================================================================================================================================
+
+
+
+QS BS HR Personnel File QBSHR-19
+QS BS HR Personnel File QBSHR-20
+
+
+
+=====================================================================================================================================================================
+
 
 

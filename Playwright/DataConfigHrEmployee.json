@@ -122,12 +122,14 @@
                 "type": "TEXT",
                 "operator": "EQUAL"
               }
-            ]
+            ],
+            "selectDocumentDialogs": []
           }
-        ]
+        ],
+        "testShouldFail": false
       },
       {
-        "entryPath": "Solutions/Personalmanagement/Personalakten/H/Hansen, Hans",
+        "entryPath": "",
         "formulaType": "VIEWER",
         "formulaSaveButton": "Speichern",
         "formulaCancelButton": "",
@@ -250,7 +252,8 @@
                 "type": "KWL",
                 "operator": "EQUAL"
               }
-            ]
+            ],
+            "selectDocumentDialogs": []
           },
           {
             "tabName": "Ein-/ Austritt",
@@ -270,9 +273,11 @@
                 "type": "RADIO",
                 "operator": "EQUAL"
               }
-            ]
+            ],
+            "selectDocumentDialogs": []
           }
-        ]
+        ],
+        "testShouldFail": false
       }
     ]
   },

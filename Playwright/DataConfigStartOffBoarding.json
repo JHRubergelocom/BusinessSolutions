@@ -59,12 +59,14 @@
               }
             ],
             "tables": [],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           }
-        ]
+        ],
+        "testShouldFail": false
       },
       {
-        "entryPath": "Solutions/Personalmanagement/Personalakten/H/Hansen, Hans",
+        "entryPath": "",
         "formulaType": "VIEWER",
         "formulaSaveButton": "Speichern",
         "formulaCancelButton": "",
@@ -87,9 +89,11 @@
                 "type": "KWL",
                 "operator": "EQUAL"
               }
-            ]
+            ],
+            "selectDocumentDialogs": []
           }
-        ]
+        ],
+        "testShouldFail": false
       }
     ]
   },

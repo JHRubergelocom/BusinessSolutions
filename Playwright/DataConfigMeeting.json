@@ -92,7 +92,8 @@
                 "type": "DYNKWL",
                 "operator": "EQUAL"
               }
-            ]
+            ],
+            "selectDocumentDialogs": []
           },
           {
             "tabName": "Themen",
@@ -140,7 +141,8 @@
                 ]
               }
             ],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           },
           {
             "tabName": "Benachrichtigungen",
@@ -218,7 +220,8 @@
                 ]
               }
             ],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           },
           {
             "tabName": "Einstellungen",
@@ -243,12 +246,14 @@
                 "type": "CHECKBOX",
                 "operator": "EQUAL"
               }
-            ]
+            ],
+            "selectDocumentDialogs": []
           }
-        ]
+        ],
+        "testShouldFail": false
       },
       {
-        "entryPath": "",
+        "entryPath": "Solutions/Administrator",
         "formulaType": "EXTERNAL",
         "formulaSaveButton": "OK",
         "formulaCancelButton": "Abbrechen",
@@ -329,7 +334,8 @@
                 "type": "REDACTOR",
                 "operator": "EQUAL"
               }
-            ]
+            ],
+            "selectDocumentDialogs": []
           },
           {
             "tabName": "Teilnehmende",
@@ -365,7 +371,8 @@
                 ]
               }
             ],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           },
           {
             "tabName": "Benachrichtigungen",
@@ -443,12 +450,14 @@
                 ]
               }
             ],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           }
-        ]
+        ],
+        "testShouldFail": false
       },
       {
-        "entryPath": "",
+        "entryPath": "Solutions/Administrator",
         "formulaType": "EXTERNAL",
         "formulaSaveButton": "OK",
         "formulaCancelButton": "Abbrechen",
@@ -550,9 +559,11 @@
                 "type": "REDACTOR",
                 "operator": "EQUAL"
               }
-            ]
+            ],
+            "selectDocumentDialogs": []
           }
-        ]
+        ],
+        "testShouldFail": false
       },
       {
         "entryPath": "",
@@ -613,7 +624,8 @@
                 ]
               }
             ],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           },
           {
             "tabName": "Tagesordnungspunkte",
@@ -661,7 +673,8 @@
                 ]
               }
             ],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           },
           {
             "tabName": "Benachrichtigungen",
@@ -739,7 +752,8 @@
                 ]
               }
             ],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           },
           {
             "tabName": "Einstellungen",
@@ -757,12 +771,14 @@
               }
             ],
             "tables": [],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           }
-        ]
+        ],
+        "testShouldFail": false
       },
       {
-        "entryPath": "",
+        "entryPath": "Solutions/Administrator",
         "formulaType": "EXTERNAL",
         "formulaSaveButton": "OK",
         "formulaCancelButton": "Abbrechen",
@@ -830,7 +846,8 @@
                 ]
               }
             ],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           },
           {
             "tabName": "Teilnehmende",
@@ -866,7 +883,8 @@
                 ]
               }
             ],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           },
           {
             "tabName": "Benachrichtigungen",
@@ -944,12 +962,14 @@
                 ]
               }
             ],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           }
-        ]
+        ],
+        "testShouldFail": false
       },
       {
-        "entryPath": "",
+        "entryPath": "Solutions/Administrator",
         "formulaType": "EXTERNAL",
         "formulaSaveButton": "OK",
         "formulaCancelButton": "Abbrechen",
@@ -1038,9 +1058,11 @@
                 ]
               }
             ],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           }
-        ]
+        ],
+        "testShouldFail": false
       },
       {
         "entryPath": "",
@@ -1080,9 +1102,11 @@
               }
             ],
             "tables": [],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           }
-        ]
+        ],
+        "testShouldFail": false
       },
       {
         "entryPath": "",
@@ -1174,9 +1198,11 @@
                 ]
               }
             ],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           }
-        ]
+        ],
+        "testShouldFail": false
       },
       {
         "entryPath": "",
@@ -1216,9 +1242,11 @@
               }
             ],
             "tables": [],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           }
-        ]
+        ],
+        "testShouldFail": false
       },
       {
         "entryPath": "",
@@ -1310,9 +1338,11 @@
                 ]
               }
             ],
-            "checkValueControls": []
+            "checkValueControls": [],
+            "selectDocumentDialogs": []
           }
-        ]
+        ],
+        "testShouldFail": false
       }
     ]
   },
