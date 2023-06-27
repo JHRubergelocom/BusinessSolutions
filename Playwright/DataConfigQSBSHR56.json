@@ -2,7 +2,7 @@
   "loginData": {
     "textUserName": {
       "selector": "Name",
-      "value": "Gerd Baum",
+      "value": "Ute Schenk",
       "type": "TEXT"
     },
     "textPassword": {
@@ -25,32 +25,28 @@
     "taskTile": "Aufgaben"
   },
   "eloActionData": {
-    "eloActions": [
+    "eloActions": []
+  },
+  "eloTaskData": {
+    "eloTasks": [
       {
-        "entryPath": "Solutions/Personalmanagement/Personalakten/H/Hansen, Hans",
-        "formulaType": "VIEWER",
-        "formulaSaveButton": "Speichern",
+        "taskName": "Stammdaten kontrollieren",
+        "takeWorkflow": true,
+        "formulaSaveButton": "Freigeben",
         "formulaCancelButton": "",
-        "selectionDialogItem": "",
-        "eloActionDef": {
-          "selectorRibbon": "",
-          "selectorMenu": "",
-          "selectorButton": ""
-        },
         "tabPages": [
           {
-            "tabName": "Personal",
+            "tabName": "",
             "initTabPage": [],
-            "controls": [],
-            "tables": [],
-            "checkValueControls": [
+            "controls": [
               {
-                "selector": "IX_GRP_HR_PERSONNEL_PERSONNELSTATUS",
-                "value": "E - Angestellt",
-                "type": "KWL",
-                "operator": "EQUAL"
+                "selector": "IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY",
+                "value": "1",
+                "type": "TEXT"
               }
             ],
+            "tables": [],
+            "checkValueControls": [],
             "selectDocumentDialogs": []
           }
         ],
@@ -58,16 +54,11 @@
       }
     ]
   },
-  "eloTaskData": {
-    "eloTasks": []
-  },
   "eloDeleteData": {
     "arcPaths": []
   },
   "eloForwardWorkflow": {
-    "toNodesName": [
-      "sol.common.wf.node.ok"
-    ]
+    "toNodesName": []
   },
   "eloExecuteRf": {
     "eloRfs": []

@@ -2,7 +2,7 @@
   "loginData": {
     "textUserName": {
       "selector": "Name",
-      "value": "Gerd Baum",
+      "value": "Ute Schenk",
       "type": "TEXT"
     },
     "textPassword": {
@@ -28,29 +28,22 @@
     "eloActions": [
       {
         "entryPath": "Solutions/Personalmanagement/Personalakten/H/Hansen, Hans",
-        "formulaType": "VIEWER",
-        "formulaSaveButton": "Speichern",
-        "formulaCancelButton": "",
+        "formulaType": "EXTERNAL",
+        "formulaSaveButton": "OK",
+        "formulaCancelButton": "Abbrechen",
         "selectionDialogItem": "",
         "eloActionDef": {
-          "selectorRibbon": "",
-          "selectorMenu": "",
-          "selectorButton": ""
+          "selectorRibbon": "Personal",
+          "selectorMenu": "Personal",
+          "selectorButton": "Eintrittsprozess"
         },
         "tabPages": [
           {
-            "tabName": "Personal",
+            "tabName": "",
             "initTabPage": [],
             "controls": [],
             "tables": [],
-            "checkValueControls": [
-              {
-                "selector": "IX_GRP_HR_PERSONNEL_PERSONNELSTATUS",
-                "value": "E - Angestellt",
-                "type": "KWL",
-                "operator": "EQUAL"
-              }
-            ],
+            "checkValueControls": [],
             "selectDocumentDialogs": []
           }
         ],
@@ -65,9 +58,7 @@
     "arcPaths": []
   },
   "eloForwardWorkflow": {
-    "toNodesName": [
-      "sol.common.wf.node.ok"
-    ]
+    "toNodesName": []
   },
   "eloExecuteRf": {
     "eloRfs": []

@@ -20,9 +20,9 @@
   "eloAclData": {
     "arcPaths": []
   },
-  "eloSolutionArchiveData": {
-    "selectorSolutionTile": "xpath\u003d//*[@title\u003d\"Solutions\"]",
-    "selectorSolutionsFolder": "Solutions"
+  "eloTile": {
+    "repositoryTile": "Solutions",
+    "taskTile": "Aufgaben"
   },
   "eloActionData": {
     "eloActions": [
@@ -387,11 +387,6 @@
             "initTabPage": [],
             "controls": [
               {
-                "selector": "befristet",
-                "value": "true",
-                "type": "RADIO"
-              },
-              {
                 "selector": "IX_GRP_HR_PERSONNEL_DATEOFJOINING",
                 "value": "01.04.2023",
                 "type": "TEXT"
@@ -447,6 +442,9 @@
         "testShouldFail": false
       }
     ]
+  },
+  "eloTaskData": {
+    "eloTasks": []
   },
   "eloDeleteData": {
     "arcPaths": []

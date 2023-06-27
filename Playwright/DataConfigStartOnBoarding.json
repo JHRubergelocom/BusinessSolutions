@@ -22,9 +22,9 @@
       "ARCPATH:/Administration/Business Solutions/_global/Action definitions/sol.hr.personnel.StartOnboarding"
     ]
   },
-  "eloSolutionArchiveData": {
-    "selectorSolutionTile": "xpath\u003d//*[@title\u003d\"Solutions\"]",
-    "selectorSolutionsFolder": "Solutions"
+  "eloTile": {
+    "repositoryTile": "Solutions",
+    "taskTile": "Aufgaben"
   },
   "eloActionData": {
     "eloActions": [
@@ -88,6 +88,9 @@
         "testShouldFail": false
       }
     ]
+  },
+  "eloTaskData": {
+    "eloTasks": []
   },
   "eloDeleteData": {
     "arcPaths": []
