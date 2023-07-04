@@ -823,334 +823,7 @@ C:\Users\ruberg\.ssh\Testkey.ppk
 ===========================================================================================================================
 
 
-TODO 20.06.2023
-
-
-BS Intern BSXX-471 Testautomatisierung mit Playwright
-
-https://eloticksy.elo.com/browse/BSXX-471
-
-
-Testautomatisierung mit Playwright
-
-Ideen für Erweiterungen automatisierte Tests
-
-    Testfälle für QS BS HR Personnel File erstellen
-     https://eloticksy.elo.com/browse/QBSHR-52	"aut. Eintrittsprozess starten"
-     https://eloticksy.elo.com/browse/QBSHR-54	"aut. Eintrittsprozess: Stammdaten vervollständigen"
-     https://eloticksy.elo.com/browse/QBSHR-56	"aut. Eintrittsprozess: Stammdaten kontrollieren"
 	
-	 
-	 
-    @Test
-    public void testEmployeeEntrySuperior() {
-        page.navigate("http://" + "ruberg-hr.dev.elo" + "/ix-Solutions/plugin/de.elo.ix.plugin.proxy/web/");
-        page.getByPlaceholder("Name").fill("Verona Funk");
-        page.getByPlaceholder("Passwort").fill("elo");
-        page.getByText("Anmelden").click();
-
-        // Kachel "Solutions" klicken
-        page.locator("xpath=//*[@title=\"Solutions\"]").click();
-
-        // Button "Mein ELO" klicken
-        page.locator("xpath=//*[@class=\"x-btn-icon-el myEloBtnIcon meinELOmenu_w \"]").click();
-
-        // Kachel "Aufgaben" klicken
-        page.locator("xpath=//*[@title=\"Aufgaben\"]").click();
-
-        // "Stammdaten vervollständigen" klicken
-        Locator rows = page.getByText("Stammdaten vervollständigen");
-        int count = rows.count();
-        System.out.println("rows.count(): " + count);
-        for (int i = 0; i < count; ++i) {
-            System.out.println("Row: " + i + " textContent() " + rows.nth(i).textContent());
-            System.out.println("Row: " + i + " innerHTML() " + rows.nth(i).innerHTML());
-            System.out.println("Row: " + i + " " + rows.nth(i));
-            if (rows.nth(i).textContent().contains("Stammdaten vervollständigen")) {
-                rows.nth(i).click();
-                break;
-            }
-        }
-
-        if (count == 0) {
-            return;
-        }
-
-        // Viewer Formular auswählen
-        System.out.println("*".repeat(10) + " Viewer Formular auswählen " + "*".repeat(10));
-
-        rows = page.locator("xpath=//*[@class=\"x-btn-button\"]");
-        count = rows.count();
-        System.out.println("rows.count(): " + count);
-        for (int i = 0; i < count; ++i) {
-            System.out.println("Row: " + i + " textContent() " + rows.nth(i).textContent());
-            System.out.println("Row: " + i + " innerHTML() " + rows.nth(i).innerHTML());
-            System.out.println("Row: " + i + " " + rows.nth(i));
-            if (rows.nth(i).textContent().equals("Formular")) {
-                rows.nth(i).click();
-                break;
-            }
-        }
-        System.out.println("*".repeat(10) + " Viewer Formular auswählen " + "*".repeat(10));
-
-        // FrameLocator Viewer Formular
-        BaseFunctions.sleep();
-        FrameLocator frameLocator = getFrameLocator("FormularViewer");
-
-        // Felder füllen
-        BaseFunctions.type(frameLocator.locator("[name=\"" + "IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY" + "\"]"), "2");
-
-        // Formular speichern
-        clickButton(frameLocator, "OK");
-
-        page.pause(); // Start Codegen
-    }
-	
-		
-    @Test
-    public void testEmployeeEntryPersonnel() {
-        page.navigate("http://" + "ruberg-hr.dev.elo" + "/ix-Solutions/plugin/de.elo.ix.plugin.proxy/web/");
-        page.getByPlaceholder("Name").fill("Ute Schenk");
-        page.getByPlaceholder("Passwort").fill("elo");
-        page.getByText("Anmelden").click();
-
-        // Kachel "Aufgaben" klicken
-        page.locator("xpath=//*[@title=\"Aufgaben\"]").click();
-
-        // "Stammdaten vervollständigen" klicken
-        Locator rows = page.getByText("Stammdaten kontrollieren");
-        int count = rows.count();
-        System.out.println("rows.count(): " + count);
-        for (int i = 0; i < count; ++i) {
-            System.out.println("Row: " + i + " textContent() " + rows.nth(i).textContent());
-            System.out.println("Row: " + i + " innerHTML() " + rows.nth(i).innerHTML());
-            System.out.println("Row: " + i + " " + rows.nth(i));
-            if (rows.nth(i).textContent().contains("Stammdaten kontrollieren")) {
-                rows.nth(i).click();
-                break;
-            }
-        }
-
-        if (count == 0) {
-            return;
-        }
-
-        // Viewer Formular auswählen
-        System.out.println("*".repeat(10) + " Viewer Formular auswählen " + "*".repeat(10));
-
-        rows = page.locator("xpath=//*[@class=\"x-btn-button\"]");
-        count = rows.count();
-        System.out.println("rows.count(): " + count);
-        for (int i = 0; i < count; ++i) {
-            System.out.println("Row: " + i + " textContent() " + rows.nth(i).textContent());
-            System.out.println("Row: " + i + " innerHTML() " + rows.nth(i).innerHTML());
-            System.out.println("Row: " + i + " " + rows.nth(i));
-            if (rows.nth(i).textContent().equals("Formular")) {
-                rows.nth(i).click();
-                break;
-            }
-        }
-        System.out.println("*".repeat(10) + " Viewer Formular auswählen " + "*".repeat(10));
-
-        // FrameLocator Viewer Formular
-        BaseFunctions.sleep();
-        getFrameLocator("FormularViewer");
-
-        // Workflow annehmen
-        // Ribbon "Aufgabe" auswählen
-        BaseFunctions.sleep();
-        Optional<Locator> optionalLocator = BaseFunctions.selectByTextAttribute(page, "Aufgabe", "id", "button");
-        optionalLocator.ifPresent(Locator::click);
-
-        // Button "Workflow annehmen" auswählen
-        BaseFunctions.sleep();
-        optionalLocator = BaseFunctions.selectByTextAttributeNotExact(page, "annehmen", "id", "comp");
-        optionalLocator.ifPresent(Locator::click);
-
-        // Felder füllen
-        BaseFunctions.sleep();
-        FrameLocator frameLocator = getFrameLocator("FormularViewer");
-
-        BaseFunctions.type(frameLocator.locator("[name=\"" + "IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY" + "\"]"), "1");
-
-        // Formular speichern
-        clickButton(frameLocator, "Freigeben");
-
-        page.pause(); // Start Codegen
-    }
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-import com.microsoft.playwright.*;
-import com.microsoft.playwright.options.*;
-import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
-import java.util.*;
-
-public class Example {
-  public static void main(String[] args) {
-    try (Playwright playwright = Playwright.create()) {
-      Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions()
-        .setHeadless(false));
-      BrowserContext context = browser.newContext();
-      page.locator("#button-1194").click();
-      page.locator("#tile-1013 div").nth(1).click();
-      page.locator("#button-1194").click();
-      page.locator("#tile-1017").click();
-      page.locator("#component-1195").click();
-      page.locator("#button-1194").click();
-      page.locator("#button-1194").click(new Locator.ClickOptions()
-        .setButton(MouseButton.RIGHT));
-      page.locator("#button-1194").press("F12");
-    }
-  }
-}	 
-
-
-page.locator("xpath=//*[@class=\"x-btn-button\"]");
-
-class="x-btn-inner x-btn-inner-center"
-
-
-
-<a class="x-btn myEloBtn x-unselectable x-btn-toolbar x-box-item x-toolbar-item x-btn-default-toolbar-small x-icon x-btn-icon x-btn-default-toolbar-small-icon" style="width: 50px; height: 40px; margin: 0px; right: auto; left: 0px; top: 0px;" hidefocus="on" unselectable="on" tabindex="0" id="button-1194" data-qtip="Mein ELO (Strg+Windows)" __playwright_target__="action@call@d8081cecffbdb75a60ac53f9dc964749"><span id="button-1194-btnWrap" role="presentation" class="x-btn-wrap" unselectable="on" style="height: 34px;"><span id="button-1194-btnEl" class="x-btn-button" role="presentation" style="height: 34px;" __playwright_target__="after@call@20"><span id="button-1194-btnInnerEl" class="x-btn-inner x-btn-inner-center" unselectable="on" style="line-height: 34px;">&nbsp;</span><span role="presentation" id="button-1194-btnIconEl" class="x-btn-icon-el myEloBtnIcon meinELOmenu_w " unselectable="on" style="">&nbsp;</span></span></span></a>
-
-	 data-qtip "Mein ELO (Strg+Windows)"
-	 
-	 
-	 <a class="x-btn myEloBtn x-unselectable x-btn-toolbar x-box-item x-toolbar-item x-btn-default-toolbar-small x-icon x-btn-icon x-btn-default-toolbar-small-icon" style="width: 50px; height: 40px; margin: 0px; right: auto; left: 0px; top: 0px;" hidefocus="on" unselectable="on" tabindex="0" id="button-1194" data-qtip="Mein ELO (Strg+Windows)" __playwright_target__="action@call@d8081cecffbdb75a60ac53f9dc964749"><span id="button-1194-btnWrap" role="presentation" class="x-btn-wrap" unselectable="on" style="height: 34px;"><span id="button-1194-btnEl" class="x-btn-button" role="presentation" style="height: 34px;" __playwright_target__="after@call@20"><span id="button-1194-btnInnerEl" class="x-btn-inner x-btn-inner-center" unselectable="on" style="line-height: 34px;">&nbsp;</span><span role="presentation" id="button-1194-btnIconEl" class="x-btn-icon-el myEloBtnIcon meinELOmenu_w " unselectable="on" style="">&nbsp;</span></span></span></a>
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-     Einarbeiten XRay und Zusammenspiel mit Playwright untersuchen
-
-
-        // Kachel "Solutions" klicken
-        page.locator("xpath=//*[@title=\"Solutions\"]").click();
-
-        // Button "Mein ELO" klicken
-        page.locator("xpath=//*[@class=\"x-btn-icon-el myEloBtnIcon meinELOmenu_w \"]").click();
-
-        // Kachel "Aufgaben" klicken
-        page.locator("xpath=//*[@title=\"Aufgaben\"]").click();
-
-
-
-
-Playwright mit XRay kombinieren Idee untersuchen !!
-
-
-https://www.atlassian.com/de/devops/testing-tutorials/jira-xray-integration-manage-test-cases
-
-
-https://docs.getxray.app/display/XRAY/Testing+web+applications+using+Playwright#
-
-
-https://academy.getxray.app/
-
-
-
-
-https://eloticksy.elo.com/browse/QBSHR-54  "aut. Eintrittsprozess: Stammdaten vervollständigen"
-
-sol.hr.personnel.wf.user.startonboarding.employeeentrysuperior=Stammdaten vervollständigen
-
-import com.microsoft.playwright.*;
-import com.microsoft.playwright.options.*;
-import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
-import java.util.*;
-
-public class Example {
-  public static void main(String[] args) {
-    try (Playwright playwright = Playwright.create()) {
-      Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions()
-        .setHeadless(false));
-      BrowserContext context = browser.newContext();
-      page.getByText("Stammdaten vervollständigen").click();
-      page.locator("#button-1642").click();
-      page.frameLocator("#IFramePanelIFrame-FormularViewer30-160-1687179165391").locator("input[name=\"IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY\"]").click();
-      page.frameLocator("#IFramePanelIFrame-FormularViewer30-160-1687179165391").locator("input[name=\"IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY\"]").fill("2");
-      page.frameLocator("#IFramePanelIFrame-FormularViewer30-160-1687179165391").getByRole(AriaRole.BUTTON, new FrameLocator.GetByRoleOptions().setName("OK")).click();
-    }
-  }
-}
-
-
-
-
-
-
-
-
-
-https://eloticksy.elo.com/browse/QBSHR-56  "aut. Eintrittsprozess: Stammdaten kontrollieren"
-
-sol.hr.personnel.wf.user.startonboarding.employeeentrypersonnel=Stammdaten kontrollieren
-
-
-import com.microsoft.playwright.*;
-import com.microsoft.playwright.options.*;
-import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
-import java.util.*;
-
-public class Example {
-  public static void main(String[] args) {
-    try (Playwright playwright = Playwright.create()) {
-      Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions()
-        .setHeadless(false));
-      BrowserContext context = browser.newContext();
-      page.locator("#button-1212").click();
-      page.locator("#button-1217").click();
-      page.locator("#ext-comp-1434").click();
-      page.frameLocator("#IFramePanelIFrame-FormularViewer15-160-1687182433908").locator("input[name=\"IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY\"]").click();
-      page.frameLocator("#IFramePanelIFrame-FormularViewer15-160-1687182433908").locator("input[name=\"IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY\"]").fill("1");
-      page.frameLocator("#IFramePanelIFrame-FormularViewer15-160-1687182433908").getByRole(AriaRole.BUTTON, new FrameLocator.GetByRoleOptions().setName("Freigeben")).click();
-    }
-  }
-}
-
-
-TODO 23.06.2023
-
-
-package session;
-
-import java.util.ArrayList;
-import java.util.List;
-
-public class ELOActions {
-    private final List<ELOAction> eloActions;
-    public ELOActions(List<ELOAction> eloActions) {
-        this.eloActions = eloActions;
-    }
-    public ELOActions() {
-        this.eloActions = new ArrayList<>();
-    }
-    public List<ELOAction> getEloActions() {
-        return eloActions;
-    }
-    @Override
-    public String toString() {
-        return "ELOActions{" +
-                "eloActions=" + eloActions +
-                '}';
-    }
-}
-
-
-Design Excel/CSV Importer
-
 
 ===========================================================================================================================
 
@@ -1337,4 +1010,122 @@ RF_sol_unittest_service_ExecuteLib
 
 
 =====================================================================================================================================================================
+
+
+
+
+TODO 20.06.2023
+
+
+BS Intern BSXX-471 Testautomatisierung mit Playwright
+
+https://eloticksy.elo.com/browse/BSXX-471
+
+
+Testautomatisierung mit Playwright
+
+Ideen für Erweiterungen automatisierte Tests
+
+    Testfälle für QS BS HR Personnel File erstellen
+     https://eloticksy.elo.com/browse/QBSHR-52	"aut. Eintrittsprozess starten"
+     https://eloticksy.elo.com/browse/QBSHR-54	"aut. Eintrittsprozess: Stammdaten vervollständigen"
+     https://eloticksy.elo.com/browse/QBSHR-56	"aut. Eintrittsprozess: Stammdaten kontrollieren"
+	
+	 
+	 
+
+Playwright mit XRay kombinieren Idee untersuchen !!
+
+
+https://www.atlassian.com/de/devops/testing-tutorials/jira-xray-integration-manage-test-cases
+
+
+https://docs.getxray.app/display/XRAY/Testing+web+applications+using+Playwright#
+
+
+https://academy.getxray.app/
+
+
+
+https://eloticksy.elo.com/browse/QBSHR-56  "aut. Eintrittsprozess: Stammdaten kontrollieren"
+
+
+
+Design Excel/CSV Importer
+
+
+
+Untersuchen REST/API Java für Im/Export Xray -> Java Testautomatisierung
+
+
+https://eloticksy.elo.com/secure/Dashboard.jspa     baseURL          
+
+
+
+curl -H "Authorization: Basic ZnJlZDpmcmVk" -X GET -H "Content-Type: application/json" http://localhost:8080/rest/api/2/issue/createmeta
+
+
+https://eloticksy.elo.com/rest/api/2/search?jql=
+
+
+
+https://eloticksy.elo.com/rest/api/2/search?jql=assignee=Jan-Hendrik%20Ruberg
+
+https://eloticksy.elo.com/rest/api/2/search?jql=assignee=Jan-Hendrik%20Ruberg
+
+https://eloticksy.elo.com/rest/api/2/issue/QBSHR-51
+
+
+http://eloticksy.elo.com/rest/raven/1.0/api/testset/QBSHR-51/test
+
+
+http://eloticksy.elo.com/rest/raven/1.0/api/test?keys=QBSHR-51
+
+
+
+
+<html><head><meta name="color-scheme" content="light dark"></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">
+
+
+</pre></body></html>
+
+
+
+
+https://eloticksy.elo.com/browse/QBSHR-51
+
+
+
+
+https://eloticksy.elo.com/browse/QBSHR-51
+
+
+Passwort verschlüsseln in Anwendung
+
+
+Untersuchen POST mit Playwright
+
+
+
+TODO
+
+Testlauf in jira zurückschreiben!
+
+
+
+https://docs.getxray.app/display/XRAY/Import+Execution+Results#ImportExecutionResults-XrayJSONformat
+
+
+
+https://eloticksy.elo.com/rest/raven/1.0/api/test/QBSHR-50/testexecutions
+
+https://eloticksy.elo.com/rest/raven/1.0/api/test/QBSHR-50/testruns
+
+
+https://eloticksy.elo.com/rest/raven/1.0/api/test/QBSHR-50/testexecutions
+
+
+
+https://eloticksy.elo.com/rest/api/2/issue/111818
+
 

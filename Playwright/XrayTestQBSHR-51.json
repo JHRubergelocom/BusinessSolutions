@@ -1,0 +1,337 @@
+{
+  "key": "QBSHR-51",
+  "id": 107464,
+  "self": "https://eloticksy.elo.com/rest/api/2/issue/107464",
+  "reporter": "A.Scherer@elo.com",
+  "precondition": [
+    {
+      "rank": 0,
+      "preconditionKey": "QBSHR-49",
+      "self": "https://eloticksy.elo.com/rest/api/2/issue/103962",
+      "reporter": "JIRAUSER16052",
+      "type": "Manual",
+      "archived": false
+    },
+    {
+      "rank": 0,
+      "preconditionKey": "QBSHR-62",
+      "self": "https://eloticksy.elo.com/rest/api/2/issue/111583",
+      "reporter": "JIRAUSER17261",
+      "type": "Manual",
+      "archived": false
+    }
+  ],
+  "type": "Manual",
+  "status": "TODO",
+  "archived": false,
+  "definition": {
+    "steps": [
+      {
+        "id": 9298,
+        "index": 1,
+        "step": {
+          "raw": "Im Repository auf einer Personalakte stehen",
+          "rendered": "\u0026lt;p\u0026gt;Im Repository auf einer Personalakte stehen\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "Nachname, Vorname (siehe TestdatenHRPersonnelFile)",
+          "rendered": "\u0026lt;p\u0026gt;Nachname, Vorname (siehe TestdatenHRPersonnelFile)\u0026lt;/p\u0026gt;"
+        },
+        "result": {
+          "raw": "Fokus liegt auf dem Objekt",
+          "rendered": "\u0026lt;p\u0026gt;Fokus liegt auf dem Objekt\u0026lt;/p\u0026gt;"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9299,
+        "index": 2,
+        "step": {
+          "raw": "Über \"Formular\" ins Vorschauformular navigieren",
+          "rendered": "\u0026lt;p\u0026gt;Über \"Formular\" ins Vorschauformular navigieren\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "",
+          "rendered": ""
+        },
+        "result": {
+          "raw": "Das Deckblatt der Personalakte wird angezeigt",
+          "rendered": "\u0026lt;p\u0026gt;Das Deckblatt der Personalakte wird angezeigt\u0026lt;/p\u0026gt;"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9300,
+        "index": 3,
+        "step": {
+          "raw": "Auf den Reiter \"Persönlich\" navigieren",
+          "rendered": "\u0026lt;p\u0026gt;Auf den Reiter \"Persönlich\" navigieren\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "",
+          "rendered": ""
+        },
+        "result": {
+          "raw": "Die Inhalte des Reiters werden angezeigt",
+          "rendered": "\u0026lt;p\u0026gt;Die Inhalte des Reiters werden angezeigt\u0026lt;/p\u0026gt;"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9301,
+        "index": 4,
+        "step": {
+          "raw": "weitere Felder befüllen:\n * Titel\n * Namenszusatz\n * Straße\n * Postleitzahl\n * Wohnort\n * Bundesland\n * E-Mail geschäftlich\n * E-Mail privat\n * Telefon geschäftlich\n * Telefon privat\n * Mobil geschäftlich\n * Mobil privat\n * Geschlecht\n * Korrespondenzsprache\n * Geburtsdatum\n * Geburtsort\n * Geburtsname\n * Nationalität\n * Konfession\n * Familienstand",
+          "rendered": "\u0026lt;p\u0026gt;weitere Felder befüllen:\u0026lt;/p\u0026gt;\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Titel\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Namenszusatz\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Straße\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Postleitzahl\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Wohnort\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Bundesland\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;E-Mail geschäftlich\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;E-Mail privat\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Telefon geschäftlich\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Telefon privat\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Mobil geschäftlich\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Mobil privat\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Geschlecht\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Korrespondenzsprache\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Geburtsdatum\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Geburtsort\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Geburtsname\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Nationalität\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Konfession\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Familienstand\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n"
+        },
+        "data": {
+          "raw": "Siehe TestdatenHRPersonnelFile",
+          "rendered": "\u0026lt;p\u0026gt;Siehe TestdatenHRPersonnelFile\u0026lt;/p\u0026gt;"
+        },
+        "result": {
+          "raw": "* Für folgende Felder steht eine Stichwort-/Auswahlliste zur Verfügung:\n ** Land\n ** Geschlecht\n ** Korrespondenzsprache\n ** Nationalität\n ** Konfession\u0026nbsp;\n ** Familienstand\n * Für folgendes Feld steht ein Datepicker zur Verfügung:\n ** Geburtsdatum",
+          "rendered": "\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Für folgende Felder steht eine Stichwort-/Auswahlliste zur Verfügung:\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Land\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Geschlecht\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Korrespondenzsprache\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Nationalität\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Konfession\u0026nbsp;\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Familienstand\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Für folgendes Feld steht ein Datepicker zur Verfügung:\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Geburtsdatum\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9302,
+        "index": 5,
+        "step": {
+          "raw": "Änderungen mit \"Speichern\" bestätigen",
+          "rendered": "\u0026lt;p\u0026gt;Änderungen mit \"Speichern\" bestätigen\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "",
+          "rendered": ""
+        },
+        "result": {
+          "raw": "* Das Deckblatt der Akte wird angezeigt\n * Auf den Deckblatt wurden folgende Informationen ergänzt:\n ** Geburtsdatum\n ** Geburtsort\n ** Korrespondenzsprache",
+          "rendered": "\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Das Deckblatt der Akte wird angezeigt\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Auf den Deckblatt wurden folgende Informationen ergänzt:\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Geburtsdatum\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Geburtsort\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Korrespondenzsprache\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9303,
+        "index": 6,
+        "step": {
+          "raw": "Im Vorschauformular auf den Reiter \"Persönlich\" navigieren",
+          "rendered": "\u0026lt;p\u0026gt;Im Vorschauformular auf den Reiter \"Persönlich\" navigieren\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "",
+          "rendered": ""
+        },
+        "result": {
+          "raw": "* Alle Eingaben wurden gespeichert und werden im jeweiligen Feld angezeigt",
+          "rendered": "\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Alle Eingaben wurden gespeichert und werden im jeweiligen Feld angezeigt\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9307,
+        "index": 7,
+        "step": {
+          "raw": "Auf den Reiter \"Personal\" navigieren",
+          "rendered": "\u0026lt;p\u0026gt;Auf den Reiter \"Personal\" navigieren\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "",
+          "rendered": ""
+        },
+        "result": {
+          "raw": "Die Inhalte des Reiters werden angezeigt",
+          "rendered": "\u0026lt;p\u0026gt;Die Inhalte des Reiters werden angezeigt\u0026lt;/p\u0026gt;"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9308,
+        "index": 8,
+        "step": {
+          "raw": "weitere Felder befüllen:\n * \u0026nbsp;Physikalischer Ablageort\n * Kfz-Kennzeichen\n * Steuer-ID\n * Sozialversicherungsnummer\n * Krankenversicherungsnummer\n * Empfänger\n * Geldinstitut\n * IBAN\n * Währung\n * Zahlungsanweisungen\n * Land\n * Arbeitszeitregelung\n * Urlaubstage pro Jahr",
+          "rendered": "\u0026lt;p\u0026gt;weitere Felder befüllen:\u0026lt;/p\u0026gt;\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;\u0026nbsp;Physikalischer Ablageort\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Kfz-Kennzeichen\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Steuer-ID\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Sozialversicherungsnummer\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Krankenversicherungsnummer\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Empfänger\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Geldinstitut\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;IBAN\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Währung\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Zahlungsanweisungen\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Land\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Arbeitszeitregelung\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Urlaubstage pro Jahr\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n"
+        },
+        "data": {
+          "raw": "Siehe TestdatenHRPersonnelFile",
+          "rendered": "\u0026lt;p\u0026gt;Siehe TestdatenHRPersonnelFile\u0026lt;/p\u0026gt;"
+        },
+        "result": {
+          "raw": "* Für folgende Felder steht eine Stichwort-/Auswahlliste zur Verfügung:\n ** Währung\n ** Land\n ** Arbeitszeitregelung",
+          "rendered": "\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Für folgende Felder steht eine Stichwort-/Auswahlliste zur Verfügung:\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Währung\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Land\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Arbeitszeitregelung\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9310,
+        "index": 9,
+        "step": {
+          "raw": "Änderungen mit \"Speichern\" bestätigen",
+          "rendered": "\u0026lt;p\u0026gt;Änderungen mit \"Speichern\" bestätigen\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "",
+          "rendered": ""
+        },
+        "result": {
+          "raw": "* Das Deckblatt der Akte wird angezeigt\n * Auf den Deckblatt wurden folgende Informationen ergänzt:\n ** Arbeitszeitregelung\n ** Urlaubstage pro Jahr",
+          "rendered": "\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Das Deckblatt der Akte wird angezeigt\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Auf den Deckblatt wurden folgende Informationen ergänzt:\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Arbeitszeitregelung\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Urlaubstage pro Jahr\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9312,
+        "index": 10,
+        "step": {
+          "raw": "Im Vorschauformular auf den Reiter \"Personal\" navigieren",
+          "rendered": "\u0026lt;p\u0026gt;Im Vorschauformular auf den Reiter \"Personal\" navigieren\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "",
+          "rendered": ""
+        },
+        "result": {
+          "raw": "* Alle Eingaben wurden gespeichert und werden im jeweiligen Feld angezeigt",
+          "rendered": "\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Alle Eingaben wurden gespeichert und werden im jeweiligen Feld angezeigt\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9313,
+        "index": 11,
+        "step": {
+          "raw": "Im Vorschauformular auf den Reiter \"Abteilung\" navigieren",
+          "rendered": "\u0026lt;p\u0026gt;Im Vorschauformular auf den Reiter \"Abteilung\" navigieren\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "",
+          "rendered": ""
+        },
+        "result": {
+          "raw": "Die Inhalte des Reiters werden angezeigt",
+          "rendered": "\u0026lt;p\u0026gt;Die Inhalte des Reiters werden angezeigt\u0026lt;/p\u0026gt;"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9314,
+        "index": 12,
+        "step": {
+          "raw": "weitere Felder befüllen:\n * \u0026nbsp;Vorgesetzter\n * Fachlich Verantwortlicher\n * Stellenbezeichnung\n * Standort\n * Sicherheitsstufe\n * Organisation\n * Bereich\n * Abteilung\n * Team",
+          "rendered": "\u0026lt;p\u0026gt;weitere Felder befüllen:\u0026lt;/p\u0026gt;\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;\u0026nbsp;Vorgesetzter\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Fachlich Verantwortlicher\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Stellenbezeichnung\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Standort\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Sicherheitsstufe\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Organisation\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Bereich\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Abteilung\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Team\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n"
+        },
+        "data": {
+          "raw": "Siehe TestdatenHRPersonnelFile",
+          "rendered": "\u0026lt;p\u0026gt;Siehe TestdatenHRPersonnelFile\u0026lt;/p\u0026gt;"
+        },
+        "result": {
+          "raw": "* Für folgende Felder steht eine Stichwort-/Auswahlliste zur Verfügung:\n ** \u0026nbsp;Vorgesetzter\n ** Fachlich Verantwortlicher\n ** Stellenbezeichnung\n ** Standort\n ** Sicherheitsstufe\n ** Organisation\n ** Bereich\n ** Abteilung\n ** Team",
+          "rendered": "\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Für folgende Felder steht eine Stichwort-/Auswahlliste zur Verfügung:\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;\u0026nbsp;Vorgesetzter\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Fachlich Verantwortlicher\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Stellenbezeichnung\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Standort\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Sicherheitsstufe\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Organisation\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Bereich\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Abteilung\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Team\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9315,
+        "index": 13,
+        "step": {
+          "raw": "Änderungen mit \"Speichern\" bestätigen",
+          "rendered": "\u0026lt;p\u0026gt;Änderungen mit \"Speichern\" bestätigen\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "",
+          "rendered": ""
+        },
+        "result": {
+          "raw": "* Das Deckblatt der Akte wird angezeigt\n * Auf den Deckblatt wurden folgende Informationen ergänzt:\n ** Abteilung\n ** Bereich\n ** Vorgesetzter\n ** Fachlich Verantwortlicher",
+          "rendered": "\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Das Deckblatt der Akte wird angezeigt\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Auf den Deckblatt wurden folgende Informationen ergänzt:\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Abteilung\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Bereich\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Vorgesetzter\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Fachlich Verantwortlicher\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9316,
+        "index": 14,
+        "step": {
+          "raw": "Im Vorschauformular auf den Reiter \"Abteilung\" navigieren",
+          "rendered": "\u0026lt;p\u0026gt;Im Vorschauformular auf den Reiter \"Abteilung\" navigieren\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "",
+          "rendered": ""
+        },
+        "result": {
+          "raw": "* Alle Eingaben wurden gespeichert und werden im jeweiligen Feld angezeigt",
+          "rendered": "\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Alle Eingaben wurden gespeichert und werden im jeweiligen Feld angezeigt\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9317,
+        "index": 15,
+        "step": {
+          "raw": "Im Vorschauformular auf den Reiter \"Ein-/Austritt\" navigieren",
+          "rendered": "\u0026lt;p\u0026gt;Im Vorschauformular auf den Reiter \"Ein-/Austritt\" navigieren\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "",
+          "rendered": ""
+        },
+        "result": {
+          "raw": "Die Inhalte des Reiters werden angezeigt",
+          "rendered": "\u0026lt;p\u0026gt;Die Inhalte des Reiters werden angezeigt\u0026lt;/p\u0026gt;"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9318,
+        "index": 16,
+        "step": {
+          "raw": "weitere Felder befüllen:\n * \u0026nbsp;Arbeitsverhältnis\n * Eintrittsdatum\n * Kündigungsfrist\n * Kündigung zum\n * Probezeit\n * Ende der Probezeit\n * Kündigunsfrist (In Probezeit)\n * Kündigung zum",
+          "rendered": "\u0026lt;p\u0026gt;weitere Felder befüllen:\u0026lt;/p\u0026gt;\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;\u0026nbsp;Arbeitsverhältnis\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Eintrittsdatum\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Kündigungsfrist\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Kündigung zum\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Probezeit\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Ende der Probezeit\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Kündigunsfrist (In Probezeit)\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Kündigung zum\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n"
+        },
+        "data": {
+          "raw": "Siehe TestdatenHRPersonnelFile",
+          "rendered": "\u0026lt;p\u0026gt;Siehe TestdatenHRPersonnelFile\u0026lt;/p\u0026gt;"
+        },
+        "result": {
+          "raw": "* Für folgende Felder stehen Radio-Buttons zur Auswahl:\n ** Arbeitsverhältnis\n * Für folgende Felder steht eine Stichwort-/Auswahlliste zur Verfügung:\n ** \u0026nbsp;Arbeitsverhältnis\n ** Eintrittsdatum\n ** Kündigungsfrist\n ** Kündigung zum\n ** Probezeit\n ** Ende der Probezeit\n ** Kündigunsfrist (In Probezeit)\n ** Kündigung zum\u0026nbsp;\n * Für folgende Felder steht ein Datepicker zur Verfüfung:\n ** Eintrittsdatum\n ** Ende der Probezeit",
+          "rendered": "\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Für folgende Felder stehen Radio-Buttons zur Auswahl:\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Arbeitsverhältnis\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Für folgende Felder steht eine Stichwort-/Auswahlliste zur Verfügung:\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;\u0026nbsp;Arbeitsverhältnis\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Eintrittsdatum\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Kündigungsfrist\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Kündigung zum\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Probezeit\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Ende der Probezeit\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Kündigunsfrist (In Probezeit)\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Kündigung zum\u0026nbsp;\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Für folgende Felder steht ein Datepicker zur Verfüfung:\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Eintrittsdatum\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Ende der Probezeit\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9319,
+        "index": 17,
+        "step": {
+          "raw": "Änderungen mit \"Speichern\" bestätigen",
+          "rendered": "\u0026lt;p\u0026gt;Änderungen mit \"Speichern\" bestätigen\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "",
+          "rendered": ""
+        },
+        "result": {
+          "raw": "* Das Deckblatt der Akte wird angezeigt\n * Auf den Deckblatt wurden folgende Informationen ergänzt:\n ** Eintrittsdatum",
+          "rendered": "\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Das Deckblatt der Akte wird angezeigt\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Auf den Deckblatt wurden folgende Informationen ergänzt:\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Eintrittsdatum\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9320,
+        "index": 18,
+        "step": {
+          "raw": "Im Vorschauformular auf den Reiter \"Ein-/Austritt\" navigieren",
+          "rendered": "\u0026lt;p\u0026gt;Im Vorschauformular auf den Reiter \"Ein-/Austritt\" navigieren\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "",
+          "rendered": ""
+        },
+        "result": {
+          "raw": "* Alle Eingaben wurden gespeichert und werden im jeweiligen Feld angezeigt",
+          "rendered": "\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Alle Eingaben wurden gespeichert und werden im jeweiligen Feld angezeigt\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n"
+        },
+        "attachments": []
+      }
+    ]
+  }
+}

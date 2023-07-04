@@ -1,0 +1,91 @@
+{
+  "key": "QBSHR-54",
+  "id": 108111,
+  "self": "https://eloticksy.elo.com/rest/api/2/issue/108111",
+  "reporter": "A.Scherer@elo.com",
+  "precondition": [
+    {
+      "rank": 0,
+      "preconditionKey": "QBSHR-55",
+      "self": "https://eloticksy.elo.com/rest/api/2/issue/108112",
+      "reporter": "JIRAUSER16052",
+      "type": "Manual",
+      "archived": false
+    }
+  ],
+  "type": "Manual",
+  "status": "TODO",
+  "archived": false,
+  "definition": {
+    "steps": [
+      {
+        "id": 9396,
+        "index": 1,
+        "step": {
+          "raw": "in \"mein ELO\" die Kachel \"Aufgaben auswählen",
+          "rendered": "\u0026lt;p\u0026gt;in \"mein ELO\" die Kachel \"Aufgaben auswählen\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "",
+          "rendered": ""
+        },
+        "result": {
+          "raw": "Der Aufgabenbereich des Users wird angezeigt",
+          "rendered": "\u0026lt;p\u0026gt;Der Aufgabenbereich des Users wird angezeigt\u0026lt;/p\u0026gt;"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9397,
+        "index": 2,
+        "step": {
+          "raw": "Aufgabe \"Stammdaten vervollständigen\" auswählen",
+          "rendered": "\u0026lt;p\u0026gt;Aufgabe \"Stammdaten vervollständigen\" auswählen\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "",
+          "rendered": ""
+        },
+        "result": {
+          "raw": "Formular öffnet sich auf der rechten Seite",
+          "rendered": "\u0026lt;p\u0026gt;Formular öffnet sich auf der rechten Seite\u0026lt;/p\u0026gt;"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9399,
+        "index": 3,
+        "step": {
+          "raw": "Felder befüllen",
+          "rendered": "\u0026lt;p\u0026gt;Felder befüllen\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "Siehe TestdatenHRPersonnelFile",
+          "rendered": "\u0026lt;p\u0026gt;Siehe TestdatenHRPersonnelFile\u0026lt;/p\u0026gt;"
+        },
+        "result": {
+          "raw": "* Folgende Felder können nicht bearbeitet werden:\n ** Vorname\n ** Nachname\n * bereits erfasste Daten wurden übernommen und angezeigt",
+          "rendered": "\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Folgende Felder können nicht bearbeitet werden:\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Vorname\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Nachname\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;bereits erfasste Daten wurden übernommen und angezeigt\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9400,
+        "index": 4,
+        "step": {
+          "raw": "Eingaben mit \"OK\" bestätigen",
+          "rendered": "\u0026lt;p\u0026gt;Eingaben mit \"OK\" bestätigen\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "",
+          "rendered": ""
+        },
+        "result": {
+          "raw": "* Die Aufgabe schließt sich und wird nicht länger im Aufgabenbereich angezeigt",
+          "rendered": "\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Die Aufgabe schließt sich und wird nicht länger im Aufgabenbereich angezeigt\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n"
+        },
+        "attachments": []
+      }
+    ]
+  }
+}

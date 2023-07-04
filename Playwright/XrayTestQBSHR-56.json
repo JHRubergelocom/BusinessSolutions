@@ -1,0 +1,125 @@
+{
+  "key": "QBSHR-56",
+  "id": 108113,
+  "self": "https://eloticksy.elo.com/rest/api/2/issue/108113",
+  "reporter": "A.Scherer@elo.com",
+  "precondition": [
+    {
+      "rank": 0,
+      "preconditionKey": "QBSHR-57",
+      "self": "https://eloticksy.elo.com/rest/api/2/issue/108115",
+      "reporter": "JIRAUSER16052",
+      "type": "Manual",
+      "archived": false
+    }
+  ],
+  "type": "Manual",
+  "status": "TODO",
+  "archived": false,
+  "definition": {
+    "steps": [
+      {
+        "id": 9401,
+        "index": 1,
+        "step": {
+          "raw": "in \"mein ELO\" die Kachel \"Aufgaben auswählen",
+          "rendered": "\u0026lt;p\u0026gt;in \"mein ELO\" die Kachel \"Aufgaben auswählen\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "",
+          "rendered": ""
+        },
+        "result": {
+          "raw": "Der Aufgabenbereich des Users wird angezeigt",
+          "rendered": "\u0026lt;p\u0026gt;Der Aufgabenbereich des Users wird angezeigt\u0026lt;/p\u0026gt;"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9402,
+        "index": 2,
+        "step": {
+          "raw": "Aufgabe \"Stammdaten kontrollieren\" auswählen",
+          "rendered": "\u0026lt;p\u0026gt;Aufgabe \"Stammdaten kontrollieren\" auswählen\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "",
+          "rendered": ""
+        },
+        "result": {
+          "raw": "Formular öffnet sich schreibgeschützt auf der rechten Seite",
+          "rendered": "\u0026lt;p\u0026gt;Formular öffnet sich schreibgeschützt auf der rechten Seite\u0026lt;/p\u0026gt;"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9405,
+        "index": 3,
+        "step": {
+          "raw": "Im Ribbon unter \"Aufgabe\" \u0026gt; \"Workflow annehmen\" auswählen",
+          "rendered": "\u0026lt;p\u0026gt;Im Ribbon unter \"Aufgabe\" \u0026amp;gt; \"Workflow annehmen\" auswählen\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "",
+          "rendered": ""
+        },
+        "result": {
+          "raw": "Formular kann nun bearbeitet werden",
+          "rendered": "\u0026lt;p\u0026gt;Formular kann nun bearbeitet werden\u0026lt;/p\u0026gt;"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9403,
+        "index": 4,
+        "step": {
+          "raw": "Felder prüfen",
+          "rendered": "\u0026lt;p\u0026gt;Felder prüfen\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "Siehe TestdatenHRPersonnelFile",
+          "rendered": "\u0026lt;p\u0026gt;Siehe TestdatenHRPersonnelFile\u0026lt;/p\u0026gt;"
+        },
+        "result": {
+          "raw": "* Alle Eingaben bestehen aus den bereits vorhandenen Stammdaten, die um die Angaben durch den Vorgesetzten geändert oder ergänzt wurden",
+          "rendered": "\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Alle Eingaben bestehen aus den bereits vorhandenen Stammdaten, die um die Angaben durch den Vorgesetzten geändert oder ergänzt wurden\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9404,
+        "index": 5,
+        "step": {
+          "raw": "Aufgabe mit \"Freigeben\" bestätigen",
+          "rendered": "\u0026lt;p\u0026gt;Aufgabe mit \"Freigeben\" bestätigen\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "",
+          "rendered": ""
+        },
+        "result": {
+          "raw": "* Die Aufgabe schließt sich und wird nicht länger im Aufgabenbereich angezeigt",
+          "rendered": "\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Die Aufgabe schließt sich und wird nicht länger im Aufgabenbereich angezeigt\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9406,
+        "index": 6,
+        "step": {
+          "raw": "Im Ribbon über die Funktionssuche die Funktion \"Gehe zu\" auswählen",
+          "rendered": "\u0026lt;p\u0026gt;Im Ribbon über die Funktionssuche die Funktion \"Gehe zu\" auswählen\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "",
+          "rendered": ""
+        },
+        "result": {
+          "raw": "Die eben freigegebene Kopie der Personalakte wird angezeigt",
+          "rendered": "\u0026lt;p\u0026gt;Die eben freigegebene Kopie der Personalakte wird angezeigt\u0026lt;/p\u0026gt;"
+        },
+        "attachments": []
+      }
+    ]
+  }
+}

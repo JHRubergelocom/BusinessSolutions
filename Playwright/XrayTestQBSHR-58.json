@@ -1,0 +1,285 @@
+{
+  "key": "QBSHR-58",
+  "id": 108697,
+  "self": "https://eloticksy.elo.com/rest/api/2/issue/108697",
+  "reporter": "A.Scherer@elo.com",
+  "precondition": [
+    {
+      "rank": 0,
+      "preconditionKey": "QBSHR-49",
+      "self": "https://eloticksy.elo.com/rest/api/2/issue/103962",
+      "reporter": "JIRAUSER16052",
+      "type": "Manual",
+      "archived": false
+    },
+    {
+      "rank": 0,
+      "preconditionKey": "QBSHR-62",
+      "self": "https://eloticksy.elo.com/rest/api/2/issue/111583",
+      "reporter": "JIRAUSER17261",
+      "type": "Manual",
+      "archived": false
+    },
+    {
+      "rank": 0,
+      "preconditionKey": "QBSHR-59",
+      "self": "https://eloticksy.elo.com/rest/api/2/issue/109343",
+      "reporter": "JIRAUSER16052",
+      "type": "Manual",
+      "archived": false
+    },
+    {
+      "rank": 0,
+      "preconditionKey": "QBSHR-63",
+      "self": "https://eloticksy.elo.com/rest/api/2/issue/111590",
+      "reporter": "JIRAUSER17261",
+      "type": "Manual",
+      "archived": false
+    }
+  ],
+  "type": "Manual",
+  "status": "TODO",
+  "archived": false,
+  "definition": {
+    "steps": [
+      {
+        "id": 9959,
+        "index": 1,
+        "step": {
+          "raw": "Mit folgendem Benutzer anmelden",
+          "rendered": "\u0026lt;p\u0026gt;Mit folgendem Benutzer anmelden\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "* Benutzer: {test-param}Benutzer{test-param}\u0026nbsp;\n * Passwort",
+          "rendered": "\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Benutzer: \u0026lt;raven-test-param data-mce-tabindex\u003d\u0027-1\u0027 tabindex\u003d\u0027-1\u0027 contenteditable\u003d\u0027false\u0027 class\u003d\u0027\u0027\u0026gt;Benutzer\u0026lt;/raven-test-param\u0026gt;\u0026nbsp;\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Passwort\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n"
+        },
+        "result": {
+          "raw": "Benutzer {test-param}Benutzer{test-param} aus Gruppe {test-param}Gruppe{test-param} ist erfolgreich angemeldet",
+          "rendered": "\u0026lt;p\u0026gt;Benutzer \u0026lt;raven-test-param data-mce-tabindex\u003d\u0027-1\u0027 tabindex\u003d\u0027-1\u0027 contenteditable\u003d\u0027false\u0027 class\u003d\u0027\u0027\u0026gt;Benutzer\u0026lt;/raven-test-param\u0026gt; aus Gruppe \u0026lt;raven-test-param data-mce-tabindex\u003d\u0027-1\u0027 tabindex\u003d\u0027-1\u0027 contenteditable\u003d\u0027false\u0027 class\u003d\u0027\u0027\u0026gt;Gruppe\u0026lt;/raven-test-param\u0026gt; ist erfolgreich angemeldet\u0026lt;/p\u0026gt;"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9476,
+        "index": 2,
+        "step": {
+          "raw": "Im Repository auf einer Personalakte stehen.",
+          "rendered": "\u0026lt;p\u0026gt;Im Repository auf einer Personalakte stehen.\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "Personalakte: {test-param}Personalakte{test-param}",
+          "rendered": "\u0026lt;p\u0026gt;Personalakte: \u0026lt;raven-test-param data-mce-tabindex\u003d\u0027-1\u0027 tabindex\u003d\u0027-1\u0027 contenteditable\u003d\u0027false\u0027 class\u003d\u0027\u0027\u0026gt;Personalakte\u0026lt;/raven-test-param\u0026gt;\u0026lt;/p\u0026gt;"
+        },
+        "result": {
+          "raw": "Fokus liegt auf dem Objekt",
+          "rendered": "\u0026lt;p\u0026gt;Fokus liegt auf dem Objekt\u0026lt;/p\u0026gt;"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9962,
+        "index": 3,
+        "step": {
+          "raw": "Im Ribbon \"Personal\" klicken",
+          "rendered": "\u0026lt;p\u0026gt;Im Ribbon \"Personal\" klicken\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "",
+          "rendered": ""
+        },
+        "result": {
+          "raw": "Ein Menü mit den folgenden Funktionen wird {test-param}angezeigt{test-param}\u0026nbsp;\n # \"Eintrittsprozess starten\"\n # \"Austrittsprozess starten\"\n # \"Nachricht senden\"\n # \"Ausweis erstellen\"\n # \"Dokument erstellen\"\n\n\u0026nbsp;\n # {color:#ff0000}befinden sich die Funktionen in einer festen Position (Aministrator und UTE haben die Buttons in unterschiedlichen Positionen)?{color}\n # {color:#ff0000}Sind alle Funktionen für alle Gruppen sichtbar?{color}",
+          "rendered": "\u0026lt;p\u0026gt;Ein Menü mit den folgenden Funktionen wird \u0026lt;raven-test-param data-mce-tabindex\u003d\u0027-1\u0027 tabindex\u003d\u0027-1\u0027 contenteditable\u003d\u0027false\u0027 class\u003d\u0027\u0027\u0026gt;angezeigt\u0026lt;/raven-test-param\u0026gt;\u0026nbsp;\u0026lt;/p\u0026gt;\n\u0026lt;ol\u0026gt;\n\u0026lt;li\u0026gt;\"Eintrittsprozess starten\"\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;\"Austrittsprozess starten\"\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;\"Nachricht senden\"\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;\"Ausweis erstellen\"\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;\"Dokument erstellen\"\u0026lt;/li\u0026gt;\n\u0026lt;/ol\u0026gt;\n\n\n\u0026lt;p\u0026gt;\u0026nbsp;\u0026lt;/p\u0026gt;\n\u0026lt;ol\u0026gt;\n\u0026lt;li\u0026gt;\u0026lt;font color\u003d\"#ff0000\"\u0026gt;befinden sich die Funktionen in einer festen Position (Aministrator und UTE haben die Buttons in unterschiedlichen Positionen)?\u0026lt;/font\u0026gt;\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;\u0026lt;font color\u003d\"#ff0000\"\u0026gt;Sind alle Funktionen für alle Gruppen sichtbar?\u0026lt;/font\u0026gt;\u0026lt;/li\u0026gt;\n\u0026lt;/ol\u0026gt;\n"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9477,
+        "index": 4,
+        "step": {
+          "raw": "Im Ribbon \"Personal\" \u0026gt; \"Nachricht senden\" klicken",
+          "rendered": "\u0026lt;p\u0026gt;Im Ribbon \"Personal\" \u0026amp;gt; \"Nachricht senden\" klicken\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "",
+          "rendered": ""
+        },
+        "result": {
+          "raw": "Dialog \"Nachricht senden\" wird geöffnet",
+          "rendered": "\u0026lt;p\u0026gt;Dialog \"Nachricht senden\" wird geöffnet\u0026lt;/p\u0026gt;"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9977,
+        "index": 5,
+        "step": {
+          "raw": "{color:#0747a6}*Idea new test case *** check if we have a story for it ****{color}\n # Dialoginhalt \"Nachricht senden\" prüfen\n # Dialog \"Nachricht senden\" Funktionsbeschreibung prufen\n # Dialog \"Nachricht senden\" Abschnitt \"Vorlagenauswahl\" prüfen\n # Dialog \"Nachricht senden\" Abschnitt \"E-Mail\" prüfen\n # Dialog \"Nachricht senden\" Abschnitt \"Anhang\" prüfen\n #",
+          "rendered": "\u0026lt;p\u0026gt;\u0026lt;font color\u003d\"#0747a6\"\u0026gt;*Idea new test case *** check if we have a story for it ****\u0026lt;/font\u0026gt;\u0026lt;/p\u0026gt;\n\u0026lt;ol\u0026gt;\n\u0026lt;li\u0026gt;Dialoginhalt \"Nachricht senden\" prüfen\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Dialog \"Nachricht senden\" Funktionsbeschreibung prufen\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Dialog \"Nachricht senden\" Abschnitt \"Vorlagenauswahl\" prüfen\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Dialog \"Nachricht senden\" Abschnitt \"E-Mail\" prüfen\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Dialog \"Nachricht senden\" Abschnitt \"Anhang\" prüfen\u0026lt;br/\u0026gt; #\u0026lt;/li\u0026gt;\n\u0026lt;/ol\u0026gt;\n"
+        },
+        "data": {
+          "raw": "",
+          "rendered": ""
+        },
+        "result": {
+          "raw": "# Der Dialog \"Nachricht senden\" enthält die folgenden Abschnitte\n ** text - Funktionsbeschreibung\n ** Abschnitt Vorlagenauswahl\n ** Abschnitt E-Mail\n ** Abschnitt Anhang\n ** Abschnitt Ende des Formulars\n *** Button \"Speichern\"\n *** Button \"Drucken\"\n *** Button \"OK\"\n *** Button \"Abbrechen\"\n # Der Dialog \"Nachricht senden\" zeigt die folgende Funktionsbeschreibung\n{color:#0747a6}\"Wählen Sie eine Vorlage aus oder geben Sie einen Text ein. Sie können der E-Mail Anhänge bis zu 10 MB hinzufügen.\"{color}\n # {color:#172b4d}Der Dialog \"Nachricht senden\" Abschnitt \"Vorlagenauswahl enthält das Feld Vorlage{color}\n ** Vorlage - SWL suchen Feld\u0026nbsp;\n ** {color:#172b4d}Der Benutzer kann nach einer Vorlage suchen (SWL) und diese auswählen —{color}{color:#de350b} expand\u0026nbsp; steps{color}\n ** \u0026nbsp;\n # {color:#172b4d}Der {color}Dialog \"Nachricht senden\" Abschnitt \"E-Mail\" enthält die folgenden Felder und Funktionalitäten\n ** Von - SWL suchen Feld - pflicht\u0026nbsp;{color:#172b4d}—{color}{color:#de350b} expand\u0026nbsp; steps\u0026nbsp;{color}{color:#de350b}(checks email format? wie viele Zeichen? ist sondern Zeichen erlaubt?){color}\n ** An - SWL suchen Feld\u0026nbsp; - pflicht\u0026nbsp;{color:#172b4d}—{color}{color:#de350b} expand\u0026nbsp; steps (checks email format? wie viele Zeichen? ist sondern Zeichen erlaubt?){color}\n ** button \"+\"\u0026nbsp; add new \"An\" search boxes - {color:#172b4d}—{color}{color:#de350b} expand\u0026nbsp; steps{color}\n ** Betreff - Freie text - pflicht\u0026nbsp; {color:#de350b}(wie viele Zeichen? ist sondern Zeichen erlaubt?){color}\n ** Redactor box\u0026nbsp;\u0026nbsp;{color:#172b4d}—{color}{color:#de350b} expand steps (test funcionalities, i.e Html, text, format, bold, ..., link, clips ...)\u0026nbsp;{color}\n ** \u0026nbsp;\n # {color:#172b4d}Der {color}Dialog \"Nachricht senden\" Abschnitt \"Anhang\" enthält die folgenden Felder und Funktionalitäten\n\n ** Kurzbezeichung\n ** Größe (KB)\n ** Button \"X\"\n ** Button \"Anhang hinzufügen\"\n ** Gesamtgröße (KB) {color:#de350b}(nur integers? wie viele Zeichen?){color}\u0026nbsp;\n ** Text - {color:#0747a6}\"Sie können maximal 10240 KB als Anhang auswählen.\"{color}\n # {color:#172b4d}Der {color}Dialog \"Nachricht senden\" Abschnitt Ende des Formulars enthält die folgenden Buttons\n ** Button \"Speichern\"\n ** Button \"Drucken\"\n ** Button \"OK\"\n ** Button \"Abbrechen\"",
+          "rendered": "\u0026lt;ol\u0026gt;\n\u0026lt;li\u0026gt;Der Dialog \"Nachricht senden\" enthält die folgenden Abschnitte\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;text - Funktionsbeschreibung\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Abschnitt Vorlagenauswahl\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Abschnitt E-Mail\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Abschnitt Anhang\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Abschnitt Ende des Formulars\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Button \"Speichern\"\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Button \"Drucken\"\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Button \"OK\"\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Button \"Abbrechen\"\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Der Dialog \"Nachricht senden\" zeigt die folgende Funktionsbeschreibung\u0026lt;br/\u0026gt;\u0026lt;font color\u003d\"#0747a6\"\u0026gt;\"Wählen Sie eine Vorlage aus oder geben Sie einen Text ein. Sie können der E-Mail Anhänge bis zu 10 MB hinzufügen.\"\u0026lt;/font\u0026gt;\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;\u0026lt;font color\u003d\"#172b4d\"\u0026gt;Der Dialog \"Nachricht senden\" Abschnitt \"Vorlagenauswahl enthält das Feld Vorlage\u0026lt;/font\u0026gt;\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Vorlage - SWL suchen Feld\u0026nbsp;\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;\u0026lt;font color\u003d\"#172b4d\"\u0026gt;Der Benutzer kann nach einer Vorlage suchen (SWL) und diese auswählen —\u0026lt;/font\u0026gt;\u0026lt;font color\u003d\"#de350b\"\u0026gt; expand\u0026nbsp; steps\u0026lt;/font\u0026gt;\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;\u0026nbsp;\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;\u0026lt;font color\u003d\"#172b4d\"\u0026gt;Der \u0026lt;/font\u0026gt;Dialog \"Nachricht senden\" Abschnitt \"E-Mail\" enthält die folgenden Felder und Funktionalitäten\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Von - SWL suchen Feld - pflicht\u0026nbsp;\u0026lt;font color\u003d\"#172b4d\"\u0026gt;—\u0026lt;/font\u0026gt;\u0026lt;font color\u003d\"#de350b\"\u0026gt; expand\u0026nbsp; steps\u0026nbsp;\u0026lt;/font\u0026gt;\u0026lt;font color\u003d\"#de350b\"\u0026gt;(checks email format? wie viele Zeichen? ist sondern Zeichen erlaubt?)\u0026lt;/font\u0026gt;\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;An - SWL suchen Feld\u0026nbsp; - pflicht\u0026nbsp;\u0026lt;font color\u003d\"#172b4d\"\u0026gt;—\u0026lt;/font\u0026gt;\u0026lt;font color\u003d\"#de350b\"\u0026gt; expand\u0026nbsp; steps (checks email format? wie viele Zeichen? ist sondern Zeichen erlaubt?)\u0026lt;/font\u0026gt;\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;button \"+\"\u0026nbsp; add new \"An\" search boxes - \u0026lt;font color\u003d\"#172b4d\"\u0026gt;—\u0026lt;/font\u0026gt;\u0026lt;font color\u003d\"#de350b\"\u0026gt; expand\u0026nbsp; steps\u0026lt;/font\u0026gt;\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Betreff - Freie text - pflicht\u0026nbsp; \u0026lt;font color\u003d\"#de350b\"\u0026gt;(wie viele Zeichen? ist sondern Zeichen erlaubt?)\u0026lt;/font\u0026gt;\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Redactor box\u0026nbsp;\u0026nbsp;\u0026lt;font color\u003d\"#172b4d\"\u0026gt;—\u0026lt;/font\u0026gt;\u0026lt;font color\u003d\"#de350b\"\u0026gt; expand steps (test funcionalities, i.e Html, text, format, bold, ..., link, clips ...)\u0026nbsp;\u0026lt;/font\u0026gt;\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;\u0026nbsp;\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;\u0026lt;font color\u003d\"#172b4d\"\u0026gt;Der \u0026lt;/font\u0026gt;Dialog \"Nachricht senden\" Abschnitt \"Anhang\" enthält die folgenden Felder und Funktionalitäten\u0026lt;/li\u0026gt;\n\u0026lt;/ol\u0026gt;\n\n\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Kurzbezeichung\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Größe (KB)\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Button \"X\"\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Button \"Anhang hinzufügen\"\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Gesamtgröße (KB) \u0026lt;font color\u003d\"#de350b\"\u0026gt;(nur integers? wie viele Zeichen?)\u0026lt;/font\u0026gt;\u0026nbsp;\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Text - \u0026lt;font color\u003d\"#0747a6\"\u0026gt;\"Sie können maximal 10240 KB als Anhang auswählen.\"\u0026lt;/font\u0026gt;\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n\u0026lt;ol\u0026gt;\n\u0026lt;li\u0026gt;\u0026lt;font color\u003d\"#172b4d\"\u0026gt;Der \u0026lt;/font\u0026gt;Dialog \"Nachricht senden\" Abschnitt Ende des Formulars enthält die folgenden Buttons\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Button \"Speichern\"\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Button \"Drucken\"\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Button \"OK\"\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Button \"Abbrechen\"\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n\u0026lt;/li\u0026gt;\n\u0026lt;/ol\u0026gt;\n"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9478,
+        "index": 6,
+        "step": {
+          "raw": "Click auf \"OK\"",
+          "rendered": "\u0026lt;p\u0026gt;Click auf \"OK\"\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "",
+          "rendered": ""
+        },
+        "result": {
+          "raw": "* Pflichtfelder\n ** Absender: rot (#ffd2d2) markiert\n ** Empfänger: rot (#ffd2d2) markiert\n ** Betreff:\u0026nbsp;\u0026nbsp;rot (#ffd2d2) markiert",
+          "rendered": "\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Pflichtfelder\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Absender: rot (#ffd2d2) markiert\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Empfänger: rot (#ffd2d2) markiert\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Betreff:\u0026nbsp;\u0026nbsp;rot (#ffd2d2) markiert\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9479,
+        "index": 7,
+        "step": {
+          "raw": "Pflichtfelder befüllen:\n * Empfänger\u0026nbsp;\n * Absender\n * Betreff\n * Nachricht",
+          "rendered": "\u0026lt;p\u0026gt;Pflichtfelder befüllen:\u0026lt;/p\u0026gt;\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Empfänger\u0026nbsp;\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Absender\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Betreff\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Nachricht\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n"
+        },
+        "data": {
+          "raw": "Siehe TestdatenHRPersonnelFileMessages",
+          "rendered": "\u0026lt;p\u0026gt;Siehe TestdatenHRPersonnelFileMessages\u0026lt;/p\u0026gt;"
+        },
+        "result": {
+          "raw": "* Im Feld\n ** \"Empfänger\" stehen folgende Optionen zur Auswahl:\n *** priv\n *** gesch\n *** Vorgesetzter\n ** \"Abesender\" stehen folgende Optionen zur Auswahl:\n *** CurrentUser\n *** Fixe\u0026nbsp;\n *** Sammelmail",
+          "rendered": "\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Im Feld\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;\"Empfänger\" stehen folgende Optionen zur Auswahl:\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;priv\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;gesch\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Vorgesetzter\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;\"Abesender\" stehen folgende Optionen zur Auswahl:\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;CurrentUser\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Fixe\u0026nbsp;\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Sammelmail\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9485,
+        "index": 8,
+        "step": {
+          "raw": "Anhang auswählen",
+          "rendered": "\u0026lt;p\u0026gt;Anhang auswählen\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "Siehe TestdatenHRPersonnelFileMessages",
+          "rendered": "\u0026lt;p\u0026gt;Siehe TestdatenHRPersonnelFileMessages\u0026lt;/p\u0026gt;"
+        },
+        "result": {
+          "raw": "",
+          "rendered": ""
+        },
+        "attachments": []
+      },
+      {
+        "id": 9486,
+        "index": 9,
+        "step": {
+          "raw": "Anhang auswählen",
+          "rendered": "\u0026lt;p\u0026gt;Anhang auswählen\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "Siehe TestdatenHRPersonnelFileMessages",
+          "rendered": "\u0026lt;p\u0026gt;Siehe TestdatenHRPersonnelFileMessages\u0026lt;/p\u0026gt;"
+        },
+        "result": {
+          "raw": "",
+          "rendered": ""
+        },
+        "attachments": []
+      },
+      {
+        "id": 9480,
+        "index": 10,
+        "step": {
+          "raw": "Eingaben mit \"OK\" bestätigen",
+          "rendered": "\u0026lt;p\u0026gt;Eingaben mit \"OK\" bestätigen\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "",
+          "rendered": ""
+        },
+        "result": {
+          "raw": "* Die Personalakte wird am definierten Ablagepfad angelegt\n ** Solutions//Personalmanagement//Personalakten//[1. Buchstabe des Nachname]//[Nachname, Vorname]\n * Ist der aktuelle User auf die Personalakte berechtigt, erfolgt ein Goto auf die Personalakte\n * Das Vorschauformular der Akte wird angezeigt\n * Unter dem Mitarbeiterbild wird Vorname + Nachname angezeigt\n * Die Personalnummer wurde automatisch generiert",
+          "rendered": "\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Die Personalakte wird am definierten Ablagepfad angelegt\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Solutions//Personalmanagement//Personalakten//\u0026lt;span class\u003d\"error\"\u0026gt;\u0026amp;#91;1. Buchstabe des Nachname\u0026amp;#93;\u0026lt;/span\u0026gt;//\u0026lt;span class\u003d\"error\"\u0026gt;\u0026amp;#91;Nachname, Vorname\u0026amp;#93;\u0026lt;/span\u0026gt;\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Ist der aktuelle User auf die Personalakte berechtigt, erfolgt ein Goto auf die Personalakte\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Das Vorschauformular der Akte wird angezeigt\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Unter dem Mitarbeiterbild wird Vorname + Nachname angezeigt\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Die Personalnummer wurde automatisch generiert\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9481,
+        "index": 11,
+        "step": {
+          "raw": "Im Vorschauformular auf den Reiter \"Persönlich\" navigieren",
+          "rendered": "\u0026lt;p\u0026gt;Im Vorschauformular auf den Reiter \"Persönlich\" navigieren\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "",
+          "rendered": ""
+        },
+        "result": {
+          "raw": "* Vorname \u0026amp; Nachname wurden entsprechend der Eingabe befüllt\n * Land wurde entsprechend der Vorlage mit \"DE - Deutschland\" befüllt",
+          "rendered": "\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Vorname \u0026amp;amp; Nachname wurden entsprechend der Eingabe befüllt\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Land wurde entsprechend der Vorlage mit \"DE - Deutschland\" befüllt\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9482,
+        "index": 12,
+        "step": {
+          "raw": "Im Vorschauformular auf den Reiter \"Personal\" navigieren",
+          "rendered": "\u0026lt;p\u0026gt;Im Vorschauformular auf den Reiter \"Personal\" navigieren\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "",
+          "rendered": ""
+        },
+        "result": {
+          "raw": "* Die Personalnummer wurde automatisch generiert und eingetragen\n * Der Status der Personalakte wurde auf \"O - In Vorbereitung\" gesetzt\n * Der Personalverantwortliche wurde entsprechend der Eingabe übernommen",
+          "rendered": "\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Die Personalnummer wurde automatisch generiert und eingetragen\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Der Status der Personalakte wurde auf \"O - In Vorbereitung\" gesetzt\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Der Personalverantwortliche wurde entsprechend der Eingabe übernommen\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9483,
+        "index": 13,
+        "step": {
+          "raw": "Im Vorschauformular in den Reiter \"Ein-/Austritt\" navigieren",
+          "rendered": "\u0026lt;p\u0026gt;Im Vorschauformular in den Reiter \"Ein-/Austritt\" navigieren\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "",
+          "rendered": ""
+        },
+        "result": {
+          "raw": "* Die Kündigungsfrist wurde entsprechend der Vorlage befüllt\n ** Kündigungsfrist: 3 Monate\n ** Kündigung zum: Q - Quartalsende\n * Probezeit:\n ** Probezeit: M - Monate\n ** Kündigung zum: d - Tag\n * Frühestmögliches Datum:\n ** heute + 3 Monate \u0026gt; letzter Tag des Monats (? -\u0026gt; die korrekte Berechnung sollte theoretisch in einem Unittest abgedeckt sein)",
+          "rendered": "\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Die Kündigungsfrist wurde entsprechend der Vorlage befüllt\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Kündigungsfrist: 3 Monate\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Kündigung zum: Q - Quartalsende\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Probezeit:\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Probezeit: M - Monate\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Kündigung zum: d - Tag\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Frühestmögliches Datum:\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;heute + 3 Monate \u0026amp;gt; letzter Tag des Monats (? -\u0026amp;gt; die korrekte Berechnung sollte theoretisch in einem Unittest abgedeckt sein)\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9484,
+        "index": 14,
+        "step": {
+          "raw": "Auf den aktuellen Eintrag im Repository die Metadaten mit F4 öffnen und auf den Reiter \"Berechtigungen\" navigieren",
+          "rendered": "\u0026lt;p\u0026gt;Auf den aktuellen Eintrag im Repository die Metadaten mit F4 öffnen und auf den Reiter \"Berechtigungen\" navigieren\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "",
+          "rendered": ""
+        },
+        "result": {
+          "raw": "* Berechtigungen werden entsprechend der Einstellungen gesetzt und auf alle Unterordner vererbt\n ** im Standard:\n *** Personalverantwortlicher: RWDEL-",
+          "rendered": "\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Berechtigungen werden entsprechend der Einstellungen gesetzt und auf alle Unterordner vererbt\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;im Standard:\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Personalverantwortlicher: RWDEL-\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n"
+        },
+        "attachments": []
+      }
+    ]
+  }
+}

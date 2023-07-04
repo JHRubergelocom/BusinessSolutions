@@ -1,0 +1,208 @@
+{
+  "key": "QBSHR-50",
+  "id": 107216,
+  "self": "https://eloticksy.elo.com/rest/api/2/issue/107216",
+  "reporter": "A.Scherer@elo.com",
+  "precondition": [
+    {
+      "rank": 0,
+      "preconditionKey": "QBSHR-49",
+      "self": "https://eloticksy.elo.com/rest/api/2/issue/103962",
+      "reporter": "JIRAUSER16052",
+      "type": "Manual",
+      "archived": false
+    },
+    {
+      "rank": 0,
+      "preconditionKey": "QBSHR-59",
+      "self": "https://eloticksy.elo.com/rest/api/2/issue/109343",
+      "reporter": "JIRAUSER16052",
+      "type": "Manual",
+      "archived": false
+    },
+    {
+      "rank": 0,
+      "preconditionKey": "QBSHR-60",
+      "self": "https://eloticksy.elo.com/rest/api/2/issue/109345",
+      "reporter": "JIRAUSER16052",
+      "type": "Manual",
+      "archived": false
+    },
+    {
+      "rank": 0,
+      "preconditionKey": "QBSHR-61",
+      "self": "https://eloticksy.elo.com/rest/api/2/issue/109347",
+      "reporter": "JIRAUSER16052",
+      "type": "Manual",
+      "archived": false
+    },
+    {
+      "rank": 0,
+      "preconditionKey": "QBSHR-62",
+      "self": "https://eloticksy.elo.com/rest/api/2/issue/111583",
+      "reporter": "JIRAUSER17261",
+      "type": "Manual",
+      "archived": false
+    }
+  ],
+  "type": "Manual",
+  "status": "TODO",
+  "archived": false,
+  "definition": {
+    "steps": [
+      {
+        "id": 9276,
+        "index": 1,
+        "step": {
+          "raw": "Im Repository auf \"Solutions\" stehen.",
+          "rendered": "\u0026lt;p\u0026gt;Im Repository auf \"Solutions\" stehen.\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "",
+          "rendered": ""
+        },
+        "result": {
+          "raw": "Fokus liegt auf dem Objekt",
+          "rendered": "\u0026lt;p\u0026gt;Fokus liegt auf dem Objekt\u0026lt;/p\u0026gt;"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9277,
+        "index": 2,
+        "step": {
+          "raw": "Im Ribbon \"Neu\" unter \"Personal\" \u0026gt; \"Neuer Mitarbeiter\" klicken",
+          "rendered": "\u0026lt;p\u0026gt;Im Ribbon \"Neu\" unter \"Personal\" \u0026amp;gt; \"Neuer Mitarbeiter\" klicken\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "",
+          "rendered": ""
+        },
+        "result": {
+          "raw": "Es öffnet sich das Formular \"Neuer Mitarbeiter\".",
+          "rendered": "\u0026lt;p\u0026gt;Es öffnet sich das Formular \"Neuer Mitarbeiter\".\u0026lt;/p\u0026gt;"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9281,
+        "index": 3,
+        "step": {
+          "raw": "Click auf \"OK\"",
+          "rendered": "\u0026lt;p\u0026gt;Click auf \"OK\"\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "",
+          "rendered": ""
+        },
+        "result": {
+          "raw": "* Pflichtfelder\n ** Personalverantwortlicher: befüllt mit: HR\u0026nbsp;\n ** Vorname:\u0026nbsp;rot (#ffd2d2) markiert\n ** Nachname:\u0026nbsp;\u0026nbsp;rot (#ffd2d2) markiert",
+          "rendered": "\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Pflichtfelder\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Personalverantwortlicher: befüllt mit: HR\u0026nbsp;\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Vorname:\u0026nbsp;rot (#ffd2d2) markiert\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Nachname:\u0026nbsp;\u0026nbsp;rot (#ffd2d2) markiert\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9278,
+        "index": 4,
+        "step": {
+          "raw": "Pflichtfelder befüllen:\n * Vorname\n * Nachname\n * Personalverantwortlicher",
+          "rendered": "\u0026lt;p\u0026gt;Pflichtfelder befüllen:\u0026lt;/p\u0026gt;\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Vorname\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Nachname\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Personalverantwortlicher\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n"
+        },
+        "data": {
+          "raw": "Siehe TestdatenHRPersonnelFile",
+          "rendered": "\u0026lt;p\u0026gt;Siehe TestdatenHRPersonnelFile\u0026lt;/p\u0026gt;"
+        },
+        "result": {
+          "raw": "* Im Feld\n ** \"Personalverantwortlicher\" steht die Gruppe/der User aus den Testdaten-File zur Auswahl",
+          "rendered": "\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Im Feld\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;\"Personalverantwortlicher\" steht die Gruppe/der User aus den Testdaten-File zur Auswahl\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9279,
+        "index": 5,
+        "step": {
+          "raw": "Eingaben mit \"OK\" bestätigen",
+          "rendered": "\u0026lt;p\u0026gt;Eingaben mit \"OK\" bestätigen\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "",
+          "rendered": ""
+        },
+        "result": {
+          "raw": "* Es erfolgt ein Goto auf die Personalakte (Fokus liegt dem Objekt)\n * Die Personalakte wird mit der definierten Kurzbezeichnung angelegt:\n ** [Nachname, Vorname]\n * Die Personalakte wird am definierten Ablagepfad angelegt:\n ** Solutions//Personalmanagement//Personalakten//[1. Buchstabe des Nachname]\n * Das Vorschauformular der Akte wird angezeigt\n * Unter dem Mitarbeiterbild wird folgendes angezeigt:\n ** Vorname Nachname\u0026nbsp;\n * Eine Personalnummer wird angezeigt",
+          "rendered": "\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Es erfolgt ein Goto auf die Personalakte (Fokus liegt dem Objekt)\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Die Personalakte wird mit der definierten Kurzbezeichnung angelegt:\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;\u0026lt;span class\u003d\"error\"\u0026gt;\u0026amp;#91;Nachname, Vorname\u0026amp;#93;\u0026lt;/span\u0026gt;\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Die Personalakte wird am definierten Ablagepfad angelegt:\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Solutions//Personalmanagement//Personalakten//\u0026lt;span class\u003d\"error\"\u0026gt;\u0026amp;#91;1. Buchstabe des Nachname\u0026amp;#93;\u0026lt;/span\u0026gt;\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Das Vorschauformular der Akte wird angezeigt\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Unter dem Mitarbeiterbild wird folgendes angezeigt:\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Vorname Nachname\u0026nbsp;\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Eine Personalnummer wird angezeigt\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9282,
+        "index": 6,
+        "step": {
+          "raw": "Im Vorschauformular auf den Reiter \"Persönlich\" navigieren",
+          "rendered": "\u0026lt;p\u0026gt;Im Vorschauformular auf den Reiter \"Persönlich\" navigieren\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "",
+          "rendered": ""
+        },
+        "result": {
+          "raw": "* Vorname \u0026amp; Nachname wurden entsprechend der Eingabe befüllt\n * Land wurde entsprechend der Vorlage mit \"DE - Deutschland\" befüllt",
+          "rendered": "\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Vorname \u0026amp;amp; Nachname wurden entsprechend der Eingabe befüllt\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Land wurde entsprechend der Vorlage mit \"DE - Deutschland\" befüllt\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9283,
+        "index": 7,
+        "step": {
+          "raw": "Im Vorschauformular auf den Reiter \"Personal\" navigieren",
+          "rendered": "\u0026lt;p\u0026gt;Im Vorschauformular auf den Reiter \"Personal\" navigieren\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "",
+          "rendered": ""
+        },
+        "result": {
+          "raw": "* Die Personalnummer wurde automatisch generiert und eingetragen\n * Der Status der Personalakte wurde auf \"O - In Vorbereitung\" gesetzt\n * Der Personalverantwortliche wurde entsprechend der Eingabe übernommen",
+          "rendered": "\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Die Personalnummer wurde automatisch generiert und eingetragen\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Der Status der Personalakte wurde auf \"O - In Vorbereitung\" gesetzt\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Der Personalverantwortliche wurde entsprechend der Eingabe übernommen\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9284,
+        "index": 8,
+        "step": {
+          "raw": "Im Vorschauformular in den Reiter \"Ein-/Austritt\" navigieren",
+          "rendered": "\u0026lt;p\u0026gt;Im Vorschauformular in den Reiter \"Ein-/Austritt\" navigieren\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "",
+          "rendered": ""
+        },
+        "result": {
+          "raw": "* Die Kündigungsfrist wurde entsprechend der Vorlage befüllt\n ** Kündigungsfrist: 3 Monate\n ** Kündigung zum: Q - Quartalsende\n * Probezeit:\n ** Probezeit: M - Monate\n ** Kündigung zum: d - Tag\n * Frühestmögliches Datum:\n ** heute + 3 Monate \u0026gt; letzter Tag des Monats (? -\u0026gt; die korrekte Berechnung sollte theoretisch in einem Unittest abgedeckt sein)",
+          "rendered": "\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Die Kündigungsfrist wurde entsprechend der Vorlage befüllt\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Kündigungsfrist: 3 Monate\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Kündigung zum: Q - Quartalsende\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Probezeit:\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Probezeit: M - Monate\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Kündigung zum: d - Tag\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n\u0026lt;/li\u0026gt;\n\u0026lt;li\u0026gt;Frühestmögliches Datum:\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;heute + 3 Monate \u0026amp;gt; letzter Tag des Monats (? -\u0026amp;gt; die korrekte Berechnung sollte theoretisch in einem Unittest abgedeckt sein)\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n"
+        },
+        "attachments": []
+      },
+      {
+        "id": 9285,
+        "index": 9,
+        "step": {
+          "raw": "Auf den aktuellen Eintrag im Repository die Metadaten mit F4 öffnen und auf den Reiter \"Berechtigungen\" navigieren",
+          "rendered": "\u0026lt;p\u0026gt;Auf den aktuellen Eintrag im Repository die Metadaten mit F4 öffnen und auf den Reiter \"Berechtigungen\" navigieren\u0026lt;/p\u0026gt;"
+        },
+        "data": {
+          "raw": "",
+          "rendered": ""
+        },
+        "result": {
+          "raw": "* Berechtigungen werden entsprechend der Einstellungen gesetzt und auf alle Unterordner vererbt\n ** im Standard:\n *** Personalverantwortlicher: RWDEL-",
+          "rendered": "\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Berechtigungen werden entsprechend der Einstellungen gesetzt und auf alle Unterordner vererbt\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;im Standard:\n\u0026lt;ul\u0026gt;\n\u0026lt;li\u0026gt;Personalverantwortlicher: RWDEL-\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n\u0026lt;/li\u0026gt;\n\u0026lt;/ul\u0026gt;\n"
+        },
+        "attachments": []
+      }
+    ]
+  }
+}
