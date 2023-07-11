@@ -17,7 +17,7 @@
     },
     "stack": "ruberg-hr.dev.elo"
   },
-  "eloAclData": {
+  "eloAcls": {
     "arcPaths": [
       "ARCPATH:/Administration/Business Solutions/_global/Action definitions/sol.hr.personnel.StartOnboarding"
     ]
@@ -26,7 +26,7 @@
     "repositoryTile": "Solutions",
     "taskTile": "Aufgaben"
   },
-  "eloActionData": {
+  "eloActions": {
     "eloActions": [
       {
         "entryPath": "Solutions/Personalmanagement/Personalakten/H/Hansen, Hans",
@@ -89,10 +89,10 @@
       }
     ]
   },
-  "eloTaskData": {
+  "eloTasks": {
     "eloTasks": []
   },
-  "eloDeleteData": {
+  "eloDeletes": {
     "arcPaths": []
   },
   "eloForwardWorkflow": {
@@ -101,7 +101,7 @@
       "sol.common.wf.node.approve"
     ]
   },
-  "eloExecuteRf": {
+  "eloRfs": {
     "eloRfs": [
       {
         "funcName": "RF_sol_common_service_ExecuteAsAction",

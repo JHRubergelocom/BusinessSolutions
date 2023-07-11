@@ -1014,22 +1014,23 @@ RF_sol_unittest_service_ExecuteLib
 
 
 
-TODO 20.06.2023
+TODO 05.07.2023
 
 
-BS Intern BSXX-471 Testautomatisierung mit Playwright
+BS Intern BSXX-473 Testautomatisierung mit Playwright
 
-https://eloticksy.elo.com/browse/BSXX-471
+https://eloticksy.elo.com/browse/BSXX-473
 
 
 Testautomatisierung mit Playwright
 
+
+
 Ideen für Erweiterungen automatisierte Tests
 
-    Testfälle für QS BS HR Personnel File erstellen
-     https://eloticksy.elo.com/browse/QBSHR-52	"aut. Eintrittsprozess starten"
-     https://eloticksy.elo.com/browse/QBSHR-54	"aut. Eintrittsprozess: Stammdaten vervollständigen"
-     https://eloticksy.elo.com/browse/QBSHR-56	"aut. Eintrittsprozess: Stammdaten kontrollieren"
+    Einarbeiten XRay und Zusammenspiel mit Playwright untersuchen
+    Untersuchen REST/API Java für Im/Export Xray -> Java Testautomatisierung
+
 	
 	 
 	 
@@ -1082,19 +1083,7 @@ http://eloticksy.elo.com/rest/raven/1.0/api/testset/QBSHR-51/test
 http://eloticksy.elo.com/rest/raven/1.0/api/test?keys=QBSHR-51
 
 
-
-
-<html><head><meta name="color-scheme" content="light dark"></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">
-
-
-</pre></body></html>
-
-
-
-
 https://eloticksy.elo.com/browse/QBSHR-51
-
-
 
 
 https://eloticksy.elo.com/browse/QBSHR-51
@@ -1128,4 +1117,67 @@ https://eloticksy.elo.com/rest/raven/1.0/api/test/QBSHR-50/testexecutions
 
 https://eloticksy.elo.com/rest/api/2/issue/111818
 
+
+
+Design Jira integration
+
+JiraConnectionConfig analog PlaywrightConfig
+
+{
+	baseURL: "https://eloticksy.elo.com"
+	username: "J-H.Ruberg@elo.com"
+	password: "XXX"
+}
+
+
+JiraSession analog WebclientSession designen
+
+
+https://eloprojects.atlassian.net/browse/DAT-1035
+
+https://eloprojects.atlassian.net/browse/DAT-948
+
+
+http://eloticksy.elo.com/rest/raven/1.0/api/test?keys=QBSHR-51
+
+http://eloprojects.atlassian.net/rest/raven/1.0/api/test?keys=DAT-948
+
+
+https://eloprojects.atlassian.net/rest/api/2/issue/DAT-948
+
+
+{
+  "baseURL": "https://eloticksy.elo.com",
+  "username": "J-H.Ruberg@elo.com",
+  "password": "XXX"
+}
+
+
+DataConfigQSBSHR58.json
+
+TestConvertCSV.xlsx
+
+
+
+Testdaten in Jira Xray Test integrieren
+
+        APIResponse response = request.get("/rest/raven/1.0/api/test", RequestOptions.create().setQueryParam("keys", xrayTest));
+        APIResponse response = request.get("/rest/raven/1.0/api/test/" + xrayTest + "/testruns");
+        APIResponse response = request.get("/rest/raven/1.0/api/test/" + xrayTest + "/testexecutions");
+
+
+
+Jira Xray Datensätze Parameter erstellen und Daten importieren!
+
+
+
+
+"DataConfigQSBSHR58.json"
+
+"QBSHR-50" "JiraConnectionConfig.json"
+
+
+TODO Testergebnis nach Jira zurückschreiben (Update TestExecution)
+
+JiraConnectionConfig.json um testExecutionKey erweitern (für "QBSHR-66")
 

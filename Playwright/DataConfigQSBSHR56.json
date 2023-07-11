@@ -17,17 +17,17 @@
     },
     "stack": "ruberg-hr.dev.elo"
   },
-  "eloAclData": {
+  "eloAcls": {
     "arcPaths": []
   },
   "eloTile": {
     "repositoryTile": "Solutions",
     "taskTile": "Aufgaben"
   },
-  "eloActionData": {
+  "eloActions": {
     "eloActions": []
   },
-  "eloTaskData": {
+  "eloTasks": {
     "eloTasks": [
       {
         "taskName": "Stammdaten kontrollieren",
@@ -54,13 +54,13 @@
       }
     ]
   },
-  "eloDeleteData": {
+  "eloDeletes": {
     "arcPaths": []
   },
   "eloForwardWorkflow": {
     "toNodesName": []
   },
-  "eloExecuteRf": {
+  "eloRfs": {
     "eloRfs": []
   }
 }

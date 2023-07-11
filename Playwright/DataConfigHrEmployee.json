@@ -17,14 +17,14 @@
     },
     "stack": "ruberg-hr.dev.elo"
   },
-  "eloAclData": {
+  "eloAcls": {
     "arcPaths": []
   },
   "eloTile": {
     "repositoryTile": "Solutions",
     "taskTile": "Aufgaben"
   },
-  "eloActionData": {
+  "eloActions": {
     "eloActions": [
       {
         "entryPath": "",
@@ -281,10 +281,10 @@
       }
     ]
   },
-  "eloTaskData": {
+  "eloTasks": {
     "eloTasks": []
   },
-  "eloDeleteData": {
+  "eloDeletes": {
     "arcPaths": [
       "ARCPATH:/Personalmanagement/Personalakten/H/Hansen, Hans"
     ]
@@ -292,7 +292,7 @@
   "eloForwardWorkflow": {
     "toNodesName": []
   },
-  "eloExecuteRf": {
+  "eloRfs": {
     "eloRfs": []
   }
 }

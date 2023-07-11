@@ -17,14 +17,14 @@
     },
     "stack": "ruberg-meeting.dev.elo"
   },
-  "eloAclData": {
+  "eloAcls": {
     "arcPaths": []
   },
   "eloTile": {
     "repositoryTile": "Solutions",
     "taskTile": "Aufgaben"
   },
-  "eloActionData": {
+  "eloActions": {
     "eloActions": [
       {
         "entryPath": "",
@@ -1346,10 +1346,10 @@
       }
     ]
   },
-  "eloTaskData": {
+  "eloTasks": {
     "eloTasks": []
   },
-  "eloDeleteData": {
+  "eloDeletes": {
     "arcPaths": [
       "ARCPATH:/Administrator/Meetingboard1",
       "ARCPATH:/Administrator/Meetingboard2",
@@ -1360,7 +1360,7 @@
   "eloForwardWorkflow": {
     "toNodesName": []
   },
-  "eloExecuteRf": {
+  "eloRfs": {
     "eloRfs": []
   }
 }
