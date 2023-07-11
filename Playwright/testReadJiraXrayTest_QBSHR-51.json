@@ -1,0 +1,458 @@
+{
+  "loginData": {
+    "textUserName": {
+      "selector": "Name",
+      "value": "Ute Schenk",
+      "type": "TEXT"
+    },
+    "textPassword": {
+      "selector": "Passwort",
+      "value": "elo",
+      "type": "TEXT"
+    },
+    "buttonLogin": {
+      "selector": "Anmelden",
+      "value": "Login",
+      "type": "BUTTON"
+    },
+    "stack": "ruberg-hr.dev.elo"
+  },
+  "eloAcls": {
+    "arcPaths": []
+  },
+  "eloTile": {
+    "repositoryTile": "Solutions",
+    "taskTile": "Aufgaben"
+  },
+  "eloActions": {
+    "eloActions": [
+      {
+        "entryPath": "Solutions/Personalmanagement/Personalakten/H/Hansen, Hans",
+        "formulaType": "VIEWER",
+        "formulaSaveButton": "Speichern",
+        "formulaCancelButton": "",
+        "selectionDialogItem": "",
+        "eloActionDef": {
+          "selectorRibbon": "",
+          "selectorMenu": "",
+          "selectorButton": ""
+        },
+        "tabPages": [
+          {
+            "tabName": "Persönlich",
+            "initTabPage": [],
+            "controls": [
+              {
+                "selector": "IX_MAP_HR_PERSONNEL_TITLE",
+                "value": "Dr. med.",
+                "type": "TEXT"
+              },
+              {
+                "selector": "IX_MAP_HR_PERSONNEL_NAMEAFFIX",
+                "value": "von",
+                "type": "TEXT"
+              },
+              {
+                "selector": "IX_MAP_HR_PERSONNEL_STREETADDRESS",
+                "value": "Franz-Joseph-Spiegler-Straße 75",
+                "type": "TEXT"
+              },
+              {
+                "selector": "IX_GRP_HR_PERSONNEL_POSTALCODE",
+                "value": "97013",
+                "type": "TEXT"
+              },
+              {
+                "selector": "IX_GRP_HR_PERSONNEL_CITY",
+                "value": "Bad Gottleuba-Berggießhübel",
+                "type": "TEXT"
+              },
+              {
+                "selector": "IX_MAP_HR_PERSONNEL_STATE",
+                "value": "Baden-Württemberg",
+                "type": "TEXT"
+              },
+              {
+                "selector": "IX_MAP_HR_PERSONNEL_BUSINESSEMAIL",
+                "value": "a.boehm@contelo.com",
+                "type": "TEXT"
+              },
+              {
+                "selector": "IX_MAP_HR_PERSONNEL_PRIVATEEMAIL",
+                "value": "a_boehm@web.de",
+                "type": "TEXT"
+              },
+              {
+                "selector": "IX_MAP_HR_PERSONNEL_BUSINESSPHONENUMBER",
+                "value": "+49 731-123456",
+                "type": "TEXT"
+              },
+              {
+                "selector": "IX_MAP_HR_PERSONNEL_PRIVATEPHONENUMBER",
+                "value": "07522 987654",
+                "type": "TEXT"
+              },
+              {
+                "selector": "IX_MAP_HR_PERSONNEL_BUSINESSMOBILENUMBER",
+                "value": "(+49)176 12345678",
+                "type": "TEXT"
+              },
+              {
+                "selector": "IX_MAP_HR_PERSONNEL_PRIVATEMOBILENUMBER",
+                "value": "0160-12345698",
+                "type": "TEXT"
+              },
+              {
+                "selector": "IX_GRP_HR_PERSONNEL_COUNTRY",
+                "value": "Deutschland",
+                "type": "DYNKWL"
+              },
+              {
+                "selector": "IX_GRP_HR_PERSONNEL_GENDER",
+                "value": "Männlich",
+                "type": "KWL"
+              },
+              {
+                "selector": "IX_GRP_HR_PERSONNEL_FIRSTLANGUAGE",
+                "value": "Deutsch",
+                "type": "DYNKWL"
+              },
+              {
+                "selector": "IX_GRP_HR_PERSONNEL_BIRTHDAY",
+                "value": "23.12.1959",
+                "type": "TEXT"
+              },
+              {
+                "selector": "IX_MAP_HR_PERSONNEL_BIRTHPLACE",
+                "value": "Stutgart",
+                "type": "TEXT"
+              },
+              {
+                "selector": "IX_MAP_HR_PERSONNEL_BIRTHNAME",
+                "value": "Müller",
+                "type": "TEXT"
+              },
+              {
+                "selector": "IX_MAP_HR_PERSONNEL_NATIONALITY",
+                "value": "Deutschland",
+                "type": "DYNKWL"
+              },
+              {
+                "selector": "IX_MAP_HR_PERSONNEL_RELIGIOUSDENOMINATION",
+                "value": "Katholisch",
+                "type": "KWL"
+              },
+              {
+                "selector": "IX_MAP_HR_PERSONNEL_CIVILSTATUS",
+                "value": "Verheiratet",
+                "type": "KWL"
+              }
+            ],
+            "tables": [],
+            "checkValueControls": [
+              {
+                "selector": "IX_GRP_HR_PERSONNEL_BIRTHDAY",
+                "value": "",
+                "type": "TEXT",
+                "operator": "EXIST"
+              },
+              {
+                "selector": "IX_MAP_HR_PERSONNEL_BIRTHPLACE",
+                "value": "",
+                "type": "TEXT",
+                "operator": "EXIST"
+              },
+              {
+                "selector": "IX_GRP_HR_PERSONNEL_FIRSTLANGUAGE",
+                "value": "",
+                "type": "DYNKWL",
+                "operator": "EXIST"
+              }
+            ],
+            "selectDocumentDialogs": []
+          }
+        ],
+        "testShouldFail": false
+      },
+      {
+        "entryPath": "",
+        "formulaType": "VIEWER",
+        "formulaSaveButton": "Speichern",
+        "formulaCancelButton": "",
+        "selectionDialogItem": "",
+        "eloActionDef": {
+          "selectorRibbon": "",
+          "selectorMenu": "",
+          "selectorButton": ""
+        },
+        "tabPages": [
+          {
+            "tabName": "Personal",
+            "initTabPage": [],
+            "controls": [
+              {
+                "selector": "IX_MAP_HR_PERSONNEL_PHYSICALFILINGLOCATION",
+                "value": "143581 - 154566",
+                "type": "TEXT"
+              },
+              {
+                "selector": "IX_GRP_HR_PERSONNEL_LICENSEPLATE",
+                "value": "S-AA 1234",
+                "type": "TEXT"
+              },
+              {
+                "selector": "IX_MAP_HR_PERSONNEL_TIN",
+                "value": "99 999 999 999",
+                "type": "TEXT"
+              },
+              {
+                "selector": "IX_MAP_HR_PERSONNEL_SOCIALSECURITYNUMBER",
+                "value": "12 123456 W 123",
+                "type": "TEXT"
+              },
+              {
+                "selector": "IX_MAP_HR_PERSONNEL_HEALTHINSURANCENUMBER",
+                "value": "A123456789",
+                "type": "TEXT"
+              },
+              {
+                "selector": "IX_MAP_HR_PERSONNEL_PAYMENTRECIPIENT",
+                "value": "Max Müller",
+                "type": "TEXT"
+              },
+              {
+                "selector": "IX_MAP_HR_PERSONNEL_BANK",
+                "value": "Commerzbank AG",
+                "type": "TEXT"
+              },
+              {
+                "selector": "IX_MAP_HR_PERSONNEL_IBAN",
+                "value": "DE 99 12345678 987654321",
+                "type": "TEXT"
+              },
+              {
+                "selector": "IX_MAP_HR_PERSONNEL_CURRENCY",
+                "value": "Euro",
+                "type": "DYNKWL"
+              },
+              {
+                "selector": "IX_MAP_HR_PERSONNEL_PAYMENTINSTRUCTIONS",
+                "value": "Zur Verrechnung",
+                "type": "TEXT"
+              },
+              {
+                "selector": "IX_MAP_HR_PERSONNEL_BANK_COUNTRY",
+                "value": "Deutschland",
+                "type": "DYNKWL"
+              },
+              {
+                "selector": "IX_GRP_HR_PERSONNEL_WORKSCHEDULE",
+                "value": "Vollzeit",
+                "type": "KWL"
+              },
+              {
+                "selector": "IX_MAP_HR_PERSONNEL_VACATIONQUOTA",
+                "value": "30",
+                "type": "TEXT"
+              }
+            ],
+            "tables": [],
+            "checkValueControls": [
+              {
+                "selector": "IX_GRP_HR_PERSONNEL_WORKSCHEDULE",
+                "value": "",
+                "type": "KWL",
+                "operator": "EXIST"
+              },
+              {
+                "selector": "IX_MAP_HR_PERSONNEL_VACATIONQUOTA",
+                "value": "",
+                "type": "TEXT",
+                "operator": "EXIST"
+              }
+            ],
+            "selectDocumentDialogs": []
+          }
+        ],
+        "testShouldFail": false
+      },
+      {
+        "entryPath": "",
+        "formulaType": "VIEWER",
+        "formulaSaveButton": "Speichern",
+        "formulaCancelButton": "",
+        "selectionDialogItem": "",
+        "eloActionDef": {
+          "selectorRibbon": "",
+          "selectorMenu": "",
+          "selectorButton": ""
+        },
+        "tabPages": [
+          {
+            "tabName": "Abteilung",
+            "initTabPage": [],
+            "controls": [
+              {
+                "selector": "IX_GRP_HR_PERSONNEL_SUPERIOR",
+                "value": "Verona Funk",
+                "type": "DYNKWL"
+              },
+              {
+                "selector": "IX_MAP_HR_PERSONNEL_MENTOR",
+                "value": "Daniel Cooper",
+                "type": "DYNKWL"
+              },
+              {
+                "selector": "IX_GRP_HR_PERSONNEL_JOBTITLE",
+                "value": "Berater",
+                "type": "TEXT"
+              },
+              {
+                "selector": "IX_GRP_HR_PERSONNEL_LOCATION",
+                "value": "Stuttgart",
+                "type": "TEXT"
+              },
+              {
+                "selector": "IX_GRP_HR_PERSONNEL_SECURITYCLEARANCE",
+                "value": "Keine",
+                "type": "TEXT"
+              },
+              {
+                "selector": "IX_GRP_HR_PERSONNEL_COMPANY",
+                "value": "Contelo AG",
+                "type": "TEXT"
+              },
+              {
+                "selector": "IX_GRP_HR_PERSONNEL_DIVISION",
+                "value": "Produktion",
+                "type": "TEXT"
+              },
+              {
+                "selector": "IX_GRP_HR_PERSONNEL_DEPARTMENT",
+                "value": "Produktentwicklung",
+                "type": "TEXT"
+              },
+              {
+                "selector": "IX_GRP_HR_PERSONNEL_TEAM",
+                "value": "Techn. Dokumentation",
+                "type": "TEXT"
+              }
+            ],
+            "tables": [],
+            "checkValueControls": [
+              {
+                "selector": "IX_GRP_HR_PERSONNEL_DEPARTMENT",
+                "value": "",
+                "type": "TEXT",
+                "operator": "EXIST"
+              },
+              {
+                "selector": "IX_GRP_HR_PERSONNEL_DIVISION",
+                "value": "",
+                "type": "TEXT",
+                "operator": "EXIST"
+              },
+              {
+                "selector": "IX_GRP_HR_PERSONNEL_SUPERIOR",
+                "value": "",
+                "type": "TEXT",
+                "operator": "EXIST"
+              },
+              {
+                "selector": "IX_MAP_HR_PERSONNEL_MENTOR",
+                "value": "",
+                "type": "TEXT",
+                "operator": "EXIST"
+              }
+            ],
+            "selectDocumentDialogs": []
+          }
+        ],
+        "testShouldFail": false
+      },
+      {
+        "entryPath": "",
+        "formulaType": "VIEWER",
+        "formulaSaveButton": "Speichern",
+        "formulaCancelButton": "",
+        "selectionDialogItem": "",
+        "eloActionDef": {
+          "selectorRibbon": "",
+          "selectorMenu": "",
+          "selectorButton": ""
+        },
+        "tabPages": [
+          {
+            "tabName": "Ein-/ Austritt",
+            "initTabPage": [],
+            "controls": [
+              {
+                "selector": "IX_GRP_HR_PERSONNEL_DATEOFJOINING",
+                "value": "01.04.2023",
+                "type": "TEXT"
+              },
+              {
+                "selector": "IX_MAP_HR_PERSONNEL_PERIODOFNOTICE",
+                "value": "3",
+                "type": "TEXT"
+              },
+              {
+                "selector": "IX_MAP_HR_PERSONNEL_PERIODOFNOTICE_UNIT",
+                "value": "Monate",
+                "type": "KWL"
+              },
+              {
+                "selector": "IX_MAP_HR_PERSONNEL_PERIODOFNOTICE_TP",
+                "value": "Monatsende",
+                "type": "KWL"
+              },
+              {
+                "selector": "IX_MAP_HR_PERSONNEL_PROBATIONARYPERIODDURATION",
+                "value": "6",
+                "type": "TEXT"
+              },
+              {
+                "selector": "IX_MAP_HR_PERSONNEL_PROBATIONARYPERIODDURATION_UNIT",
+                "value": "Monate",
+                "type": "KWL"
+              },
+              {
+                "selector": "IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY",
+                "value": "1",
+                "type": "TEXT"
+              },
+              {
+                "selector": "IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY_UNIT",
+                "value": "Monate",
+                "type": "KWL"
+              }
+            ],
+            "tables": [],
+            "checkValueControls": [
+              {
+                "selector": "IX_GRP_HR_PERSONNEL_DATEOFJOINING",
+                "value": "",
+                "type": "TEXT",
+                "operator": "EXIST"
+              }
+            ],
+            "selectDocumentDialogs": []
+          }
+        ],
+        "testShouldFail": false
+      }
+    ]
+  },
+  "eloTasks": {
+    "eloTasks": []
+  },
+  "eloDeletes": {
+    "arcPaths": []
+  },
+  "eloForwardWorkflow": {
+    "toNodesName": []
+  },
+  "eloRfs": {
+    "eloRfs": []
+  }
+}

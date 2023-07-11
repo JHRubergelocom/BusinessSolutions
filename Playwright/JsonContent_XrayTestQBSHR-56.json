@@ -1,0 +1,121 @@
+{"entries": [{
+  "archived": false,
+  "self": "https://eloticksy.elo.com/rest/api/2/issue/108113",
+  "reporter": "A.Scherer@elo.com",
+  "definition": {"steps": [
+    {
+      "result": {
+        "rendered": "<p>Der Aufgabenbereich des Users wird angezeigt<\/p>",
+        "raw": "Der Aufgabenbereich des Users wird angezeigt"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "",
+        "raw": ""
+      },
+      "index": 1,
+      "step": {
+        "rendered": "<p>in \"mein ELO\" die Kachel \"Aufgaben auswählen<\/p>",
+        "raw": "in \"mein ELO\" die Kachel \"Aufgaben auswählen"
+      },
+      "id": 9401
+    },
+    {
+      "result": {
+        "rendered": "<p>Formular öffnet sich schreibgeschützt auf der rechten Seite<\/p>",
+        "raw": "Formular öffnet sich schreibgeschützt auf der rechten Seite"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "",
+        "raw": ""
+      },
+      "index": 2,
+      "step": {
+        "rendered": "<p>Aufgabe \"Stammdaten kontrollieren\" auswählen<\/p>",
+        "raw": "Aufgabe \"Stammdaten kontrollieren\" auswählen"
+      },
+      "id": 9402
+    },
+    {
+      "result": {
+        "rendered": "<p>Formular kann nun bearbeitet werden<\/p>",
+        "raw": "Formular kann nun bearbeitet werden"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "",
+        "raw": ""
+      },
+      "index": 3,
+      "step": {
+        "rendered": "<p>Im Ribbon unter \"Aufgabe\" &gt; \"Workflow annehmen\" auswählen<\/p>",
+        "raw": "Im Ribbon unter \"Aufgabe\" > \"Workflow annehmen\" auswählen"
+      },
+      "id": 9405
+    },
+    {
+      "result": {
+        "rendered": "<ul>\n<li>Alle Eingaben bestehen aus den bereits vorhandenen Stammdaten, die um die Angaben durch den Vorgesetzten geändert oder ergänzt wurden<\/li>\n<\/ul>\n",
+        "raw": "* Alle Eingaben bestehen aus den bereits vorhandenen Stammdaten, die um die Angaben durch den Vorgesetzten geändert oder ergänzt wurden"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "<p>Siehe TestdatenHRPersonnelFile<br/>login=<span class=\"error\">&#91;Ute Schenk=elo=ruberg-hr.dev.elo&#93;<\/span><br/>inputcontrols=<span class=\"error\">&#91;IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY=1=TEXT&#93;<\/span><br/>task=<span class=\"error\">&#91;Stammdaten kontrollieren=true=Freigeben=null&#93;<\/span><\/p>",
+        "raw": "Siehe TestdatenHRPersonnelFile\nlogin=[Ute Schenk=elo=ruberg-hr.dev.elo]\ninputcontrols=[IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY=1=TEXT]\ntask=[Stammdaten kontrollieren=true=Freigeben=null]"
+      },
+      "index": 4,
+      "step": {
+        "rendered": "<p>Felder prüfen<\/p>",
+        "raw": "Felder prüfen"
+      },
+      "id": 9403
+    },
+    {
+      "result": {
+        "rendered": "<ul>\n<li>Die Aufgabe schließt sich und wird nicht länger im Aufgabenbereich angezeigt<\/li>\n<\/ul>\n",
+        "raw": "* Die Aufgabe schließt sich und wird nicht länger im Aufgabenbereich angezeigt"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "",
+        "raw": ""
+      },
+      "index": 5,
+      "step": {
+        "rendered": "<p>Aufgabe mit \"Freigeben\" bestätigen<\/p>",
+        "raw": "Aufgabe mit \"Freigeben\" bestätigen"
+      },
+      "id": 9404
+    },
+    {
+      "result": {
+        "rendered": "<p>Die eben freigegebene Kopie der Personalakte wird angezeigt<\/p>",
+        "raw": "Die eben freigegebene Kopie der Personalakte wird angezeigt"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "",
+        "raw": ""
+      },
+      "index": 6,
+      "step": {
+        "rendered": "<p>Im Ribbon über die Funktionssuche die Funktion \"Gehe zu\" auswählen<\/p>",
+        "raw": "Im Ribbon über die Funktionssuche die Funktion \"Gehe zu\" auswählen"
+      },
+      "id": 9406
+    }
+  ]},
+  "id": 108113,
+  "precondition": [{
+    "archived": false,
+    "preconditionKey": "QBSHR-57",
+    "rank": 0,
+    "self": "https://eloticksy.elo.com/rest/api/2/issue/108115",
+    "reporter": "JIRAUSER16052",
+    "type": "Manual"
+  }],
+  "type": "Manual",
+  "key": "QBSHR-56",
+  "status": "TODO"
+}]}
