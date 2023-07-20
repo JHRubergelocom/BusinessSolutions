@@ -1,0 +1,154 @@
+{
+  "executedBy": "J-H.Ruberg@elo.com",
+  "finishedOnIso": "2023-07-11T15:16:43+02:00",
+  "color": "#95C160",
+  "customFields": [],
+  "testEnvironments": [],
+  "fixVersions": [],
+  "testExecKey": "QBSHR-66",
+  "steps": [
+    {
+      "attachments": [],
+      "defects": [],
+      "index": 1,
+      "comment": {"rendered": ""},
+      "id": 34359,
+      "fields": {
+        "Action": {
+          "type": "Wiki",
+          "value": {
+            "rendered": "<p>in \"mein ELO\" die Kachel \"Aufgaben auswählen<\/p>",
+            "raw": "in \"mein ELO\" die Kachel \"Aufgaben auswählen"
+          }
+        },
+        "Data": {
+          "type": "Wiki",
+          "value": {
+            "rendered": "",
+            "raw": ""
+          }
+        },
+        "Expected Result": {
+          "type": "Wiki",
+          "value": {
+            "rendered": "<p>Der Aufgabenbereich des Users wird angezeigt<\/p>",
+            "raw": "Der Aufgabenbereich des Users wird angezeigt"
+          }
+        }
+      },
+      "evidences": [],
+      "status": "PASS",
+      "actualResult": {"rendered": ""}
+    },
+    {
+      "attachments": [],
+      "defects": [],
+      "index": 2,
+      "comment": {"rendered": ""},
+      "id": 34360,
+      "fields": {
+        "Action": {
+          "type": "Wiki",
+          "value": {
+            "rendered": "<p>Aufgabe \"Stammdaten vervollständigen\" auswählen<\/p>",
+            "raw": "Aufgabe \"Stammdaten vervollständigen\" auswählen"
+          }
+        },
+        "Data": {
+          "type": "Wiki",
+          "value": {
+            "rendered": "",
+            "raw": ""
+          }
+        },
+        "Expected Result": {
+          "type": "Wiki",
+          "value": {
+            "rendered": "<p>Formular öffnet sich auf der rechten Seite<\/p>",
+            "raw": "Formular öffnet sich auf der rechten Seite"
+          }
+        }
+      },
+      "evidences": [],
+      "status": "PASS",
+      "actualResult": {"rendered": ""}
+    },
+    {
+      "attachments": [],
+      "defects": [],
+      "index": 3,
+      "comment": {"rendered": ""},
+      "id": 34361,
+      "fields": {
+        "Action": {
+          "type": "Wiki",
+          "value": {
+            "rendered": "<p>Felder befüllen<\/p>",
+            "raw": "Felder befüllen"
+          }
+        },
+        "Data": {
+          "type": "Wiki",
+          "value": {
+            "rendered": "<p>Siehe TestdatenHRPersonnelFile<br/>login=<span class=\"error\">&#91;Verona Funk=elo=ruberg-hr.dev.elo&#93;<\/span><br/>inputcontrols=<span class=\"error\">&#91;IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY=2=TEXT&#93;<\/span><br/>task=<span class=\"error\">&#91;Stammdaten vervollständigen=false=OK=null&#93;<\/span><\/p>",
+            "raw": "Siehe TestdatenHRPersonnelFile\nlogin=[Verona Funk=elo=ruberg-hr.dev.elo]\ninputcontrols=[IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY=2=TEXT]\ntask=[Stammdaten vervollständigen=false=OK=null]"
+          }
+        },
+        "Expected Result": {
+          "type": "Wiki",
+          "value": {
+            "rendered": "<ul>\n<li>Folgende Felder können nicht bearbeitet werden:\n<ul>\n<li>Vorname<\/li>\n<li>Nachname<\/li>\n<\/ul>\n<\/li>\n<li>bereits erfasste Daten wurden übernommen und angezeigt<\/li>\n<\/ul>\n",
+            "raw": "* Folgende Felder können nicht bearbeitet werden:\n ** Vorname\n ** Nachname\n * bereits erfasste Daten wurden übernommen und angezeigt"
+          }
+        }
+      },
+      "evidences": [],
+      "status": "PASS",
+      "actualResult": {"rendered": ""}
+    },
+    {
+      "attachments": [],
+      "defects": [],
+      "index": 4,
+      "comment": {"rendered": ""},
+      "id": 34362,
+      "fields": {
+        "Action": {
+          "type": "Wiki",
+          "value": {
+            "rendered": "<p>Eingaben mit \"OK\" bestätigen<\/p>",
+            "raw": "Eingaben mit \"OK\" bestätigen"
+          }
+        },
+        "Data": {
+          "type": "Wiki",
+          "value": {
+            "rendered": "",
+            "raw": ""
+          }
+        },
+        "Expected Result": {
+          "type": "Wiki",
+          "value": {
+            "rendered": "<ul>\n<li>Die Aufgabe schließt sich und wird nicht länger im Aufgabenbereich angezeigt<\/li>\n<\/ul>\n",
+            "raw": "* Die Aufgabe schließt sich und wird nicht länger im Aufgabenbereich angezeigt"
+          }
+        }
+      },
+      "evidences": [],
+      "status": "PASS",
+      "actualResult": {"rendered": ""}
+    }
+  ],
+  "startedOnIso": "2023-07-11T15:16:43+02:00",
+  "duration": 0,
+  "archived": false,
+  "defects": [],
+  "id": 28167,
+  "testKey": "QBSHR-54",
+  "assignee": "J-H.Ruberg@elo.com",
+  "finishedOn": "2023-07-11T15:16:43+02:00",
+  "evidences": [],
+  "startedOn": "2023-07-11T15:16:43+02:00",
+  "status": "PASS"
+}

@@ -1,0 +1,220 @@
+{
+  "executedBy": "J-H.Ruberg@elo.com",
+  "finishedOnIso": "2023-07-11T15:28:53+02:00",
+  "color": "#95C160",
+  "customFields": [],
+  "testEnvironments": [],
+  "fixVersions": [],
+  "testExecKey": "QBSHR-66",
+  "steps": [
+    {
+      "attachments": [],
+      "defects": [],
+      "index": 1,
+      "comment": {"rendered": ""},
+      "id": 34363,
+      "fields": {
+        "Action": {
+          "type": "Wiki",
+          "value": {
+            "rendered": "<p>in \"mein ELO\" die Kachel \"Aufgaben auswählen<\/p>",
+            "raw": "in \"mein ELO\" die Kachel \"Aufgaben auswählen"
+          }
+        },
+        "Data": {
+          "type": "Wiki",
+          "value": {
+            "rendered": "",
+            "raw": ""
+          }
+        },
+        "Expected Result": {
+          "type": "Wiki",
+          "value": {
+            "rendered": "<p>Der Aufgabenbereich des Users wird angezeigt<\/p>",
+            "raw": "Der Aufgabenbereich des Users wird angezeigt"
+          }
+        }
+      },
+      "evidences": [],
+      "status": "PASS",
+      "actualResult": {"rendered": ""}
+    },
+    {
+      "attachments": [],
+      "defects": [],
+      "index": 2,
+      "comment": {"rendered": ""},
+      "id": 34364,
+      "fields": {
+        "Action": {
+          "type": "Wiki",
+          "value": {
+            "rendered": "<p>Aufgabe \"Stammdaten kontrollieren\" auswählen<\/p>",
+            "raw": "Aufgabe \"Stammdaten kontrollieren\" auswählen"
+          }
+        },
+        "Data": {
+          "type": "Wiki",
+          "value": {
+            "rendered": "",
+            "raw": ""
+          }
+        },
+        "Expected Result": {
+          "type": "Wiki",
+          "value": {
+            "rendered": "<p>Formular öffnet sich schreibgeschützt auf der rechten Seite<\/p>",
+            "raw": "Formular öffnet sich schreibgeschützt auf der rechten Seite"
+          }
+        }
+      },
+      "evidences": [],
+      "status": "PASS",
+      "actualResult": {"rendered": ""}
+    },
+    {
+      "attachments": [],
+      "defects": [],
+      "index": 3,
+      "comment": {"rendered": ""},
+      "id": 34365,
+      "fields": {
+        "Action": {
+          "type": "Wiki",
+          "value": {
+            "rendered": "<p>Im Ribbon unter \"Aufgabe\" &gt; \"Workflow annehmen\" auswählen<\/p>",
+            "raw": "Im Ribbon unter \"Aufgabe\" > \"Workflow annehmen\" auswählen"
+          }
+        },
+        "Data": {
+          "type": "Wiki",
+          "value": {
+            "rendered": "",
+            "raw": ""
+          }
+        },
+        "Expected Result": {
+          "type": "Wiki",
+          "value": {
+            "rendered": "<p>Formular kann nun bearbeitet werden<\/p>",
+            "raw": "Formular kann nun bearbeitet werden"
+          }
+        }
+      },
+      "evidences": [],
+      "status": "PASS",
+      "actualResult": {"rendered": ""}
+    },
+    {
+      "attachments": [],
+      "defects": [],
+      "index": 4,
+      "comment": {"rendered": ""},
+      "id": 34366,
+      "fields": {
+        "Action": {
+          "type": "Wiki",
+          "value": {
+            "rendered": "<p>Felder prüfen<\/p>",
+            "raw": "Felder prüfen"
+          }
+        },
+        "Data": {
+          "type": "Wiki",
+          "value": {
+            "rendered": "<p>Siehe TestdatenHRPersonnelFile<br/>login=<span class=\"error\">&#91;Ute Schenk=elo=ruberg-hr.dev.elo&#93;<\/span><br/>inputcontrols=<span class=\"error\">&#91;IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY=1=TEXT&#93;<\/span><br/>task=<span class=\"error\">&#91;Stammdaten kontrollieren=true=Freigeben=null&#93;<\/span><\/p>",
+            "raw": "Siehe TestdatenHRPersonnelFile\nlogin=[Ute Schenk=elo=ruberg-hr.dev.elo]\ninputcontrols=[IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY=1=TEXT]\ntask=[Stammdaten kontrollieren=true=Freigeben=null]"
+          }
+        },
+        "Expected Result": {
+          "type": "Wiki",
+          "value": {
+            "rendered": "<ul>\n<li>Alle Eingaben bestehen aus den bereits vorhandenen Stammdaten, die um die Angaben durch den Vorgesetzten geändert oder ergänzt wurden<\/li>\n<\/ul>\n",
+            "raw": "* Alle Eingaben bestehen aus den bereits vorhandenen Stammdaten, die um die Angaben durch den Vorgesetzten geändert oder ergänzt wurden"
+          }
+        }
+      },
+      "evidences": [],
+      "status": "PASS",
+      "actualResult": {"rendered": ""}
+    },
+    {
+      "attachments": [],
+      "defects": [],
+      "index": 5,
+      "comment": {"rendered": ""},
+      "id": 34367,
+      "fields": {
+        "Action": {
+          "type": "Wiki",
+          "value": {
+            "rendered": "<p>Aufgabe mit \"Freigeben\" bestätigen<\/p>",
+            "raw": "Aufgabe mit \"Freigeben\" bestätigen"
+          }
+        },
+        "Data": {
+          "type": "Wiki",
+          "value": {
+            "rendered": "",
+            "raw": ""
+          }
+        },
+        "Expected Result": {
+          "type": "Wiki",
+          "value": {
+            "rendered": "<ul>\n<li>Die Aufgabe schließt sich und wird nicht länger im Aufgabenbereich angezeigt<\/li>\n<\/ul>\n",
+            "raw": "* Die Aufgabe schließt sich und wird nicht länger im Aufgabenbereich angezeigt"
+          }
+        }
+      },
+      "evidences": [],
+      "status": "PASS",
+      "actualResult": {"rendered": ""}
+    },
+    {
+      "attachments": [],
+      "defects": [],
+      "index": 6,
+      "comment": {"rendered": ""},
+      "id": 34368,
+      "fields": {
+        "Action": {
+          "type": "Wiki",
+          "value": {
+            "rendered": "<p>Im Ribbon über die Funktionssuche die Funktion \"Gehe zu\" auswählen<\/p>",
+            "raw": "Im Ribbon über die Funktionssuche die Funktion \"Gehe zu\" auswählen"
+          }
+        },
+        "Data": {
+          "type": "Wiki",
+          "value": {
+            "rendered": "",
+            "raw": ""
+          }
+        },
+        "Expected Result": {
+          "type": "Wiki",
+          "value": {
+            "rendered": "<p>Die eben freigegebene Kopie der Personalakte wird angezeigt<\/p>",
+            "raw": "Die eben freigegebene Kopie der Personalakte wird angezeigt"
+          }
+        }
+      },
+      "evidences": [],
+      "status": "PASS",
+      "actualResult": {"rendered": ""}
+    }
+  ],
+  "startedOnIso": "2023-07-11T15:28:53+02:00",
+  "duration": 0,
+  "archived": false,
+  "defects": [],
+  "id": 28168,
+  "testKey": "QBSHR-56",
+  "assignee": "J-H.Ruberg@elo.com",
+  "finishedOn": "2023-07-11T15:28:53+02:00",
+  "evidences": [],
+  "startedOn": "2023-07-11T15:28:53+02:00",
+  "status": "PASS"
+}

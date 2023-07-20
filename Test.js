@@ -44,6 +44,12 @@ playground http://playground.dev.elo/ix-Solutions/ix
 
 rubergproductivity http://ruberg-productivity.dev.elo/ix-Solutions/ix
 
+=====================================================================================================================================================================
+
+Einstellungen Log-Level in ELO
+
+logback.xml
+
 
 
 =====================================================================================================================================================================
@@ -641,8 +647,7 @@ elo-sol prepare -stack ruberg-teamroom -workspace jan -version 20.00
 
 meeting
 
-e
-
+elo-sol prepare -stack ruberg-meeting -workspace premium-groupware -version 20.00
 
 
 Masken updaten!
@@ -674,12 +679,18 @@ CLI-Tool für VM's
 
 elo-sol push -workspace default -ixUrl http://192.168.75.159:9090/ix-Demo/ix
 
-
+elo-sol push -workspace jan -ixUrl http://elodemo:9090/ix-Demo/ix
 
 http://192.168.52.128:9090/ix-Demo/ix
 
 http://elodemo:9090/ix-Demo/ix
 
+
+=====================================================================================================================================================================
+
+Lizenzen
+
+https://git.elo.dev/bs/support/-/wikis/Stack/Lizenz-aktualisieren/Lizenz-aktualisieren
 
 =====================================================================================================================================================================
 
@@ -866,27 +877,6 @@ BS Common BS-1943 Ordnerinhalt PDF Export stabiler machen
 https://eloticksy.elo.com/browse/BS-1943
 
 
-Invoice 5245
-
-
-
-
-5245 "Invoice"
-
-
-4139 "Test data/PdfExport"
-
-
-
-TODO
-
-
-
-Stack ruberg-common neu erstellen
-
-Prüfen ob setPaginationText auch im Linux Stack funktioniert, sonst bisherige Funktion setPagination nutzen
-
-
 =====================================================================================================================================================================
 
 25.05.2023
@@ -894,77 +884,6 @@ Prüfen ob setPaginationText auch im Linux Stack funktioniert, sonst bisherige F
 BS Meeting BSMM-2856 Überarbeitung Sitzungsmappe
 
 https://eloticksy.elo.com/browse/BSMM-2856
-
-
-
-sol.meeting_premium.client.ribbon.btnCreateMeetingFile=Sitzungsmappe erstellen
-
-
-WF "sol.meeting_premium.CreateMeetingFile"
-
-
-
-
-{
-  "$directRule": "sol.meeting_premium.as.functions.CreateMeetingFile",
-  "$config": "/meeting_premium/Configuration/meeting_premium.meetingFile.config"
-}
-
-
-<rule>
-  <name>Regel1</name>
-  <condition></condition>
-  <script>
-    sol.common.as.Utils.requiresUserSession(this);
-
-    var params = JSON.parse(EM_PARAM2);
-    params.user = EM_USERID;
-
-    var pdfExport = sol.create("sol.meeting.as.functions.StandardDocumentGenerator", params);
-    ruleset.setStatusMessage(JSON.stringify(pdfExport.execute()));
-
-    sol.common.as.Utils.cleanupUserSession(this);
-  </script>
-</rule>
-
-
-MEETING_NAME
-MEETING_LOCATION
-MEETING_ROOM
-
-MEETING_WEEKDAY1
-
-
-
-IX_MAP_MEETING_WEEKDAY1
-
-
-
-Meeting objId 5324
-
-
-
-
-Handlebars.registerHelper("translate", function (key, language) {
-  var translatedStr = "";
-
-  key = "" + key;
-
-  try {
-    // additional check necessary, because if language is omitted in template string, language parameter has accidentally the context parameter
-    if (!language || ((typeof language === "object") && (language.name === "translate"))) {
-      translatedStr = sol.common.TranslateTerms.translate(key);
-    } else {
-      translatedStr = sol.common.TranslateTerms.getTerm(language, key);
-    }
-  } catch (ex) {
-    translatedStr = key;
-  }
-  return new Handlebars.SafeString(translatedStr);
-});
-
-
-Testen !
 
 
 =====================================================================================================================================================================
@@ -1011,18 +930,15 @@ RF_sol_unittest_service_ExecuteLib
 
 =====================================================================================================================================================================
 
+TODO 20.07.2023
 
 
+BS Intern BSXX-477 Testautomatisierung mit Playwright
 
-TODO 05.07.2023
-
-
-BS Intern BSXX-473 Testautomatisierung mit Playwright
-
-https://eloticksy.elo.com/browse/BSXX-473
+https://eloticksy.elo.com/browse/BSXX-477
 
 
-Testautomatisierung mit Playwright
+Playwright Testcases QS BS HR Personnel File Xray REST API
 
 
 
@@ -1045,7 +961,6 @@ https://docs.getxray.app/display/XRAY/Testing+web+applications+using+Playwright#
 
 
 https://academy.getxray.app/
-
 
 
 https://eloticksy.elo.com/browse/QBSHR-56  "aut. Eintrittsprozess: Stammdaten kontrollieren"
@@ -1114,7 +1029,6 @@ https://eloticksy.elo.com/rest/raven/1.0/api/test/QBSHR-50/testruns
 https://eloticksy.elo.com/rest/raven/1.0/api/test/QBSHR-50/testexecutions
 
 
-
 https://eloticksy.elo.com/rest/api/2/issue/111818
 
 
@@ -1128,6 +1042,7 @@ JiraConnectionConfig analog PlaywrightConfig
 	username: "J-H.Ruberg@elo.com"
 	password: "XXX"
 }
+
 
 
 JiraSession analog WebclientSession designen
@@ -1152,29 +1067,10 @@ https://eloprojects.atlassian.net/rest/api/2/issue/DAT-948
   "password": "XXX"
 }
 
-
-DataConfigQSBSHR58.json
-
-TestConvertCSV.xlsx
-
-
-
 Testdaten in Jira Xray Test integrieren
-
-        APIResponse response = request.get("/rest/raven/1.0/api/test", RequestOptions.create().setQueryParam("keys", xrayTest));
-        APIResponse response = request.get("/rest/raven/1.0/api/test/" + xrayTest + "/testruns");
-        APIResponse response = request.get("/rest/raven/1.0/api/test/" + xrayTest + "/testexecutions");
-
-
 
 Jira Xray Datensätze Parameter erstellen und Daten importieren!
 
-
-
-
-"DataConfigQSBSHR58.json"
-
-"QBSHR-50" "JiraConnectionConfig.json"
 
 
 TODO Testergebnis nach Jira zurückschreiben (Update TestExecution)
@@ -1182,46 +1078,71 @@ TODO Testergebnis nach Jira zurückschreiben (Update TestExecution)
 JiraConnectionConfig.json um testExecutionKey erweitern (für "QBSHR-66")
 
 
-Siehe TestdatenHRPersonnelFile
-login=[Ute Schenk=elo=ruberg-hr.dev.elo]
-tabpage=[Persönlich]
-inputcontrols=[IX_MAP_HR_PERSONNEL_TITLE=Dr. med.=TEXT;IX_MAP_HR_PERSONNEL_NAMEAFFIX=von=TEXT;IX_MAP_HR_PERSONNEL_STREETADDRESS=Franz-Joseph-Spiegler-Straße 75=TEXT;IX_GRP_HR_PERSONNEL_POSTALCODE=97013=TEXT;IX_GRP_HR_PERSONNEL_CITY=Bad Gottleuba-Berggießhübel=TEXT;IX_MAP_HR_PERSONNEL_STATE=Baden-Württemberg=TEXT;IX_MAP_HR_PERSONNEL_BUSINESSEMAIL=a.boehm@contelo.com=TEXT;IX_MAP_HR_PERSONNEL_PRIVATEEMAIL=a_boehm@web.de=TEXT;IX_MAP_HR_PERSONNEL_BUSINESSPHONENUMBER=+49 731-123456=TEXT;IX_MAP_HR_PERSONNEL_PRIVATEPHONENUMBER=07522 987654=TEXT;IX_MAP_HR_PERSONNEL_BUSINESSMOBILENUMBER=+(+49)176 12345678=TEXT;IX_MAP_HR_PERSONNEL_PRIVATEMOBILENUMBER=0160-12345698=TEXT;IX_GRP_HR_PERSONNEL_COUNTRY=Deutschland=DYNKWL;IX_GRP_HR_PERSONNEL_GENDER=Männlich=KWL;IX_GRP_HR_PERSONNEL_FIRSTLANGUAGE=Deutsch=DYNKWL;IX_GRP_HR_PERSONNEL_BIRTHDAY=23.12.1959=TEXT;IX_MAP_HR_PERSONNEL_BIRTHPLACE=Stutgart=TEXT;IX_MAP_HR_PERSONNEL_BIRTHNAME=Müller=TEXT;IX_MAP_HR_PERSONNEL_NATIONALITY=Deutschland=DYNKWL;IX_MAP_HR_PERSONNEL_RELIGIOUSDENOMINATION=Katholisch=KWL;IX_MAP_HR_PERSONNEL_CIVILSTATUS=Verheiratet=KWL]
-checkcontrols=[IX_GRP_HR_PERSONNEL_BIRTHDAY=null=TEXT=EXIST;IX_MAP_HR_PERSONNEL_BIRTHPLACE=Null=TEXT=EXIST;IX_GRP_HR_PERSONNEL_FIRSTLANGUAGE=null=DYNKWL=EXIST]
-formular=[Solutions/Personalmanagement/Personalakten/H/Hansen, Hans=Speichern=null=viewer]
+
+
+https://eloticksy.elo.com/rest/raven/1.0/api/testexec/QBSHR-66/test
+
+
+https://eloticksy.elo.com/rest/raven/1.0/execution/result?testExecKey=QBSHR-66&testKey=QBSHR-58
+
+
+https://eloticksy.elo.com/rest/raven/1.0/api/testruns?testExecKey=QBSHR-66
 
 
 
-tabpage=[Personal]
-inputcontrols=[IX_MAP_HR_PERSONNEL_PHYSICALFILINGLOCATION=143581 - 154566=TEXT;IX_GRP_HR_PERSONNEL_LICENSEPLATE=S-AA 1234=TEXT;IX_MAP_HR_PERSONNEL_TIN=99 999 999 999=TEXT;IX_MAP_HR_PERSONNEL_SOCIALSECURITYNUMBER=12 123456 W 123=TEXT;IX_MAP_HR_PERSONNEL_HEALTHINSURANCENUMBER=A123456789=TEXT;
-IX_MAP_HR_PERSONNEL_PAYMENTRECIPIENT=Max Müller=TEXT;IX_MAP_HR_PERSONNEL_BANK=Commerzbank AG=TEXT;IX_MAP_HR_PERSONNEL_IBAN=DE 99 12345678 987654321=TEXT;IX_MAP_HR_PERSONNEL_CURRENCY=Euro=DYNKWL;
-IX_MAP_HR_PERSONNEL_PAYMENTINSTRUCTIONS=Zur Verrechnung=TEXT;IX_MAP_HR_PERSONNEL_BANK_COUNTRY=Deutschland=TEXT;IX_GRP_HR_PERSONNEL_COUNTRY=Deutschland=DYNKWL;
-IX_GRP_HR_PERSONNEL_WORKSCHEDULE=Vollzeit=KWL;IX_MAP_HR_PERSONNEL_VACATIONQUOTA=30=TEXT]
-checkcontrols=[IX_GRP_HR_PERSONNEL_WORKSCHEDULE=null=KWL=EXIST;IX_MAP_HR_PERSONNEL_VACATIONQUOTA=Null=TEXT=EXIST]
-formular=[null=Speichern=null=viewer]
+https://eloticksy.elo.com/rest/raven/1.0/api/testplan/QBSHR-69/testexecution
 
 
-tabpage=[Ein-/ Austritt]
-inputcontrols=[IX_GRP_HR_PERSONNEL_DATEOFJOINING=01.04.2023=TEXT;IX_MAP_HR_PERSONNEL_PERIODOFNOTICE=3=TEXT;IX_MAP_HR_PERSONNEL_PERIODOFNOTICE_UNIT=Monate=KWL;IX_MAP_HR_PERSONNEL_PERIODOFNOTICE_TP=Monatsende=KWL;IX_MAP_HR_PERSONNEL_PROBATIONARYPERIODDURATION=6=TEXT;IX_MAP_HR_PERSONNEL_PROBATIONARYPERIODDURATION_UNIT=Monate=KWL;IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY=1=TEXT;IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY_UNIT=Monate=KWL]
-checkcontrols=[IX_GRP_HR_PERSONNEL_DATEOFJOINING=null=TEXT=EXIST]
-formular=[null=Speichern=null=viewer]
+
+Testplan QBSHR-69
 
 
 
 
-login=[Ute Schenk=elo=ruberg-hr.dev.elo]
-formular=[Solutions/Personalmanagement/Personalakten/H/Hansen, Hans=OK=Abbrechen=external=Personal=Personal=Eintrittsprozess]
+Untersuchen Daten Testausführung mit Parameter !!
+
+
+
+https://eloticksy.elo.com/rest/raven/2.0/api/dataset/export?testExecIssueKey=QBSHR-58
 
 
 
 
-login=[Verona Funk=elo=ruberg-hr.dev.elo]
-inputcontrols=[IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY=2=TEXT]
-task=[Stammdaten vervollständigen=false=OK=Abbrechen]
+Probieren Xray Test API 2 Datasets exportieren
 
 
-login=[Ute Schenk=elo=ruberg-hr.dev.elo]
-inputcontrols=[IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY=2=TEXT]
-task=[Stammdaten kontrollieren=true=Freigeben=null]
+1.) Einlesen Test 
+
+
+		js.getJiraXrayTest(..)
+        APIResponse response = request.get("/rest/raven/1.0/api/test", RequestOptions.create().setQueryParam("keys", xrayTest));
+		
+2.) Einlesen Dataset von Test (CSV-Datei mit Parameter)
+
+
+curl -X 'GET' \
+  'https://sandbox.xpand-it.com/rest/raven/2.0/api/dataset/export?testIssueKey=QBSHR-58' \
+  -H 'accept: text/csv'
+
+
+
+
+3.) Update 
+
+		js.updateJiraXrayTestExecution(..)
+        APIResponse response = request.post("/rest/raven/1.0/import/execution", RequestOptions.create().setData(testExecutionObject));
+
+
+https://eloticksy.elo.com/rest/raven/2.0/api/dataset/export?testIssueKey=QBSHR-58
+
+
+
+curl --user J-H.Ruberg@elo.com:XXX  -X GET https://eloticksy.elo.com/rest/raven/2.0/api/dataset/export?testIssueKey=QBSHR-58 -H accept: text/csv
+
+curl -u J-H.Ruberg@elo.com:XXX  -X GET https://eloticksy.elo.com/rest/raven/2.0/api/dataset/export?testIssueKey=QBSHR-58 -H 'accept: text/csv'
+
+	
+	
 
 
 

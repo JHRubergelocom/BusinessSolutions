@@ -1,0 +1,104 @@
+{"entries": [{
+  "archived": false,
+  "self": "https://eloticksy.elo.com/rest/api/2/issue/108067",
+  "reporter": "A.Scherer@elo.com",
+  "definition": {"steps": [
+    {
+      "result": {
+        "rendered": "<p>Fokus liegt auf dem Objekt<\/p>",
+        "raw": "Fokus liegt auf dem Objekt"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "<p>Personalakte mit Status:<\/p>\n<ul>\n<li>In Vorbereitung<\/li>\n<li>Vorbereitet<\/li>\n<li>Inaktiv<\/li>\n<li>Ausgeschieden<\/li>\n<li>Gekündigt<\/li>\n<li>Im Ruhestand<\/li>\n<\/ul>\n",
+        "raw": "Personalakte mit Status:\n * In Vorbereitung\n * Vorbereitet\n * Inaktiv\n * Ausgeschieden\n * Gekündigt\n * Im Ruhestand"
+      },
+      "index": 1,
+      "step": {
+        "rendered": "<p>Im Repository auf eine Personalakte stehen<\/p>",
+        "raw": "Im Repository auf eine Personalakte stehen"
+      },
+      "id": 9386
+    },
+    {
+      "result": {
+        "rendered": "<p>Es öffnet sich das Formular \"Eintrittsprozess starten\"<\/p>",
+        "raw": "Es öffnet sich das Formular \"Eintrittsprozess starten\""
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "<p>login=<span class=\"error\">&#91;Ute Schenk=elo=ruberg-hr.dev.elo&#93;<\/span><br/>formular=<span class=\"error\">&#91;Solutions/Personalmanagement/Personalakten/H/Hansen, Hans=OK=Abbrechen=external=Personal=Personal=Eintrittsprozess&#93;<\/span><\/p>",
+        "raw": "login=[Ute Schenk=elo=ruberg-hr.dev.elo]\nformular=[Solutions/Personalmanagement/Personalakten/H/Hansen, Hans=OK=Abbrechen=external=Personal=Personal=Eintrittsprozess]"
+      },
+      "index": 2,
+      "step": {
+        "rendered": "<p>Im Ribbon \"Personal\" &gt; \"Eintrittsprozess starten\" klicken<\/p>",
+        "raw": "Im Ribbon \"Personal\" > \"Eintrittsprozess starten\" klicken"
+      },
+      "id": 9388
+    },
+    {
+      "result": {
+        "rendered": "<p>Alle Pflichtfelder sind entweder:<\/p>\n<ul>\n<li>mit Text befüllt<\/li>\n<\/ul>\n\n\n<p>oder<\/p>\n<ul>\n<li>rot (#ffd2d2) markiert<\/li>\n<\/ul>\n",
+        "raw": "Alle Pflichtfelder sind entweder:\n * mit Text befüllt\n\noder\n * rot (#ffd2d2) markiert"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "",
+        "raw": ""
+      },
+      "index": 3,
+      "step": {
+        "rendered": "<p>Click auf \"OK\"<\/p>",
+        "raw": "Click auf \"OK\""
+      },
+      "id": 9389
+    },
+    {
+      "result": {
+        "rendered": "<ul>\n<li>Im Feld\n<ul>\n<li>\"Vorgesetzter\" stehen alle Personen mit einer Personalakte zur Auswahl<\/li>\n<li>Eintrittsdatum kann auch in der Vergangenheit liegen<\/li>\n<\/ul>\n<\/li>\n<\/ul>\n",
+        "raw": "* Im Feld\n ** \"Vorgesetzter\" stehen alle Personen mit einer Personalakte zur Auswahl\n ** Eintrittsdatum kann auch in der Vergangenheit liegen"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "<p>Siehe TestdatenHRPersonnelFile<\/p>",
+        "raw": "Siehe TestdatenHRPersonnelFile"
+      },
+      "index": 4,
+      "step": {
+        "rendered": "<p>Pflichtfelder befüllen:<\/p>\n<ul>\n<li>Vorgesetzter<\/li>\n<li>Stellenbezeichnung<\/li>\n<li>Eintrittsdatum<\/li>\n<\/ul>\n",
+        "raw": "Pflichtfelder befüllen:\n * Vorgesetzter\n * Stellenbezeichnung\n * Eintrittsdatum"
+      },
+      "id": 9390
+    },
+    {
+      "result": {
+        "rendered": "<ul>\n<li>Das Formular schließt sich<\/li>\n<li>Die Personalakte wird angezeigt<\/li>\n<li>Im Feed wurde der Eintrag \"USER hat den Eintrittsprozess gestartet\" <\/li>\n<\/ul>\n\n\n<p>Automatisch vermutlich nicht überprüfbar:<\/p>\n<ul>\n<li>Eine Kopie der Personalakte wurde in der Chaosablage erstellt<\/li>\n<li>Auf dieser Kopie wurde der Workflow gestartet<\/li>\n<li>der User, der als Verantwortlicher eingetragen wurde, erhält eine Aufgabe<\/li>\n<\/ul>\n",
+        "raw": "* Das Formular schließt sich\n * Die Personalakte wird angezeigt\n * Im Feed wurde der Eintrag \"USER hat den Eintrittsprozess gestartet\" \n\nAutomatisch vermutlich nicht überprüfbar:\n * Eine Kopie der Personalakte wurde in der Chaosablage erstellt\n * Auf dieser Kopie wurde der Workflow gestartet\n * der User, der als Verantwortlicher eingetragen wurde, erhält eine Aufgabe"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "",
+        "raw": ""
+      },
+      "index": 5,
+      "step": {
+        "rendered": "<p>Eingaben mit \"OK\" bestätigen<\/p>",
+        "raw": "Eingaben mit \"OK\" bestätigen"
+      },
+      "id": 9391
+    }
+  ]},
+  "id": 108067,
+  "precondition": [{
+    "archived": false,
+    "preconditionKey": "QBSHR-53",
+    "rank": 0,
+    "self": "https://eloticksy.elo.com/rest/api/2/issue/108073",
+    "reporter": "JIRAUSER16052",
+    "type": "Manual"
+  }],
+  "type": "Manual",
+  "key": "QBSHR-52",
+  "status": "PASS"
+}]}

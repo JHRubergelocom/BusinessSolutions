@@ -1,0 +1,283 @@
+{"entries": [{
+  "archived": false,
+  "self": "https://eloticksy.elo.com/rest/api/2/issue/108697",
+  "reporter": "A.Scherer@elo.com",
+  "definition": {"steps": [
+    {
+      "result": {
+        "rendered": "<p>Benutzer <raven-test-param data-mce-tabindex='-1' tabindex='-1' contenteditable='false' class=''>Benutzer<\/raven-test-param> aus Gruppe <raven-test-param data-mce-tabindex='-1' tabindex='-1' contenteditable='false' class=''>Gruppe<\/raven-test-param> ist erfolgreich angemeldet<\/p>",
+        "raw": "Benutzer {test-param}Benutzer{test-param} aus Gruppe {test-param}Gruppe{test-param} ist erfolgreich angemeldet"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "<ul>\n<li>Benutzer: <raven-test-param data-mce-tabindex='-1' tabindex='-1' contenteditable='false' class=''>Benutzer<\/raven-test-param> <\/li>\n<li>Passwort<\/li>\n<\/ul>\n",
+        "raw": "* Benutzer: {test-param}Benutzer{test-param} \n * Passwort"
+      },
+      "index": 1,
+      "step": {
+        "rendered": "<p>Mit folgendem Benutzer anmelden<\/p>",
+        "raw": "Mit folgendem Benutzer anmelden"
+      },
+      "id": 9959
+    },
+    {
+      "result": {
+        "rendered": "<p>Fokus liegt auf dem Objekt<\/p>",
+        "raw": "Fokus liegt auf dem Objekt"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "<p>Personalakte: <raven-test-param data-mce-tabindex='-1' tabindex='-1' contenteditable='false' class=''>Personalakte<\/raven-test-param><\/p>",
+        "raw": "Personalakte: {test-param}Personalakte{test-param}"
+      },
+      "index": 2,
+      "step": {
+        "rendered": "<p>Im Repository auf einer Personalakte stehen.<\/p>",
+        "raw": "Im Repository auf einer Personalakte stehen."
+      },
+      "id": 9476
+    },
+    {
+      "result": {
+        "rendered": "<p>Ein Menü mit den folgenden Funktionen wird <raven-test-param data-mce-tabindex='-1' tabindex='-1' contenteditable='false' class=''>angezeigt<\/raven-test-param> <\/p>\n<ol>\n<li>\"Eintrittsprozess starten\"<\/li>\n<li>\"Austrittsprozess starten\"<\/li>\n<li>\"Nachricht senden\"<\/li>\n<li>\"Ausweis erstellen\"<\/li>\n<li>\"Dokument erstellen\"<\/li>\n<\/ol>\n\n\n<p> <\/p>\n<ol>\n<li><font color=\"#ff0000\">befinden sich die Funktionen in einer festen Position (Aministrator und UTE haben die Buttons in unterschiedlichen Positionen)?<\/font><\/li>\n<li><font color=\"#ff0000\">Sind alle Funktionen für alle Gruppen sichtbar?<\/font><\/li>\n<\/ol>\n",
+        "raw": "Ein Menü mit den folgenden Funktionen wird {test-param}angezeigt{test-param} \n # \"Eintrittsprozess starten\"\n # \"Austrittsprozess starten\"\n # \"Nachricht senden\"\n # \"Ausweis erstellen\"\n # \"Dokument erstellen\"\n\n \n # {color:#ff0000}befinden sich die Funktionen in einer festen Position (Aministrator und UTE haben die Buttons in unterschiedlichen Positionen)?{color}\n # {color:#ff0000}Sind alle Funktionen für alle Gruppen sichtbar?{color}"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "",
+        "raw": ""
+      },
+      "index": 3,
+      "step": {
+        "rendered": "<p>Im Ribbon \"Personal\" klicken<\/p>",
+        "raw": "Im Ribbon \"Personal\" klicken"
+      },
+      "id": 9962
+    },
+    {
+      "result": {
+        "rendered": "<p>Dialog \"Nachricht senden\" wird geöffnet<\/p>",
+        "raw": "Dialog \"Nachricht senden\" wird geöffnet"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "<p>login=<span class=\"error\">&#91;Ute Schenk=elo=ruberg-hr.dev.elo&#93;<\/span><br/>testshouldfail=<span class=\"error\">&#91;true&#93;<\/span><br/>formular=<span class=\"error\">&#91;Solutions/Personalmanagement/Personalakten/H/Hansen, Hans=OK=Abbrechen=external=Personal=Personal=Nachricht&#93;<\/span><\/p>",
+        "raw": "login=[Ute Schenk=elo=ruberg-hr.dev.elo]\ntestshouldfail=[true]\nformular=[Solutions/Personalmanagement/Personalakten/H/Hansen, Hans=OK=Abbrechen=external=Personal=Personal=Nachricht]"
+      },
+      "index": 4,
+      "step": {
+        "rendered": "<p>Im Ribbon \"Personal\" &gt; \"Nachricht senden\" klicken<\/p>",
+        "raw": "Im Ribbon \"Personal\" > \"Nachricht senden\" klicken"
+      },
+      "id": 9477
+    },
+    {
+      "result": {
+        "rendered": "<ol>\n<li>Der Dialog \"Nachricht senden\" enthält die folgenden Abschnitte\n<ul>\n<li>text - Funktionsbeschreibung<\/li>\n<li>Abschnitt Vorlagenauswahl<\/li>\n<li>Abschnitt E-Mail<\/li>\n<li>Abschnitt Anhang<\/li>\n<li>Abschnitt Ende des Formulars\n<ul>\n<li>Button \"Speichern\"<\/li>\n<li>Button \"Drucken\"<\/li>\n<li>Button \"OK\"<\/li>\n<li>Button \"Abbrechen\"<\/li>\n<\/ul>\n<\/li>\n<\/ul>\n<\/li>\n<li>Der Dialog \"Nachricht senden\" zeigt die folgende Funktionsbeschreibung<br/><font color=\"#0747a6\">\"Wählen Sie eine Vorlage aus oder geben Sie einen Text ein. Sie können der E-Mail Anhänge bis zu 10 MB hinzufügen.\"<\/font><\/li>\n<li><font color=\"#172b4d\">Der Dialog \"Nachricht senden\" Abschnitt \"Vorlagenauswahl enthält das Feld Vorlage<\/font>\n<ul>\n<li>Vorlage - SWL suchen Feld <\/li>\n<li><font color=\"#172b4d\">Der Benutzer kann nach einer Vorlage suchen (SWL) und diese auswählen \u2014<\/font><font color=\"#de350b\"> expand  steps<\/font><\/li>\n<li> <\/li>\n<\/ul>\n<\/li>\n<li><font color=\"#172b4d\">Der <\/font>Dialog \"Nachricht senden\" Abschnitt \"E-Mail\" enthält die folgenden Felder und Funktionalitäten\n<ul>\n<li>Von - SWL suchen Feld - pflicht <font color=\"#172b4d\">\u2014<\/font><font color=\"#de350b\"> expand  steps <\/font><font color=\"#de350b\">(checks email format? wie viele Zeichen? ist sondern Zeichen erlaubt?)<\/font><\/li>\n<li>An - SWL suchen Feld  - pflicht <font color=\"#172b4d\">\u2014<\/font><font color=\"#de350b\"> expand  steps (checks email format? wie viele Zeichen? ist sondern Zeichen erlaubt?)<\/font><\/li>\n<li>button \"+\"  add new \"An\" search boxes - <font color=\"#172b4d\">\u2014<\/font><font color=\"#de350b\"> expand  steps<\/font><\/li>\n<li>Betreff - Freie text - pflicht  <font color=\"#de350b\">(wie viele Zeichen? ist sondern Zeichen erlaubt?)<\/font><\/li>\n<li>Redactor box  <font color=\"#172b4d\">\u2014<\/font><font color=\"#de350b\"> expand steps (test funcionalities, i.e Html, text, format, bold, ..., link, clips ...) <\/font><\/li>\n<li> <\/li>\n<\/ul>\n<\/li>\n<li><font color=\"#172b4d\">Der <\/font>Dialog \"Nachricht senden\" Abschnitt \"Anhang\" enthält die folgenden Felder und Funktionalitäten<\/li>\n<\/ol>\n\n\n<ul>\n<li>\n<ul>\n<li>Kurzbezeichung<\/li>\n<li>Größe (KB)<\/li>\n<li>Button \"X\"<\/li>\n<li>Button \"Anhang hinzufügen\"<\/li>\n<li>Gesamtgröße (KB) <font color=\"#de350b\">(nur integers? wie viele Zeichen?)<\/font> <\/li>\n<li>Text - <font color=\"#0747a6\">\"Sie können maximal 10240 KB als Anhang auswählen.\"<\/font><\/li>\n<\/ul>\n<\/li>\n<\/ul>\n<ol>\n<li><font color=\"#172b4d\">Der <\/font>Dialog \"Nachricht senden\" Abschnitt Ende des Formulars enthält die folgenden Buttons\n<ul>\n<li>Button \"Speichern\"<\/li>\n<li>Button \"Drucken\"<\/li>\n<li>Button \"OK\"<\/li>\n<li>Button \"Abbrechen\"<\/li>\n<\/ul>\n<\/li>\n<\/ol>\n",
+        "raw": "# Der Dialog \"Nachricht senden\" enthält die folgenden Abschnitte\n ** text - Funktionsbeschreibung\n ** Abschnitt Vorlagenauswahl\n ** Abschnitt E-Mail\n ** Abschnitt Anhang\n ** Abschnitt Ende des Formulars\n *** Button \"Speichern\"\n *** Button \"Drucken\"\n *** Button \"OK\"\n *** Button \"Abbrechen\"\n # Der Dialog \"Nachricht senden\" zeigt die folgende Funktionsbeschreibung\n{color:#0747a6}\"Wählen Sie eine Vorlage aus oder geben Sie einen Text ein. Sie können der E-Mail Anhänge bis zu 10 MB hinzufügen.\"{color}\n # {color:#172b4d}Der Dialog \"Nachricht senden\" Abschnitt \"Vorlagenauswahl enthält das Feld Vorlage{color}\n ** Vorlage - SWL suchen Feld \n ** {color:#172b4d}Der Benutzer kann nach einer Vorlage suchen (SWL) und diese auswählen \u2014{color}{color:#de350b} expand  steps{color}\n **  \n # {color:#172b4d}Der {color}Dialog \"Nachricht senden\" Abschnitt \"E-Mail\" enthält die folgenden Felder und Funktionalitäten\n ** Von - SWL suchen Feld - pflicht {color:#172b4d}\u2014{color}{color:#de350b} expand  steps {color}{color:#de350b}(checks email format? wie viele Zeichen? ist sondern Zeichen erlaubt?){color}\n ** An - SWL suchen Feld  - pflicht {color:#172b4d}\u2014{color}{color:#de350b} expand  steps (checks email format? wie viele Zeichen? ist sondern Zeichen erlaubt?){color}\n ** button \"+\"  add new \"An\" search boxes - {color:#172b4d}\u2014{color}{color:#de350b} expand  steps{color}\n ** Betreff - Freie text - pflicht  {color:#de350b}(wie viele Zeichen? ist sondern Zeichen erlaubt?){color}\n ** Redactor box  {color:#172b4d}\u2014{color}{color:#de350b} expand steps (test funcionalities, i.e Html, text, format, bold, ..., link, clips ...) {color}\n **  \n # {color:#172b4d}Der {color}Dialog \"Nachricht senden\" Abschnitt \"Anhang\" enthält die folgenden Felder und Funktionalitäten\n\n ** Kurzbezeichung\n ** Größe (KB)\n ** Button \"X\"\n ** Button \"Anhang hinzufügen\"\n ** Gesamtgröße (KB) {color:#de350b}(nur integers? wie viele Zeichen?){color} \n ** Text - {color:#0747a6}\"Sie können maximal 10240 KB als Anhang auswählen.\"{color}\n # {color:#172b4d}Der {color}Dialog \"Nachricht senden\" Abschnitt Ende des Formulars enthält die folgenden Buttons\n ** Button \"Speichern\"\n ** Button \"Drucken\"\n ** Button \"OK\"\n ** Button \"Abbrechen\""
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "",
+        "raw": ""
+      },
+      "index": 5,
+      "step": {
+        "rendered": "<p><font color=\"#0747a6\">*Idea new test case *** check if we have a story for it ****<\/font><\/p>\n<ol>\n<li>Dialoginhalt \"Nachricht senden\" prüfen<\/li>\n<li>Dialog \"Nachricht senden\" Funktionsbeschreibung prufen<\/li>\n<li>Dialog \"Nachricht senden\" Abschnitt \"Vorlagenauswahl\" prüfen<\/li>\n<li>Dialog \"Nachricht senden\" Abschnitt \"E-Mail\" prüfen<\/li>\n<li>Dialog \"Nachricht senden\" Abschnitt \"Anhang\" prüfen<br/> #<\/li>\n<\/ol>\n",
+        "raw": "{color:#0747a6}*Idea new test case *** check if we have a story for it ****{color}\n # Dialoginhalt \"Nachricht senden\" prüfen\n # Dialog \"Nachricht senden\" Funktionsbeschreibung prufen\n # Dialog \"Nachricht senden\" Abschnitt \"Vorlagenauswahl\" prüfen\n # Dialog \"Nachricht senden\" Abschnitt \"E-Mail\" prüfen\n # Dialog \"Nachricht senden\" Abschnitt \"Anhang\" prüfen\n #"
+      },
+      "id": 9977
+    },
+    {
+      "result": {
+        "rendered": "<ul>\n<li>Pflichtfelder\n<ul>\n<li>Absender: rot (#ffd2d2) markiert<\/li>\n<li>Empfänger: rot (#ffd2d2) markiert<\/li>\n<li>Betreff:  rot (#ffd2d2) markiert<\/li>\n<\/ul>\n<\/li>\n<\/ul>\n",
+        "raw": "* Pflichtfelder\n ** Absender: rot (#ffd2d2) markiert\n ** Empfänger: rot (#ffd2d2) markiert\n ** Betreff:  rot (#ffd2d2) markiert"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "",
+        "raw": ""
+      },
+      "index": 6,
+      "step": {
+        "rendered": "<p>Click auf \"OK\"<\/p>",
+        "raw": "Click auf \"OK\""
+      },
+      "id": 9478
+    },
+    {
+      "result": {
+        "rendered": "<ul>\n<li>Im Feld\n<ul>\n<li>\"Empfänger\" stehen folgende Optionen zur Auswahl:\n<ul>\n<li>priv<\/li>\n<li>gesch<\/li>\n<li>Vorgesetzter<\/li>\n<\/ul>\n<\/li>\n<li>\"Abesender\" stehen folgende Optionen zur Auswahl:\n<ul>\n<li>CurrentUser<\/li>\n<li>Fixe <\/li>\n<li>Sammelmail<\/li>\n<\/ul>\n<\/li>\n<\/ul>\n<\/li>\n<\/ul>\n",
+        "raw": "* Im Feld\n ** \"Empfänger\" stehen folgende Optionen zur Auswahl:\n *** priv\n *** gesch\n *** Vorgesetzter\n ** \"Abesender\" stehen folgende Optionen zur Auswahl:\n *** CurrentUser\n *** Fixe \n *** Sammelmail"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "<p>Siehe TestdatenHRPersonnelFileMessages<br/>inputcontrols=<span class=\"error\">&#91;IX_MAP_HR_PERSONNEL_SENDER=test-business-solutions@elo.local=TEXT;IX_MAP_CORRESPONDENT_RECIPIENT_NAME_1=test-business-solutions@elo.local=TEXT;IX_GRP_COMMUNICATION_SUBJECT=Geschäftsnachricht=TEXT;null=Inhalt Geschäftsnachricht=REDACTOR&#93;<\/span><br/>selectDocumentDialogs=<span class=\"error\">&#91;Anhang hinzufügen=Solutions/PDF Export/bob ipsum PDF&#93;<\/span><br/>formular=<span class=\"error\">&#91;null=OK=Abbrechen=external=Personal=Personal=Nachricht&#93;<\/span><\/p>",
+        "raw": "Siehe TestdatenHRPersonnelFileMessages\ninputcontrols=[IX_MAP_HR_PERSONNEL_SENDER=test-business-solutions@elo.local=TEXT;IX_MAP_CORRESPONDENT_RECIPIENT_NAME_1=test-business-solutions@elo.local=TEXT;IX_GRP_COMMUNICATION_SUBJECT=Geschäftsnachricht=TEXT;null=Inhalt Geschäftsnachricht=REDACTOR]\nselectDocumentDialogs=[Anhang hinzufügen=Solutions/PDF Export/bob ipsum PDF]\nformular=[null=OK=Abbrechen=external=Personal=Personal=Nachricht]"
+      },
+      "index": 7,
+      "step": {
+        "rendered": "<p>Pflichtfelder befüllen:<\/p>\n<ul>\n<li>Empfänger <\/li>\n<li>Absender<\/li>\n<li>Betreff<\/li>\n<li>Nachricht<\/li>\n<\/ul>\n",
+        "raw": "Pflichtfelder befüllen:\n * Empfänger \n * Absender\n * Betreff\n * Nachricht"
+      },
+      "id": 9479
+    },
+    {
+      "result": {
+        "rendered": "",
+        "raw": ""
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "<p>Siehe TestdatenHRPersonnelFileMessages<\/p>",
+        "raw": "Siehe TestdatenHRPersonnelFileMessages"
+      },
+      "index": 8,
+      "step": {
+        "rendered": "<p>Anhang auswählen<\/p>",
+        "raw": "Anhang auswählen"
+      },
+      "id": 9485
+    },
+    {
+      "result": {
+        "rendered": "",
+        "raw": ""
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "<p>Siehe TestdatenHRPersonnelFileMessages<\/p>",
+        "raw": "Siehe TestdatenHRPersonnelFileMessages"
+      },
+      "index": 9,
+      "step": {
+        "rendered": "<p>Anhang auswählen<\/p>",
+        "raw": "Anhang auswählen"
+      },
+      "id": 9486
+    },
+    {
+      "result": {
+        "rendered": "<ul>\n<li>Die Personalakte wird am definierten Ablagepfad angelegt\n<ul>\n<li>Solutions//Personalmanagement//Personalakten//<span class=\"error\">&#91;1. Buchstabe des Nachname&#93;<\/span>//<span class=\"error\">&#91;Nachname, Vorname&#93;<\/span><\/li>\n<\/ul>\n<\/li>\n<li>Ist der aktuelle User auf die Personalakte berechtigt, erfolgt ein Goto auf die Personalakte<\/li>\n<li>Das Vorschauformular der Akte wird angezeigt<\/li>\n<li>Unter dem Mitarbeiterbild wird Vorname + Nachname angezeigt<\/li>\n<li>Die Personalnummer wurde automatisch generiert<\/li>\n<\/ul>\n",
+        "raw": "* Die Personalakte wird am definierten Ablagepfad angelegt\n ** Solutions//Personalmanagement//Personalakten//[1. Buchstabe des Nachname]//[Nachname, Vorname]\n * Ist der aktuelle User auf die Personalakte berechtigt, erfolgt ein Goto auf die Personalakte\n * Das Vorschauformular der Akte wird angezeigt\n * Unter dem Mitarbeiterbild wird Vorname + Nachname angezeigt\n * Die Personalnummer wurde automatisch generiert"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "<p>formular=<span class=\"error\">&#91;Solutions/Personalmanagement/Personalakten/H/Hansen, Hans/Korrespondenz/Geschäftsnachricht=null=null=viewer&#93;<\/span><\/p>",
+        "raw": "formular=[Solutions/Personalmanagement/Personalakten/H/Hansen, Hans/Korrespondenz/Geschäftsnachricht=null=null=viewer]"
+      },
+      "index": 10,
+      "step": {
+        "rendered": "<p>Eingaben mit \"OK\" bestätigen<\/p>",
+        "raw": "Eingaben mit \"OK\" bestätigen"
+      },
+      "id": 9480
+    },
+    {
+      "result": {
+        "rendered": "<ul>\n<li>Vorname &amp; Nachname wurden entsprechend der Eingabe befüllt<\/li>\n<li>Land wurde entsprechend der Vorlage mit \"DE - Deutschland\" befüllt<\/li>\n<\/ul>\n",
+        "raw": "* Vorname & Nachname wurden entsprechend der Eingabe befüllt\n * Land wurde entsprechend der Vorlage mit \"DE - Deutschland\" befüllt"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "",
+        "raw": ""
+      },
+      "index": 11,
+      "step": {
+        "rendered": "<p>Im Vorschauformular auf den Reiter \"Persönlich\" navigieren<\/p>",
+        "raw": "Im Vorschauformular auf den Reiter \"Persönlich\" navigieren"
+      },
+      "id": 9481
+    },
+    {
+      "result": {
+        "rendered": "<ul>\n<li>Die Personalnummer wurde automatisch generiert und eingetragen<\/li>\n<li>Der Status der Personalakte wurde auf \"O - In Vorbereitung\" gesetzt<\/li>\n<li>Der Personalverantwortliche wurde entsprechend der Eingabe übernommen<\/li>\n<\/ul>\n",
+        "raw": "* Die Personalnummer wurde automatisch generiert und eingetragen\n * Der Status der Personalakte wurde auf \"O - In Vorbereitung\" gesetzt\n * Der Personalverantwortliche wurde entsprechend der Eingabe übernommen"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "",
+        "raw": ""
+      },
+      "index": 12,
+      "step": {
+        "rendered": "<p>Im Vorschauformular auf den Reiter \"Personal\" navigieren<\/p>",
+        "raw": "Im Vorschauformular auf den Reiter \"Personal\" navigieren"
+      },
+      "id": 9482
+    },
+    {
+      "result": {
+        "rendered": "<ul>\n<li>Die Kündigungsfrist wurde entsprechend der Vorlage befüllt\n<ul>\n<li>Kündigungsfrist: 3 Monate<\/li>\n<li>Kündigung zum: Q - Quartalsende<\/li>\n<\/ul>\n<\/li>\n<li>Probezeit:\n<ul>\n<li>Probezeit: M - Monate<\/li>\n<li>Kündigung zum: d - Tag<\/li>\n<\/ul>\n<\/li>\n<li>Frühestmögliches Datum:\n<ul>\n<li>heute + 3 Monate &gt; letzter Tag des Monats (? -&gt; die korrekte Berechnung sollte theoretisch in einem Unittest abgedeckt sein)<\/li>\n<\/ul>\n<\/li>\n<\/ul>\n",
+        "raw": "* Die Kündigungsfrist wurde entsprechend der Vorlage befüllt\n ** Kündigungsfrist: 3 Monate\n ** Kündigung zum: Q - Quartalsende\n * Probezeit:\n ** Probezeit: M - Monate\n ** Kündigung zum: d - Tag\n * Frühestmögliches Datum:\n ** heute + 3 Monate > letzter Tag des Monats (? -> die korrekte Berechnung sollte theoretisch in einem Unittest abgedeckt sein)"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "",
+        "raw": ""
+      },
+      "index": 13,
+      "step": {
+        "rendered": "<p>Im Vorschauformular in den Reiter \"Ein-/Austritt\" navigieren<\/p>",
+        "raw": "Im Vorschauformular in den Reiter \"Ein-/Austritt\" navigieren"
+      },
+      "id": 9483
+    },
+    {
+      "result": {
+        "rendered": "<ul>\n<li>Berechtigungen werden entsprechend der Einstellungen gesetzt und auf alle Unterordner vererbt\n<ul>\n<li>im Standard:\n<ul>\n<li>Personalverantwortlicher: RWDEL-<\/li>\n<\/ul>\n<\/li>\n<\/ul>\n<\/li>\n<\/ul>\n",
+        "raw": "* Berechtigungen werden entsprechend der Einstellungen gesetzt und auf alle Unterordner vererbt\n ** im Standard:\n *** Personalverantwortlicher: RWDEL-"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "<p>acl=<span class=\"error\">&#91;ARCPATH:/Personalmanagement/Personalakten/H/Hansen, Hans&#93;<\/span><\/p>",
+        "raw": "acl=[ARCPATH:/Personalmanagement/Personalakten/H/Hansen, Hans]"
+      },
+      "index": 14,
+      "step": {
+        "rendered": "<p>Auf den aktuellen Eintrag im Repository die Metadaten mit F4 öffnen und auf den Reiter \"Berechtigungen\" navigieren<\/p>",
+        "raw": "Auf den aktuellen Eintrag im Repository die Metadaten mit F4 öffnen und auf den Reiter \"Berechtigungen\" navigieren"
+      },
+      "id": 9484
+    }
+  ]},
+  "id": 108697,
+  "precondition": [
+    {
+      "archived": false,
+      "preconditionKey": "QBSHR-49",
+      "rank": 0,
+      "self": "https://eloticksy.elo.com/rest/api/2/issue/103962",
+      "reporter": "JIRAUSER16052",
+      "type": "Manual"
+    },
+    {
+      "archived": false,
+      "preconditionKey": "QBSHR-62",
+      "rank": 0,
+      "self": "https://eloticksy.elo.com/rest/api/2/issue/111583",
+      "reporter": "JIRAUSER17261",
+      "type": "Manual"
+    },
+    {
+      "archived": false,
+      "preconditionKey": "QBSHR-59",
+      "rank": 0,
+      "self": "https://eloticksy.elo.com/rest/api/2/issue/109343",
+      "reporter": "JIRAUSER16052",
+      "type": "Manual"
+    },
+    {
+      "archived": false,
+      "preconditionKey": "QBSHR-63",
+      "rank": 0,
+      "self": "https://eloticksy.elo.com/rest/api/2/issue/111590",
+      "reporter": "JIRAUSER17261",
+      "type": "Manual"
+    }
+  ],
+  "type": "Manual",
+  "key": "QBSHR-58",
+  "status": "PASS"
+}]}

@@ -1,0 +1,335 @@
+{"entries": [{
+  "archived": false,
+  "self": "https://eloticksy.elo.com/rest/api/2/issue/107464",
+  "reporter": "A.Scherer@elo.com",
+  "definition": {"steps": [
+    {
+      "result": {
+        "rendered": "<p>Fokus liegt auf dem Objekt<\/p>",
+        "raw": "Fokus liegt auf dem Objekt"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "<p>Nachname, Vorname (siehe TestdatenHRPersonnelFile)<\/p>",
+        "raw": "Nachname, Vorname (siehe TestdatenHRPersonnelFile)"
+      },
+      "index": 1,
+      "step": {
+        "rendered": "<p>Im Repository auf einer Personalakte stehen<\/p>",
+        "raw": "Im Repository auf einer Personalakte stehen"
+      },
+      "id": 9298
+    },
+    {
+      "result": {
+        "rendered": "<p>Das Deckblatt der Personalakte wird angezeigt<\/p>",
+        "raw": "Das Deckblatt der Personalakte wird angezeigt"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "",
+        "raw": ""
+      },
+      "index": 2,
+      "step": {
+        "rendered": "<p>Über \"Formular\" ins Vorschauformular navigieren<\/p>",
+        "raw": "Über \"Formular\" ins Vorschauformular navigieren"
+      },
+      "id": 9299
+    },
+    {
+      "result": {
+        "rendered": "<p>Die Inhalte des Reiters werden angezeigt<\/p>",
+        "raw": "Die Inhalte des Reiters werden angezeigt"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "",
+        "raw": ""
+      },
+      "index": 3,
+      "step": {
+        "rendered": "<p>Auf den Reiter \"Persönlich\" navigieren<\/p>",
+        "raw": "Auf den Reiter \"Persönlich\" navigieren"
+      },
+      "id": 9300
+    },
+    {
+      "result": {
+        "rendered": "<ul>\n<li>Für folgende Felder steht eine Stichwort-/Auswahlliste zur Verfügung:\n<ul>\n<li>Land<\/li>\n<li>Geschlecht<\/li>\n<li>Korrespondenzsprache<\/li>\n<li>Nationalität<\/li>\n<li>Konfession <\/li>\n<li>Familienstand<\/li>\n<\/ul>\n<\/li>\n<li>Für folgendes Feld steht ein Datepicker zur Verfügung:\n<ul>\n<li>Geburtsdatum<\/li>\n<\/ul>\n<\/li>\n<\/ul>\n",
+        "raw": "* Für folgende Felder steht eine Stichwort-/Auswahlliste zur Verfügung:\n ** Land\n ** Geschlecht\n ** Korrespondenzsprache\n ** Nationalität\n ** Konfession \n ** Familienstand\n * Für folgendes Feld steht ein Datepicker zur Verfügung:\n ** Geburtsdatum"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "<p>Siehe TestdatenHRPersonnelFile<br/>login=<span class=\"error\">&#91;Ute Schenk=elo=ruberg-hr.dev.elo&#93;<\/span><br/>tabpage=<span class=\"error\">&#91;Persönlich&#93;<\/span><br/>inputcontrols=<span class=\"error\">&#91;IX_MAP_HR_PERSONNEL_TITLE=Dr. med.=TEXT;IX_MAP_HR_PERSONNEL_NAMEAFFIX=von=TEXT;IX_MAP_HR_PERSONNEL_STREETADDRESS=Franz-Joseph-Spiegler-Straße 75=TEXT;IX_GRP_HR_PERSONNEL_POSTALCODE=97013=TEXT;IX_GRP_HR_PERSONNEL_CITY=Bad Gottleuba-Berggießhübel=TEXT;IX_MAP_HR_PERSONNEL_STATE=Baden-Württemberg=TEXT;IX_MAP_HR_PERSONNEL_BUSINESSEMAIL=a.boehm@contelo.com=TEXT;IX_MAP_HR_PERSONNEL_PRIVATEEMAIL=a_boehm@web.de=TEXT;IX_MAP_HR_PERSONNEL_BUSINESSPHONENUMBER=+49 731-123456=TEXT;IX_MAP_HR_PERSONNEL_PRIVATEPHONENUMBER=07522 987654=TEXT;IX_MAP_HR_PERSONNEL_BUSINESSMOBILENUMBER=(+49)176 12345678=TEXT;IX_MAP_HR_PERSONNEL_PRIVATEMOBILENUMBER=0160-12345698=TEXT;IX_GRP_HR_PERSONNEL_COUNTRY=Deutschland=DYNKWL;IX_GRP_HR_PERSONNEL_GENDER=Männlich=KWL;IX_GRP_HR_PERSONNEL_FIRSTLANGUAGE=Deutsch=DYNKWL;IX_GRP_HR_PERSONNEL_BIRTHDAY=23.12.1959=TEXT;IX_MAP_HR_PERSONNEL_BIRTHPLACE=Stutgart=TEXT;IX_MAP_HR_PERSONNEL_BIRTHNAME=Müller=TEXT;IX_MAP_HR_PERSONNEL_NATIONALITY=Deutschland=DYNKWL;IX_MAP_HR_PERSONNEL_RELIGIOUSDENOMINATION=Katholisch=KWL;IX_MAP_HR_PERSONNEL_CIVILSTATUS=Verheiratet=KWL&#93;<\/span><br/>checkcontrols=<span class=\"error\">&#91;IX_GRP_HR_PERSONNEL_BIRTHDAY=null=TEXT=EXIST;IX_MAP_HR_PERSONNEL_BIRTHPLACE=null=TEXT=EXIST;IX_GRP_HR_PERSONNEL_FIRSTLANGUAGE=null=DYNKWL=EXIST&#93;<\/span><br/>formular=<span class=\"error\">&#91;Solutions/Personalmanagement/Personalakten/H/Hansen, Hans=Speichern=null=viewer&#93;<\/span><\/p>",
+        "raw": "Siehe TestdatenHRPersonnelFile\nlogin=[Ute Schenk=elo=ruberg-hr.dev.elo]\ntabpage=[Persönlich]\ninputcontrols=[IX_MAP_HR_PERSONNEL_TITLE=Dr. med.=TEXT;IX_MAP_HR_PERSONNEL_NAMEAFFIX=von=TEXT;IX_MAP_HR_PERSONNEL_STREETADDRESS=Franz-Joseph-Spiegler-Straße 75=TEXT;IX_GRP_HR_PERSONNEL_POSTALCODE=97013=TEXT;IX_GRP_HR_PERSONNEL_CITY=Bad Gottleuba-Berggießhübel=TEXT;IX_MAP_HR_PERSONNEL_STATE=Baden-Württemberg=TEXT;IX_MAP_HR_PERSONNEL_BUSINESSEMAIL=a.boehm@contelo.com=TEXT;IX_MAP_HR_PERSONNEL_PRIVATEEMAIL=a_boehm@web.de=TEXT;IX_MAP_HR_PERSONNEL_BUSINESSPHONENUMBER=+49 731-123456=TEXT;IX_MAP_HR_PERSONNEL_PRIVATEPHONENUMBER=07522 987654=TEXT;IX_MAP_HR_PERSONNEL_BUSINESSMOBILENUMBER=(+49)176 12345678=TEXT;IX_MAP_HR_PERSONNEL_PRIVATEMOBILENUMBER=0160-12345698=TEXT;IX_GRP_HR_PERSONNEL_COUNTRY=Deutschland=DYNKWL;IX_GRP_HR_PERSONNEL_GENDER=Männlich=KWL;IX_GRP_HR_PERSONNEL_FIRSTLANGUAGE=Deutsch=DYNKWL;IX_GRP_HR_PERSONNEL_BIRTHDAY=23.12.1959=TEXT;IX_MAP_HR_PERSONNEL_BIRTHPLACE=Stutgart=TEXT;IX_MAP_HR_PERSONNEL_BIRTHNAME=Müller=TEXT;IX_MAP_HR_PERSONNEL_NATIONALITY=Deutschland=DYNKWL;IX_MAP_HR_PERSONNEL_RELIGIOUSDENOMINATION=Katholisch=KWL;IX_MAP_HR_PERSONNEL_CIVILSTATUS=Verheiratet=KWL]\ncheckcontrols=[IX_GRP_HR_PERSONNEL_BIRTHDAY=null=TEXT=EXIST;IX_MAP_HR_PERSONNEL_BIRTHPLACE=null=TEXT=EXIST;IX_GRP_HR_PERSONNEL_FIRSTLANGUAGE=null=DYNKWL=EXIST]\nformular=[Solutions/Personalmanagement/Personalakten/H/Hansen, Hans=Speichern=null=viewer]"
+      },
+      "index": 4,
+      "step": {
+        "rendered": "<p>weitere Felder befüllen:<\/p>\n<ul>\n<li>Titel<\/li>\n<li>Namenszusatz<\/li>\n<li>Straße<\/li>\n<li>Postleitzahl<\/li>\n<li>Wohnort<\/li>\n<li>Bundesland<\/li>\n<li>E-Mail geschäftlich<\/li>\n<li>E-Mail privat<\/li>\n<li>Telefon geschäftlich<\/li>\n<li>Telefon privat<\/li>\n<li>Mobil geschäftlich<\/li>\n<li>Mobil privat<\/li>\n<li>Geschlecht<\/li>\n<li>Korrespondenzsprache<\/li>\n<li>Geburtsdatum<\/li>\n<li>Geburtsort<\/li>\n<li>Geburtsname<\/li>\n<li>Nationalität<\/li>\n<li>Konfession<\/li>\n<li>Familienstand<\/li>\n<\/ul>\n",
+        "raw": "weitere Felder befüllen:\n * Titel\n * Namenszusatz\n * Straße\n * Postleitzahl\n * Wohnort\n * Bundesland\n * E-Mail geschäftlich\n * E-Mail privat\n * Telefon geschäftlich\n * Telefon privat\n * Mobil geschäftlich\n * Mobil privat\n * Geschlecht\n * Korrespondenzsprache\n * Geburtsdatum\n * Geburtsort\n * Geburtsname\n * Nationalität\n * Konfession\n * Familienstand"
+      },
+      "id": 9301
+    },
+    {
+      "result": {
+        "rendered": "<ul>\n<li>Das Deckblatt der Akte wird angezeigt<\/li>\n<li>Auf den Deckblatt wurden folgende Informationen ergänzt:\n<ul>\n<li>Geburtsdatum<\/li>\n<li>Geburtsort<\/li>\n<li>Korrespondenzsprache<\/li>\n<\/ul>\n<\/li>\n<\/ul>\n",
+        "raw": "* Das Deckblatt der Akte wird angezeigt\n * Auf den Deckblatt wurden folgende Informationen ergänzt:\n ** Geburtsdatum\n ** Geburtsort\n ** Korrespondenzsprache"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "",
+        "raw": ""
+      },
+      "index": 5,
+      "step": {
+        "rendered": "<p>Änderungen mit \"Speichern\" bestätigen<\/p>",
+        "raw": "Änderungen mit \"Speichern\" bestätigen"
+      },
+      "id": 9302
+    },
+    {
+      "result": {
+        "rendered": "<ul>\n<li>Alle Eingaben wurden gespeichert und werden im jeweiligen Feld angezeigt<\/li>\n<\/ul>\n",
+        "raw": "* Alle Eingaben wurden gespeichert und werden im jeweiligen Feld angezeigt"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "",
+        "raw": ""
+      },
+      "index": 6,
+      "step": {
+        "rendered": "<p>Im Vorschauformular auf den Reiter \"Persönlich\" navigieren<\/p>",
+        "raw": "Im Vorschauformular auf den Reiter \"Persönlich\" navigieren"
+      },
+      "id": 9303
+    },
+    {
+      "result": {
+        "rendered": "<p>Die Inhalte des Reiters werden angezeigt<\/p>",
+        "raw": "Die Inhalte des Reiters werden angezeigt"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "",
+        "raw": ""
+      },
+      "index": 7,
+      "step": {
+        "rendered": "<p>Auf den Reiter \"Personal\" navigieren<\/p>",
+        "raw": "Auf den Reiter \"Personal\" navigieren"
+      },
+      "id": 9307
+    },
+    {
+      "result": {
+        "rendered": "<ul>\n<li>Für folgende Felder steht eine Stichwort-/Auswahlliste zur Verfügung:\n<ul>\n<li>Währung<\/li>\n<li>Land<\/li>\n<li>Arbeitszeitregelung<\/li>\n<\/ul>\n<\/li>\n<\/ul>\n",
+        "raw": "* Für folgende Felder steht eine Stichwort-/Auswahlliste zur Verfügung:\n ** Währung\n ** Land\n ** Arbeitszeitregelung"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "<p>Siehe TestdatenHRPersonnelFile<br/>tabpage=<span class=\"error\">&#91;Personal&#93;<\/span><br/>inputcontrols=<span class=\"error\">&#91;IX_MAP_HR_PERSONNEL_PHYSICALFILINGLOCATION=143581 - 154566=TEXT;IX_GRP_HR_PERSONNEL_LICENSEPLATE=S-AA 1234=TEXT;IX_MAP_HR_PERSONNEL_TIN=99 999 999 999=TEXT;IX_MAP_HR_PERSONNEL_SOCIALSECURITYNUMBER=12 123456 W 123=TEXT;IX_MAP_HR_PERSONNEL_HEALTHINSURANCENUMBER=A123456789=TEXT;IX_MAP_HR_PERSONNEL_PAYMENTRECIPIENT=Max Müller=TEXT;IX_MAP_HR_PERSONNEL_BANK=Commerzbank AG=TEXT;IX_MAP_HR_PERSONNEL_IBAN=DE 99 12345678 987654321=TEXT;IX_MAP_HR_PERSONNEL_CURRENCY=Euro=DYNKWL;IX_MAP_HR_PERSONNEL_PAYMENTINSTRUCTIONS=Zur Verrechnung=TEXT;IX_MAP_HR_PERSONNEL_BANK_COUNTRY=Deutschland=DYNKWL;IX_GRP_HR_PERSONNEL_WORKSCHEDULE=Vollzeit=KWL;IX_MAP_HR_PERSONNEL_VACATIONQUOTA=30=TEXT&#93;<\/span><br/>checkcontrols=<span class=\"error\">&#91;IX_GRP_HR_PERSONNEL_WORKSCHEDULE=null=KWL=EXIST;IX_MAP_HR_PERSONNEL_VACATIONQUOTA=null=TEXT=EXIST&#93;<\/span><br/>formular=<span class=\"error\">&#91;null=Speichern=null=viewer&#93;<\/span><\/p>",
+        "raw": "Siehe TestdatenHRPersonnelFile\ntabpage=[Personal]\ninputcontrols=[IX_MAP_HR_PERSONNEL_PHYSICALFILINGLOCATION=143581 - 154566=TEXT;IX_GRP_HR_PERSONNEL_LICENSEPLATE=S-AA 1234=TEXT;IX_MAP_HR_PERSONNEL_TIN=99 999 999 999=TEXT;IX_MAP_HR_PERSONNEL_SOCIALSECURITYNUMBER=12 123456 W 123=TEXT;IX_MAP_HR_PERSONNEL_HEALTHINSURANCENUMBER=A123456789=TEXT;IX_MAP_HR_PERSONNEL_PAYMENTRECIPIENT=Max Müller=TEXT;IX_MAP_HR_PERSONNEL_BANK=Commerzbank AG=TEXT;IX_MAP_HR_PERSONNEL_IBAN=DE 99 12345678 987654321=TEXT;IX_MAP_HR_PERSONNEL_CURRENCY=Euro=DYNKWL;IX_MAP_HR_PERSONNEL_PAYMENTINSTRUCTIONS=Zur Verrechnung=TEXT;IX_MAP_HR_PERSONNEL_BANK_COUNTRY=Deutschland=DYNKWL;IX_GRP_HR_PERSONNEL_WORKSCHEDULE=Vollzeit=KWL;IX_MAP_HR_PERSONNEL_VACATIONQUOTA=30=TEXT]\ncheckcontrols=[IX_GRP_HR_PERSONNEL_WORKSCHEDULE=null=KWL=EXIST;IX_MAP_HR_PERSONNEL_VACATIONQUOTA=null=TEXT=EXIST]\nformular=[null=Speichern=null=viewer]"
+      },
+      "index": 8,
+      "step": {
+        "rendered": "<p>weitere Felder befüllen:<\/p>\n<ul>\n<li> Physikalischer Ablageort<\/li>\n<li>Kfz-Kennzeichen<\/li>\n<li>Steuer-ID<\/li>\n<li>Sozialversicherungsnummer<\/li>\n<li>Krankenversicherungsnummer<\/li>\n<li>Empfänger<\/li>\n<li>Geldinstitut<\/li>\n<li>IBAN<\/li>\n<li>Währung<\/li>\n<li>Zahlungsanweisungen<\/li>\n<li>Land<\/li>\n<li>Arbeitszeitregelung<\/li>\n<li>Urlaubstage pro Jahr<\/li>\n<\/ul>\n",
+        "raw": "weitere Felder befüllen:\n *  Physikalischer Ablageort\n * Kfz-Kennzeichen\n * Steuer-ID\n * Sozialversicherungsnummer\n * Krankenversicherungsnummer\n * Empfänger\n * Geldinstitut\n * IBAN\n * Währung\n * Zahlungsanweisungen\n * Land\n * Arbeitszeitregelung\n * Urlaubstage pro Jahr"
+      },
+      "id": 9308
+    },
+    {
+      "result": {
+        "rendered": "<ul>\n<li>Das Deckblatt der Akte wird angezeigt<\/li>\n<li>Auf den Deckblatt wurden folgende Informationen ergänzt:\n<ul>\n<li>Arbeitszeitregelung<\/li>\n<li>Urlaubstage pro Jahr<\/li>\n<\/ul>\n<\/li>\n<\/ul>\n",
+        "raw": "* Das Deckblatt der Akte wird angezeigt\n * Auf den Deckblatt wurden folgende Informationen ergänzt:\n ** Arbeitszeitregelung\n ** Urlaubstage pro Jahr"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "",
+        "raw": ""
+      },
+      "index": 9,
+      "step": {
+        "rendered": "<p>Änderungen mit \"Speichern\" bestätigen<\/p>",
+        "raw": "Änderungen mit \"Speichern\" bestätigen"
+      },
+      "id": 9310
+    },
+    {
+      "result": {
+        "rendered": "<ul>\n<li>Alle Eingaben wurden gespeichert und werden im jeweiligen Feld angezeigt<\/li>\n<\/ul>\n",
+        "raw": "* Alle Eingaben wurden gespeichert und werden im jeweiligen Feld angezeigt"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "",
+        "raw": ""
+      },
+      "index": 10,
+      "step": {
+        "rendered": "<p>Im Vorschauformular auf den Reiter \"Personal\" navigieren<\/p>",
+        "raw": "Im Vorschauformular auf den Reiter \"Personal\" navigieren"
+      },
+      "id": 9312
+    },
+    {
+      "result": {
+        "rendered": "<p>Die Inhalte des Reiters werden angezeigt<\/p>",
+        "raw": "Die Inhalte des Reiters werden angezeigt"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "",
+        "raw": ""
+      },
+      "index": 11,
+      "step": {
+        "rendered": "<p>Im Vorschauformular auf den Reiter \"Abteilung\" navigieren<\/p>",
+        "raw": "Im Vorschauformular auf den Reiter \"Abteilung\" navigieren"
+      },
+      "id": 9313
+    },
+    {
+      "result": {
+        "rendered": "<ul>\n<li>Für folgende Felder steht eine Stichwort-/Auswahlliste zur Verfügung:\n<ul>\n<li> Vorgesetzter<\/li>\n<li>Fachlich Verantwortlicher<\/li>\n<li>Stellenbezeichnung<\/li>\n<li>Standort<\/li>\n<li>Sicherheitsstufe<\/li>\n<li>Organisation<\/li>\n<li>Bereich<\/li>\n<li>Abteilung<\/li>\n<li>Team<\/li>\n<\/ul>\n<\/li>\n<\/ul>\n",
+        "raw": "* Für folgende Felder steht eine Stichwort-/Auswahlliste zur Verfügung:\n **  Vorgesetzter\n ** Fachlich Verantwortlicher\n ** Stellenbezeichnung\n ** Standort\n ** Sicherheitsstufe\n ** Organisation\n ** Bereich\n ** Abteilung\n ** Team"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "<p>Siehe TestdatenHRPersonnelFile<br/>tabpage=<span class=\"error\">&#91;Abteilung&#93;<\/span><br/>inputcontrols=<span class=\"error\">&#91;IX_GRP_HR_PERSONNEL_SUPERIOR=Verona Funk=DYNKWL;IX_MAP_HR_PERSONNEL_MENTOR=Daniel Cooper=DYNKWL;IX_GRP_HR_PERSONNEL_JOBTITLE=Berater=TEXT;IX_GRP_HR_PERSONNEL_LOCATION=Stuttgart=TEXT;IX_GRP_HR_PERSONNEL_SECURITYCLEARANCE=Keine=TEXT;IX_GRP_HR_PERSONNEL_COMPANY=Contelo AG=TEXT;IX_GRP_HR_PERSONNEL_DIVISION=Produktion=TEXT;IX_GRP_HR_PERSONNEL_DEPARTMENT=Produktentwicklung=TEXT;IX_GRP_HR_PERSONNEL_TEAM=Techn. Dokumentation=TEXT&#93;<\/span><br/>checkcontrols=<span class=\"error\">&#91;IX_GRP_HR_PERSONNEL_DEPARTMENT=null=TEXT=EXIST;IX_GRP_HR_PERSONNEL_DIVISION=null=TEXT=EXIST;IX_GRP_HR_PERSONNEL_SUPERIOR=null=TEXT=EXIST;IX_MAP_HR_PERSONNEL_MENTOR=null=TEXT=EXIST;&#93;<\/span><br/>formular=<span class=\"error\">&#91;null=Speichern=null=viewer&#93;<\/span><\/p>",
+        "raw": "Siehe TestdatenHRPersonnelFile\ntabpage=[Abteilung]\ninputcontrols=[IX_GRP_HR_PERSONNEL_SUPERIOR=Verona Funk=DYNKWL;IX_MAP_HR_PERSONNEL_MENTOR=Daniel Cooper=DYNKWL;IX_GRP_HR_PERSONNEL_JOBTITLE=Berater=TEXT;IX_GRP_HR_PERSONNEL_LOCATION=Stuttgart=TEXT;IX_GRP_HR_PERSONNEL_SECURITYCLEARANCE=Keine=TEXT;IX_GRP_HR_PERSONNEL_COMPANY=Contelo AG=TEXT;IX_GRP_HR_PERSONNEL_DIVISION=Produktion=TEXT;IX_GRP_HR_PERSONNEL_DEPARTMENT=Produktentwicklung=TEXT;IX_GRP_HR_PERSONNEL_TEAM=Techn. Dokumentation=TEXT]\ncheckcontrols=[IX_GRP_HR_PERSONNEL_DEPARTMENT=null=TEXT=EXIST;IX_GRP_HR_PERSONNEL_DIVISION=null=TEXT=EXIST;IX_GRP_HR_PERSONNEL_SUPERIOR=null=TEXT=EXIST;IX_MAP_HR_PERSONNEL_MENTOR=null=TEXT=EXIST;]\nformular=[null=Speichern=null=viewer]"
+      },
+      "index": 12,
+      "step": {
+        "rendered": "<p>weitere Felder befüllen:<\/p>\n<ul>\n<li> Vorgesetzter<\/li>\n<li>Fachlich Verantwortlicher<\/li>\n<li>Stellenbezeichnung<\/li>\n<li>Standort<\/li>\n<li>Sicherheitsstufe<\/li>\n<li>Organisation<\/li>\n<li>Bereich<\/li>\n<li>Abteilung<\/li>\n<li>Team<\/li>\n<\/ul>\n",
+        "raw": "weitere Felder befüllen:\n *  Vorgesetzter\n * Fachlich Verantwortlicher\n * Stellenbezeichnung\n * Standort\n * Sicherheitsstufe\n * Organisation\n * Bereich\n * Abteilung\n * Team"
+      },
+      "id": 9314
+    },
+    {
+      "result": {
+        "rendered": "<ul>\n<li>Das Deckblatt der Akte wird angezeigt<\/li>\n<li>Auf den Deckblatt wurden folgende Informationen ergänzt:\n<ul>\n<li>Abteilung<\/li>\n<li>Bereich<\/li>\n<li>Vorgesetzter<\/li>\n<li>Fachlich Verantwortlicher<\/li>\n<\/ul>\n<\/li>\n<\/ul>\n",
+        "raw": "* Das Deckblatt der Akte wird angezeigt\n * Auf den Deckblatt wurden folgende Informationen ergänzt:\n ** Abteilung\n ** Bereich\n ** Vorgesetzter\n ** Fachlich Verantwortlicher"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "",
+        "raw": ""
+      },
+      "index": 13,
+      "step": {
+        "rendered": "<p>Änderungen mit \"Speichern\" bestätigen<\/p>",
+        "raw": "Änderungen mit \"Speichern\" bestätigen"
+      },
+      "id": 9315
+    },
+    {
+      "result": {
+        "rendered": "<ul>\n<li>Alle Eingaben wurden gespeichert und werden im jeweiligen Feld angezeigt<\/li>\n<\/ul>\n",
+        "raw": "* Alle Eingaben wurden gespeichert und werden im jeweiligen Feld angezeigt"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "",
+        "raw": ""
+      },
+      "index": 14,
+      "step": {
+        "rendered": "<p>Im Vorschauformular auf den Reiter \"Abteilung\" navigieren<\/p>",
+        "raw": "Im Vorschauformular auf den Reiter \"Abteilung\" navigieren"
+      },
+      "id": 9316
+    },
+    {
+      "result": {
+        "rendered": "<p>Die Inhalte des Reiters werden angezeigt<\/p>",
+        "raw": "Die Inhalte des Reiters werden angezeigt"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "",
+        "raw": ""
+      },
+      "index": 15,
+      "step": {
+        "rendered": "<p>Im Vorschauformular auf den Reiter \"Ein-/Austritt\" navigieren<\/p>",
+        "raw": "Im Vorschauformular auf den Reiter \"Ein-/Austritt\" navigieren"
+      },
+      "id": 9317
+    },
+    {
+      "result": {
+        "rendered": "<ul>\n<li>Für folgende Felder stehen Radio-Buttons zur Auswahl:\n<ul>\n<li>Arbeitsverhältnis<\/li>\n<\/ul>\n<\/li>\n<li>Für folgende Felder steht eine Stichwort-/Auswahlliste zur Verfügung:\n<ul>\n<li> Arbeitsverhältnis<\/li>\n<li>Eintrittsdatum<\/li>\n<li>Kündigungsfrist<\/li>\n<li>Kündigung zum<\/li>\n<li>Probezeit<\/li>\n<li>Ende der Probezeit<\/li>\n<li>Kündigunsfrist (In Probezeit)<\/li>\n<li>Kündigung zum <\/li>\n<\/ul>\n<\/li>\n<li>Für folgende Felder steht ein Datepicker zur Verfüfung:\n<ul>\n<li>Eintrittsdatum<\/li>\n<li>Ende der Probezeit<\/li>\n<\/ul>\n<\/li>\n<\/ul>\n",
+        "raw": "* Für folgende Felder stehen Radio-Buttons zur Auswahl:\n ** Arbeitsverhältnis\n * Für folgende Felder steht eine Stichwort-/Auswahlliste zur Verfügung:\n **  Arbeitsverhältnis\n ** Eintrittsdatum\n ** Kündigungsfrist\n ** Kündigung zum\n ** Probezeit\n ** Ende der Probezeit\n ** Kündigunsfrist (In Probezeit)\n ** Kündigung zum \n * Für folgende Felder steht ein Datepicker zur Verfüfung:\n ** Eintrittsdatum\n ** Ende der Probezeit"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "<p>Siehe TestdatenHRPersonnelFile<br/>tabpage=<span class=\"error\">&#91;Ein-/ Austritt&#93;<\/span><br/>inputcontrols=<span class=\"error\">&#91;IX_GRP_HR_PERSONNEL_DATEOFJOINING=01.04.2023=TEXT;IX_MAP_HR_PERSONNEL_PERIODOFNOTICE=3=TEXT;IX_MAP_HR_PERSONNEL_PERIODOFNOTICE_UNIT=Monate=KWL;IX_MAP_HR_PERSONNEL_PERIODOFNOTICE_TP=Monatsende=KWL;IX_MAP_HR_PERSONNEL_PROBATIONARYPERIODDURATION=6=TEXT;IX_MAP_HR_PERSONNEL_PROBATIONARYPERIODDURATION_UNIT=Monate=KWL;IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY=1=TEXT;IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY_UNIT=Monate=KWL&#93;<\/span><br/>checkcontrols=<span class=\"error\">&#91;IX_GRP_HR_PERSONNEL_DATEOFJOINING=null=TEXT=EXIST&#93;<\/span><br/>formular=<span class=\"error\">&#91;null=Speichern=null=viewer&#93;<\/span><\/p>",
+        "raw": "Siehe TestdatenHRPersonnelFile\ntabpage=[Ein-/ Austritt]\ninputcontrols=[IX_GRP_HR_PERSONNEL_DATEOFJOINING=01.04.2023=TEXT;IX_MAP_HR_PERSONNEL_PERIODOFNOTICE=3=TEXT;IX_MAP_HR_PERSONNEL_PERIODOFNOTICE_UNIT=Monate=KWL;IX_MAP_HR_PERSONNEL_PERIODOFNOTICE_TP=Monatsende=KWL;IX_MAP_HR_PERSONNEL_PROBATIONARYPERIODDURATION=6=TEXT;IX_MAP_HR_PERSONNEL_PROBATIONARYPERIODDURATION_UNIT=Monate=KWL;IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY=1=TEXT;IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY_UNIT=Monate=KWL]\ncheckcontrols=[IX_GRP_HR_PERSONNEL_DATEOFJOINING=null=TEXT=EXIST]\nformular=[null=Speichern=null=viewer]"
+      },
+      "index": 16,
+      "step": {
+        "rendered": "<p>weitere Felder befüllen:<\/p>\n<ul>\n<li> Arbeitsverhältnis<\/li>\n<li>Eintrittsdatum<\/li>\n<li>Kündigungsfrist<\/li>\n<li>Kündigung zum<\/li>\n<li>Probezeit<\/li>\n<li>Ende der Probezeit<\/li>\n<li>Kündigunsfrist (In Probezeit)<\/li>\n<li>Kündigung zum<\/li>\n<\/ul>\n",
+        "raw": "weitere Felder befüllen:\n *  Arbeitsverhältnis\n * Eintrittsdatum\n * Kündigungsfrist\n * Kündigung zum\n * Probezeit\n * Ende der Probezeit\n * Kündigunsfrist (In Probezeit)\n * Kündigung zum"
+      },
+      "id": 9318
+    },
+    {
+      "result": {
+        "rendered": "<ul>\n<li>Das Deckblatt der Akte wird angezeigt<\/li>\n<li>Auf den Deckblatt wurden folgende Informationen ergänzt:\n<ul>\n<li>Eintrittsdatum<\/li>\n<\/ul>\n<\/li>\n<\/ul>\n",
+        "raw": "* Das Deckblatt der Akte wird angezeigt\n * Auf den Deckblatt wurden folgende Informationen ergänzt:\n ** Eintrittsdatum"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "",
+        "raw": ""
+      },
+      "index": 17,
+      "step": {
+        "rendered": "<p>Änderungen mit \"Speichern\" bestätigen<\/p>",
+        "raw": "Änderungen mit \"Speichern\" bestätigen"
+      },
+      "id": 9319
+    },
+    {
+      "result": {
+        "rendered": "<ul>\n<li>Alle Eingaben wurden gespeichert und werden im jeweiligen Feld angezeigt<\/li>\n<\/ul>\n",
+        "raw": "* Alle Eingaben wurden gespeichert und werden im jeweiligen Feld angezeigt"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "",
+        "raw": ""
+      },
+      "index": 18,
+      "step": {
+        "rendered": "<p>Im Vorschauformular auf den Reiter \"Ein-/Austritt\" navigieren<\/p>",
+        "raw": "Im Vorschauformular auf den Reiter \"Ein-/Austritt\" navigieren"
+      },
+      "id": 9320
+    }
+  ]},
+  "id": 107464,
+  "precondition": [
+    {
+      "archived": false,
+      "preconditionKey": "QBSHR-49",
+      "rank": 0,
+      "self": "https://eloticksy.elo.com/rest/api/2/issue/103962",
+      "reporter": "JIRAUSER16052",
+      "type": "Manual"
+    },
+    {
+      "archived": false,
+      "preconditionKey": "QBSHR-62",
+      "rank": 0,
+      "self": "https://eloticksy.elo.com/rest/api/2/issue/111583",
+      "reporter": "JIRAUSER17261",
+      "type": "Manual"
+    }
+  ],
+  "type": "Manual",
+  "key": "QBSHR-51",
+  "status": "PASS"
+}]}

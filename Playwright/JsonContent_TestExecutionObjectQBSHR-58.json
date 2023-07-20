@@ -1,0 +1,35 @@
+{
+  "testExecutionKey": "QBSHR-66",
+  "tests": [{
+    "testKey": "QBSHR-58",
+    "iterations": [{
+      "duration": "1",
+      "log": "Iteration 1 successful",
+      "name": "Iteration 1",
+      "parameters": [
+        {
+          "name": "Gruppe",
+          "value": "sol.hr.roles.Administration"
+        },
+        {
+          "name": "Benutzer",
+          "value": "Administrator"
+        },
+        {
+          "name": "angezeigt",
+          "value": ""
+        },
+        {
+          "name": "Personalakte",
+          "value": "Leutheusser-Schnarrenberger, Geneviève-Gabrielle"
+        },
+        {
+          "name": "Absender",
+          "value": ""
+        }
+      ],
+      "steps": [],
+      "status": "PASS"
+    }]
+  }]
+}

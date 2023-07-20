@@ -1,0 +1,265 @@
+{
+  "executedBy": "J-H.Ruberg@elo.com",
+  "finishedOnIso": "2023-07-14T14:01:31+02:00",
+  "color": "#95C160",
+  "customFields": [],
+  "testEnvironments": [],
+  "fixVersions": [],
+  "testExecKey": "QBSHR-66",
+  "iterations": [
+    {
+      "color": "#95C160",
+      "id": 291,
+      "parameters": [
+        {
+          "name": "Gruppe",
+          "value": "sol.hr.roles.Administration"
+        },
+        {
+          "name": "Benutzer",
+          "value": "Administrator"
+        },
+        {
+          "name": "angezeigt",
+          "value": ""
+        },
+        {
+          "name": "Personalakte",
+          "value": "Leutheusser-Schnarrenberger, Geneviève-Gabrielle"
+        },
+        {
+          "name": "Absender",
+          "value": ""
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "color": "#95C160",
+      "id": 292,
+      "parameters": [
+        {
+          "name": "Gruppe",
+          "value": "sol.hr.roles.Creators"
+        },
+        {
+          "name": "Benutzer",
+          "value": "rh_test_creators"
+        },
+        {
+          "name": "angezeigt",
+          "value": ""
+        },
+        {
+          "name": "Personalakte",
+          "value": ""
+        },
+        {
+          "name": "Absender",
+          "value": ""
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "color": "#95C160",
+      "id": 293,
+      "parameters": [
+        {
+          "name": "Gruppe",
+          "value": "sol.hr.roles.DocumentCreators"
+        },
+        {
+          "name": "Benutzer",
+          "value": "rh_test_doc_creators"
+        },
+        {
+          "name": "angezeigt",
+          "value": ""
+        },
+        {
+          "name": "Personalakte",
+          "value": ""
+        },
+        {
+          "name": "Absender",
+          "value": ""
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "color": "#95C160",
+      "id": 294,
+      "parameters": [
+        {
+          "name": "Gruppe",
+          "value": "sol.hr.roles.Editors"
+        },
+        {
+          "name": "Benutzer",
+          "value": "rh_test_editors"
+        },
+        {
+          "name": "angezeigt",
+          "value": ""
+        },
+        {
+          "name": "Personalakte",
+          "value": ""
+        },
+        {
+          "name": "Absender",
+          "value": ""
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "color": "#95C160",
+      "id": 295,
+      "parameters": [
+        {
+          "name": "Gruppe",
+          "value": "sol.hr.roles.OrgchartCreators"
+        },
+        {
+          "name": "Benutzer",
+          "value": "rh_test_org_creators"
+        },
+        {
+          "name": "angezeigt",
+          "value": ""
+        },
+        {
+          "name": "Personalakte",
+          "value": ""
+        },
+        {
+          "name": "Absender",
+          "value": ""
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "color": "#95C160",
+      "id": 296,
+      "parameters": [
+        {
+          "name": "Gruppe",
+          "value": "sol.hr.roles.OrgchartViewers"
+        },
+        {
+          "name": "Benutzer",
+          "value": "rh_test_org_viewers"
+        },
+        {
+          "name": "angezeigt",
+          "value": ""
+        },
+        {
+          "name": "Personalakte",
+          "value": ""
+        },
+        {
+          "name": "Absender",
+          "value": ""
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "color": "#95C160",
+      "id": 297,
+      "parameters": [
+        {
+          "name": "Gruppe",
+          "value": "sol.hr.roles.Managers"
+        },
+        {
+          "name": "Benutzer",
+          "value": "rh_test_managers"
+        },
+        {
+          "name": "angezeigt",
+          "value": ""
+        },
+        {
+          "name": "Personalakte",
+          "value": ""
+        },
+        {
+          "name": "Absender",
+          "value": ""
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "color": "#95C160",
+      "id": 298,
+      "parameters": [
+        {
+          "name": "Gruppe",
+          "value": "sol.hr.roles.SelfService"
+        },
+        {
+          "name": "Benutzer",
+          "value": ""
+        },
+        {
+          "name": "angezeigt",
+          "value": ""
+        },
+        {
+          "name": "Personalakte",
+          "value": ""
+        },
+        {
+          "name": "Absender",
+          "value": ""
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "color": "#95C160",
+      "id": 299,
+      "parameters": [
+        {
+          "name": "Gruppe",
+          "value": "Everyone"
+        },
+        {
+          "name": "Benutzer",
+          "value": ""
+        },
+        {
+          "name": "angezeigt",
+          "value": ""
+        },
+        {
+          "name": "Personalakte",
+          "value": ""
+        },
+        {
+          "name": "Absender",
+          "value": ""
+        }
+      ],
+      "status": "PASS"
+    }
+  ],
+  "startedOnIso": "2023-07-14T13:20:18+02:00",
+  "duration": 2473000,
+  "archived": false,
+  "defects": [],
+  "id": 28197,
+  "testKey": "QBSHR-58",
+  "assignee": "J-H.Ruberg@elo.com",
+  "finishedOn": "2023-07-14T14:01:31+02:00",
+  "evidences": [],
+  "startedOn": "2023-07-14T13:20:18+02:00",
+  "status": "PASS"
+}

@@ -14,7 +14,8 @@ sol.define("sol.common_document.as.Utils", {
   singleton: true,
 
   CONST: {
-    SPLITLENGTH: 24
+    SPLITLENGTH: 24,
+    PDFPAGESMAX: 500
   },
 
   /**
@@ -28,7 +29,7 @@ sol.define("sol.common_document.as.Utils", {
    */
   getTemplateCoverSheetSord: function (sord, config) {
     var me = this,
-        templateId;
+        templateId, objId;
 
     me.logger.enter("getTemplateCoverSheetSord", { sord: sord.id, config: config });
     if (me.logger.debugEnabled) {
@@ -36,7 +37,9 @@ sol.define("sol.common_document.as.Utils", {
     }
 
     templateId = config.defaultTemplate;
-    if (sol.common.RepoUtils.exists(config.coversheetBasePath + "/" + sord.maskName)) {
+
+    objId = sol.common.RepoUtils.getObjId(config.coversheetBasePath + "/" + sord.maskName);
+    if (objId) {
       templateId = config.coversheetBasePath + "/" + sord.maskName;
     }
 
@@ -1257,7 +1260,12 @@ sol.define("sol.common_document.as.Utils", {
             break;
           case "html":
             me.logger.debug("convert Html to PDF");
-            inputStream = me.convertHtmlToPdf(sord, ext, dstDirPath);
+            os = String(java.lang.System.getProperty("os.name").toLowerCase());
+            if (!sol.common.StringUtils.contains(os, "win")) {
+              inputStream = me.convertTextToPdf(sord, ext, dstDirPath, config);
+            } else {
+              inputStream = me.convertHtmlToPdf(sord, ext, dstDirPath);
+            }
             break;
           case "ppt":
           case "pot":
@@ -2042,6 +2050,7 @@ sol.define("sol.common_document.as.Utils", {
     me.logger.debug(["Start setPagination with dstPdfFile: '{0}'", dstPdfFile]);
 
     pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstPdfFile);
+
     for (i = 0; i < pdfPages; i++) {
       page = i + 1;
       pageTest = page + offset + "";
@@ -2088,6 +2097,7 @@ sol.define("sol.common_document.as.Utils", {
       imageStamp.setTopMargin(20.0);
 
       pages = pdfDocument.getPages();
+
       for (i = 1; i <= pages.size(); i++) {
         page = pages.get_Item(i);
         page.addStamp(imageStamp);
@@ -2107,7 +2117,7 @@ sol.define("sol.common_document.as.Utils", {
    * Set watermark text in a PDF.
    * @private
    * @param {java.io.File} dstPdfFile PDF File
-   * @param {String} textWatermark Watermark text
+   * @param {String} textWatermark Watermark texti <= pages.size()
    */
   setWatermarkText: function (dstPdfFile, textWatermark) {
     var me = this,
@@ -2268,6 +2278,7 @@ sol.define("sol.common_document.as.Utils", {
 
       fstream = new FileInputStream(filePath);
       eml = Packages.com.aspose.email.MailMessage.load(fstream);
+      fstream.close();
 
       // Save the Message to output stream in MHTML format
       emlStream = new ByteArrayOutputStream();
@@ -2277,6 +2288,7 @@ sol.define("sol.common_document.as.Utils", {
       lo = new Packages.com.aspose.words.LoadOptions();
       lo.setLoadFormat(Packages.com.aspose.words.LoadFormat.MHTML);
       doc = new Packages.com.aspose.words.Document(new ByteArrayInputStream(emlStream.toByteArray()), lo);
+      emlStream.close();
 
       // Save to disc
       doc.save(targetFile, Packages.com.aspose.words.SaveFormat.PDF);
@@ -2335,7 +2347,12 @@ sol.define("sol.common_document.as.Utils", {
             break;
           case "html":
             me.logger.debug("convert Html to PDF");
-            inputStream = me.convertHtmlFileToPdf(filePath, dstDirPath);
+            os = String(java.lang.System.getProperty("os.name").toLowerCase());
+            if (!sol.common.StringUtils.contains(os, "win")) {
+              inputStream = me.convertTextFileToPdf(filePath, dstDirPath, config);
+            } else {
+              inputStream = me.convertHtmlFileToPdf(filePath, dstDirPath);
+            }
             break;
           case "ppt":
           case "pot":
@@ -2571,7 +2588,7 @@ sol.define("sol.common_document.as.Utils", {
         pdfInputStreams, pdfInputStream, pdfContents, dstFile, os,
         outputFileName, outputFile, inputFileNames, pdfContentFilePath,
         size, inputFileNamesArray, outputFileNames_, outputFileName_, outputFile_,
-        offset, pdfPages, outputFiles_;
+        offset, pdfPages, outputFiles_, k, inputFileNamesArray_, outputFileNames__;
 
     me.logger.enter("pdfExport");
     if (me.logger.debugEnabled) {
@@ -2769,7 +2786,16 @@ sol.define("sol.common_document.as.Utils", {
           if (!outputFile_.exists()) {
             outputFile_.createNewFile();
           }
+          me.logger.info(["Start sol.common.as.PdfUtils.mergePdfFiles: inputFileNamesArray=[{0}]={1} outputFileName_={2}", i, inputFileNamesArray[i], outputFileName_]);
+          me.logger.info(["inputFileNamesArray.length={0}", inputFileNamesArray.length]);
+          me.logger.info(["inputFileNamesArray[{0}].length={1}", i, inputFileNamesArray[i].length]);
+          for (k = 0; k < inputFileNamesArray[i].length; k++) {
+            inputFileNamesArray_ = inputFileNamesArray[i][k];
+            pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(new File(inputFileNamesArray_));
+            me.logger.info(["pdfPages={0}: inputFileNamesArray_={1}", pdfPages, inputFileNamesArray_]);
+          }
           sol.common.as.PdfUtils.mergePdfFiles(inputFileNamesArray[i], outputFileName_);
+          me.logger.info(["Finish sol.common.as.PdfUtils.mergePdfFiles: inputFileNamesArray=[{0}]={1} outputFileName_={2}", i, inputFileNamesArray[i], outputFileName_]);
           outputFileNames_.push(outputFileName_);
           outputFiles_.push(outputFile_);
         }
@@ -2784,25 +2810,38 @@ sol.define("sol.common_document.as.Utils", {
             }
             if (config.pagination === true) {
               pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(outputFile_);
-              me.setPagination(outputFile_, offset);
+              if (pdfPages < me.CONST.PDFPAGESMAX) {
+                me.setPagination(outputFile_, offset);
+              }
               offset += pdfPages;
             }
             if (config.watermark.image.show === true) {
-              me.setWatermarkImage(outputFile_, dstDirPath, config.watermark.image.path);
+              if (pdfPages < me.CONST.PDFPAGESMAX) {
+                me.setWatermarkImage(outputFile_, dstDirPath, config.watermark.image.path);
+              }
             }
 
             os = String(java.lang.System.getProperty("os.name").toLowerCase());
 
             if (sol.common.StringUtils.contains(os, "win")) {
               if (config.watermark.text.show === true) {
-                me.setWatermarkText(outputFile_, config.watermark.text.content);
+                if (pdfPages < me.CONST.PDFPAGESMAX) {
+                  me.setWatermarkText(outputFile_, config.watermark.text.content);
+                }
               }
             }
           } catch (ex) {
             me.logger.error(["error pdfExport with folderId: '{0}', baseDstDirPath: '{1}', config: '{2}'", folderId, baseDstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })], ex);
           }
         });
+        me.logger.info(["Start sol.common.as.PdfUtils.mergePdfFiles: outputFileNames_={0} outputFileName_={1}", outputFileNames_, outputFileName_]);
+        for (k = 0; k < outputFileNames_.length; k++) {
+          outputFileNames__ = outputFileNames_[k];
+          pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(new File(outputFileNames__));
+          me.logger.info(["pdfPages={0}: outputFileNames__={1}", pdfPages, outputFileNames__]);
+        }
         sol.common.as.PdfUtils.mergePdfFiles(outputFileNames_, outputFileName);
+        me.logger.info(["Finish sol.common.as.PdfUtils.mergePdfFiles: outputFileNames_={0} outputFileName_={1}", outputFileNames_, outputFileName_]);
       }
 
       parentId = me.getExportFolder(config);

@@ -1,0 +1,19 @@
+{"entries": [{
+  "executedBy": "J-H.Ruberg@elo.com",
+  "finishedOnIso": "2023-07-14T13:58:59+02:00",
+  "color": "#95C160",
+  "testEnvironments": [],
+  "fixVersions": [],
+  "testExecKey": "QBSHR-66",
+  "startedOnIso": "2023-07-14T13:05:48+02:00",
+  "duration": 3191000,
+  "archived": false,
+  "defects": [],
+  "id": 28164,
+  "testKey": "QBSHR-50",
+  "assignee": "J-H.Ruberg@elo.com",
+  "finishedOn": "2023-07-14T13:58:59+02:00",
+  "evidences": [],
+  "startedOn": "2023-07-14T13:05:48+02:00",
+  "status": "PASS"
+}]}

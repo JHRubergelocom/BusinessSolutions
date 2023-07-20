@@ -1,0 +1,10 @@
+Gruppe,Benutzer,angezeigt,Personalakte,Absender
+sol.hr.roles.Administration,Administrator,,"Leutheusser-Schnarrenberger, Geneviève-Gabrielle",
+sol.hr.roles.Creators,rh_test_creators,,,
+sol.hr.roles.DocumentCreators,rh_test_doc_creators,,,
+sol.hr.roles.Editors,rh_test_editors,,,
+sol.hr.roles.OrgchartCreators,rh_test_org_creators,,,
+sol.hr.roles.OrgchartViewers,rh_test_org_viewers,,,
+sol.hr.roles.Managers,rh_test_managers,,,
+sol.hr.roles.SelfService,,,,
+Everyone,,,,
