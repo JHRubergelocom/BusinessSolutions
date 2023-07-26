@@ -831,7 +831,7 @@ sol.define("sol.common_document.as.Utils", {
       dstFile = me.writePdfOutputStreamToFile(result.outputStream, dstDirPath, pdfName);
 
       try {
-        pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstFile);
+        pdfPages = sol.common.as.PdfUtils.getNumberOfPages(dstFile);
       } catch (ex) {
         pdfPages = 0;
         me.logger.error(["error createPdfFromSord with sord: '{0}', templateId: '{1}', dstDirPath: '{2}', ext: '{3}', pdfName: '{4}', config: '{5}'", sord, templateId, dstDirPath, ext, pdfName, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })], ex);
@@ -932,7 +932,7 @@ sol.define("sol.common_document.as.Utils", {
       }
       dstFile = me.writePdfOutputStreamToFile(result.outputStream, dstDirPath, pdfName);
       try {
-        pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstFile);
+        pdfPages = sol.common.as.PdfUtils.getNumberOfPages(dstFile);
       } catch (ex) {
         pdfPages = 0;
         me.logger.error(["error createErrorConversionPdf with sord: '{0}', ext: '{1}', dstDirPath: '{2}', config: '{3}'", sord, ext, dstDirPath, sol.common.JsonUtils.stringifyAll(config, { tabStop: 2 })], ex);
@@ -1355,7 +1355,7 @@ sol.define("sol.common_document.as.Utils", {
         } else {
           contentName = sord.name;
         }
-        pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstFile);
+        pdfPages = sol.common.as.PdfUtils.getNumberOfPages(dstFile);
         if (config.pdfExport === true) {
           me.pushContent(sord, pdfContents, pdfInputStream, refPath, contentName, pdfPages, "", dstFile.getAbsolutePath());
           sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
@@ -1467,7 +1467,7 @@ sol.define("sol.common_document.as.Utils", {
       fop.flush();
       fop.close();
 
-      pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstFile);
+      pdfPages = sol.common.as.PdfUtils.getNumberOfPages(dstFile);
       sol.common.FileUtils.deleteFiles({ dirPath: dstFile.getPath() });
     } catch (ex) {
       pdfPages = 0;
@@ -1494,7 +1494,7 @@ sol.define("sol.common_document.as.Utils", {
     me.logger.debug(["Start setHyperlinks with dstPdfFile: '{0}', contents: '{1}'", dstPdfFile, contents]);
 
     try {
-      pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstPdfFile);
+      pdfPages = sol.common.as.PdfUtils.getNumberOfPages(dstPdfFile);
       pdfDocument = new Packages.com.aspose.pdf.Document(dstPdfFile.getPath());
       i = 0;
       ip = 0;
@@ -2049,7 +2049,7 @@ sol.define("sol.common_document.as.Utils", {
     me.logger.enter("setPagination");
     me.logger.debug(["Start setPagination with dstPdfFile: '{0}'", dstPdfFile]);
 
-    pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstPdfFile);
+    pdfPages = sol.common.as.PdfUtils.getNumberOfPages(dstPdfFile);
 
     for (i = 0; i < pdfPages; i++) {
       page = i + 1;
@@ -2791,7 +2791,7 @@ sol.define("sol.common_document.as.Utils", {
           me.logger.info(["inputFileNamesArray[{0}].length={1}", i, inputFileNamesArray[i].length]);
           for (k = 0; k < inputFileNamesArray[i].length; k++) {
             inputFileNamesArray_ = inputFileNamesArray[i][k];
-            pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(new File(inputFileNamesArray_));
+            pdfPages = sol.common.as.PdfUtils.getNumberOfPages(new File(inputFileNamesArray_));
             me.logger.info(["pdfPages={0}: inputFileNamesArray_={1}", pdfPages, inputFileNamesArray_]);
           }
           sol.common.as.PdfUtils.mergePdfFiles(inputFileNamesArray[i], outputFileName_);
@@ -2809,7 +2809,7 @@ sol.define("sol.common_document.as.Utils", {
               me.convertPDFtoPDFA(outputFile_);
             }
             if (config.pagination === true) {
-              pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(outputFile_);
+              pdfPages = sol.common.as.PdfUtils.getNumberOfPages(outputFile_);
               if (pdfPages < me.CONST.PDFPAGESMAX) {
                 me.setPagination(outputFile_, offset);
               }
@@ -2837,7 +2837,7 @@ sol.define("sol.common_document.as.Utils", {
         me.logger.info(["Start sol.common.as.PdfUtils.mergePdfFiles: outputFileNames_={0} outputFileName_={1}", outputFileNames_, outputFileName_]);
         for (k = 0; k < outputFileNames_.length; k++) {
           outputFileNames__ = outputFileNames_[k];
-          pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(new File(outputFileNames__));
+          pdfPages = sol.common.as.PdfUtils.getNumberOfPages(new File(outputFileNames__));
           me.logger.info(["pdfPages={0}: outputFileNames__={1}", pdfPages, outputFileNames__]);
         }
         sol.common.as.PdfUtils.mergePdfFiles(outputFileNames_, outputFileName);

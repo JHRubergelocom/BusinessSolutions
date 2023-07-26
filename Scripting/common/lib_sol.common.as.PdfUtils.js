@@ -77,5 +77,35 @@ sol.define("sol.common.as.PdfUtils", {
 
     pdfMerger.destinationFileName = outputFileName;
     pdfMerger.mergeDocuments(Packages.org.apache.pdfbox.io.MemoryUsageSetting.setupTempFileOnly());
+  },
+
+  /**
+   * Get number of pages in PDF file
+   * @param {java.io.File} dstFile
+   * @return {Number} numOfPages
+   */
+  getNumberOfPages: function (pdfFile) {
+    var me = this,
+        pdfFileExtension, doc, numOfPages;
+
+    me.logger.debug(["pdfFile= {0}", pdfFile]);
+    pdfFileExtension = sol.common.FileUtils.getExtension(pdfFile);
+    pdfFileExtension = pdfFileExtension.toLowerCase();
+
+    if ((pdfFile == null) || (pdfFileExtension != "pdf")) {
+      me.logger.debug(["Illegal input for the pdf file, execution will be aborted"]);
+      return 0;
+    }
+
+    try {
+      doc = new Packages.org.apache.pdfbox.pdmodel.PDDocument.load(pdfFile);
+      numOfPages = doc.getNumberOfPages();
+      me.logger.debug(["numOfPages= {0}", numOfPages]);
+    } finally {
+      doc.close();
+    }
+
+    return numOfPages;
   }
+
 });
