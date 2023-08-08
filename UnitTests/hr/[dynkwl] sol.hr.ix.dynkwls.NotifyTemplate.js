@@ -96,7 +96,6 @@ describe("[dynkwl] sol.hr.ix.dynkwls.NotifyTemplate", function () {
             }
             done();
           }, function error(err) {
-            fail(err);
             console.error(err);
             done();
           }

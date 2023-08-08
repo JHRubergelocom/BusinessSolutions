@@ -41,13 +41,13 @@ describe("[service] sol.hr.ix.services.GetMessageAttachment", function () {
   });
   describe("Tests Registered Functions", function () {
     describe("RF_sol_hr_service_GetMessageAttachment", function () {
-      it("should throw if executed without 'guid'", function (done) {
+      it("should not throw if executed without 'guid'", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_hr_service_GetMessageAttachment", {
           }).then(function success(jsonResult) {
-            fail(jsonResult);
             done();
           }, function error(err) {
+            fail(err);
             console.error(err);
             done();
           }

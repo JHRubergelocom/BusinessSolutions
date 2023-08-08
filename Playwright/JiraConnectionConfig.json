@@ -2,5 +2,48 @@
   "baseURL": "https://eloticksy.elo.com",
   "username": "J-H.Ruberg@elo.com",
   "password": "XXX",
-  "testExecutionKey": "QBSHR-66"
+  "testExecutionKey": "QBSHR-66",
+  "eloStack": "ruberg-hr.dev.elo",
+  "eloTile": {
+    "repositoryTile": "Solutions",
+    "taskTile": "Aufgaben"
+  },
+  "usedEloSolution": "hr",
+  "eloSolutions": {
+    "eloSolutions": {
+      "hr": {
+        "eloActions": {
+          "checkfolder": {
+            "entryPath": "",
+            "formulaType": "NONE",
+            "formulaSaveButton": "",
+            "formulaCancelButton": "",
+            "selectionDialogItem": "",
+            "eloActionDef": {
+              "selectorRibbon": "",
+              "selectorMenu": "",
+              "selectorButton": ""
+            },
+            "tabPages": [],
+            "testShouldFail": false
+          },
+          "checksubfolder": {
+            "entryPath": "",
+            "formulaType": "NONE",
+            "formulaSaveButton": "",
+            "formulaCancelButton": "",
+            "selectionDialogItem": "",
+            "eloActionDef": {
+              "selectorRibbon": "",
+              "selectorMenu": "",
+              "selectorButton": ""
+            },
+            "tabPages": [],
+            "testShouldFail": false
+          }
+        },
+        "eloTasks": {}
+      }
+    }
+  }
 }

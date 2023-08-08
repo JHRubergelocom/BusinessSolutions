@@ -582,7 +582,9 @@ executeAdvancedAction
 
 =====================================================================================================================================================================
 
-26.04.2023 TODO Unittests überprüfen (nach Änderungen 23.00 Stack aufbauen  und Tests durchlaufen lassen!)
+03.08.2023 TODO Unittests überprüfen (nach Änderungen 23-nightly Stack aufbauen  und Tests durchlaufen lassen!)
+
+nochmal unter 23-nightly testen!
 
 
 QoL Feature für Entwickler: JIRA Issues+Branch via der ELO CLI erstellen
@@ -605,9 +607,189 @@ hr
 elo-sol prepare -stack ruberg-hr -workspace de -version 20.00
 
 
+https://eloticksy.elo.com/browse/BSHR-458
+
+BS HR Personnel File BSHR-458 Unittests erweitern
+
+
+
+
+
+testen!
+
+	
+
+Action Definitions matching Unittest
+
+actions.EmployeeCorrespondenceTemplate 	false           analog "[action] sol.hr.ix.actions.EmployeeCorrespondence" ohne employee Objekt
+
+sol.hr.personnel.EmployeeCorrespondenceTemplate
+
+
+{
+"type": "ADVANCED_ACTION",
+"action": {
+"fct": "RF_sol_common_action_Standard",
+"cfgTemplate": "{\"$name\":\"EmployeeCorrespondenceTemplate\",\"objId\":\"{{objId}}\",\"$metadata\":{\"solType\":\"HR_COMMUNICATION_TEMPLATE\",\"owner\":{\"fromConnection\":true},\"objKeys\":[],\"mapItems\":[{\"key\":\"HR_PERSONNEL_FILE\",\"value\":\"{{sord.guid}}\"}]},\"$wf\":{\"template\":{\"name\":\"sol.hr.personnel.correspondence.template\"},\"name\":\"{{translate 'sol.hr.form.correspondence.createTemplate.title'}}\"},\"$events\":[{\"id\":\"DIALOG\"},{\"id\":\"GOTO\",\"onWfStatus\":\"CREATED\",\"message\":\"\"}],\"$new\":{\"target\":{\"mode\":\"DEFAULT\"},\"template\":{\"objId\":\"ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/hr/Configuration/Communication Templates/Base\"}},\"$permissions\":{\"mode\":\"SET\",\"copySource\":false,\"inherit\":{\"fromDirectParent\":true}}}",
+"type": "IX",
+"locale": {
+"errorDlgTitle": "sol.hr.personnel.client.employeecorrespondence.dialog.error.title"
+}
+},
+"actionType": 3,
+"ribbons": [
+{
+"ribbonTab": {
+"name": "TAB_SOL_HR",
+"text": "sol.hr.client.ribbon.tabHR",
+"iconName": "tab-sol-hr",
+"position": 96
+},
+"buttongroup": {
+"name": "GRP_SOL_HR_NEW",
+"mode": "big",
+"text": "sol.hr.client.ribbon.bandNew",
+"position": 10
+},
+"button": {
+"name": "BTN_SOL_HR_CORRESPONDENCE_TEMPLATE",
+"text": "sol.hr.personnel.client.ribbon.btnEmployeeCorrespondenceTemplate",
+"splitText": "sol.hr.personnel.client.ribbon.btnEmployeeCorrespondenceTemplateSplit",
+"tooltipText": "sol.hr.personnel.client.ribbon.btnEmployeeCorrespondenceTemplate.tooltip",
+"web": {
+"smallIcon": "sol-hr-employeecorrespondence16",
+"smallIconHighRes": "sol-hr-employeecorrespondence16-200",
+"bigIcon": "sol-hr-employeecorrespondence32",
+"bigIconHighRes": "sol-hr-employeecorrespondence32-200",
+"iconName": "sol-hr-employeecorrespondence"
+},
+"jc": {
+"buttonId": "835"
+},
+"position": 22,
+"asTile": false,
+"access": {
+"solTypes": [],
+"folder": false,
+"document": false,
+"conditions": []
+},
+"iconName": "sol-hr-employeecorrespondence"
+},
+"additionalButtonPositions": [
+{
+"ribbonTab": {
+"name": "NEW",
+"text": "sol.hr.client.ribbon.tabHR",
+"position": 96,
+"access": {
+"solTypes": [],
+"conditions": []
+},
+"iconName": "tab-sol-hr"
+},
+"buttongroup": {
+"name": "GRP_SOL_HR",
+"text": "sol.hr.client.ribbon.bandHR",
+"position": 26
+},
+"button": {
+"position": 11,
+"pinned": false
+}
+}
+]
+}
+]
+}
+
+WF "sol.hr.personnel.correspondence.template"
+
+Eingabe Maske "Data Entry"
+
+[sol_hr_correspondence(103_create_template_title,003_create_template)]
+
+514_message_create_template
+
+IX_NAME
+
+
+"analog sol.hr.personnel.correspondence"
+
+
+
+510_message
+
+516_message_body
+
+511_message_atachment
+
+
+
+
+
+        it("fill corrospondence sord", function (done) {
+          expect(function () {
+            test.Utils.getSord(wfInfo.objId).then(function success(sordCo) {
+              test.Utils.updateKeywording(sordCo, {
+                COMMUNICATION_SENDER: "test-business-solutions@elo.local",
+                COMMUNICATION_RECIPIENT: "test-business-solutions@elo.local",
+                COMMUNICATION_SUBJECT: "Subject Employee Correspondence"
+              }, true).then(function success1(updateKeywordingResult) {
+                test.Utils.updateSord(sordCo, [{ key: "desc", value: "Content Employee Correspondence" }]).then(function success2(updateSordResult) {
+                  done();
+                }, function error(err) {
+                  fail(err);
+                  console.error(err);
+                  done();
+                }
+                );
+              }, function error(err) {
+                fail(err);
+                console.error(err);
+                done();
+              }
+              );
+            }, function error(err) {
+              fail(err);
+              console.error(err);
+              done();
+            }
+            );
+          }).not.toThrow();
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+IndexServer Scripting Base/DynKwl lib matching Unittest
+
+sol.hr.ix.dynkwl.SuperiorIterator 	getFindInfo 	false
+sol.hr.ix.dynkwl.notification.template.base 	getDataField 	false
+
+
+IndexServer Scripting Base/Services lib matching Unittest
+
+sol.hr.ix.services.getFormConfig 	process 	false
+
+
+
+
 invoice
 
 elo-sol prepare -stack ruberg-invoice -workspace jan -version 20.00
+
+Tests überarbeiten!
 
 
 knowledge
@@ -648,6 +830,13 @@ elo-sol prepare -stack ruberg-teamroom -workspace jan -version 20.00
 meeting
 
 elo-sol prepare -stack ruberg-meeting -workspace premium-groupware -version 20.00
+
+[service] sol.meeting.ix.services.CreateVoting Test Lib Functions sol.meeting.voting.ix.services.CreateVoting checkPermissions
+Error: Timeout - Async callback was not invoked within timeout specified by jasmine.DEFAULT_TIMEOUT_INTERVAL.
+
+
+
+
 
 
 Masken updaten!
@@ -844,7 +1033,7 @@ C:\Users\ruberg\.ssh\Testkey.ppk
 
 
 
-Installationsanleitung von Playwright
+Installationsanleitung von Testautomatisierung mit Playwright unter java
 
 1.) Java 17 installieren
 
@@ -855,6 +1044,9 @@ https://www.oracle.com/java/technologies/downloads/#jdk17-windows
 
 PLAYWRIGHT_JAVA_SRC 	C:\Users\ruberg\OneDrive - ELO Digital Office GmbH\Dokumente\Entwicklung\Playwright
 
+3.) ps1-Datei für Programmaufruf setzen
+
+java "-Dfile.encoding=UTF-8" -jar PlaywrightSession.jar QBSHR-58 PlaywrightConfig.json JiraConnectionConfig.json
 
 
 ===========================================================================================================================
@@ -1040,7 +1232,30 @@ public static void saveTiffAsPdf(File sourceFile, File targetFile)
   }
 
 
-
+public static boolean isTiff(File file)
+    throws IOException, Exception
+  {
+    log.debug("file=" + file);
+    if (file == null)
+    {
+      log.debug("Illegal input for the file, execution will be aborted");
+      throw new Exception("Illegal input for file");
+    }
+    FileInputStream inStream = null;
+    try
+    {
+      inStream = new FileInputStream(file);
+      byte[] magic = new byte[2];
+      inStream.read(magic);
+      return ((magic[0] == 73) && (magic[1] == 73)) || ((magic[0] == 77) && (magic[1] == 77));
+    }
+    finally
+    {
+      if (inStream != null) {
+        inStream.close();
+      }
+    }
+  }
 
 
 Packages.de.elo.mover.main.pdf.PdfFileHelper.insertTextInPdf(pageTest, dstPdfFile, page, 500, 10, 10, 0, 0, 0, 1.0, 0);
@@ -1239,6 +1454,48 @@ BS Meeting BSMM-2856 Überarbeitung Sitzungsmappe
 https://eloticksy.elo.com/browse/BSMM-2856
 
 
+sol.meeting_premium.document.speaker=Vorgetragen von
+
+
+{{translate "sol.meeting_premium.document.fileHeader" settings.mapKeys.CURRENT_LANGUAGE}}
+
+
+				<fo:block font-size="16pt">{{meeting.objKeys.MEETING_LOCATION}} {{#if meeting.objKeys.MEETING_ROOM}}({{meeting.objKeys.MEETING_ROOM}}){{/if}}</fo:block>
+
+
+				<fo:block font-size="12pt" text-align="center" margin-top="3pt">{{../meeting.objKeys.MEETING_LOCATION}}, {{../meeting.objKeys.MEETING_ROOM}}</fo:block>
+
+
+
+
+				<fo:block font-size="12pt" margin-top="0pt" margin-left="0pt">{{translate "sol.meeting_premium.document.speaker" ../../settings.mapKeys.CURRENT_LANGUAGE}}: &#160;&#160;&#160;&#160;&#160;{{#if objKeys.MEETING_ITEM_SPEAKER}}{{objKeys.MEETING_ITEM_SPEAKER}}{{else}}<fo:inline font-style="italic">{{translate "sol.meeting_premium.document.notDefined" ../../settings.mapKeys.CURRENT_LANGUAGE}}</fo:inline>{{/if}}</fo:block>
+
+				<fo:block font-size="12pt" color="#004072" margin-top="3pt">{{translate "sol.meeting_premium.document.speaker" ../../settings.mapKeys.CURRENT_LANGUAGE}}: {{#if objKeys.MEETING_ITEM_SPEAKER}}{{objKeys.MEETING_ITEM_SPEAKER}}{{else}}<fo:inline font-style="italic">{{translate "sol.meeting_premium.document.notDefined" ../../settings.mapKeys.CURRENT_LANGUAGE}}</fo:inline>{{/if}}</fo:block>
+
+
+Hauptstandort
+Besprechungsraum 1
+
+
+
+									<fo:basic-link internal-destination="{{id}}">
+										{{name}}
+										<fo:inline>
+											<fo:leader leader-pattern="dots"/>
+										</fo:inline>
+										<fo:page-number-citation ref-id="{{id}}"/>
+									</fo:basic-link>
+
+
+
+		
+
+<fo:leader leader-alignment="reference-area" leader-pattern="dots" leader-length="60mm"/>
+
+
+
+Anregung Marcel, Anzeige der Seitenzahl in der TOP Übersicht 
+
 =====================================================================================================================================================================
 
 05.06.23 (Stack ruberg-common)
@@ -1283,12 +1540,16 @@ RF_sol_unittest_service_ExecuteLib
 
 =====================================================================================================================================================================
 
-TODO 20.07.2023
+TODO 03.08.2023
 
 
-BS Intern BSXX-477 Testautomatisierung mit Playwright
+BS Intern BSXX-490 Testautomatisierung mit Playwright
 
-https://eloticksy.elo.com/browse/BSXX-477
+https://eloticksy.elo.com/browse/BSXX-490
+
+
+Playwright Testcases QS BS HR Personnel File Xray REST API
+
 
 
 Playwright Testcases QS BS HR Personnel File Xray REST API
@@ -1504,4 +1765,48 @@ Gedanken machen für Abbilden Test in Jira:
 	
 - Allegemein überlegen wie technische Masken-/Felddefinitionen für solution (hr) in JiraConnectionConfig hinterlegt werden können
 
-	
+- Entwickeln Transformationssyntax Jiratest nach Playwright
+
+
+
+Test geklont von QBSHR-65
+
+https://eloticksy.elo.com/browse/QBSHR-80
+
+
+
+
+
+JiraConnectionConfig um technische Infos elo Playwright erweitern
+
+
+CheckSubFolder{{ Organigramm|Ordner_Organigramm }}
+
+
+In Testreport Jira Dataset-Parameter anzeigen und Data Funktion (z.B.: CheckFolder {{ .. }})
+
+
+Funktion zum Anlegen von Testusern implementieren
+
+
+
+07.08.2023 
+
+Neue Ideen Jira -> Playwright
+
+Syntax für jira-Testschritt Datenfeld
+
+
+Prosa
+{{Login(Benutzer|Passwort)}}
+{{CheckFolder(Ordner|Sichtbarkeit)}}
+.... n Bausteine
+Prosa
+
+
+ELOControl class um Anzeigenamen (für Jira-Test) erweitern!
+
+
+03.08.2023
+
+TODO Unittest durchführen!

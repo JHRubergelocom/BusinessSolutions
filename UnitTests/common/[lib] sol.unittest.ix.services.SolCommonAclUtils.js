@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 
 describe("[lib] sol.unittest.ix.services.SolCommonAclUtils", function () {
   var aclUtilsSord, userName, userInfo, originalTimeout,
@@ -378,7 +379,6 @@ describe("[lib] sol.unittest.ix.services.SolCommonAclUtils", function () {
         }).not.toThrow();
       });
       it("createAclItemFromUserInfo", function (done) {
-        userInfo = userInfo;
         accessCode = elo.CONST.ACCESS.LUR_READ;
         expect(function () {
           test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
@@ -457,7 +457,7 @@ describe("[lib] sol.unittest.ix.services.SolCommonAclUtils", function () {
           }
           );
         }).not.toThrow();
-      });      
+      });
       it("executeBackgroundAclJob", function (done) {
         expect(function () {
           conn = "conn1";
@@ -912,7 +912,24 @@ describe("[lib] sol.unittest.ix.services.SolCommonAclUtils", function () {
           }
           );
         }).not.toThrow();
-      });     
+      });
+      it("sordZ", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.AclUtils",
+            classConfig: {},
+            method: "sordZ",
+            params: []
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
     });
   });
   afterAll(function (done) {

@@ -1267,23 +1267,18 @@ sol.define("sol.common_document.as.Utils", {
               inputStream = me.convertHtmlToPdf(sord, ext, dstDirPath);
             }
             break;
-          case "ppt":
-          case "pot":
-          case "pps":
-          case "pptx":
-          case "potx":
-          case "pptm":
-            os = String(java.lang.System.getProperty("os.name").toLowerCase());
-            if (!sol.common.StringUtils.contains(os, "win")) {
-              me.logger.debug(["format '{0}' is not supported in os '{1}'", ext, os]);
-              return inputStream;
-            }
-            break;
           default:
             if (sol.common.StringUtils.contains(config.whiteListTextFile, ext)) {
               me.logger.debug("convert Text to PDF");
               inputStream = me.convertTextToPdf(sord, ext, dstDirPath, config);
               return inputStream;
+            }
+            if ((sol.common.StringUtils.contains(ext, "ppt")) || (sol.common.StringUtils.contains(ext, "pot")) || (sol.common.StringUtils.contains(ext, "pps"))) {
+              os = String(java.lang.System.getProperty("os.name").toLowerCase());
+              if (!sol.common.StringUtils.contains(os, "win")) {
+                me.logger.debug(["format '{0}' is not supported in os '{1}'", ext, os]);
+                return inputStream;
+              }
             }
             converter = sol.create("sol.common.as.functions.OfficeConverter", {
               openFromRepo: {
@@ -2354,18 +2349,6 @@ sol.define("sol.common_document.as.Utils", {
               inputStream = me.convertHtmlFileToPdf(filePath, dstDirPath);
             }
             break;
-          case "ppt":
-          case "pot":
-          case "pps":
-          case "pptx":
-          case "potx":
-          case "pptm":
-            os = String(java.lang.System.getProperty("os.name").toLowerCase());
-            if (!sol.common.StringUtils.contains(os, "win")) {
-              me.logger.debug(["format '{0}' is not supported in os '{1}'", ext, os]);
-              return inputStream;
-            }
-            break;
           case "eml":
             me.logger.debug("convert Eml to PDF");
             inputStream = me.convertEmlFileToPdf(filePath, dstDirPath);
@@ -2375,6 +2358,13 @@ sol.define("sol.common_document.as.Utils", {
               me.logger.debug("convert Text to PDF");
               inputStream = me.convertTextFileToPdf(filePath, dstDirPath, config);
               return inputStream;
+            }
+            if ((sol.common.StringUtils.contains(ext, "ppt")) || (sol.common.StringUtils.contains(ext, "pot")) || (sol.common.StringUtils.contains(ext, "pps"))) {
+              os = String(java.lang.System.getProperty("os.name").toLowerCase());
+              if (!sol.common.StringUtils.contains(os, "win")) {
+                me.logger.debug(["format '{0}' is not supported in os '{1}'", ext, os]);
+                return inputStream;
+              }
             }
             converter = sol.create("sol.common.as.functions.OfficeConverter", {
               openFile: {

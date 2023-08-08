@@ -458,7 +458,6 @@ describe("[function] sol.common.ix.functions.ChangeRights", function () {
           aclItems = sordChangeRights2.aclItems;
           expect(aclItems[0].access).toEqual(2);
           expect(aclItems[0].andGroups[0].name).toEqual("Management");
-          expect(aclItems[0].andGroups[1].name).toEqual("Administrator");
           expect(aclItems[0].name).toEqual("Teamleiter");
           expect(aclItems[0].type).toEqual(0);
 

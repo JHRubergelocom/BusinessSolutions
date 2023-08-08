@@ -1,0 +1,13 @@
+{
+  "testExecIssue": {
+    "self": "https://eloticksy.elo.com/rest/api/2/issue/111818",
+    "id": "111818",
+    "key": "QBSHR-66"
+  },
+  "testIssues": {"success": [{
+    "self": "https://eloticksy.elo.com/rest/api/2/issue/113792",
+    "id": "113792",
+    "key": "QBSHR-80"
+  }]},
+  "infoMessages": []
+}

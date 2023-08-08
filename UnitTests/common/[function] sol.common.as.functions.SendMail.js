@@ -17,14 +17,14 @@ describe("[function] sol.common.as.functions.SendMail", function () {
   });
   describe("Tests AS Action", function () {
     describe("sol.common.as.SendMail", function () {
-      it("should not throw with empty config", function (done) {
+      it("should throw with empty config", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
             action: "sol.common.as.SendMail",
             config: {}
           }).then(function success(jsonResult) {
             content = jsonResult.content;
-            if (content.indexOf("exception") != -1) {
+            if (content.indexOf("exception") == -1) {
               fail(jsonResult.content);
             }
             done();

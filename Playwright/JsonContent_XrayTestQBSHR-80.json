@@ -1,0 +1,166 @@
+{"entries": [{
+  "archived": false,
+  "self": "https://eloticksy.elo.com/rest/api/2/issue/113792",
+  "reporter": "V.Prado@elo.com",
+  "definition": {"steps": [
+    {
+      "result": {
+        "rendered": "<p>Benutzer <raven-test-param data-mce-tabindex='-1' tabindex='-1' contenteditable='false' class=''>Benutzer<\/raven-test-param> aus Gruppe <raven-test-param data-mce-tabindex='-1' tabindex='-1' contenteditable='false' class=''>Gruppe<\/raven-test-param> ist erfolgreich angemeldet<\/p>",
+        "raw": "Benutzer {test-param}Benutzer{test-param} aus Gruppe {test-param}Gruppe{test-param} ist erfolgreich angemeldet"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "<p>Login{{<raven-test-param data-mce-tabindex='-1' tabindex='-1' contenteditable='false' class=''>Benutzer<\/raven-test-param>|elo}}<\/p>",
+        "raw": "Login{{{test-param}Benutzer{test-param}|elo}}"
+      },
+      "index": 1,
+      "step": {
+        "rendered": "<p>Mit folgendem Benutzer anmelden<\/p>",
+        "raw": "Mit folgendem Benutzer anmelden"
+      },
+      "id": 10285
+    },
+    {
+      "result": {
+        "rendered": "<p>Ordner, Unterordner und Dokumente werden <raven-test-param data-mce-tabindex='-1' tabindex='-1' contenteditable='false' class=''>Ordner_Personalmanagement<\/raven-test-param><\/p>",
+        "raw": "Ordner, Unterordner und Dokumente werden {test-param}Ordner_Personalmanagement{test-param}"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "<p>CheckFolder{{ Personalmanagement|<raven-test-param data-mce-tabindex='-1' tabindex='-1' contenteditable='false' class=''>Ordner_Personalmanagement<\/raven-test-param> }}<\/p>",
+        "raw": "CheckFolder{{ Personalmanagement|{test-param}Ordner_Personalmanagement{test-param} }}"
+      },
+      "index": 2,
+      "step": {
+        "rendered": "<p>Repository öffnen und folgenden Ordner überprüfen<\/p>",
+        "raw": "Repository öffnen und folgenden Ordner überprüfen"
+      },
+      "id": 10286
+    },
+    {
+      "result": {
+        "rendered": "<p>Unterordner Organigramm wird <raven-test-param data-mce-tabindex='-1' tabindex='-1' contenteditable='false' class=''>Ordner_Organigramm<\/raven-test-param><\/p>",
+        "raw": "Unterordner Organigramm wird {test-param}Ordner_Organigramm{test-param}"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "<p>CheckSubFolder{{ Organigramm|<raven-test-param data-mce-tabindex='-1' tabindex='-1' contenteditable='false' class=''>Ordner_Organigramm<\/raven-test-param> }}<\/p>",
+        "raw": "CheckSubFolder{{ Organigramm|{test-param}Ordner_Organigramm{test-param} }}"
+      },
+      "index": 3,
+      "step": {
+        "rendered": "<p>Folgenden Unterordner überprüfen<\/p>",
+        "raw": "Folgenden Unterordner überprüfen"
+      },
+      "id": 10287
+    },
+    {
+      "result": {
+        "rendered": "<p>Unterordner Personalakten wird <raven-test-param data-mce-tabindex='-1' tabindex='-1' contenteditable='false' class=''>Ordner_Personalakten<\/raven-test-param><\/p>",
+        "raw": "Unterordner Personalakten wird {test-param}Ordner_Personalakten{test-param}"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "<p>CheckSubFolder{{ Personalakten|<raven-test-param data-mce-tabindex='-1' tabindex='-1' contenteditable='false' class=''>Ordner_Personalakten<\/raven-test-param> }}<\/p>",
+        "raw": "CheckSubFolder{{ Personalakten|{test-param}Ordner_Personalakten{test-param} }}"
+      },
+      "index": 4,
+      "step": {
+        "rendered": "<p>Folgenden Unterordner überprüfen<\/p>",
+        "raw": "Folgenden Unterordner überprüfen"
+      },
+      "id": 10288
+    },
+    {
+      "result": {
+        "rendered": "<p>Unterordner Personalakten nach Arbeitszeitregelung wird <raven-test-param data-mce-tabindex='-1' tabindex='-1' contenteditable='false' class=''>O_Personal_Arbeitszeitregelung<\/raven-test-param><\/p>",
+        "raw": "Unterordner Personalakten nach Arbeitszeitregelung wird {test-param}O_Personal_Arbeitszeitregelung{test-param}"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "<p>CheckSubFolder{{ Personalakten nach Arbeitszeitregelung|<raven-test-param data-mce-tabindex='-1' tabindex='-1' contenteditable='false' class=''>O_Personal_Arbeitszeitregelung<\/raven-test-param> }}<\/p>",
+        "raw": "CheckSubFolder{{ Personalakten nach Arbeitszeitregelung|{test-param}O_Personal_Arbeitszeitregelung{test-param} }}"
+      },
+      "index": 5,
+      "step": {
+        "rendered": "<p>Folgenden Unterordner überprüfen<\/p>",
+        "raw": "Folgenden Unterordner überprüfen"
+      },
+      "id": 10289
+    },
+    {
+      "result": {
+        "rendered": "<p>Unterordner Personalakten nach Beschäftigung wird <raven-test-param data-mce-tabindex='-1' tabindex='-1' contenteditable='false' class=''>O_Personal_Beschaeftigung<\/raven-test-param><\/p>",
+        "raw": "Unterordner Personalakten nach Beschäftigung wird {test-param}O_Personal_Beschaeftigung{test-param}"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "<p>CheckSubFolder{{ Personalakten nach Beschäftigung|<raven-test-param data-mce-tabindex='-1' tabindex='-1' contenteditable='false' class=''>O_Personal_Beschaeftigung<\/raven-test-param> }}<\/p>",
+        "raw": "CheckSubFolder{{ Personalakten nach Beschäftigung|{test-param}O_Personal_Beschaeftigung{test-param} }}"
+      },
+      "index": 6,
+      "step": {
+        "rendered": "<p>Folgenden Unterordner überprüfen<\/p>",
+        "raw": "Folgenden Unterordner überprüfen"
+      },
+      "id": 10290
+    },
+    {
+      "result": {
+        "rendered": "<p>Unterordner Personalakten nach Fristen wird <raven-test-param data-mce-tabindex='-1' tabindex='-1' contenteditable='false' class=''>O_Personal_Fristen<\/raven-test-param><\/p>",
+        "raw": "Unterordner Personalakten nach Fristen wird {test-param}O_Personal_Fristen{test-param}"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "<p>CheckSubFolder{{ Personalakten nach Fristen|<raven-test-param data-mce-tabindex='-1' tabindex='-1' contenteditable='false' class=''>O_Personal_Fristen<\/raven-test-param> }}<\/p>",
+        "raw": "CheckSubFolder{{ Personalakten nach Fristen|{test-param}O_Personal_Fristen{test-param} }}"
+      },
+      "index": 7,
+      "step": {
+        "rendered": "<p>Folgenden Unterordner überprüfen<\/p>",
+        "raw": "Folgenden Unterordner überprüfen"
+      },
+      "id": 10291
+    },
+    {
+      "result": {
+        "rendered": "<p>Unterordner Personalakten nach Status wird<raven-test-param data-mce-tabindex='-1' tabindex='-1' contenteditable='false' class=''>O_Personal_Status<\/raven-test-param><\/p>",
+        "raw": "Unterordner Personalakten nach Status wird{test-param}O_Personal_Status{test-param}"
+      },
+      "attachments": [],
+      "data": {
+        "rendered": "<p>CheckSubFolder{{ Personalakten nach Status|<raven-test-param data-mce-tabindex='-1' tabindex='-1' contenteditable='false' class=''>O_Personal_Status<\/raven-test-param> }}<\/p>",
+        "raw": "CheckSubFolder{{ Personalakten nach Status|{test-param}O_Personal_Status{test-param} }}"
+      },
+      "index": 8,
+      "step": {
+        "rendered": "<p>Folgenden Unterordner überprüfen<\/p>",
+        "raw": "Folgenden Unterordner überprüfen"
+      },
+      "id": 10292
+    }
+  ]},
+  "id": 113792,
+  "assignee": "J-H.Ruberg@elo.com",
+  "precondition": [
+    {
+      "archived": false,
+      "preconditionKey": "QBSHR-59",
+      "rank": 0,
+      "self": "https://eloticksy.elo.com/rest/api/2/issue/109343",
+      "reporter": "JIRAUSER16052",
+      "type": "Manual"
+    },
+    {
+      "archived": false,
+      "preconditionKey": "QBSHR-63",
+      "rank": 0,
+      "self": "https://eloticksy.elo.com/rest/api/2/issue/111590",
+      "reporter": "JIRAUSER17261",
+      "type": "Manual"
+    }
+  ],
+  "type": "Manual",
+  "key": "QBSHR-80",
+  "status": "FAIL"
+}]}

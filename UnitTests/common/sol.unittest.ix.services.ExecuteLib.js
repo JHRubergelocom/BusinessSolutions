@@ -146,6 +146,13 @@ sol.define("sol.unittest.ix.services.ExecuteLib", {
         sordMap = sol.create("sol.common.SordMap", { objId: me.classConfig.objId });
         me.classConfig.map = sordMap;
         break;
+      case "sol.common.AclUtils":
+        switch (me.method) {
+          case "sordZ":
+            return result;
+          default:
+        }
+        break;
       case "sol.common.HttpUtils":
         switch (me.method) {
           case "getPasswordAuthentication":

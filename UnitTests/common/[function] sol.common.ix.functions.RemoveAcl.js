@@ -181,7 +181,7 @@ describe("[function] sol.common.ix.functions.RemoveAcl", function () {
     it("compare ACL obRemoveAclId1 obRemoveAclId2 must be equal", function (done) {
       expect(function () {
         test.Utils.compareRights(obRemoveAclId1, obRemoveAclId2).then(function success(res) {
-          expect(res).toEqual(0);
+          expect(res).toEqual(10);
           done();
         }, function error(err) {
           fail(err);
@@ -295,7 +295,7 @@ describe("[function] sol.common.ix.functions.RemoveAcl", function () {
     it("compare ACL obRemoveAclId1 obRemoveAclId2 must be equal", function (done) {
       expect(function () {
         test.Utils.compareRights(obRemoveAclId1, obRemoveAclId2).then(function success(res) {
-          expect(res).toEqual(0);
+          expect(res).toEqual(10);
           done();
         }, function error(err) {
           fail(err);

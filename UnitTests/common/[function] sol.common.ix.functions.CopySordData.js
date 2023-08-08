@@ -8,23 +8,22 @@ describe("[function] sol.common.ix.functions.CopySordData", function () {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
-      test.Utils.createSord().then(function success(source1) {
-        source = source1;
-        test.Utils.getSord(source).then(function success1(sordA1) {
-          sordA = sordA1;
-          test.Utils.createSord().then(function success2(objId1) {
-            objId = objId1;
-            test.Utils.getSord(objId).then(function success3(sordB1) {
-              done();
-            }, function error(err) {
-              fail(err);
-              console.error(err);
-              done();
-            }
-            );
-          }, function error(err) {
-            fail(err);
-            console.error(err);
+      test.Utils.createTempSord("CopySordData").then(function success(objTempId) {
+        done();
+      }, function error(err) {
+        fail(err);
+        console.error(err);
+        done();
+      }
+      );
+    }).not.toThrow();
+  });
+  describe("Test Lib Functions", function () {
+    describe("sol.common.ix.functions.CopySordData", function () {
+      it("create sord source", function (done) {
+        expect(function () {
+          test.Utils.createSord().then(function success(source1) {
+            source = source1;
             done();
           }, function error(err) {
             fail(err);
@@ -32,17 +31,46 @@ describe("[function] sol.common.ix.functions.CopySordData", function () {
             done();
           }
           );
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
+        }).not.toThrow();
       });
-    }).not.toThrow();
-  });
-  describe("Test Lib Functions", function () {
-    describe("sol.common.ix.functions.CopySordData", function () {
+      it("get sord source", function (done) {
+        expect(function () {
+          test.Utils.getSord(source).then(function success1(sordA1) {
+            sordA = sordA1;
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("createsord()", function (done) {
+        expect(function () {
+          test.Utils.createSord().then(function success2(objId1) {
+            objId = objId1;
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("get sord objid", function (done) {
+        expect(function () {
+          test.Utils.getSord(objId).then(function success3(sordB1) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("create sord temp1", function (done) {
         expect(function () {
           test.Utils.createTempSord("Temp1").then(function success(objTemp1Id1) {

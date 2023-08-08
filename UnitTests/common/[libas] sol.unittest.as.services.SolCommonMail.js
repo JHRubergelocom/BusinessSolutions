@@ -52,7 +52,7 @@ describe("[libas] sol.unittest.as.services.SolCommonMail", function () {
             action: "sol.unittest.as.services.ExecuteLib",
             config: {
               className: "sol.common.as.functions.SendMail",
-              classConfig: {},
+              classConfig: { from: "test-business-solutions@elo.local", to: "test-business-solutions@elo.local", subject: "Unittest" },
               method: "process",
               params: [repoPath]
             }

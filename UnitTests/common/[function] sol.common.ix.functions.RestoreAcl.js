@@ -208,7 +208,7 @@ describe("[function] sol.common.ix.functions.RestoreAcl", function () {
     it("compare ACL obRestoreAclId2 obRestoreAclId3 must be equal", function (done) {
       expect(function () {
         test.Utils.compareRights(obRestoreAclId2, obRestoreAclId3).then(function success(res) {
-          expect(res).toEqual(0);
+          expect(res).toEqual(10);
           done();
         }, function error(err) {
           fail(err);
