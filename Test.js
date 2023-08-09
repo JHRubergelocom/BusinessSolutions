@@ -607,189 +607,28 @@ hr
 elo-sol prepare -stack ruberg-hr -workspace de -version 20.00
 
 
-https://eloticksy.elo.com/browse/BSHR-458
-
-BS HR Personnel File BSHR-458 Unittests erweitern
-
-
-
-
-
-testen!
-
-	
-
-Action Definitions matching Unittest
-
-actions.EmployeeCorrespondenceTemplate 	false           analog "[action] sol.hr.ix.actions.EmployeeCorrespondence" ohne employee Objekt
-
-sol.hr.personnel.EmployeeCorrespondenceTemplate
-
-
-{
-"type": "ADVANCED_ACTION",
-"action": {
-"fct": "RF_sol_common_action_Standard",
-"cfgTemplate": "{\"$name\":\"EmployeeCorrespondenceTemplate\",\"objId\":\"{{objId}}\",\"$metadata\":{\"solType\":\"HR_COMMUNICATION_TEMPLATE\",\"owner\":{\"fromConnection\":true},\"objKeys\":[],\"mapItems\":[{\"key\":\"HR_PERSONNEL_FILE\",\"value\":\"{{sord.guid}}\"}]},\"$wf\":{\"template\":{\"name\":\"sol.hr.personnel.correspondence.template\"},\"name\":\"{{translate 'sol.hr.form.correspondence.createTemplate.title'}}\"},\"$events\":[{\"id\":\"DIALOG\"},{\"id\":\"GOTO\",\"onWfStatus\":\"CREATED\",\"message\":\"\"}],\"$new\":{\"target\":{\"mode\":\"DEFAULT\"},\"template\":{\"objId\":\"ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/hr/Configuration/Communication Templates/Base\"}},\"$permissions\":{\"mode\":\"SET\",\"copySource\":false,\"inherit\":{\"fromDirectParent\":true}}}",
-"type": "IX",
-"locale": {
-"errorDlgTitle": "sol.hr.personnel.client.employeecorrespondence.dialog.error.title"
-}
-},
-"actionType": 3,
-"ribbons": [
-{
-"ribbonTab": {
-"name": "TAB_SOL_HR",
-"text": "sol.hr.client.ribbon.tabHR",
-"iconName": "tab-sol-hr",
-"position": 96
-},
-"buttongroup": {
-"name": "GRP_SOL_HR_NEW",
-"mode": "big",
-"text": "sol.hr.client.ribbon.bandNew",
-"position": 10
-},
-"button": {
-"name": "BTN_SOL_HR_CORRESPONDENCE_TEMPLATE",
-"text": "sol.hr.personnel.client.ribbon.btnEmployeeCorrespondenceTemplate",
-"splitText": "sol.hr.personnel.client.ribbon.btnEmployeeCorrespondenceTemplateSplit",
-"tooltipText": "sol.hr.personnel.client.ribbon.btnEmployeeCorrespondenceTemplate.tooltip",
-"web": {
-"smallIcon": "sol-hr-employeecorrespondence16",
-"smallIconHighRes": "sol-hr-employeecorrespondence16-200",
-"bigIcon": "sol-hr-employeecorrespondence32",
-"bigIconHighRes": "sol-hr-employeecorrespondence32-200",
-"iconName": "sol-hr-employeecorrespondence"
-},
-"jc": {
-"buttonId": "835"
-},
-"position": 22,
-"asTile": false,
-"access": {
-"solTypes": [],
-"folder": false,
-"document": false,
-"conditions": []
-},
-"iconName": "sol-hr-employeecorrespondence"
-},
-"additionalButtonPositions": [
-{
-"ribbonTab": {
-"name": "NEW",
-"text": "sol.hr.client.ribbon.tabHR",
-"position": 96,
-"access": {
-"solTypes": [],
-"conditions": []
-},
-"iconName": "tab-sol-hr"
-},
-"buttongroup": {
-"name": "GRP_SOL_HR",
-"text": "sol.hr.client.ribbon.bandHR",
-"position": 26
-},
-"button": {
-"position": 11,
-"pinned": false
-}
-}
-]
-}
-]
-}
-
-WF "sol.hr.personnel.correspondence.template"
-
-Eingabe Maske "Data Entry"
-
-[sol_hr_correspondence(103_create_template_title,003_create_template)]
-
-514_message_create_template
-
-IX_NAME
-
-
-"analog sol.hr.personnel.correspondence"
-
-
-
-510_message
-
-516_message_body
-
-511_message_atachment
-
-
-
-
-
-        it("fill corrospondence sord", function (done) {
-          expect(function () {
-            test.Utils.getSord(wfInfo.objId).then(function success(sordCo) {
-              test.Utils.updateKeywording(sordCo, {
-                COMMUNICATION_SENDER: "test-business-solutions@elo.local",
-                COMMUNICATION_RECIPIENT: "test-business-solutions@elo.local",
-                COMMUNICATION_SUBJECT: "Subject Employee Correspondence"
-              }, true).then(function success1(updateKeywordingResult) {
-                test.Utils.updateSord(sordCo, [{ key: "desc", value: "Content Employee Correspondence" }]).then(function success2(updateSordResult) {
-                  done();
-                }, function error(err) {
-                  fail(err);
-                  console.error(err);
-                  done();
-                }
-                );
-              }, function error(err) {
-                fail(err);
-                console.error(err);
-                done();
-              }
-              );
-            }, function error(err) {
-              fail(err);
-              console.error(err);
-              done();
-            }
-            );
-          }).not.toThrow();
-        });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-IndexServer Scripting Base/DynKwl lib matching Unittest
-
-sol.hr.ix.dynkwl.SuperiorIterator 	getFindInfo 	false
-sol.hr.ix.dynkwl.notification.template.base 	getDataField 	false
-
-
-IndexServer Scripting Base/Services lib matching Unittest
-
-sol.hr.ix.services.getFormConfig 	process 	false
-
-
-
-
 invoice
 
 elo-sol prepare -stack ruberg-invoice -workspace jan -version 20.00
 
+
+https://eloticksy.elo.com/browse/BSI-768
+
+BS Invoice BSI-768 Unittests erweitern
+
+
 Tests überarbeiten!
+
+[action] sol.invoice.ZugferdIncomingInvoice3 entfernt!
+
+
+IndexServer Scripting Base/Functions lib matching Unittest
+
+sol.invoice.ix.functions.FixDelegationAssocs 	initialize 	false
+sol.invoice.ix.functions.FixDelegationAssocs 	process 	false
+
+
+analog "sol.invoice.ix.functions.InvoiceUserStart"
 
 
 knowledge

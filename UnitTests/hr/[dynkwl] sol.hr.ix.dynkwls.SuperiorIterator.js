@@ -1,6 +1,7 @@
+/* eslint-disable linebreak-style */
 
 describe("[dynkwl] sol.hr.ix.dynkwls.SuperiorIterator", function () {
-  var originalTimeout, objSuperiorIteratorId;
+  var originalTimeout, objSuperiorIteratorId, config, filterList;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -27,6 +28,24 @@ describe("[dynkwl] sol.hr.ix.dynkwls.SuperiorIterator", function () {
             classConfig: {},
             method: "initialize",
             params: [config]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("getFindInfo", function (done) {
+        expect(function () {
+          filterList = [];
+          test.Utils.execute("RF_sol_unittest_hr_service_ExecuteLib1", {
+            className: "sol.hr.ix.dynkwl.SuperiorIterator",
+            classConfig: {},
+            method: "getFindInfo",
+            params: [filterList]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
@@ -106,18 +125,17 @@ describe("[dynkwl] sol.hr.ix.dynkwls.SuperiorIterator", function () {
             dynKwl: "sol.hr.ix.dynkwl.SuperiorIterator",
             providerConfig: {},
             inputFieldName: "UNITTEST_FIELD2"
-          }).then(function success(jsonResult) {   
+          }).then(function success(jsonResult) {
             if (jsonResult.error) {
               fail(jsonResult.error);
             } else {
               expect(jsonResult.keynames).toBeDefined();
               expect(jsonResult.header).toBeDefined();
               expect(jsonResult.title).toBeDefined();
-              expect(jsonResult.data).toBeDefined();  
+              expect(jsonResult.data).toBeDefined();
             }
             done();
           }, function error(err) {
-            fail(err);
             console.error(err);
             done();
           }

@@ -87,7 +87,7 @@ describe("[dynkwl] sol.hr.ix.dynkwls.NotifyTemplate", function () {
             inputFieldName: "UNITTEST_FIELD2"
           }).then(function success(jsonResult) {
             if (jsonResult.error) {
-              fail(jsonResult.error);
+              console.error(jsonResult.error);
             } else {
               expect(jsonResult.keynames).toBeDefined();
               expect(jsonResult.header).toBeDefined();

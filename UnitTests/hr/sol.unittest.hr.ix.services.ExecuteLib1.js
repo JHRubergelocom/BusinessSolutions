@@ -117,6 +117,7 @@ sol.define("sol.unittest.hr.ix.services.ExecuteLib1", {
       case "sol.hr.ix.services.GetEligiblePersonnelFiles":
       case "sol.hr.ix.services.GetEmployeeBadgeTypes":
       case "sol.hr.ix.services.GetFileProviderParams":
+      case "sol.hr.ix.services.getFormConfig":
       case "sol.hr.ix.services.GetGenericSearchFolderContent":
       case "sol.hr.ix.services.GetOffboardingTypes":
       case "sol.hr.ix.services.GetMessageAttachment":
