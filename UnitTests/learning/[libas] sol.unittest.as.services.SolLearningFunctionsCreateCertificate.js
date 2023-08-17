@@ -1,15 +1,23 @@
 
 describe("[libas] sol.unittest.as.services.SolLearningFunctionsCreateCertificate", function () {
   var originalTimeout, content, folderId, name, mask, ext, val,
-      obSolLearningFunctionsCreateCertificateId;
+      enrollmentPath, objIdEnr;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
-      test.Utils.createTempSord("SolLearningFunctionsCreateCertificate").then(function success(obSolLearningFunctionsCreateCertificateId1) {
-        obSolLearningFunctionsCreateCertificateId = obSolLearningFunctionsCreateCertificateId1;
-        done();
+      test.Utils.createTempSord("SolLearningFunctionsCreateCertificate").then(function success(objTempId) {
+        enrollmentPath = "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/learning [unit tests]/Test data/Business Logic Provider/Enrollments/Administrator";
+        test.Utils.getSord(enrollmentPath).then(function success1(sordEnrollement) {
+          objIdEnr = sordEnrollement.id;
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
       }, function error(err) {
         fail(err);
         console.error(err);
@@ -30,7 +38,7 @@ describe("[libas] sol.unittest.as.services.SolLearningFunctionsCreateCertificate
             action: "sol.unittest.learning.as.services.ExecuteLib",
             config: {
               className: "sol.learning.as.functions.CreateCertificate",
-              classConfig: { objId: obSolLearningFunctionsCreateCertificateId },
+              classConfig: { objId: objIdEnr },
               method: "docExists",
               params: [folderId, name, mask, ext]
             }
@@ -54,7 +62,7 @@ describe("[libas] sol.unittest.as.services.SolLearningFunctionsCreateCertificate
             action: "sol.unittest.learning.as.services.ExecuteLib",
             config: {
               className: "sol.learning.as.functions.CreateCertificate",
-              classConfig: { objId: obSolLearningFunctionsCreateCertificateId },
+              classConfig: { objId: objIdEnr },
               method: "getName",
               params: []
             }
@@ -79,7 +87,7 @@ describe("[libas] sol.unittest.as.services.SolLearningFunctionsCreateCertificate
             action: "sol.unittest.learning.as.services.ExecuteLib",
             config: {
               className: "sol.learning.as.functions.CreateCertificate",
-              classConfig: { objId: obSolLearningFunctionsCreateCertificateId },
+              classConfig: { objId: objIdEnr },
               method: "isNumber",
               params: [val]
             }
@@ -103,7 +111,7 @@ describe("[libas] sol.unittest.as.services.SolLearningFunctionsCreateCertificate
             action: "sol.unittest.learning.as.services.ExecuteLib",
             config: {
               className: "sol.learning.as.functions.CreateCertificate",
-              classConfig: { objId: obSolLearningFunctionsCreateCertificateId, targetId: obSolLearningFunctionsCreateCertificateId },
+              classConfig: { objId: objIdEnr, targetId: objIdEnr },
               method: "process",
               params: []
             }

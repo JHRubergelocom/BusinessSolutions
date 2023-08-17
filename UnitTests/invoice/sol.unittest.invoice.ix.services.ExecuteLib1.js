@@ -70,6 +70,7 @@ sol.define("sol.unittest.invoice.ix.services.ExecuteLib1", {
       case "sol.invoice.ix.functions.ChangeUser":
       case "sol.invoice.ix.functions.CreateApprovalNodes":
       case "sol.invoice.ix.functions.CreateApprovalNodes.WfNodeBuilder":
+      case "sol.invoice.ix.functions.FixDelegationAssocs":
       case "sol.invoice.ix.functions.InvoiceUserStart":
       case "sol.invoice.ix.functions.MoveInvoice":
       case "sol.invoice.ix.functions.SetLineApproved":

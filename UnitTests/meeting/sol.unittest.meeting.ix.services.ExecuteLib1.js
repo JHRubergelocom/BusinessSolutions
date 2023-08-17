@@ -15,6 +15,7 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_sol.meeting.ix.localizedKwl.Base.js
 //@include lib_sol.meeting.ix.Meeting.js
 //@include lib_sol.meeting.ix.services.SordProvider.Base.js
+//@include sol.meeting.ix.services.GetLocalizedKeywordListValues.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.meeting.ix.services.ExecuteLib1" });
 
@@ -130,6 +131,7 @@ sol.define("sol.unittest.meeting.ix.services.ExecuteLib1", {
       case "sol.meeting.ix.functions.PrepareMeeting":
       case "sol.meeting.ix.functions.PrepareMessage":
       case "sol.meeting.ix.functions.RemoveItemAcl":
+      case "sol.meeting.ix.functions.RemoveNotification":
       case "sol.meeting.ix.functions.RemoveParticipants":
       case "sol.meeting.ix.functions.ResetTimedEvents":
       case "sol.meeting.ix.functions.ScheduleMeeting":
@@ -169,6 +171,7 @@ sol.define("sol.unittest.meeting.ix.services.ExecuteLib1", {
       case "sol.meeting.ix.services.WithdrawMeetingItem":
       case "sol.meeting.services.CancelMeetingPreCondition":
       case "sol.meeting.services.CreateProposalPreCondition":
+      case "sol.meeting.services.GetLocalizedKeywordListValues":
       case "sol.meeting.services.MeetingBoardPrecondition":
       case "sol.meeting.services.MeetingDocumentPrecondition":
       case "sol.meeting.services.MeetingItemPoolPrecondition":

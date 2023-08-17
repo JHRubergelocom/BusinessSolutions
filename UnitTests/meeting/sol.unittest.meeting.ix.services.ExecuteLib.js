@@ -109,6 +109,13 @@ sol.define("sol.unittest.meeting.ix.services.ExecuteLib", {
           default:
         }
         break;
+      case "sol.meeting.Utils":
+        switch (me.method) {
+          case "prepareAttachmentList":
+            return result;
+          default:
+        }
+        break;
       default:
     }
 

@@ -1,13 +1,14 @@
+/* eslint-disable linebreak-style */
 
-describe("[dynkwl] sol.meeting.ix.localizedKwl.ResolutionStatus", function () {
-  var originalTimeout, objResolutionStatusId;
+describe("[dynkwl] sol.contact.ix.localizedKwl.UserStatus", function () {
+  var originalTimeout, objUserStatusId;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
     expect(function () {
-      test.Utils.createTempSord("ResolutionStatus").then(function success(objResolutionStatusId1) {
-        objResolutionStatusId = objResolutionStatusId1;
+      test.Utils.createTempSord("UserStatus").then(function success(objUserStatusId1) {
+        objUserStatusId = objUserStatusId1;
         done();
       }, function error(err) {
         fail(err);
@@ -18,17 +19,18 @@ describe("[dynkwl] sol.meeting.ix.localizedKwl.ResolutionStatus", function () {
     }).not.toThrow();
   });
   describe("Test Lib Functions", function () {
-    describe("sol.meeting.ix.localizedKwl.ResolutionStatus", function () {
+    describe("sol.contact.ix.localizedKwl.UserStatus", function () {
       it("initialize", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_meeting_service_ExecuteLib1", {
-            className: "sol.meeting.ix.localizedKwl.ResolutionStatus",
+          test.Utils.execute("RF_sol_unittest_productivity_service_ExecuteLib1", {
+            className: "sol.contact.ix.localizedKwl.UserStatus",
             classConfig: {},
             method: "initialize",
             params: []
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
+            fail(err);
             console.error(err);
             done();
           }
@@ -38,10 +40,10 @@ describe("[dynkwl] sol.meeting.ix.localizedKwl.ResolutionStatus", function () {
     });
   });
   describe("Tests Dynamic Keyword lists", function () {
-    describe("sol.meeting.ix.localizedKwl.ResolutionStatus", function () {
+    describe("sol.contact.ix.dynkwl.UserStatus", function () {
       it("should throw if executed without 'objId'", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_meeting_service_ExecuteDynKwl", {
+          test.Utils.execute("RF_sol_unittest_productivity_service_ExecuteDynKwl", {
           }).then(function success(jsonResult) {
             fail(jsonResult);
             done();
@@ -54,8 +56,8 @@ describe("[dynkwl] sol.meeting.ix.localizedKwl.ResolutionStatus", function () {
       });
       it("should throw if executed without 'dynkwl'", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_meeting_service_ExecuteDynKwl", {
-            objId: objResolutionStatusId
+          test.Utils.execute("RF_sol_unittest_productivity_service_ExecuteDynKwl", {
+            objId: objUserStatusId
           }).then(function success(jsonResult) {
             fail(jsonResult);
             done();
@@ -68,9 +70,9 @@ describe("[dynkwl] sol.meeting.ix.localizedKwl.ResolutionStatus", function () {
       });
       it("should throw if executed without 'providerConfig'", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_meeting_service_ExecuteDynKwl", {
-            objId: objResolutionStatusId,
-            dynKwl: "sol.meeting.ix.localizedKwl.ResolutionStatus"
+          test.Utils.execute("RF_sol_unittest_productivity_service_ExecuteDynKwl", {
+            objId: objUserStatusId,
+            dynKwl: "sol.contact.ix.localizedKwl.UserStatus"
           }).then(function success(jsonResult) {
             fail(jsonResult);
             done();
@@ -83,9 +85,9 @@ describe("[dynkwl] sol.meeting.ix.localizedKwl.ResolutionStatus", function () {
       });
       it("should throw if executed without 'inputFieldName'", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_meeting_service_ExecuteDynKwl", {
-            objId: objResolutionStatusId,
-            dynKwl: "sol.meeting.ix.localizedKwl.ResolutionStatus",
+          test.Utils.execute("RF_sol_unittest_productivity_service_ExecuteDynKwl", {
+            objId: objUserStatusId,
+            dynKwl: "sol.contact.ix.localizedKwl.UserStatus",
             providerConfig: {}
           }).then(function success(jsonResult) {
             fail(jsonResult);
@@ -99,9 +101,9 @@ describe("[dynkwl] sol.meeting.ix.localizedKwl.ResolutionStatus", function () {
       });
       it("should not throw", function (done) {
         expect(function () {
-          test.Utils.execute("RF_sol_unittest_meeting_service_ExecuteDynKwl", {
-            objId: objResolutionStatusId,
-            dynKwl: "sol.meeting.ix.localizedKwl.ResolutionStatus",
+          test.Utils.execute("RF_sol_unittest_productivity_service_ExecuteDynKwl", {
+            objId: objUserStatusId,
+            dynKwl: "sol.contact.ix.localizedKwl.UserStatus",
             providerConfig: {},
             inputFieldName: "UNITTEST_FIELD2"
           }).then(function success(jsonResult) {
@@ -115,6 +117,7 @@ describe("[dynkwl] sol.meeting.ix.localizedKwl.ResolutionStatus", function () {
             }
             done();
           }, function error(err) {
+            fail(err);
             console.error(err);
             done();
           }
@@ -130,11 +133,13 @@ describe("[dynkwl] sol.meeting.ix.localizedKwl.ResolutionStatus", function () {
         test.Utils.deleteSord(tempfolder).then(function success1(deleteResult) {
           done();
         }, function error(err) {
+          fail(err);
           console.error(err);
           done();
         }
         );
       }, function error(err) {
+        fail(err);
         console.error(err);
         done();
       }

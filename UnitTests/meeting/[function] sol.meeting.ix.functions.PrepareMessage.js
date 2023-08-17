@@ -2,7 +2,8 @@
 describe("[function] sol.meeting.ix.functions.PrepareMessage", function () {
   var originalTimeout, objTempId, configTypes, meetingBoardTypes, configAction,
       wfInfo, objIdMB, succNodes, succNodesIds,
-      objIdM, meetingItemTypes, objIdMI, config;
+      objIdM, meetingItemTypes, objIdMI, config,
+      attachmentList;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -596,6 +597,23 @@ describe("[function] sol.meeting.ix.functions.PrepareMessage", function () {
   });
   describe("Test Lib Functions", function () {
     describe("sol.meeting.ix.functions.PrepareMessage", function () {
+      it("createNotificationObject", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_meeting_service_ExecuteLib1", {
+            className: "sol.meeting.ix.functions.PrepareMessage",
+            classConfig: { objId: objIdMI },
+            method: "createNotificationObject",
+            params: []
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("getNotification", function (done) {
         expect(function () {
           test.Utils.execute("RF_sol_unittest_meeting_service_ExecuteLib1", {
@@ -630,6 +648,23 @@ describe("[function] sol.meeting.ix.functions.PrepareMessage", function () {
           );
         }).not.toThrow();
       });
+      it("getRecipientRole", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_meeting_service_ExecuteLib1", {
+            className: "sol.meeting.ix.functions.PrepareMessage",
+            classConfig: { objId: objIdMI },
+            method: "getRecipientRole",
+            params: []
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("initialize", function (done) {
         expect(function () {
           config = { objId: objIdMI };
@@ -638,6 +673,40 @@ describe("[function] sol.meeting.ix.functions.PrepareMessage", function () {
             classConfig: { objId: objIdMI },
             method: "initialize",
             params: [config]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("isMeetingParticipant", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_meeting_service_ExecuteLib1", {
+            className: "sol.meeting.ix.functions.PrepareMessage",
+            classConfig: { objId: objIdMI },
+            method: "isMeetingParticipant",
+            params: []
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("prepareAttachmentList", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_meeting_service_ExecuteLib1", {
+            className: "sol.meeting.ix.functions.PrepareMessage",
+            classConfig: { objId: objIdMI },
+            method: "prepareAttachmentList",
+            params: []
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
@@ -688,6 +757,41 @@ describe("[function] sol.meeting.ix.functions.PrepareMessage", function () {
             className: "sol.meeting.ix.functions.PrepareMessage",
             classConfig: { objId: objIdMI },
             method: "process",
+            params: []
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("sendMail", function (done) {
+        expect(function () {
+          attachmentList = [];
+          test.Utils.execute("RF_sol_unittest_meeting_service_ExecuteLib1", {
+            className: "sol.meeting.ix.functions.PrepareMessage",
+            classConfig: { objId: objIdMI },
+            method: "sendMail",
+            params: [attachmentList]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("shouldAppendAttachments", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_meeting_service_ExecuteLib1", {
+            className: "sol.meeting.ix.functions.PrepareMessage",
+            classConfig: { objId: objIdMI },
+            method: "shouldAppendAttachments",
             params: []
           }).then(function success(jsonResult) {
             done();

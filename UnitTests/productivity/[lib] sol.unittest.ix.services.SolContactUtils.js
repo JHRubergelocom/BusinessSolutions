@@ -1,9 +1,10 @@
+/* eslint-disable linebreak-style */
 
 describe("[lib] sol.unittest.ix.services.SolContactUtils", function () {
   var originalTimeout, companyType,
       fromService, contactType, params, sord, config, objId, regPrefix,
       CompanySord, ContactSord, ContactListSord, obSolContactUtilsId,
-      templateSord;
+      templateSord, contactListType;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -31,6 +32,25 @@ describe("[lib] sol.unittest.ix.services.SolContactUtils", function () {
             classConfig: {},
             method: "buildCompanyTempName",
             params: [companyType, fromService]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("buildContactListTempName", function (done) {
+        expect(function () {
+          contactListType = "contactListType1";
+          fromService = true;
+          test.Utils.execute("RF_sol_unittest_productivity_service_ExecuteLib", {
+            className: "sol.contact.Utils",
+            classConfig: {},
+            method: "buildContactListTempName",
+            params: [contactListType, fromService]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
@@ -124,6 +144,38 @@ describe("[lib] sol.unittest.ix.services.SolContactUtils", function () {
           );
         }).not.toThrow();
       });
+      it("createContactList", function (done) {
+        expect(function () {
+          contactListType = "Default";
+          params = {};
+          test.Utils.execute("RF_sol_unittest_productivity_service_ExecuteLib", {
+            className: "sol.contact.Utils",
+            classConfig: {},
+            method: "createContactList",
+            params: [contactListType, params]
+          }).then(function success(jsonResult) {
+            objId = jsonResult.objId;
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("remove contactlist ", function (done) {
+        expect(function () {
+          test.Utils.deleteSord(objId).then(function success(deleteResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("get company sord ", function (done) {
         expect(function () {
           test.Utils.getSord("ARCPATH:/Administration/Business Solutions/productivity [unit tests]/Test data/ContactList/Company").then(function success1(CompanySord1) {
@@ -194,7 +246,6 @@ describe("[lib] sol.unittest.ix.services.SolContactUtils", function () {
       });
       it("getConfigPart", function (done) {
         expect(function () {
-          config = config;
           sord = CompanySord.id;
           test.Utils.execute("RF_sol_unittest_productivity_service_ExecuteLib", {
             className: "sol.contact.Utils",
@@ -223,6 +274,24 @@ describe("[lib] sol.unittest.ix.services.SolContactUtils", function () {
           }
           );
 
+        }).not.toThrow();
+      });
+      it("getContactListTemplateObjId", function (done) {
+        expect(function () {
+          contactListType = "Default";
+          test.Utils.execute("RF_sol_unittest_productivity_service_ExecuteLib", {
+            className: "sol.contact.Utils",
+            classConfig: {},
+            method: "getContactListTemplateObjId",
+            params: [contactListType]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
         }).not.toThrow();
       });
       it("getContactReference", function (done) {

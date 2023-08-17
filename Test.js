@@ -612,25 +612,6 @@ invoice
 elo-sol prepare -stack ruberg-invoice -workspace jan -version 20.00
 
 
-https://eloticksy.elo.com/browse/BSI-768
-
-BS Invoice BSI-768 Unittests erweitern
-
-
-Tests überarbeiten!
-
-[action] sol.invoice.ZugferdIncomingInvoice3 entfernt!
-
-
-IndexServer Scripting Base/Functions lib matching Unittest
-
-sol.invoice.ix.functions.FixDelegationAssocs 	initialize 	false
-sol.invoice.ix.functions.FixDelegationAssocs 	process 	false
-
-
-analog "sol.invoice.ix.functions.InvoiceUserStart"
-
-
 knowledge
 
 elo-sol prepare -stack ruberg-knowledge -workspace default -version 20.00
@@ -669,11 +650,6 @@ elo-sol prepare -stack ruberg-teamroom -workspace jan -version 20.00
 meeting
 
 elo-sol prepare -stack ruberg-meeting -workspace premium-groupware -version 20.00
-
-[service] sol.meeting.ix.services.CreateVoting Test Lib Functions sol.meeting.voting.ix.services.CreateVoting checkPermissions
-Error: Timeout - Async callback was not invoked within timeout specified by jasmine.DEFAULT_TIMEOUT_INTERVAL.
-
-
 
 
 
@@ -1379,12 +1355,26 @@ RF_sol_unittest_service_ExecuteLib
 
 =====================================================================================================================================================================
 
-TODO 03.08.2023
+TODO 16.08.2023
 
 
-BS Intern BSXX-490 Testautomatisierung mit Playwright
 
-https://eloticksy.elo.com/browse/BSXX-490
+BS Intern BSXX-498 Testautomatisierung mit Playwright
+
+https://eloticksy.elo.com/browse/BSXX-498
+
+
+
+
+
+
+Ideen für Erweiterungen automatisierte Tests
+
+    Konzeption und Entwicklung neue Bausteine für Jira Transformationsyntax anhand bestehender Testszenarien QS
+
+
+
+
 
 
 Playwright Testcases QS BS HR Personnel File Xray REST API
@@ -1624,28 +1614,71 @@ CheckSubFolder{{ Organigramm|Ordner_Organigramm }}
 
 In Testreport Jira Dataset-Parameter anzeigen und Data Funktion (z.B.: CheckFolder {{ .. }})
 
-
-Funktion zum Anlegen von Testusern implementieren
-
+Testreport als Email an Tester senden!
 
 
-07.08.2023 
+Funktion zum Anlegen von Testusern implementieren erledigt!
+
+
+
+TODO 15.08.2023 
 
 Neue Ideen Jira -> Playwright
+
+
 
 Syntax für jira-Testschritt Datenfeld
 
 
 Prosa
-{{Login(Benutzer|Passwort)}}
-{{CheckFolder(Ordner|Sichtbarkeit)}}
-.... n Bausteine
+{{
+  Login(Benutzer|Passwort);
+  CheckFolder(Ordner|Sichtbarkeit);
+  .... n Bausteine
+  CheckSubFolder(Ordner|Sichtbarkeit)
+}}
 Prosa
 
 
-ELOControl class um Anzeigenamen (für Jira-Test) erweitern!
+ELOControl Anzeigenamen als MapKey verwenden(für Jira-Test) erweitern!
 
 
-03.08.2023
+Original "QBSHR-65" überprüfen mit Syntax für jira-Testschritt Datenfeld, okay
 
-TODO Unittest durchführen!
+
+Datenstrukter ELOAction/ELOTask (IActionTask) erweitern, welcher Button am Ende geklickt wird (formulaSaveButton/formulaCancelButton)
+
+package session;
+
+public enum ButtonType {
+    SAVE,
+    CANCEL,
+    NONE
+}
+
+
+    private final ButtonType selectedButton;
+
+
+    public ButtonType getSelectedButton() {
+        return selectedButton;
+    }
+
+
+public ButtonType getSelectedButton()
+
+
+
+{{
+	OpenFormular("Neu"|"Personal"|"Neuer Mitarbeiter");
+	... optional Felder ausfüllen ...
+	QuitButton("Speichern");
+	TestShouldFail();	
+}}
+
+{{
+	InputField("Vorname"|"Hans");
+	InputField("Nachname"|"Hansen");
+	InputField("Personalverantwortlicher"|"HR");
+	QuitButton("Speichern");
+}}

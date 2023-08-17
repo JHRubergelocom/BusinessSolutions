@@ -82,7 +82,9 @@ sol.define("sol.unittest.productivity.ix.services.ExecuteLib1", {
       case "sol.contact.ix.dynkwl.generators.ReferenceContact":
       case "sol.contact.ix.dynkwl.generators.ReferenceContactList":
       case "sol.contact.ix.localizedKwl.Countries":
+      case "sol.contact.ix.localizedKwl.UserStatus":
       case "sol.accounts.ix.functions.CreateUser":
+      case "sol.contact.ix.functions.CreateContactlistHeadless":
       case "sol.contact.ix.functions.GenerateFilingStruct":
       case "sol.contact.ix.functions.MoveContact":
       case "sol.contact.ix.functions.generators.GenerateCompanyFilingStruct":
@@ -105,6 +107,7 @@ sol.define("sol.unittest.productivity.ix.services.ExecuteLib1", {
       case "sol.contact.ix.services.GetContactListTypes":
       case "sol.contact.ix.services.GetContactTypes":
       case "sol.contact.ix.services.GetLabelTypes":
+      case "sol.contact.ix.services.ImportELOUsers":
       case "sol.contact.ix.services.ReportTemplates":
       case "sol.notify.ix.services.ReportConfig":
       case "sol.notify.ix.services.User":

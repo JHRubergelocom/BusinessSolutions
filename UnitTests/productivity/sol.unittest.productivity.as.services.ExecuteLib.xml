@@ -36,6 +36,7 @@
       <name>lib_sol.common.as.renderer.Word</name>
       <name>lib_sol.contact.as.actions.CreateContactReport</name>
       <name>lib_sol.contact.as.actions.CreateLabel</name>
+      <name>lib_sol.contact.as.functions.ImportELOUsers</name>
       <name>lib_sol.notify.Utils</name>
       <name>lib_sol.notify.as.Utils</name>
       <name>lib_sol.privacy.as.functions.CreateProcessingActivityVersion</name>

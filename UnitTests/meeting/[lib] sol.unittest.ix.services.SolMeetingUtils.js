@@ -2,7 +2,7 @@
 
 describe("[lib] sol.unittest.ix.services.SolMeetingUtils", function () {
   var originalTimeout, objMeetingId, sordMeeting, templateSord, sord, meeting, status,
-      sordId, value, productLine;
+      sordId, value, productLine, attachmentField, tableKind;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -280,6 +280,26 @@ describe("[lib] sol.unittest.ix.services.SolMeetingUtils", function () {
             classConfig: {},
             method: "isProductLine",
             params: [sord, productLine]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("prepareAttachmentList", function (done) {
+        expect(function () {
+          templateSord = {};
+          attachmentField = "attachmentField1";
+          tableKind = "tableKind1";
+          test.Utils.execute("RF_sol_unittest_meeting_service_ExecuteLib", {
+            className: "sol.meeting.Utils",
+            classConfig: {},
+            method: "prepareAttachmentList",
+            params: [templateSord, attachmentField, tableKind]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {

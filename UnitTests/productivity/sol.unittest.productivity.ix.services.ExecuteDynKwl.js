@@ -19,6 +19,7 @@ importPackage(Packages.de.elo.ix.client);
 //@include sol.contact.ix.dynkwl.generators.ReferenceContact.js
 //@include sol.contact.ix.dynkwl.generators.ReferenceContactList.js
 //@include sol.contact.ix.localizedKwl.Countries.js
+//@include sol.contact.ix.localizedKwl.UserStatus.js
 
 var logger = sol.create("sol.Logger", { scope: "sol.unittest.productivity.ix.services.ExecuteDynKwl" });
 
@@ -105,7 +106,7 @@ sol.define("sol.unittest.productivity.ix.services.ExecuteDynKwl", {
       result.header = provider.getHeader();
       result.title = provider.getTitle();
       result.data = resultData;
-      
+
     } catch (ex) {
       result.error = String(ex);
     } finally {
