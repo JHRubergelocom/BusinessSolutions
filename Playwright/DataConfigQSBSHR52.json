@@ -17,50 +17,41 @@
     },
     "stack": "ruberg-hr.dev.elo"
   },
-  "eloAcls": {
-    "arcPaths": []
-  },
+  "eloAcls": [],
   "eloTile": {
     "repositoryTile": "Solutions",
     "taskTile": "Aufgaben"
   },
-  "eloActions": {
-    "eloActions": [
-      {
-        "entryPath": "Solutions/Personalmanagement/Personalakten/H/Hansen, Hans",
-        "formulaType": "EXTERNAL",
-        "formulaSaveButton": "OK",
-        "formulaCancelButton": "Abbrechen",
-        "selectionDialogItem": "",
-        "eloActionDef": {
-          "selectorRibbon": "Personal",
-          "selectorMenu": "Personal",
-          "selectorButton": "Eintrittsprozess"
-        },
-        "tabPages": [
-          {
-            "tabName": "",
-            "initTabPage": [],
-            "controls": [],
-            "tables": [],
-            "checkValueControls": [],
-            "selectDocumentDialogs": []
-          }
-        ],
-        "testShouldFail": false
-      }
-    ]
-  },
-  "eloTasks": {
-    "eloTasks": []
-  },
-  "eloDeletes": {
-    "arcPaths": []
-  },
+  "eloActions": [
+    {
+      "entryPath": "Solutions/Personalmanagement/Personalakten/H/Hansen, Hans",
+      "formulaType": "EXTERNAL",
+      "formulaSaveButton": "OK",
+      "formulaCancelButton": "Abbrechen",
+      "selectionDialogItem": "",
+      "eloActionDef": {
+        "selectorRibbon": "Personal",
+        "selectorMenu": "Personal",
+        "selectorButton": "Eintrittsprozess"
+      },
+      "tabPages": [
+        {
+          "tabName": "",
+          "initTabPage": [],
+          "controls": [],
+          "tables": [],
+          "checkValueControls": [],
+          "selectDocumentDialogs": []
+        }
+      ],
+      "testShouldFail": false,
+      "selectedButton": "SAVE"
+    }
+  ],
+  "eloTasks": [],
+  "eloDeletes": [],
   "eloForwardWorkflow": {
     "toNodesName": []
   },
-  "eloRfs": {
-    "eloRfs": []
-  }
+  "eloRfs": []
 }

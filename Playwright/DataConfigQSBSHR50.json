@@ -17,278 +17,274 @@
     },
     "stack": "ruberg-hr.dev.elo"
   },
-  "eloAcls": {
-    "arcPaths": [
-      "ARCPATH:/Personalmanagement/Personalakten/H/Hansen, Hans"
-    ]
-  },
+  "eloAcls": [
+    "ARCPATH:/Personalmanagement/Personalakten/H/Hansen, Hans"
+  ],
   "eloTile": {
     "repositoryTile": "Solutions",
     "taskTile": "Aufgaben"
   },
-  "eloActions": {
-    "eloActions": [
-      {
-        "entryPath": "",
-        "formulaType": "EXTERNAL",
-        "formulaSaveButton": "OK",
-        "formulaCancelButton": "Abbrechen",
-        "selectionDialogItem": "",
-        "eloActionDef": {
-          "selectorRibbon": "Neu",
-          "selectorMenu": "Personal",
-          "selectorButton": "Neuer Mitarbeiter"
-        },
-        "tabPages": [
-          {
-            "tabName": "",
-            "initTabPage": [],
-            "controls": [],
-            "tables": [],
-            "checkValueControls": [],
-            "selectDocumentDialogs": []
-          }
-        ],
-        "testShouldFail": true
+  "eloActions": [
+    {
+      "entryPath": "",
+      "formulaType": "EXTERNAL",
+      "formulaSaveButton": "OK",
+      "formulaCancelButton": "Abbrechen",
+      "selectionDialogItem": "",
+      "eloActionDef": {
+        "selectorRibbon": "Neu",
+        "selectorMenu": "Personal",
+        "selectorButton": "Neuer Mitarbeiter"
       },
-      {
-        "entryPath": "",
-        "formulaType": "EXTERNAL",
-        "formulaSaveButton": "OK",
-        "formulaCancelButton": "Abbrechen",
-        "selectionDialogItem": "",
-        "eloActionDef": {
-          "selectorRibbon": "Neu",
-          "selectorMenu": "Personal",
-          "selectorButton": "Neuer Mitarbeiter"
-        },
-        "tabPages": [
-          {
-            "tabName": "",
-            "initTabPage": [],
-            "controls": [
-              {
-                "selector": "IX_GRP_HR_PERSONNEL_FIRSTNAME",
-                "value": "Hans",
-                "type": "TEXT"
-              },
-              {
-                "selector": "IX_GRP_HR_PERSONNEL_LASTNAME",
-                "value": "Hansen",
-                "type": "TEXT"
-              }
-            ],
-            "tables": [],
-            "checkValueControls": [],
-            "selectDocumentDialogs": []
-          }
-        ],
-        "testShouldFail": false
+      "tabPages": [
+        {
+          "tabName": "",
+          "initTabPage": [],
+          "controls": [],
+          "tables": [],
+          "checkValueControls": [],
+          "selectDocumentDialogs": []
+        }
+      ],
+      "testShouldFail": true,
+      "selectedButton": "SAVE"
+    },
+    {
+      "entryPath": "",
+      "formulaType": "EXTERNAL",
+      "formulaSaveButton": "OK",
+      "formulaCancelButton": "Abbrechen",
+      "selectionDialogItem": "",
+      "eloActionDef": {
+        "selectorRibbon": "Neu",
+        "selectorMenu": "Personal",
+        "selectorButton": "Neuer Mitarbeiter"
       },
-      {
-        "entryPath": "",
-        "formulaType": "VIEWER",
-        "formulaSaveButton": "",
-        "formulaCancelButton": "",
-        "selectionDialogItem": "",
-        "eloActionDef": {
-          "selectorRibbon": "",
-          "selectorMenu": "",
-          "selectorButton": ""
-        },
-        "tabPages": [
-          {
-            "tabName": "",
-            "initTabPage": [],
-            "controls": [],
-            "tables": [],
-            "checkValueControls": [
-              {
-                "selector": "IX_GRP_HR_PERSONNEL_FIRSTNAME",
-                "value": "Hans",
-                "type": "TEXT",
-                "operator": "EQUAL"
-              },
-              {
-                "selector": "IX_GRP_HR_PERSONNEL_LASTNAME",
-                "value": "Hansen",
-                "type": "TEXT",
-                "operator": "EQUAL"
-              },
-              {
-                "selector": "IX_NAME",
-                "value": "Hansen, Hans",
-                "type": "TEXT",
-                "operator": "EQUAL"
-              },
-              {
-                "selector": "IX_GRP_HR_PERSONNEL_PERSONNELNO",
-                "value": "",
-                "type": "TEXT",
-                "operator": "EXIST"
-              }
-            ],
-            "selectDocumentDialogs": []
-          }
-        ],
-        "testShouldFail": false
+      "tabPages": [
+        {
+          "tabName": "",
+          "initTabPage": [],
+          "controls": [
+            {
+              "selector": "IX_GRP_HR_PERSONNEL_FIRSTNAME",
+              "value": "Hans",
+              "type": "TEXT"
+            },
+            {
+              "selector": "IX_GRP_HR_PERSONNEL_LASTNAME",
+              "value": "Hansen",
+              "type": "TEXT"
+            }
+          ],
+          "tables": [],
+          "checkValueControls": [],
+          "selectDocumentDialogs": []
+        }
+      ],
+      "testShouldFail": false,
+      "selectedButton": "SAVE"
+    },
+    {
+      "entryPath": "",
+      "formulaType": "VIEWER",
+      "formulaSaveButton": "",
+      "formulaCancelButton": "",
+      "selectionDialogItem": "",
+      "eloActionDef": {
+        "selectorRibbon": "",
+        "selectorMenu": "",
+        "selectorButton": ""
       },
-      {
-        "entryPath": "",
-        "formulaType": "VIEWER",
-        "formulaSaveButton": "",
-        "formulaCancelButton": "",
-        "selectionDialogItem": "",
-        "eloActionDef": {
-          "selectorRibbon": "",
-          "selectorMenu": "",
-          "selectorButton": ""
-        },
-        "tabPages": [
-          {
-            "tabName": "Persönlich",
-            "initTabPage": [],
-            "controls": [],
-            "tables": [],
-            "checkValueControls": [
-              {
-                "selector": "IX_GRP_HR_PERSONNEL_FIRSTNAME",
-                "value": "Hans",
-                "type": "TEXT",
-                "operator": "EQUAL"
-              },
-              {
-                "selector": "IX_GRP_HR_PERSONNEL_LASTNAME",
-                "value": "Hansen",
-                "type": "TEXT",
-                "operator": "EQUAL"
-              },
-              {
-                "selector": "IX_GRP_HR_PERSONNEL_COUNTRY",
-                "value": "DE - Deutschland",
-                "type": "KWL",
-                "operator": "EQUAL"
-              }
-            ],
-            "selectDocumentDialogs": []
-          }
-        ],
-        "testShouldFail": false
+      "tabPages": [
+        {
+          "tabName": "",
+          "initTabPage": [],
+          "controls": [],
+          "tables": [],
+          "checkValueControls": [
+            {
+              "selector": "IX_GRP_HR_PERSONNEL_FIRSTNAME",
+              "value": "Hans",
+              "type": "TEXT",
+              "operator": "EQUAL"
+            },
+            {
+              "selector": "IX_GRP_HR_PERSONNEL_LASTNAME",
+              "value": "Hansen",
+              "type": "TEXT",
+              "operator": "EQUAL"
+            },
+            {
+              "selector": "IX_NAME",
+              "value": "Hansen, Hans",
+              "type": "TEXT",
+              "operator": "EQUAL"
+            },
+            {
+              "selector": "IX_GRP_HR_PERSONNEL_PERSONNELNO",
+              "value": "",
+              "type": "TEXT",
+              "operator": "EXIST"
+            }
+          ],
+          "selectDocumentDialogs": []
+        }
+      ],
+      "testShouldFail": false,
+      "selectedButton": "SAVE"
+    },
+    {
+      "entryPath": "",
+      "formulaType": "VIEWER",
+      "formulaSaveButton": "",
+      "formulaCancelButton": "",
+      "selectionDialogItem": "",
+      "eloActionDef": {
+        "selectorRibbon": "",
+        "selectorMenu": "",
+        "selectorButton": ""
       },
-      {
-        "entryPath": "",
-        "formulaType": "VIEWER",
-        "formulaSaveButton": "",
-        "formulaCancelButton": "",
-        "selectionDialogItem": "",
-        "eloActionDef": {
-          "selectorRibbon": "",
-          "selectorMenu": "",
-          "selectorButton": ""
-        },
-        "tabPages": [
-          {
-            "tabName": "Personal",
-            "initTabPage": [],
-            "controls": [],
-            "tables": [],
-            "checkValueControls": [
-              {
-                "selector": "IX_GRP_HR_PERSONNEL_PERSONNELSTATUS",
-                "value": "O - In Vorbereitung",
-                "type": "KWL",
-                "operator": "EQUAL"
-              },
-              {
-                "selector": "IX_GRP_HR_PERSONNEL_PERSONNELNO",
-                "value": "",
-                "type": "TEXT",
-                "operator": "EXIST"
-              },
-              {
-                "selector": "IX_GRP_HR_PERSONNEL_RESPONSIBLE",
-                "value": "HR",
-                "type": "DYNKWL",
-                "operator": "EQUAL"
-              }
-            ],
-            "selectDocumentDialogs": []
-          }
-        ],
-        "testShouldFail": false
+      "tabPages": [
+        {
+          "tabName": "Persönlich",
+          "initTabPage": [],
+          "controls": [],
+          "tables": [],
+          "checkValueControls": [
+            {
+              "selector": "IX_GRP_HR_PERSONNEL_FIRSTNAME",
+              "value": "Hans",
+              "type": "TEXT",
+              "operator": "EQUAL"
+            },
+            {
+              "selector": "IX_GRP_HR_PERSONNEL_LASTNAME",
+              "value": "Hansen",
+              "type": "TEXT",
+              "operator": "EQUAL"
+            },
+            {
+              "selector": "IX_GRP_HR_PERSONNEL_COUNTRY",
+              "value": "DE - Deutschland",
+              "type": "KWL",
+              "operator": "EQUAL"
+            }
+          ],
+          "selectDocumentDialogs": []
+        }
+      ],
+      "testShouldFail": false,
+      "selectedButton": "SAVE"
+    },
+    {
+      "entryPath": "",
+      "formulaType": "VIEWER",
+      "formulaSaveButton": "",
+      "formulaCancelButton": "",
+      "selectionDialogItem": "",
+      "eloActionDef": {
+        "selectorRibbon": "",
+        "selectorMenu": "",
+        "selectorButton": ""
       },
-      {
-        "entryPath": "",
-        "formulaType": "VIEWER",
-        "formulaSaveButton": "",
-        "formulaCancelButton": "",
-        "selectionDialogItem": "",
-        "eloActionDef": {
-          "selectorRibbon": "",
-          "selectorMenu": "",
-          "selectorButton": ""
-        },
-        "tabPages": [
-          {
-            "tabName": "Ein-/ Austritt",
-            "initTabPage": [],
-            "controls": [],
-            "tables": [],
-            "checkValueControls": [
-              {
-                "selector": "IX_MAP_HR_PERSONNEL_PERIODOFNOTICE",
-                "value": "3",
-                "type": "TEXT",
-                "operator": "EQUAL"
-              },
-              {
-                "selector": "IX_MAP_HR_PERSONNEL_PERIODOFNOTICE_UNIT",
-                "value": "M - Monate",
-                "type": "KWL",
-                "operator": "EQUAL"
-              },
-              {
-                "selector": "IX_MAP_HR_PERSONNEL_PERIODOFNOTICE_TP",
-                "value": "Q - Quartalsende",
-                "type": "KWL",
-                "operator": "EQUAL"
-              },
-              {
-                "selector": "IX_MAP_HR_PERSONNEL_PROBATIONARYPERIODDURATION_UNIT",
-                "value": "M - Monate",
-                "type": "KWL",
-                "operator": "EQUAL"
-              },
-              {
-                "selector": "IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY_TP",
-                "value": "d - Tag",
-                "type": "KWL",
-                "operator": "EQUAL"
-              },
-              {
-                "selector": "IX_MAP_HR_PERSONNEL_NEXTPOSSIBLEDISMISSAL",
-                "value": "",
-                "type": "TEXT",
-                "operator": "EXIST"
-              }
-            ],
-            "selectDocumentDialogs": []
-          }
-        ],
-        "testShouldFail": false
-      }
-    ]
-  },
-  "eloTasks": {
-    "eloTasks": []
-  },
-  "eloDeletes": {
-    "arcPaths": []
-  },
+      "tabPages": [
+        {
+          "tabName": "Personal",
+          "initTabPage": [],
+          "controls": [],
+          "tables": [],
+          "checkValueControls": [
+            {
+              "selector": "IX_GRP_HR_PERSONNEL_PERSONNELSTATUS",
+              "value": "O - In Vorbereitung",
+              "type": "KWL",
+              "operator": "EQUAL"
+            },
+            {
+              "selector": "IX_GRP_HR_PERSONNEL_PERSONNELNO",
+              "value": "",
+              "type": "TEXT",
+              "operator": "EXIST"
+            },
+            {
+              "selector": "IX_GRP_HR_PERSONNEL_RESPONSIBLE",
+              "value": "HR",
+              "type": "DYNKWL",
+              "operator": "EQUAL"
+            }
+          ],
+          "selectDocumentDialogs": []
+        }
+      ],
+      "testShouldFail": false,
+      "selectedButton": "SAVE"
+    },
+    {
+      "entryPath": "",
+      "formulaType": "VIEWER",
+      "formulaSaveButton": "",
+      "formulaCancelButton": "",
+      "selectionDialogItem": "",
+      "eloActionDef": {
+        "selectorRibbon": "",
+        "selectorMenu": "",
+        "selectorButton": ""
+      },
+      "tabPages": [
+        {
+          "tabName": "Ein-/ Austritt",
+          "initTabPage": [],
+          "controls": [],
+          "tables": [],
+          "checkValueControls": [
+            {
+              "selector": "IX_MAP_HR_PERSONNEL_PERIODOFNOTICE",
+              "value": "3",
+              "type": "TEXT",
+              "operator": "EQUAL"
+            },
+            {
+              "selector": "IX_MAP_HR_PERSONNEL_PERIODOFNOTICE_UNIT",
+              "value": "M - Monate",
+              "type": "KWL",
+              "operator": "EQUAL"
+            },
+            {
+              "selector": "IX_MAP_HR_PERSONNEL_PERIODOFNOTICE_TP",
+              "value": "Q - Quartalsende",
+              "type": "KWL",
+              "operator": "EQUAL"
+            },
+            {
+              "selector": "IX_MAP_HR_PERSONNEL_PROBATIONARYPERIODDURATION_UNIT",
+              "value": "M - Monate",
+              "type": "KWL",
+              "operator": "EQUAL"
+            },
+            {
+              "selector": "IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY_TP",
+              "value": "d - Tag",
+              "type": "KWL",
+              "operator": "EQUAL"
+            },
+            {
+              "selector": "IX_MAP_HR_PERSONNEL_NEXTPOSSIBLEDISMISSAL",
+              "value": "",
+              "type": "TEXT",
+              "operator": "EXIST"
+            }
+          ],
+          "selectDocumentDialogs": []
+        }
+      ],
+      "testShouldFail": false,
+      "selectedButton": "SAVE"
+    }
+  ],
+  "eloTasks": [],
+  "eloDeletes": [],
   "eloForwardWorkflow": {
     "toNodesName": []
   },
-  "eloRfs": {
-    "eloRfs": []
-  }
+  "eloRfs": []
 }

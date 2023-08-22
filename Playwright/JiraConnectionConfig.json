@@ -10,39 +10,426 @@
   },
   "usedEloSolution": "hr",
   "eloSolutions": {
-    "eloSolutions": {
-      "hr": {
-        "eloActions": {
-          "checkfolder": {
-            "entryPath": "",
-            "formulaType": "NONE",
-            "formulaSaveButton": "",
-            "formulaCancelButton": "",
-            "selectionDialogItem": "",
-            "eloActionDef": {
-              "selectorRibbon": "",
-              "selectorMenu": "",
-              "selectorButton": ""
-            },
-            "tabPages": [],
-            "testShouldFail": false
-          },
-          "checksubfolder": {
-            "entryPath": "",
-            "formulaType": "NONE",
-            "formulaSaveButton": "",
-            "formulaCancelButton": "",
-            "selectionDialogItem": "",
-            "eloActionDef": {
-              "selectorRibbon": "",
-              "selectorMenu": "",
-              "selectorButton": ""
-            },
-            "tabPages": [],
-            "testShouldFail": false
-          }
+    "hr": {
+      "inputControls": {
+        "Abteilung": {
+          "selector": "IX_GRP_HR_PERSONNEL_DEPARTMENT",
+          "value": "",
+          "type": "TEXT"
         },
-        "eloTasks": {}
+        "Bundesland": {
+          "selector": "IX_MAP_HR_PERSONNEL_STATE",
+          "value": "",
+          "type": "TEXT"
+        },
+        "Nachricht": {
+          "selector": "",
+          "value": "",
+          "type": "REDACTOR"
+        },
+        "Geburtsdatum": {
+          "selector": "IX_GRP_HR_PERSONNEL_BIRTHDAY",
+          "value": "",
+          "type": "TEXT"
+        },
+        "Geburtsname": {
+          "selector": "IX_MAP_HR_PERSONNEL_BIRTHNAME",
+          "value": "",
+          "type": "TEXT"
+        },
+        "E-Mail geschäftlich": {
+          "selector": "IX_MAP_HR_PERSONNEL_BUSINESSEMAIL",
+          "value": "",
+          "type": "TEXT"
+        },
+        "Konfession": {
+          "selector": "IX_MAP_HR_PERSONNEL_RELIGIOUSDENOMINATION",
+          "value": "",
+          "type": "KWL"
+        },
+        "Zahlungsempfänger": {
+          "selector": "IX_MAP_HR_PERSONNEL_PAYMENTRECIPIENT",
+          "value": "",
+          "type": "TEXT"
+        },
+        "Steuer-ID": {
+          "selector": "IX_MAP_HR_PERSONNEL_TIN",
+          "value": "",
+          "type": "TEXT"
+        },
+        "Sicherheitsstufe": {
+          "selector": "IX_GRP_HR_PERSONNEL_SECURITYCLEARANCE",
+          "value": "",
+          "type": "TEXT"
+        },
+        "E-Mail privat": {
+          "selector": "IX_MAP_HR_PERSONNEL_PRIVATEEMAIL",
+          "value": "",
+          "type": "TEXT"
+        },
+        "Telefon privat": {
+          "selector": "IX_MAP_HR_PERSONNEL_PRIVATEPHONENUMBER",
+          "value": "",
+          "type": "TEXT"
+        },
+        "Eintrittsdatum": {
+          "selector": "IX_GRP_HR_PERSONNEL_DATEOFJOINING",
+          "value": "",
+          "type": "TEXT"
+        },
+        "Geldinstitut": {
+          "selector": "IX_MAP_HR_PERSONNEL_BANK",
+          "value": "",
+          "type": "TEXT"
+        },
+        "Nationalität": {
+          "selector": "IX_MAP_HR_PERSONNEL_NATIONALITY",
+          "value": "",
+          "type": "DYNKWL"
+        },
+        "Geburtsort": {
+          "selector": "IX_MAP_HR_PERSONNEL_BIRTHPLACE",
+          "value": "",
+          "type": "TEXT"
+        },
+        "Sozialversicherungsnummer": {
+          "selector": "IX_MAP_HR_PERSONNEL_SOCIALSECURITYNUMBER",
+          "value": "",
+          "type": "TEXT"
+        },
+        "Fachlich Verantwortlicher": {
+          "selector": "IX_MAP_HR_PERSONNEL_MENTOR",
+          "value": "",
+          "type": "DYNKWL"
+        },
+        "IBAN": {
+          "selector": "IX_MAP_HR_PERSONNEL_IBAN",
+          "value": "",
+          "type": "TEXT"
+        },
+        "Wohnort": {
+          "selector": "IX_GRP_HR_PERSONNEL_CITY",
+          "value": "",
+          "type": "TEXT"
+        },
+        "Familienstand": {
+          "selector": "IX_MAP_HR_PERSONNEL_CIVILSTATUS",
+          "value": "",
+          "type": "KWL"
+        },
+        "Stellenbezeichnung": {
+          "selector": "IX_GRP_HR_PERSONNEL_JOBTITLE",
+          "value": "",
+          "type": "TEXT"
+        },
+        "Namenszusatz": {
+          "selector": "IX_MAP_HR_PERSONNEL_NAMEAFFIX",
+          "value": "",
+          "type": "TEXT"
+        },
+        "Land": {
+          "selector": "IX_GRP_HR_PERSONNEL_COUNTRY",
+          "value": "",
+          "type": "DYNKWL"
+        },
+        "Mobil geschäftlich": {
+          "selector": "IX_MAP_HR_PERSONNEL_BUSINESSMOBILENUMBER",
+          "value": "",
+          "type": "TEXT"
+        },
+        "Nachname": {
+          "selector": "IX_GRP_HR_PERSONNEL_LASTNAME",
+          "value": "",
+          "type": "TEXT"
+        },
+        "Titel": {
+          "selector": "IX_MAP_HR_PERSONNEL_TITLE",
+          "value": "",
+          "type": "TEXT"
+        },
+        "Urlaubstage pro Jahr": {
+          "selector": "IX_MAP_HR_PERSONNEL_VACATIONQUOTA",
+          "value": "",
+          "type": "TEXT"
+        },
+        "Geldinstitut Land": {
+          "selector": "IX_MAP_HR_PERSONNEL_BANK_COUNTRY",
+          "value": "",
+          "type": "DYNKWL"
+        },
+        "Zahlungsanweisungen": {
+          "selector": "IX_MAP_HR_PERSONNEL_PAYMENTINSTRUCTIONS",
+          "value": "",
+          "type": "TEXT"
+        },
+        "Probezeit Kündigungsfrist": {
+          "selector": "IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY",
+          "value": "",
+          "type": "TEXT"
+        },
+        "Postleitzahl": {
+          "selector": "IX_GRP_HR_PERSONNEL_POSTALCODE",
+          "value": "",
+          "type": "TEXT"
+        },
+        "Bereich": {
+          "selector": "IX_GRP_HR_PERSONNEL_DIVISION",
+          "value": "",
+          "type": "TEXT"
+        },
+        "Physikalischer Ablageort": {
+          "selector": "IX_MAP_HR_PERSONNEL_PHYSICALFILINGLOCATION",
+          "value": "",
+          "type": "TEXT"
+        },
+        "Empfänger": {
+          "selector": "IX_MAP_HR_PERSONNEL_SENDER",
+          "value": "",
+          "type": "TEXT"
+        },
+        "Personalverantwortlicher": {
+          "selector": "IX_GRP_HR_PERSONNEL_RESPONSIBLE",
+          "value": "",
+          "type": "DYNKWL"
+        },
+        "Team": {
+          "selector": "IX_GRP_HR_PERSONNEL_TEAM",
+          "value": "",
+          "type": "TEXT"
+        },
+        "Geschlecht": {
+          "selector": "IX_GRP_HR_PERSONNEL_GENDER",
+          "value": "",
+          "type": "KWL"
+        },
+        "Korrespondenzsprache": {
+          "selector": "IX_GRP_HR_PERSONNEL_FIRSTLANGUAGE",
+          "value": "",
+          "type": "DYNKWL"
+        },
+        "Vorgesetzter": {
+          "selector": "IX_GRP_HR_PERSONNEL_SUPERIOR",
+          "value": "",
+          "type": "DYNKWL"
+        },
+        "Organisation": {
+          "selector": "IX_GRP_HR_PERSONNEL_COMPANY",
+          "value": "",
+          "type": "TEXT"
+        },
+        "Krankenversicherungsnummer": {
+          "selector": "IX_MAP_HR_PERSONNEL_HEALTHINSURANCENUMBER",
+          "value": "",
+          "type": "TEXT"
+        },
+        "Betreff": {
+          "selector": "IX_GRP_COMMUNICATION_SUBJECT",
+          "value": "",
+          "type": "TEXT"
+        },
+        "Währung": {
+          "selector": "IX_MAP_HR_PERSONNEL_CURRENCY",
+          "value": "",
+          "type": "DYNKWL"
+        },
+        "Straße": {
+          "selector": "IX_MAP_HR_PERSONNEL_STREETADDRESS",
+          "value": "",
+          "type": "TEXT"
+        },
+        "Standort": {
+          "selector": "IX_GRP_HR_PERSONNEL_LOCATION",
+          "value": "",
+          "type": "TEXT"
+        },
+        "Arbeitszeitregelung": {
+          "selector": "IX_GRP_HR_PERSONNEL_WORKSCHEDULE",
+          "value": "",
+          "type": "KWL"
+        },
+        "Kfz-Kennzeichen": {
+          "selector": "IX_GRP_HR_PERSONNEL_LICENSEPLATE",
+          "value": "",
+          "type": "TEXT"
+        },
+        "Absender": {
+          "selector": "IX_MAP_CORRESPONDENT_RECIPIENT_NAME_1",
+          "value": "",
+          "type": "TEXT"
+        },
+        "Telefon geschäftlich": {
+          "selector": "IX_MAP_HR_PERSONNEL_BUSINESSPHONENUMBER",
+          "value": "",
+          "type": "TEXT"
+        },
+        "Mobil privat": {
+          "selector": "IX_MAP_HR_PERSONNEL_PRIVATEMOBILENUMBER",
+          "value": "",
+          "type": "TEXT"
+        },
+        "Vorname": {
+          "selector": "IX_GRP_HR_PERSONNEL_FIRSTNAME",
+          "value": "",
+          "type": "TEXT"
+        }
+      },
+      "checkValueControls": {
+        "Abteilung": {
+          "selector": "IX_GRP_HR_PERSONNEL_DEPARTMENT",
+          "value": "",
+          "type": "TEXT",
+          "operator": "EXIST"
+        },
+        "Frühestmögliches Datum": {
+          "selector": "IX_MAP_HR_PERSONNEL_NEXTPOSSIBLEDISMISSAL",
+          "value": "",
+          "type": "TEXT",
+          "operator": "EXIST"
+        },
+        "Geburtsdatum": {
+          "selector": "IX_GRP_HR_PERSONNEL_BIRTHDAY",
+          "value": "",
+          "type": "TEXT",
+          "operator": "EXIST"
+        },
+        "Kündigungsfrist": {
+          "selector": "IX_MAP_HR_PERSONNEL_PERIODOFNOTICE",
+          "value": "",
+          "type": "TEXT",
+          "operator": "EQUAL"
+        },
+        "KurzbezeichnungPersonal": {
+          "selector": "IX_NAME",
+          "value": "",
+          "type": "TEXT",
+          "operator": "EQUAL"
+        },
+        "Personalnummer": {
+          "selector": "IX_GRP_HR_PERSONNEL_PERSONNELNO",
+          "value": "",
+          "type": "TEXT",
+          "operator": "EXIST"
+        },
+        "Kündigung zum": {
+          "selector": "IX_MAP_HR_PERSONNEL_PERIODOFNOTICE_TP",
+          "value": "",
+          "type": "KWL",
+          "operator": "EQUAL"
+        },
+        "Bereich": {
+          "selector": "IX_GRP_HR_PERSONNEL_DIVISION",
+          "value": "",
+          "type": "TEXT",
+          "operator": "EXIST"
+        },
+        "Eintrittsdatum": {
+          "selector": "IX_GRP_HR_PERSONNEL_DATEOFJOINING",
+          "value": "",
+          "type": "TEXT",
+          "operator": "EXIST"
+        },
+        "Personalverantwortlicher": {
+          "selector": "IX_GRP_HR_PERSONNEL_RESPONSIBLE",
+          "value": "",
+          "type": "DYNKWL",
+          "operator": "EQUAL"
+        },
+        "Probezeit": {
+          "selector": "IX_MAP_HR_PERSONNEL_PROBATIONARYPERIODDURATION",
+          "value": "",
+          "type": "TEXT",
+          "operator": "EQUAL"
+        },
+        "Geburtsort": {
+          "selector": "IX_MAP_HR_PERSONNEL_BIRTHPLACE",
+          "value": "",
+          "type": "TEXT",
+          "operator": "EXIST"
+        },
+        "Korrespondenzsprache": {
+          "selector": "IX_GRP_HR_PERSONNEL_FIRSTLANGUAGE",
+          "value": "",
+          "type": "DYNKWL",
+          "operator": "EXIST"
+        },
+        "Vorgesetzter": {
+          "selector": "IX_GRP_HR_PERSONNEL_SUPERIOR",
+          "value": "",
+          "type": "DYNKWL",
+          "operator": "EXIST"
+        },
+        "Fachlich Verantwortlicher": {
+          "selector": "IX_MAP_HR_PERSONNEL_MENTOR",
+          "value": "",
+          "type": "DYNKWL",
+          "operator": "EXIST"
+        },
+        "Status": {
+          "selector": "IX_GRP_HR_PERSONNEL_PERSONNELSTATUS",
+          "value": "",
+          "type": "KWL",
+          "operator": "EQUAL"
+        },
+        "Kündigungsfrist Einheit": {
+          "selector": "IX_MAP_HR_PERSONNEL_PERIODOFNOTICE_UNIT",
+          "value": "",
+          "type": "KWL",
+          "operator": "EQUAL"
+        },
+        "Währung": {
+          "selector": "IX_MAP_HR_PERSONNEL_CURRENCY",
+          "value": "",
+          "type": "DYNKWL",
+          "operator": "EXIST"
+        },
+        "Land": {
+          "selector": "IX_GRP_HR_PERSONNEL_COUNTRY",
+          "value": "",
+          "type": "KWL",
+          "operator": "EQUAL"
+        },
+        "Arbeitszeitregelung": {
+          "selector": "IX_GRP_HR_PERSONNEL_WORKSCHEDULE",
+          "value": "",
+          "type": "KWL",
+          "operator": "EXIST"
+        },
+        "Probezeit Einheit": {
+          "selector": "IX_MAP_HR_PERSONNEL_PROBATIONARYPERIODDURATION_UNIT",
+          "value": "",
+          "type": "KWL",
+          "operator": "EQUAL"
+        },
+        "Nachname": {
+          "selector": "IX_GRP_HR_PERSONNEL_LASTNAME",
+          "value": "",
+          "type": "TEXT",
+          "operator": "EQUAL"
+        },
+        "Urlaubstage pro Jahr": {
+          "selector": "IX_MAP_HR_PERSONNEL_VACATIONQUOTA",
+          "value": "",
+          "type": "TEXT",
+          "operator": "EXIST"
+        },
+        "Probezeit Kündigung zum": {
+          "selector": "IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY_TP",
+          "value": "",
+          "type": "KWL",
+          "operator": "EQUAL"
+        },
+        "Geldinstitut Land": {
+          "selector": "IX_MAP_HR_PERSONNEL_BANK_COUNTRY",
+          "value": "",
+          "type": "DYNKWL",
+          "operator": "EXIST"
+        },
+        "Vorname": {
+          "selector": "IX_GRP_HR_PERSONNEL_FIRSTNAME",
+          "value": "",
+          "type": "TEXT",
+          "operator": "EQUAL"
+        }
       }
     }
   }

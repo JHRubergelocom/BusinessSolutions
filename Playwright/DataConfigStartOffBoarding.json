@@ -17,96 +17,88 @@
     },
     "stack": "ruberg-hr.dev.elo"
   },
-  "eloAcls": {
-    "arcPaths": []
-  },
+  "eloAcls": [],
   "eloTile": {
     "repositoryTile": "Solutions",
     "taskTile": "Aufgaben"
   },
-  "eloActions": {
-    "eloActions": [
-      {
-        "entryPath": "Solutions/Personalmanagement/Personalakten/H/Hansen, Hans",
-        "formulaType": "EXTERNAL",
-        "formulaSaveButton": "OK",
-        "formulaCancelButton": "Abbrechen",
-        "selectionDialogItem": "",
-        "eloActionDef": {
-          "selectorRibbon": "Personal",
-          "selectorMenu": "Personal",
-          "selectorButton": "Austrittsprozess"
-        },
-        "tabPages": [
-          {
-            "tabName": "",
-            "initTabPage": [],
-            "controls": [
-              {
-                "selector": "IX_MAP_HR_PERSONNEL_DATEOFNOTICE",
-                "value": "#nowdate#",
-                "type": "TEXT"
-              },
-              {
-                "selector": "IX_GRP_HR_PERSONNEL_DATEOFLEAVING",
-                "value": "#nowdate#",
-                "type": "TEXT"
-              },
-              {
-                "selector": "IX_BLOB_HR_PERSONNEL_TERMINATIONCOMMENT",
-                "value": "Mitarbeiterkündigung",
-                "type": "TEXT"
-              }
-            ],
-            "tables": [],
-            "checkValueControls": [],
-            "selectDocumentDialogs": []
-          }
-        ],
-        "testShouldFail": false
+  "eloActions": [
+    {
+      "entryPath": "Solutions/Personalmanagement/Personalakten/H/Hansen, Hans",
+      "formulaType": "EXTERNAL",
+      "formulaSaveButton": "OK",
+      "formulaCancelButton": "Abbrechen",
+      "selectionDialogItem": "",
+      "eloActionDef": {
+        "selectorRibbon": "Personal",
+        "selectorMenu": "Personal",
+        "selectorButton": "Austrittsprozess"
       },
-      {
-        "entryPath": "",
-        "formulaType": "VIEWER",
-        "formulaSaveButton": "Speichern",
-        "formulaCancelButton": "",
-        "selectionDialogItem": "",
-        "eloActionDef": {
-          "selectorRibbon": "",
-          "selectorMenu": "",
-          "selectorButton": ""
-        },
-        "tabPages": [
-          {
-            "tabName": "Personal",
-            "initTabPage": [],
-            "controls": [],
-            "tables": [],
-            "checkValueControls": [
-              {
-                "selector": "IX_GRP_HR_PERSONNEL_PERSONNELSTATUS",
-                "value": "C - Gekündigt",
-                "type": "KWL",
-                "operator": "EQUAL"
-              }
-            ],
-            "selectDocumentDialogs": []
-          }
-        ],
-        "testShouldFail": false
-      }
-    ]
-  },
-  "eloTasks": {
-    "eloTasks": []
-  },
-  "eloDeletes": {
-    "arcPaths": []
-  },
+      "tabPages": [
+        {
+          "tabName": "",
+          "initTabPage": [],
+          "controls": [
+            {
+              "selector": "IX_MAP_HR_PERSONNEL_DATEOFNOTICE",
+              "value": "#nowdate#",
+              "type": "TEXT"
+            },
+            {
+              "selector": "IX_GRP_HR_PERSONNEL_DATEOFLEAVING",
+              "value": "#nowdate#",
+              "type": "TEXT"
+            },
+            {
+              "selector": "IX_BLOB_HR_PERSONNEL_TERMINATIONCOMMENT",
+              "value": "Mitarbeiterkündigung",
+              "type": "TEXT"
+            }
+          ],
+          "tables": [],
+          "checkValueControls": [],
+          "selectDocumentDialogs": []
+        }
+      ],
+      "testShouldFail": false,
+      "selectedButton": "SAVE"
+    },
+    {
+      "entryPath": "",
+      "formulaType": "VIEWER",
+      "formulaSaveButton": "Speichern",
+      "formulaCancelButton": "",
+      "selectionDialogItem": "",
+      "eloActionDef": {
+        "selectorRibbon": "",
+        "selectorMenu": "",
+        "selectorButton": ""
+      },
+      "tabPages": [
+        {
+          "tabName": "Personal",
+          "initTabPage": [],
+          "controls": [],
+          "tables": [],
+          "checkValueControls": [
+            {
+              "selector": "IX_GRP_HR_PERSONNEL_PERSONNELSTATUS",
+              "value": "C - Gekündigt",
+              "type": "KWL",
+              "operator": "EQUAL"
+            }
+          ],
+          "selectDocumentDialogs": []
+        }
+      ],
+      "testShouldFail": false,
+      "selectedButton": "SAVE"
+    }
+  ],
+  "eloTasks": [],
+  "eloDeletes": [],
   "eloForwardWorkflow": {
     "toNodesName": []
   },
-  "eloRfs": {
-    "eloRfs": []
-  }
+  "eloRfs": []
 }

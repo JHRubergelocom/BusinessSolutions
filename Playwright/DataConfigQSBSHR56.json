@@ -17,50 +17,41 @@
     },
     "stack": "ruberg-hr.dev.elo"
   },
-  "eloAcls": {
-    "arcPaths": []
-  },
+  "eloAcls": [],
   "eloTile": {
     "repositoryTile": "Solutions",
     "taskTile": "Aufgaben"
   },
-  "eloActions": {
-    "eloActions": []
-  },
-  "eloTasks": {
-    "eloTasks": [
-      {
-        "taskName": "Stammdaten kontrollieren",
-        "takeWorkflow": true,
-        "formulaSaveButton": "Freigeben",
-        "formulaCancelButton": "",
-        "tabPages": [
-          {
-            "tabName": "",
-            "initTabPage": [],
-            "controls": [
-              {
-                "selector": "IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY",
-                "value": "1",
-                "type": "TEXT"
-              }
-            ],
-            "tables": [],
-            "checkValueControls": [],
-            "selectDocumentDialogs": []
-          }
-        ],
-        "testShouldFail": false
-      }
-    ]
-  },
-  "eloDeletes": {
-    "arcPaths": []
-  },
+  "eloActions": [],
+  "eloTasks": [
+    {
+      "taskName": "Stammdaten kontrollieren",
+      "takeWorkflow": true,
+      "formulaSaveButton": "Freigeben",
+      "formulaCancelButton": "",
+      "tabPages": [
+        {
+          "tabName": "",
+          "initTabPage": [],
+          "controls": [
+            {
+              "selector": "IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY",
+              "value": "1",
+              "type": "TEXT"
+            }
+          ],
+          "tables": [],
+          "checkValueControls": [],
+          "selectDocumentDialogs": []
+        }
+      ],
+      "testShouldFail": false,
+      "selectedButton": "SAVE"
+    }
+  ],
+  "eloDeletes": [],
   "eloForwardWorkflow": {
     "toNodesName": []
   },
-  "eloRfs": {
-    "eloRfs": []
-  }
+  "eloRfs": []
 }
