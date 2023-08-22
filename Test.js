@@ -1648,37 +1648,41 @@ Original "QBSHR-65" überprüfen mit Syntax für jira-Testschritt Datenfeld, oka
 
 Datenstrukter ELOAction/ELOTask (IActionTask) erweitern, welcher Button am Ende geklickt wird (formulaSaveButton/formulaCancelButton)
 
-package session;
-
-public enum ButtonType {
-    SAVE,
-    CANCEL,
-    NONE
-}
-
-
-    private final ButtonType selectedButton;
-
-
-    public ButtonType getSelectedButton() {
-        return selectedButton;
-    }
-
-
-public ButtonType getSelectedButton()
 
 
 
 {{
-	OpenFormular("Neu"|"Personal"|"Neuer Mitarbeiter");
+	OpenFormular(Neu|Personal|Neuer Mitarbeiter);
 	... optional Felder ausfüllen ...
-	QuitButton("Speichern");
 	TestShouldFail();	
+	QuitButton(Speichern);
+}}
+
+
+
+{{
+	OpenFormular(Neu|Personal|Neuer Mitarbeiter);
+	InputField(Vorname|Hans);
+	InputField(Nachname|Hansen);
+	InputField(Personalverantwortlicher|HR);
+	CheckFieldEqual(Vorname|Hans);
+	CheckFieldEqual(Nachname|Hansen);
+	CheckFieldExist(Personalnummer)
 }}
 
 {{
-	InputField("Vorname"|"Hans");
-	InputField("Nachname"|"Hansen");
-	InputField("Personalverantwortlicher"|"HR");
-	QuitButton("Speichern");
+	QuitButton(Speichern)
 }}
+
+
+SelectViewerForm()
+
+
+    private final List<ELOControl> inputControls;
+    private final List<ELOCheckValueControl> checkValueControls;
+
+
+
+
+https://eloticksy.elo.com/browse/QBSHR-54
+
