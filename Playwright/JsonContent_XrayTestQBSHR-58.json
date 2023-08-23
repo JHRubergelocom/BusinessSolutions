@@ -10,8 +10,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "<ul>\n<li>Benutzer: <raven-test-param data-mce-tabindex='-1' tabindex='-1' contenteditable='false' class=''>Benutzer<\/raven-test-param> <\/li>\n<li>Passwort<\/li>\n<\/ul>\n",
-        "raw": "* Benutzer: {test-param}Benutzer{test-param} \n * Passwort"
+        "rendered": "<ul>\n<li>Benutzer: <raven-test-param data-mce-tabindex='-1' tabindex='-1' contenteditable='false' class=''>Benutzer<\/raven-test-param> <\/li>\n<li>Passwort<br/><tt>Login(Ute Schenk|elo)<\/tt><\/li>\n<\/ul>\n",
+        "raw": "* Benutzer: {test-param}Benutzer{test-param} \n * Passwort\n{{Login(Ute Schenk|elo)}}"
       },
       "index": 1,
       "step": {
@@ -27,8 +27,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "<p>Personalakte: <raven-test-param data-mce-tabindex='-1' tabindex='-1' contenteditable='false' class=''>Personalakte<\/raven-test-param><\/p>",
-        "raw": "Personalakte: {test-param}Personalakte{test-param}"
+        "rendered": "<p>Personalakte: <raven-test-param data-mce-tabindex='-1' tabindex='-1' contenteditable='false' class=''>Personalakte<\/raven-test-param><br/><tt>SelectEntry(Hans|Hansen)<\/tt><\/p>",
+        "raw": "Personalakte: {test-param}Personalakte{test-param}\n{{SelectEntry(Hans|Hansen)}}"
       },
       "index": 2,
       "step": {
@@ -61,8 +61,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "<p>login=<span class=\"error\">&#91;Ute Schenk=elo=ruberg-hr.dev.elo&#93;<\/span><br/>testshouldfail=<span class=\"error\">&#91;true&#93;<\/span><br/>formular=<span class=\"error\">&#91;Solutions/Personalmanagement/Personalakten/H/Hansen, Hans=OK=Abbrechen=external=Personal=Personal=Nachricht&#93;<\/span><\/p>",
-        "raw": "login=[Ute Schenk=elo=ruberg-hr.dev.elo]\ntestshouldfail=[true]\nformular=[Solutions/Personalmanagement/Personalakten/H/Hansen, Hans=OK=Abbrechen=external=Personal=Personal=Nachricht]"
+        "rendered": "<p><tt>OpenFormular(Personal|Personal|Nachricht);TestShouldFail()<\/tt><\/p>",
+        "raw": "{{OpenFormular(Personal|Personal|Nachricht);TestShouldFail()}}"
       },
       "index": 4,
       "step": {
@@ -95,8 +95,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "",
-        "raw": ""
+        "rendered": "<p><tt>QuitButton(Speichern)<\/tt><\/p>",
+        "raw": "{{QuitButton(Speichern)}}"
       },
       "index": 6,
       "step": {
@@ -112,8 +112,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "<p>Siehe TestdatenHRPersonnelFileMessages<br/>inputcontrols=<span class=\"error\">&#91;IX_MAP_HR_PERSONNEL_SENDER=test-business-solutions@elo.local=TEXT;IX_MAP_CORRESPONDENT_RECIPIENT_NAME_1=test-business-solutions@elo.local=TEXT;IX_GRP_COMMUNICATION_SUBJECT=Geschäftsnachricht=TEXT;null=Inhalt Geschäftsnachricht=REDACTOR&#93;<\/span><br/>selectDocumentDialogs=<span class=\"error\">&#91;Anhang hinzufügen=Solutions/PDF Export/bob ipsum PDF&#93;<\/span><br/>formular=<span class=\"error\">&#91;null=OK=Abbrechen=external=Personal=Personal=Nachricht&#93;<\/span><\/p>",
-        "raw": "Siehe TestdatenHRPersonnelFileMessages\ninputcontrols=[IX_MAP_HR_PERSONNEL_SENDER=test-business-solutions@elo.local=TEXT;IX_MAP_CORRESPONDENT_RECIPIENT_NAME_1=test-business-solutions@elo.local=TEXT;IX_GRP_COMMUNICATION_SUBJECT=Geschäftsnachricht=TEXT;null=Inhalt Geschäftsnachricht=REDACTOR]\nselectDocumentDialogs=[Anhang hinzufügen=Solutions/PDF Export/bob ipsum PDF]\nformular=[null=OK=Abbrechen=external=Personal=Personal=Nachricht]"
+        "rendered": "<p>Siehe TestdatenHRPersonnelFileMessages<br/><tt>OpenFormular(Personal|Personal|Nachricht);InputField(Empfänger|test-business-solutions@elo.local);InputField(Absender|test-business-solutions@elo.local);InputField(Betreff|Geschäftsnachricht);InputField(|Inhalt Geschäftsnachricht)<\/tt><\/p>",
+        "raw": "Siehe TestdatenHRPersonnelFileMessages\n{{OpenFormular(Personal|Personal|Nachricht);InputField(Empfänger|test-business-solutions@elo.local);InputField(Absender|test-business-solutions@elo.local);InputField(Betreff|Geschäftsnachricht);InputField(|Inhalt Geschäftsnachricht)}}"
       },
       "index": 7,
       "step": {
@@ -129,8 +129,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "<p>Siehe TestdatenHRPersonnelFileMessages<\/p>",
-        "raw": "Siehe TestdatenHRPersonnelFileMessages"
+        "rendered": "<p>Siehe TestdatenHRPersonnelFileMessages<br/><tt>SelectAttachment(Anhang hinzufügen|Solutions/PDF Export/bob ipsum PDF)<\/tt><\/p>",
+        "raw": "Siehe TestdatenHRPersonnelFileMessages\n{{SelectAttachment(Anhang hinzufügen|Solutions/PDF Export/bob ipsum PDF)}}"
       },
       "index": 8,
       "step": {
@@ -163,8 +163,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "<p>formular=<span class=\"error\">&#91;Solutions/Personalmanagement/Personalakten/H/Hansen, Hans/Korrespondenz/Geschäftsnachricht=null=null=viewer&#93;<\/span><\/p>",
-        "raw": "formular=[Solutions/Personalmanagement/Personalakten/H/Hansen, Hans/Korrespondenz/Geschäftsnachricht=null=null=viewer]"
+        "rendered": "<p><tt>QuitButton(Speichern)<\/tt><\/p>",
+        "raw": "{{QuitButton(Speichern)}}"
       },
       "index": 10,
       "step": {
@@ -231,8 +231,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "<p>acl=<span class=\"error\">&#91;ARCPATH:/Personalmanagement/Personalakten/H/Hansen, Hans&#93;<\/span><\/p>",
-        "raw": "acl=[ARCPATH:/Personalmanagement/Personalakten/H/Hansen, Hans]"
+        "rendered": "",
+        "raw": ""
       },
       "index": 14,
       "step": {
@@ -279,5 +279,5 @@
   ],
   "type": "Manual",
   "key": "QBSHR-58",
-  "status": "PASS"
+  "status": "FAIL"
 }]}

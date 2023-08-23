@@ -1355,26 +1355,20 @@ RF_sol_unittest_service_ExecuteLib
 
 =====================================================================================================================================================================
 
-TODO 16.08.2023
+TODO 11.09.2023
+
+Playwright Testcases QS BS HR Personnel File Xray REST API
 
 
+BS Intern BSXX-501 Testautomatisierung mit Playwright
 
-BS Intern BSXX-498 Testautomatisierung mit Playwright
-
-https://eloticksy.elo.com/browse/BSXX-498
-
-
-
+https://eloticksy.elo.com/browse/BSXX-501
 
 
 
 Ideen für Erweiterungen automatisierte Tests
 
     Konzeption und Entwicklung neue Bausteine für Jira Transformationsyntax anhand bestehender Testszenarien QS
-
-
-
-
 
 
 Playwright Testcases QS BS HR Personnel File Xray REST API
@@ -1684,5 +1678,5 @@ SelectViewerForm()
 
 
 
-https://eloticksy.elo.com/browse/QBSHR-54
+https://eloticksy.elo.com/browse/QBSHR-58
 

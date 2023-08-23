@@ -10,8 +10,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "",
-        "raw": ""
+        "rendered": "<p><tt>Login(Ute Schenk|elo)<\/tt><\/p>",
+        "raw": "{{Login(Ute Schenk|elo)}}"
       },
       "index": 1,
       "step": {
@@ -27,8 +27,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "",
-        "raw": ""
+        "rendered": "<p><tt>SelectTask(Stammdaten kontrollieren)<\/tt><\/p>",
+        "raw": "{{SelectTask(Stammdaten kontrollieren)}}"
       },
       "index": 2,
       "step": {
@@ -44,8 +44,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "",
-        "raw": ""
+        "rendered": "<p><tt>TakeWorkflow()<\/tt><\/p>",
+        "raw": "{{TakeWorkflow()}}"
       },
       "index": 3,
       "step": {
@@ -61,8 +61,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "<p>Siehe TestdatenHRPersonnelFile<br/>login=<span class=\"error\">&#91;Ute Schenk=elo=ruberg-hr.dev.elo&#93;<\/span><br/>inputcontrols=<span class=\"error\">&#91;IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY=1=TEXT&#93;<\/span><br/>task=<span class=\"error\">&#91;Stammdaten kontrollieren=true=Freigeben=null&#93;<\/span><\/p>",
-        "raw": "Siehe TestdatenHRPersonnelFile\nlogin=[Ute Schenk=elo=ruberg-hr.dev.elo]\ninputcontrols=[IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY=1=TEXT]\ntask=[Stammdaten kontrollieren=true=Freigeben=null]"
+        "rendered": "<p>Siehe TestdatenHRPersonnelFile<br/><tt>InputField(Probezeit Kündigungsfrist|1)<\/tt><\/p>",
+        "raw": "Siehe TestdatenHRPersonnelFile\n{{InputField(Probezeit Kündigungsfrist|1)}}"
       },
       "index": 4,
       "step": {
@@ -78,8 +78,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "",
-        "raw": ""
+        "rendered": "<p><tt>SubmitTask(Freigeben)<\/tt><\/p>",
+        "raw": "{{SubmitTask(Freigeben)}}"
       },
       "index": 5,
       "step": {
@@ -117,5 +117,5 @@
   }],
   "type": "Manual",
   "key": "QBSHR-56",
-  "status": "TODO"
+  "status": "PASS"
 }]}

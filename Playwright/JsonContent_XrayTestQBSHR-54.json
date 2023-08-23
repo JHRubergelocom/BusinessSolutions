@@ -10,8 +10,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "",
-        "raw": ""
+        "rendered": "<p><tt>Login(Verona Funk|elo)<\/tt><\/p>",
+        "raw": "{{Login(Verona Funk|elo)}}"
       },
       "index": 1,
       "step": {
@@ -27,8 +27,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "",
-        "raw": ""
+        "rendered": "<p><tt>SelectTask(Stammdaten vervollständigen)<\/tt><\/p>",
+        "raw": "{{SelectTask(Stammdaten vervollständigen)}}"
       },
       "index": 2,
       "step": {
@@ -44,8 +44,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "<p>Siehe TestdatenHRPersonnelFile<br/>login=<span class=\"error\">&#91;Verona Funk=elo=ruberg-hr.dev.elo&#93;<\/span><br/>inputcontrols=<span class=\"error\">&#91;IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY=2=TEXT&#93;<\/span><br/>task=<span class=\"error\">&#91;Stammdaten vervollständigen=false=OK=null&#93;<\/span><\/p>",
-        "raw": "Siehe TestdatenHRPersonnelFile\nlogin=[Verona Funk=elo=ruberg-hr.dev.elo]\ninputcontrols=[IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY=2=TEXT]\ntask=[Stammdaten vervollständigen=false=OK=null]"
+        "rendered": "<p>Siehe TestdatenHRPersonnelFile<br/><tt>InputField(Probezeit Kündigungsfrist|2)<\/tt><\/p>",
+        "raw": "Siehe TestdatenHRPersonnelFile\n{{InputField(Probezeit Kündigungsfrist|2)}}"
       },
       "index": 3,
       "step": {
@@ -61,8 +61,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "",
-        "raw": ""
+        "rendered": "<p><tt>SubmitTask(OK)<\/tt><\/p>",
+        "raw": "{{SubmitTask(OK)}}"
       },
       "index": 4,
       "step": {
@@ -83,5 +83,5 @@
   }],
   "type": "Manual",
   "key": "QBSHR-54",
-  "status": "TODO"
+  "status": "PASS"
 }]}

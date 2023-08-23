@@ -1,1 +1,1 @@
-java "-Dfile.encoding=UTF-8" -jar PlaywrightSession.jar QBSHR-80 PlaywrightConfig.json JiraConnectionConfig.json
+java "-Dfile.encoding=UTF-8" -jar PlaywrightSession.jar QBSHR-58 PlaywrightConfig.json JiraConnectionConfig.json
