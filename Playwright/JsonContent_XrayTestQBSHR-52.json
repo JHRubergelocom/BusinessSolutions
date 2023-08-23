@@ -10,8 +10,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "<p>Personalakte mit Status:<\/p>\n<ul>\n<li>In Vorbereitung<\/li>\n<li>Vorbereitet<\/li>\n<li>Inaktiv<\/li>\n<li>Ausgeschieden<\/li>\n<li>Gekündigt<\/li>\n<li>Im Ruhestand<\/li>\n<\/ul>\n\n\n<p><tt>Login(Ute Schenk|elo);SelectEntry(Hans|Hansen)<\/tt><\/p>",
-        "raw": "Personalakte mit Status:\n * In Vorbereitung\n * Vorbereitet\n * Inaktiv\n * Ausgeschieden\n * Gekündigt\n * Im Ruhestand\n\n{{Login(Ute Schenk|elo);SelectEntry(Hans|Hansen)}}"
+        "rendered": "<p>Personalakte mit Status:<\/p>\n<ul>\n<li>In Vorbereitung<\/li>\n<li>Vorbereitet<\/li>\n<li>Inaktiv<\/li>\n<li>Ausgeschieden<\/li>\n<li>Gekündigt<\/li>\n<li>Im Ruhestand<\/li>\n<\/ul>\n\n\n<p>{{<br/>Login(Ute Schenk|elo);<br/>SelectEntry(Hans|Hansen)<br/>}}<\/p>",
+        "raw": "Personalakte mit Status:\n * In Vorbereitung\n * Vorbereitet\n * Inaktiv\n * Ausgeschieden\n * Gekündigt\n * Im Ruhestand\n\n{{\nLogin(Ute Schenk|elo);\nSelectEntry(Hans|Hansen)\n}}"
       },
       "index": 1,
       "step": {
@@ -27,8 +27,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "<p><tt>OpenFormular(Personal|Personal|Eintrittsprozess)<\/tt><\/p>",
-        "raw": "{{OpenFormular(Personal|Personal|Eintrittsprozess)}}"
+        "rendered": "<p>{{<br/>OpenFormular(Personal|Personal|Eintrittsprozess)<br/>}}<\/p>",
+        "raw": "{{\nOpenFormular(Personal|Personal|Eintrittsprozess)\n}}"
       },
       "index": 2,
       "step": {
@@ -44,8 +44,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "<p><tt>QuitButton(Speichern)<\/tt><\/p>",
-        "raw": "{{QuitButton(Speichern)}}"
+        "rendered": "<p>{{<br/>QuitButton(Speichern)<br/>}}<\/p>",
+        "raw": "{{\nQuitButton(Speichern)\n}}"
       },
       "index": 3,
       "step": {

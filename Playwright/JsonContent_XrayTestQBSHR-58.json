@@ -10,8 +10,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "<ul>\n<li>Benutzer: <raven-test-param data-mce-tabindex='-1' tabindex='-1' contenteditable='false' class=''>Benutzer<\/raven-test-param> <\/li>\n<li>Passwort<br/><tt>Login(Ute Schenk|elo)<\/tt><\/li>\n<\/ul>\n",
-        "raw": "* Benutzer: {test-param}Benutzer{test-param} \n * Passwort\n{{Login(Ute Schenk|elo)}}"
+        "rendered": "<ul>\n<li>Benutzer: <raven-test-param data-mce-tabindex='-1' tabindex='-1' contenteditable='false' class=''>Benutzer<\/raven-test-param> <\/li>\n<li>Passwort<br/>{{<br/>Login(Ute Schenk|elo)<br/>}}<\/li>\n<\/ul>\n",
+        "raw": "* Benutzer: {test-param}Benutzer{test-param} \n * Passwort\n{{\nLogin(Ute Schenk|elo)\n}}"
       },
       "index": 1,
       "step": {
@@ -27,8 +27,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "<p>Personalakte: <raven-test-param data-mce-tabindex='-1' tabindex='-1' contenteditable='false' class=''>Personalakte<\/raven-test-param><br/><tt>SelectEntry(Hans|Hansen)<\/tt><\/p>",
-        "raw": "Personalakte: {test-param}Personalakte{test-param}\n{{SelectEntry(Hans|Hansen)}}"
+        "rendered": "<p>Personalakte: <raven-test-param data-mce-tabindex='-1' tabindex='-1' contenteditable='false' class=''>Personalakte<\/raven-test-param><br/>{{<br/>SelectEntry(Hans|Hansen)<br/>}}<\/p>",
+        "raw": "Personalakte: {test-param}Personalakte{test-param}\n{{\nSelectEntry(Hans|Hansen)\n}}"
       },
       "index": 2,
       "step": {
@@ -61,8 +61,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "<p><tt>OpenFormular(Personal|Personal|Nachricht);TestShouldFail()<\/tt><\/p>",
-        "raw": "{{OpenFormular(Personal|Personal|Nachricht);TestShouldFail()}}"
+        "rendered": "<p>{{<br/>OpenFormular(Personal|Personal|Nachricht);<br/>TestShouldFail()<br/>}}<\/p>",
+        "raw": "{{\nOpenFormular(Personal|Personal|Nachricht);\nTestShouldFail()\n}}"
       },
       "index": 4,
       "step": {
@@ -95,8 +95,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "<p><tt>QuitButton(Speichern)<\/tt><\/p>",
-        "raw": "{{QuitButton(Speichern)}}"
+        "rendered": "<p>{{<br/>QuitButton(Speichern)<br/>}}<\/p>",
+        "raw": "{{\nQuitButton(Speichern)\n}}"
       },
       "index": 6,
       "step": {
@@ -112,8 +112,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "<p>Siehe TestdatenHRPersonnelFileMessages<br/><tt>OpenFormular(Personal|Personal|Nachricht);InputField(Empfänger|test-business-solutions@elo.local);InputField(Absender|test-business-solutions@elo.local);InputField(Betreff|Geschäftsnachricht);InputField(|Inhalt Geschäftsnachricht)<\/tt><\/p>",
-        "raw": "Siehe TestdatenHRPersonnelFileMessages\n{{OpenFormular(Personal|Personal|Nachricht);InputField(Empfänger|test-business-solutions@elo.local);InputField(Absender|test-business-solutions@elo.local);InputField(Betreff|Geschäftsnachricht);InputField(|Inhalt Geschäftsnachricht)}}"
+        "rendered": "<p>Siehe TestdatenHRPersonnelFileMessages<br/>{{<br/>OpenFormular(Personal|Personal|Nachricht);<br/>InputField(Empfänger|test-business-solutions@elo.local);<br/>InputField(Absender|test-business-solutions@elo.local);<br/>InputField(Betreff|Geschäftsnachricht);<br/>InputField(|Inhalt Geschäftsnachricht)<br/>}}<\/p>",
+        "raw": "Siehe TestdatenHRPersonnelFileMessages\n{{\nOpenFormular(Personal|Personal|Nachricht);\nInputField(Empfänger|test-business-solutions@elo.local);\nInputField(Absender|test-business-solutions@elo.local);\nInputField(Betreff|Geschäftsnachricht);\nInputField(|Inhalt Geschäftsnachricht)\n}}"
       },
       "index": 7,
       "step": {
@@ -129,8 +129,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "<p>Siehe TestdatenHRPersonnelFileMessages<br/><tt>SelectAttachment(Anhang hinzufügen|Solutions/PDF Export/bob ipsum PDF)<\/tt><\/p>",
-        "raw": "Siehe TestdatenHRPersonnelFileMessages\n{{SelectAttachment(Anhang hinzufügen|Solutions/PDF Export/bob ipsum PDF)}}"
+        "rendered": "<p>Siehe TestdatenHRPersonnelFileMessages<br/>{{<br/>SelectAttachment(Anhang hinzufügen|Solutions/PDF Export/bob ipsum PDF)<br/>}}<\/p>",
+        "raw": "Siehe TestdatenHRPersonnelFileMessages\n{{\nSelectAttachment(Anhang hinzufügen|Solutions/PDF Export/bob ipsum PDF)\n}}"
       },
       "index": 8,
       "step": {
@@ -163,8 +163,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "<p><tt>QuitButton(Speichern)<\/tt><\/p>",
-        "raw": "{{QuitButton(Speichern)}}"
+        "rendered": "<p>{{<br/>QuitButton(Speichern)<br/>}}<\/p>",
+        "raw": "{{\nQuitButton(Speichern)\n}}"
       },
       "index": 10,
       "step": {
@@ -279,5 +279,5 @@
   ],
   "type": "Manual",
   "key": "QBSHR-58",
-  "status": "FAIL"
+  "status": "PASS"
 }]}

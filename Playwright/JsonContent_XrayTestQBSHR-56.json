@@ -10,8 +10,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "<p><tt>Login(Ute Schenk|elo)<\/tt><\/p>",
-        "raw": "{{Login(Ute Schenk|elo)}}"
+        "rendered": "<p>{{<br/>Login(Ute Schenk|elo)<br/>}}<\/p>",
+        "raw": "{{\nLogin(Ute Schenk|elo)\n}}"
       },
       "index": 1,
       "step": {
@@ -27,8 +27,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "<p><tt>SelectTask(Stammdaten kontrollieren)<\/tt><\/p>",
-        "raw": "{{SelectTask(Stammdaten kontrollieren)}}"
+        "rendered": "<p>{{<br/>SelectTask(Stammdaten kontrollieren)<br/>}}<\/p>",
+        "raw": "{{\nSelectTask(Stammdaten kontrollieren)\n}}"
       },
       "index": 2,
       "step": {
@@ -44,8 +44,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "<p><tt>TakeWorkflow()<\/tt><\/p>",
-        "raw": "{{TakeWorkflow()}}"
+        "rendered": "<p>{{<br/>TakeWorkflow()<br/>}}<\/p>",
+        "raw": "{{\nTakeWorkflow()\n}}"
       },
       "index": 3,
       "step": {
@@ -61,8 +61,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "<p>Siehe TestdatenHRPersonnelFile<br/><tt>InputField(Probezeit Kündigungsfrist|1)<\/tt><\/p>",
-        "raw": "Siehe TestdatenHRPersonnelFile\n{{InputField(Probezeit Kündigungsfrist|1)}}"
+        "rendered": "<p>Siehe TestdatenHRPersonnelFile<br/>{{<br/>InputField(Probezeit Kündigungsfrist|1)<br/>}}<\/p>",
+        "raw": "Siehe TestdatenHRPersonnelFile\n{{\nInputField(Probezeit Kündigungsfrist|1)\n}}"
       },
       "index": 4,
       "step": {
@@ -78,8 +78,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "<p><tt>SubmitTask(Freigeben)<\/tt><\/p>",
-        "raw": "{{SubmitTask(Freigeben)}}"
+        "rendered": "<p>{{<br/>SubmitTask(Freigeben)<br/>}}<\/p>",
+        "raw": "{{\nSubmitTask(Freigeben)\n}}"
       },
       "index": 5,
       "step": {

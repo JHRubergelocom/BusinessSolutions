@@ -10,8 +10,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "<p><tt>Login(Verona Funk|elo)<\/tt><\/p>",
-        "raw": "{{Login(Verona Funk|elo)}}"
+        "rendered": "<p>{{<br/>Login(Verona Funk|elo)<br/>}}<\/p>",
+        "raw": "{{\nLogin(Verona Funk|elo)\n}}"
       },
       "index": 1,
       "step": {
@@ -27,8 +27,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "<p><tt>SelectTask(Stammdaten vervollständigen)<\/tt><\/p>",
-        "raw": "{{SelectTask(Stammdaten vervollständigen)}}"
+        "rendered": "<p>{{<br/>SelectTask(Stammdaten vervollständigen)<br/>}}<\/p>",
+        "raw": "{{\nSelectTask(Stammdaten vervollständigen)\n}}"
       },
       "index": 2,
       "step": {
@@ -44,8 +44,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "<p>Siehe TestdatenHRPersonnelFile<br/><tt>InputField(Probezeit Kündigungsfrist|2)<\/tt><\/p>",
-        "raw": "Siehe TestdatenHRPersonnelFile\n{{InputField(Probezeit Kündigungsfrist|2)}}"
+        "rendered": "<p>Siehe TestdatenHRPersonnelFile<br/>{{<br/>InputField(Probezeit Kündigungsfrist|2)<br/>}}<\/p>",
+        "raw": "Siehe TestdatenHRPersonnelFile\n{{\nInputField(Probezeit Kündigungsfrist|2)\n}}"
       },
       "index": 3,
       "step": {
@@ -61,8 +61,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "<p><tt>SubmitTask(OK)<\/tt><\/p>",
-        "raw": "{{SubmitTask(OK)}}"
+        "rendered": "<p>{{<br/>SubmitTask(OK)<br/>}}<\/p>",
+        "raw": "{{\nSubmitTask(OK)\n}}"
       },
       "index": 4,
       "step": {

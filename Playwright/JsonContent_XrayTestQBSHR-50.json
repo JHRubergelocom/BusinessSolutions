@@ -10,8 +10,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "",
-        "raw": ""
+        "rendered": "<p>{{<br/>  Login(Ute Schenk|elo)<br/>}}<\/p>",
+        "raw": "{{\n  Login(Ute Schenk|elo)\n}}"
       },
       "index": 1,
       "step": {
@@ -27,8 +27,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "<p>login=<span class=\"error\">&#91;Ute Schenk=elo=ruberg-hr.dev.elo&#93;<\/span><br/>testshouldfail=<span class=\"error\">&#91;true&#93;<\/span><br/>formular=<span class=\"error\">&#91;null=OK=Abbrechen=external=Neu=Personal=Neuer Mitarbeiter&#93;<\/span><\/p>",
-        "raw": "login=[Ute Schenk=elo=ruberg-hr.dev.elo]\ntestshouldfail=[true]\nformular=[null=OK=Abbrechen=external=Neu=Personal=Neuer Mitarbeiter]"
+        "rendered": "<p>{{<br/> OpenFormular(Neu|Personal|Neuer Mitarbeiter)<br/>}}<\/p>",
+        "raw": "{{\n OpenFormular(Neu|Personal|Neuer Mitarbeiter)\n}}"
       },
       "index": 2,
       "step": {
@@ -44,8 +44,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "",
-        "raw": ""
+        "rendered": "<p>{{<br/> TestShouldFail();<br/> QuitButton(Speichern)<br/>}}<\/p>",
+        "raw": "{{\n TestShouldFail();\n QuitButton(Speichern)\n}}"
       },
       "index": 3,
       "step": {
@@ -61,8 +61,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "<p>Siehe TestdatenHRPersonnelFile<br/>tabpage=<span class=\"error\">&#91;null&#93;<\/span><br/>inputcontrols=<span class=\"error\">&#91;IX_GRP_HR_PERSONNEL_FIRSTNAME=Hans=TEXT;IX_GRP_HR_PERSONNEL_LASTNAME=Hansen=TEXT&#93;<\/span><br/>formular=<span class=\"error\">&#91;null=OK=Abbrechen=external=Neu=Personal=Neuer Mitarbeiter&#93;<\/span><\/p>",
-        "raw": "Siehe TestdatenHRPersonnelFile\ntabpage=[null]\ninputcontrols=[IX_GRP_HR_PERSONNEL_FIRSTNAME=Hans=TEXT;IX_GRP_HR_PERSONNEL_LASTNAME=Hansen=TEXT]\nformular=[null=OK=Abbrechen=external=Neu=Personal=Neuer Mitarbeiter]"
+        "rendered": "<p>Siehe TestdatenHRPersonnelFile<br/>{{<br/>OpenFormular(Neu|Personal|Neuer Mitarbeiter);<br/>InputField(Vorname|Hans);<br/>InputField(Nachname|Hansen);<br/>InputField(Personalverantwortlicher|HR)<br/>}}<\/p>",
+        "raw": "Siehe TestdatenHRPersonnelFile\n{{\nOpenFormular(Neu|Personal|Neuer Mitarbeiter);\nInputField(Vorname|Hans);\nInputField(Nachname|Hansen);\nInputField(Personalverantwortlicher|HR)\n}}"
       },
       "index": 4,
       "step": {
@@ -78,8 +78,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "<p>tabpage=<span class=\"error\">&#91;null&#93;<\/span><br/>checkcontrols=<span class=\"error\">&#91;IX_GRP_HR_PERSONNEL_FIRSTNAME=Hans=TEXT=EQUAL;IX_GRP_HR_PERSONNEL_LASTNAME=Hansen=TEXT=EQUAL;IX_NAME=Hansen, Hans=TEXT=EQUAL;IX_GRP_HR_PERSONNEL_PERSONNELNO=null=TEXT=EXIST&#93;<\/span><br/>formular=<span class=\"error\">&#91;null=null=null=viewer&#93;<\/span><\/p>",
-        "raw": "tabpage=[null]\ncheckcontrols=[IX_GRP_HR_PERSONNEL_FIRSTNAME=Hans=TEXT=EQUAL;IX_GRP_HR_PERSONNEL_LASTNAME=Hansen=TEXT=EQUAL;IX_NAME=Hansen, Hans=TEXT=EQUAL;IX_GRP_HR_PERSONNEL_PERSONNELNO=null=TEXT=EXIST]\nformular=[null=null=null=viewer]"
+        "rendered": "<p>{{<br/>QuitButton(Speichern);<br/>SelectViewerForm();<br/>CheckFieldEqual(Vorname|Hans);<br/>CheckFieldEqual(Nachname|Hansen);<br/>CheckFieldEqual(KurzbezeichnungPersonal|Hansen, Hans);<br/>CheckFieldExist(Personalnummer)<br/>}}<\/p>",
+        "raw": "{{\nQuitButton(Speichern);\nSelectViewerForm();\nCheckFieldEqual(Vorname|Hans);\nCheckFieldEqual(Nachname|Hansen);\nCheckFieldEqual(KurzbezeichnungPersonal|Hansen, Hans);\nCheckFieldExist(Personalnummer)\n}}"
       },
       "index": 5,
       "step": {
@@ -95,8 +95,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "<p>tabpage=<span class=\"error\">&#91;Persönlich&#93;<\/span><br/>checkcontrols=<span class=\"error\">&#91;IX_GRP_HR_PERSONNEL_FIRSTNAME=Hans=TEXT=EQUAL;IX_GRP_HR_PERSONNEL_LASTNAME=Hansen=TEXT=EQUAL;IX_GRP_HR_PERSONNEL_COUNTRY=DE - Deutschland=KWL=EQUAL&#93;<\/span><br/>formular=<span class=\"error\">&#91;null=null=null=viewer&#93;<\/span><\/p>",
-        "raw": "tabpage=[Persönlich]\ncheckcontrols=[IX_GRP_HR_PERSONNEL_FIRSTNAME=Hans=TEXT=EQUAL;IX_GRP_HR_PERSONNEL_LASTNAME=Hansen=TEXT=EQUAL;IX_GRP_HR_PERSONNEL_COUNTRY=DE - Deutschland=KWL=EQUAL]\nformular=[null=null=null=viewer]"
+        "rendered": "<p>{{<br/>SelectTabPage(Persönlich);<br/>CheckFieldEqual(Vorname|Hans);<br/>CheckFieldEqual(Nachname|Hansen);<br/>CheckFieldEqual(Land|DE - Deutschland)<br/>}}<\/p>",
+        "raw": "{{\nSelectTabPage(Persönlich);\nCheckFieldEqual(Vorname|Hans);\nCheckFieldEqual(Nachname|Hansen);\nCheckFieldEqual(Land|DE - Deutschland)\n}}"
       },
       "index": 6,
       "step": {
@@ -112,8 +112,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "<p>tabpage=<span class=\"error\">&#91;Personal&#93;<\/span><br/>checkcontrols=<span class=\"error\">&#91;IX_GRP_HR_PERSONNEL_PERSONNELSTATUS=O - In Vorbereitung=KWL=EQUAL;IX_GRP_HR_PERSONNEL_PERSONNELNO=null=TEXT=EXIST;IX_GRP_HR_PERSONNEL_RESPONSIBLE=HR=DYNKWL=EQUAL&#93;<\/span><br/>formular=<span class=\"error\">&#91;null=null=null=viewer&#93;<\/span><\/p>",
-        "raw": "tabpage=[Personal]\ncheckcontrols=[IX_GRP_HR_PERSONNEL_PERSONNELSTATUS=O - In Vorbereitung=KWL=EQUAL;IX_GRP_HR_PERSONNEL_PERSONNELNO=null=TEXT=EXIST;IX_GRP_HR_PERSONNEL_RESPONSIBLE=HR=DYNKWL=EQUAL]\nformular=[null=null=null=viewer]"
+        "rendered": "<p>{{<br/>SelectTabPage(Personal);<br/>CheckFieldExist(Personalnummer);<br/>CheckFieldEqual(Personalverantwortlicher|HR);<br/>CheckFieldEqual(Status|O - In Vorbereitung)<br/>}}<\/p>",
+        "raw": "{{\nSelectTabPage(Personal);\nCheckFieldExist(Personalnummer);\nCheckFieldEqual(Personalverantwortlicher|HR);\nCheckFieldEqual(Status|O - In Vorbereitung)\n}}"
       },
       "index": 7,
       "step": {
@@ -129,8 +129,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "<p>tabpage=<span class=\"error\">&#91;Ein-/ Austritt&#93;<\/span><br/>checkcontrols=<span class=\"error\">&#91;IX_MAP_HR_PERSONNEL_PERIODOFNOTICE=3=TEXT=EQUAL;IX_MAP_HR_PERSONNEL_PERIODOFNOTICE_UNIT=M - Monate=KWL=EQUAL;IX_MAP_HR_PERSONNEL_PERIODOFNOTICE_TP=Q - Quartalsende=KWL=EQUAL;IX_MAP_HR_PERSONNEL_PROBATIONARYPERIODDURATION_UNIT=M - Monate=KWL=EQUAL;IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY_TP=d - Tag=KWL=EQUAL;IX_MAP_HR_PERSONNEL_NEXTPOSSIBLEDISMISSAL=null=TEXT=EXIST&#93;<\/span><br/>formular=<span class=\"error\">&#91;null=null=null=viewer&#93;<\/span><\/p>",
-        "raw": "tabpage=[Ein-/ Austritt]\ncheckcontrols=[IX_MAP_HR_PERSONNEL_PERIODOFNOTICE=3=TEXT=EQUAL;IX_MAP_HR_PERSONNEL_PERIODOFNOTICE_UNIT=M - Monate=KWL=EQUAL;IX_MAP_HR_PERSONNEL_PERIODOFNOTICE_TP=Q - Quartalsende=KWL=EQUAL;IX_MAP_HR_PERSONNEL_PROBATIONARYPERIODDURATION_UNIT=M - Monate=KWL=EQUAL;IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY_TP=d - Tag=KWL=EQUAL;IX_MAP_HR_PERSONNEL_NEXTPOSSIBLEDISMISSAL=null=TEXT=EXIST]\nformular=[null=null=null=viewer]"
+        "rendered": "<p>{{<br/>SelectTabPage(Ein-/ Austritt);<br/>CheckFieldEqual(Kündigungsfrist|3);<br/>CheckFieldEqual(Kündigungsfrist Einheit|M - Monate);<br/>CheckFieldEqual(Kündigung zum|Q - Quartalsende);<br/>CheckFieldEqual(Probezeit Einheit|M - Monate);<br/>CheckFieldEqual(Probezeit Kündigung zum|d - Tag);<br/>CheckFieldExist(Frühestmögliches Datum)<br/>}}<\/p>",
+        "raw": "{{\nSelectTabPage(Ein-/ Austritt);\nCheckFieldEqual(Kündigungsfrist|3);\nCheckFieldEqual(Kündigungsfrist Einheit|M - Monate);\nCheckFieldEqual(Kündigung zum|Q - Quartalsende);\nCheckFieldEqual(Probezeit Einheit|M - Monate);\nCheckFieldEqual(Probezeit Kündigung zum|d - Tag);\nCheckFieldExist(Frühestmögliches Datum)\n}}"
       },
       "index": 8,
       "step": {
@@ -146,8 +146,8 @@
       },
       "attachments": [],
       "data": {
-        "rendered": "<p>acl=<span class=\"error\">&#91;ARCPATH:/Personalmanagement/Personalakten/H/Hansen, Hans&#93;<\/span><\/p>",
-        "raw": "acl=[ARCPATH:/Personalmanagement/Personalakten/H/Hansen, Hans]"
+        "rendered": "<p>{{<br/>ShowPermission(Hans|Hansen)<br/>}}<\/p>",
+        "raw": "{{\nShowPermission(Hans|Hansen)\n}}"
       },
       "index": 9,
       "step": {
@@ -202,5 +202,5 @@
   ],
   "type": "Manual",
   "key": "QBSHR-50",
-  "status": "FAIL"
+  "status": "PASS"
 }]}

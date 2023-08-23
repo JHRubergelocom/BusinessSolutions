@@ -1,0 +1,14 @@
+{{
+  Login(Ute Schenk|elo);
+  SelectEntry(Hans|Hansen);
+  OpenFormular(Personal|Personal|Nachricht);
+  TestShouldFail();
+  QuitButton(Speichern);
+  OpenFormular(Personal|Personal|Nachricht);
+  InputField(Empfänger|test-business-solutions@elo.local);
+  InputField(Absender|test-business-solutions@elo.local);
+  InputField(Betreff|Geschäftsnachricht);
+  InputField(|Inhalt Geschäftsnachricht);  
+  SelectAttachment(Anhang hinzufügen|Solutions/PDF Export/bob ipsum PDF);
+  QuitButton(Speichern);
+}}
