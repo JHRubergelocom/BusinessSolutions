@@ -1667,13 +1667,110 @@ Datenstrukter ELOAction/ELOTask (IActionTask) erweitern, welcher Button am Ende 
 }}
 
 
-SelectViewerForm()
 
 
-    private final List<ELOControl> inputControls;
-    private final List<ELOCheckValueControl> checkValueControls;
+{{
+  Login(Ute Schenk|elo);
+  SelectEntry(Hans|Hansen);
+  OpenFormular(Personal|Personal|Nachricht);
+  InputField(Empfänger|test-business-solutions@elo.local);
+  InputField(Absender|test-business-solutions@elo.local);
+  InputField(Betreff|Geschäftsnachricht);
+  InputField(|Inhalt Geschäftsnachricht);  
+  SelectAttachment(Anhang hinzufügen|Solutions/PDF Export/bob ipsum PDF);
+  QuitButton(Speichern);
+  SelectEntry(Hans|Hansen);
+  SelectSubEntry(Korrespondenz/Geschäftsnachricht);
+  SelectViewerForm()
+}}
 
 
 
 
-https://eloticksy.elo.com/browse/QBSHR-58
+
+
+
+TODO Weitere Tests ab 11.09.2023
+
+https://eloticksy.elo.com/browse/QBSHR-78
+
+
+{{
+  Login(Ute Schenk|elo);
+  SelectFolder(Solutions/Personalmanagement/Personalakten/K/Kraft, Bodo);
+  OpenFormular(Personal|Personal|Nachricht);
+  InputField(Vorlage|Clips_v1);
+  InputField(Empfänger|test-business-solutions@elo.local);
+  CheckFieldEqual(Absender|personal@contelo.com);
+  QuitButton(Speichern);
+}}
+
+
+
+{{Login({test-param}Benutzer{test-param}|elo)}}
+
+SelectFolder(FolderPath);
+
+SelectFolder(Solutions/Personalmanagement/Personalakten/K/Kraft, Bodo)
+
+
+Nachrichten Vorlage "Clips_v1" erstellen (siehe https://eloticksy.elo.com/browse/QBSHR-76)
+
+<!--StartFragment--><ul>
+<li>Abteilung: {{sord.objKeys.HR_PERSONNEL_DEPARTMENT}}&nbsp;</li><li>Austrittsdatum: {{formatDate 'DD.MM.YYYY' sord.objKeys.HR_PERSONNEL_DATEOFLEAVING}}&nbsp;</li><li>Bereich: {{sord.objKeys.HR_PERSONNEL_DIVISION}}&nbsp;</li><li>Bundesland: {{sord.mapKeys.HR_PERSONNEL_STATE}}&nbsp;</li><li>Eintrittsdatum: {{formatDate 'DD.MM.YYYY' sord.objKeys.HR_PERSONNEL_DATEOFJOINING}}&nbsp;</li><li>Ende der Probezeit: {{formatDate 'DD.MM.YYYY' sord.objKeys.HR_PERSONNEL_ENDOFPROBATIONARY}}&nbsp;</li><li>Fachlich Versantworlticher: {{sord.objKeys.HR_PERSONNEL_MENTOR}}&nbsp;</li><li>Land: {{sord.objKeys.HR_PERSONNEL_COUNTRY}}&nbsp;</li><li>Letzter Arbeitstag: {{formatDate 'DD.MM.YYYY' sord.objKeys.HR_PERSONNEL_LASTDAYOFWORK}}&nbsp;</li><li>Nachname: {{sord.objKeys.HR_PERSONNEL_LASTNAME}}</li><li> Personalnummer: {{sord.objKeys.HR_PERSONNEL_PERSONNELNO}}</li><li> Postleitzahl: {{sord.objKeys.HR_PERSONNEL_POSTALCODE}}&nbsp;</li><li>Standort: {{sord.objKeys.HR_PERSONNEL_LOCATION}}&nbsp;</li><li>Stellenbezeichnung: {{sord.objKeys.HR_PERSONNEL_JOBTITLE}}</li><li> Straße: {{sord.mapKeys.HR_PERSONNEL_STREETADDRESS}}&nbsp;</li><li>Team: {{sord.objKeys.HR_PERSONNEL_TEAM}}&nbsp;</li><li>Titel: {{sord.objKeys.HR_PERSONNEL_TITLE}}&nbsp;</li><li>Vorgesetzter: {{sord.objKeys.HR_PERSONNEL_SUPERIOR}}&nbsp;</li><li>Vorname: {{sord.objKeys.HR_PERSONNEL_FIRSTNAME}}</li><li> Wohnort: {{sord.objKeys.HR_PERSONNEL_CITY}}</li>
+</ul>
+<!--EndFragment-->
+
+
+Datenstruktur Vorbedingungen
+
+preconditions {
+	groups: {group, ... }	
+	users: {{user1, group1}, ... }
+	templates: {
+		template1, 
+		....		
+	}
+}
+
+template: { 
+	arcPath: "Personalmanagement/Nachrichtenvorlagen/Clips_v1"
+	createAction: {
+		eloControls: [
+		    Name: Clips_v1,
+			Von: Personalabteilung <personal@contelo.com>,
+			....
+		],
+		actionDefinition: [
+		   name: "sol.hr.personnel.EmployeeCorrespondenceTemplate"
+		]
+		
+	}	
+}
+	
+
+
+
+
+
+Nachrichten Vorlage erstellen analog Unittest durchführen!
+
+Austrittsdatum: 11.09.2023
+
+expectedValueControls.add(new ELOCheckValueControl("IX_DESC", "Beschreibung Meeting1", ELOControlType.REDACTOR, ELOCheckValueOperator.EQUAL));
+
+
+
+
+test-business-solutions@elo.local
+
+test-business-solutions@elo.local
+
+https://eloticksy.elo.com/browse/QBSHR-77
+
+https://eloticksy.elo.com/browse/QBSHR-75
+
+https://eloticksy.elo.com/browse/QBSHR-64
+
+https://eloticksy.elo.com/browse/QBSHR-11
+

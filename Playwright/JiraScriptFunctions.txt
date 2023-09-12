@@ -1,14 +1,13 @@
 {{
-  Login(Ute Schenk|elo);
-  SelectEntry(Hans|Hansen);
-  OpenFormular(Personal|Personal|Nachricht);
-  TestShouldFail();
-  QuitButton(Speichern);
-  OpenFormular(Personal|Personal|Nachricht);
-  InputField(Empfänger|test-business-solutions@elo.local);
-  InputField(Absender|test-business-solutions@elo.local);
-  InputField(Betreff|Geschäftsnachricht);
-  InputField(|Inhalt Geschäftsnachricht);  
-  SelectAttachment(Anhang hinzufügen|Solutions/PDF Export/bob ipsum PDF);
-  QuitButton(Speichern);
+  Login(Ute Schenk|elo)##
+  SelectFolder(Solutions/Personalmanagement/Personalakten/K/Kraft, Bodo)##
+  OpenFormular(Personal|Personal|Nachricht)##
+  InputField(Vorlage|Clips_v1)##
+  InputField(Empfänger|test-business-solutions@elo.local)##
+  CheckFieldEqual(Absender|Personalabteilung <personal@contelo.com>)##
+  CheckFieldEqual(Betreff|Test mit allen Clips)##
+  CheckFieldEqual(Nachricht|<!--StartFragment--><ul><li>Abteilung: &nbsp;</li><li>Austrittsdatum: 12.09.2023&nbsp;</li><li>Bereich: Geschäftsführung&nbsp;</li><li>Bundesland: Baden-Württemberg&nbsp;</li><li>Eintrittsdatum: 05.01.1998&nbsp;</li><li>Ende der Probezeit: 12.09.2023&nbsp;</li><li>Fachlich Versantworlticher: &nbsp;</li><li>Land: DE - Deutschland&nbsp;</li><li>Letzter Arbeitstag: 12.09.2023&nbsp;</li><li>Nachname: Kraft</li><li> Personalnummer: D0000001</li><li> Postleitzahl: 70376&nbsp;</li><li>Standort: Zentrale&nbsp;</li><li>Stellenbezeichnung: CEO</li><li> Straße: Thomastraße 17&nbsp;</li><li>Team: &nbsp;</li><li>Titel: &nbsp;</li><li>Vorgesetzter: Gerd Baum&nbsp;</li><li>Vorname: Bodo</li><li> Wohnort: Stuttgart</li></ul><!--EndFragment-->)##
+  QuitButton(Speichern)##
+  SelectSubEntry(Korrespondenz/Test mit allen Clips)##
+  SelectViewerForm();
 }}
