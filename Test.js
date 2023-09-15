@@ -1360,9 +1360,9 @@ TODO 11.09.2023
 Playwright Testcases QS BS HR Personnel File Xray REST API
 
 
-BS Intern BSXX-501 Testautomatisierung mit Playwright
+BS Intern BSXX-504 Testautomatisierung mit Playwright
 
-https://eloticksy.elo.com/browse/BSXX-501
+https://eloticksy.elo.com/browse/BSXX-504
 
 
 
@@ -1372,11 +1372,6 @@ Ideen für Erweiterungen automatisierte Tests
 
 
 Playwright Testcases QS BS HR Personnel File Xray REST API
-
-
-
-Playwright Testcases QS BS HR Personnel File Xray REST API
-
 
 
 Ideen für Erweiterungen automatisierte Tests
@@ -1717,12 +1712,12 @@ SelectFolder(Solutions/Personalmanagement/Personalakten/K/Kraft, Bodo)
 Nachrichten Vorlage "Clips_v1" erstellen (siehe https://eloticksy.elo.com/browse/QBSHR-76)
 
 <!--StartFragment--><ul>
-<li>Abteilung: {{sord.objKeys.HR_PERSONNEL_DEPARTMENT}}&nbsp;</li><li>Austrittsdatum: {{formatDate 'DD.MM.YYYY' sord.objKeys.HR_PERSONNEL_DATEOFLEAVING}}&nbsp;</li><li>Bereich: {{sord.objKeys.HR_PERSONNEL_DIVISION}}&nbsp;</li><li>Bundesland: {{sord.mapKeys.HR_PERSONNEL_STATE}}&nbsp;</li><li>Eintrittsdatum: {{formatDate 'DD.MM.YYYY' sord.objKeys.HR_PERSONNEL_DATEOFJOINING}}&nbsp;</li><li>Ende der Probezeit: {{formatDate 'DD.MM.YYYY' sord.objKeys.HR_PERSONNEL_ENDOFPROBATIONARY}}&nbsp;</li><li>Fachlich Versantworlticher: {{sord.objKeys.HR_PERSONNEL_MENTOR}}&nbsp;</li><li>Land: {{sord.objKeys.HR_PERSONNEL_COUNTRY}}&nbsp;</li><li>Letzter Arbeitstag: {{formatDate 'DD.MM.YYYY' sord.objKeys.HR_PERSONNEL_LASTDAYOFWORK}}&nbsp;</li><li>Nachname: {{sord.objKeys.HR_PERSONNEL_LASTNAME}}</li><li> Personalnummer: {{sord.objKeys.HR_PERSONNEL_PERSONNELNO}}</li><li> Postleitzahl: {{sord.objKeys.HR_PERSONNEL_POSTALCODE}}&nbsp;</li><li>Standort: {{sord.objKeys.HR_PERSONNEL_LOCATION}}&nbsp;</li><li>Stellenbezeichnung: {{sord.objKeys.HR_PERSONNEL_JOBTITLE}}</li><li> Straße: {{sord.mapKeys.HR_PERSONNEL_STREETADDRESS}}&nbsp;</li><li>Team: {{sord.objKeys.HR_PERSONNEL_TEAM}}&nbsp;</li><li>Titel: {{sord.objKeys.HR_PERSONNEL_TITLE}}&nbsp;</li><li>Vorgesetzter: {{sord.objKeys.HR_PERSONNEL_SUPERIOR}}&nbsp;</li><li>Vorname: {{sord.objKeys.HR_PERSONNEL_FIRSTNAME}}</li><li> Wohnort: {{sord.objKeys.HR_PERSONNEL_CITY}}</li>
+<li>Abteilung: {{sord.objKeys.HR_PERSONNEL_DEPARTMENT}}</li><li>Austrittsdatum: {{formatDate 'DD.MM.YYYY' sord.objKeys.HR_PERSONNEL_DATEOFLEAVING}}</li><li>Bereich: {{sord.objKeys.HR_PERSONNEL_DIVISION}}</li><li>Bundesland: {{sord.mapKeys.HR_PERSONNEL_STATE}}</li><li>Eintrittsdatum: {{formatDate 'DD.MM.YYYY' sord.objKeys.HR_PERSONNEL_DATEOFJOINING}}</li><li>Ende der Probezeit: {{formatDate 'DD.MM.YYYY' sord.objKeys.HR_PERSONNEL_ENDOFPROBATIONARY}}</li><li>Fachlich Versantworlticher: {{sord.objKeys.HR_PERSONNEL_MENTOR}}</li><li>Land: {{sord.objKeys.HR_PERSONNEL_COUNTRY}}</li><li>Letzter Arbeitstag: {{formatDate 'DD.MM.YYYY' sord.objKeys.HR_PERSONNEL_LASTDAYOFWORK}}</li><li>Nachname: {{sord.objKeys.HR_PERSONNEL_LASTNAME}}</li><li> Personalnummer: {{sord.objKeys.HR_PERSONNEL_PERSONNELNO}}</li><li> Postleitzahl: {{sord.objKeys.HR_PERSONNEL_POSTALCODE}}</li><li>Standort: {{sord.objKeys.HR_PERSONNEL_LOCATION}}</li><li>Stellenbezeichnung: {{sord.objKeys.HR_PERSONNEL_JOBTITLE}}</li><li> Straße: {{sord.mapKeys.HR_PERSONNEL_STREETADDRESS}}</li><li>Team: {{sord.objKeys.HR_PERSONNEL_TEAM}}</li><li>Titel: {{sord.objKeys.HR_PERSONNEL_TITLE}}</li><li>Vorgesetzter: {{sord.objKeys.HR_PERSONNEL_SUPERIOR}}</li><li>Vorname: {{sord.objKeys.HR_PERSONNEL_FIRSTNAME}}</li><li> Wohnort: {{sord.objKeys.HR_PERSONNEL_CITY}}</li>
 </ul>
 <!--EndFragment-->
 
 
-Datenstruktur Vorbedingungen
+Datenstruktur Vorbedingungen Konzept
 
 preconditions {
 	groups: {group, ... }	
@@ -1737,9 +1732,16 @@ template: {
 	arcPath: "Personalmanagement/Nachrichtenvorlagen/Clips_v1"
 	createAction: {
 		eloControls: [
-		    Name: Clips_v1,
-			Von: Personalabteilung <personal@contelo.com>,
-			....
+		    Name: Clips_v1,	"IX_NAME"
+			Von: Personalabteilung <personal@contelo.com>,  "IX_MAP_HR_PERSONNEL_SENDER"
+			Betreff: Test mit allen Clips "IX_GRP_COMMUNICATION_SUBJECT"
+			Nachricht: <!--StartFragment--><ul>
+<li>Abteilung: {{sord.objKeys.HR_PERSONNEL_DEPARTMENT}}</li><li>Austrittsdatum: {{formatDate 'DD.MM.YYYY' sord.objKeys.HR_PERSONNEL_DATEOFLEAVING}}</li><li>Bereich: {{sord.objKeys.HR_PERSONNEL_DIVISION}}</li><li>Bundesland: {{sord.mapKeys.HR_PERSONNEL_STATE}}</li><li>Eintrittsdatum: {{formatDate 'DD.MM.YYYY' sord.objKeys.HR_PERSONNEL_DATEOFJOINING}}</li><li>Ende der Probezeit: {{formatDate 'DD.MM.YYYY' sord.objKeys.HR_PERSONNEL_ENDOFPROBATIONARY}}</li><li>Fachlich Versantworlticher: {{sord.objKeys.HR_PERSONNEL_MENTOR}}</li><li>Land: {{sord.objKeys.HR_PERSONNEL_COUNTRY}}</li><li>Letzter Arbeitstag: {{formatDate 'DD.MM.YYYY' sord.objKeys.HR_PERSONNEL_LASTDAYOFWORK}}</li><li>Nachname: {{sord.objKeys.HR_PERSONNEL_LASTNAME}}</li><li> Personalnummer: {{sord.objKeys.HR_PERSONNEL_PERSONNELNO}}</li><li> Postleitzahl: {{sord.objKeys.HR_PERSONNEL_POSTALCODE}}</li><li>Standort: {{sord.objKeys.HR_PERSONNEL_LOCATION}}</li><li>Stellenbezeichnung: {{sord.objKeys.HR_PERSONNEL_JOBTITLE}}</li><li> Straße: {{sord.mapKeys.HR_PERSONNEL_STREETADDRESS}}</li><li>Team: {{sord.objKeys.HR_PERSONNEL_TEAM}}</li><li>Titel: {{sord.objKeys.HR_PERSONNEL_TITLE}}</li><li>Vorgesetzter: {{sord.objKeys.HR_PERSONNEL_SUPERIOR}}</li><li>Vorname: {{sord.objKeys.HR_PERSONNEL_FIRSTNAME}}</li><li> Wohnort: {{sord.objKeys.HR_PERSONNEL_CITY}}</li>
+</ul>
+<!--EndFragment-->
+			"IX_DESC"
+			
+			
 		],
 		actionDefinition: [
 		   name: "sol.hr.personnel.EmployeeCorrespondenceTemplate"
@@ -1747,18 +1749,110 @@ template: {
 		
 	}	
 }
-	
+
+
+
+TODO 18.09.2023
+
+
+Datenstrukturen Vorbedingungen (Templates, User) entwickeln!
+
+
+
+Das Feld "Redactor box" hat folgenden Daten:
+
+Text: Clip inhalt
+ * Abteilung: {test-param}Abteilung{test-param} 
+ * Austrittsdatum: {color:#de350b}aktuelles Datum{color}
+ * Bereich: {test-param}Bereich{test-param} 
+ * Bundesland: {test-param}Bundesland{test-param} 
+ * Eintrittsdatum: {test-param}Eintrittsdatum{test-param} 
+ * Ende der Probezeit: {test-param}Ende der Probezeit{test-param} 
+ * Fachlich Verantwortlicher: {test-param}Fachlich Verantwortlicher{test-param} 
+ * Land: {test-param}Land{test-param} 
+ * Letzter Arbeitstag: {color:#de350b}aktuelles Datum{color}
+ * Nachname: {test-param}Nachname{test-param} 
+ * Personalnummer: {test-param}Personalnummer{test-param} 
+ * Postleitzahl: {test-param}Postleitzahl{test-param} 
+ * Standort: {test-param}Standort{test-param} 
+ * Stellenbezeichnung: {test-param}Stellenbezeichnung{test-param} 
+ * Straße: {test-param}Straße{test-param} 
+ * Team: leer
+ * Titel: leer
+ * Vorgesetzter: {test-param}Vorgesetzter{test-param} 
+ * Vorname: {test-param}Vorname{test-param} 
+ * Wohnort: {test-param}Wohnort{test-param}
+ 
+ 
+ 
+<!--StartFragment-->
+<ul>
+<li>Abteilung: {{sord.objKeys.HR_PERSONNEL_DEPARTMENT}}</li>
+<li>Austrittsdatum: {{formatDate 'DD.MM.YYYY' sord.objKeys.HR_PERSONNEL_DATEOFLEAVING}}</li>
+<li>Bereich: {{sord.objKeys.HR_PERSONNEL_DIVISION}}</li>
+<li>Bundesland: {{sord.mapKeys.HR_PERSONNEL_STATE}}</li>
+<li>Eintrittsdatum: {{formatDate 'DD.MM.YYYY' sord.objKeys.HR_PERSONNEL_DATEOFJOINING}}</li>
+<li>Ende der Probezeit: {{formatDate 'DD.MM.YYYY' sord.objKeys.HR_PERSONNEL_ENDOFPROBATIONARY}}</li>
+<li>Fachlich Versantworlticher: {{sord.objKeys.HR_PERSONNEL_MENTOR}}</li>
+<li>Land: {{sord.objKeys.HR_PERSONNEL_COUNTRY}}</li><li>Letzter Arbeitstag: {{formatDate 'DD.MM.YYYY' sord.objKeys.HR_PERSONNEL_LASTDAYOFWORK}}</li>
+<li>Nachname: {{sord.objKeys.HR_PERSONNEL_LASTNAME}}</li>
+<li>Personalnummer: {{sord.objKeys.HR_PERSONNEL_PERSONNELNO}}</li>
+<li>Postleitzahl: {{sord.objKeys.HR_PERSONNEL_POSTALCODE}}</li>
+<li>Standort: {{sord.objKeys.HR_PERSONNEL_LOCATION}}</li>
+<li>Stellenbezeichnung: {{sord.objKeys.HR_PERSONNEL_JOBTITLE}}</li>
+<li> Straße: {{sord.mapKeys.HR_PERSONNEL_STREETADDRESS}}</li>
+<li>Team: {{sord.objKeys.HR_PERSONNEL_TEAM}}</li>
+<li>Titel: {{sord.objKeys.HR_PERSONNEL_TITLE}}</li>
+<li>Vorgesetzter: {{sord.objKeys.HR_PERSONNEL_SUPERIOR}}</li>
+<li>Vorname: {{sord.objKeys.HR_PERSONNEL_FIRSTNAME}}</li>
+<li>Wohnort: {{sord.objKeys.HR_PERSONNEL_CITY}}</li>
+</ul>
+<!--EndFragment-->
+ 
+
+
+{{CheckFieldEqual(Nachricht|<!--StartFragment-->
+<ul>
+<li>Abteilung: {test-param}Abteilung{test-param}</li>
+<li>Austrittsdatum: nowDate</li>
+<li>Bereich: {test-param}Bereich{test-param}</li>
+<li>Bundesland: {test-param}Bundesland{test-param}</li>
+<li>Eintrittsdatum: {test-param}Eintrittsdatum{test-param}</li>
+<li>Ende der Probezeit: {test-param}Ende der Probezeit{test-param}</li>
+<li>Fachlich Versantworlticher: {test-param}Fachlich Verantwortlicher{test-param}</li>
+<li>Land: {test-param}Land{test-param}</li><li>Letzter Arbeitstag: nowDate</li>
+<li>Nachname: {test-param}Nachname{test-param}</li>
+<li>Personalnummer: {test-param}Personalnummer{test-param}</li>
+<li>Postleitzahl: {test-param}Postleitzahl{test-param}</li>
+<li>Standort: {test-param}Standort{test-param}</li>
+<li>Stellenbezeichnung: {test-param}Stellenbezeichnung{test-param}</li>
+<li>Straße: {test-param}Straße{test-param}</li>
+<li>Team: </li>
+<li>Titel: </li>
+<li>Vorgesetzter: {test-param}Vorgesetzter{test-param}</li>
+<li>Vorname: {test-param}Vorname{test-param}</li>
+<li>Wohnort: {test-param}Wohnort{test-param}</li>
+</ul>
+<!--EndFragment-->
+)}}
 
 
 
 
+hr_test_org_viewers
+hr_test_managers
+rh_test_org_creators
+hr_test_editors
+hr_test_doc_creators
+hr_test_creators
 
-Nachrichten Vorlage erstellen analog Unittest durchführen!
+
+CreateUser und Gruppen anlegen
+
+
+
 
 Austrittsdatum: 11.09.2023
-
-expectedValueControls.add(new ELOCheckValueControl("IX_DESC", "Beschreibung Meeting1", ELOControlType.REDACTOR, ELOCheckValueOperator.EQUAL));
-
 
 
 
