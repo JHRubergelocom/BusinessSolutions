@@ -56,11 +56,5 @@
     }
   ],
   "eloTasks": [],
-  "eloDeletes": [],
-  "eloForwardWorkflow": {
-    "toNodesName": [
-      "sol.common.wf.node.ok"
-    ]
-  },
-  "eloRfs": []
+  "eloDeletes": []
 }

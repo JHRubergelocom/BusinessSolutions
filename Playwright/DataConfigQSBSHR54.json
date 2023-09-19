@@ -49,9 +49,5 @@
       "selectedButton": "SAVE"
     }
   ],
-  "eloDeletes": [],
-  "eloForwardWorkflow": {
-    "toNodesName": []
-  },
-  "eloRfs": []
+  "eloDeletes": []
 }

@@ -26,9 +26,5 @@
   "eloTasks": [],
   "eloDeletes": [
     "ARCPATH:/Personalmanagement/Personalakten/H/Hansen, Hans"
-  ],
-  "eloForwardWorkflow": {
-    "toNodesName": []
-  },
-  "eloRfs": []
+  ]
 }

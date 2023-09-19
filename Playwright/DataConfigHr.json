@@ -418,9 +418,5 @@
   "eloDeletes": [
     "ARCPATH:/Personalmanagement/Personalakten/H/Hansen, Hans",
     "ARCPATH:/Administrator/Firma Hansens"
-  ],
-  "eloForwardWorkflow": {
-    "toNodesName": []
-  },
-  "eloRfs": []
+  ]
 }

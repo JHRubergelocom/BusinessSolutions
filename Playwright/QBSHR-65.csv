@@ -1,9 +1,0 @@
-Gruppe,Benutzer,Ordner_Personalmanagement,Ordner_Organigramm,Ordner_Personalakten,O_Personal_Arbeitszeitregelung,O_Personal_Beschaeftigung,O_Personal_Fristen,O_Personal_Status
-sol.hr.roles.Administration,Administrator,angezeigt,angezeigt,angezeigt,angezeigt,angezeigt,angezeigt,angezeigt
-sol.hr.roles.Creators,hr_test_creators,angezeigt,,,,,,
-sol.hr.roles.DocumentCreators,hr_test_doc_creators,angezeigt,,,,,,
-sol.hr.roles.Editors,hr_test_editors,angezeigt,,,,,,
-sol.hr.roles.OrgchartCreators,rh_test_org_creators,angezeigt,angezeigt,,,,,
-sol.hr.roles.OrgchartViewers,hr_test_org_viewers,angezeigt,angezeigt,,,,,
-sol.hr.roles.Managers,hr_test_managers,angezeigt,,,,,,
-Everyone,hr_test_everyone,nicht angezeigt,nicht angezeigt,,,,,

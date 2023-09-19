@@ -6,8 +6,9 @@
   InputField(Empfänger|test-business-solutions@elo.local)##
   CheckFieldEqual(Absender|Personalabteilung <personal@contelo.com>)##
   CheckFieldEqual(Betreff|Test mit allen Clips)##
-  CheckFieldEqual(Nachricht|<!--StartFragment--><ul><li>Abteilung: &nbsp;</li><li>Austrittsdatum: 12.09.2023&nbsp;</li><li>Bereich: Geschäftsführung&nbsp;</li><li>Bundesland: Baden-Württemberg&nbsp;</li><li>Eintrittsdatum: 05.01.1998&nbsp;</li><li>Ende der Probezeit: 12.09.2023&nbsp;</li><li>Fachlich Versantworlticher: &nbsp;</li><li>Land: DE - Deutschland&nbsp;</li><li>Letzter Arbeitstag: 12.09.2023&nbsp;</li><li>Nachname: Kraft</li><li> Personalnummer: D0000001</li><li> Postleitzahl: 70376&nbsp;</li><li>Standort: Zentrale&nbsp;</li><li>Stellenbezeichnung: CEO</li><li> Straße: Thomastraße 17&nbsp;</li><li>Team: &nbsp;</li><li>Titel: &nbsp;</li><li>Vorgesetzter: Gerd Baum&nbsp;</li><li>Vorname: Bodo</li><li> Wohnort: Stuttgart</li></ul><!--EndFragment-->)##
+  CheckFieldEqual(Nachricht|<!--StartFragment--><ul><li>Abteilung: </li><li>Austrittsdatum: nowDate</li><li>Bereich: Geschäftsführung</li><li>Bundesland: Baden-Württemberg</li><li>Eintrittsdatum: 05.01.1998</li><li>Ende der Probezeit: nowDate</li><li>Fachlich Versantworlticher: Bodo Kraft</li><li>Land: DE - Deutschland</li><li>Letzter Arbeitstag: nowDate</li><li>Nachname: Kraft</li><li>Personalnummer: D0000001</li><li>Postleitzahl: 70376</li><li>Standort: Zentrale</li><li>Stellenbezeichnung: CEO</li><li>Straße: Thomastraße 17</li><li>Team: </li><li>Titel: </li><li>Vorgesetzter: Gerd Baum</li><li>Vorname: Bodo</li><li>Wohnort: Stuttgart</li></ul><!--EndFragment-->)##
   QuitButton(Speichern)##
   SelectSubEntry(Korrespondenz/Test mit allen Clips)##
-  SelectViewerForm();
+  SelectViewerForm()##
+  CheckFieldEqual(Empfänger|test-business-solutions@elo.local)
 }}

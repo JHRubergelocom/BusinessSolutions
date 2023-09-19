@@ -1358,9 +1358,5 @@
     "ARCPATH:/Administrator/Meetingboard2",
     "ARCPATH:/Administrator/Meetingitempool1",
     "ARCPATH:/Administrator/Meetingitempool2"
-  ],
-  "eloForwardWorkflow": {
-    "toNodesName": []
-  },
-  "eloRfs": []
+  ]
 }

@@ -390,6 +390,110 @@
           "type": "TEXT",
           "operator": "NONE"
         }
+      },
+      "eloPrecondition": {
+        "eloUsers": [
+          {
+            "user": "hr_test_creators",
+            "groups": [
+              "sol.hr.roles.Creators",
+              "HR",
+              "sol.hr.roles.Creators",
+              "sol.hr.roles.Managers"
+            ]
+          },
+          {
+            "user": "hr_test_doc_creators",
+            "groups": [
+              "sol.hr.roles.DocumentCreators",
+              "HR",
+              "sol.hr.roles.Creators",
+              "sol.hr.roles.Managers"
+            ]
+          },
+          {
+            "user": "hr_test_editors",
+            "groups": [
+              "sol.hr.roles.Editors",
+              "HR",
+              "sol.hr.roles.Creators",
+              "sol.hr.roles.Managers"
+            ]
+          },
+          {
+            "user": "rh_test_org_creators",
+            "groups": [
+              "sol.hr.roles.OrgchartCreators",
+              "HR",
+              "sol.hr.roles.Creators",
+              "sol.hr.roles.Managers"
+            ]
+          },
+          {
+            "user": "hr_test_org_viewers",
+            "groups": [
+              "sol.hr.roles.OrgchartViewers",
+              "HR",
+              "sol.hr.roles.Creators",
+              "sol.hr.roles.Managers"
+            ]
+          },
+          {
+            "user": "hr_test_managers",
+            "groups": [
+              "sol.hr.roles.Managers",
+              "HR",
+              "sol.hr.roles.Creators",
+              "sol.hr.roles.Managers"
+            ]
+          },
+          {
+            "user": "hr_test_everyone",
+            "groups": [
+              "Everyone",
+              "HR",
+              "sol.hr.roles.Creators",
+              "sol.hr.roles.Managers"
+            ]
+          }
+        ],
+        "eloTemplates": [
+          {
+            "arcPathTemplate": "ARCPATH:/Personalmanagement/Nachrichtenvorlagen/Clips_v1",
+            "arcPathActionDef": "ARCPATH:/Administration/Business Solutions/hr/Action definitions/sol.hr.personnel.EmployeeCorrespondenceTemplate",
+            "sordName": "Clips_v1",
+            "sordDesc": "\u003c!--StartFragment--\u003e\u003cul\u003e\u003cli\u003eAbteilung: {{sord.objKeys.HR_PERSONNEL_DEPARTMENT}}\u003c/li\u003e\u003cli\u003eAustrittsdatum: {{formatDate \u0027DD.MM.YYYY\u0027 sord.objKeys.HR_PERSONNEL_DATEOFLEAVING}}\u003c/li\u003e\u003cli\u003eBereich: {{sord.objKeys.HR_PERSONNEL_DIVISION}}\u003c/li\u003e\u003cli\u003eBundesland: {{sord.mapKeys.HR_PERSONNEL_STATE}}\u003c/li\u003e\u003cli\u003eEintrittsdatum: {{formatDate \u0027DD.MM.YYYY\u0027 sord.objKeys.HR_PERSONNEL_DATEOFJOINING}}\u003c/li\u003e\u003cli\u003eEnde der Probezeit: {{formatDate \u0027DD.MM.YYYY\u0027 sord.objKeys.HR_PERSONNEL_ENDOFPROBATIONARY}}\u003c/li\u003e\u003cli\u003eFachlich Versantworlticher: {{sord.mapKeys.HR_PERSONNEL_MENTOR}}\u003c/li\u003e\u003cli\u003eLand: {{sord.objKeys.HR_PERSONNEL_COUNTRY}}\u003c/li\u003e\u003cli\u003eLetzter Arbeitstag: {{formatDate \u0027DD.MM.YYYY\u0027 sord.objKeys.HR_PERSONNEL_LASTDAYOFWORK}}\u003c/li\u003e\u003cli\u003eNachname: {{sord.objKeys.HR_PERSONNEL_LASTNAME}}\u003c/li\u003e\u003cli\u003ePersonalnummer: {{sord.objKeys.HR_PERSONNEL_PERSONNELNO}}\u003c/li\u003e\u003cli\u003ePostleitzahl: {{sord.objKeys.HR_PERSONNEL_POSTALCODE}}\u003c/li\u003e\u003cli\u003eStandort: {{sord.objKeys.HR_PERSONNEL_LOCATION}}\u003c/li\u003e\u003cli\u003eStellenbezeichnung: {{sord.objKeys.HR_PERSONNEL_JOBTITLE}}\u003c/li\u003e\u003cli\u003eStraße: {{sord.mapKeys.HR_PERSONNEL_STREETADDRESS}}\u003c/li\u003e\u003cli\u003eTeam: {{sord.objKeys.HR_PERSONNEL_TEAM}}\u003c/li\u003e\u003cli\u003eTitel: {{sord.objKeys.HR_PERSONNEL_TITLE}}\u003c/li\u003e\u003cli\u003eVorgesetzter: {{sord.objKeys.HR_PERSONNEL_SUPERIOR}}\u003c/li\u003e\u003cli\u003eVorname: {{sord.objKeys.HR_PERSONNEL_FIRSTNAME}}\u003c/li\u003e\u003cli\u003eWohnort: {{sord.objKeys.HR_PERSONNEL_CITY}}\u003c/li\u003e\u003c/ul\u003e\u003c!--EndFragment--\u003e",
+            "objKeys": [
+              {
+                "data": [
+                  "personal@contelo.com"
+                ],
+                "id": 0,
+                "name": "COMMUNICATION_SENDER",
+                "objId": 0,
+                "changedMembers": 12
+              },
+              {
+                "data": [
+                  "Test mit allen Clips"
+                ],
+                "id": 0,
+                "name": "COMMUNICATION_SUBJECT",
+                "objId": 0,
+                "changedMembers": 12
+              }
+            ],
+            "mapValues": [
+              {
+                "key": "HR_PERSONNEL_SENDER",
+                "value": "Personalabteilung \u003cpersonal@contelo.com\u003e",
+                "changedMembers": 0
+              }
+            ],
+            "wfMapValues": [],
+            "finishButton": "sol.common.wf.node.ok"
+          }
+        ]
       }
     }
   }

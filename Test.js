@@ -842,11 +842,6 @@ C:\Users\ruberg\.ssh\Testkey.ppk
 ===========================================================================================================================
 
 
-	
-
-===========================================================================================================================
-
-
 
 Installationsanleitung von Testautomatisierung mit Playwright unter java
 
@@ -881,386 +876,6 @@ git@github.com:JHRubergelocom/PlaywrightSession.git
 
 =====================================================================================================================================================================
 
-02.05.2023
-
-BS Common BS-1943 Ordnerinhalt PDF Export stabiler machen
-
-https://eloticksy.elo.com/browse/BS-1943
-
-pdfPages = Packages.de.elo.mover.main.pdf.PdfFileHelper.getNumberOfPages(dstFile);
-
-sol.common.as.PdfUtils.mergePdfStreams(pdfInputStreams, mergedOutputStream);
-
-/**
-   * Write file to outputstream
-   * @private
-   * @param {java.io.File} dstFile
-   * @return {java.io.OutputStream} pdfOutputStream
-   */
-
-public static boolean hasPdfExtension(File file)
-    throws Exception
-  {
-    log.debug("file=" + file);
-    if (file == null)
-    {
-      log.debug("Illegal input for the file, execution will be aborted");
-      throw new Exception("Illegal input for file");
-    }
-    String ext = FilenameUtils.getExtension(file.getName());
-    String lowerExt = ext.toLowerCase(Locale.ENGLISH);
-    return lowerExt.equals("pdf");
-  }
-
-public static int getNumberOfPages(File pdfFile)
-    throws Exception
-  {
-    log.debug("pdfFile=" + pdfFile);
-    if ((pdfFile == null) || (!hasPdfExtension(pdfFile)))
-    {
-      log.debug("Illegal input for the pdf file, execution will be aborted");
-      throw new Exception("Illegal input for pdf file");
-    }
-    PDDocument doc = PDDocument.load(pdfFile);
-    int numOfPages = doc.getNumberOfPages();
-    log.debug("numOfPages=" + numOfPages);
-    doc.close();
-    return numOfPages;
-  }
-
-
-
-Packages.de.elo.mover.utils.ELOAsTiffUtils.saveTiffAsPdf(sourceFile, targetFile);
-
-public static void saveTiffAsPdf(File sourceFile, File targetFile)
-    throws IOException, Exception
-  {
-    log.debug("sourceFile=" + sourceFile + ", targetFile=" + targetFile);
-    if ((sourceFile == null) || (sourceFile.length() == 0L) || (!TiffFileHelper.isTiff(sourceFile)))
-    {
-      log.debug("Illegal input for the source file, execution will be aborted");
-      throw new Exception("Illegal input for source file");
-    }
-    if ((targetFile == null) || (!PdfFileHelper.hasPdfExtension(targetFile)))
-    {
-      log.debug("Illegal input for the target file, execution will be aborted");
-      throw new Exception("Illegal input for target file");
-    }
-    TiffFileHelper.saveTiffAsPdf(sourceFile, targetFile);
-  }
-
-
-
-public static void saveTiffAsPdf(File sourceFile, File targetFile)
-    throws IOException, Exception
-  {
-    log.debug("sourceFile=" + sourceFile + ", targetFile=" + targetFile);
-    ImageIOHelper.registerImageIOClasses();
-    PDDocument doc = null;
-    try
-    {
-      doc = new PDDocument();
-      ImageIterator iter = new ImageIterator(sourceFile);
-      while (iter.hasNext())
-      {
-        WriteableImage wimage = iter.next();
-        BufferedImage image = wimage.getImage();
-        if (wimage.getOrientation() != 1) {
-          image = TIFFUtilities.applyOrientation(image, wimage.getOrientation());
-        }
-        boolean isLandscape = image.getWidth() > image.getHeight();
-        log.debug("isLandscape=" + isLandscape);
-        float width = isLandscape ? PDRectangle.A4.getHeight() : PDRectangle.A4.getWidth();
-        log.debug("width=" + width);
-        float height = isLandscape ? PDRectangle.A4.getWidth() : PDRectangle.A4.getHeight();
-        log.debug("height=" + height);
-        PDPage newPage = new PDPage(new PDRectangle(width, height));
-        doc.addPage(newPage);
-        ByteArrayOutputStream compressedImage = new ByteArrayOutputStream();
-        int[] sampleSize = image.getSampleModel().getSampleSize();
-        if ((sampleSize.length > 1) || (sampleSize[0] > 1))
-        {
-          if ((sampleSize.length >= 4) && (image.getColorModel().hasAlpha()))
-          {
-            log.debug("strip alpha channel");
-            
-            BufferedImage stripAlpha = new BufferedImage(image.getWidth(), image.getHeight(), 1);
-            Graphics2D g2d = stripAlpha.createGraphics();
-            g2d.drawImage(image, 0, 0, null);
-            g2d.dispose();
-            image = stripAlpha;
-          }
-          ImageIO.write(image, "JPEG", compressedImage);
-        }
-        else
-        {
-          ImageWriter tiffWriter = ImageIOHelper.getWriter("TIFF");
-          ImageWriteParam tiffParams = tiffWriter.getDefaultWriteParam();
-          tiffParams.setCompressionMode(2);
-          tiffParams.setCompressionType("CCITT T.6");
-          ImageOutputStream ios = ImageIO.createImageOutputStream(compressedImage);
-          try
-          {
-            tiffWriter.setOutput(ios);
-            tiffWriter.write(null, new IIOImage(image, null, null), tiffParams);
-            if (ios == null) {
-              break label508;
-            }
-            ios.close();
-          }
-          catch (Throwable localThrowable)
-          {
-            if (ios == null) {
-              break label505;
-            }
-          }
-          try
-          {
-            ios.close();
-          }
-          catch (Throwable localThrowable1)
-          {
-            localThrowable.addSuppressed(localThrowable1);
-          }
-          label505:
-          throw localThrowable;
-        }
-        label508:
-        PDImageXObject pdImage = PDImageXObject.createFromByteArray(doc, compressedImage.toByteArray(), null);
-        PDPageContentStream contents = new PDPageContentStream(doc, newPage);
-        float pageWidth = newPage.getMediaBox().getWidth();
-        log.debug("pageWidth=" + pageWidth);
-        float pageHeight = newPage.getMediaBox().getHeight();
-        log.debug("pageHeight=" + pageHeight);
-        contents.drawImage(pdImage, 0.0F, 0.0F, pageWidth, pageHeight);
-        contents.close();
-        compressedImage.close();
-      }
-      doc.save(targetFile);
-    }
-    finally
-    {
-      if (doc != null) {
-        doc.close();
-      }
-    }
-  }
-
-
-public static boolean isTiff(File file)
-    throws IOException, Exception
-  {
-    log.debug("file=" + file);
-    if (file == null)
-    {
-      log.debug("Illegal input for the file, execution will be aborted");
-      throw new Exception("Illegal input for file");
-    }
-    FileInputStream inStream = null;
-    try
-    {
-      inStream = new FileInputStream(file);
-      byte[] magic = new byte[2];
-      inStream.read(magic);
-      return ((magic[0] == 73) && (magic[1] == 73)) || ((magic[0] == 77) && (magic[1] == 77));
-    }
-    finally
-    {
-      if (inStream != null) {
-        inStream.close();
-      }
-    }
-  }
-
-
-Packages.de.elo.mover.main.pdf.PdfFileHelper.insertTextInPdf(pageTest, dstPdfFile, page, 500, 10, 10, 0, 0, 0, 1.0, 0);
-
-
-public static void insertTextInPdf(String text, File targetFile, int page, int x, int y, int textSize, int colorRed, int colorGreen, int colorBlue, float transpar, int skew)
-    throws Exception
-  {
-    log.debug("page=" + page + ", x=" + x + ", y=" + y + ", textSize=" + textSize + ", colorRed=" + colorRed + ", colorGreen=" + colorGreen + ", colorBlue=" + colorBlue + ", transpar=" + transpar + ", skew=" + skew);
-    if ((text == null) || (text.length() == 0))
-    {
-      log.debug("Illegal input for the text, execution will be aborted");
-      throw new Exception("Illegal input for text");
-    }
-    if ((targetFile == null) || (!hasPdfExtension(targetFile)))
-    {
-      log.debug("Illegal input for the target file, execution will be aborted");
-      throw new Exception("Illegal input for target file");
-    }
-    if ((page < 0) || (page > getNumberOfPages(targetFile)))
-    {
-      log.debug("Illegal input for the page, execution will be aborted");
-      throw new Exception("Illegal input for page");
-    }
-    if ((x < 0) || (x > 1000))
-    {
-      log.debug("Illegal input for the x-position, execution will be aborted");
-      throw new Exception("Illegal input for x-position");
-    }
-    if ((y < 0) || (y > 1000))
-    {
-      log.debug("Illegal input for the y-position, execution will be aborted");
-      throw new Exception("Illegal input for y-position");
-    }
-    if (textSize < 0)
-    {
-      log.debug("Illegal input for the text size, execution will be aborted");
-      throw new Exception("Illegal input for text size");
-    }
-    if ((colorRed < 0) || (colorRed > 255))
-    {
-      log.debug("Illegal input for the color red, execution will be aborted");
-      throw new Exception("Illegal input for color red");
-    }
-    if ((colorGreen < 0) || (colorGreen > 255))
-    {
-      log.debug("Illegal input for the color green, execution will be aborted");
-      throw new Exception("Illegal input for color green");
-    }
-    if ((colorBlue < 0) || (colorBlue > 255))
-    {
-      log.debug("Illegal input for the color blue, execution will be aborted");
-      throw new Exception("Illegal input for color blue");
-    }
-    PDDocument doc = null;
-    try
-    {
-      doc = PDDocument.load(targetFile);
-      PDPage docPage = doc.getDocumentCatalog().getPages().get(page - 1);
-      PDExtendedGraphicsState graphicsState = new PDExtendedGraphicsState();
-      graphicsState.setNonStrokingAlphaConstant(Float.valueOf(transpar));
-      COSName graphicsStateName = docPage.getResources().add(graphicsState);
-      PDPageContentStream contentStream = new PDPageContentStream(doc, docPage, PDPageContentStream.AppendMode.APPEND, false, true);
-      PDFont font = PDType1Font.HELVETICA;
-      contentStream.setFont(font, textSize);
-      contentStream.appendRawCommands("/" + graphicsStateName.getName() + " gs\n");
-      contentStream.setNonStrokingColor(colorRed, colorGreen, colorBlue);
-      
-      contentStream.beginText();
-      float xFloat = x / 1000.0F;
-      float yFloat = y / 1000.0F;
-      PDRectangle pageSize = docPage.getMediaBox();
-      int xPos = Math.round(xFloat * pageSize.getWidth());
-      log.debug("xPos=" + xPos);
-      int yPos = Math.round(yFloat * pageSize.getHeight());
-      log.debug("yPos=" + yPos);
-      double rotatAngle = 3.141592653589793D * skew / 180.0D;
-      log.debug("rotatAngle=" + rotatAngle);
-      Matrix matrix = Matrix.getRotateInstance(rotatAngle, xPos, yPos);
-      contentStream.setTextMatrix(matrix);
-      
-      contentStream.showText(text);
-      contentStream.endText();
-      contentStream.close();
-      doc.save(targetFile);
-    }
-    finally
-    {
-      if (doc != null) {
-        doc.close();
-      }
-    }
-  }
-
-
-
-
-
-
-[sol.common_document.as.functions.PdfExport] pdfPages=1: inputFileNamesArray_=/var/elo/servers/ELO-base/temp/temp_20230726071351/Register AF1/Wiedervorlage ELO Teilnehmer heute zugewiesen.eml.pdf
-
-15:24:30.568 WARN  Finalizer  (COSDocument.java:525)                            - Warning: You did not close a PDF Document
-
-
-
-Packages.org.apache.pdfbox Verwendung untersuchen
-
-
-[sol.common.as.renderer.Fop]
-
-[sol.common.as.PdfUtils]
-
-
-
-15:36:58.182 INFO  Thread-6  (WorkingSet.java:1278)                             - Bam: 
-java.lang.OutOfMemoryError: Java heap space
-	at org.apache.pdfbox.pdfwriter.COSWriter.doWriteObject(COSWriter.java:562)
-	at org.apache.pdfbox.pdfwriter.COSWriter.doWriteObjects(COSWriter.java:496)
-	at org.apache.pdfbox.pdfwriter.COSWriter.doWriteBody(COSWriter.java:480)
-	at org.apache.pdfbox.pdfwriter.COSWriter.visitFromDocument(COSWriter.java:1162)
-	at org.apache.pdfbox.cos.COSDocument.accept(COSDocument.java:452)
-	at org.apache.pdfbox.pdfwriter.COSWriter.write(COSWriter.java:1435)
-	at org.apache.pdfbox.pdfwriter.COSWriter.write(COSWriter.java:1322)
-	at org.apache.pdfbox.pdmodel.PDDocument.save(PDDocument.java:1377)
-	at org.apache.pdfbox.pdmodel.PDDocument.save(PDDocument.java:1344)
-	at org.apache.pdfbox.pdmodel.PDDocument.save(PDDocument.java:1328)
-	at org.apache.pdfbox.multipdf.PDFMergerUtility.legacyMergeDocuments(PDFMergerUtility.java:474)
-	at org.apache.pdfbox.multipdf.PDFMergerUtility.mergeDocuments(PDFMergerUtility.java:346)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:564)
-	at org.mozilla.javascript.MemberBox.invoke(MemberBox.java:138)
-	at org.mozilla.javascript.NativeJavaMethod.call(NativeJavaMethod.java:226)
-	at org.mozilla.javascript.Interpreter.interpretLoop(Interpreter.java:1692)
-	at org.mozilla.javascript.Interpreter.interpret(Interpreter.java:1013)
-	at org.mozilla.javascript.InterpretedFunction.call(InterpretedFunction.java:109)
-	at org.mozilla.javascript.ContextFactory.doTopCall(ContextFactory.java:412)
-	at org.mozilla.javascript.ScriptRuntime.doTopCall(ScriptRuntime.java:3578)
-	at org.mozilla.javascript.InterpretedFunction.call(InterpretedFunction.java:107)
-	at de.elo.mover.main.WorkingSet.callJSFunction(WorkingSet.java:1173)
-	at de.elo.mover.main.WorkingSet.processSingleRuleset(WorkingSet.java:1259)
-	at de.elo.mover.main.WorkingSet.processItems(WorkingSet.java:1226)
-	at de.elo.mover.main.RulesetThread.runTerminated(RulesetThread.java:265)
-	at de.elo.mover.main.RulesetThread.run(RulesetThread.java:172)
-	
-	
-	
-	  mergePdfFiles: function (inputFileNames, outputFileName) {
-    var me = this,
-        pdfBoxVersion, pdfMerger;
-
-    me.logger.info(["Start sol.common.as.PdfUtils.mergePdfFiles: XXX"]);
-
-    if (!inputFileNames) {
-      throw "Input filenames are empty";
-    }
-
-    pdfBoxVersion = (new Packages.org.apache.pdfbox.pdmodel.PDDocument()).class.package.implementationVersion;
-    me.logger.debug(["PDF box version: {0}", pdfBoxVersion]);
-
-    if (pdfBoxVersion > "2.0.0") {
-      pdfMerger = new Packages.org.apache.pdfbox.multipdf.PDFMergerUtility();
-    } else {
-      pdfMerger = new Packages.org.apache.pdfbox.util.PDFMergerUtility();
-    }
-
-    me.logger.info(["inputFileNames.length={0}", inputFileNames.length]);
-
-    inputFileNames.forEach(function (inputFileName) {
-      pdfMerger.addSource(inputFileName);
-    });
-
-    pdfMerger.destinationFileName = outputFileName;
-    pdfMerger.mergeDocuments(Packages.org.apache.pdfbox.io.MemoryUsageSetting.setupTempFileOnly());
-
-    me.logger.info(["Finish sol.common.as.PdfUtils.mergePdfFiles: XXX"]);
-
-  }
-
-	
-	5:36:21.767 WARN  Finalizer  (COSDocument.java:525)                            - Warning: You did not close a PDF Document
-	
-	kommt von pdfbox
-	
-	
-	4139
-	
-
-=====================================================================================================================================================================
 
 25.05.2023
 
@@ -1755,6 +1370,18 @@ template: {
 TODO 18.09.2023
 
 
+Benutzer,Personalakte,Vorlage,Abteilung,Bereich,Bundesland,Eintrittsdatum,Ende der Probezeit,Fachlich Verantwortlicher,Land,Nachname,Personalnummer,Postleitzahl,Standort,Stellenbezeichnung,Straße,Vorgesetzter,Vorname,Wohnort,Ordner
+Administrator,"Solutions // Personalmanagement // Personalakten // B // Baum, Gerd",Clips_v1,Finanzen & Organisation,Zentrale Verwaltung,Baden-Württemberg,01.05.2007,31.10.2007,Gerd Baum,DE - Deutschland,Baum,D0000004,70469,Zentrale,Kaufmännischer Leiter,Klettenweg 8a,Bodo Kraft,Gerd,Stuttgart,"Solutions // Personalmanagement // Personalakten // B // Baum, Gerd // Korrespondenz"
+hr_test_creators,"Solutions // Personalmanagement // Personalakten // C // Cooper, Daniel",Clips_v1,Head of Business Development US,Company Management,Massachusetts,01.04.2009,31.07.2023,leer,US - Vereinigte Staaten von Amerika,Cooper,D0000006,02108,Boston HQ,leer,58 Beacon Street,Daniel Cooper,Daniel,Boston,"Solutions // Personalmanagement // Personalakten // C // Cooper, Daniel // Korrespondenz"
+hr_test_doc_creators,"Solutions // Personalmanagement // Personalakten // E // Eichner, Jan",Clips_v1,Assistenz CEO,Geschäftsführung,Baden-Württemberg,01.08.2015,31.01.2016,leer,DE - Deutschland,Eichner,D0000022,70191,Zentrale,Assistent,Stresemannstraße 14,Bodo Kraft,Jan,Stuttgart,"Solutions // Personalmanagement // Personalakten // E // Eichner, Jan // Korrespondenz"
+hr_test_editors,"Solutions // Personalmanagement // Personalakten // F // Funk, Verona",Clips_v1,Rechnungswesen,Zentrale Verwaltung,Baden-Württemberg,01.12.2015,31.05.2016,leer,DE - Deutschland,Funk,D0000054,70567,Zentrale,Finanzbuchhaltung,Schottstraße 84b,Gerd Baum,Verona,Stuttgart,"Solutions // Personalmanagement // Personalakten // F // Funk, Verona // Korrespondenz"
+rh_test_org_creators,"Solutions // Personalmanagement // Personalakten // K // Keil, Fritz",Clips_v1,Produktmanagement,Produktion,Baden-Württemberg,01.07.2014,31.12.2014,leer,DE - Deutschland,Keil,D0000078,70174,Zentrale,Leiter Produkte,Leiblweg 36,Bodo Kraft,Fritz,Stuttgart,"Solutions // Personalmanagement // Personalakten // K // Keil, Fritz // Korrespondenz"
+hr_test_org_viewers,"Solutions // Personalmanagement // Personalakten // R // Renz, Sandra",Clips_v1,Customer Service,Zentrale Verwaltung,Baden-Württemberg,03.02.2022,31.08.2022,leer,DE - Deutschland,Renz,D0000122,70000,Zentrale,Customer Service,Weg 2,Gerd Baum,Sandra,Stuttgart,"Solutions // Personalmanagement // Personalakten // R // Renz, Sandra // Korrespondenz"
+hr_test_managers,"Solutions // Personalmanagement // Personalakten // R // Reuter, Thomas",Clips_v1,Recht & Verwaltung,Zentrale Verwaltung,Baden-Württemberg,01.05.2020,31.10.2020,leer,DE - Deutschland,Reuter,D0000026,70565,Zentrale,Unternehmensjurist,Endersbacher Str. 10,Bodo Kraft,Thomas,Stuttgart,"Solutions // Personalmanagement // Personalakten // R // Reuter, Thomas // Korrespondenz"
+hr_test_everyone,"Solutions // Personalmanagement // Personalakten // K // Kraft, Bodo",Clips_v1,leer,Geschäftsführung,Baden-Württemberg,05.01.1998,31.07.2023,leer,DE - Deutschland,Kraft,D0000001,70376,Zentrale,CEO,Thomastraße 17,Gerd Baum,Bodo,Stuttgart,"Solutions // Personalmanagement // Personalakten // K // Kraft, Bodo // Korrespondenz"
+
+
+
 Datenstrukturen Vorbedingungen (Templates, User) entwickeln!
 
 
@@ -1838,22 +1465,7 @@ Text: Clip inhalt
 
 
 
-
-hr_test_org_viewers
-hr_test_managers
-rh_test_org_creators
-hr_test_editors
-hr_test_doc_creators
-hr_test_creators
-
-
-CreateUser und Gruppen anlegen
-
-
-
-
 Austrittsdatum: 11.09.2023
-
 
 
 test-business-solutions@elo.local
@@ -1867,4 +1479,8 @@ https://eloticksy.elo.com/browse/QBSHR-75
 https://eloticksy.elo.com/browse/QBSHR-64
 
 https://eloticksy.elo.com/browse/QBSHR-11
+
+
+
+// TODO Preconditions
 

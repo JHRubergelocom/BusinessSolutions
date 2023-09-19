@@ -569,9 +569,5 @@
   "eloTasks": [],
   "eloDeletes": [
     "ARCPATH:/Administrator/Meetingboard1"
-  ],
-  "eloForwardWorkflow": {
-    "toNodesName": []
-  },
-  "eloRfs": []
+  ]
 }

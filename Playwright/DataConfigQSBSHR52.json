@@ -49,9 +49,5 @@
     }
   ],
   "eloTasks": [],
-  "eloDeletes": [],
-  "eloForwardWorkflow": {
-    "toNodesName": []
-  },
-  "eloRfs": []
+  "eloDeletes": []
 }
