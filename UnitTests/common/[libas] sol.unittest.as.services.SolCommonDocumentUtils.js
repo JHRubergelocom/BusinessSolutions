@@ -524,6 +524,34 @@ describe("[libas] sol.unittest.as.services.SolCommonDocumentUtils", function () 
           );
         }).not.toThrow();
       });
+      it("createContentFile", function (done) {
+        expect(function () {
+          folderName = "folderName1";
+          dstDirPath = "dstDirPath1";
+          config = {};
+          pdfContents = [];
+          test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
+            action: "sol.unittest.as.services.ExecuteLib2",
+            config: {
+              className: "sol.common_document.as.Utils",
+              classConfig: {},
+              method: "createContentFile",
+              params: [folderName, dstDirPath, config, pdfContents]
+            }
+          }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") != -1) {
+              fail(jsonResult.content);
+            }
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("createCoverSheetSord", function (done) {
         expect(function () {
           sord = obSolCommonDocumentUtilsId;

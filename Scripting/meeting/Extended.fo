@@ -8,7 +8,12 @@
 			<fo:region-after />
 		</fo:simple-page-master>
 	</fo:layout-master-set>
-	<fo:page-sequence master-reference="Layout">
+	<fo:page-sequence master-reference="Layout" initial-page-number="auto">
+		<fo:static-content flow-name="xsl-region-after">
+			<fo:block text-align="center" margin="5mm 10mm">
+			<fo:page-number/>
+			</fo:block>
+		</fo:static-content>
 		<fo:flow flow-name="xsl-region-body">
 			<fo:block-container width="17cm" text-align="center" margin-top="15pt" margin-bottom="15pt">
 				<fo:block font-size="28pt" margin-top="56pt" margin-bottom="28pt" color="#004072">{{translate "sol.meeting_premium.document.fileHeader" settings.mapKeys.CURRENT_LANGUAGE}}</fo:block>
@@ -112,7 +117,12 @@
 
 	{{#each meeting.days}}
 		{{#if hasItems}}
-	<fo:page-sequence master-reference="Layout">
+	<fo:page-sequence master-reference="Layout" initial-page-number="auto">
+		<fo:static-content flow-name="xsl-region-after">
+			<fo:block text-align="center" margin="5mm 10mm">
+			<fo:page-number/>
+			</fo:block>
+		</fo:static-content>
 		<fo:flow flow-name="xsl-region-body">
 			<fo:block-container width="17cm" margin-top="3mm" text-align="left">
 			{{#ifCond @first '&&' @last}}
@@ -168,7 +178,12 @@
 		{{/if}}
 	{{/each}}
 
-	<fo:page-sequence master-reference="Layout">
+	<fo:page-sequence master-reference="Layout" initial-page-number="auto">
+		<fo:static-content flow-name="xsl-region-after">
+			<fo:block text-align="center" margin="5mm 10mm">
+			<fo:page-number/>
+			</fo:block>
+		</fo:static-content>
 		<fo:flow flow-name="xsl-region-body">
 			<fo:block-container width="17cm" margin-top="3mm">
 				<fo:block font-size="14pt" text-align="left" margin-top="15pt" margin-bottom="5pt" font-weight="bold" color="#004072">{{translate "sol.meeting_premium.document.participantsList" settings.mapKeys.CURRENT_LANGUAGE}}</fo:block>
@@ -222,7 +237,12 @@
 {{#each meeting.days}}
 	{{#each items}}
 		{{#ifCond objKeys.SOL_TYPE '==' 'MEETING_ITEM'}}
-	<fo:page-sequence master-reference="Layout">
+	<fo:page-sequence master-reference="Layout" initial-page-number="auto">
+		<fo:static-content flow-name="xsl-region-after">
+			<fo:block text-align="center" margin="5mm 10mm">
+			<fo:page-number/>
+			</fo:block>
+		</fo:static-content>
 		<fo:flow flow-name="xsl-region-body">
 			<fo:block-container width="17cm" margin-top="3mm" text-align="left">
 				<fo:block id="{{@../key}}{{padLeft objKeys.MEETING_ITEM_OUTLINENUMBER "0"}}" font-size="14pt" color="#004072" margin-bottom="14pt" font-weight="bold">{{padLeft objKeys.MEETING_ITEM_OUTLINENUMBER "0"}}. {{objKeys.MEETING_ITEM_TITLE}}</fo:block>

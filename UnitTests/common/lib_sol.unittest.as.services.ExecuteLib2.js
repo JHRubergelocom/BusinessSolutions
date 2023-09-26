@@ -160,6 +160,7 @@ sol.define("sol.unittest.as.services.ExecuteLib2", {
             me.params[1] = config;
             break;
           case "createContent":
+          case "createContentFile":
             exportDirPath = me.createExportDirPath(me.params[0]);
             me.params[1] = exportDirPath;
             me.params[2] = config;
@@ -270,6 +271,10 @@ sol.define("sol.unittest.as.services.ExecuteLib2", {
           case "createContent":
             sol.common.FileUtils.delete(exportDirPath, { quietly: true });
             result.close();
+            result = String(result);
+            break;
+          case "createContentFile":
+            sol.common.FileUtils.delete(exportDirPath, { quietly: true });
             result = String(result);
             break;
           case "convertPDFtoPDFA":

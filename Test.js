@@ -582,9 +582,9 @@ executeAdvancedAction
 
 =====================================================================================================================================================================
 
-03.08.2023 TODO Unittests überprüfen (nach Änderungen 23-nightly Stack aufbauen  und Tests durchlaufen lassen!)
+19.09.2023 TODO Unittests überprüfen (nach Änderungen 23.02 Stack aufbauen  und Tests durchlaufen lassen!)
 
-nochmal unter 23-nightly testen!
+nochmal unter 23.02 testen!
 
 
 QoL Feature für Entwickler: JIRA Issues+Branch via der ELO CLI erstellen
@@ -604,15 +604,22 @@ elo-sol prepare -stack ruberg-contract -workspace de -version 20.00
 
 hr
 
+BS HR Personnel File BSHR-488 Unittests überprüfen
+
+https://eloticksy.elo.com/browse/BSHR-488
+
+
 elo-sol prepare -stack ruberg-hr -workspace de -version 20.00
 
 
 invoice
 
+
 elo-sol prepare -stack ruberg-invoice -workspace jan -version 20.00
 
 
 knowledge
+
 
 elo-sol prepare -stack ruberg-knowledge -workspace default -version 20.00
 
@@ -650,7 +657,6 @@ elo-sol prepare -stack ruberg-teamroom -workspace jan -version 20.00
 meeting
 
 elo-sol prepare -stack ruberg-meeting -workspace premium-groupware -version 20.00
-
 
 
 
@@ -970,20 +976,19 @@ RF_sol_unittest_service_ExecuteLib
 
 =====================================================================================================================================================================
 
-TODO 11.09.2023
-
-Playwright Testcases QS BS HR Personnel File Xray REST API
+TODO 26.09.2023
 
 
-BS Intern BSXX-504 Testautomatisierung mit Playwright
+BS Intern BSXX-515 Testautomatisierung mit Playwright
 
-https://eloticksy.elo.com/browse/BSXX-504
-
+https://eloticksy.elo.com/browse/BSXX-515
 
 
 Ideen für Erweiterungen automatisierte Tests
 
-    Konzeption und Entwicklung neue Bausteine für Jira Transformationsyntax anhand bestehender Testszenarien QS
+* Automatisierte Prüfungen von Vorbedingungen
+* Actiondefinitions aus Unittests auch in Playwright testen (pro Solution alle Menüpunkte durchgehen!)
+
 
 
 Playwright Testcases QS BS HR Personnel File Xray REST API
@@ -1481,6 +1486,33 @@ https://eloticksy.elo.com/browse/QBSHR-64
 https://eloticksy.elo.com/browse/QBSHR-11
 
 
+Weitere Ideen:
 
-// TODO Preconditions
 
+Actiondefinitions aus Unittests auch in Playwright testen (pro Solution alle Menüpunkte durchgehen!)
+
+
+actions.ChangeSuperiorFile 				"Vorgesetzten ändern"	
+actions.CreateChartElement 				"Organisation erweitern"
+actions.CreateChartRootElement 			"CreateChartRoot"
+actions.CreateDocument 					"Dokument erstellen"
+actions.CreateEmployeeBadge 			"Ausweis erstellen"
+actions.CreateEmployeeRequest 			"Personaldaten ändern"
+actions.CreateFile 						"Neuer Mitarbeiter"
+actions.EmployeeCorrespondence 			"Nachricht senden"
+actions.EmployeeCorrespondenceTemplate 	"Nachrichtenvorlage erstellen"
+actions.InquirePersonnelFileAccess 		"Personalakte einsehen"
+actions.StartOffboarding 				"Austrittsprozess starten"
+actions.StartOnboarding 				"Eintrittsprozess starten"
+actions.UpdateDocument 					"Dokument aktualisieren"
+
+
+
+
+
+
+<fo:static-content flow-name="xsl-region-after">
+ <fo:block text-align="center" margin="5mm 10mm">
+ <fo:page-number/>
+ </fo:block>
+</fo:static-content>

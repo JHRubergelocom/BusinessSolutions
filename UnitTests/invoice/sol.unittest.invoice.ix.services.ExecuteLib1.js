@@ -68,6 +68,7 @@ sol.define("sol.unittest.invoice.ix.services.ExecuteLib1", {
       case "sol.connector_dx.ix.normalizeMapNumber":
       case "sol.connector_dx.ix.services.SetDxStatus":
       case "sol.invoice.ix.functions.ChangeUser":
+      case "sol.invoice.ix.functions.CheckDxExportMode":
       case "sol.invoice.ix.functions.CreateApprovalNodes":
       case "sol.invoice.ix.functions.CreateApprovalNodes.WfNodeBuilder":
       case "sol.invoice.ix.functions.FixDelegationAssocs":

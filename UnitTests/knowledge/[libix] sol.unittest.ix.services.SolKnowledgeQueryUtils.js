@@ -1,6 +1,8 @@
+/* eslint-disable linebreak-style */
 
 describe("[libix] sol.unittest.ix.services.SolKnowledgeQueryUtils", function () {
-  var originalTimeout, fields, operant, queryParts, type, key, value, values, config, boostFactor, str, params;
+  var originalTimeout, fields, operant, queryParts, type, key, value, values, config, boostFactor, str, params,
+      field, currentBoostFactor;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -97,6 +99,25 @@ describe("[libix] sol.unittest.ix.services.SolKnowledgeQueryUtils", function () 
           );
         }).not.toThrow();
       });
+      it("calculateNextBoostFactor", function (done) {
+        expect(function () {
+          field = { boostFactorDecrement: 0.1 };
+          currentBoostFactor = 2;
+          test.Utils.execute("RF_sol_unittest_knowledge_service_ExecuteLib", {
+            className: "sol.knowledge.ix.QueryUtils",
+            classConfig: {},
+            method: "calculateNextBoostFactor",
+            params: [field, currentBoostFactor]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("executeContextTerms", function (done) {
         expect(function () {
           config = {
@@ -140,7 +161,6 @@ describe("[libix] sol.unittest.ix.services.SolKnowledgeQueryUtils", function () 
       });
       it("executeQuery", function (done) {
         expect(function () {
-          config = config;
           test.Utils.execute("RF_sol_unittest_knowledge_service_ExecuteLib", {
             className: "sol.knowledge.ix.QueryUtils",
             classConfig: {},

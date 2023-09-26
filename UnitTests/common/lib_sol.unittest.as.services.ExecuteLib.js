@@ -55,7 +55,9 @@ sol.define("sol.unittest.as.services.ExecuteLib", {
     var me = this,
         result = {},
         cls, func, bytes, byte, i, string, inputstream,
-        excelDocument, cell, cells;
+        excelDocument, cell, cells,
+        pdfFilePath, pdfFile, pdfFileOutPutName,
+        tempDir;
 
     cls = sol.create(me.className, me.classConfig);
     func = cls[me.method];
@@ -109,6 +111,23 @@ sol.define("sol.unittest.as.services.ExecuteLib", {
         break;
       case "sol.common.as.PdfUtils":
         switch (me.method) {
+          case "getNumberOfPages":
+            tempDir = sol.common.FileUtils.getTempDirPath();
+            pdfFilePath = sol.common.RepoUtils.downloadToFile(me.classConfig.objId, { dstDirPath: tempDir, createDirs: true, createUniqueFileName: true });
+            pdfFile = new File(pdfFilePath);
+            me.params[0] = [pdfFile];
+            break;
+          case "mergePdfFiles":
+            tempDir = sol.common.FileUtils.getTempDirPath();
+            pdfFilePath = sol.common.RepoUtils.downloadToFile(me.classConfig.objId, { dstDirPath: tempDir, createDirs: true, createUniqueFileName: true });
+            me.params[0] = pdfFilePath;
+            me.params[0] = [me.params[0]];
+            pdfFileOutPutName = "Output.pdf";
+            if (new File(pdfFileOutPutName).exists()) {
+              new File(pdfFileOutPutName).delete();
+            }
+            me.params[1] = pdfFileOutPutName;
+            break;
           case "mergePdfStreams":
             inputstream = sol.common.RepoUtils.downloadToStream(me.classConfig.objId);
             me.params[0] = [inputstream];
