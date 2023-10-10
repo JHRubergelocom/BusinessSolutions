@@ -1,0 +1,153 @@
+{
+  "loginData": {
+    "textUserName": {
+      "selector": "Name",
+      "value": "Bodo Kraft",
+      "type": "TEXT"
+    },
+    "textPassword": {
+      "selector": "Passwort",
+      "value": "elo",
+      "type": "TEXT"
+    },
+    "buttonLogin": {
+      "selector": "Anmelden",
+      "value": "Login",
+      "type": "BUTTON"
+    },
+    "stack": "playground.dev.elo"
+  },
+  "eloAcls": [],
+  "eloTile": {
+    "repositoryTile": "Solutions",
+    "taskTile": "Aufgaben"
+  },
+  "eloActions": [
+    {
+      "entryPath": "",
+      "formulaType": "EXTERNAL",
+      "formulaSaveButton": "OK",
+      "formulaCancelButton": "Abbrechen",
+      "selectionDialogItem": "",
+      "selectDocumentDialogs": [],
+      "eloActionDef": {
+        "selectorRibbon": "Neu",
+        "selectorMenu": "Personal",
+        "selectorButton": "Neuer Mitarbeiter"
+      },
+      "tabPages": [
+        {
+          "tabName": "",
+          "initTabPage": [],
+          "controls": [
+            {
+              "selector": "IX_GRP_HR_PERSONNEL_FIRSTNAME",
+              "value": "Hans",
+              "type": "TEXT"
+            },
+            {
+              "selector": "IX_GRP_HR_PERSONNEL_LASTNAME",
+              "value": "Hansen",
+              "type": "TEXT"
+            }
+          ],
+          "tables": [],
+          "checkValueControls": [],
+          "selectDocumentDialogs": []
+        }
+      ],
+      "testShouldFail": false,
+      "selectedButton": "SAVE"
+    },
+    {
+      "entryPath": "",
+      "formulaType": "VIEWER",
+      "formulaSaveButton": "Speichern",
+      "formulaCancelButton": "",
+      "selectionDialogItem": "",
+      "selectDocumentDialogs": [],
+      "eloActionDef": {
+        "selectorRibbon": "",
+        "selectorMenu": "",
+        "selectorButton": ""
+      },
+      "tabPages": [
+        {
+          "tabName": "Personal",
+          "initTabPage": [],
+          "controls": [],
+          "tables": [],
+          "checkValueControls": [
+            {
+              "selector": "IX_GRP_HR_PERSONNEL_PERSONNELSTATUS",
+              "value": "O - In Vorbereitung",
+              "type": "KWL",
+              "operator": "EQUAL"
+            },
+            {
+              "selector": "IX_GRP_HR_PERSONNEL_PERSONNELNO",
+              "value": "",
+              "type": "TEXT",
+              "operator": "EXIST"
+            }
+          ],
+          "selectDocumentDialogs": []
+        }
+      ],
+      "testShouldFail": false,
+      "selectedButton": "SAVE"
+    },
+    {
+      "entryPath": "",
+      "formulaType": "VIEWER",
+      "formulaSaveButton": "Speichern",
+      "formulaCancelButton": "",
+      "selectionDialogItem": "",
+      "selectDocumentDialogs": [],
+      "eloActionDef": {
+        "selectorRibbon": "",
+        "selectorMenu": "",
+        "selectorButton": ""
+      },
+      "tabPages": [
+        {
+          "tabName": "Personal",
+          "initTabPage": [],
+          "controls": [
+            {
+              "selector": "IX_GRP_HR_PERSONNEL_WORKSCHEDULE",
+              "value": "Teilzeit",
+              "type": "KWL"
+            },
+            {
+              "selector": "IX_GRP_HR_PERSONNEL_LICENSEPLATE",
+              "value": "S-AA 1234",
+              "type": "TEXT"
+            }
+          ],
+          "tables": [],
+          "checkValueControls": [],
+          "selectDocumentDialogs": []
+        },
+        {
+          "tabName": "Persönlich",
+          "initTabPage": [],
+          "controls": [
+            {
+              "selector": "IX_GRP_HR_PERSONNEL_BIRTHDAY",
+              "value": "25.03.1960",
+              "type": "TEXT"
+            }
+          ],
+          "tables": [],
+          "checkValueControls": [],
+          "selectDocumentDialogs": []
+        }
+      ],
+      "testShouldFail": false,
+      "selectedButton": "SAVE"
+    }
+  ],
+  "eloTasks": [],
+  "eloDeletes": []
+}

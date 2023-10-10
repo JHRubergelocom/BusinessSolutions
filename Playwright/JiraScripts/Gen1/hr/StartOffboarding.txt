@@ -1,0 +1,9 @@
+{{
+  Login(Ute Schenk|elo)##
+  SelectEntry(Hans|Hansen)##
+  OpenFormular(Personal|Personal|Austrittsprozess)##
+  InputField(Kündigungsdatum|30.08.2024)##
+  InputField(Austrittsdatum|30.09.2024)##
+  InputField(Kommentar|Rentenbeginn)##
+  QuitButton(Speichern)
+}}

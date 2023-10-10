@@ -1,0 +1,7 @@
+{{
+  Login(Ute Schenk|elo)##
+  SelectEntry(Hans|Hansen)##
+  OpenFormular(Personal|Personal|Dokument)##
+  SelectDocument(Dokumentvorlagen/Vollzeitarbeitsvertrag_Contelo AG)##
+  QuitButton(Speichern)
+}}

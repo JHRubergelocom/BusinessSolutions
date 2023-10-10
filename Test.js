@@ -604,22 +604,15 @@ elo-sol prepare -stack ruberg-contract -workspace de -version 20.00
 
 hr
 
-BS HR Personnel File BSHR-488 Unittests überprüfen
-
-https://eloticksy.elo.com/browse/BSHR-488
-
-
 elo-sol prepare -stack ruberg-hr -workspace de -version 20.00
 
 
 invoice
 
-
 elo-sol prepare -stack ruberg-invoice -workspace jan -version 20.00
 
 
 knowledge
-
 
 elo-sol prepare -stack ruberg-knowledge -workspace default -version 20.00
 
@@ -1489,30 +1482,124 @@ https://eloticksy.elo.com/browse/QBSHR-11
 Weitere Ideen:
 
 
+
 Actiondefinitions aus Unittests auch in Playwright testen (pro Solution alle Menüpunkte durchgehen!)
 
 
-actions.ChangeSuperiorFile 				"Vorgesetzten ändern"	
-actions.CreateChartElement 				"Organisation erweitern"
-actions.CreateChartRootElement 			"CreateChartRoot"
-actions.CreateDocument 					"Dokument erstellen"
-actions.CreateEmployeeBadge 			"Ausweis erstellen"
-actions.CreateEmployeeRequest 			"Personaldaten ändern"
-actions.CreateFile 						"Neuer Mitarbeiter"
-actions.EmployeeCorrespondence 			"Nachricht senden"
-actions.EmployeeCorrespondenceTemplate 	"Nachrichtenvorlage erstellen"
-actions.InquirePersonnelFileAccess 		"Personalakte einsehen"
-actions.StartOffboarding 				"Austrittsprozess starten"
-actions.StartOnboarding 				"Eintrittsprozess starten"
-actions.UpdateDocument 					"Dokument aktualisieren"
+actions.ChangeSuperiorFile 				"Vorgesetzten ändern"	            OK
+actions.CreateChartElement 				"Organisation erweitern"			OK
+actions.CreateChartRootElement 			"Neue Organisation"					OK
+actions.CreateDocument 					"Dokument erstellen"				OK
+actions.CreateEmployeeBadge 			"Ausweis erstellen"					OK
+actions.CreateEmployeeRequest 			"Personaldaten ändern" 				OK
+actions.InquirePersonnelFileAccess		"Personalakte einsehen"				OK
+actions.CreateFile 						"Neuer Mitarbeiter"					OK
+actions.EmployeeCorrespondence 			"Nachricht senden"					OK
+actions.EmployeeCorrespondenceTemplate 	"Nachrichtenvorlage erstellen"		OK
+actions.StartOffboarding 				"Austrittsprozess starten"			OK
+actions.StartOnboarding 				"Eintrittsprozess starten" 			OK
+actions.UpdateDocument 					"Dokument aktualisieren"			OK
+
+
+
+Visitor Besucher voranmelden
+
+Neu -> Besucher -> Besucher voranmelden
+
+Thema
+
+<input type="text" size="30" value="" name="IX_GRP_VISITOR_VISITPURPOSE" title="" eloverify="notemptyforward" accesskey="" aria-labelledby="LBL_IX_GRP_VISITOR_VISITPURPOSE" aria-required="true" class="focusedOcrInput" autovalidval="">
+
+Beginn
+
+<input type="text" size="20" id="INP576043" eloverify="date notemptyforward" name="IX_GRP_VISITOR_STARTDATE" title="" accesskey="" aria-labelledby="LBL_IX_GRP_VISITOR_STARTDATE" aria-required="true" class="focusedOcrInput" autovalidval="">
+
+Niederlassung
+
+
+<input size="30" name="IX_GRP_VISITOR_LOCATION" value="" title="" eloverify="notemptyforward" accesskey="" restricttoswl="" type="text" readonly="" aria-labelledby="LBL_IX_GRP_VISITOR_LOCATION" aria-required="true" tabindex="-1" autovalidval="">
+
+Verantwortlicher
+
+<input size="30" name="IX_GRP_VISITOR_RESPONSIBLEEMPLOYEE" value="" title="" eloverify="notemptyforward" accesskey="" elocompl="ELOUSERNAMES-" restricttoswl="" type="text" id="autocompleteid10001" autocomplete="off" aria-labelledby="LBL_IX_GRP_VISITOR_RESPONSIBLEEMPLOYEE" aria-required="true" class="focusedOcrInput" autovalidval="Ute Schenk">
+
+
+Vorname
+
+
+
+Nachname
+
+=====================================================================================================================================================================
+
+10.10.2023
+
+BS Intern BSXX-523 Testautomatisierung mit Playwright BS 1.0 Welt
+
+
+https://eloticksy.elo.com/browse/BSXX-523
+
+
+BS 1.0 Welt
+
+https://miro.com/app/board/uXjVNee-qXo=/?share_link_id=839844681266
+
+
+=====================================================================================================================================================================
 
 
 
 
+Playwrighttraining 28.09.2023
+
+Terminal in VS-Code Projekt-Ordner öffnen
+
+Schneller Setup mit
+
+npm init playwright
+
+Testablauf
+
+npx playwright test
+
+npx playwright show-report
 
 
-<fo:static-content flow-name="xsl-region-after">
- <fo:block text-align="center" margin="5mm 10mm">
- <fo:page-number/>
- </fo:block>
-</fo:static-content>
+//*[@id="planGrid_planChoice_2"]
+
+/html/body/div[1]/div/div/div/div[2]/div/div[1]/div[2]/div[1]/div/label[3]/input
+
+
+#//*[@id="appMountPoint"]/div/div/div/div[2]/div/div[2]/button
+
+
+#alert1
+
+
+#angebot
+
+npx playwright codegen
+
+import { test, expect } from '@playwright/test';
+
+test('test', async ({ page }) => {
+  await page.goto('https://www.google.de/');
+  await page.getByRole('button', { name: 'Alle akzeptieren' }).click();
+  await page.getByLabel('Suche', { exact: true }).click();
+  await page.getByLabel('Suche', { exact: true }).fill('Testautomatisierung');
+  await page.getByLabel('Google Suche').first().click();
+  await page.getByRole('link', { name: 'Alles über Testautomatisierung - #1 in Testautomatisierung andagon https://www.andagon.com' }).click();
+});
+
+
+Allure Report
+
+npm i -D allure-commandline
+npx allure generate --clean allure-results
+npx allure open .\allure-report
+
+mkdir build/allure-results/history
+cp allure-report/history/* build/allure-results/history
+
+allure generate --clean build/allure-results
+allure open

@@ -3,7 +3,7 @@
   "username": "J-H.Ruberg@elo.com",
   "password": "XXX",
   "testExecutionKey": "QBSHR-66",
-  "eloStack": "ruberg-hr.dev.elo",
+  "eloStack": "playground.dev.elo",
   "eloTile": {
     "repositoryTile": "Solutions",
     "taskTile": "Aufgaben"
@@ -29,6 +29,18 @@
           "value": "",
           "type": "KWL",
           "operator": "EXIST"
+        },
+        "Austrittsdatum": {
+          "selector": "IX_GRP_HR_PERSONNEL_DATEOFLEAVING",
+          "value": "",
+          "type": "TEXT",
+          "operator": "NONE"
+        },
+        "Begründung": {
+          "selector": "IX_MAP_HR_REASON_FOR_INQUIRY",
+          "value": "",
+          "type": "TEXT",
+          "operator": "NONE"
         },
         "Bereich": {
           "selector": "IX_GRP_HR_PERSONNEL_DIVISION",
@@ -58,6 +70,12 @@
           "selector": "IX_MAP_HR_PERSONNEL_PRIVATEEMAIL",
           "value": "",
           "type": "TEXT",
+          "operator": "NONE"
+        },
+        "ELO Benutzername": {
+          "selector": "IX_GRP_HR_PERSONNEL_ELOUSERID",
+          "value": "",
+          "type": "DYNKWL",
           "operator": "NONE"
         },
         "Eintrittsdatum": {
@@ -138,6 +156,12 @@
           "type": "TEXT",
           "operator": "NONE"
         },
+        "Kommentar": {
+          "selector": "IX_BLOB_HR_PERSONNEL_TERMINATIONCOMMENT",
+          "value": "",
+          "type": "TEXT",
+          "operator": "NONE"
+        },
         "Konfession": {
           "selector": "IX_MAP_HR_PERSONNEL_RELIGIOUSDENOMINATION",
           "value": "",
@@ -167,6 +191,12 @@
           "value": "",
           "type": "KWL",
           "operator": "EQUAL"
+        },
+        "Kündigungsdatum": {
+          "selector": "IX_MAP_HR_PERSONNEL_DATEOFNOTICE",
+          "value": "",
+          "type": "TEXT",
+          "operator": "NONE"
         },
         "Kündigungsfrist": {
           "selector": "IX_MAP_HR_PERSONNEL_PERIODOFNOTICE",
@@ -218,6 +248,12 @@
         },
         "Nationalität": {
           "selector": "IX_MAP_HR_PERSONNEL_NATIONALITY",
+          "value": "",
+          "type": "DYNKWL",
+          "operator": "NONE"
+        },
+        "Neuer Vorgesetzter": {
+          "selector": "WF_MAP_HR_PERSONNEL_SUPERIORNEW",
           "value": "",
           "type": "DYNKWL",
           "operator": "NONE"
@@ -389,6 +425,12 @@
           "value": "",
           "type": "TEXT",
           "operator": "NONE"
+        },
+        "Änderung aktiv ab": {
+          "selector": "IX_GRP_HR_PERSONNEL_FULFILLDATE",
+          "value": "",
+          "type": "TEXT",
+          "operator": "NONE"
         }
       },
       "eloPrecondition": {
@@ -455,6 +497,15 @@
               "sol.hr.roles.Creators",
               "sol.hr.roles.Managers"
             ]
+          },
+          {
+            "user": "Hans Hansen",
+            "groups": [
+              "Everyone",
+              "HR",
+              "sol.hr.roles.Creators",
+              "sol.hr.roles.Managers"
+            ]
           }
         ],
         "eloTemplates": [
@@ -494,6 +545,56 @@
             "finishButton": "sol.common.wf.node.ok"
           }
         ]
+      }
+    },
+    "visitor": {
+      "eloControls": {
+        "Beginn Datum": {
+          "selector": "IX_GRP_VISITOR_STARTDATE",
+          "value": "",
+          "type": "TEXT",
+          "operator": "NONE"
+        },
+        "Beginn Zeit": {
+          "selector": "IX_GRP_VISITOR_STARTTIME",
+          "value": "",
+          "type": "TEXT",
+          "operator": "NONE"
+        },
+        "Nachname": {
+          "selector": "IX_GRP_VISITOR_LASTNAME",
+          "value": "",
+          "type": "TEXT",
+          "operator": "NONE"
+        },
+        "Niederlassung": {
+          "selector": "IX_GRP_VISITOR_LOCATION",
+          "value": "",
+          "type": "KWL",
+          "operator": "NONE"
+        },
+        "Thema": {
+          "selector": "IX_GRP_VISITOR_VISITPURPOSE",
+          "value": "",
+          "type": "TEXT",
+          "operator": "NONE"
+        },
+        "Verwantwortlicher": {
+          "selector": "IX_GRP_VISITOR_RESPONSIBLEEMPLOYEE",
+          "value": "",
+          "type": "DYNKWL",
+          "operator": "NONE"
+        },
+        "Vorname": {
+          "selector": "IX_GRP_VISITOR_FIRSTNAME",
+          "value": "",
+          "type": "TEXT",
+          "operator": "NONE"
+        }
+      },
+      "eloPrecondition": {
+        "eloUsers": [],
+        "eloTemplates": []
       }
     }
   }

@@ -1,0 +1,8 @@
+{{
+  Login(Ute Schenk|elo)##
+  SelectEntry(Hans|Hansen)##
+  SelectViewerForm()##
+  SelectTabPage(Personal)##
+  InputField(ELO Benutzername|Hans Hansen)##
+  QuitButton(Speichern)
+}}

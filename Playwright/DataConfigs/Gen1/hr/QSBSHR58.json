@@ -1,0 +1,132 @@
+{
+  "loginData": {
+    "textUserName": {
+      "selector": "Name",
+      "value": "Ute Schenk",
+      "type": "TEXT"
+    },
+    "textPassword": {
+      "selector": "Passwort",
+      "value": "elo",
+      "type": "TEXT"
+    },
+    "buttonLogin": {
+      "selector": "Anmelden",
+      "value": "Login",
+      "type": "BUTTON"
+    },
+    "stack": "playground.dev.elo"
+  },
+  "eloAcls": [
+    "ARCPATH:/Personalmanagement/Personalakten/H/Hansen, Hans"
+  ],
+  "eloTile": {
+    "repositoryTile": "Solutions",
+    "taskTile": "Aufgaben"
+  },
+  "eloActions": [
+    {
+      "entryPath": "Solutions/Personalmanagement/Personalakten/H/Hansen, Hans",
+      "formulaType": "EXTERNAL",
+      "formulaSaveButton": "OK",
+      "formulaCancelButton": "Abbrechen",
+      "selectionDialogItem": "",
+      "selectDocumentDialogs": [],
+      "eloActionDef": {
+        "selectorRibbon": "Personal",
+        "selectorMenu": "Personal",
+        "selectorButton": "Nachricht"
+      },
+      "tabPages": [
+        {
+          "tabName": "",
+          "initTabPage": [],
+          "controls": [],
+          "tables": [],
+          "checkValueControls": [],
+          "selectDocumentDialogs": []
+        }
+      ],
+      "testShouldFail": true,
+      "selectedButton": "SAVE"
+    },
+    {
+      "entryPath": "",
+      "formulaType": "EXTERNAL",
+      "formulaSaveButton": "OK",
+      "formulaCancelButton": "Abbrechen",
+      "selectionDialogItem": "",
+      "selectDocumentDialogs": [],
+      "eloActionDef": {
+        "selectorRibbon": "Personal",
+        "selectorMenu": "Personal",
+        "selectorButton": "Nachricht"
+      },
+      "tabPages": [
+        {
+          "tabName": "",
+          "initTabPage": [],
+          "controls": [
+            {
+              "selector": "IX_MAP_HR_PERSONNEL_SENDER",
+              "value": "test-business-solutions@elo.local",
+              "type": "TEXT"
+            },
+            {
+              "selector": "IX_MAP_CORRESPONDENT_RECIPIENT_NAME_1",
+              "value": "test-business-solutions@elo.local",
+              "type": "TEXT"
+            },
+            {
+              "selector": "IX_GRP_COMMUNICATION_SUBJECT",
+              "value": "Geschäftsnachricht",
+              "type": "TEXT"
+            },
+            {
+              "selector": "",
+              "value": "Inhalt Geschäftsnachricht",
+              "type": "REDACTOR"
+            }
+          ],
+          "tables": [],
+          "checkValueControls": [],
+          "selectDocumentDialogs": [
+            {
+              "startButton": "Anhang hinzufügen",
+              "documentPath": "Solutions/PDF Export/bob ipsum PDF"
+            }
+          ]
+        }
+      ],
+      "testShouldFail": false,
+      "selectedButton": "SAVE"
+    },
+    {
+      "entryPath": "Solutions/Personalmanagement/Personalakten/H/Hansen, Hans/Korrespondenz/Geschäftsnachricht",
+      "formulaType": "VIEWER",
+      "formulaSaveButton": "",
+      "formulaCancelButton": "",
+      "selectionDialogItem": "",
+      "selectDocumentDialogs": [],
+      "eloActionDef": {
+        "selectorRibbon": "",
+        "selectorMenu": "",
+        "selectorButton": ""
+      },
+      "tabPages": [
+        {
+          "tabName": "",
+          "initTabPage": [],
+          "controls": [],
+          "tables": [],
+          "checkValueControls": [],
+          "selectDocumentDialogs": []
+        }
+      ],
+      "testShouldFail": false,
+      "selectedButton": "SAVE"
+    }
+  ],
+  "eloTasks": [],
+  "eloDeletes": []
+}

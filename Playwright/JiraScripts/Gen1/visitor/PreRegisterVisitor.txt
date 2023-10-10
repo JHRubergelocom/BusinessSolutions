@@ -1,0 +1,12 @@
+{{
+  Login(Ute Schenk|elo)##
+  OpenFormular(Neu|Besucher|Besucher voranmelden)##
+  InputField(Thema|Klassenfahrt)##
+  InputField(Beginn Datum|13.11.2023)##
+  InputField(Beginn Zeit|10:00)##
+  InputField(Niederlassung|Headquarter)##
+  InputField(Verantwortlicher|Bodo Kraft)##
+  InputField(Vorname|Gerd)##
+  InputField(Nachname|Baum)##
+  QuitButton(Speichern)
+}}

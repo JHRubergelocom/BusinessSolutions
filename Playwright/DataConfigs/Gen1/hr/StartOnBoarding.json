@@ -1,0 +1,92 @@
+{
+  "loginData": {
+    "textUserName": {
+      "selector": "Name",
+      "value": "Gerd Baum",
+      "type": "TEXT"
+    },
+    "textPassword": {
+      "selector": "Passwort",
+      "value": "elo",
+      "type": "TEXT"
+    },
+    "buttonLogin": {
+      "selector": "Anmelden",
+      "value": "Login",
+      "type": "BUTTON"
+    },
+    "stack": "playground.dev.elo"
+  },
+  "eloAcls": [
+    "ARCPATH:/Administration/Business Solutions/_global/Action definitions/sol.hr.personnel.StartOnboarding"
+  ],
+  "eloTile": {
+    "repositoryTile": "Solutions",
+    "taskTile": "Aufgaben"
+  },
+  "eloActions": [
+    {
+      "entryPath": "Solutions/Personalmanagement/Personalakten/H/Hansen, Hans",
+      "formulaType": "EXTERNAL",
+      "formulaSaveButton": "OK",
+      "formulaCancelButton": "Abbrechen",
+      "selectionDialogItem": "",
+      "selectDocumentDialogs": [],
+      "eloActionDef": {
+        "selectorRibbon": "Personal",
+        "selectorMenu": "Personal",
+        "selectorButton": "Eintrittsprozess"
+      },
+      "tabPages": [
+        {
+          "tabName": "",
+          "initTabPage": [],
+          "controls": [
+            {
+              "selector": "IX_GRP_HR_PERSONNEL_SUPERIOR",
+              "value": "Gerd Baum",
+              "type": "DYNKWL"
+            },
+            {
+              "selector": "IX_GRP_HR_PERSONNEL_JOBTITLE",
+              "value": "Consultant",
+              "type": "TEXT"
+            },
+            {
+              "selector": "IX_GRP_HR_PERSONNEL_COMPANY",
+              "value": "Contelo AG",
+              "type": "TEXT"
+            },
+            {
+              "selector": "IX_GRP_HR_PERSONNEL_DIVISION",
+              "value": "Projekte \u0026 Services",
+              "type": "TEXT"
+            },
+            {
+              "selector": "IX_GRP_HR_PERSONNEL_DEPARTMENT",
+              "value": "Consulting",
+              "type": "TEXT"
+            },
+            {
+              "selector": "IX_GRP_HR_PERSONNEL_TEAM",
+              "value": "",
+              "type": "TEXT"
+            },
+            {
+              "selector": "IX_GRP_HR_PERSONNEL_DATEOFJOINING",
+              "value": "#nowdate#",
+              "type": "TEXT"
+            }
+          ],
+          "tables": [],
+          "checkValueControls": [],
+          "selectDocumentDialogs": []
+        }
+      ],
+      "testShouldFail": false,
+      "selectedButton": "SAVE"
+    }
+  ],
+  "eloTasks": [],
+  "eloDeletes": []
+}

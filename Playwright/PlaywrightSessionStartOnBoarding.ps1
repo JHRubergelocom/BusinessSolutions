@@ -1,3 +1,3 @@
-java "-Dfile.encoding=UTF-8" -jar PlaywrightSession.jar DataConfigCreateFile.json PlaywrightConfig.json
-java "-Dfile.encoding=UTF-8" -jar PlaywrightSession.jar DataConfigStartOnBoarding.json PlaywrightConfig.json
-java "-Dfile.encoding=UTF-8" -jar PlaywrightSession.jar DataConfigFirstdayOfWorkReminder.json PlaywrightConfig.json
+java "-Dfile.encoding=UTF-8" -jar PlaywrightSession.jar DataConfigs/Gen1/hr/CreateFile.json PlaywrightConfig.json
+java "-Dfile.encoding=UTF-8" -jar PlaywrightSession.jar DataConfigs/Gen1/hr/StartOnBoarding.json PlaywrightConfig.json
+java "-Dfile.encoding=UTF-8" -jar PlaywrightSession.jar DataConfigs/Gen1/hr/FirstdayOfWorkReminder.json PlaywrightConfig.json

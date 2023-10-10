@@ -1,1 +1,0 @@
-java "-Dfile.encoding=UTF-8" -jar PlaywrightSession.jar DataConfigQSBSHR51.json PlaywrightConfig.json

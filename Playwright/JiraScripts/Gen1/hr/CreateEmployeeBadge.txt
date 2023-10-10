@@ -1,0 +1,6 @@
+{{
+  Login(Ute Schenk|elo)##
+  SelectEntry(Hans|Hansen)##
+  OpenFormular(Personal|Personal|Ausweis)##
+  QuitButton()
+}}

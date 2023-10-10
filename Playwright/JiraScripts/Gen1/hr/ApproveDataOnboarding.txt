@@ -1,0 +1,7 @@
+{{
+  Login(Ute Schenk|elo)##
+  SelectTask(Stammdaten kontrollieren)##
+  TakeWorkflow()##
+  InputField(Probezeit Kündigungsfrist|1)##
+  SubmitTask(Freigeben)
+}}

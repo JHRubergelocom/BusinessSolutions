@@ -1,0 +1,9 @@
+{{
+  Login(Hans Hansen|elo)##
+  SelectFolder(Solutions/Hans Hansen)##
+  OpenFormular(Neu|Self-Service|Personaldaten ändern)##
+  SelectDialogItem(Ihre Bankverbindung)##
+  InputField(Begründung|Selbstauskunft)##
+  InputField(Änderung aktiv ab|nowDate)##
+  QuitButton(Speichern)
+}}

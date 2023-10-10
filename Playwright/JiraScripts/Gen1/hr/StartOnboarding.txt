@@ -1,0 +1,9 @@
+{{
+  Login(Ute Schenk|elo)##
+  SelectEntry(Hans|Hansen)##
+  OpenFormular(Personal|Personal|Eintrittsprozess)##
+  InputField(Vorgesetzter|Verona Funk)##
+  InputField(Stellenbezeichnung|Berater)##
+  InputField(Eintrittsdatum|01.04.2024)##
+  QuitButton(Speichern)
+}}

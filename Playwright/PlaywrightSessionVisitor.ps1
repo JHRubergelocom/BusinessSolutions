@@ -1,0 +1,1 @@
+java "-Dfile.encoding=UTF-8" -jar PlaywrightSession.jar JiraScripts/Gen1/visitor/PreRegisterVisitor.txt PlaywrightConfig.json JiraConnectionConfig.json

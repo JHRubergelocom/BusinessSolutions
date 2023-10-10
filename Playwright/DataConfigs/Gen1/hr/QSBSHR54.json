@@ -1,0 +1,53 @@
+{
+  "loginData": {
+    "textUserName": {
+      "selector": "Name",
+      "value": "Verona Funk",
+      "type": "TEXT"
+    },
+    "textPassword": {
+      "selector": "Passwort",
+      "value": "elo",
+      "type": "TEXT"
+    },
+    "buttonLogin": {
+      "selector": "Anmelden",
+      "value": "Login",
+      "type": "BUTTON"
+    },
+    "stack": "playground.dev.elo"
+  },
+  "eloAcls": [],
+  "eloTile": {
+    "repositoryTile": "Solutions",
+    "taskTile": "Aufgaben"
+  },
+  "eloActions": [],
+  "eloTasks": [
+    {
+      "taskName": "Stammdaten vervollständigen",
+      "takeWorkflow": false,
+      "formulaSaveButton": "OK",
+      "formulaCancelButton": "",
+      "tabPages": [
+        {
+          "tabName": "",
+          "initTabPage": [],
+          "controls": [
+            {
+              "selector": "IX_MAP_HR_PERSONNEL_PERIODOFNOTICEPROBATIONARY",
+              "value": "2",
+              "type": "TEXT"
+            }
+          ],
+          "tables": [],
+          "checkValueControls": [],
+          "selectDocumentDialogs": []
+        }
+      ],
+      "testShouldFail": false,
+      "selectedButton": "SAVE"
+    }
+  ],
+  "eloDeletes": []
+}

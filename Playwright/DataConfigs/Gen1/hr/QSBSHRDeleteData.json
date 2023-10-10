@@ -1,0 +1,30 @@
+{
+  "loginData": {
+    "textUserName": {
+      "selector": "Name",
+      "value": "Administrator",
+      "type": "TEXT"
+    },
+    "textPassword": {
+      "selector": "Passwort",
+      "value": "elo",
+      "type": "TEXT"
+    },
+    "buttonLogin": {
+      "selector": "Anmelden",
+      "value": "Login",
+      "type": "BUTTON"
+    },
+    "stack": "playground.dev.elo"
+  },
+  "eloAcls": [],
+  "eloTile": {
+    "repositoryTile": "Solutions",
+    "taskTile": "Aufgaben"
+  },
+  "eloActions": [],
+  "eloTasks": [],
+  "eloDeletes": [
+    "ARCPATH:/Personalmanagement/Personalakten/H/Hansen, Hans"
+  ]
+}
