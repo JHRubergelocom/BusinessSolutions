@@ -1,0 +1,6 @@
+{{
+  Login(Ute Schenk|elo)##
+  SelectTask(Bankverbindung ändern)##
+  TakeWorkflow()##
+  SubmitTask(Freigeben)
+}}

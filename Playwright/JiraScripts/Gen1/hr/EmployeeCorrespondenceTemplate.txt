@@ -2,10 +2,7 @@
   Login(Ute Schenk|elo)##
   OpenFormular(Neu|Personal|Nachrichtenvorlage erstellen)##
   InputField(KurzbezeichnungPersonal|Vorlage Playwright)##
-  InputField(Absender|Personalabteilung <personal@contelo.com>)##
   InputField(Betreff|Mitarbeiter Korrespondenz)##
   InputField(Nachricht|Inhalt Mitarbeiter Korrespondenz)##
   QuitButton(Speichern)##
-  SelectViewerForm()##
-  CheckFieldEqual(Absender|Personalabteilung <personal@contelo.com>)
 }}

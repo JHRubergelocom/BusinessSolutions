@@ -1,0 +1,12 @@
+{{
+  Login(Administrator|elo)##
+  OpenFormular(Neu|Besucher|Firma voranmelden)##
+  InputField(Thema|Besichtigung)##
+  InputField(Beginn Datum|13.11.2023)##
+  InputField(Beginn Zeit|10:00)##
+  InputField(Niederlassung|Headquarter)##
+  InputField(Verantwortlicher|Bodo Kraft)##
+  InputField(Firma|Siguna Versicherung)##
+  InputField(Besucherzahl|10)##
+  QuitButton(Speichern)
+}}

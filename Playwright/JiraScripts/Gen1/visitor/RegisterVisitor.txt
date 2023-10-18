@@ -1,0 +1,10 @@
+{{
+  Login(Ute Schenk|elo)##
+  OpenFormular(Neu|Besucher|Besucher direktanmelden)##
+  InputField(Verantwortlicher|Bodo Kraft)##
+  InputField(Vorname|Verona)##
+  InputField(Nachname|Funk)##
+  SelectTabPage(Besucherdaten)##
+  InputField(Niederlassung|Headquarter)##
+  QuitButton(Speichern)
+}}

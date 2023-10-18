@@ -1,6 +1,6 @@
 {{
   Login(Ute Schenk|elo)##
-  SelectEntry(Hans|Hansen)##
+  SelectEntryHr(Hans|Hansen)##
   SelectViewerForm()##
   SelectTabPage(Personal)##
   InputField(ELO Benutzername|Hans Hansen)##

@@ -3,16 +3,16 @@
   SelectFolder(Solutions/Personalmanagement/Organigramm/Firma Hansens)##
   OpenFormular(Neu|Personal|Organisation erweitern)##
   SelectDialogItem(Neuer Organisationsbereich)##
-  InputField(Bereich|Niederlassung am Meer)##
+  InputField(Neuer Bereich|Niederlassung am Meer)##
   QuitButton(Speichern)##
   SelectFolder(Solutions/Personalmanagement/Organigramm/Firma Hansens/Niederlassung am Meer)##
   OpenFormular(Neu|Personal|Organisation erweitern)##
   SelectDialogItem(Neue Abteilung)##
-  InputField(Abteilung|Bekleidung)##
+  InputField(Neue Abteilung|Bekleidung)##
   QuitButton(Speichern)##
   SelectFolder(Solutions/Personalmanagement/Organigramm/Firma Hansens/Niederlassung am Meer/Bekleidung)##
   OpenFormular(Neu|Personal|Organisation erweitern)##
   SelectDialogItem(Neues Team)##
-  InputField(Team|Badehose)##
+  InputField(Neues Team|Badehose)##
   QuitButton(Speichern)
 }}

@@ -1,0 +1,91 @@
+{
+  "baseURL": "https://eloticksy.elo.com",
+  "username": "J-H.Ruberg@elo.com",
+  "password": "XXX",
+  "testExecutionKey": "QBSHR-66",
+  "eloStack": "playground.dev.elo",
+  "eloTile": {
+    "repositoryTile": "Solutions",
+    "taskTile": "Aufgaben"
+  },
+  "eloSolution": {
+    "eloControls": {
+      "Beginn Datum": {
+        "selector": "IX_GRP_VISITOR_STARTDATE",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Beginn Zeit": {
+        "selector": "IX_GRP_VISITOR_STARTTIME",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Besucherzahl": {
+        "selector": "IX_MAP_NUMBER_OF_VISITORS",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Firma": {
+        "selector": "IX_GRP_VISITOR_GROUP_NAME",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Gruppe Besucher Nachname": {
+        "selector": "VISITOR_LASTNAME1",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Gruppe Besucher Vorname": {
+        "selector": "VISITOR_FIRSTNAME1",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Gruppenname": {
+        "selector": "IX_GRP_VISITOR_GROUP_NAME",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Nachname": {
+        "selector": "IX_GRP_VISITOR_LASTNAME",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Niederlassung": {
+        "selector": "IX_GRP_VISITOR_LOCATION",
+        "value": "",
+        "type": "KWL",
+        "operator": "NONE"
+      },
+      "Thema": {
+        "selector": "IX_GRP_VISITOR_VISITPURPOSE",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Verwantwortlicher": {
+        "selector": "IX_GRP_VISITOR_RESPONSIBLEEMPLOYEE",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Vorname": {
+        "selector": "IX_GRP_VISITOR_FIRSTNAME",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      }
+    },
+    "eloPrecondition": {
+      "eloUsers": [],
+      "eloTemplates": []
+    }
+  }
+}

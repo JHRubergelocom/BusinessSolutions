@@ -1,1 +1,1 @@
-java "-Dfile.encoding=UTF-8" -jar PlaywrightSession.jar JiraScripts/JiraScriptFunctions.txt PlaywrightConfig.json JiraConnectionConfig.json
+java "-Dfile.encoding=UTF-8" -jar PlaywrightSession.jar JiraScripts/JiraScriptFunctions.txt PlaywrightConfig.json JiraScripts/Gen1/hr/JiraConnectionConfig.json
