@@ -1,0 +1,6 @@
+{{
+  Login(Administrator|elo)##
+  SelectFolder(Solutions/Besuchermanagement/Besucher/2023/11/B/Baum, Gerd)##
+  OpenFormular(Besucher|Besucher|einchecken)##
+  QuitButton(OK)
+}}

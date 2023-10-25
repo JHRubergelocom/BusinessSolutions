@@ -10,6 +10,12 @@
   },
   "eloSolution": {
     "eloControls": {
+      "Ausweis sofort erstellen": {
+        "selector": "IX_MAP_CREATE_BADGE_IMMEDIATELY",
+        "value": "false",
+        "type": "CHECKBOX",
+        "operator": "NONE"
+      },
       "Beginn Datum": {
         "selector": "IX_GRP_VISITOR_STARTDATE",
         "value": "",
@@ -28,8 +34,38 @@
         "type": "TEXT",
         "operator": "NONE"
       },
+      "Dokument": {
+        "selector": "IX_MAP_VISITOR_DOCUMENTS",
+        "value": "",
+        "type": "KWL",
+        "operator": "NONE"
+      },
+      "Ende Datum": {
+        "selector": "IX_GRP_VISITOR_ENDDATE",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Ende Zeit": {
+        "selector": "IX_GRP_VISITOR_ENDTIME",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
       "Firma": {
         "selector": "IX_GRP_VISITOR_GROUP_NAME",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Grund der Sperrung": {
+        "selector": "IX_BLOB_REASON_OF_DEACTIVATION",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Grund für Stornierung": {
+        "selector": "IX_GRP_VISITOR_CANCEL_REASON",
         "value": "",
         "type": "TEXT",
         "operator": "NONE"
@@ -52,14 +88,32 @@
         "type": "TEXT",
         "operator": "NONE"
       },
-      "Nachname": {
-        "selector": "IX_GRP_VISITOR_LASTNAME",
+      "Gültig ab": {
+        "selector": "IX_GRP_LONGTERM_BADGE_VALID_FROM",
         "value": "",
         "type": "TEXT",
         "operator": "NONE"
       },
+      "Gültig bis": {
+        "selector": "IX_GRP_LONGTERM_BADGE_VALID_UNTIL",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Nachname": {
+        "selector": "IX_GRP_VISITOR_LASTNAME",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
       "Niederlassung": {
         "selector": "IX_GRP_VISITOR_LOCATION",
+        "value": "",
+        "type": "KWL",
+        "operator": "NONE"
+      },
+      "Senden an": {
+        "selector": "IX_MAP_VISITOR_DOCUSER",
         "value": "",
         "type": "KWL",
         "operator": "NONE"
@@ -79,12 +133,19 @@
       "Vorname": {
         "selector": "IX_GRP_VISITOR_FIRSTNAME",
         "value": "",
-        "type": "TEXT",
+        "type": "DYNKWL",
         "operator": "NONE"
       }
     },
     "eloPrecondition": {
-      "eloUsers": [],
+      "eloUsers": [
+        {
+          "user": "Hans Hansen",
+          "groups": [
+            "Everyone"
+          ]
+        }
+      ],
       "eloTemplates": []
     }
   }

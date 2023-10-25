@@ -8,5 +8,5 @@
   InputField(Verantwortlicher|Bodo Kraft)##
   InputField(Firma|Siguna Versicherung)##
   InputField(Besucherzahl|10)##
-  QuitButton(Speichern)
+  QuitButton(OK)
 }}

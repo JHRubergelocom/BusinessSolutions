@@ -1,0 +1,9 @@
+{{
+  Login(Ute Schenk|elo)##
+  OpenFormular(Neu|Kontakt|Neuer Kontakt)##
+  SelectDialogItem(Default)##
+  InputField(Name_KWL|Besucher-Kontakte)##
+  InputField(Vorname|P01)##
+  InputField(Nachname|P02)##
+  QuitButton(OK)
+}}

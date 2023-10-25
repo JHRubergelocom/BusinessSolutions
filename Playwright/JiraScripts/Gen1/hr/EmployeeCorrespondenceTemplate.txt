@@ -4,5 +4,5 @@
   InputField(KurzbezeichnungPersonal|Vorlage Playwright)##
   InputField(Betreff|Mitarbeiter Korrespondenz)##
   InputField(Nachricht|Inhalt Mitarbeiter Korrespondenz)##
-  QuitButton(Speichern)##
+  QuitButton(OK)##
 }}

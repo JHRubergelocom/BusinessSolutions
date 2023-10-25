@@ -1540,6 +1540,9 @@ BS Intern BSXX-523 Testautomatisierung mit Playwright BS 1.0 Welt
 https://eloticksy.elo.com/browse/BSXX-523
 
 
+Playwright Testcases BS Gen 1.0
+
+
 {{
 InputField(Vorgesetzter|Gerd Baum)##
 InputField(Stellenbezeichnung|Berater)##
@@ -1556,29 +1559,14 @@ https://miro.com/app/board/uXjVNee-qXo=/?share_link_id=839844681266
 
 
 
-Testablauf Demo Donnerstag hr
+TODO 20.10.2023
 
-PlaywrightSessionDeleteData
-
-CreateFile
-ChangeFile
-ChangeSuperiorFile
-CreateChartRootElement
-CreateChartElement
-CreateDocument					
-CreateEmployeeBadge				
-CreateEmployeeRequest
-EmployeeCorrespondence			
-EmployeeCorrespondenceTemplate	
-InquirePersonnelFileAccess
-UpdateDocument								
-StartOnboarding					
-CompleteDataOnboarding			
-ApproveDataOnboarding			
-StartOffboarding				
+BS Development BSDEV-14 KWL Probleme bei Doppelten Wert 
 
 
-TODO 16.10.2023
+https://eloticksy.elo.com/browse/BSDEV-14
+
+
 
 
 =======================================================
@@ -1678,6 +1666,8 @@ Tabellenfelder in Formularen unterstützen! (z.B. "PreRegisterGroup")
 
 Visitor
 
+
+
 Gruppe voranmelden  	"PreRegisterGroup"   Neu->Besucher->Gruppe voranmelden
 
 Thema					"IX_GRP_VISITOR_VISITPURPOSE"
@@ -1703,18 +1693,21 @@ Besucherzahl			"IX_MAP_NUMBER_OF_VISITORS"
 
 
 Besucher direktanmelden "RegisterVisitor"  Neu->Besucher->Besucher direktannmelden
-
-Vorname
-Nachname
-Niederlassung
-Verantwortlicher
-
-
-
-
 Gruppe direktanmelden	"RegisterGroup"
-Neuer Dauerausweis		"CreateLongtermBadge"
-Besucherliste erstellen	"ReportVisitor"
+Neuer Dauerausweis		"CreateLongTermBadge" Neu->Besucher->Neuer Dauerausweis
+Besucherliste erstellen
+Dauerausweis sperren		"DeactivateLongtermBadge"
+Voranmeldung bearbeiten		"EditVisitorRegistration"
+Besuch abmelden				"CheckOutVisitor"
+Besuch einchecken			"CheckInVisitor"
+Voranmeldung stornieren		"CancelVisitorRegistration"
+Unterschrift anfordern		"CreateSignatureDocument"
+Besucherausweis erstellen	"CreateVisitorBadge"
+
+TODO
+
+Besucherbild hinzufügen		"CaptureVisitorPicture" (offen Bild auswählen! Dateidialog erstellen, später!)
+
 
 
 {

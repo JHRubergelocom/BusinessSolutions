@@ -1,0 +1,5 @@
+{{
+  Login(Bodo Kraft|elo)##
+  SelectFolder(Solutions/Kontaktverwaltung/Kontaktliste/Contelo AG/Baum, Gerd)##
+  OpenFormular(Kontakt|Kontaktlabel)##
+}}

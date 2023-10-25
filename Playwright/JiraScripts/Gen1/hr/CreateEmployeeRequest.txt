@@ -5,5 +5,5 @@
   SelectDialogItem(Ihre Bankverbindung)##
   InputField(Begründung|Selbstauskunft)##
   InputField(Änderung aktiv ab|nowDate)##
-  QuitButton(Speichern)
+  QuitButton(OK)
 }}

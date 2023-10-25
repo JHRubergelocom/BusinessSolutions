@@ -1,0 +1,8 @@
+{{
+  Login(Ute Schenk|elo)##
+  SelectFolder(Solutions/Besuchermanagement/Besucher/2023/11/Baum, Gerd)##
+  OpenFormular(Besucher|Besucher|Unterschrift)##
+  InputField(Dokument|Gesundheitsfragebogen)##
+  InputField(Senden an|Daniel Cooper)##
+  QuitButton(OK)
+}}

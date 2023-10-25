@@ -26,8 +26,7 @@
     {
       "entryPath": "",
       "formulaType": "EXTERNAL",
-      "formulaSaveButton": "OK",
-      "formulaCancelButton": "Abbrechen",
+      "formulaQuitButton": "OK",
       "selectionDialogItem": "",
       "selectDocumentDialogs": [],
       "eloActionDef": {
@@ -124,14 +123,12 @@
           "selectDocumentDialogs": []
         }
       ],
-      "testShouldFail": false,
-      "selectedButton": "SAVE"
+      "testShouldFail": false
     },
     {
       "entryPath": "",
       "formulaType": "VIEWER",
-      "formulaSaveButton": "Speichern",
-      "formulaCancelButton": "",
+      "formulaQuitButton": "Speichern",
       "selectionDialogItem": "",
       "selectDocumentDialogs": [],
       "eloActionDef": {
@@ -277,14 +274,12 @@
           "selectDocumentDialogs": []
         }
       ],
-      "testShouldFail": false,
-      "selectedButton": "SAVE"
+      "testShouldFail": false
     },
     {
       "entryPath": "Solutions/Administrator",
       "formulaType": "EXTERNAL",
-      "formulaSaveButton": "OK",
-      "formulaCancelButton": "Abbrechen",
+      "formulaQuitButton": "OK",
       "selectionDialogItem": "",
       "selectDocumentDialogs": [],
       "eloActionDef": {
@@ -308,14 +303,12 @@
           "selectDocumentDialogs": []
         }
       ],
-      "testShouldFail": false,
-      "selectedButton": "SAVE"
+      "testShouldFail": false
     },
     {
       "entryPath": "",
       "formulaType": "EXTERNAL",
-      "formulaSaveButton": "OK",
-      "formulaCancelButton": "Abbrechen",
+      "formulaQuitButton": "OK",
       "selectionDialogItem": "Neuer Organisationsbereich",
       "selectDocumentDialogs": [],
       "eloActionDef": {
@@ -344,14 +337,12 @@
           "selectDocumentDialogs": []
         }
       ],
-      "testShouldFail": false,
-      "selectedButton": "SAVE"
+      "testShouldFail": false
     },
     {
       "entryPath": "",
       "formulaType": "EXTERNAL",
-      "formulaSaveButton": "OK",
-      "formulaCancelButton": "Abbrechen",
+      "formulaQuitButton": "OK",
       "selectionDialogItem": "Neue Abteilung",
       "selectDocumentDialogs": [],
       "eloActionDef": {
@@ -380,14 +371,12 @@
           "selectDocumentDialogs": []
         }
       ],
-      "testShouldFail": false,
-      "selectedButton": "SAVE"
+      "testShouldFail": false
     },
     {
       "entryPath": "",
       "formulaType": "EXTERNAL",
-      "formulaSaveButton": "OK",
-      "formulaCancelButton": "Abbrechen",
+      "formulaQuitButton": "OK",
       "selectionDialogItem": "Neues Team",
       "selectDocumentDialogs": [],
       "eloActionDef": {
@@ -416,8 +405,7 @@
           "selectDocumentDialogs": []
         }
       ],
-      "testShouldFail": false,
-      "selectedButton": "SAVE"
+      "testShouldFail": false
     }
   ],
   "eloTasks": [],

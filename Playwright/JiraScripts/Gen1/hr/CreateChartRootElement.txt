@@ -3,5 +3,5 @@
   SelectFolder(Solutions/Personalmanagement/Organigramm)##
   OpenFormular(Neu|Personal|Neue Organisation)##
   InputField(Neue Organisation|Firma Hansens)##
-  QuitButton(Speichern)
+  QuitButton(OK)
 }}

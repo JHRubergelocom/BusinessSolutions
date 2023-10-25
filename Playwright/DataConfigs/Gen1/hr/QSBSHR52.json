@@ -26,8 +26,7 @@
     {
       "entryPath": "Solutions/Personalmanagement/Personalakten/H/Hansen, Hans",
       "formulaType": "EXTERNAL",
-      "formulaSaveButton": "OK",
-      "formulaCancelButton": "Abbrechen",
+      "formulaQuitButton": "OK",
       "selectionDialogItem": "",
       "selectDocumentDialogs": [],
       "eloActionDef": {
@@ -45,8 +44,7 @@
           "selectDocumentDialogs": []
         }
       ],
-      "testShouldFail": false,
-      "selectedButton": "SAVE"
+      "testShouldFail": false
     }
   ],
   "eloTasks": [],

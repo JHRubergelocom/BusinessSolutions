@@ -1,0 +1,12 @@
+{{
+  Login(Ute Schenk|elo)##
+  OpenFormular(Neu|Besucher|Neuer Dauerausweis)##
+  InputField(Gültig ab|13.11.2023)##
+  InputField(Gültig bis|13.12.2023)##
+  InputField(Vorname|Verona)##
+  InputField(Nachname|Funk)##
+  InputField(Niederlassung|Headquarter)##
+  SelectTabPage(Dokumente)##
+  InputField(Ausweis sofort erstellen|true)##
+  QuitButton(OK)
+}}

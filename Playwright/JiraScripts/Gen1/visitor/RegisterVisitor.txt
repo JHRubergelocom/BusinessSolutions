@@ -6,5 +6,5 @@
   InputField(Nachname|Funk)##
   SelectTabPage(Besucherdaten)##
   InputField(Niederlassung|Headquarter)##
-  QuitButton(Speichern)
+  QuitButton(OK)
 }}

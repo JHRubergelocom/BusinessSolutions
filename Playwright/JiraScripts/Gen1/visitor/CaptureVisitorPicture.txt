@@ -1,0 +1,6 @@
+{{
+  Login(Ute Schenk|elo)##
+  SelectFolder(Solutions/Besuchermanagement/Besucher/2023/11/Baum, Gerd)##
+  OpenFormular(Besucher|Besucher|Besucherbild)##
+  QuitButton(OK)
+}}

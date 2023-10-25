@@ -3,5 +3,5 @@
   SelectEntryHr(Hans|Hansen)##
   SelectSubEntry(Vollzeitarbeitsvertrag_Contelo AG)##
   OpenFormular(Dokument|Personal|Dokument)##
-  QuitButton(Abbrechen)
+  QuitButton(OK)
 }}

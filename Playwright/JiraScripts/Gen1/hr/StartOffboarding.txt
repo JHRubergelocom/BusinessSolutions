@@ -5,5 +5,5 @@
   InputField(Kündigungsdatum|30.08.2024)##
   InputField(Austrittsdatum|30.09.2024)##
   InputField(Kommentar|Rentenbeginn)##
-  QuitButton(Speichern)
+  QuitButton(OK)
 }}

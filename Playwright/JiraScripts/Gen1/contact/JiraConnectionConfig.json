@@ -1,0 +1,283 @@
+{
+  "baseURL": "https://eloticksy.elo.com",
+  "username": "J-H.Ruberg@elo.com",
+  "password": "XXX",
+  "testExecutionKey": "QBSHR-66",
+  "eloStack": "playground.dev.elo",
+  "eloTile": {
+    "repositoryTile": "Solutions",
+    "taskTile": "Aufgaben"
+  },
+  "eloSolution": {
+    "eloControls": {
+      "Abteilung": {
+        "selector": "IX_GRP_CONTACT_DIVISION",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Adresszusatz": {
+        "selector": "IX_GRP_ADDRESS_ADDITION",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Adresszusatz-Tabelle": {
+        "selector": "IX_MAP_ADDRESS_ADDITION1",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Anrede": {
+        "selector": "IX_GRP_CONTACT_FORM_OF_ADDRESS",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "BIC": {
+        "selector": "IX_GRP_FINANCE_BIC",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Beruf": {
+        "selector": "IX_GRP_CONTACT_OCCUPATION",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Beschreibung": {
+        "selector": "IX_MAP_ADDRESS_TYPE_DESC1",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Bundesland": {
+        "selector": "IX_GRP_ADDRESS_STATE",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Bundesland-Tabelle": {
+        "selector": "IX_MAP_ADDRESS_STATE1",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "E-Mail": {
+        "selector": "IX_GRP_CONTACT_EMAIL",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "E-Mail-Tabelle": {
+        "selector": "IX_MAP_CONTACT_EMAIL1",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "ELO Benutzer": {
+        "selector": "IX_GRP_CONTACT_USERNAME",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Fax": {
+        "selector": "IX_GRP_CONTACT_FAX",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Fax-Tabelle": {
+        "selector": "IX_MAP_CONTACT_FAX1",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Firmencode": {
+        "selector": "IX_GRP_COMPANY_REFERENCE",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Firmenname": {
+        "selector": "IX_GRP_COMPANY_NAME",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Firmenname Neu": {
+        "selector": "IX_GRP_COMPANY_NAME",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Handelsregister": {
+        "selector": "IX_GRP_FINANCE_REGISTER_NUMBER",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "IBAN": {
+        "selector": "IX_GRP_FINANCE_IBAN",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "ID": {
+        "selector": "IX_GRP_CONTACTLIST_REFERENCE",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Kontaktdaten": {
+        "selector": "IX_MAP_ADDRESS_TYPE1",
+        "value": "",
+        "type": "KWL",
+        "operator": "NONE"
+      },
+      "Land": {
+        "selector": "IX_GRP_ADDRESS_COUNTRY",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Land-Tabelle": {
+        "selector": "IX_MAP_ADDRESS_COUNTRY1",
+        "value": "",
+        "type": "KWL",
+        "operator": "NONE"
+      },
+      "Mobiltelefon": {
+        "selector": "IX_GRP_CONTACT_MOBILE_PHONE",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Mobiltelefon-Tabelle": {
+        "selector": "IX_MAP_CONTACT_MOBILE_PHONE1",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Nachname": {
+        "selector": "IX_GRP_CONTACT_LASTNAME",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Name_KWL": {
+        "selector": "IX_GRP_CONTACTLIST_NAME",
+        "value": "",
+        "type": "KWL",
+        "operator": "NONE"
+      },
+      "Name_TEXT": {
+        "selector": "IX_GRP_CONTACTLIST_NAME",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Namenzusatz": {
+        "selector": "IX_GRP_CONTACT_NAME_SUFFIX",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Ort": {
+        "selector": "IX_GRP_ADDRESS_CITY",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Ort-Tabelle": {
+        "selector": "IX_MAP_ADDRESS_CITY1",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "PLZ": {
+        "selector": "IX_GRP_ADDRESS_ZIP_CODE",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "PLZ-Tabelle": {
+        "selector": "IX_MAP_ADDRESS_ZIP_CODE1",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Position": {
+        "selector": "IX_GRP_CONTACT_POSITION",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Steuernummer": {
+        "selector": "IX_GRP_FINANCE_TAX_NO",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Straße": {
+        "selector": "IX_GRP_ADDRESS_STREET",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Straße-Tabelle": {
+        "selector": "IX_MAP_ADDRESS_STREET1",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Telefon": {
+        "selector": "IX_GRP_CONTACT_TELEPHONE",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Telefon-Tabelle": {
+        "selector": "IX_MAP_CONTACT_TELEPHONE1",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Titel": {
+        "selector": "IX_GRP_CONTACT_TITLE",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "UST-IdNr": {
+        "selector": "IX_GRP_FINANCE_VAT_ID_NO",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Vorname": {
+        "selector": "IX_GRP_CONTACT_FIRSTNAME",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Webseit": {
+        "selector": "IX_GRP_COMPANY_WEBSITE",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "beschriebung": {
+        "selector": "IX_DESC",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      }
+    },
+    "eloPrecondition": {
+      "eloUsers": [],
+      "eloTemplates": []
+    }
+  }
+}

@@ -3,5 +3,5 @@
   OpenFormular(Neu|Personal|Neuer Mitarbeiter)##
   InputField(Vorname|Hans)##
   InputField(Nachname|Hansen)##
-  QuitButton(Speichern)
+  QuitButton(OK)
 }}

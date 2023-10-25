@@ -26,8 +26,7 @@
     {
       "entryPath": "Solutions/Personalmanagement/Personalakten/H/Hansen, Hans",
       "formulaType": "VIEWER",
-      "formulaSaveButton": "Speichern",
-      "formulaCancelButton": "",
+      "formulaQuitButton": "Speichern",
       "selectionDialogItem": "",
       "selectDocumentDialogs": [],
       "eloActionDef": {
@@ -170,14 +169,12 @@
           "selectDocumentDialogs": []
         }
       ],
-      "testShouldFail": false,
-      "selectedButton": "SAVE"
+      "testShouldFail": false
     },
     {
       "entryPath": "",
       "formulaType": "VIEWER",
-      "formulaSaveButton": "Speichern",
-      "formulaCancelButton": "",
+      "formulaQuitButton": "Speichern",
       "selectionDialogItem": "",
       "selectDocumentDialogs": [],
       "eloActionDef": {
@@ -274,14 +271,12 @@
           "selectDocumentDialogs": []
         }
       ],
-      "testShouldFail": false,
-      "selectedButton": "SAVE"
+      "testShouldFail": false
     },
     {
       "entryPath": "",
       "formulaType": "VIEWER",
-      "formulaSaveButton": "Speichern",
-      "formulaCancelButton": "",
+      "formulaQuitButton": "Speichern",
       "selectionDialogItem": "",
       "selectDocumentDialogs": [],
       "eloActionDef": {
@@ -370,14 +365,12 @@
           "selectDocumentDialogs": []
         }
       ],
-      "testShouldFail": false,
-      "selectedButton": "SAVE"
+      "testShouldFail": false
     },
     {
       "entryPath": "",
       "formulaType": "VIEWER",
-      "formulaSaveButton": "Speichern",
-      "formulaCancelButton": "",
+      "formulaQuitButton": "Speichern",
       "selectionDialogItem": "",
       "selectDocumentDialogs": [],
       "eloActionDef": {
@@ -443,8 +436,7 @@
           "selectDocumentDialogs": []
         }
       ],
-      "testShouldFail": false,
-      "selectedButton": "SAVE"
+      "testShouldFail": false
     }
   ],
   "eloTasks": [],

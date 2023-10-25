@@ -3,5 +3,5 @@
   OpenFormular(Verwalten|Personal|Vorgesetzten)##
   InputField(Vorgesetzter|Hans Hansen)##
   InputField(Neuer Vorgesetzter|Verona Funk)##
-  QuitButton(Speichern)
+  QuitButton(OK)
 }}

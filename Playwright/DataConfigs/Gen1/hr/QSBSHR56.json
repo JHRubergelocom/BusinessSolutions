@@ -27,8 +27,7 @@
     {
       "taskName": "Stammdaten kontrollieren",
       "takeWorkflow": true,
-      "formulaSaveButton": "Freigeben",
-      "formulaCancelButton": "",
+      "formulaQuitButton": "Freigeben",
       "tabPages": [
         {
           "tabName": "",
@@ -45,8 +44,7 @@
           "selectDocumentDialogs": []
         }
       ],
-      "testShouldFail": false,
-      "selectedButton": "SAVE"
+      "testShouldFail": false
     }
   ],
   "eloDeletes": []

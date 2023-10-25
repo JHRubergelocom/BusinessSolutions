@@ -9,5 +9,5 @@
   InputField(Gruppenname|Bremer Stadtmusikanten)##
   InputField(Gruppe Besucher Vorname|Günter)##
   InputField(Gruppe Besucher Nachname|Esel)##
-  QuitButton(Speichern)
+  QuitButton(OK)
 }}

@@ -1,0 +1,7 @@
+{{
+  Login(Administrator|elo)##
+  SelectFolder(Solutions/Besuchermanagement/Dauerausweise/F/Funk, Verona)##
+  OpenFormular(Besucher|Besucher|sperren)##
+  InputField(Grund der Sperrung|Kündigung)##
+  QuitButton(OK)
+}}

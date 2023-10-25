@@ -26,8 +26,7 @@
     {
       "entryPath": "",
       "formulaType": "EXTERNAL",
-      "formulaSaveButton": "OK",
-      "formulaCancelButton": "Abbrechen",
+      "formulaQuitButton": "OK",
       "selectionDialogItem": "",
       "selectDocumentDialogs": [],
       "eloActionDef": {
@@ -248,14 +247,12 @@
           "selectDocumentDialogs": []
         }
       ],
-      "testShouldFail": false,
-      "selectedButton": "SAVE"
+      "testShouldFail": false
     },
     {
-      "entryPath": "Solutions/Administrator",
+      "entryPath": "",
       "formulaType": "EXTERNAL",
-      "formulaSaveButton": "OK",
-      "formulaCancelButton": "Abbrechen",
+      "formulaQuitButton": "OK",
       "selectionDialogItem": "",
       "selectDocumentDialogs": [],
       "eloActionDef": {
@@ -382,86 +379,19 @@
             {
               "selectorTable": "",
               "addLineButtonName": "Weitere Benachrichtigung",
-              "table": [
-                [
-                  {
-                    "selector": "IX_MAP_MEETING_NOTIFICATION_TEMPLATE_",
-                    "value": "Meeting-Einladung",
-                    "type": "DYNKWL"
-                  },
-                  {
-                    "selector": "IX_MAP_MEETING_NOTIFICATION_RECIPIENTS_",
-                    "value": "O",
-                    "type": "DYNKWL"
-                  },
-                  {
-                    "selector": "IX_MAP_MEETING_NOTIFICATION_SHIFT_VALUE_",
-                    "value": "1",
-                    "type": "TEXT"
-                  },
-                  {
-                    "selector": "IX_MAP_MEETING_NOTIFICATION_SHIFT_UNIT_",
-                    "value": "y",
-                    "type": "DYNKWL"
-                  },
-                  {
-                    "selector": "IX_MAP_MEETING_NOTIFICATION_SIGN_",
-                    "value": "-",
-                    "type": "DYNKWL"
-                  },
-                  {
-                    "selector": "IX_MAP_MEETING_NOTIFICATION_REFERENCE_DATE_",
-                    "value": "MEETING_STARTDATE",
-                    "type": "DYNKWL"
-                  }
-                ],
-                [
-                  {
-                    "selector": "IX_MAP_MEETING_NOTIFICATION_TEMPLATE_",
-                    "value": "Meeting-Einladung",
-                    "type": "DYNKWL"
-                  },
-                  {
-                    "selector": "IX_MAP_MEETING_NOTIFICATION_RECIPIENTS_",
-                    "value": "A",
-                    "type": "DYNKWL"
-                  },
-                  {
-                    "selector": "IX_MAP_MEETING_NOTIFICATION_SHIFT_VALUE_",
-                    "value": "1",
-                    "type": "TEXT"
-                  },
-                  {
-                    "selector": "IX_MAP_MEETING_NOTIFICATION_SHIFT_UNIT_",
-                    "value": "Q",
-                    "type": "DYNKWL"
-                  },
-                  {
-                    "selector": "IX_MAP_MEETING_NOTIFICATION_SIGN_",
-                    "value": "+",
-                    "type": "DYNKWL"
-                  },
-                  {
-                    "selector": "IX_MAP_MEETING_NOTIFICATION_REFERENCE_DATE_",
-                    "value": "MEETING_ENDDATE",
-                    "type": "DYNKWL"
-                  }
-                ]
-              ]
+              "table": []
             }
           ],
           "checkValueControls": [],
           "selectDocumentDialogs": []
         }
       ],
-      "testShouldFail": false,
-      "selectedButton": "SAVE"
+      "testShouldFail": false
     },
     {
-      "entryPath": "Solutions/Administrator",
+      "entryPath": "",
       "formulaType": "EXTERNAL",
-      "formulaSaveButton": "OK",
-      "formulaCancelButton": "Abbrechen",
+      "formulaQuitButton": "OK",
       "selectionDialogItem": "",
       "selectDocumentDialogs": [],
       "eloActionDef": {
@@ -565,12 +495,11 @@
           "selectDocumentDialogs": []
         }
       ],
-      "testShouldFail": false,
-      "selectedButton": "SAVE"
+      "testShouldFail": false
     }
   ],
   "eloTasks": [],
   "eloDeletes": [
-    "ARCPATH:/Administrator/Meetingboard1"
+    "ARCPATH:/Meetingboard1"
   ]
 }

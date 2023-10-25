@@ -1,0 +1,8 @@
+{{
+  Login(Ute Schenk|elo)##
+  OpenFormular(Neu|Kontakt|Neue Firma)##
+  InputField(Name_KWL|Besucher-Kontakte)##
+  InputField(Firmenname Neu|Siguna Versicherung)##
+  QuitButton(OK)
+}}
+

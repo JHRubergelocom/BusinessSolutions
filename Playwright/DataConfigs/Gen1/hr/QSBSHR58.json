@@ -28,8 +28,7 @@
     {
       "entryPath": "Solutions/Personalmanagement/Personalakten/H/Hansen, Hans",
       "formulaType": "EXTERNAL",
-      "formulaSaveButton": "OK",
-      "formulaCancelButton": "Abbrechen",
+      "formulaQuitButton": "Abbrechen",
       "selectionDialogItem": "",
       "selectDocumentDialogs": [],
       "eloActionDef": {
@@ -47,14 +46,12 @@
           "selectDocumentDialogs": []
         }
       ],
-      "testShouldFail": true,
-      "selectedButton": "SAVE"
+      "testShouldFail": true
     },
     {
       "entryPath": "",
       "formulaType": "EXTERNAL",
-      "formulaSaveButton": "OK",
-      "formulaCancelButton": "Abbrechen",
+      "formulaQuitButton": "OK",
       "selectionDialogItem": "",
       "selectDocumentDialogs": [],
       "eloActionDef": {
@@ -98,14 +95,12 @@
           ]
         }
       ],
-      "testShouldFail": false,
-      "selectedButton": "SAVE"
+      "testShouldFail": false
     },
     {
       "entryPath": "Solutions/Personalmanagement/Personalakten/H/Hansen, Hans/Korrespondenz/Geschäftsnachricht",
       "formulaType": "VIEWER",
-      "formulaSaveButton": "",
-      "formulaCancelButton": "",
+      "formulaQuitButton": "",
       "selectionDialogItem": "",
       "selectDocumentDialogs": [],
       "eloActionDef": {
@@ -123,8 +118,7 @@
           "selectDocumentDialogs": []
         }
       ],
-      "testShouldFail": false,
-      "selectedButton": "SAVE"
+      "testShouldFail": false
     }
   ],
   "eloTasks": [],

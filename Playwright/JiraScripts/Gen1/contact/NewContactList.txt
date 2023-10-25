@@ -1,0 +1,7 @@
+{{
+  Login(Ute Schenk|elo)##
+  OpenFormular(Neu|Kontakt|Neue Kontaktliste)##
+  InputField(Name_TEXT|Besucher-Kontakte)##
+  CheckFieldEqual(Name|Besucher-Kontakte)##
+  QuitButton(OK)
+}}

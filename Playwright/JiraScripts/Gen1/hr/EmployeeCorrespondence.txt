@@ -6,7 +6,7 @@
   InputField(Absender|Personalabteilung <personal@contelo.com>)##
   InputField(Betreff|Mitarbeiter Korrespondenz)##
   InputField(Nachricht|Inhalt Mitarbeiter Korrespondenz)##
-  QuitButton(Speichern)##
+  QuitButton(OK)##
   SelectSubEntry(Korrespondenz/Mitarbeiter Korrespondenz)##
   SelectViewerForm()##
   CheckFieldEqual(Empfänger|test-business-solutions@elo.local)

@@ -8,5 +8,5 @@
   InputField(Verantwortlicher|Bodo Kraft)##
   InputField(Vorname|Gerd)##
   InputField(Nachname|Baum)##
-  QuitButton(Speichern)
+  QuitButton(OK)
 }}

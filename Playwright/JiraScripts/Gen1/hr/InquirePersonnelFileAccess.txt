@@ -3,5 +3,5 @@
   SelectFolder(Solutions/Hans Hansen)##
   OpenFormular(Neu|Self-Service|Personalakte einsehen)##
   InputField(Begründung|Selbstauskunft)##
-  QuitButton(Speichern)
+  QuitButton(OK)
 }}

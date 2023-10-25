@@ -2,5 +2,5 @@
   Login(Ute Schenk|elo)##
   SelectEntryHr(Hans|Hansen)##
   OpenFormular(Personal|Personal|Ausweis)##
-  QuitButton()
+  QuitButton(Abbrechen)
 }}

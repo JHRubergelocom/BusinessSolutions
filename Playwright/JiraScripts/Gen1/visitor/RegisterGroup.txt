@@ -1,0 +1,11 @@
+{{
+  Login(Ute Schenk|elo)##
+  OpenFormular(Neu|Besucher|Gruppe direktanmelden)##
+  InputField(Gruppenname|Bremer Stadtmusikanten)##
+  InputField(Gruppe Besucher Vorname|Günter)##
+  InputField(Gruppe Besucher Nachname|Esel)##
+  SelectTabPage(Besucherdaten)##
+  InputField(Niederlassung|Headquarter)##
+  InputField(Verantwortlicher|Bodo Kraft)##
+  QuitButton(OK)
+}}
