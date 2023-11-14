@@ -41,7 +41,8 @@
           ],
           "tables": [],
           "checkValueControls": [],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         }
       ],
       "testShouldFail": false

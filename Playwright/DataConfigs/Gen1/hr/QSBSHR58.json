@@ -30,7 +30,7 @@
       "formulaType": "EXTERNAL",
       "formulaQuitButton": "Abbrechen",
       "selectionDialogItem": "",
-      "selectDocumentDialogs": [],
+      "selectDocuments": [],
       "eloActionDef": {
         "selectorRibbon": "Personal",
         "selectorMenu": "Personal",
@@ -43,7 +43,8 @@
           "controls": [],
           "tables": [],
           "checkValueControls": [],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         }
       ],
       "testShouldFail": true
@@ -53,7 +54,7 @@
       "formulaType": "EXTERNAL",
       "formulaQuitButton": "OK",
       "selectionDialogItem": "",
-      "selectDocumentDialogs": [],
+      "selectDocuments": [],
       "eloActionDef": {
         "selectorRibbon": "Personal",
         "selectorMenu": "Personal",
@@ -67,7 +68,7 @@
             {
               "selector": "IX_MAP_HR_PERSONNEL_SENDER",
               "value": "test-business-solutions@elo.local",
-              "type": "TEXT"
+              "type": "DYNKWL"
             },
             {
               "selector": "IX_MAP_CORRESPONDENT_RECIPIENT_NAME_1",
@@ -87,12 +88,13 @@
           ],
           "tables": [],
           "checkValueControls": [],
-          "selectDocumentDialogs": [
+          "selectAttachments": [
             {
               "startButton": "Anhang hinzufügen",
-              "documentPath": "Solutions/PDF Export/bob ipsum PDF"
+              "arcPath": "Solutions/PDF Export/bob ipsum PDF"
             }
-          ]
+          ],
+          "selectFiles": []
         }
       ],
       "testShouldFail": false
@@ -102,7 +104,7 @@
       "formulaType": "VIEWER",
       "formulaQuitButton": "",
       "selectionDialogItem": "",
-      "selectDocumentDialogs": [],
+      "selectDocuments": [],
       "eloActionDef": {
         "selectorRibbon": "",
         "selectorMenu": "",
@@ -115,7 +117,8 @@
           "controls": [],
           "tables": [],
           "checkValueControls": [],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         }
       ],
       "testShouldFail": false

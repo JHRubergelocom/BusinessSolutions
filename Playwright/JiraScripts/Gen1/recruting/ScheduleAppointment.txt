@@ -1,0 +1,9 @@
+{{
+  Login(Ute Schenk|elo)##
+  SelectFolder(Solutions/Bewerbermanagement/Bewerber nach Phase/01: Neue Bewerbung/Bachmann, Sören (D00012))##
+  OpenFormular(Bewerber|Termin planen)##
+  selectdialogitem(Vorstellungsgespräch (Bestätigung))##
+  inputField(Empfänger (E-Mail)|s.bachmannt866@testmail.com)##
+  inputField(Betreff|Ihre Bewerbung)##
+  QuitButton(Speichern)
+}}

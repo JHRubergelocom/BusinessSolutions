@@ -30,7 +30,7 @@
       "formulaType": "EXTERNAL",
       "formulaQuitButton": "OK",
       "selectionDialogItem": "",
-      "selectDocumentDialogs": [],
+      "selectDocuments": [],
       "eloActionDef": {
         "selectorRibbon": "Personal",
         "selectorMenu": "Personal",
@@ -79,7 +79,8 @@
           ],
           "tables": [],
           "checkValueControls": [],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         }
       ],
       "testShouldFail": false

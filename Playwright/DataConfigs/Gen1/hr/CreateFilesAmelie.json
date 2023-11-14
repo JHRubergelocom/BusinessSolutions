@@ -28,7 +28,7 @@
       "formulaType": "EXTERNAL",
       "formulaQuitButton": "OK",
       "selectionDialogItem": "",
-      "selectDocumentDialogs": [],
+      "selectDocuments": [],
       "eloActionDef": {
         "selectorRibbon": "Neu",
         "selectorMenu": "Personal",
@@ -57,7 +57,8 @@
           ],
           "tables": [],
           "checkValueControls": [],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         }
       ],
       "testShouldFail": false
@@ -67,7 +68,7 @@
       "formulaType": "VIEWER",
       "formulaQuitButton": "Speichern",
       "selectionDialogItem": "",
-      "selectDocumentDialogs": [],
+      "selectDocuments": [],
       "eloActionDef": {
         "selectorRibbon": "",
         "selectorMenu": "",
@@ -181,7 +182,8 @@
           ],
           "tables": [],
           "checkValueControls": [],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         },
         {
           "tabName": "Personal",
@@ -245,7 +247,8 @@
           ],
           "tables": [],
           "checkValueControls": [],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         },
         {
           "tabName": "Ein-/ Austritt",
@@ -299,7 +302,8 @@
           ],
           "tables": [],
           "checkValueControls": [],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         }
       ],
       "testShouldFail": false
@@ -309,7 +313,7 @@
       "formulaType": "EXTERNAL",
       "formulaQuitButton": "OK",
       "selectionDialogItem": "",
-      "selectDocumentDialogs": [],
+      "selectDocuments": [],
       "eloActionDef": {
         "selectorRibbon": "Neu",
         "selectorMenu": "Personal",
@@ -338,7 +342,8 @@
           ],
           "tables": [],
           "checkValueControls": [],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         }
       ],
       "testShouldFail": false
@@ -348,7 +353,7 @@
       "formulaType": "VIEWER",
       "formulaQuitButton": "Speichern",
       "selectionDialogItem": "",
-      "selectDocumentDialogs": [],
+      "selectDocuments": [],
       "eloActionDef": {
         "selectorRibbon": "",
         "selectorMenu": "",
@@ -382,7 +387,8 @@
           ],
           "tables": [],
           "checkValueControls": [],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         }
       ],
       "testShouldFail": false
@@ -392,7 +398,7 @@
       "formulaType": "EXTERNAL",
       "formulaQuitButton": "OK",
       "selectionDialogItem": "",
-      "selectDocumentDialogs": [],
+      "selectDocuments": [],
       "eloActionDef": {
         "selectorRibbon": "Neu",
         "selectorMenu": "Personal",
@@ -421,7 +427,8 @@
           ],
           "tables": [],
           "checkValueControls": [],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         }
       ],
       "testShouldFail": false
@@ -431,7 +438,7 @@
       "formulaType": "VIEWER",
       "formulaQuitButton": "Speichern",
       "selectionDialogItem": "",
-      "selectDocumentDialogs": [],
+      "selectDocuments": [],
       "eloActionDef": {
         "selectorRibbon": "",
         "selectorMenu": "",
@@ -465,7 +472,8 @@
           ],
           "tables": [],
           "checkValueControls": [],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         }
       ],
       "testShouldFail": false
@@ -475,7 +483,7 @@
       "formulaType": "EXTERNAL",
       "formulaQuitButton": "OK",
       "selectionDialogItem": "",
-      "selectDocumentDialogs": [],
+      "selectDocuments": [],
       "eloActionDef": {
         "selectorRibbon": "Neu",
         "selectorMenu": "Personal",
@@ -504,7 +512,8 @@
           ],
           "tables": [],
           "checkValueControls": [],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         }
       ],
       "testShouldFail": false
@@ -514,7 +523,7 @@
       "formulaType": "VIEWER",
       "formulaQuitButton": "Speichern",
       "selectionDialogItem": "",
-      "selectDocumentDialogs": [],
+      "selectDocuments": [],
       "eloActionDef": {
         "selectorRibbon": "",
         "selectorMenu": "",
@@ -548,7 +557,8 @@
           ],
           "tables": [],
           "checkValueControls": [],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         }
       ],
       "testShouldFail": false
@@ -558,7 +568,7 @@
       "formulaType": "EXTERNAL",
       "formulaQuitButton": "OK",
       "selectionDialogItem": "",
-      "selectDocumentDialogs": [],
+      "selectDocuments": [],
       "eloActionDef": {
         "selectorRibbon": "Neu",
         "selectorMenu": "Personal",
@@ -587,7 +597,8 @@
           ],
           "tables": [],
           "checkValueControls": [],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         }
       ],
       "testShouldFail": false
@@ -597,7 +608,7 @@
       "formulaType": "VIEWER",
       "formulaQuitButton": "Speichern",
       "selectionDialogItem": "",
-      "selectDocumentDialogs": [],
+      "selectDocuments": [],
       "eloActionDef": {
         "selectorRibbon": "",
         "selectorMenu": "",
@@ -626,7 +637,8 @@
           ],
           "tables": [],
           "checkValueControls": [],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         }
       ],
       "testShouldFail": false
@@ -636,7 +648,7 @@
       "formulaType": "EXTERNAL",
       "formulaQuitButton": "OK",
       "selectionDialogItem": "",
-      "selectDocumentDialogs": [],
+      "selectDocuments": [],
       "eloActionDef": {
         "selectorRibbon": "Neu",
         "selectorMenu": "Personal",
@@ -665,7 +677,8 @@
           ],
           "tables": [],
           "checkValueControls": [],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         }
       ],
       "testShouldFail": false
@@ -675,7 +688,7 @@
       "formulaType": "VIEWER",
       "formulaQuitButton": "Speichern",
       "selectionDialogItem": "",
-      "selectDocumentDialogs": [],
+      "selectDocuments": [],
       "eloActionDef": {
         "selectorRibbon": "",
         "selectorMenu": "",
@@ -709,7 +722,8 @@
           ],
           "tables": [],
           "checkValueControls": [],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         }
       ],
       "testShouldFail": false

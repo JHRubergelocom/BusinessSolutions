@@ -1,0 +1,10 @@
+{{
+  Login(Ute Schenk|elo)##
+  SelectFolder(Solutions/Vertragsmanagement/Verträge/Abonnement/C/Contelo Verlag/CD000004 Spogel Magazin)##
+  OpenFormular(Vertrag|Kündigung einleiten)##
+  InputField(Hinterlassen (Kündignung einleiten)|Muss was drin stehen)##
+  QuitButton(Speichern)
+}}
+
+
+

@@ -10,6 +10,7 @@
   },
   "eloSolution": {
     "eloControls": {},
+    "eloTables": {},
     "eloPrecondition": {
       "eloUsers": [],
       "eloTemplates": []

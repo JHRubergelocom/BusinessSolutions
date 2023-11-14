@@ -1,0 +1,9 @@
+{{
+  Login(Ute Schenk|elo)##
+  SelectFolder(Solutions/Kursverwaltung/Kurse/Academy 2.0 [DE] (C1000))##
+  OpenFormular(Kurs|Teilnehmer ausschreiben)##
+  InputField(Teilnehmer ausschreiben|true)##
+  QuitButton(Speichern)
+}}
+
+

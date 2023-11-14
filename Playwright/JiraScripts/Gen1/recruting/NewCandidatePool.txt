@@ -1,0 +1,7 @@
+{{
+  Login(Ute Schenk|elo)##
+  OpenFormular(Neu|Bewerber|Neuer Bewerberpool)##
+  InputField(Bezeichnung_TEXT|Initiativbewerbungen)##
+  CheckFieldEqual(Bezeichnung_Rec|Initiativbewerbungen)##
+  QuitButton(Speichern)
+}}

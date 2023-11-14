@@ -28,7 +28,7 @@
       "formulaType": "EXTERNAL",
       "formulaQuitButton": "OK",
       "selectionDialogItem": "",
-      "selectDocumentDialogs": [],
+      "selectDocuments": [],
       "eloActionDef": {
         "selectorRibbon": "Personal",
         "selectorMenu": "Personal",
@@ -57,7 +57,8 @@
           ],
           "tables": [],
           "checkValueControls": [],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         }
       ],
       "testShouldFail": false
@@ -67,7 +68,7 @@
       "formulaType": "VIEWER",
       "formulaQuitButton": "Speichern",
       "selectionDialogItem": "",
-      "selectDocumentDialogs": [],
+      "selectDocuments": [],
       "eloActionDef": {
         "selectorRibbon": "",
         "selectorMenu": "",
@@ -87,7 +88,8 @@
               "operator": "EQUAL"
             }
           ],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         }
       ],
       "testShouldFail": false

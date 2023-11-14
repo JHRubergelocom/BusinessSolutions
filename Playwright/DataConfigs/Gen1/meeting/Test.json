@@ -15,7 +15,7 @@
       "value": "Login",
       "type": "BUTTON"
     },
-    "stack": "ruberg-meeting.dev.elo"
+    "stack": "playground.dev.elo"
   },
   "eloAcls": [],
   "eloTile": {
@@ -28,7 +28,7 @@
       "formulaType": "EXTERNAL",
       "formulaQuitButton": "OK",
       "selectionDialogItem": "",
-      "selectDocumentDialogs": [],
+      "selectDocuments": [],
       "eloActionDef": {
         "selectorRibbon": "Neu",
         "selectorMenu": "Meeting",
@@ -64,22 +64,23 @@
             {
               "selectorTable": "",
               "addLineButtonName": "Weitere Person",
-              "table": [
-                [
+              "addNewLines": 1,
+              "rows": {
+                "1": [
                   {
                     "selector": "IX_MAP_MEETING_BOARD_ORGANIZER",
                     "value": "Jan Eichner",
                     "type": "DYNKWL"
                   }
                 ],
-                [
+                "2": [
                   {
                     "selector": "IX_MAP_MEETING_BOARD_ORGANIZER",
                     "value": "Sandra Renz",
                     "type": "DYNKWL"
                   }
                 ]
-              ]
+              }
             }
           ],
           "checkValueControls": [
@@ -90,7 +91,8 @@
               "operator": "EQUAL"
             }
           ],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         },
         {
           "tabName": "Themen",
@@ -100,8 +102,9 @@
             {
               "selectorTable": "",
               "addLineButtonName": "Weiteres Thema",
-              "table": [
-                [
+              "addNewLines": 1,
+              "rows": {
+                "1": [
                   {
                     "selector": "WF_MAP_MEETING_ITEM_TITLE",
                     "value": "Rückblende",
@@ -118,7 +121,7 @@
                     "type": "TEXT"
                   }
                 ],
-                [
+                "2": [
                   {
                     "selector": "WF_MAP_MEETING_ITEM_TITLE",
                     "value": "Planung",
@@ -135,11 +138,12 @@
                     "type": "TEXT"
                   }
                 ]
-              ]
+              }
             }
           ],
           "checkValueControls": [],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         },
         {
           "tabName": "Benachrichtigungen",
@@ -149,8 +153,9 @@
             {
               "selectorTable": "",
               "addLineButtonName": "Weitere Benachrichtigung",
-              "table": [
-                [
+              "addNewLines": 1,
+              "rows": {
+                "1": [
                   {
                     "selector": "IX_MAP_MEETING_NOTIFICATION_TEMPLATE_",
                     "value": "Meeting-Einladung",
@@ -182,7 +187,7 @@
                     "type": "DYNKWL"
                   }
                 ],
-                [
+                "2": [
                   {
                     "selector": "IX_MAP_MEETING_NOTIFICATION_TEMPLATE_",
                     "value": "Meeting-Einladung",
@@ -214,11 +219,12 @@
                     "type": "DYNKWL"
                   }
                 ]
-              ]
+              }
             }
           ],
           "checkValueControls": [],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         },
         {
           "tabName": "Einstellungen",
@@ -244,7 +250,8 @@
               "operator": "EQUAL"
             }
           ],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         }
       ],
       "testShouldFail": false
@@ -254,7 +261,7 @@
       "formulaType": "EXTERNAL",
       "formulaQuitButton": "OK",
       "selectionDialogItem": "",
-      "selectDocumentDialogs": [],
+      "selectDocuments": [],
       "eloActionDef": {
         "selectorRibbon": "Neu",
         "selectorMenu": "Meeting",
@@ -290,8 +297,9 @@
             {
               "selectorTable": "",
               "addLineButtonName": "Weiterer Tag",
-              "table": [
-                [
+              "addNewLines": 1,
+              "rows": {
+                "1": [
                   {
                     "selector": "IX_MAP_MEETING_TIMESLOT_START",
                     "value": "09:00",
@@ -303,7 +311,7 @@
                     "type": "TEXT"
                   }
                 ],
-                [
+                "2": [
                   {
                     "selector": "IX_MAP_MEETING_TIMESLOT_START",
                     "value": "09:00",
@@ -315,7 +323,7 @@
                     "type": "TEXT"
                   }
                 ]
-              ]
+              }
             }
           ],
           "checkValueControls": [
@@ -332,7 +340,8 @@
               "operator": "EQUAL"
             }
           ],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         },
         {
           "tabName": "Teilnehmende",
@@ -342,8 +351,9 @@
             {
               "selectorTable": "",
               "addLineButtonName": "Weiterer Gast",
-              "table": [
-                [
+              "addNewLines": 0,
+              "rows": {
+                "1": [
                   {
                     "selector": "WF_MAP_MEETING_PERSON_LASTNAME",
                     "value": "Baum",
@@ -365,11 +375,12 @@
                     "type": "DYNKWL"
                   }
                 ]
-              ]
+              }
             }
           ],
           "checkValueControls": [],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         },
         {
           "tabName": "Benachrichtigungen",
@@ -379,11 +390,13 @@
             {
               "selectorTable": "",
               "addLineButtonName": "Weitere Benachrichtigung",
-              "table": []
+              "addNewLines": 0,
+              "rows": {}
             }
           ],
           "checkValueControls": [],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         }
       ],
       "testShouldFail": false
@@ -393,7 +406,7 @@
       "formulaType": "EXTERNAL",
       "formulaQuitButton": "OK",
       "selectionDialogItem": "",
-      "selectDocumentDialogs": [],
+      "selectDocuments": [],
       "eloActionDef": {
         "selectorRibbon": "Neu",
         "selectorMenu": "Meeting",
@@ -450,8 +463,9 @@
             {
               "selectorTable": "",
               "addLineButtonName": "Weitere Person",
-              "table": [
-                [
+              "addNewLines": 1,
+              "rows": {
+                "1": [
                   {
                     "selector": "IX_MAP_MEETING_ITEM_SPEAKER_LASTNAME",
                     "value": "Kraft",
@@ -463,7 +477,7 @@
                     "type": "DYNKWL"
                   }
                 ],
-                [
+                "2": [
                   {
                     "selector": "IX_MAP_MEETING_ITEM_SPEAKER_LASTNAME",
                     "value": "Davis",
@@ -475,7 +489,7 @@
                     "type": "DYNKWL"
                   }
                 ]
-              ]
+              }
             }
           ],
           "checkValueControls": [
@@ -492,7 +506,8 @@
               "operator": "EQUAL"
             }
           ],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         }
       ],
       "testShouldFail": false

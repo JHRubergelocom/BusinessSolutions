@@ -1,0 +1,6 @@
+{{
+  Login(Ute Schenk|elo)##
+  SelectFolder(Solutions/Vertragsmanagement/Verträge/Abonnement/C/Contelo Verlag/CD000004 Spogel Magazin|Etikett)##
+  OpenFormular(Vertrag|Dokument aktualisiren)##
+  selectDialogItem(Nu Felder)##
+}}

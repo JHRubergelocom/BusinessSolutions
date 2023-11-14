@@ -1,0 +1,7 @@
+{{
+  Login(Ute Schenk|elo)##
+  OpenFormular(Neu|Knowledge|Neuer Wissensbereich)##
+  InputField(Name|Putzen muss jeder)##
+  CheckFieldEqual(Name|Putzen muss jeder)##
+  QuitButton(Speichern)
+}}

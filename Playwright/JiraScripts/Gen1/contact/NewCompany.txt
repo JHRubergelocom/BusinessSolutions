@@ -1,8 +1,32 @@
 {{
   Login(Ute Schenk|elo)##
   OpenFormular(Neu|Kontakt|Neue Firma)##
-  InputField(Name_KWL|Besucher-Kontakte)##
-  InputField(Firmenname Neu|Siguna Versicherung)##
-  QuitButton(OK)
+  InputField(Name_KWL|Vertragspartner)##
+  InputField(Firmenname_TEXT|P01))##
+
+  InputField(E-Mail|test@mail.com)##
+  InputField(Telefon|0124583220)##
+  InputField(Mobiltelefon|0132546565)##
+  InputField(Webseit|www.kicker.de)##
+
+
+  InputField(Firmenname_DYNKWL|Contelo AG)##
+  InputField(Firmencode|CCOMD0000001)##
+
+  InputField(Streaße|Tübinger Str. 43)##
+  InputField(Adresszusatz|)##
+  InputField(PLZ|70178)##
+  InputField(Ort|Stuttgart)##
+  InputField(Bundesland|Baden-Württemberg)##
+  InputField(Land|DE - Deutschland)##
+
+  InputField(IBAN|70178)##
+  InputField(BIC|70178)##
+  InputField(Handelsregister|70178)##
+  InputField(Steuernummer|70178)##
+  InputField(UST-IdNr|70178)##
+
+
+  QuitButton(Speichern)
 }}
 

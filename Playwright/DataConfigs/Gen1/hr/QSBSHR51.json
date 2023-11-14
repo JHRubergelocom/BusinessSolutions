@@ -28,7 +28,7 @@
       "formulaType": "VIEWER",
       "formulaQuitButton": "Speichern",
       "selectionDialogItem": "",
-      "selectDocumentDialogs": [],
+      "selectDocuments": [],
       "eloActionDef": {
         "selectorRibbon": "",
         "selectorMenu": "",
@@ -166,7 +166,8 @@
               "operator": "EXIST"
             }
           ],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         }
       ],
       "testShouldFail": false
@@ -176,7 +177,7 @@
       "formulaType": "VIEWER",
       "formulaQuitButton": "Speichern",
       "selectionDialogItem": "",
-      "selectDocumentDialogs": [],
+      "selectDocuments": [],
       "eloActionDef": {
         "selectorRibbon": "",
         "selectorMenu": "",
@@ -268,7 +269,8 @@
               "operator": "EXIST"
             }
           ],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         }
       ],
       "testShouldFail": false
@@ -278,7 +280,7 @@
       "formulaType": "VIEWER",
       "formulaQuitButton": "Speichern",
       "selectionDialogItem": "",
-      "selectDocumentDialogs": [],
+      "selectDocuments": [],
       "eloActionDef": {
         "selectorRibbon": "",
         "selectorMenu": "",
@@ -362,7 +364,8 @@
               "operator": "EXIST"
             }
           ],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         }
       ],
       "testShouldFail": false
@@ -372,7 +375,7 @@
       "formulaType": "VIEWER",
       "formulaQuitButton": "Speichern",
       "selectionDialogItem": "",
-      "selectDocumentDialogs": [],
+      "selectDocuments": [],
       "eloActionDef": {
         "selectorRibbon": "",
         "selectorMenu": "",
@@ -433,7 +436,8 @@
               "operator": "EXIST"
             }
           ],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         }
       ],
       "testShouldFail": false

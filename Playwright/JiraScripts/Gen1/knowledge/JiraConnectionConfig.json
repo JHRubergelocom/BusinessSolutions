@@ -1,0 +1,128 @@
+{
+  "baseURL": "https://eloticksy.elo.com",
+  "username": "J-H.Ruberg@elo.com",
+  "password": "XXX",
+  "testExecutionKey": "QBSHR-66",
+  "eloStack": "playground.dev.elo",
+  "eloTile": {
+    "repositoryTile": "Solutions",
+    "taskTile": "Aufgaben"
+  },
+  "eloSolution": {
+    "eloControls": {
+      "Beitrag abonnieren": {
+        "selector": "IX_MAP_SETTING_HIDE_POSTSUBSCRIPTION_IN_POST",
+        "value": "",
+        "type": "RADIO",
+        "operator": "NONE"
+      },
+      "Beiträge pro Seite": {
+        "selector": "IX_MAP_SETTING_POST_PER_PAGE",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Beliebte Themen": {
+        "selector": "IX_MAP_SETTING_HIDE_TOPICLIST",
+        "value": "",
+        "type": "RADIO",
+        "operator": "NONE"
+      },
+      "Bereich abonnieren": {
+        "selector": "IX_MAP_SETTING_HIDE_SPACENAVIGATION_IN_POST",
+        "value": "",
+        "type": "RADIO",
+        "operator": "NONE"
+      },
+      "Bereichsnavigation": {
+        "selector": "IX_MAP_SETTING_HIDE_TOPICLIST_IN_POST",
+        "value": "",
+        "type": "RADIO",
+        "operator": "NONE"
+      },
+      "Bewertungen": {
+        "selector": "IX_MAP_SETTING_HIDE_RATING",
+        "value": "",
+        "type": "RADIO",
+        "operator": "NONE"
+      },
+      "Boardtyp": {
+        "selector": "IX_GRP_KNOWLEDGE_BOARD_TYPE",
+        "value": "",
+        "type": "KWL",
+        "operator": "NONE"
+      },
+      "Enthaltene Kategorien": {
+        "selector": "IX_MAP_SETTING_CATEGORY_LIST_ITEM_1",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Enthaltene Themen": {
+        "selector": "IX_MAP_SETTING_HIDE_POSTINDICATORS_IN_POST",
+        "value": "",
+        "type": "RADIO",
+        "operator": "NONE"
+      },
+      "Kategorie": {
+        "selector": "IX_GRP_KNOWLEDGE_CATEGORY",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Kennzahlen": {
+        "selector": "IX_MAP_SETTING_HIDE_POSTINFO_IN_POST",
+        "value": "",
+        "type": "RADIO",
+        "operator": "NONE"
+      },
+      "Kennzahlen zu Beiträgen": {
+        "selector": "IX_MAP_SETTING_HIDE_POSTLIST_COUNTS",
+        "value": "",
+        "type": "RADIO",
+        "operator": "NONE"
+      },
+      "Kommentare": {
+        "selector": "IX_MAP_SETTING_HIDE_COMMENTS",
+        "value": "",
+        "type": "RADIO",
+        "operator": "NONE"
+      },
+      "Name": {
+        "selector": "IX_NAME",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Standard Beitragstyp": {
+        "selector": "IX_GRP_KNOWLEDGE_DEFAULT_POSTTYPE",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Suche nach Benutzern": {
+        "selector": "IX_MAP_SETTING_HIDE_USERLIST",
+        "value": "",
+        "type": "RADIO",
+        "operator": "NONE"
+      },
+      "Verwendete Sprachen": {
+        "selector": "IX_MAP_SETTING_HIDE_LANGUAGELIST",
+        "value": "",
+        "type": "RADIO",
+        "operator": "NONE"
+      },
+      "Zusatzinformationen": {
+        "selector": "IX_MAP_SETTING_HIDE_POSTINFO_IN_POST",
+        "value": "",
+        "type": "RADIO",
+        "operator": "NONE"
+      }
+    },
+    "eloTables": {},
+    "eloPrecondition": {
+      "eloUsers": [],
+      "eloTemplates": []
+    }
+  }
+}

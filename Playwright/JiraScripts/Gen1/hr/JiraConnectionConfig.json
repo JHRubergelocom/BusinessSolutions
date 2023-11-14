@@ -58,6 +58,24 @@
         "type": "TEXT",
         "operator": "NONE"
       },
+      "Direkte Familienangehörige Nachname": {
+        "selector": "IX_MAP_HR_PERSONNEL_FAMILYMEMBER_LASTNAME",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Direkte Familienangehörige Typ": {
+        "selector": "IX_MAP_HR_PERSONNEL_FAMILYMEMBER_TYPE",
+        "value": "",
+        "type": "KWL",
+        "operator": "NONE"
+      },
+      "Direkte Familienangehörige Vorname": {
+        "selector": "IX_MAP_HR_PERSONNEL_FAMILYMEMBER_FIRSTNAME",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
       "E-Mail geschäftlich": {
         "selector": "IX_MAP_HR_PERSONNEL_BUSINESSEMAIL",
         "value": "",
@@ -280,6 +298,18 @@
         "type": "TEXT",
         "operator": "NONE"
       },
+      "Notfallkontakte Nachname": {
+        "selector": "IX_MAP_HR_PERSONNEL_EMERGENCYCONTACT_LASTNAME",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Notfallkontakte Vorname": {
+        "selector": "IX_MAP_HR_PERSONNEL_EMERGENCYCONTACT_FIRSTNAME",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
       "Organisation": {
         "selector": "IX_GRP_HR_PERSONNEL_COMPANY",
         "value": "",
@@ -453,6 +483,20 @@
         "value": "",
         "type": "TEXT",
         "operator": "NONE"
+      }
+    },
+    "eloTables": {
+      "Direkte Familienangehörige": {
+        "selectorTable": "part_240_family_members",
+        "addLineButtonName": "",
+        "addNewLines": 0,
+        "rows": {}
+      },
+      "Notfallkontakte": {
+        "selectorTable": "part_250_emergency_contacts",
+        "addLineButtonName": "",
+        "addNewLines": 0,
+        "rows": {}
       }
     },
     "eloPrecondition": {

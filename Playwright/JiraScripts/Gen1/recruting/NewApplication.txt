@@ -1,0 +1,15 @@
+{{
+  Login(Ute Schenk|elo)##
+  OpenFormular(Neu|Bewerber|Neue Bewerbung)##
+  InputField(Bezeichnung_DYNKWL|Initiativbewerbungen)##
+  InputField(Stellennummer|P01)##
+  InputField(Nachname|Tobias)##
+  InputField(Vorname|Maier)##
+  CheckFieldEqual(Bezeichnung_Rec|Initiativbewerbungen)##
+  QuitButton(Speichern)
+}}
+
+
+
+
+

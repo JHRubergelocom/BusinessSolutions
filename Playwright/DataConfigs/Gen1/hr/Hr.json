@@ -28,7 +28,7 @@
       "formulaType": "EXTERNAL",
       "formulaQuitButton": "OK",
       "selectionDialogItem": "",
-      "selectDocumentDialogs": [],
+      "selectDocuments": [],
       "eloActionDef": {
         "selectorRibbon": "Neu",
         "selectorMenu": "Personal",
@@ -120,7 +120,8 @@
               "operator": "EQUAL"
             }
           ],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         }
       ],
       "testShouldFail": false
@@ -130,7 +131,7 @@
       "formulaType": "VIEWER",
       "formulaQuitButton": "Speichern",
       "selectionDialogItem": "",
-      "selectDocumentDialogs": [],
+      "selectDocuments": [],
       "eloActionDef": {
         "selectorRibbon": "",
         "selectorMenu": "",
@@ -156,8 +157,9 @@
             {
               "selectorTable": "part_240_family_members",
               "addLineButtonName": "Eintrag hinzufügen",
-              "table": [
-                [
+              "addNewLines": 1,
+              "rows": {
+                "1": [
                   {
                     "selector": "IX_MAP_HR_PERSONNEL_FAMILYMEMBER_TYPE",
                     "value": "Ehepartner",
@@ -165,39 +167,40 @@
                   },
                   {
                     "selector": "IX_MAP_HR_PERSONNEL_FAMILYMEMBER_FIRSTNAME",
-                    "value": "Hugo",
+                    "value": "Christa",
                     "type": "TEXT"
                   },
                   {
                     "selector": "IX_MAP_HR_PERSONNEL_FAMILYMEMBER_LASTNAME",
-                    "value": "Egon",
+                    "value": "Hansen",
                     "type": "TEXT"
                   }
                 ],
-                [
+                "2": [
                   {
                     "selector": "IX_MAP_HR_PERSONNEL_FAMILYMEMBER_TYPE",
-                    "value": "Ehepartner",
+                    "value": "Kind",
                     "type": "KWL"
                   },
                   {
                     "selector": "IX_MAP_HR_PERSONNEL_FAMILYMEMBER_FIRSTNAME",
-                    "value": "Sandra",
+                    "value": "Patrick",
                     "type": "TEXT"
                   },
                   {
                     "selector": "IX_MAP_HR_PERSONNEL_FAMILYMEMBER_LASTNAME",
-                    "value": "Renz",
+                    "value": "Hansen",
                     "type": "TEXT"
                   }
                 ]
-              ]
+              }
             },
             {
               "selectorTable": "part_250_emergency_contacts",
               "addLineButtonName": "Eintrag hinzufügen",
-              "table": [
-                [
+              "addNewLines": 1,
+              "rows": {
+                "1": [
                   {
                     "selector": "IX_MAP_HR_PERSONNEL_EMERGENCYCONTACT_FIRSTNAME",
                     "value": "Heinrich",
@@ -209,7 +212,7 @@
                     "type": "TEXT"
                   }
                 ],
-                [
+                "2": [
                   {
                     "selector": "IX_MAP_HR_PERSONNEL_EMERGENCYCONTACT_FIRSTNAME",
                     "value": "Sebastian",
@@ -221,7 +224,7 @@
                     "type": "TEXT"
                   }
                 ]
-              ]
+              }
             }
           ],
           "checkValueControls": [
@@ -250,7 +253,8 @@
               "operator": "EQUAL"
             }
           ],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         },
         {
           "tabName": "Ein-/ Austritt",
@@ -271,7 +275,8 @@
               "operator": "EQUAL"
             }
           ],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         }
       ],
       "testShouldFail": false
@@ -281,7 +286,7 @@
       "formulaType": "EXTERNAL",
       "formulaQuitButton": "OK",
       "selectionDialogItem": "",
-      "selectDocumentDialogs": [],
+      "selectDocuments": [],
       "eloActionDef": {
         "selectorRibbon": "Neu",
         "selectorMenu": "Personal",
@@ -300,7 +305,8 @@
           ],
           "tables": [],
           "checkValueControls": [],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         }
       ],
       "testShouldFail": false
@@ -310,7 +316,7 @@
       "formulaType": "EXTERNAL",
       "formulaQuitButton": "OK",
       "selectionDialogItem": "Neuer Organisationsbereich",
-      "selectDocumentDialogs": [],
+      "selectDocuments": [],
       "eloActionDef": {
         "selectorRibbon": "Neu",
         "selectorMenu": "Personal",
@@ -334,7 +340,8 @@
           ],
           "tables": [],
           "checkValueControls": [],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         }
       ],
       "testShouldFail": false
@@ -344,7 +351,7 @@
       "formulaType": "EXTERNAL",
       "formulaQuitButton": "OK",
       "selectionDialogItem": "Neue Abteilung",
-      "selectDocumentDialogs": [],
+      "selectDocuments": [],
       "eloActionDef": {
         "selectorRibbon": "Neu",
         "selectorMenu": "Personal",
@@ -368,7 +375,8 @@
           ],
           "tables": [],
           "checkValueControls": [],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         }
       ],
       "testShouldFail": false
@@ -378,7 +386,7 @@
       "formulaType": "EXTERNAL",
       "formulaQuitButton": "OK",
       "selectionDialogItem": "Neues Team",
-      "selectDocumentDialogs": [],
+      "selectDocuments": [],
       "eloActionDef": {
         "selectorRibbon": "Neu",
         "selectorMenu": "Personal",
@@ -402,7 +410,8 @@
           ],
           "tables": [],
           "checkValueControls": [],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         }
       ],
       "testShouldFail": false

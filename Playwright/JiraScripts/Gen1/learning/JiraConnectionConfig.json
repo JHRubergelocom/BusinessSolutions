@@ -1,0 +1,146 @@
+{
+  "baseURL": "https://eloticksy.elo.com",
+  "username": "J-H.Ruberg@elo.com",
+  "password": "XXX",
+  "testExecutionKey": "QBSHR-66",
+  "eloStack": "playground.dev.elo",
+  "eloTile": {
+    "repositoryTile": "Solutions",
+    "taskTile": "Aufgaben"
+  },
+  "eloSolution": {
+    "eloControls": {
+      "Art": {
+        "selector": "WF_MAP_SESSION_TEMPLATE1",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Betreff": {
+        "selector": "WF_MAP_COMMUNICATION_SUBJECT",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Bezeichnung": {
+        "selector": "IX_GRP_COURSE_NAME",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Bezeichnung Tabele": {
+        "selector": "WF_MAP_SESSION_NAME1",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Datum": {
+        "selector": "WF_MAP_SESSION_START_DATE1",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Kategorie": {
+        "selector": "IX_GRP_COURSE_CATEGORY",
+        "value": "",
+        "type": "KWL",
+        "operator": "NONE"
+      },
+      "Kursnummer": {
+        "selector": "IX_GRP_COURSE_REFERENCE",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Kurzsbeschriebung": {
+        "selector": "IX_GRP_COURSE_DESCRIPTION",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Max. Teilnehmeranzahl": {
+        "selector": "WF_MAP_SESSION_MAX_PARTICIPANTS1",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Sprache": {
+        "selector": "IX_GRP_COURSE_LANGUAGE",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Status": {
+        "selector": "IX_GRP_COURSE_STATUS",
+        "value": "",
+        "type": "KWL",
+        "operator": "NONE"
+      },
+      "Suchvorlage": {
+        "selector": "WF_MAP_SEARCH_TEMPLATE",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Teilnehmer ausschreiben": {
+        "selector": "WF_MAP_COURSE_ENROLLMENT_ATTENDED1",
+        "value": "",
+        "type": "RADIO",
+        "operator": "NONE"
+      },
+      "Teilnehmerstatus": {
+        "selector": "WF_MAP_COURSE_ENROLLMENT_STATUS1",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Terminbeschreibung": {
+        "selector": "IX_GRP_COURSE_RELEASE_DATE",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Terminende": {
+        "selector": "WF_MAP_SESSION_END_TIME1",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Terminstart": {
+        "selector": "WF_MAP_SESSION_START_TIME1",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Trainer": {
+        "selector": "IX_GRP_COURSE_INSTRUCTOR",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Veröffentlichungsdatum": {
+        "selector": "IX_GRP_COURSE_RELEASE_DATE",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Vorlage": {
+        "selector": "WF_MAP_NOTIFY_TEMPLATE",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Zertifikatsvorlage": {
+        "selector": "IX_GRP_COURSE_CERTIFICATE_TEMPLATE",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      }
+    },
+    "eloTables": {},
+    "eloPrecondition": {
+      "eloUsers": [],
+      "eloTemplates": []
+    }
+  }
+}

@@ -1532,9 +1532,21 @@ Nachname
 
 =====================================================================================================================================================================
 
-10.10.2023
+14.11.2023
+
+
+java "-Dfile.encoding=UTF-8" -jar PlaywrightSession.jar JiraScripts/Gen1/visitor/CaptureVisitorPicture.txt PlaywrightConfig.json JiraScripts/Gen1/visitor/JiraConnectionConfig.json
+
+
+
 
 BS Intern BSXX-523 Testautomatisierung mit Playwright BS 1.0 Welt
+
+
+Gitlab CI CD Pipeline to Build Java Project and run Playwright Test
+FileChooser Dialog in Playwright
+Table Controls in Playwright
+
 
 
 https://eloticksy.elo.com/browse/BSXX-523
@@ -1552,24 +1564,11 @@ QuitButton(Speichern)##
 
 
 
-
 BS 1.0 Welt
 
 https://miro.com/app/board/uXjVNee-qXo=/?share_link_id=839844681266
 
 
-
-TODO 20.10.2023
-
-BS Development BSDEV-14 KWL Probleme bei Doppelten Wert 
-
-
-https://eloticksy.elo.com/browse/BSDEV-14
-
-
-
-
-=======================================================
 
 
 Zugriff-Token Playwright statt User Passwort  -> 	Anpassen JiraSession.getToken
@@ -1660,54 +1659,11 @@ IX_MAP_HR_PERSONNEL_SENDER
 
 
 
-JiraConnectionConfig.json für jede Solution (hr, visitor, ..) seperat erstellen, Vereinfachung Datenstruktur!
-
-Tabellenfelder in Formularen unterstützen! (z.B. "PreRegisterGroup")
-
-Visitor
 
 
+DISTRIB_DESCRIPTION="Ubuntu 20.04.5 LTS"
 
-Gruppe voranmelden  	"PreRegisterGroup"   Neu->Besucher->Gruppe voranmelden
-
-Thema					"IX_GRP_VISITOR_VISITPURPOSE"
-Beginn Datum			"IX_GRP_VISITOR_STARTDATE"
-Niederlassung			"IX_GRP_VISITOR_LOCATION"
-Verantwortlicher		"IX_GRP_VISITOR_RESPONSIBLEEMPLOYEE"
-Gruppenname				"IX_GRP_VISITOR_GROUP_NAME"
-Gruppe Besucher Vorname		"VISITOR_FIRSTNAME1"
-Gruppe Besucher Nachname	"VISITOR_LASTNAME1"
-
-
-Firma voranmelden		"PreRegisterCompany"	Neu->Besucher->Firma voranmelden
-
-Thema					"IX_GRP_VISITOR_VISITPURPOSE"
-Beginn Datum			"IX_GRP_VISITOR_STARTDATE"
-Niederlassung			"IX_GRP_VISITOR_LOCATION"
-Verantwortlicher		"IX_GRP_VISITOR_RESPONSIBLEEMPLOYEE"
-
-Firma					"IX_GRP_VISITOR_GROUP_NAME"  DynKwl
-Besucherzahl			"IX_MAP_NUMBER_OF_VISITORS"
-
-
-
-
-Besucher direktanmelden "RegisterVisitor"  Neu->Besucher->Besucher direktannmelden
-Gruppe direktanmelden	"RegisterGroup"
-Neuer Dauerausweis		"CreateLongTermBadge" Neu->Besucher->Neuer Dauerausweis
-Besucherliste erstellen
-Dauerausweis sperren		"DeactivateLongtermBadge"
-Voranmeldung bearbeiten		"EditVisitorRegistration"
-Besuch abmelden				"CheckOutVisitor"
-Besuch einchecken			"CheckInVisitor"
-Voranmeldung stornieren		"CancelVisitorRegistration"
-Unterschrift anfordern		"CreateSignatureDocument"
-Besucherausweis erstellen	"CreateVisitorBadge"
-
-TODO
-
-Besucherbild hinzufügen		"CaptureVisitorPicture" (offen Bild auswählen! Dateidialog erstellen, später!)
-
+Ubuntu VM einrichten
 
 
 {
@@ -3720,7 +3676,6 @@ Besucherbild hinzufügen		"CaptureVisitorPicture" (offen Bild auswählen! Dateid
     }
   }
 }
-
 
 
 =====================================================================================================================================================================

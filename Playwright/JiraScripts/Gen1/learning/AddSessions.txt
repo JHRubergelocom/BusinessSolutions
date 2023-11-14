@@ -1,0 +1,12 @@
+{{
+  Login(Ute Schenk|elo)##
+  SelectFolder(Solutions/Kursverwaltung/Kurse/Academy 2.0 [DE] (C1000))##
+  OpenFormular(Kurs|Termin hinzufügen)##
+  InputField(Art|Online)##
+  InputField(Bezeichnung Tabele|Virtuel Classromm)##
+  InputField(Datum|N22.12.2024)##
+  InputField(Terminstart|12:00)##
+   InputField(Terminende|13:00)##
+  InputField(Max. Teilnehmeranzahl|16)##
+  QuitButton(Speichern)
+}}

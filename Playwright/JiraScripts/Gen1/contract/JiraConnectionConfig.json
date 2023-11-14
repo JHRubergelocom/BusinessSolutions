@@ -1,0 +1,488 @@
+{
+  "baseURL": "https://eloticksy.elo.com",
+  "username": "J-H.Ruberg@elo.com",
+  "password": "XXX",
+  "testExecutionKey": "QBSHR-66",
+  "eloStack": "playground.dev.elo",
+  "eloTile": {
+    "repositoryTile": "Solutions",
+    "taskTile": "Aufgaben"
+  },
+  "eloSolution": {
+    "eloControls": {
+      "Ablageort": {
+        "selector": "IX_GRP_CONTRACT_FILING_LOCATION",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Abteilung": {
+        "selector": "IX_GRP_CONTRACT_DEPARTMENT",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Adresszusatz": {
+        "selector": "IX_MAP_ADDRESS_ADDITION",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "BIC": {
+        "selector": "IX_MAP_CONTRACT_FINANCE_BIC",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Beschreibung": {
+        "selector": "IX_MAP_CONTRACT_CASHFLOW_DESC1",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Betrag": {
+        "selector": "IX_MAP_CONTRACT_CASHFLOW_SINGLE1",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Bezeichnung": {
+        "selector": "IX_GRP_CONTRACT_NAME",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Bis": {
+        "selector": "IX_MAP_CONTRACT_CASHFLOW_TO1",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Buchungskreis": {
+        "selector": "IX_GRP_COMPANY_CODE",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Bundesland": {
+        "selector": "IX_MAP_ADDRESS_STATE",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Datum": {
+        "selector": "IX_MAP_CONTRACT_CASHFLOW_DATE1",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "E-MAIL": {
+        "selector": "IX_MAP_PARTNER_EMAIL",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Einkauf/Vertrieb": {
+        "selector": "IX_GRP_CONTRACT_PROCUREMENT",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Externe Vertragsnummer": {
+        "selector": "IX_GRP_EXTERNAL_CONTRACT_NO",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Firmenname_DYNKWL": {
+        "selector": "IX_GRP_PARTNER_NAME",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Firmenname_TEXT": {
+        "selector": "IX_GRP_PARTNER_NAME",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Firmenreferenz": {
+        "selector": "IX_GRP_PARTNER_NO",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Gekündigt am": {
+        "selector": "IX_GRP_TERMINATION_DATE",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Gesamtsumme ": {
+        "selector": "IX_GRP_CONTRACT_CASHFLOW_SUM",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Handelsregister": {
+        "selector": "IX_MAP_CONTRACT_FINANCE_REGISTER_NUMBER",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Hinterlassen (Kündignung einleiten)": {
+        "selector": "WF_MAP_TERM_INITIATOR_COMMENT",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Hinterlassen Sie Arbeitsanweisungen,": {
+        "selector": "WF_MAP_APP_INITIATOR_COMMENT",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "IBAN": {
+        "selector": "IX_MAP_CONTRACT_FINANCE_IBAN",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Kommentar": {
+        "selector": "WF_MAP_CONCLUSION_COMMENT",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Kontaktreferenz": {
+        "selector": "IX_MAP_CONTRACT_CONTACT_REFERENCE",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Kostenstelle Nr. ": {
+        "selector": "IX_GRP_COST_CENTER_NO",
+        "value": "",
+        "type": "KWL",
+        "operator": "NONE"
+      },
+      "Kostenträger Nr.": {
+        "selector": "IX_GRP_COST_OBJECT_NO",
+        "value": "",
+        "type": "KWL",
+        "operator": "NONE"
+      },
+      "Kündigungsfrist Dauer": {
+        "selector": "IX_MAP_NOTICE_PERIOD",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Kündigungsfrist Einheit": {
+        "selector": "IX_MAP_NOTICE_PERIOD_UNIT",
+        "value": "",
+        "type": "KWL",
+        "operator": "NONE"
+      },
+      "Land": {
+        "selector": "IX_MAP_ADDRESS_COUNTRY",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Laufzeit Dauer": {
+        "selector": "IX_MAP_CONTRACT_DURATION",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Laufzeit Einheit": {
+        "selector": "IX_MAP_CONTRACT_DURATION_UNIT",
+        "value": "",
+        "type": "KWL",
+        "operator": "NONE"
+      },
+      "Mandant": {
+        "selector": "IX_GRP_COMPANY_NAME",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Mindestvertragslaufzeit Dauer": {
+        "selector": "IX_MAP_CONTRACT_DURATION",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Mindestvertragslaufzeit Einheit": {
+        "selector": "IX_MAP_CONTRACT_DURATION_UNIT",
+        "value": "",
+        "type": "KWL",
+        "operator": "NONE"
+      },
+      "Nachname": {
+        "selector": "IX_GRP_CONTACT_LASTTNAME",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Name": {
+        "selector": "IX_GRP_PROJECT_NAME",
+        "value": "",
+        "type": "KWL",
+        "operator": "NONE"
+      },
+      "Nummer": {
+        "selector": "IX_GRP_PROJECT_NO",
+        "value": "",
+        "type": "KWL",
+        "operator": "NONE"
+      },
+      "Nächste Kündigungsfrist": {
+        "selector": "IX_GRP_NEXT_POSSIBLE_TERMINATION",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Nächstes Wiedervorlagedatum": {
+        "selector": "IX_GRP_NEXT_REMINDER_DATE",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "PLZ": {
+        "selector": "IX_MAP_ADDRESS_ZIP_CODE",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Periode": {
+        "selector": "IX_MAP_CONTRACT_CASHFLOW_RECURRING_UNIT1",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Prüfungsschritte": {
+        "selector": "WF_MAP_USER1",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Risikoklassifizierung": {
+        "selector": "IX_GRP_CONTRACT_RISK_CLASSIFICATION",
+        "value": "",
+        "type": "KWL",
+        "operator": "NONE"
+      },
+      "Sonderkündigungsrecht": {
+        "selector": "IX_MAP_SPECIAL_TERMINATION_RIGHT",
+        "value": "",
+        "type": "RADIO",
+        "operator": "NONE"
+      },
+      "Status": {
+        "selector": "IX_GRP_CONTRACT_STATUS",
+        "value": "",
+        "type": "KWL",
+        "operator": "NONE"
+      },
+      "Steuernummer": {
+        "selector": "IX_MAP_CONTRACT_FINANCE_TAX_NO",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Steuerschuldner": {
+        "selector": "IX_MAP_CONTRACT_TAXDEBTOR",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Straße": {
+        "selector": "IX_MAP_ADDRESS_STREET",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Summe ": {
+        "selector": "IX_MAP_CONTRACT_CASHFLOW_AMOUNT1",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Telefon": {
+        "selector": "IX_MAP_PARTNER_PHONE",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "UST-IdNr": {
+        "selector": "IX_MAP_CONTRACT_FINANCE_VAT_ID_NO",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Umsatzsteuerpflichtig Ja": {
+        "selector": "IX_GRP_CONTRACT_SUBJECTTOVAT",
+        "value": "",
+        "type": "RADIO",
+        "operator": "NONE"
+      },
+      "Umsatzsteuerpflichtig Nein": {
+        "selector": "IX_GRP_CONTRACT_SUBJECTTOVAT",
+        "value": "",
+        "type": "RADIO",
+        "operator": "NONE"
+      },
+      "Verantwortlicher": {
+        "selector": "IX_GRP_CONTRACT_RESPONSIBLE",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Verhältnis": {
+        "selector": "IX_GRP_CONTRACT_RELATION",
+        "value": "",
+        "type": "KWL",
+        "operator": "NONE"
+      },
+      "Verlängerungsdauer Dauer": {
+        "selector": "IX_MAP_EXTENSION_INTERVAL",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Verlängerungsdauer Einheit": {
+        "selector": "IX_MAP_EXTENSION_INTERVAL",
+        "value": "",
+        "type": "KWL",
+        "operator": "NONE"
+      },
+      "Vertragsbeginn": {
+        "selector": "IX_GRP_CONTRACT_START",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Vertragsdatum": {
+        "selector": "IX_MAP_CONTRACT_START_NOTERM",
+        "value": "",
+        "type": "RADIO",
+        "operator": "NONE"
+      },
+      "Vertragsende": {
+        "selector": "IX_GRP_CONTRACT_END",
+        "value": "",
+        "type": "KWL",
+        "operator": "NONE"
+      },
+      "Vertragsklauseln": {
+        "selector": "IX_MAP_CLAUSE_NAME1",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Vorname": {
+        "selector": "IX_GRP_CONTACT_FIRSTNAME",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Vorsteuerabzug Ja": {
+        "selector": "IX_GRP_CONTRACT_PRETAXDEDUCTION",
+        "value": "",
+        "type": "RADIO",
+        "operator": "NONE"
+      },
+      "Vorsteuerabzug Nein": {
+        "selector": "IX_GRP_CONTRACT_PRETAXDEDUCTION",
+        "value": "",
+        "type": "RADIO",
+        "operator": "NONE"
+      },
+      "Vorsteuerabzug Qutal": {
+        "selector": "IX_GRP_CONTRACT_PRETAXDEDUCTION",
+        "value": "",
+        "type": "RADIO",
+        "operator": "NONE"
+      },
+      "Weitere Leistungen": {
+        "selector": "IX_MAP_CONTRACT_ADDITIONALSERVICES",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Wiedervorlagefrist Dauer": {
+        "selector": "IX_MAP_REMINDER_PERIOD",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Wiedervorlagefrist Einheit": {
+        "selector": "IX_MAP_REMINDER_PERIOD_UNIT",
+        "value": "",
+        "type": "KWL",
+        "operator": "NONE"
+      },
+      "Währung": {
+        "selector": "IX_GRP_CONTRACT_CURRENCY_CODE",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Zahlungsart": {
+        "selector": "IX_GRP_CONTRACT_PAYMENT_TYPE",
+        "value": "",
+        "type": "KWL",
+        "operator": "NONE"
+      },
+      "Zahlungsrichtung": {
+        "selector": "IX_GRP_CONTRACT_PAYMENT_DIRECTION",
+        "value": "",
+        "type": "KWL",
+        "operator": "NONE"
+      },
+      "automatisch verlängern": {
+        "selector": "IX_MAP_EXTENSION_FLAG",
+        "value": "",
+        "type": "RADIO",
+        "operator": "NONE"
+      },
+      "befristet": {
+        "selector": "IX_MAP_DURATION_TYPE",
+        "value": "",
+        "type": "RADIO",
+        "operator": "NONE"
+      },
+      "in Kontaktliste": {
+        "selector": "IX_MAP_CONTRACT_CONTACTLIST_REFERENCE",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "ohne Laufzeit": {
+        "selector": "IX_MAP_DURATION_TYPE",
+        "value": "",
+        "type": "RADIO",
+        "operator": "NONE"
+      },
+      "ort": {
+        "selector": "IX_MAP_ADDRESS_CITY",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "unbefristet": {
+        "selector": "IX_MAP_DURATION_TYPE",
+        "value": "",
+        "type": "RADIO",
+        "operator": "NONE"
+      }
+    },
+    "eloTables": {},
+    "eloPrecondition": {
+      "eloUsers": [],
+      "eloTemplates": []
+    }
+  }
+}

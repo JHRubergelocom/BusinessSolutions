@@ -1,0 +1,5 @@
+{{
+  Login(Ute Schenk|elo)##
+  SelectFolder(Solutions/Kursverwaltung/Kurse/wasdwas [DE] (0001)|Termine||2023|10|Virtual Classroom 17.10. 09:00)##
+  OpenFormular(Kurs|Termin abschlißen)##
+}}

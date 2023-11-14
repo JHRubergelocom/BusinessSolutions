@@ -28,7 +28,7 @@
       "formulaType": "VIEWER",
       "formulaQuitButton": "Speichern",
       "selectionDialogItem": "",
-      "selectDocumentDialogs": [],
+      "selectDocuments": [],
       "eloActionDef": {
         "selectorRibbon": "",
         "selectorMenu": "",
@@ -48,7 +48,8 @@
               "operator": "EQUAL"
             }
           ],
-          "selectDocumentDialogs": []
+          "selectAttachments": [],
+          "selectFiles": []
         }
       ],
       "testShouldFail": false

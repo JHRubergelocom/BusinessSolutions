@@ -1,0 +1,6 @@
+{{
+  Login(Ute Schenk|elo)##
+  OpenFormular(Neu|Vertrag|Zahlungsplan erstelln)##
+  InputField(Bezeichnung|Neuer Kurs ist da)##
+  QuitButton(Speichern)
+}}

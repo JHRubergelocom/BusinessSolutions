@@ -1,0 +1,9 @@
+{{
+  Login(Ute Schenk|elo)##
+  OpenFormular(Neu|Bewerber|Neue Ausschreibung)##
+  InputField(Stellennummer|RD0007)##
+  InputField(Stellenbezeichnung|Consultant (m/w) Softwareentwicklung)##
+  InputField(Publizierte Bezeichnung|Consultant (m/w) Softwareentwicklung)##
+  InputField(Stellenbeschreibung_REDACTOR|Entwicklung kundenspezifischer Lösungen auf Basis des Contelo-ECM Systems)##
+  QuitButton(Speichern)
+}}

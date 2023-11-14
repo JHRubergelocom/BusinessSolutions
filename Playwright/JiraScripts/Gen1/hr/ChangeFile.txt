@@ -4,5 +4,22 @@
   SelectViewerForm()##
   SelectTabPage(Personal)##
   InputField(ELO Benutzername|Hans Hansen)##
+  SelectTabPage(Persönlich)##
+  InputTable(Direkte Familienangehörige|Eintrag hinzufügen|1)##
+  EditRow(1)##
+  InputCell(Direkte Familienangehörige Typ|Ehepartner)##
+  InputCell(Direkte Familienangehörige Vorname|Christa)##
+  InputCell(Direkte Familienangehörige Nachname|Hansen)##
+  EditRow(2)##
+  InputCell(Direkte Familienangehörige Typ|Kind)##
+  InputCell(Direkte Familienangehörige Vorname|Patrick)##
+  InputCell(Direkte Familienangehörige Nachname|Hansen)##
+  InputTable(Notfallkontakte|Eintrag hinzufügen|1)##
+  EditRow(1)##
+  InputCell(Notfallkontakte Vorname|Heinrich)##
+  InputCell(Notfallkontakte Nachname|Müller)##
+  EditRow(2)##
+  InputCell(Notfallkontakte Vorname|Sebastian)##
+  InputCell(Notfallkontakte Nachname|Schulz)##
   QuitButton(Speichern)
 }}
