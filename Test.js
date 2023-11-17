@@ -1532,20 +1532,25 @@ Nachname
 
 =====================================================================================================================================================================
 
-14.11.2023
+Playground neu starten
+
+https://srvpelotc01vm.elo.local/ix-lldo_prod/plugin/de.elo.ix.plugin.proxy/wf/apps/app/sol.knowledge.apps.KnowledgeBoard/?lang=de&useSSO=true&timezone=Europe%2FBerlin&#/post/(E03BCFB3-68E8-A7EB-3013-19405538E8C2)
 
 
-java "-Dfile.encoding=UTF-8" -jar PlaywrightSession.jar JiraScripts/Gen1/visitor/CaptureVisitorPicture.txt PlaywrightConfig.json JiraScripts/Gen1/visitor/JiraConnectionConfig.json
 
 
+=====================================================================================================================================================================
 
 
-BS Intern BSXX-523 Testautomatisierung mit Playwright BS 1.0 Welt
+SelectUserGroup(Teilnehmer hinzufügen|Gerd Baum)##
 
 
-Gitlab CI CD Pipeline to Build Java Project and run Playwright Test
-FileChooser Dialog in Playwright
-Table Controls in Playwright
+20.11.2023
+
+TODO Playwright Tests recruiting
+TODO Refactoring Interface IDialog
+
+
 
 
 
@@ -1553,16 +1558,6 @@ https://eloticksy.elo.com/browse/BSXX-523
 
 
 Playwright Testcases BS Gen 1.0
-
-
-{{
-InputField(Vorgesetzter|Gerd Baum)##
-InputField(Stellenbezeichnung|Berater)##
-InputField(Eintrittsdatum|nowDate)##
-QuitButton(Speichern)##
-}}
-
-
 
 BS 1.0 Welt
 
