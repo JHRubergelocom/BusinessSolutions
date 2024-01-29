@@ -1,7 +1,7 @@
 /* eslint-disable linebreak-style */
 
 describe("[lib] sol.unittest.ix.services.SolCommonHttpUtils", function () {
-  var originalTimeout, url, bytes, str, inputStream, urlConn, urlString, config, resultObj, data;
+  var originalTimeout, url, bytes, str, inputStream, urlConn, urlString, config, resultObj;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -214,24 +214,6 @@ describe("[lib] sol.unittest.ix.services.SolCommonHttpUtils", function () {
           );
         }).not.toThrow();
       });
-      it("sendDelete", function (done) {
-        expect(function () {
-          urlString = url;
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
-            className: "sol.common.HttpUtils",
-            classConfig: {},
-            method: "sendDelete",
-            params: [urlString, config]
-          }).then(function success(jsonResult) {
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }).not.toThrow();
-      });
       it("sendGet", function (done) {
         expect(function () {
           config = {};
@@ -240,25 +222,6 @@ describe("[lib] sol.unittest.ix.services.SolCommonHttpUtils", function () {
             classConfig: {},
             method: "sendGet",
             params: [url, config]
-          }).then(function success(jsonResult) {
-            done();
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }).not.toThrow();
-      });
-      it("sendPost", function (done) {
-        expect(function () {
-          data = "";
-          config = {};
-          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
-            className: "sol.common.HttpUtils",
-            classConfig: {},
-            method: "sendPost",
-            params: [url, data, config]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {
@@ -306,6 +269,27 @@ describe("[lib] sol.unittest.ix.services.SolCommonHttpUtils", function () {
           );
         }).not.toThrow();
       });
+      it("sendPostPutDelete", function (done) {
+        expect(function () {
+          urlString = url;
+          config = {};
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.HttpUtils",
+            classConfig: {},
+            method: "sendPostPutDelete",
+            params: [urlString, config]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+
+
     });
   });
   afterAll(function (done) {

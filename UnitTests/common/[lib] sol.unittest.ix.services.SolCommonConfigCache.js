@@ -1,6 +1,7 @@
+/* eslint-disable linebreak-style */
 
 describe("[lib] sol.unittest.ix.services.SolCommonConfigCache", function () {
-  var originalTimeout, key, solution, cfg;
+  var originalTimeout, key, solution, cfg, options;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -55,6 +56,24 @@ describe("[lib] sol.unittest.ix.services.SolCommonConfigCache", function () {
           );
         }).not.toThrow();
       });
+      it("getCache", function (done) {
+        expect(function () {
+          options = {};
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.ConfigCache",
+            classConfig: {},
+            method: "getCache",
+            params: [options]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("getELOasCfg", function (done) {
         expect(function () {
           solution = "common";
@@ -83,6 +102,24 @@ describe("[lib] sol.unittest.ix.services.SolCommonConfigCache", function () {
             params: [key]
           }).then(function success(jsonResult) {
             expect(jsonResult).toEqual(null);
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("initGlobalCache", function (done) {
+        expect(function () {
+          test.Utils.execute("RF_sol_unittest_service_ExecuteLib", {
+            className: "sol.common.ConfigCache",
+            classConfig: {},
+            method: "initGlobalCache",
+            params: []
+          }).then(function success(jsonResult) {
+            expect(jsonResult).toEqual({});
             done();
           }, function error(err) {
             fail(err);

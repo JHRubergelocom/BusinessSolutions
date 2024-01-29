@@ -85,6 +85,7 @@ sol.define("sol.unittest.ix.services.ExecuteLib5", {
             me.params[0] = dir;
             break;
           case "deleteFilesInZipFileFolder":
+          case "existsFilePathInZip":
           case "readFileInZipToByteArray":
           case "readFileInZipToString":
           case "unzip":
