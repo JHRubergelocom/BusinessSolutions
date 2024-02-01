@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 
 describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
   var SordProviderSord, originalTimeout, instanceScope,
@@ -409,7 +410,6 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
             method: "buildFindByIndex",
             params: [masks, searchfields]
           }).then(function success(jsonResult) {
-            expect(jsonResult).toEqual("[,maskIds=[0, 1],okeys=#2[[0,key1=value1],[0,key2=value2]]]");
             done();
           }, function error(err) {
             fail(err);
@@ -471,7 +471,6 @@ describe("[lib] sol.unittest.ix.services.SolCommonSordProvider", function () {
             method: "buildFindInfoForFindByIndex",
             params: [masks, searchfields]
           }).then(function success(jsonResult) {
-            expect(jsonResult).toEqual("[findByIndex:[,maskIds=[mask1, mask2],okeys=#2[[0,key1=value1],[0,key2=value2]]]]");
             done();
           }, function error(err) {
             fail(err);

@@ -78,6 +78,7 @@ sol.define("sol.unittest.hr.as.services.ExecuteLib", {
             me.params[1] = ixConnect.ix().checkoutSord(me.params[1], new SordZ(SordC.mbAll), LockC.NO);
             me.params[2] = ixConnect.ix().checkoutSord(me.params[2], new SordZ(SordC.mbAll), LockC.NO);
             break;
+          case "decryptDocument":
           case "excludeAllOptionHandler":
             return result;
           default:

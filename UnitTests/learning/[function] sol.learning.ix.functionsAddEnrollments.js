@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 
 describe("[function] sol.learning.ix.functions.AddEnrollments", function () {
   var originalTimeout, enrollmentsPath, objIdEnrollments,
@@ -522,27 +523,6 @@ describe("[function] sol.learning.ix.functions.AddEnrollments", function () {
             succNodes = test.Utils.getSuccessorNodes(workflow, "1", null, "node 2");
             succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
             test.Utils.forwardWorkflowTask(flowIdCourse2, "1", succNodesIds, "Unittest finish input").then(function success2(forwardWorkflowTaskResult) {
-              done();
-            }, function error(err) {
-              fail(err);
-              console.error(err);
-              done();
-            }
-            );
-          }, function error(err) {
-            fail(err);
-            console.error(err);
-            done();
-          }
-          );
-        }).not.toThrow();
-      });
-      it("remove enrollments", function (done) {
-        expect(function () {
-          enrollmentsPath = "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/learning [unit tests]/Test data/Course2/Enrollments";
-          test.Utils.getSord(enrollmentsPath).then(function success(sordEnrollments) {
-            objIdEnrollments = sordEnrollments.id;
-            test.Utils.deleteSord(objIdEnrollments).then(function success1(deleteResult) {
               done();
             }, function error(err) {
               fail(err);

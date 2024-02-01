@@ -579,10 +579,23 @@ executeAdvancedAction
 "actionType": 3
 }
 
+=====================================================================================================================================================================
+
+https://git.elo.dev/Weiler/notizen/-/wikis/Gen1/Tabellen-nachtr%C3%A4glich-installieren/Tabellen-nachtr%C3%A4glich-installieren
+
+Tabellen nachträglich installieren
+
+RF_sol_demo_service_ExecuteSqlScripts
+
+{
+  "scriptFolderRepoPath": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/demo/SQL scripts"
+}
+
+
 
 =====================================================================================================================================================================
 
-25.01.2024 TODO Unittests überprüfen (nach Änderungen 23.02 Stack aufbauen bzw. auf playground  und Tests durchlaufen lassen!)
+25.01.2024 TODO Unittests überprüfen (nach Änderungen 23.02 und 23-nightly Stack aufbauen bzw. auf playground  und Tests durchlaufen lassen!)
 
 nochmal unter 23.02 testen!
 
@@ -597,11 +610,6 @@ common
 elo-sol prepare -stack ruberg-common -workspace jan -version 20.00
 
 
-https://eloticksy.elo.com/browse/BS-2149
-
-BS Common BS-2149 Unittests erweitern
-
-
 contract
 
 elo-sol prepare -stack ruberg-contract -workspace de -version 20.00
@@ -610,6 +618,7 @@ elo-sol prepare -stack ruberg-contract -workspace de -version 20.00
 hr
 
 elo-sol prepare -stack ruberg-hr -workspace de -version 20.00
+
 
 
 invoice
@@ -627,6 +636,11 @@ learning
 elo-sol prepare -stack ruberg-learning -workspace default -version 20.00
 
 
+https://eloticksy.elo.com/browse/BSL-611
+
+BS Learning BSL-611 Unittests erweitern
+
+
 productivity
 
 elo-sol prepare -stack ruberg-productivity -workspace jan -version 20.00
@@ -636,6 +650,8 @@ pubsec
 
 elo-sol prepare -stack ruberg-pubsec -workspace de -version 20.00
 
+
+TODO 02.02.2024	
 
 recruiting
 
@@ -1296,6 +1312,22 @@ TODO ab 25.01.2024
 Invoice
 
 
+common_document -> sol.common_document.PdfExport
+
+checklist -> sol.checklist.CreateChecklist
+
+
+development -> sol.dev.function.ClearGlobalConfigCache
+			-> sol.dev.function.Deploy
+			-> sol.dev.function.Undeploy
+			-> sol.dev.ix.actions.CreatePackage
+			
+notify		-> sol.notify.ix.actions.Configure
+
+privacy		-> sol.privacy.gdpr.processingactivity.approve
+			-> sol.privacy.gdpr.processingactivity.create
+			-> sol.privacy.gdpr.processingactivity.CreateDocument
+			-> sol.privacy.gdpr.processingactivity.delegate
 
 
 

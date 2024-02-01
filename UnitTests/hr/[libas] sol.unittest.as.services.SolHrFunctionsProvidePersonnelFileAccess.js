@@ -1,9 +1,11 @@
+/* eslint-disable linebreak-style */
 
 describe("[libas] sol.unittest.as.services.SolHrFunctionsProvidePersonnelFileAccess", function () {
   var obSolHrFunctionsProvidePersonnelFileAccessId, originalTimeout, content, instructions, target, setInstructions, fieldConfig, template, findInfo,
       targetRoot, sourceRoot, security, copyConfigs, sord, map, objId, customConn, mapItems, objKeys, fieldNames,
       MAPTemplate, option, name, mbs, overwrite, sourceId, soltype, securitylevel, maskId, hashMap, templateKeys,
-      targetConfig, modifyConfig, cfg, inquirerUserId, pfSord, origin, created, sourceSord, targetSord, targetMap, targetId;
+      targetConfig, modifyConfig, cfg, inquirerUserId, pfSord, origin, created, sourceSord, targetSord, targetMap, targetId,
+      encryptedSord;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -115,6 +117,31 @@ describe("[libas] sol.unittest.as.services.SolHrFunctionsProvidePersonnelFileAcc
               classConfig: { accessConfig: {}, flowId: "flowId1", objId: obSolHrFunctionsProvidePersonnelFileAccessId },
               method: "copyTreeTo",
               params: [sourceRoot, security, copyConfigs, targetRoot]
+            }
+          }).then(function success(jsonResult) {
+            content = jsonResult.content;
+            if (content.indexOf("exception") != -1) {
+              fail(jsonResult.content);
+            }
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("decryptDocument", function (done) {
+        expect(function () {
+          encryptedSord = obSolHrFunctionsProvidePersonnelFileAccessId;
+          test.Utils.execute("RF_sol_common_service_ExecuteAsAction", {
+            action: "sol.unittest.hr.as.services.ExecuteLib",
+            config: {
+              className: "sol.hr.as.functions.ProvidePersonnelFileAccess",
+              classConfig: {},
+              method: "decryptDocument",
+              params: [encryptedSord]
             }
           }).then(function success(jsonResult) {
             content = jsonResult.content;

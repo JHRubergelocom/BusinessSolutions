@@ -220,6 +220,24 @@ describe("[function] sol.learning.ix.functions.CreateEnrollmentHeadless", functi
           );
         }).not.toThrow();
       });
+      it("getCoursePrice", function (done) {
+        expect(function () {
+          courseRef = "courseRef1";
+          test.Utils.execute("RF_sol_unittest_learning_service_ExecuteLib1", {
+            className: "sol.learning.ix.functions.CreateEnrollmentHeadless",
+            classConfig: {},
+            method: "getCoursePrice",
+            params: [courseRef]
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
       it("getCourseType", function (done) {
         expect(function () {
           course = "course1";
