@@ -1,0 +1,8 @@
+{{
+  Login(Sandra Renz|elo)##
+  SelectFolder(Solutions/Meetingboard2x/Sammlung neue Playwright Tests/Weiterer Playwright Test)##
+  OpenFormular(Sitzung|Besprechungsvorlagen|Besprechungsvorlage erstellen)##
+  SelectDialogItem(Beschlussvorlage)##
+  InputField(Beschlussempfehlung|Beschluss weiterer Playwright Test)##
+  QuitButton(OK)
+}}

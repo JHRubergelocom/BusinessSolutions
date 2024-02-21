@@ -1,0 +1,8 @@
+{{
+  Login(Sandra Renz|elo)##
+  SelectFolder(Solutions/1 - Zentrale Verwaltung/10 - Zentrale Verwaltung im allgemeinen/1000 - Zentrale Verwaltung im allgemeinen)##
+  OpenFormular(Neu|E-Akte|Neue Laufmappe)##
+  InputField(Laufmappenname|Test Laufmappe)##
+  InputField(Beschreibung Laufmappe|Beschreibung Test Laufmappe)##
+  QuitButton(Laufmappe anlegen)
+}}

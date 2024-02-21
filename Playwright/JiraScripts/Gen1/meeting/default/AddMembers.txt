@@ -1,0 +1,20 @@
+{{
+  Login(Sandra Renz|elo)##
+  SelectFolder(Solutions/Meetingboard1)##
+  OpenFormular(Meeting|Board|Mitglieder hinzufügen)##
+  InputField(Kontaktliste auswählen|Kontaktliste Contelo Holding)##
+  InputTable(Weiteres Mitglied|3)##
+  EditRow(3)##
+  InputCell(Nachname|Davis)##
+  InputCell(Vorname|Jessica)##
+  InputCell(E-Mail|j.davis@contelo.com)##
+  EditRow(4)##
+  InputCell(Nachname|Cooper)##
+  InputCell(Vorname|Daniel)##
+  InputCell(E-Mail|d.cooper@contelo.com)##
+  EditRow(5)##
+  InputCell(Nachname|Edwards)##
+  InputCell(Vorname|Jack)##
+  InputCell(E-Mail|j.edwards@contelo.com)##
+  QuitButton(OK)
+}}

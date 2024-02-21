@@ -1,0 +1,13 @@
+{{
+  Login(Sandra Renz|elo)##
+  SelectFolder(Solutions/1 - Zentrale Verwaltung/12 - Personalangelegenheiten/122/123 - Personalwirtschaft/1221 - Personalentwicklung, -planung)##
+  OpenFormular(Neu|E-Akte|Neue Akte)##
+  SelectDialogItem(Fallakte)##
+  InputField(Aktenname|Test Fallakte 1221)##
+  QuitButton(Akte anlegen)##
+  SelectFolder(Solutions/1 - Zentrale Verwaltung/12 - Personalangelegenheiten/122/123 - Personalwirtschaft/1221 - Personalentwicklung, -planung/Test Fallakte 1221)##
+  OpenFormular(E-Akte|Sperr-vermerk)##
+  InputField(Sperrvermerk Vermerk|Sperrvermerk 1221)##
+  InputField(Sperrvermerk Beschreibung|Beschreibung Sperrvermerk 1221)##
+  QuitButton(Sperrvermerk setzen)
+}}

@@ -1,0 +1,8 @@
+{{
+  Login(Sandra Renz|elo)##
+  SelectFolder(Solutions/Meetingboard1)##
+  OpenFormular(Neu|Meeting|Neue Themensammlung)##
+  InputField(Themensammlung Bezeichnung|Sammlung neue Playwright Tests)##
+  InputField(Themensammlung Beschreibung|Übersicht neue Playwright Tests)##
+  QuitButton(OK)
+}}

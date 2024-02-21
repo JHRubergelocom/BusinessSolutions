@@ -1,0 +1,12 @@
+{{
+  Login(Sandra Renz|elo)##
+  OpenFormular(Neu|Sitzung|Neues Meeting-Board)##
+  InputField(Meetingboard Name|Meetingboard2x)##
+  InputField(Meetingboard Kürzel|MB2x)##
+  InputTable(Weitere Person|1)##
+  EditRow(2)##
+  InputCell(Organisiert von|Jan Eichner)##
+  SelectTabPage(Einstellungen)##
+  InputField(Freigabe von Sitzungen|false)##
+  QuitButton(OK)
+}}

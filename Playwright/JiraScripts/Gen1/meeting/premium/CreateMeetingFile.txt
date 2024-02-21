@@ -1,0 +1,8 @@
+{{
+  Login(Sandra Renz|elo)##
+  SelectFolder(Solutions/Meetingboard2/Sitzungen/2024/Zweite Playwright Sitzung)##
+  OpenFormular(Sitzung|Sitzung|Sitzungsmappe erstellen)##
+  InputField(Dokumentenname|Sitzungsmappe Zweite Playwright Sitzung)##
+  InputField(Versionskommentar|Erste Version)##
+  QuitButton(OK)
+}}

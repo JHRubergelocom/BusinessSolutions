@@ -1,0 +1,5 @@
+{{
+  Login(Gerd Baum|elo)##
+  SelectFolder(Solutions/Vertragsmanagement/Verträge/Abonnement/C/Contelo Verlag/CD000004 Spogel Magazin)##
+  OpenFormular(Vertrag|Deckblatterstellen)##
+}}

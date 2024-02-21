@@ -1,0 +1,8 @@
+{{
+  Login(Sandra Renz|elo)##
+  SelectFolder(Solutions/1 - Zentrale Verwaltung/10 - Zentrale Verwaltung im allgemeinen/1000 - Zentrale Verwaltung im allgemeinen/Test Personalakten)##
+  OpenFormular(E-Akte|Verfügungstarten)##
+  SelectDialogItem(Aktenschreiben anfertigen)##
+  InputField(Verfügung Zuständigkeit|Sandra Renz)##
+  QuitButton(Verfügung starten)
+}}

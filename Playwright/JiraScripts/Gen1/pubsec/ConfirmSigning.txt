@@ -1,0 +1,6 @@
+{{
+  Login(Sandra Renz|elo)##
+  SelectTask(Schlusszeichnung starten)##
+  PassWorkflow(Zeichnen)##
+  SubmitTask(OK)
+}}

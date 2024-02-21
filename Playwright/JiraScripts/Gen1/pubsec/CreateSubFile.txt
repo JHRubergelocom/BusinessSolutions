@@ -1,0 +1,7 @@
+{{
+  Login(Sandra Renz|elo)##
+  SelectFolder(Solutions/1 - Zentrale Verwaltung/10 - Zentrale Verwaltung im allgemeinen/1000 - Zentrale Verwaltung im allgemeinen/Test Personalakten)##
+  OpenFormular(Neu|E-Akte|Neue Teilakte)##
+  InputField(Aktenname|Test Personalakte)##
+  QuitButton(Akte anlegen)
+}}

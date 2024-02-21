@@ -1,0 +1,6 @@
+{{
+  Login(Verona Funk|elo)##
+  SelectTask(Löschantrag genehmigen)##
+  TakeWorkflow()##
+  SubmitTask(Elemente löschen)
+}}

@@ -1,0 +1,9 @@
+{{
+  Login(Sandra Renz|elo)##
+  SelectFolder(Solutions/Meetingboard1)##
+  OpenFormular(Meeting|Benachrichtigungen|Benachrichtigungsvorlage erstellen)##
+  InputField(Benachrichtigungsvorlage Name|Nachrichtenvorlage Playwright Test)##
+  InputField(Benachrichtigungsvorlage Sender|test-business-solutions@elo.local)##
+  InputField(Benachrichtigungsvorlage Betreff|Nachricht Playwright Test)##
+  QuitButton(OK)
+}}

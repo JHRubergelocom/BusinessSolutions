@@ -1,9 +1,9 @@
 {{
-  Login(Ute Schenk|elo)##
-  SelectFolder(Solutions/Kursverwaltung/Kurse/Academy 2.0 [DE] (C1000))##
-  OpenFormular(Kurs|Benachrichtiung senden)##
-  InputField(Suchvorlage|Bald fängt es an)##
+  Login(Sandra Renz|elo)##
+  SelectFolder(Solutions/Kursverwaltung/Kurse/Klinken putzen)##
+  OpenFormular(Kurs|Benachrichtigungsenden)##
+  InputField(Suchvorlage|Alle)##
   InputField(Vorlage|Default)##
   InputField(Betreff|Ihre Teilnahme an "{{{COURSE.objKeys.COURSE_NAME}}}")##
-  QuitButton(Speichern)
+  QuitButton(OK)
 }}

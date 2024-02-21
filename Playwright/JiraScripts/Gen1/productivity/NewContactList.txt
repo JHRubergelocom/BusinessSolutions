@@ -1,0 +1,6 @@
+{{
+  Login(Daniel Cooper|elo)##
+  OpenFormular(Neu|Kontakt|Neue Kontaktliste)##
+  InputField(Name_TEXT|Besucher-Kontakte)##
+  QuitButton(OK)
+}}

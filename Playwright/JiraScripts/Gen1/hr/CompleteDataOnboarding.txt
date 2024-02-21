@@ -1,6 +1,7 @@
 {{
-  Login(Verona Funk|elo)##
+  Login(Ute Schenk|elo)##
   SelectTask(Stammdaten vervollständigen)##
+  TakeWorkflow()##
   InputField(Probezeit Kündigungsfrist|2)##
   SubmitTask(OK)
 }}

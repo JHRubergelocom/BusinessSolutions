@@ -1,7 +1,7 @@
 {{
-  Login(Administrator|elo)##
+  Login(Sandra Renz|elo)##
   SelectFolder(Solutions/Besuchermanagement/Besucher/2023/11/B/Baum, Gerd)##
-  OpenFormular(Besucher|Besucher|bearbeiten)##
+  OpenFormular(Besucher|bearbeiten)##
   InputField(Ende Datum|13.11.2023)##
   InputField(Ende Zeit|14:00)##
   QuitButton(Änderungen speichern)

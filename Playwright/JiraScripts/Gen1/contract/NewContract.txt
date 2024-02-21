@@ -1,9 +1,9 @@
 {{
-  Login(Ute Schenk|elo)##
+  Login(Gerd Baum|elo)##
   OpenFormular(Neu|Vertrag|Neuer Vertrag)##
   SelectDialogItem(Abonnement)##
   InputField(Bezeichnung|Test Vertrag)##
   SelectTabPage(Vertragspartner)##
   InputField(Firmenname_TEXT|Contelo AG)##
-  QuitButton(Speichern)
+  QuitButton(OK)
 }}

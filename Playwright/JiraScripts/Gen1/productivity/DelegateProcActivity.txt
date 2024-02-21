@@ -1,0 +1,7 @@
+{{
+  Login(Daniel Cooper|elo)##
+  SelectFolder(Solutions/Datenschutzhandbuch/Verzeichnis der Verarbeitungstätigkeiten/15 Abteilung A/Neue Verarbeitungstätigkeit)##
+  OpenFormular(Datenschutz|Verarbeitungstätigkeit|Bearbeitung delegieren)##
+  InputField(Verarbeitungstätigkeit Benutzer Delegation|Adrian Smith)##
+  QuitButton(OK)
+}}

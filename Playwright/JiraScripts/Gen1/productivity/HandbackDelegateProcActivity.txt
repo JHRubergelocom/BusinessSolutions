@@ -1,0 +1,5 @@
+{{
+  Login(Adrian Smith|elo)##
+  SelectTask(Verarbeitungstätigkeit delegieren)##
+  SubmitTask(Zurückgeben)
+}}

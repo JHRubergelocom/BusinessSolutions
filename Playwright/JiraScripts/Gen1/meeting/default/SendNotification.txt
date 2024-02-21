@@ -1,0 +1,13 @@
+{{
+  Login(Sandra Renz|elo)##
+  SelectFolder(Solutions/Meetingboard1/Meetings/2024/Erstes Playwright Meeting)##
+  OpenFormular(Meeting|Benachrichtigungen|Nachricht senden)##
+  InputField(Nachricht Betreff|Einladung Playwright Test)##
+  InputField(Nachricht Inhalt|Sehr geehrte Dame und Herr. Hier ist die Einladung zum Playwright Test)##
+  InputTable(Weiterer Empfänger|1)##
+  EditRow(7)##
+  InputCell(Empfänger Nachname|Keil)##
+  InputCell(Empfänger Vorname|Fritz)##
+  InputCell(Empfänger E-Mail|f.keil@contelo.de)##
+  QuitButton(OK)
+}}

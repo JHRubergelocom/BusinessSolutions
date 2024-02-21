@@ -1,0 +1,8 @@
+{{
+  Login(Sandra Renz|elo)##
+  SelectFolder(Solutions/Meetingboard1/Meetings/2024/Erstes Playwright Meeting/Themen/Neuer Playwright Test)##
+  OpenFormular(Meeting|Themen|Thema zurückziehen)##
+  InputField(Themensammlung Auswahl|Sammlung neue Playwright Tests)##
+  InputField(Grund des Rückzugs|Noch zu früh)##
+  QuitButton(OK)
+}}

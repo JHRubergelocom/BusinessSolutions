@@ -1,0 +1,24 @@
+{{
+  Login(Sandra Renz|elo)##
+  SelectFolder(Solutions/Meetingboard2x)##
+  OpenFormular(Neu|Sitzung|Neue Sitzung)##
+  InputField(Sitzung Titel|Playwright Sitzung 2x)##
+  InputField(Ort|Hauptstandort)##
+  InputField(Raum|Besprechungsraum 1)##
+  InputField(Sitzung Protokolliert von|Elena Rodriguez)##
+  InputTable(Weiterer Tag|0)##
+  EditRow(1)##
+  InputCell(Datum|11.01.2024)##
+  InputCell(Beginn|08:00)##
+  InputCell(Ende|17:00)##
+  InputField(Keine Frist|true)##
+  InputField(Sitzung Beschreibung|Beschreibung Erste Playwright Sitzung)##
+  SelectTabPage(Teilnehmende)##
+  InputField(Kontaktliste auswählen|Kontaktliste Contelo Holding)##
+  InputTable(Weiterer Gast|0)##
+  EditRow(1)##
+  InputCell(Nachname|Johnson)##
+  InputCell(Vorname|William)##
+  InputCell(E-Mail|w.johnson@contelo.com)##
+  QuitButton(OK)
+}}

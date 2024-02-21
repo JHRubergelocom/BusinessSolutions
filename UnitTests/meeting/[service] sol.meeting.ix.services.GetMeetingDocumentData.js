@@ -3,7 +3,7 @@ describe("[service] sol.meeting.ix.services.GetMeetingDocumentData", function ()
   var originalTimeout, objTempId, meetingBoardTypes, configTypes, configAction, wfInfo, succNodes, succNodesIds,
       objIdMB, objIdM, flowId, config, meeting,
       response, data, votings, item, wfMap, objId,
-      day, itemIndex, settings, key;
+      day, itemIndex, settings, key, items;
 
   beforeAll(function (done) {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -657,6 +657,24 @@ describe("[service] sol.meeting.ix.services.GetMeetingDocumentData", function ()
             classConfig: { objId: objIdM },
             method: "process",
             params: []
+          }).then(function success(jsonResult) {
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }).not.toThrow();
+      });
+      it("reorderAgenda", function (done) {
+        expect(function () {
+          items = [];
+          test.Utils.execute("RF_sol_unittest_meeting_service_ExecuteLib1", {
+            className: "sol.meeting.ix.services.GetMeetingDocumentData",
+            classConfig: { objId: objIdM },
+            method: "reorderAgenda",
+            params: [items]
           }).then(function success(jsonResult) {
             done();
           }, function error(err) {

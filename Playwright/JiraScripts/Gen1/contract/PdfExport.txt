@@ -1,0 +1,6 @@
+{{
+  Login(Gerd Baum|elo)##
+  SelectFolder(Solutions/Vertragsmanagement/Verträge/Abonnement/C/Contelo Verlag/CD000004 Spogel Magazin/E-Mails)##
+  OpenFormular(Ausgabe|Export/Import|Ordnerinhalt PDF Export)##
+  QuitButton(OK)
+}}

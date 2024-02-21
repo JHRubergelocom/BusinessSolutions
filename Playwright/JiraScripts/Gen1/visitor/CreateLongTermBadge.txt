@@ -1,12 +1,11 @@
 {{
-  Login(Ute Schenk|elo)##
+  Login(Sandra Renz|elo)##
   OpenFormular(Neu|Besucher|Neuer Dauerausweis)##
-  InputField(Gültig ab|13.11.2023)##
-  InputField(Gültig bis|13.12.2023)##
+  InputField(Gültig ab|10.02.2024)##
+  InputField(Gültig bis|10.02.2025)##
   InputField(Vorname|Verona)##
   InputField(Nachname|Funk)##
+  InputField(ELO Benutzername|Verona Funk)##
   InputField(Niederlassung|Headquarter)##
-  SelectTabPage(Dokumente)##
-  InputField(Ausweis sofort erstellen|true)##
   QuitButton(OK)
 }}

@@ -1,0 +1,10 @@
+{{
+  Login(Daniel Cooper|elo)##
+  OpenFormular(Neu|Datenschutz|Neue Verarbeitungstätigkeit)##
+  InputField(Verarbeitungstätigkeit Bezeichnung|Neue Verarbeitungstätigkeit)##
+  InputField(Verarbeitungstätigkeit Abteilung|15 Abteilung A)##
+  InputField(Verarbeitungstätigkeit Gesamtverantwortlicher|Bodo Kraft)##
+  InputField(Verarbeitungstätigkeit Verfahrensverantwortlicher|Elena Rodriguez)##
+  InputField(Verarbeitungstätigkeit Datenschutzbeauftragter|Charlotte Bennett)##
+  QuitButton(OK)
+}}

@@ -1,0 +1,6 @@
+{{
+  Login(Daniel Cooper|elo)##
+  SelectFolder(Solutions/Datenschutzhandbuch/Verzeichnis der Verarbeitungstätigkeiten/15 Abteilung A/Neue Verarbeitungstätigkeit)##
+  OpenFormular(Datenschutz|Verarbeitungstätigkeit|Dokument erzeugen)##
+  QuitButton(OK)
+}}

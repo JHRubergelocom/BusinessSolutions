@@ -1,0 +1,5 @@
+{{
+  Login(Verona Funk|elo)##
+  OpenFormular(Neu|Self-Service|Selbst einchecken)##
+  QuitButton(OK)
+}}

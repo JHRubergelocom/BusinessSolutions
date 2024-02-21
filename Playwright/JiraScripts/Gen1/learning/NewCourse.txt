@@ -1,7 +1,7 @@
 {{
   Login(Sandra Renz|elo)##
   OpenFormular(Neu|Learning|Neuer Kurs)##
-   SelectDialogItem(Abonnement)##
-  InputField(Hinterlassen Sie Arbeitsanweisungen,|Hier könnte ihre Werbung stehen)##
-  QuitButton(Speichern)
+  SelectDialogItem(Virtuelles Klassenzimmer)##
+  InputField(Bezeichnung|Klinken putzen)##
+  QuitButton(OK)
 }}

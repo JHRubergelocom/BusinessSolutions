@@ -1,0 +1,20 @@
+{{
+  Login(Daniel Cooper|elo)##
+  OpenFormular(Neu|Kontakt|Neue Firma)##
+  InputField(Name_KWL|Kontaktliste Contelo Holding)##
+  InputField(Firmenname Neu|P01))##
+  InputField(Firman E-Mail|test@mail.com)##
+  InputField(Firmentelefon|0124583220)##
+  InputField(Webseit|www.kicker.de)##
+  InputField(Streaße|Tübinger Str. 43)##
+  InputField(PLZ|70178)##
+  InputField(Ort|Stuttgart)##
+  InputField(Bundesland|Baden-Württemberg)##
+  InputField(Land|DE - Deutschland)##
+  InputField(IBAN|70178)##
+  InputField(BIC|70178)##
+  InputField(Handelsregister|70178)##
+  InputField(Steuernummer|70178)##
+  InputField(UST-IdNr|70178)##
+  QuitButton(OK)
+}}

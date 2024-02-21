@@ -4,5 +4,5 @@
   SelectDialogItem(Community Board)##
   InputField(Name|Putzen muss jeder)##
   CheckFieldEqual(Name|Putzen muss jeder)##
-  QuitButton(Speichern)
+  QuitButton(OK)
 }}

@@ -4,5 +4,6 @@
   InputField(Bezeichnung_DYNKWL|Du hast Spaß am Putzen dann komm zu uns)##
   InputField(Beschreibung_TEXT|Wir müssen Putzen)##
   InputField(Qualifikationen_TEXT|Wir müssen Putzen)##
-  QuitButton(Speichern)
+  InputField(Begründung|Kein Putzer vorhanden)##
+  QuitButton(OK)
 }}

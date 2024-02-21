@@ -1,0 +1,12 @@
+{{
+  Login(Sandra Renz|elo)##
+  SelectFolder(Solutions/Meetingboard1/Meetings/2024/Zweites Playwright Meeting)##
+  OpenFormular(Meeting|Meeting|Protokoll erstellen)##
+  InputField(Dokumentenname|Gesamtprotokoll Zweites Playwright Meeting)##
+  InputField(Versionskommentar|Finale Version)##
+  InputField(Protokollauszug erstellen|true)##
+  InputField(Protokollauszug Thema1|true)##
+  InputField(Protokollauszug Thema2|true)##
+  InputField(Protokollauszug Thema3|true)##
+  QuitButton(OK)
+}}

@@ -1,0 +1,41 @@
+{{
+  Login(Sandra Renz|elo)##
+  SelectFolder(Solutions/Meetingboard1)##
+  OpenFormular(Neu|Meeting|Neues Meeting)##
+  InputField(Meeting Titel|Zweites Playwright Meeting)##
+  InputField(Ort|Remote)##
+  InputField(Raum|Besprechungsraum 2)##
+  InputField(Meeting Protokolliert von|Jasmin Stamm)##
+  InputTable(Weiterer Tag|0)##
+  EditRow(1)##
+  InputCell(Beginn|09:00)##
+  InputCell(Ende|14:00)##
+  InputField(Meeting Beschreibung|Beschreibung Zweites Playwright Meeting)##
+  SelectTabPage(Teilnehmende)##
+  InputField(Kontaktliste auswählen|Kontaktliste Contelo Holding)##
+  InputTable(Weiterer Gast|2)##
+  EditRow(6)##
+  InputCell(Nachname|Lee)##
+  InputCell(Vorname|David)##
+  InputCell(E-Mail|d.lee@contelo.com)##
+  EditRow(7)##
+  InputCell(Nachname|Keil)##
+  InputCell(Vorname|Fritz)##
+  InputCell(E-Mail|f.keil@contelo.de)##
+  SelectTabPage(Benachrichtigungen)##
+  InputTable(Weitere Benachrichtigung|1)##
+  EditRow(3)##
+  InputCell(Nachricht|Meeting-Einladung)##
+  InputCell(Empfangsgruppe|G - Gäste)##
+  InputCell(Verschiebung um Betrag|3)##
+  InputCell(Verschiebung um Einheit|M - Monat[e])##
+  InputCell(Verschiebung um Vor Nach|+ - Nach)##
+  InputCell(Tag|MEETING_STARTDATE - Startdatum)##
+  SelectTabPage(Wiederholung)##
+  InputField(Wiederholungen anlegen|true)##
+  InputTable(Weitere Wiederholung|1)##
+  EditRow(2)##
+  InputCell(Wiederholung Beginn|09:00)##
+  InputCell(Wiederholung Ende|14:00)##
+  QuitButton(OK)
+}}

@@ -1,0 +1,7 @@
+{{
+  Login(Gerd Baum|elo)##
+  SelectTask(Vertrag freigeben)##
+  TakeWorkflow()##
+  InputField(Freigabe Eigener Kommentar|Freigabe Vertrag)##
+  SubmitTask(Freigeben)
+}}

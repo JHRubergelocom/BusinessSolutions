@@ -1,0 +1,7 @@
+{{
+  Login(Sandra Renz|elo)##
+  SelectFolder(Solutions/1 - Zentrale Verwaltung)##
+  OpenFormular(E-Akte|Bericht|Aktenbericht erstellen)##
+  SelectDocument(Solutions/Sandra Renz/data)##
+  QuitButton(OK)
+}}

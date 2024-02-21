@@ -6,7 +6,7 @@
   InputField(Nachname|Tobias)##
   InputField(Vorname|Maier)##
   CheckFieldEqual(Bezeichnung_Rec|Initiativbewerbungen)##
-  QuitButton(Speichern)
+  QuitButton(OK)
 }}
 
 

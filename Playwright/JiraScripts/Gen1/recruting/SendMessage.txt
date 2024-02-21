@@ -1,8 +1,8 @@
 {{
   Login(Ute Schenk|elo)##
-  SelectFolder(Solutions/Bewerbermanagement/Bewerber nach Phase/01: Neue Bewerbung/Bachmann, Sören (D00012))##
-  OpenFormular(Bewerber|Bewerber|senden)##
-  inputField(Empfänger (E-Mail)|s.bachmannt866@testmail.com)##
+  SelectFolder(Solutions/Bewerbermanagement/Bewerber nach Phase/01: Neue Bewerbung/Kehl, Joachim (D00002))##
+  OpenFormular(Bewerber|Mitteilungsenden)##
+  inputField(Empfänger (E-Mail)|j.kehl@jkehl73.com)##
   inputField(Betreff|Ihre Bewerbung)##
-  QuitButton(Speichern)
+  QuitButton(OK)
 }}

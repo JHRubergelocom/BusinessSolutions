@@ -3,7 +3,7 @@
   "username": "J-H.Ruberg@elo.com",
   "password": "XXX",
   "testExecutionKey": "QBSHR-66",
-  "eloStack": "playground.dev.elo",
+  "eloStack": "ruberg-visitor.dev.elo",
   "eloTile": {
     "repositoryTile": "Solutions",
     "taskTile": "Aufgaben"
@@ -38,6 +38,12 @@
         "selector": "IX_MAP_VISITOR_DOCUMENTS",
         "value": "",
         "type": "KWL",
+        "operator": "NONE"
+      },
+      "ELO Benutzername": {
+        "selector": "IX_GRP_VISITOR_USERNAME",
+        "value": "",
+        "type": "DYNKWL",
         "operator": "NONE"
       },
       "Ende Datum": {
@@ -145,9 +151,16 @@
           "groups": [
             "Everyone"
           ]
+        },
+        {
+          "user": "Sandra Renz",
+          "groups": [
+            "sol.common.roles.DocumentCreators"
+          ]
         }
       ],
-      "eloTemplates": []
+      "eloTemplates": [],
+      "eloFilingPlans": []
     }
   }
 }

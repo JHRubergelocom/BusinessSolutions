@@ -1,6 +1,0 @@
-{{
-  Login(Ute Schenk|elo)##
-  OpenFormular(Neu|Kontakt|Kontaktauszug erstellen)##
-  SelectDocument(Solutions/Besuchermanagement)##
-  QuitButton(OK)
-}}

@@ -1,0 +1,53 @@
+{{
+  Login(Sandra Renz|elo)##
+  OpenFormular(Neu|Sitzung|Neues Meeting-Board)##
+  InputField(Meetingboard Name|Meetingboard2)##
+  InputField(Meetingboard Kürzel|MB2)##
+  InputTable(Weitere Person|1)##
+  EditRow(2)##
+  InputCell(Organisiert von|Jan Eichner)##
+  InputField(Protokolliert von|Bodo Kraft)##
+  InputField(Beschreibung|Playwright Meetingboard Premium)##
+  SelectTabPage(Mitglieder)##
+  InputField(Kontaktliste auswählen|Kontaktliste Contelo Holding)##
+  InputTable(Weiteres Mitglied|1)##
+  EditRow(1)##
+  InputCell(Nachname|Baum)##
+  InputCell(Vorname|Gerd)##
+  InputCell(E-Mail|g.baum@contelo.de)##
+  EditRow(2)##
+  InputCell(Nachname|Bennett)##
+  InputCell(Vorname|Charlotte)##
+  InputCell(E-Mail|c.bennett@contelo.de)##
+  SelectTabPage(Tagesordnungspunkte)##
+  InputTable(Weiterer TOP|1)##
+  EditRow(1)##
+  InputCell(TOP Titel|Begrüßung)##
+  InputCell(TOP Dauer|10)##
+  InputCell(TOP Beschreibung|Begrüßung der Teilnehmer)##
+  EditRow(2)##
+  InputCell(TOP Titel|Agenda)##
+  InputCell(TOP Dauer|20)##
+  InputCell(TOP Beschreibung|Erläuterung Agenda)##
+  SelectTabPage(Benachrichtigungen)##
+  InputTable(Weitere Benachrichtigung|1)##
+  EditRow(1)##
+  InputCell(Nachricht|Meeting-Einladung)##
+  InputCell(Empfangsgruppe|O - Organisatoren)##
+  InputCell(Verschiebung um Betrag|1)##
+  InputCell(Verschiebung um Einheit|d - Tag[e])##
+  InputCell(Verschiebung um Vor Nach|- - Vor)##
+  InputCell(Tag|MEETING_STARTDATE - Startdatum)##
+  EditRow(2)##
+  InputCell(Nachricht|Meeting Terminerinnerung)##
+  InputCell(Empfangsgruppe|A - Mitglieder und Gäste)##
+  InputCell(Verschiebung um Betrag|2)##
+  InputCell(Verschiebung um Einheit|w - Woche[n])##
+  InputCell(Verschiebung um Vor Nach|+ - Nach)##
+  InputCell(Tag|MEETING_ENDDATE - Enddatum)##
+  SelectTabPage(Einstellungen)##
+  InputField(Freigabe von Sitzungen|true)##
+  InputField(TOPs in Agenda|true)##
+  InputField(Standardname|Playwright Sitzung)##
+  QuitButton(OK)
+}}

@@ -1,7 +1,7 @@
 {{
-  Login(Ute Schenk|elo)##
+  Login(Gerd Baum|elo)##
   SelectFolder(Solutions/Vertragsmanagement/Verträge/Abonnement/C/Contelo Verlag/CD000004 Spogel Magazin)##
-  OpenFormular(Vertrag|Freigabe einleiten)##
-  InputField(Bezeichnung|Spogel Magazin)##
-  QuitButton(Speichern)
+  OpenFormular(Vertrag|Freigabe)##
+  InputField(Hinterlassen Sie Arbeitsanweisungen|Arbeitsanweisung)##
+  QuitButton(OK)
 }}

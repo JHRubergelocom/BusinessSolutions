@@ -1,0 +1,9 @@
+{{
+  Login(Sandra Renz|elo)##
+  SelectFolder(Solutions/Meetingboard2x)##
+  OpenFormular(Sitzung|Benachrichtigungen|Benachrichtigungsvorlage erstellen)##
+  InputField(Name|Einladung Sitzung 2x)##
+  InputField(Absender|test-business-solutions@elo.local)##
+  InputField(Betreff|Einladung zur Sitzung 2x)##
+  QuitButton(OK)
+}}

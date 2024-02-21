@@ -112,6 +112,12 @@
         "type": "DYNKWL",
         "operator": "NONE"
       },
+      "Freigabe Eigener Kommentar": {
+        "selector": "WF_MAP_APP_APPROVER_COMMENT",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
       "Gekündigt am": {
         "selector": "IX_GRP_TERMINATION_DATE",
         "value": "",
@@ -130,13 +136,13 @@
         "type": "TEXT",
         "operator": "NONE"
       },
-      "Hinterlassen (Kündignung einleiten)": {
+      "Hinterlassen Anweisungen Kündigung einleiten": {
         "selector": "WF_MAP_TERM_INITIATOR_COMMENT",
         "value": "",
         "type": "TEXT",
         "operator": "NONE"
       },
-      "Hinterlassen Sie Arbeitsanweisungen,": {
+      "Hinterlassen Sie Arbeitsanweisungen": {
         "selector": "WF_MAP_APP_INITIATOR_COMMENT",
         "value": "",
         "type": "TEXT",
@@ -170,6 +176,12 @@
         "selector": "IX_GRP_COST_OBJECT_NO",
         "value": "",
         "type": "KWL",
+        "operator": "NONE"
+      },
+      "Kündigung Eigener Kommentar": {
+        "selector": "WF_MAP_TERM_APPROVER_COMMENT",
+        "value": "",
+        "type": "TEXT",
         "operator": "NONE"
       },
       "Kündigungsfrist Dauer": {
@@ -365,9 +377,21 @@
         "operator": "NONE"
       },
       "Vertragsdatum": {
+        "selector": "IX_GRP_CONTRACT_DATE",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Vertragsdatum Map": {
         "selector": "IX_MAP_CONTRACT_START_NOTERM",
         "value": "",
         "type": "RADIO",
+        "operator": "NONE"
+      },
+      "Vertragsdatum WFMap": {
+        "selector": "WF_MAP_USER1",
+        "value": "",
+        "type": "TEXT",
         "operator": "NONE"
       },
       "Vertragsende": {
@@ -481,8 +505,16 @@
     },
     "eloTables": {},
     "eloPrecondition": {
-      "eloUsers": [],
-      "eloTemplates": []
+      "eloUsers": [
+        {
+          "user": "Gerd Baum",
+          "groups": [
+            "sol.common.roles.DocumentCreators"
+          ]
+        }
+      ],
+      "eloTemplates": [],
+      "eloFilingPlans": []
     }
   }
 }

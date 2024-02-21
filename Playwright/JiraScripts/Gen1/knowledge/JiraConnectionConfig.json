@@ -35,7 +35,7 @@
         "operator": "NONE"
       },
       "Bereichsnavigation": {
-        "selector": "IX_MAP_SETTING_HIDE_TOPICLIST_IN_POST",
+        "selector": "IX_MAP_SETTING_HIDE_SPACENAVIGATION",
         "value": "",
         "type": "RADIO",
         "operator": "NONE"
@@ -106,6 +106,12 @@
         "type": "RADIO",
         "operator": "NONE"
       },
+      "Themenliste": {
+        "selector": "IX_MAP_SETTING_HIDE_TOPICLIST_IN_POST",
+        "value": "",
+        "type": "RADIO",
+        "operator": "NONE"
+      },
       "Verwendete Sprachen": {
         "selector": "IX_MAP_SETTING_HIDE_LANGUAGELIST",
         "value": "",
@@ -122,7 +128,8 @@
     "eloTables": {},
     "eloPrecondition": {
       "eloUsers": [],
-      "eloTemplates": []
+      "eloTemplates": [],
+      "eloFilingPlans": []
     }
   }
 }

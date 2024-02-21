@@ -1,0 +1,7 @@
+{{
+  Login(Gerd Baum|elo)##
+  SelectTask(Vertrag kündigen)##
+  TakeWorkflow()##
+  InputField(Kündigung Eigener Kommentar|Kündigung Vertrag)##
+  SubmitTask(Annehmen)
+}}

@@ -1,0 +1,7 @@
+{{
+  Login(Administrator|elo)##
+  SelectFolder(Solutions/Kursverwaltung/Kurse/Academy 2.0/Einschreibungen/Bodo Kraft)##
+  OpenFormular(Einschreibung|Nachrichtsenden)##
+  TestShouldFail()##
+  QuitButton(OK)
+}}

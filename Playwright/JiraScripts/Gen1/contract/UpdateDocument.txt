@@ -1,6 +1,7 @@
 {{
-  Login(Ute Schenk|elo)##
-  SelectFolder(Solutions/Vertragsmanagement/Verträge/Abonnement/C/Contelo Verlag/CD000004 Spogel Magazin|Etikett)##
-  OpenFormular(Vertrag|Dokument aktualisiren)##
-  selectDialogItem(Nu Felder)##
+  Login(Gerd Baum|elo)##
+  SelectFolder(Solutions/Vertragsmanagement/Verträge/Abonnement/C/Contelo Verlag/CD000004 Spogel Magazin/Kündigung/Kündigung)##
+  OpenFormular(Vertrag|Dokumentaktualisieren)##
+  selectDialogItem(Nur Felder)##
+  QuitButton(OK)
 }}

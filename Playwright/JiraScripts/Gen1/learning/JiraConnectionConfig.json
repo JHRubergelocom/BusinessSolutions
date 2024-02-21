@@ -85,7 +85,7 @@
       "Teilnehmer ausschreiben": {
         "selector": "WF_MAP_COURSE_ENROLLMENT_ATTENDED1",
         "value": "",
-        "type": "RADIO",
+        "type": "CHECKBOX",
         "operator": "NONE"
       },
       "Teilnehmerstatus": {
@@ -139,8 +139,16 @@
     },
     "eloTables": {},
     "eloPrecondition": {
-      "eloUsers": [],
-      "eloTemplates": []
+      "eloUsers": [
+        {
+          "user": "Sandra Renz",
+          "groups": [
+            "sol.learning.roles.Administration"
+          ]
+        }
+      ],
+      "eloTemplates": [],
+      "eloFilingPlans": []
     }
   }
 }

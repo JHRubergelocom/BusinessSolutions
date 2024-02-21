@@ -1,0 +1,7 @@
+{{
+  Login(Daniel Cooper|elo)##
+  SelectFolder(Solutions/Kontaktverwaltung)##
+  OpenFormular(Neu|NeueCheckliste)##
+  InputField(Name Checkliste|Checkliste Test)##
+  QuitButton(OK)
+}}

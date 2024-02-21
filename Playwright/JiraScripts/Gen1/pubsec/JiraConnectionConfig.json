@@ -1,0 +1,106 @@
+{
+  "baseURL": "https://eloticksy.elo.com",
+  "username": "J-H.Ruberg@elo.com",
+  "password": "XXX",
+  "testExecutionKey": "QBSHR-66",
+  "eloStack": "playground.dev.elo",
+  "eloTile": {
+    "repositoryTile": "Solutions",
+    "taskTile": "Aufgaben"
+  },
+  "eloSolution": {
+    "eloControls": {
+      "Aktenname": {
+        "selector": "IX_GRP_FILE_NAME",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Beschreibung Laufmappe": {
+        "selector": "IX_DESC",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Bezeichnung Dokument": {
+        "selector": "IX_NAME",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Informationen zur gewünschten Änderung": {
+        "selector": "IX_DESC",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Laufmappenname": {
+        "selector": "IX_GRP_PROCESS_NAME",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Sperrvermerk Beschreibung": {
+        "selector": "IX_MAP_RESTRICTION_NOTE",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Sperrvermerk Vermerk": {
+        "selector": "IX_GRP_FILE_RESTRICTION_NOTE",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Untergliederung benötigt": {
+        "selector": "Untergliederung benötigt",
+        "value": "",
+        "type": "RADIO",
+        "operator": "NONE"
+      },
+      "Verfügung Zuständigkeit": {
+        "selector": "IX_MAP_SOL_PUBSEC_WF_DIRECTIVE_USER",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Vorgangsname": {
+        "selector": "IX_GRP_PROCESS_NAME",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Zeichnung Zuständigkeit": {
+        "selector": "WF_MAP_SOL_PUBSEC_WF_SIGNING_USER",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      }
+    },
+    "eloTables": {},
+    "eloPrecondition": {
+      "eloUsers": [
+        {
+          "user": "Verona Funk",
+          "groups": [
+            "sol.pubsec.admin.Record",
+            "Pubsec.Registratur"
+          ]
+        }
+      ],
+      "eloTemplates": [],
+      "eloFilingPlans": [
+        {
+          "arcPathFilingPlans": [
+            "ARCPATH:/1 - Zentrale Verwaltung",
+            "ARCPATH:/2 - Konzeptentwicklung, Publikationen, Veranstaltungen",
+            "ARCPATH:/3 - Öffentlichkeitsarbeit, Zusammenarbeit und Kooperation, Trägerförderung"
+          ],
+          "arcPathImportedFilingPlans": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Imported Filing Plans",
+          "filePathImportFile": "data/documents/FilePlanExcel.csv",
+          "arcPathStartFolder": "ARCPATH:/"
+        }
+      ]
+    }
+  }
+}

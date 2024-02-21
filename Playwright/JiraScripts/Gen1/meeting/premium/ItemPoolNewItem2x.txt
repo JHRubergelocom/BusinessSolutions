@@ -1,0 +1,22 @@
+{{
+  Login(Sandra Renz|elo)##
+  SelectFolder(Solutions/Meetingboard2x/Sammlung neue Playwright Tests)##
+  OpenFormular(Neu|Sitzung|Neuer TOP)##
+  InputField(Themensammlung Auswahl|Sammlung neue Playwright Tests)##
+  InputField(Meetingboard Name Auswahl|Meetingboard2x)##
+  InputField(Meeting-Board Kürzel Auswahl|MB2x)##
+  InputField(Sitzung TOP Titel|Weiterer Playwright Test)##
+  InputField(Sitzung TOP Dauer in Min|20)##
+  InputField(Verantwortlich|Jan Eichner)##
+  InputTable(Weitere Person|1)##
+  EditRow(1)##
+  InputCell(Sprecher Nachname|Roberts)##
+  InputCell(Sprecher Vorname|Shawn)##
+  InputCell(Sprecher E-Mail|s.roberts@contelo.com)##
+  EditRow(2)##
+  InputCell(Sprecher Nachname|Reuter)##
+  InputCell(Sprecher Vorname|Thomas)##
+  InputCell(Sprecher E-Mail|t.reuter@contelo.de)##
+  InputField(TOP Beschreibung Redactor|Ablauf weiterer Playwright Test)##
+  QuitButton(OK)
+}}

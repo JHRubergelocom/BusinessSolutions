@@ -1,7 +1,7 @@
 {{
-  Login(Ute Schenk|elo)##
+  Login(Sandra Renz|elo)##
   SelectFolder(Solutions/Besuchermanagement/Besucher/2023/11/Baum, Gerd)##
-  OpenFormular(Besucher|Besucher|Besucherbild)##
-  SelectFile(Wählen Sie eine Datei|data/Smiley1.jpg)##
+  OpenFormular(Besucher|Besucherbild)##
+  SelectFile(Wählen Sie eine Datei|data/pictures/Smiley1.jpg)##
   QuitButton(OK)
 }}

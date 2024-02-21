@@ -1,7 +1,7 @@
 {{
-  Login(Administrator|elo)##
+  Login(Sandra Renz|elo)##
   SelectFolder(Solutions/Besuchermanagement/Besucher/2023/11/B/Bremer Stadtmusikanten)##
-  OpenFormular(Besucher|Besucher|stornieren)##
+  OpenFormular(Besucher|stornieren)##
   InputField(Grund für Stornierung|Anderes Konzert)##
   QuitButton(OK)
 }}

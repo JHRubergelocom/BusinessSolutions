@@ -1,0 +1,5 @@
+{{
+  Login(Daniel Cooper|elo)##
+  OpenFormular(Verwalten|Benachrichtigungen|E-Mail Benachrichtigung)##
+  QuitButton(OK)
+}}

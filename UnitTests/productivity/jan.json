@@ -73,6 +73,10 @@
             "elo": "/Business Solutions/privacy [demo de]"
         },
         {
+            "folder": "../demo.git/Business Solutions/contact_de",
+            "elo": "/Business Solutions/contact [demo de]"
+        },
+        {
             "folder": "./Business Solutions/Unit Tests",
             "elo": "/Business Solutions/productivity [unit tests]"
         }
