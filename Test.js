@@ -44,6 +44,8 @@ playground http://playground.dev.elo/ix-Solutions/ix
 
 rubergproductivity http://ruberg-productivity.dev.elo/ix-Solutions/ix
 
+playwrighttest http://repo.elo.local/Business%20Solutions/temp/nightly/playwrighttest/visitor/Logfile.html
+
 =====================================================================================================================================================================
 
 Einstellungen Log-Level in ELO
@@ -2803,29 +2805,22 @@ TODO ab 14.02.2024
 
 alles Solutions in 20.00 Stacks durchtesten und auf Playground testen
 
-contract 		OK
-hr				OK
-knowledge		OK
-learning		OK
-meeting			OK
-productivity	OK
-pubsec			OK
-recruiting		OK    
-visitor			OK
+TODO CLI-Pipeline playwrighttest 04.05.2024
+
+contract 		OK	elo-sol prepare -stack ruberg-contract -workspace de -version 20.00
+hr				OK	elo-sol prepare -stack ruberg-hr -workspace de -version 20.00   
+knowledge		OK  elo-sol prepare -stack ruberg-knowledge -workspace default -version 20.00
+learning		OK  elo-sol prepare -stack ruberg-learning -workspace default -version 20.00	
+meeting			OK	elo-sol prepare -stack ruberg-meeting -workspace premium-groupware -version 20.00
+productivity	OK	elo-sol prepare -stack ruberg-productivity -workspace jan -version 20.00	
+pubsec			OK	elo-sol prepare -stack ruberg-pubsec -workspace de -version 20.00		
+recruiting		OK  elo-sol prepare -stack ruberg-recruiting -workspace de -version 20.00
+visitor			OK	elo-sol prepare -stack ruberg-visitor -workspace de -version 20.00			
 
 
-TODO CLI-Pipeline playwrighttest 20.02.2024
 
 
-java "-Dfile.encoding=UTF-8" -jar lib/PlaywrightSession.jar JiraScripts/Gen1/visitor/ApproveSignatureDocument.txt PlaywrightConfig.json JiraScripts/Gen1/visitor/JiraConnectionConfig.json
-
-        WebclientSession.execute("DataConfigs/Gen1/meeting/DeleteData.json", "PlaywrightConfig.json", "");
-
-java "-Dfile.encoding=UTF-8" -jar lib/PlaywrightSession.jar JiraScripts/Gen1/visitor/DeleteData.json PlaywrightConfig.json
-
-
-git push --set-upstream git@git.elo.dev:ruberg/$(git rev-parse --show-toplevel | xargs basename).git $(git rev-parse --abbrev-ref HEAD)
-
+Z:\ELO Business Solutions\temp\nightly
 
 
 https://miro.com/app/board/uXjVNee-qXo=/?share_link_id=839844681266
