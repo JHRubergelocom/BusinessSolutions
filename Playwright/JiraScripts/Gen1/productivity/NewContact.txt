@@ -1,7 +1,6 @@
 {{
   Login(Daniel Cooper|elo)##
   OpenFormular(Neu|Kontakt|Neuer Kontakt)##
-  SelectDialogItem(Default)##
   InputField(Name_KWL|Kontaktliste Contelo Holding)##
   InputField(Vorname|P01)##
   InputField(Nachname|P02)##

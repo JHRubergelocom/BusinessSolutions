@@ -1,7 +1,0 @@
-{{
-  Login(Sandra Renz|elo)##
-  SelectFolder(Solutions/Meetingboard1/Meetings/2024/Zweites Playwright Meeting)##
-  OpenFormular(Meeting|Meeting|Meeting absagen)##
-  InputField(Grund der Absage|Keine Lust)##
-  QuitButton(OK)
-}}

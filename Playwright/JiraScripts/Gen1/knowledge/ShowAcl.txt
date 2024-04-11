@@ -1,0 +1,6 @@
+{{
+  Login(Ute Schenk|elo)##
+  ShowAclArcpath(ARCPATH:/Schwarzes Brett Putzen)##
+  ShowAclArcpath(ARCPATH:/Putzen muss jeder)##
+  ShowAclArcpath(ARCPATH:/Administration/EULA)##
+}}

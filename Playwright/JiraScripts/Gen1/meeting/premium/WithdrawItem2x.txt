@@ -1,7 +1,0 @@
-{{
-  Login(Sandra Renz|elo)##
-  SelectFolder(Solutions/Meetingboard2x/Sitzungen/2024/Playwright Sitzung 2x/Tagesordnungspunkte/Weiterer Playwright Test)##
-  OpenFormular(Sitzung|TOP|TOP zurückziehen)##
-  InputField(Grund des Rückzugs|Kein Bedarf)##
-  QuitButton(OK)
-}}

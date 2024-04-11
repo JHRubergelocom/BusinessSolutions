@@ -1,6 +1,6 @@
 {{
   Login(Bodo Kraft|elo)##
-  SelectFolder(Solutions/Besuchermanagement/Dauerausweise/F/Funk, Verona)##
+  SelectFolder(Demo/Besuchermanagement/Dauerausweise/F/Funk, Verona)##
   OpenFormular(Besucher|sperren)##
   InputField(Grund der Sperrung|Kündigung)##
   QuitButton(OK)

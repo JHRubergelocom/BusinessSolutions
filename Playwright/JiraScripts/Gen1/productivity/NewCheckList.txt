@@ -1,6 +1,6 @@
 {{
   Login(Daniel Cooper|elo)##
-  SelectFolder(Solutions/Kontaktverwaltung)##
+  SelectFolder(Demo/Kontaktverwaltung)##
   OpenFormular(Neu|NeueCheckliste)##
   InputField(Name Checkliste|Checkliste Test)##
   QuitButton(OK)

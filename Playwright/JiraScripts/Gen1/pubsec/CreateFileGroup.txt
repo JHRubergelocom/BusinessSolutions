@@ -1,14 +1,14 @@
 {{
   Login(Sandra Renz|elo)##
-  SelectFolder(Solutions/1 - Zentrale Verwaltung/10 - Zentrale Verwaltung im allgemeinen/1000 - Zentrale Verwaltung im allgemeinen)##
+  SelectFolder(Demo/1 - Zentrale Verwaltung/10 - Zentrale Verwaltung im allgemeinen/1000 - Zentrale Verwaltung im allgemeinen)##
   OpenFormular(Neu|E-Akte|Neue Akte)##
   SelectDialogItem(Fallakte)##
   InputField(Aktenname|Test Fallakte)##
   QuitButton(Akte anlegen)##
-  SelectFolder(Solutions/1 - Zentrale Verwaltung/10 - Zentrale Verwaltung im allgemeinen/1000 - Zentrale Verwaltung im allgemeinen/Test Fallakte)##
+  SelectFolder(Demo/1 - Zentrale Verwaltung/10 - Zentrale Verwaltung im allgemeinen/1000 - Zentrale Verwaltung im allgemeinen/Test Fallakte)##
   OpenFormular(E-Akte|Schließen)##
   QuitButton(Akte schließen)##
-  SelectFolder(Solutions/1 - Zentrale Verwaltung/10 - Zentrale Verwaltung im allgemeinen/1000 - Zentrale Verwaltung im allgemeinen/Test Fallakte)##
+  SelectFolder(Demo/1 - Zentrale Verwaltung/10 - Zentrale Verwaltung im allgemeinen/1000 - Zentrale Verwaltung im allgemeinen/Test Fallakte)##
   OpenFormular(Neu|E-Akte|Neuer Aktenband)##
   InputField(Aktenname|Test Fallakte Aktenband)##
   QuitButton(Akte anlegen)

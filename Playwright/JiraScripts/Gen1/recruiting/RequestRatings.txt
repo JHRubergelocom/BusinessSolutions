@@ -1,0 +1,7 @@
+{{
+  Login(Ute Schenk|elo)##
+  SelectFolder(Demo/Bewerbermanagement/Bewerber nach Phase/01: Neue Bewerbung/Bachmann, Sören (D00012))##
+  OpenFormular(Bewerber|Bewertungeneinholen)##
+  Selectdialogitem(Unterlagen)##
+  QuitButton(OK)
+}}

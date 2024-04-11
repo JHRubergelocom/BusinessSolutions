@@ -1,0 +1,11 @@
+java "-Dfile.encoding=UTF-8" -jar lib/PlaywrightSession.jar JiraScripts/Gen1/learning/DeleteData.txt PlaywrightConfig.json JiraScripts/Gen1/learning/JiraConnectionConfig.json
+java "-Dfile.encoding=UTF-8" -jar lib/PlaywrightSession.jar JiraScripts/Gen1/learning/NewCourse.txt PlaywrightConfig.json JiraScripts/Gen1/learning/JiraConnectionConfig.json
+java "-Dfile.encoding=UTF-8" -jar lib/PlaywrightSession.jar JiraScripts/Gen1/learning/AddCoursePhotos.txt PlaywrightConfig.json JiraScripts/Gen1/learning/JiraConnectionConfig.json
+java "-Dfile.encoding=UTF-8" -jar lib/PlaywrightSession.jar JiraScripts/Gen1/learning/AddSessions.txt PlaywrightConfig.json JiraScripts/Gen1/learning/JiraConnectionConfig.json
+java "-Dfile.encoding=UTF-8" -jar lib/PlaywrightSession.jar JiraScripts/Gen1/learning/SendNotification.txt PlaywrightConfig.json JiraScripts/Gen1/learning/JiraConnectionConfig.json
+java "-Dfile.encoding=UTF-8" -jar lib/PlaywrightSession.jar JiraScripts/Gen1/learning/EnrollParticipants.txt PlaywrightConfig.json JiraScripts/Gen1/learning/JiraConnectionConfig.json
+java "-Dfile.encoding=UTF-8" -jar lib/PlaywrightSession.jar JiraScripts/Gen1/learning/CancelEnrollment.txt PlaywrightConfig.json JiraScripts/Gen1/learning/JiraConnectionConfig.json
+java "-Dfile.encoding=UTF-8" -jar lib/PlaywrightSession.jar JiraScripts/Gen1/learning/CloseSession.txt PlaywrightConfig.json JiraScripts/Gen1/learning/JiraConnectionConfig.json
+java "-Dfile.encoding=UTF-8" -jar lib/PlaywrightSession.jar JiraScripts/Gen1/learning/CreateCorrespondence.txt PlaywrightConfig.json JiraScripts/Gen1/learning/JiraConnectionConfig.json
+java "-Dfile.encoding=UTF-8" -jar lib/PlaywrightSession.jar JiraScripts/Gen1/learning/CreateCertificate.txt PlaywrightConfig.json JiraScripts/Gen1/learning/JiraConnectionConfig.json
+java "-Dfile.encoding=UTF-8" -jar lib/PlaywrightSession.jar JiraScripts/Gen1/learning/ConfirmCorrespondence.txt PlaywrightConfig.json JiraScripts/Gen1/learning/JiraConnectionConfig.json

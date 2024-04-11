@@ -1,8 +1,0 @@
-{{
-  Login(Ute Schenk|elo)##
-  SelectFolder(Solutions/Bewerbermanagement/Bewerber nach Phase/01: Neue Bewerbung/Bachmann, Sören (D00012))##
-  OpenFormular(Bewerber|Bildhinzufügen)##
-  SelectFile(Wählen Sie eine Datei|data/pictures/Smiley1.jpg)##
-  QuitButton(OK)
-}}
-

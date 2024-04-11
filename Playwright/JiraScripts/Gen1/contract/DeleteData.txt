@@ -1,0 +1,4 @@
+{{
+  Login(Administrator|elo)##
+  DeleteArcpath(ARCPATH:/Vertragsmanagement/Berichte)
+}}

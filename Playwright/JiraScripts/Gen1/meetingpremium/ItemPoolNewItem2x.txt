@@ -1,0 +1,17 @@
+{{
+  Login(Sandra Renz|elo)##
+  SelectFolder(Demo/Meetingboard2x/Sammlung neue Playwright Tests 2x)##
+  OpenFormular(Neu|Sitzung|Neuer TOP)##
+  InputField(Sitzung TOP Titel|Weiterer Playwright Test)##
+  InputField(Sitzung TOP Dauer in Min|20)##
+  InputField(Verantwortlich|Jan Eichner)##
+  InputTable(Weitere Person|1)##
+  EditRow(1)##
+  InputCell(Sprecher Nachname|Roberts)##
+  InputCell(Sprecher Vorname|Shawn)##
+  EditRow(2)##
+  InputCell(Sprecher Nachname|Reuter)##
+  InputCell(Sprecher Vorname|Thomas)##
+  InputField(TOP Beschreibung Redactor|Ablauf weiterer Playwright Test)##
+  QuitButton(OK)
+}}

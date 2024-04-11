@@ -1,6 +1,6 @@
 {{
   Login(Daniel Cooper|elo)##
   OpenFormular(Neu|Kontakt|Kontaktauszug erstellen)##
-  SelectDocument(Solutions/Kontaktverwaltung)##
+  SelectDocument(Demo/Kontaktverwaltung)##
   QuitButton(OK)
 }}

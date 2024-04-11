@@ -3,11 +3,6 @@
   "username": "J-H.Ruberg@elo.com",
   "password": "XXX",
   "testExecutionKey": "QBSHR-66",
-  "eloStack": "playground.dev.elo",
-  "eloTile": {
-    "repositoryTile": "Solutions",
-    "taskTile": "Aufgaben"
-  },
   "eloSolution": {
     "eloControls": {
       "Absender": {
@@ -481,6 +476,17 @@
           ]
         },
         {
+          "user": "Ute Schenk",
+          "groups": [
+            "sol.hr.roles.Creators",
+            "HR",
+            "sol.hr.roles.Creators",
+            "sol.hr.roles.Managers",
+            "sol.hr.roles.OrgchartCreators",
+            "sol.hr.roles.OrgchartViewers"			
+          ]
+        },
+        {
           "user": "hr_test_doc_creators",
           "groups": [
             "sol.hr.roles.DocumentCreators",
@@ -528,7 +534,7 @@
         {
           "user": "hr_test_everyone",
           "groups": [
-            "Everyone",
+			"9999",
             "HR",
             "sol.hr.roles.Creators",
             "sol.hr.roles.Managers"
@@ -537,7 +543,7 @@
         {
           "user": "Hans Hansen",
           "groups": [
-            "Everyone",
+			"9999",
             "HR",
             "sol.hr.roles.Creators",
             "sol.hr.roles.Managers"
@@ -582,6 +588,7 @@
         }
       ],
       "eloFilingPlans": []
-    }
+    },
+    "eloSolutionName": "hr"
   }
 }

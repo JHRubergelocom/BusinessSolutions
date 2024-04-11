@@ -1,6 +1,6 @@
 {{
   Login(Sandra Renz|elo)##
-  SelectFolder(Solutions/Kursverwaltung/Kurse/Klinken putzen)##
+  SelectFolder(Demo/Kursverwaltung/Kurse/Klinken putzen)##
   OpenFormular(Kurs|Kursbilderhinzufügen)##
   SelectFile(Wählen Sie eine Datei|data/pictures/Smiley1.jpg)##
   QuitButton(OK)

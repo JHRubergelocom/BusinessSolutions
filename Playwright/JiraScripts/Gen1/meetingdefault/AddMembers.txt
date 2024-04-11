@@ -1,0 +1,17 @@
+{{
+  Login(Sandra Renz|elo)##
+  SelectFolder(Demo/Meetingboard1)##
+  OpenFormular(Meeting|Board|Mitglieder hinzufügen)##
+  InputField(Kontaktliste auswählen|Kontaktliste Contelo Holding)##
+  InputTable(Weiteres Mitglied|3)##
+  EditRow(3)##
+  InputCell(Nachname|Davis)##
+  InputCell(Vorname|Jessica)##
+  EditRow(4)##
+  InputCell(Nachname|Cooper)##
+  InputCell(Vorname|Daniel)##
+  EditRow(5)##
+  InputCell(Nachname|Edwards)##
+  InputCell(Vorname|Jack)##
+  QuitButton(OK)
+}}

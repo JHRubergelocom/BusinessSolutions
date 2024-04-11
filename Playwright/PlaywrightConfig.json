@@ -1,8 +1,19 @@
 {
-  "notHeadless": false,
+  "notHeadless": true,
   "recordVideo": true,
   "screenShots": true,
   "snapShots": true,
   "sources": true,
-  "pause": false
+  "pause": false,
+  "eloStack": "ws22elomisc:9090",
+  "eloTile": {
+    "repositoryTile": "Demo",
+    "taskTile": "Aufgaben"
+  },
+  "eloMail": {
+    "smtpHost": "mail.elo.com",
+    "from": "test-business-solutions@elo.local",
+    "to": "test-business-solutions@elo.local"
+  },
+  "defaultUrlServer": "http://repo.elo.local/Business%20Solutions/temp/nightly/playwrighttest/"
 }

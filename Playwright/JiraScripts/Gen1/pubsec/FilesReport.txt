@@ -1,8 +1,8 @@
 {{
   Login(Sandra Renz|elo)##
-  SelectFolder(Solutions/1 - Zentrale Verwaltung)##
+  SelectFolder(Demo/1 - Zentrale Verwaltung)##
   OpenFormular(E-Akte|Bericht|Aktenübersicht erstellen)##
   SelectDialogItem(Aktenübersicht mit Registratur)##
-  SelectDocument(Solutions/Sandra Renz/data)##
+  SelectDocument(Demo/Sandra Renz/data)##
   QuitButton(OK)
 }}

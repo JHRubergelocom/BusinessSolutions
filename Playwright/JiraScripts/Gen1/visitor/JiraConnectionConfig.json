@@ -3,11 +3,6 @@
   "username": "J-H.Ruberg@elo.com",
   "password": "XXX",
   "testExecutionKey": "QBSHR-66",
-  "eloStack": "ruberg-visitor.dev.elo",
-  "eloTile": {
-    "repositoryTile": "Solutions",
-    "taskTile": "Aufgaben"
-  },
   "eloSolution": {
     "eloControls": {
       "Ausweis sofort erstellen": {
@@ -149,7 +144,7 @@
         {
           "user": "Hans Hansen",
           "groups": [
-            "Everyone"
+            "9999"
           ]
         },
         {
@@ -161,6 +156,7 @@
       ],
       "eloTemplates": [],
       "eloFilingPlans": []
-    }
+    },
+    "eloSolutionName": "visitor"
   }
 }

@@ -1,6 +1,6 @@
 {{
   Login(Sandra Renz|elo)##
-  SelectFolder(Solutions/1 - Zentrale Verwaltung/10 - Zentrale Verwaltung im allgemeinen/1000 - Zentrale Verwaltung im allgemeinen/Test Personalakten)##
+  SelectFolder(Demo/1 - Zentrale Verwaltung/10 - Zentrale Verwaltung im allgemeinen/1000 - Zentrale Verwaltung im allgemeinen/Test Personalakten)##
   OpenFormular(E-Akte|Zeichnungstarten)##
   SelectDialogItem(Schlusszeichnung)##
   InputField(Zeichnung Zuständigkeit|Sandra Renz)##

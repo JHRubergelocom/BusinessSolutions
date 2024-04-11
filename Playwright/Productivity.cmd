@@ -1,0 +1,16 @@
+java "-Dfile.encoding=UTF-8" -jar lib/PlaywrightSession.jar JiraScripts/Gen1/productivity/DeleteData.txt PlaywrightConfig.json JiraScripts/Gen1/productivity/JiraConnectionConfig.json
+java "-Dfile.encoding=UTF-8" -jar lib/PlaywrightSession.jar JiraScripts/Gen1/productivity/NewCompany.txt PlaywrightConfig.json JiraScripts/Gen1/productivity/JiraConnectionConfig.json
+java "-Dfile.encoding=UTF-8" -jar lib/PlaywrightSession.jar JiraScripts/Gen1/productivity/NewContact.txt PlaywrightConfig.json JiraScripts/Gen1/productivity/JiraConnectionConfig.json
+java "-Dfile.encoding=UTF-8" -jar lib/PlaywrightSession.jar JiraScripts/Gen1/productivity/NewContactList.txt PlaywrightConfig.json JiraScripts/Gen1/productivity/JiraConnectionConfig.json
+java "-Dfile.encoding=UTF-8" -jar lib/PlaywrightSession.jar JiraScripts/Gen1/productivity/CreateOverviewOfContacts.txt PlaywrightConfig.json JiraScripts/Gen1/productivity/JiraConnectionConfig.json
+java "-Dfile.encoding=UTF-8" -jar lib/PlaywrightSession.jar JiraScripts/Gen1/productivity/CreateContactLabel.txt PlaywrightConfig.json JiraScripts/Gen1/productivity/JiraConnectionConfig.json
+java "-Dfile.encoding=UTF-8" -jar lib/PlaywrightSession.jar JiraScripts/Gen1/productivity/NewCheckList.txt PlaywrightConfig.json JiraScripts/Gen1/productivity/JiraConnectionConfig.json
+java "-Dfile.encoding=UTF-8" -jar lib/PlaywrightSession.jar JiraScripts/Gen1/productivity/ConfigureNotify.txt PlaywrightConfig.json JiraScripts/Gen1/productivity/JiraConnectionConfig.json
+java "-Dfile.encoding=UTF-8" -jar lib/PlaywrightSession.jar JiraScripts/Gen1/productivity/NewProcActivity.txt PlaywrightConfig.json JiraScripts/Gen1/productivity/JiraConnectionConfig.json
+java "-Dfile.encoding=UTF-8" -jar lib/PlaywrightSession.jar JiraScripts/Gen1/productivity/StartProcActivity.txt PlaywrightConfig.json JiraScripts/Gen1/productivity/JiraConnectionConfig.json
+java "-Dfile.encoding=UTF-8" -jar lib/PlaywrightSession.jar JiraScripts/Gen1/productivity/ApproveProcActivityHeadOfDepartment.txt PlaywrightConfig.json JiraScripts/Gen1/productivity/JiraConnectionConfig.json
+java "-Dfile.encoding=UTF-8" -jar lib/PlaywrightSession.jar JiraScripts/Gen1/productivity/ApproveProcActivityProtectionOfficer.txt PlaywrightConfig.json JiraScripts/Gen1/productivity/JiraConnectionConfig.json
+java "-Dfile.encoding=UTF-8" -jar lib/PlaywrightSession.jar JiraScripts/Gen1/productivity/ApproveProcActivityOverallResponsible.txt PlaywrightConfig.json JiraScripts/Gen1/productivity/JiraConnectionConfig.json
+java "-Dfile.encoding=UTF-8" -jar lib/PlaywrightSession.jar JiraScripts/Gen1/productivity/CreateDocumentProcActivity.txt PlaywrightConfig.json JiraScripts/Gen1/productivity/JiraConnectionConfig.json
+java "-Dfile.encoding=UTF-8" -jar lib/PlaywrightSession.jar JiraScripts/Gen1/productivity/DelegateProcActivity.txt PlaywrightConfig.json JiraScripts/Gen1/productivity/JiraConnectionConfig.json
+java "-Dfile.encoding=UTF-8" -jar lib/PlaywrightSession.jar JiraScripts/Gen1/productivity/HandBackDelegateProcActivity.txt PlaywrightConfig.json JiraScripts/Gen1/productivity/JiraConnectionConfig.json

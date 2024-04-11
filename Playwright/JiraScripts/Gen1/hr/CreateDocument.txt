@@ -2,6 +2,6 @@
   Login(Ute Schenk|elo)##
   SelectEntryHr(Hans|Hansen)##
   OpenFormular(Personal|Personal|Dokument)##
-  SelectDocument(Dokumentvorlagen/Vollzeitarbeitsvertrag_Contelo AG)##
+  SelectDocument(Dokumentvorlagen/Musterdokument)##
   QuitButton(OK)
 }}

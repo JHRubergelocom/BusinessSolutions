@@ -1,7 +1,7 @@
 {{
   Login(Ute Schenk|elo)##
   SelectEntryHr(Hans|Hansen)##
-  SelectSubEntry(Vollzeitarbeitsvertrag_Contelo AG)##
+  SelectSubEntry(Musterdokument)##
   OpenFormular(Dokument|Personal|Dokument)##
   QuitButton(OK)
 }}

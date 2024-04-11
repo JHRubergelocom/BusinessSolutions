@@ -3,11 +3,6 @@
   "username": "J-H.Ruberg@elo.com",
   "password": "XXX",
   "testExecutionKey": "QBSHR-66",
-  "eloStack": "playground.dev.elo",
-  "eloTile": {
-    "repositoryTile": "Solutions",
-    "taskTile": "Aufgaben"
-  },
   "eloSolution": {
     "eloControls": {
       "Beitrag abonnieren": {
@@ -130,6 +125,7 @@
       "eloUsers": [],
       "eloTemplates": [],
       "eloFilingPlans": []
-    }
+    },
+    "eloSolutionName": "knowledge"
   }
 }

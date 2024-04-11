@@ -1,0 +1,8 @@
+{{
+  Login(Administrator|elo)##
+  DeleteArcpath(ARCPATH:/1 - Zentrale Verwaltung)##
+  DeleteArcpath(ARCPATH:/2 - Konzeptentwicklung, Publikationen, Veranstaltungen)##
+  DeleteArcpath(ARCPATH:/3 - Öffentlichkeitsarbeit, Zusammenarbeit und Kooperation, Trägerförderung)##
+  DeleteArcpath(ARCPATH:/Anträge)##
+  DeleteArcpath(ARCPATH:/Laufmappen)
+}}

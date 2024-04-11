@@ -1,0 +1,6 @@
+{{
+  Login(Sandra Renz|elo)##
+  SelectFolder(Demo/Meetingboard2x/Sammlung neue Playwright Tests/Weiterer Playwright Test)##
+  OpenFormular(Sitzung|TOP|TOP veröffentlichen)##
+  QuitButton(OK)
+}}

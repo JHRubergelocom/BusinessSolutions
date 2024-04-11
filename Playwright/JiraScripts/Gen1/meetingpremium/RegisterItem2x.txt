@@ -1,0 +1,7 @@
+{{
+  Login(Jan Eichner|elo)##
+  SelectFolder(Demo/Meetingboard2x/Sammlung neue Playwright Tests/Weiterer Playwright Test)##
+  OpenFormular(Sitzung|TOP|TOP anmelden)##
+  InputField(Sitzung Auswahl|Playwright Sitzung 2x)##
+  QuitButton(OK)
+}}

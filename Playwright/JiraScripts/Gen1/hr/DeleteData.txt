@@ -1,0 +1,5 @@
+{{
+  Login(Administrator|elo)##
+  DeleteArcpath(ARCPATH:/Personalmanagement/Personalakten/H/Hansen, Hans)##
+  DeleteArcpath(ARCPATH:/Personalmanagement/Organigramm/Firma Hansens)##
+}}

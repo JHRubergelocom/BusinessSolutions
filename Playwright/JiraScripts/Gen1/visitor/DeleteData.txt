@@ -1,0 +1,6 @@
+{{
+  Login(Administrator|elo)##
+  DeleteArcpath(ARCPATH:/Besuchermanagement/Besucher/2023)##
+  DeleteArcpath(ARCPATH:/Besuchermanagement/Besucher/2024)##
+  DeleteArcpath(ARCPATH:/Besuchermanagement/Dauerausweise/F)
+}}

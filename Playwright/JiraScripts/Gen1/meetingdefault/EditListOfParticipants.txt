@@ -1,0 +1,16 @@
+{{
+  Login(Sandra Renz|elo)##
+  SelectFolder(Demo/Meetingboard1/Meetings/2024/Zweites Playwright Meeting)##
+  OpenFormular(Meeting|Meeting|Teilnehmerliste bearbeiten)##
+  InputField(Kontaktliste auswählen|Kontaktliste Contelo Holding)##
+  InputTable(Weiterer Gast|1)##
+  EditRow(6)##
+  InputCell(Teilnehmer entfernen|true)##
+  EditRow(7)##
+  InputCell(Teilnehmer entfernen|true)##
+  EditRow(8)##
+  InputCell(Nachname|Johnson)##
+  InputCell(Vorname|William)##
+  InputCell(E-Mail|w.johnson@contelo.com)##
+  QuitButton(OK)
+}}

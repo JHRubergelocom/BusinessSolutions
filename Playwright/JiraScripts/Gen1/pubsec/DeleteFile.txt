@@ -1,6 +1,6 @@
 {{
   Login(Sandra Renz|elo)##
-  SelectFolder(Solutions/1 - Zentrale Verwaltung/12 - Personalangelegenheiten/122/123 - Personalwirtschaft/1220 - Personalwirtschaft im allgemeinen/Test Standard-Akte 1220)##
+  SelectFolder(Demo/1 - Zentrale Verwaltung/12 - Personalangelegenheiten/122/123 - Personalwirtschaft/1220 - Personalwirtschaft im allgemeinen/Test Standard-Akte 1220)##
   OpenFormular(E-Akte|Löschen)##
   QuitButton(Elemente löschen)
 }}

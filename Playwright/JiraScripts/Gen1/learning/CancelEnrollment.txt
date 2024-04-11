@@ -1,6 +1,6 @@
 {{
   Login(Administrator|elo)##
-  SelectFolder(Solutions/Kursverwaltung/Kurse/BS ELO Invoice)##
+  SelectFolder(Demo/Kursverwaltung/Kurse/BS ELO Invoice)##
   OpenFormular(Kurs|Teilnehmerausschreiben)##
   InputField(Teilnehmer ausschreiben|true)##
   QuitButton(OK)

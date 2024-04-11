@@ -1,6 +1,6 @@
 {{
   Login(Sandra Renz|elo)##
-  SelectFolder(Solutions/Besuchermanagement/Besucher/2023/11/Baum, Gerd)##
+  SelectFolder(Demo/Besuchermanagement/Besucher/2023/11/Baum, Gerd)##
   OpenFormular(Besucher|Besucherausweis)##
   QuitButton(OK)
 }}

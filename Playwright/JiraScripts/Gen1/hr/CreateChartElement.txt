@@ -1,16 +1,16 @@
 {{
   Login(Ute Schenk|elo)##
-  SelectFolder(Solutions/Personalmanagement/Organigramm/Firma Hansens)##
+  SelectFolder(Demo/Personalmanagement/Organigramm/Firma Hansens)##
   OpenFormular(Neu|Personal|Organisation erweitern)##
   SelectDialogItem(Neuer Organisationsbereich)##
   InputField(Neuer Bereich|Niederlassung am Meer)##
   QuitButton(OK)##
-  SelectFolder(Solutions/Personalmanagement/Organigramm/Firma Hansens/Niederlassung am Meer)##
+  SelectFolder(Demo/Personalmanagement/Organigramm/Firma Hansens/Niederlassung am Meer)##
   OpenFormular(Neu|Personal|Organisation erweitern)##
   SelectDialogItem(Neue Abteilung)##
   InputField(Neue Abteilung|Bekleidung)##
   QuitButton(OK)##
-  SelectFolder(Solutions/Personalmanagement/Organigramm/Firma Hansens/Niederlassung am Meer/Bekleidung)##
+  SelectFolder(Demo/Personalmanagement/Organigramm/Firma Hansens/Niederlassung am Meer/Bekleidung)##
   OpenFormular(Neu|Personal|Organisation erweitern)##
   SelectDialogItem(Neues Team)##
   InputField(Neues Team|Badehose)##

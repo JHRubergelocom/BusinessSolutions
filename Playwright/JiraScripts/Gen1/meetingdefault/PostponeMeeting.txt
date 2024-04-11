@@ -1,0 +1,11 @@
+{{
+  Login(Sandra Renz|elo)##
+  SelectFolder(Demo/Meetingboard1/Meetings/2024/Zweites Playwright Meeting)##
+  OpenFormular(Meeting|Meeting|Meeting verschieben)##
+  InputTable(Weiterer Tag|0)##
+  EditRow(1)##
+  InputCell(Beginn|12:00)##
+  InputCell(Ende|15:00)##
+  InputField(Grund der Verschiebung|Verspätung S-Bahn)##
+  QuitButton(OK)
+}}

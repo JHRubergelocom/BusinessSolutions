@@ -1,8 +1,0 @@
-{{
-  Login(Sandra Renz|elo)##
-  SelectFolder(Solutions/Meetingboard2x/Sitzungen/2024/Playwright Sitzung 2x)##
-  OpenFormular(Sitzung|Benachrichtigungen|Nachricht senden)##
-  InputField(Nachricht Betreff|Einladung zur Sitzung 2x)##
-  InputField(Nachricht Inhalt|Sehr geehrte Dame/Herr Einladung zur Sitzung 2x)##
-  QuitButton(OK)
-}}

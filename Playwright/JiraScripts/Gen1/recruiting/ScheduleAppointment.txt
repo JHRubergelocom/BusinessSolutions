@@ -1,0 +1,9 @@
+{{
+  Login(Ute Schenk|elo)##
+  SelectFolder(Demo/Bewerbermanagement/Bewerber nach Phase/01: Neue Bewerbung/Kehl, Joachim (D00002))##
+  OpenFormular(Bewerber|Terminplanen)##
+  SelectDialogItem(Vorstellungsgespräch [Bestätigung])##
+  inputField(Empfänger (E-Mail)|s.bachmannt866@testmail.com)##
+  inputField(Betreff|Ihre Bewerbung)##
+  QuitButton(OK)
+}}

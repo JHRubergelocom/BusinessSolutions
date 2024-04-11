@@ -1,0 +1,6 @@
+{{
+  Login(Administrator|elo)##
+  DeleteArcpath(ARCPATH:/Besucher-Kontakte)##
+  DeleteArcpath(ARCPATH:/Kontaktverwaltung/Checkliste Test)##
+  DeleteArcpath(ARCPATH:/Kontaktverwaltung/Kontaktliste/P01)
+}}

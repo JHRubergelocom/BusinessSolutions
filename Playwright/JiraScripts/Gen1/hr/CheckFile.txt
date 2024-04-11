@@ -1,0 +1,4 @@
+{{
+  Login(Ute Schenk|elo)##
+  ShowAclSubFolders(ARCPATH:/Personalmanagement/Personalakten/H/Hansen, Hans)
+}}

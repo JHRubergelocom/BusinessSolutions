@@ -1,8 +1,0 @@
-{{
-  Login(Ute Schenk|elo)##
-  SelectFolder(Solutions/Bewerbermanagement/Bewerber nach Phase/01: Neue Bewerbung/Kehl, Joachim (D00002))##
-  OpenFormular(Bewerber|Mitteilungsenden)##
-  inputField(Empfänger (E-Mail)|j.kehl@jkehl73.com)##
-  inputField(Betreff|Ihre Bewerbung)##
-  QuitButton(OK)
-}}

@@ -1,7 +1,0 @@
-{{
-  Login(Ute Schenk|elo)##
-  SelectFolder(Solutions/Bewerbermanagement/Bewerber nach Phase/01: Neue Bewerbung/Bachmann, Sören)##
-  OpenFormular(Bewerber|Bewerbereinstellen)##
-  inputField(Art der Beschäftigung|Default)##
-  QuitButton(OK)
-}}

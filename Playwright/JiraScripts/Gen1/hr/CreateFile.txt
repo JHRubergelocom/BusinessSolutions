@@ -3,5 +3,6 @@
   OpenFormular(Neu|Personal|Neuer Mitarbeiter)##
   InputField(Vorname|Hans)##
   InputField(Nachname|Hansen)##
-  QuitButton(OK)
+  QuitButton(OK)##
+  ShowAclArcpath(ARCPATH:/Personalmanagement/Personalakten/H/Hansen, Hans)
 }}

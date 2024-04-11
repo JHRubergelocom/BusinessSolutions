@@ -1,0 +1,359 @@
+{
+  "baseURL": "https://eloticksy.elo.com",
+  "username": "J-H.Ruberg@elo.com",
+  "password": "XXX",
+  "testExecutionKey": "QBSHR-66",
+  "eloSolution": {
+    "eloControls": {
+      "Abteilung": {
+        "selector": "IX_GRP_RECRUITING_REQUISITION_DEPARTMENT",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Antragsteller": {
+        "selector": "IX_GRP_RECRUITING_REQUISITION_REQUESTER",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Antrittsdatum": {
+        "selector": "IX_GRP_RECRUITING_REQUISITION_START_DATE",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Anzahl offene Stellen": {
+        "selector": "IX_MAP_APP_INITIATOR_COMMENT",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Arbeitszeitmodell": {
+        "selector": "IX_GRP_RECRUITING_REQUISITION_WORKSCHEDULE",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Art der Beschäftigung": {
+        "selector": "WF_MAP_RECRUITING_FILE_TEMPLATE",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Ausschreibungsnummer": {
+        "selector": "IX_GRP_RECRUITING_POSTING_NO",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Begründung": {
+        "selector": "IX_MAP_APP_INITIATOR_COMMENT",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Bereich": {
+        "selector": "IX_GRP_RECRUITING_REQUISITION_DIVISION",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Berufsbezeichnung": {
+        "selector": "LBL_IX_GRP_RECRUITING_CANDIDATE_JOBTITLE",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Beschreibung": {
+        "selector": "IX_GRP_RECRUITING_REQUISITION_DESC",
+        "value": "",
+        "type": "REDACTOR",
+        "operator": "NONE"
+      },
+      "Beschreibung_TEXT": {
+        "selector": "IX_GRP_RECRUITING_REQUISITION_DESC",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Beschriebung andere": {
+        "selector": "IX_GRP_RECRUITING_REQUISITION_DESC",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Betreff": {
+        "selector": "IX_GRP_RECRUITING_COMMUNICATION_SUBJECT",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Bewertungskriterien": {
+        "selector": "WF_MAP_RATING_QUESTION1",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Bezeichnung_DYNKWL": {
+        "selector": "IX_GRP_RECRUITING_REQUISITION_NAME",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Bezeichnung_TEXT": {
+        "selector": "IX_GRP_RECRUITING_REQUISITION_NAME",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "E-Mail": {
+        "selector": "IX_GRP_RECRUITING_CANDIDATE_PRIVATEEMAIL",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Einsekkender Manager": {
+        "selector": "IX_GRP_RECRUITING_REQUISITION_HIRINGMANAGER",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Einstellender Manager": {
+        "selector": "IX_GRP_RECRUITING_REQUISITION_HIRINGMANAGER",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Empfänger (E-Mail)": {
+        "selector": "IX_MAP_RECRUITING_COMMUNICATION_RECIPIENT",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Enddatum (falls befristet)": {
+        "selector": "IX_GRP_RECRUITING_REQUISITION_END_DATE",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Fällig zum": {
+        "selector": "IX_GRP_RECRUITING_REQUISITION_DUE_DATE",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Geburtsdatum": {
+        "selector": "IX_GRP_RECRUITING_CANDIDATE_BIRTHDAY",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Gehaltsobergrenze (Betrag)": {
+        "selector": "IX_GRP_RECRUITING_REQUISITION_SALARY_UPPER",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Geschlecht": {
+        "selector": "IX_GRP_RECRUITING_CANDIDATE_GENDER",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Kategorie": {
+        "selector": "IX_GRP_RECRUITING_REQUISITION_CATEGORY",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Korrespondenzsprache": {
+        "selector": "IX_GRP_RECRUITING_CANDIDATE_LANGUAGE",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Mobil": {
+        "selector": "IX_MAP_RECRUITING_CANDIDATE_PRIVATEMOBILE",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Nachname": {
+        "selector": "IX_GRP_RECRUITING_CANDIDATE_LASTNAME",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Namenszusatz": {
+        "selector": "IX_GRP_RECRUITING_REQUISITION_CATEGORY",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Neuer Status der Stelle": {
+        "selector": "IX_GRP_RECRUITING_REQUISITION_STATUS",
+        "value": "",
+        "type": "KWL",
+        "operator": "NONE"
+      },
+      "Organisation": {
+        "selector": "IX_GRP_RECRUITING_REQUISITION_COMPANY",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Person auswählen": {
+        "selector": "WF_MAP_USER1",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Phase": {
+        "selector": "IX_GRP_RECRUITING_CANDIDATE_PHASE",
+        "value": "",
+        "type": "KWL",
+        "operator": "NONE"
+      },
+      "Poolnummer": {
+        "selector": "IX_GRP_RECRUITING_REQUISITION_NO",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Publizierte Bezeichnung": {
+        "selector": "IX_GRP_RECRUITING_POSTING_NAME",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Qualifikationen": {
+        "selector": "IX_BLOB_RECRUITING_REQUISITION_QUALIFICATIONS",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Qualifikationen_REDACTOR": {
+        "selector": "IX_BLOB_RECRUITING_REQUISITION_QUALIFICATIONS",
+        "value": "",
+        "type": "REDACTOR",
+        "operator": "NONE"
+      },
+      "Qualifikationen_TEXT": {
+        "selector": "IX_BLOB_RECRUITING_REQUISITION_QUALIFICATIONS",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Recruiter": {
+        "selector": "IX_GRP_RECRUITING_REQUISITION_RECRUITER",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Standort": {
+        "selector": "IX_GRP_RECRUITING_REQUISITION_LOCATION",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Status_Canidate": {
+        "selector": "IX_GRP_RECRUITING_CANDIDATE_STATUS",
+        "value": "",
+        "type": "KWL",
+        "operator": "NONE"
+      },
+      "Status_Posting": {
+        "selector": "IX_GRP_RECRUITING_POSTING_STATUS",
+        "value": "",
+        "type": "KWL",
+        "operator": "NONE"
+      },
+      "Status_Requistion": {
+        "selector": "IX_GRP_RECRUITING_REQUISITION_STATUS",
+        "value": "",
+        "type": "KWL",
+        "operator": "NONE"
+      },
+      "Stellenbeschreibung_REDACTOR": {
+        "selector": "IX_DESC",
+        "value": "",
+        "type": "REDACTOR",
+        "operator": "NONE"
+      },
+      "Stellenbezeichnung": {
+        "selector": "IX_GRP_RECRUITING_REQUISITION_NAME",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Stellennummer": {
+        "selector": "IX_GRP_RECRUITING_REQUISITION_NO",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Stellentyp": {
+        "selector": "IX_GRP_RECRUITING_REQUISITION_TYPE",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Team": {
+        "selector": "IX_GRP_RECRUITING_REQUISITION_TEAM",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Telefon": {
+        "selector": "IX_MAP_RECRUITING_CANDIDATE_PRIVATEPHONE",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Titel": {
+        "selector": "IX_GRP_RECRUITING_REQUISITION_NAME",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Versanddatum": {
+        "selector": "IX_GRP_RECRUITING_COMMUNICATION_DATEOFDISPATCH",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Veröffentlichungsdatum": {
+        "selector": "IX_GRP_RECRUITING_POSTING_PUBLISH_DATE",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Vorname": {
+        "selector": "IX_GRP_RECRUITING_CANDIDATE_FIRSTNAME",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Weitere Informationen": {
+        "selector": "",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Zielgehalt (Betrag)": {
+        "selector": "IX_GRP_RECRUITING_REQUISITION_SALARY_LOWER",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      }
+    },
+    "eloTables": {},
+    "eloPrecondition": {
+      "eloUsers": [],
+      "eloTemplates": [],
+      "eloFilingPlans": []
+    },
+    "eloSolutionName": "recruiting"
+  }
+}

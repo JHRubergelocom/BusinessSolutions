@@ -2815,10 +2815,704 @@ meeting			OK	elo-sol prepare -stack ruberg-meeting -workspace premium-groupware 
 productivity	OK	elo-sol prepare -stack ruberg-productivity -workspace jan -version 20.00	
 pubsec			OK	elo-sol prepare -stack ruberg-pubsec -workspace de -version 20.00		
 recruiting		OK  elo-sol prepare -stack ruberg-recruiting -workspace de -version 20.00
-visitor			OK	elo-sol prepare -stack ruberg-visitor -workspace de -version 20.00			
+visitor			OK	elo-sol prepare -stack ruberg-visitor -workspace de -version 20.00		
 
 
 
+TODO ab 13.03.2024
+
+1.) CLI-Pipeline nach fehlgeschlagenen Test in einer Solution (false in Logfile.txt) fehlschlagen lassen und Email an Business Solution 
+
+
+elo-sol prepare -stack ruberg-common -workspace jan -version 23-nightly-stable
+
+elo-sol create -stack ruberg-test -version 23-nightly-stable
+
+Accept EULA and Set Functional Roles Admin
+
+2.) Prüfungen vor den Tests "PreCheck"
+      -Prüfen ab Version 23 ob EULA bestätigt wurde
+	    falls nein - EULA in AdminConsole bestätigen
+		           - Administrator Login mit Funktionsrollen durchführen
+	  -Prüfen ab Version 20
+		           - Administrator Login mit Funktionsrollen durchführen
+				   
+	  -Vor allen Tests ausführen, am besten vorm DeleteConfig.json
+
+
+2a.) DeleteConfig.json auf Jirascripts umstellen!
+
+
+3.) Prüfungen nach dem Test "AfterCheck"
+		- Vorhandensein und Berechtigungen bestimmter Ordner/Document prüfen (eventuell mit Unterordner rekursiv)
+
+TODO ab 04.04.2024
+
+playwrighttest solutions nur an bestimmten Tagen testen wegen begrenzte Länge für Job in Pipeline (max 3 Stunden)
+
+Auswahl Wochentag in bash script und bestimmte solution testen 
+
+echo $(date +%u)   3
+
+echo $(date +%A)   Mittwoch
+
+Beispiel auf VM
+
+testall.sh
+ 
+uploadall.sh
+
+
+
+TODO ab 02.04.2024
+
+
+Playwright und Unittest für
+
+http://heimplatz-common.dev.elo/ix-Solutions/ix
+
+
+TODO ab 05.04.2024
+
+Hallo Jan ich habe einen weiteren Stack erzeugt
+ 
+Heimplatz-Workflows
+ 
+Da ist , wie gestern besprochen, visitor und dessen workflows ohne guid , ids , createdate und version installiert
+
+
+elo-sol prepare -stack ruberg-visitor -workspace de -version 20.00
+
+
+Mit Demo-Daten testen
+
+TODO nach Aktualisierung master testautomatisierung
+
+
+
+bis ca. Ende April / Mai
+
+
+4.) später Apps mittesten (z.B.: Meeting)
+
+
+TODO ab 07.03.2024
+
+
+invoice 			elo-sol prepare -stack ruberg-invoice -workspace jan -version 20.00	
+					elo-sol prepare -stack ruberg-invoice -workspace default -version 20.00	
+
+
+Szenario für playwright test invoice überlegen
+
+    private List<ELOFilingPlan> createELOFilingPlans() {
+        // Import Filingplan
+        List<ELOFilingPlan> eloFilingPlans = new ArrayList<>();
+
+        List<String> arcPathFilingPlans = new ArrayList<>();
+        arcPathFilingPlans.add("ARCPATH:/1 - Zentrale Verwaltung");
+        arcPathFilingPlans.add("ARCPATH:/2 - Konzeptentwicklung, Publikationen, Veranstaltungen");
+        arcPathFilingPlans.add("ARCPATH:/3 - Öffentlichkeitsarbeit, Zusammenarbeit und Kooperation, Trägerförderung");
+
+        String arcPathImportedFilingPlans = "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Imported Filing Plans";
+        String filePathImportFile = "data/documents/FilePlanExcel.csv";
+        String arcPathStartFolder = "ARCPATH:/";
+
+        ELOFilingPlan eloFilingPlan = new ELOFilingPlan(arcPathFilingPlans,arcPathImportedFilingPlans,filePathImportFile,arcPathStartFolder);
+        eloFilingPlans.add(eloFilingPlan);
+        return eloFilingPlans;
+    }
+
+
+
+
+        // Execute RF
+        try {
+            String funcName = "RF_sol_common_service_ExecuteAsAction";
+            String jsonParam = "{ \"action\": \"sol.hr.PersonnelFileReminder\", \"config\": {} }";
+            ELORf eloRf = new ELORf(funcName, jsonParam);
+            System.out.println("eloRf " + eloRf);
+            String rfResult = RfUtils.executeRF(ixConn, eloRf, debug);
+            System.out.println("rfResult: " + rfResult);
+        } catch (Exception ex) {
+            if (debug) {
+                System.err.println("testExecuteRF message: " +  ex.getMessage());
+            }
+        }
+
+
+        try {
+            RfUtils.executeAsAction(ixConn, eloAsAction, debug);
+        } catch (Exception ex) {
+            if (debug) {
+                System.err.println("Exception message: " + ex.getMessage());
+            }
+            reportData.reportMessage("<span>" + "Exception message: " + ex.getMessage() + "</span>");
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+package jirarestapi;
+
+import java.util.List;
+
+public class ELOInvoice {
+    private final List<String> filePathInvoices;
+
+    public ELOInvoice(List<String> filePathInvoices) {
+        this.filePathInvoices = filePathInvoices;
+    }
+
+    public List<String> getFilePathInvoices() {
+        return filePathInvoices;
+    }
+
+    @Override
+    public String toString() {
+        return "ELOInvoice{" +
+                "filePathInvoices=" + filePathInvoices +
+                '}';
+    }
+}
+
+    private List<ELOInvoice> createELOInvoices() {
+        return new ArrayList<>();
+    }
+
+
+
+
+0.) Ordner Solutions\Invoice\Archive\2024 entfernen! (DeleteData.txt)
+
+1.) Bodo Kraft legt eine Rechnung in den Posteingang ab "ZugferdInvoiceUnittest"
+
+Postbox   Menü Ablegen -> Rechnungseingang -> Rechnung ablegen
+
+
+ribbon.tabInvoiceProcessing=Rechnungseingang
+ribbon.bandInvoice=Rechnungseingang
+ribbon.bandIntray=Rechnungseingang
+
+
+ribbon.btnArchiveInvoice=Rechnung ablegen
+
+
+
+  getScriptButton703Name: function () {
+    return this.getText("ribbon.btnArchiveInvoice");
+  },
+
+
+eloScriptButton703Start: function () {
+    sol.invoice.jc.Intray.archiveInvoice();
+  },
+
+
+
+  /**
+   * @private
+   * Get EntryFolder. If it does not exist, it will be created.
+   * @return {Number} objId The elements ID
+   */
+  _getEntryFolder: function () {
+    var entryFolder;
+
+    entryFolder = sol.create("sol.common.Template", { source: sol.invoice.Config.paths.entry.value }).apply();
+    entryFolder = sol.common.RepoUtils.preparePath(entryFolder);
+    if (!entryFolder) {
+      throw "Can't access the entry repository path";
+    }
+    return entryFolder;
+  },
+
+  IntrayArchivistC: {
+    SINGLE_DOCUMENT: "SINGLE_DOCUMENT",
+    SINGLE_INVOICE: "SINGLE_INVOICE",
+    INVOICE_WITH_ATTACHEMENTS: "INVOICE_WITH_ATTACHEMENTS"
+  },
+
+
+  IntrayArchivist: function (mode) {
+    var _config = sol.invoice.Config,
+        _intray = sol.invoice.jc.Intray,
+        _logger = _intray.logger,
+        _containerMode = (sol.invoice.Config.useInvoiceContainer.value === true),
+        _Archivists = {};
+
+    _Archivists[_intray.IntrayArchivistC.SINGLE_DOCUMENT] = function (targetId, intrayDocuments) {
+      var intrayDocument,
+          count = 0;
+      if (!intrayDocuments.hasMoreElements()) {
+        throw "No document(s) for archiving selected";
+      }
+      while (intrayDocuments.hasMoreElements()) {
+        intrayDocument = intrayDocuments.nextElement();
+        _archive(targetId, intrayDocument);
+        count++;
+      }
+      _logger.info(["imported {0} invoices to InvoiceContainer : folderId={1}", count, targetId]);
+    };
+
+    _Archivists[_intray.IntrayArchivistC.SINGLE_INVOICE] = function (targetId, intrayDocuments) {
+      var count = 0,
+          archiveTargetId = targetId,
+          maskId, container, intrayDocument, wfName, newObjId, dstMaskId, addToFullTextDatabase;
+
+      if (!intrayDocuments.hasMoreElements()) {
+        throw "No document(s) for archiving selected";
+      }
+
+      maskId = sol.common.SordUtils.getDocMask(_config.invoiceMaskName.value).id;
+
+      while (intrayDocuments.hasMoreElements()) {
+        intrayDocument = intrayDocuments.nextElement();
+
+        if (_containerMode) {
+          _logger.debug("Archiving in container mode");
+          container = sol.common.SordUtils.createSord({
+            parentId: targetId,
+            mask: _config.invoiceMaskName.value,
+            name: intrayDocument.name,
+            sortOrder: SortOrderC.MANUAL,
+            documentContainer: true
+          });
+
+          archiveTargetId = ixConnect.ix().checkinSord(container, SordC.mbAll, LockC.NO);
+        } else {
+          _logger.debug("Archiving invoice individually");
+        }
+
+        dstMaskId = _containerMode ? 0 : maskId;
+
+        addToFullTextDatabase = (_config.addToFullTextDatabase && _config.addToFullTextDatabase.value) ? _config.addToFullTextDatabase.value : false;
+
+        newObjId = _archive(archiveTargetId, intrayDocument, {
+          maskId: dstMaskId,
+          documentContainer: _containerMode,
+          addToFullTextDatabase: addToFullTextDatabase
+        });
+
+        wfName = _createWfName(_containerMode ? archiveTargetId : newObjId);
+        _startInvoiceWorkflow(_containerMode ? archiveTargetId : newObjId, wfName);
+        count++;
+      }
+      _logger.info(["imported {0} invoices", count]);
+    };
+
+    _Archivists[_intray.IntrayArchivistC.INVOICE_WITH_ATTACHEMENTS] = function (targetId, intrayDocuments) {
+      var count, container, containerId, invoiceName, wfName, i, max,
+          documentsArray = [];
+      if (!intrayDocuments.hasMoreElements()) {
+        throw "No document(s) for archiving selected";
+      }
+
+      while (intrayDocuments.hasMoreElements()) {
+        documentsArray.push(intrayDocuments.nextElement());
+      }
+      count = 0;
+      invoiceName = _intray.showDlgNameInvoiceContainer(documentsArray);
+      if (!invoiceName || invoiceName.length() <= 0) {
+        workspace.setFeedbackMessage(_intray._text("intray.dlgNameInvoiceContainer.cancel"));
+        return;
+      }
+      container = sol.common.SordUtils.createSord({
+        parentId: targetId,
+        mask: _config.invoiceMaskName.value,
+        name: invoiceName,
+        sortOrder: SortOrderC.MANUAL,
+        documentContainer: true
+      });
+
+      containerId = ixConnect.ix().checkinSord(container, SordC.mbAll, LockC.NO);
+
+      wfName = _createWfName(containerId);
+
+      i = 0;
+      for (i = 0, max = documentsArray.length; i < max; i++) {
+        _archive(containerId, documentsArray[i]);
+        count++;
+      }
+      _startInvoiceWorkflow(containerId, wfName);
+
+      _logger.info(["imported {0} documents into '{1} (id={2})'", count, container.name, containerId]);
+    };
+
+    this.archive = _Archivists[mode] ? _Archivists[mode] : _noModeDefined;
+
+    function _createWfName(sordId) {
+      return sol.create("sol.common.Template", { source: _config.wfNamePattern.value }).applySord(sordId);
+    }
+
+    function _archive(targetId, intrayDocument, params) {
+      var archiveDocument, sord, newObjId;
+
+      params = params || {};
+
+      if (typeof params.maskId != "undefined") {
+        sord = ixConnect.ix().changeSordMask(new Sord(intrayDocument.sord), params.maskId, EditInfoC.mbSord).sord;
+        intrayDocument.setSord(sord, false);
+      }
+
+      if (params.documentContainer) {
+        intrayDocument.sord.details.documentContainer = params.documentContainer;
+      }
+
+      if (params.addToFullTextDatabase) {
+        intrayDocument.sord.details.fulltext = params.addToFullTextDatabase;
+      }
+
+      archiveDocument = intrayDocument.insertIntoArchive(targetId, _intray._text("intray.archiveinvoice.versionNumber"), _intray._text("intray.archiveinvoice.versionComment"));
+
+      newObjId = archiveDocument.id;
+
+      return newObjId;
+    }
+
+    function _startInvoiceWorkflow(objId, name) {
+      ixConnect.ix().startWorkFlow(_config.wfTemplate.value, name, objId);
+    }
+
+    function _noModeDefined() {
+      throw "no '" + mode + "' mode implemented";
+    }
+  }
+
+
+
+
+
+/**
+   * Archive invoice
+   */
+  archiveInvoice: function () {
+    var me = this,
+        invoices = intray.allSelected,
+        targetId = this._getEntryFolder(),
+        archivist = new this.IntrayArchivist(this.IntrayArchivistC.SINGLE_INVOICE);
+
+    RhinoManager.registerClass(me.$className);
+    archivist.archive(targetId, invoices);
+  },
+
+
+
+
+
+  describe("prepare incoming invoice", function () {
+    it("get entry folder", function (done) {
+      expect(function () {
+        test.Utils.execute("RF_sol_common_service_GetConfig", {
+          objId: "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/invoice/Configuration/sol.invoice.config",
+          forceReload: true
+        }).then(function success(invoiceConfig1) {
+          invoiceConfig = invoiceConfig1;
+          expect(invoiceConfig.config).toBeDefined();
+          expect(invoiceConfig.config.paths.entry.value).toBeDefined();
+          entryFolder = invoiceConfig.config.paths.entry.value;
+          test.Utils.getSord("ARCPATH:" + entryFolder).then(function success1(targetSord1) {
+            if (!targetSord1) {
+              test.Utils.createPath("ARCPATH:" + entryFolder, "Folder").then(function success2(createPathResult) {
+                test.Utils.getSord("ARCPATH:" + entryFolder).then(function success3(targetSord2) {
+                  targetId = targetSord2.id;
+                  done();
+                }, function error(err) {
+                  fail(err);
+                  console.error(err);
+                  done();
+                }
+                );
+              }, function error(err) {
+                fail(err);
+                console.error(err);
+                done();
+              }
+              );
+            } else {
+              targetId = targetSord1.id;
+              done();
+            }
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("get intray document", function (done) {
+      expect(function () {
+        test.Utils.getSord("ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/invoice [unit tests]/Resources/ZugferdInvoiceUnittest").then(function success(intrayDocumentSord1) {
+          intrayDocumentSord = intrayDocumentSord1;
+          done();
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+  });
+
+
+  describe("test incoming invoice -> 'Forward for approval' -> 'Approve Cost Object' -> 'Forward to ERP'", function () {
+    it("create incoming invoice container", function (done) {
+      expect(function () {
+        containerMode = (invoiceConfig.config.useInvoiceContainer.value === true);
+        invoiceMask = invoiceConfig.config.invoiceMaskName.value;
+        test.Utils.getDocMask(invoiceMask).then(function success(docMask) {
+          maskId = docMask.id;
+          archiveTargetId = targetId;
+          if (containerMode) {
+            test.Utils.createSord(targetId, invoiceMask, intrayDocumentSord.name, null, null, {
+              sortOrder: "MANUAL",
+              documentContainer: true
+            }).then(function success1(archiveTargetId1) {
+              archiveTargetId = archiveTargetId1;
+              done();
+            }, function error(err) {
+              fail(err);
+              console.error(err);
+              done();
+            }
+            );
+          } else {
+            done();
+          }
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("create incoming invoice document", function (done) {
+      expect(function () {
+        dstMaskId = containerMode ? 0 : maskId;
+        addToFullTextDatabase = (invoiceConfig.config.addToFullTextDatabase && invoiceConfig.config.addToFullTextDatabase.value) ? invoiceConfig.config.addToFullTextDatabase.value : false;
+        test.Utils.changeMask(intrayDocumentSord, dstMaskId).then(function success(intrayDocumentSord1) {
+          intrayDocumentSord1.details.documentContainer = containerMode;
+          test.Utils.checkinSord(intrayDocumentSord1).then(function success1(checkinSordResult) {
+            sourceId = "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/invoice [unit tests]/Resources/ZugferdInvoiceUnittest";
+            test.Utils.execute("RF_sol_function_CopyFolderContents", {
+              objId: archiveTargetId,
+              source: sourceId,
+              copySourceAcl: false,
+              inheritDestinationAcl: true
+            }).then(function success2(jsonResult) {
+              test.Utils.findChildren("ARCPATH:" + entryFolder).then(function success3(sords) {
+                for (i = 0; i < sords.length; i++) {
+                  if ((sords[i].name == intrayDocumentSord1.name) && (sords[i].mask == maskId)) {
+                    objIncomingInvoiceId = sords[i].id;
+                  }
+                }
+                test.Utils.getSord(objIncomingInvoiceId).then(function success4(IncomingInvoiceSord) {
+                  IncomingInvoiceSord.details.fulltext = addToFullTextDatabase;
+                  test.Utils.checkinSord(IncomingInvoiceSord).then(function success5(checkinSordResult1) {
+                    done();
+                  }, function error(err) {
+                    fail(err);
+                    console.error(err);
+                    done();
+                  }
+                  );
+                }, function error(err) {
+                  fail(err);
+                  console.error(err);
+                  done();
+                }
+                );
+              }, function error(err) {
+                fail(err);
+                console.error(err);
+                done();
+              }
+              );
+            }, function error(err) {
+              fail(err);
+              console.error(err);
+              done();
+            }
+            );
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+    it("start invoice workflow", function (done) {
+      expect(function () {
+        test.Utils.getSord(objIncomingInvoiceId).then(function success(IncomingInvoiceSord) {
+          templFlowId = "sol.invoice.Base";
+          flowName = IncomingInvoiceSord.name;
+          test.Utils.startWorkflow(templFlowId, flowName, objIncomingInvoiceId).then(function success1(flowId) {
+            invoiceFlowId = flowId;
+            done();
+          }, function error(err) {
+            fail(err);
+            console.error(err);
+            done();
+          }
+          );
+        }, function error(err) {
+          fail(err);
+          console.error(err);
+          done();
+        }
+        );
+      }).not.toThrow();
+    });
+  });
+
+
+
+
+TODO 09.04.2023
+
+
+VM mit c:/Temp/VMEL... aufbauen
+
+\\qnapqsdvug1.elo.local\Datenaustausch\QS_Public\QSPP-2024-04-09
+
+
+"/ix-" + playwrightConfig.getEloTile().getRepositoryTile() + "/plugin
+
+
+
+TODO Aktuelles LTS mit Playwright testen
+
+von \\ELO_ANWENDUNGEN\ELO_Anwendungen\ELO Business Solutions\stable
+
+aktuelle Solutions auf vm installieren!
+
+dann Playwright tests überalle Solutions laufen lassen!
+
+
+TODO 11.04.2024 Testen im zentraler vm
+
+http://ws22elomisc.elo.local:9090/ix-Demo/ix
+
+
+Status Playwrighttests:
+
+contract 	Okay
+knowledge	Okay
+hr			Okay
+learning	Okay
+productivity	Okay
+pubsec Okay
+recruiting Okay
+visitor Okay
+
+
+
+
+
+Bugfixing Baustein "SelectFolder("Solutions/aa/..")
+
+Rootfolder "Solutions"  in Selectfolder entfernen und zur Laufzeit aus RepositoryTile bestimmen (analog ELOIXConnect  "/ix-" + playwrightConfig.getEloTile().getRepositoryTile() + "/plugin")
+
+Hr, Visitor In JiraConnectionConfig Gruppe Everyone/Jeder durch 9999 ersetzen! testen! Ute Schenk in hr Gruppen hinzufügen
+
+Pubsec Sandra Renz in pubsec Gruppen aufnehmen
+
+
+
+
+http://vmeloruberg:9090/ix-Demo/ix
+
+
+
+
+Danach eine Weile warten bis Aufgaben gefüllt sind (Rechnungsworkflow gleich starten!)
+
+
+2.) Formal check / Manual entry Gruppe "sol.accounting"
+
+	Daniel Cooper schaut in Aufgaben nach!
+	
+	Task "Formelle Prüfung der Rechnung" Workflow annehmen
+	
+	
+	Formular Feld Firmanummer dynkwl IX_GRP_COMPANY_CODE 1000
+				  Kreditorennummer		dynkwl IX_GRP_VENDOR_NO 12345
+				  
+				  Rechnungsnummer text IX_GRP_INVOICE_NUMBER R001
+				  Rechnungsdatum text IX_GRP_INVOICE_DATE  05.03.2024
+				  Besteller dynkwl IX_GRP_PO_PURCHASE_USER Charlotte Bennett
+				  
+	Tab "Fußdaten"
+				  
+				  Gesamtbetrag Netto text IX_GRP_INVOICE_NET_AMOUNT   193,83
+				  Gesamtbetrag Brutto text  IX_GRP_INVOICE_TOTAL_AMOUNT  215.14
+
+				  
+	"Zur Freigabe" klicken
+	
+3.) Line Approval "sol.accounting" 
+
+    Elena Rodriguez schaut in Aufgaben nach!
+	
+	Task "Rechnungsfreigabe einzelner Positionen" Workflow annehmen
+				  
+	"Freigeben" klicken			  
+						
+4.) Approval
+
+	Charlotte Bennett  schaut in Aufgaben nach!
+	
+	Task "Rechnungsfreigabe"
+	
+	"Freigeben" klicken
+	
+5.) Rechnungsfreigabe "sol.management"
+
+    Emily Thomson schaut in Aufgaben nach!
+	
+	Task "Rechnungsfreigabe" Workflow annehmen
+	
+	"Freigeben" klicken
+	
+6.) Accounting "sol.accounting"
+
+	Verona Funk schaut in Aufgaben nach!
+	
+	Task "Buchungsdaten" erfassen Workflow annehmen
+	
+	"Weiterleiten an ERP" klicken!
+	
+	
 
 Z:\ELO Business Solutions\temp\nightly
 

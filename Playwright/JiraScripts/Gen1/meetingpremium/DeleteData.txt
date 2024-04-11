@@ -1,0 +1,5 @@
+{{
+  Login(Administrator|elo)##
+  DeleteArcpath(ARCPATH:/Meetingboard2)##
+  DeleteArcpath(ARCPATH:/Meetingboard2x)
+}}

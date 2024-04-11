@@ -1,0 +1,431 @@
+{
+  "baseURL": "https://eloticksy.elo.com",
+  "username": "J-H.Ruberg@elo.com",
+  "password": "XXX",
+  "testExecutionKey": "QBSHR-66",
+  "eloSolution": {
+    "eloControls": {
+      "Absender": {
+        "selector": "IX_GRP_COMMUNICATION_SENDER",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Beginn": {
+        "selector": "IX_MAP_MEETING_TIMESLOT_START",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Beschlussempfehlung": {
+        "selector": "IX_BLOB_MEETING_PROPOSAL_TEXT",
+        "value": "",
+        "type": "REDACTOR",
+        "operator": "NONE"
+      },
+      "Beschreibung": {
+        "selector": "IX_DESC",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Besprechungsvorlage Versionskommentar": {
+        "selector": "WF_MAP_MEETING_PROPOSAL_VERSION_COMMENT",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Betreff": {
+        "selector": "IX_GRP_COMMUNICATION_SUBJECT",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Datum": {
+        "selector": "IX_MAP_MEETING_TIMESLOT_DAY",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Dokumentenname": {
+        "selector": "IX_MAP_MEETING_FILE_DOCUMENTNAME",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "E-Mail": {
+        "selector": "WF_MAP_MEETING_PERSON_EMAIL",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Empfangsgruppe": {
+        "selector": "IX_MAP_MEETING_NOTIFICATION_RECIPIENTS_",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Ende": {
+        "selector": "IX_MAP_MEETING_TIMESLOT_END",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Finale Version": {
+        "selector": "WF_MAP_SETTING_MINUTES_FINAL",
+        "value": "",
+        "type": "CHECKBOX",
+        "operator": "NONE"
+      },
+      "Freigabe von Sitzungen": {
+        "selector": "IX_MAP_MEETING_BOARD_SETTING_APPROVAL_REQUIRED",
+        "value": "",
+        "type": "CHECKBOX",
+        "operator": "NONE"
+      },
+      "Freigabekommentar": {
+        "selector": "WF_MAP_APP_INITIATOR_COMMENT",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Gesamtprotokoll erstellen": {
+        "selector": "WF_MAP_SETTING_MINUTES_CREATE_TOTAL",
+        "value": "",
+        "type": "CHECKBOX",
+        "operator": "NONE"
+      },
+      "Grund der Absage": {
+        "selector": "IX_BLOB_CANCEL_REASON",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Grund der Verschiebung": {
+        "selector": "IX_BLOB_POSTPONE_REASON",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Grund des Rückzugs": {
+        "selector": "IX_BLOB_MEETING_ITEM_WITHDRAW_REASON",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Keine Frist": {
+        "selector": "Keine Frist",
+        "value": "",
+        "type": "RADIO",
+        "operator": "NONE"
+      },
+      "Kontaktliste auswählen": {
+        "selector": "WF_MAP_MEETING_CONTACTLIST_IMPORT",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Meetingboard Kürzel": {
+        "selector": "IX_GRP_MEETING_BOARD_CODE",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Meetingboard Kürzel Auswahl": {
+        "selector": "IX_GRP_MEETING_BOARD_CODE",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Meetingboard Name": {
+        "selector": "IX_GRP_MEETING_BOARD_NAME",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Meetingboard Name Auswahl": {
+        "selector": "IX_GRP_MEETING_BOARD_NAME",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Nachname": {
+        "selector": "WF_MAP_MEETING_PERSON_LASTNAME",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Nachricht": {
+        "selector": "IX_MAP_MEETING_NOTIFICATION_TEMPLATE_",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Nachricht Betreff": {
+        "selector": "WF_MAP_COMMUNICATION_SUBJECT",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Nachricht Inhalt": {
+        "selector": "IX_BLOB_NOTIFICATION_CONTENT",
+        "value": "",
+        "type": "REDACTOR",
+        "operator": "NONE"
+      },
+      "Name": {
+        "selector": "IX_NAME",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Organisiert von": {
+        "selector": "IX_MAP_MEETING_BOARD_ORGANIZER",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Ort": {
+        "selector": "IX_GRP_MEETING_LOCATION",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Protokoll Dokumentenname": {
+        "selector": "IX_MAP_MEETING_MINUTES_DOCUMENTNAME",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Protokoll Versionskommentar": {
+        "selector": "WF_MAP_MEETING_MINUTES_VERSION_COMMENT",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Protokollauszug Thema1": {
+        "selector": "WF_MAP_MEETING_ITEM_PARTIAL_INSERT1",
+        "value": "",
+        "type": "CHECKBOX",
+        "operator": "NONE"
+      },
+      "Protokollauszug Thema2": {
+        "selector": "WF_MAP_MEETING_ITEM_PARTIAL_INSERT2",
+        "value": "",
+        "type": "CHECKBOX",
+        "operator": "NONE"
+      },
+      "Protokollauszug Thema3": {
+        "selector": "WF_MAP_MEETING_ITEM_PARTIAL_INSERT3",
+        "value": "",
+        "type": "CHECKBOX",
+        "operator": "NONE"
+      },
+      "Protokollauszug erstellen": {
+        "selector": "WF_MAP_SETTING_MINUTES_CREATE_PARTIAL",
+        "value": "",
+        "type": "CHECKBOX",
+        "operator": "NONE"
+      },
+      "Protokolliert von": {
+        "selector": "IX_GRP_MEETING_BOARD_MINUTE_TAKER",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Raum": {
+        "selector": "IX_GRP_MEETING_ROOM",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Sitzung Auswahl": {
+        "selector": "IX_GRP_MEETING_NAME",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Sitzung Beschreibung": {
+        "selector": "Hinterlegen Sie eine Beschreibung der Sitzung.",
+        "value": "",
+        "type": "REDACTOR",
+        "operator": "NONE"
+      },
+      "Sitzung Protokolliert von": {
+        "selector": "IX_GRP_MEETING_MINUTE_TAKER",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Sitzung TOP Dauer in Min": {
+        "selector": "IX_GRP_MEETING_ITEM_DURATION",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Sitzung TOP Titel": {
+        "selector": "IX_GRP_MEETING_ITEM_TITLE",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Sitzung Titel": {
+        "selector": "IX_GRP_MEETING_NAME",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Sprecher E-Mail": {
+        "selector": "IX_MAP_MEETING_ITEM_SPEAKER_EMAIL",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Sprecher Nachname": {
+        "selector": "IX_MAP_MEETING_ITEM_SPEAKER_LASTNAME",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Sprecher Vorname": {
+        "selector": "IX_MAP_MEETING_ITEM_SPEAKER_FIRSTNAME",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Standardname": {
+        "selector": "IX_MAP_MEETING_BOARD_MEETING_DEFAULT_NAME",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "TOP Beschreibung": {
+        "selector": "WF_MAP_MEETING_ITEM_DESC",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "TOP Beschreibung Redactor": {
+        "selector": "Hinterlegen Sie eine Beschreibung des TOPs.",
+        "value": "",
+        "type": "REDACTOR",
+        "operator": "NONE"
+      },
+      "TOP Dauer in Min": {
+        "selector": "WF_MAP_MEETING_ITEM_DURATION",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "TOP Titel": {
+        "selector": "WF_MAP_MEETING_ITEM_TITLE",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "TOP in Agenda": {
+        "selector": "IX_MAP_ATTACH_TO_AGENDA",
+        "value": "",
+        "type": "CHECKBOX",
+        "operator": "NONE"
+      },
+      "TOPs in Agenda": {
+        "selector": "IX_MAP_MEETING_BOARD_SETTING_ITEMTOAGENDA",
+        "value": "",
+        "type": "CHECKBOX",
+        "operator": "NONE"
+      },
+      "Tag": {
+        "selector": "IX_MAP_MEETING_NOTIFICATION_REFERENCE_DATE_",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Termin freigeben": {
+        "selector": "WF_MAP_MEETING_APPROVAL_UPDATED",
+        "value": "",
+        "type": "CHECKBOX",
+        "operator": "NONE"
+      },
+      "Themensammlung Auswahl": {
+        "selector": "IX_MAP_MEETING_ITEM_POOL_NAME",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Themensammlung Beschreibung": {
+        "selector": "IX_DESC",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Themensammlung Bezeichnung": {
+        "selector": "IX_GRP_MEETING_ITEM_POOL_NAME",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Verantwortlich": {
+        "selector": "IX_GRP_MEETING_ITEM_RESPONSIBLE_PERSON",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Verschiebung um Betrag": {
+        "selector": "IX_MAP_MEETING_NOTIFICATION_SHIFT_VALUE_",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Verschiebung um Einheit": {
+        "selector": "IX_MAP_MEETING_NOTIFICATION_SHIFT_UNIT_",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Verschiebung um Vor Nach": {
+        "selector": "IX_MAP_MEETING_NOTIFICATION_SIGN_",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Versionskommentar": {
+        "selector": "WF_MAP_MEETING_FILE_VERSION_COMMENT",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Vorname": {
+        "selector": "WF_MAP_MEETING_PERSON_FIRSTNAME",
+        "value": "",
+        "type": "DYNKWL",
+        "operator": "NONE"
+      },
+      "Wiederholung Beginn": {
+        "selector": "WF_MAP_MEETING_REPETITION_START",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Wiederholung Ende": {
+        "selector": "WF_MAP_MEETING_REPETITION_END",
+        "value": "",
+        "type": "TEXT",
+        "operator": "NONE"
+      },
+      "Wiederholungen anlegen": {
+        "selector": "WF_MAP_MEETING_REPETITION_CREATE",
+        "value": "",
+        "type": "CHECKBOX",
+        "operator": "NONE"
+      }
+    },
+    "eloTables": {},
+    "eloPrecondition": {
+      "eloUsers": [],
+      "eloTemplates": [],
+      "eloFilingPlans": []
+    },
+    "eloSolutionName": "meetingpremium"
+  }
+}

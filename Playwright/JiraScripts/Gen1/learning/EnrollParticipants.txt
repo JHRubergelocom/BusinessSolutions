@@ -1,6 +1,6 @@
 {{
   Login(Sandra Renz|elo)##
-  SelectFolder(Solutions/Kursverwaltung/Kurse/Academy 2.0)##
+  SelectFolder(Demo/Kursverwaltung/Kurse/Academy 2.0)##
   OpenFormular(Kurs|Teilnehmereinschreiben)##
   SelectUserGroup(Teilnehmer hinzufügen|Gerd Baum)##
   QuitButton(OK)

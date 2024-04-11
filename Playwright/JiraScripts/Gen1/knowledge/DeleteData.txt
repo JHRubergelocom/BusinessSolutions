@@ -1,0 +1,5 @@
+{{
+  Login(Administrator|elo)##
+  DeleteArcpath(ARCPATH:/Schwarzes Brett Putzen)##
+  DeleteArcpath(ARCPATH:/Putzen muss jeder)##
+}}

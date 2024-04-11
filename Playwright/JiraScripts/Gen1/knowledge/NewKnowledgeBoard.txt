@@ -2,7 +2,7 @@
   Login(Bodo Kraft|elo)##
   OpenFormular(Neu|Knowledge|Neues Wissensboard)##
   SelectDialogItem(Community Board)##
-  InputField(Name|Putzen muss jeder)##
-  CheckFieldEqual(Name|Putzen muss jeder)##
+  InputField(Name|Schwarzes Brett Putzen)##
+  CheckFieldEqual(Name|Schwarzes Brett Putzen)##
   QuitButton(OK)
 }}

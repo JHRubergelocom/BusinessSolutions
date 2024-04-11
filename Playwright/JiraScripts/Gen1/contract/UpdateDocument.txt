@@ -1,6 +1,6 @@
 {{
   Login(Gerd Baum|elo)##
-  SelectFolder(Solutions/Vertragsmanagement/Verträge/Abonnement/C/Contelo Verlag/CD000004 Spogel Magazin/Kündigung/Kündigung)##
+  SelectFolder(Demo/Vertragsmanagement/Verträge/Abonnement/C/Contelo Verlag/CD000004 Spogel Magazin/Kündigung/Kündigung)##
   OpenFormular(Vertrag|Dokumentaktualisieren)##
   selectDialogItem(Nur Felder)##
   QuitButton(OK)

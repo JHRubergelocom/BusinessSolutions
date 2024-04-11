@@ -1,6 +1,6 @@
 {{
   Login(Sandra Renz|elo)##
-  SelectFolder(Solutions/1 - Zentrale Verwaltung/10 - Zentrale Verwaltung im allgemeinen/1000 - Zentrale Verwaltung im allgemeinen/Test Personalakten/Worddokument Personalakten)##
+  SelectFolder(Demo/1 - Zentrale Verwaltung/10 - Zentrale Verwaltung im allgemeinen/1000 - Zentrale Verwaltung im allgemeinen/Test Personalakten/Worddokument Personalakten)##
   OpenFormular(E-Akte|Word-Dateiaktualisieren)##
   QuitButton(OK)
 }}

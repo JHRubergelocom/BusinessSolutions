@@ -1,6 +1,6 @@
 {{
   Login(Ute Schenk|elo)##
-  SelectFolder(Solutions/Personalmanagement/Organigramm)##
+  SelectFolder(Demo/Personalmanagement/Organigramm)##
   OpenFormular(Neu|Personal|Neue Organisation)##
   InputField(Neue Organisation|Firma Hansens)##
   QuitButton(OK)
