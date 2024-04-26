@@ -31,15 +31,10 @@
       <name>lib_sol.common.as.FunctionBase</name>
       <name>lib_sol.common.as.renderer.Fop</name>
       <name>lib_sol.common.as.Utils</name>
-      <name>lib_sol.connector_dx.DXUtils</name>
-      <name>sol.connector_dx.as.functions.Export</name>
       <name>lib_sol.connector_xml.Converter</name>
       <name>lib_sol.connector_xml.DocumentImporter</name>
       <name>lib_sol.connector_xml.Utils</name>
       <name>lib_sol.invoice.as.InvoiceXmlImporter</name>
-      <name>lib_sol.invoice_datev.as.Utils</name>
-      <name>lib_sol.invoice_datev.as.export.HtmlLog</name>
-      <name>lib_sol.invoice_datev.as.functions.Export</name>
       <name>lib_sol.invoice_electronic.as.ExtractDataTest</name>
       <name>lib_sol.invoice_electronic.as.functions.ExtractData</name>
       <name>lib_sol.invoice_electronic.as.postProcessing.XRechnung</name>

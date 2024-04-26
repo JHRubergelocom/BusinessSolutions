@@ -49,18 +49,6 @@
             "elo": "/Business Solutions/invoice [demo de]"
         },
         {
-            "folder": "./Business Solutions/connector_dx",
-            "elo": "/Business Solutions/connector_dx"
-        },
-        {
-            "folder": "./Business Solutions Custom/connector_dx",
-            "elo": "/Business Solutions Custom/connector_dx"
-        },
-        {
-            "folder": "./Business Solutions/invoice_datev",
-            "elo": "/Business Solutions/invoice_datev"
-        },
-        {
             "folder": "./Business Solutions/Unit Tests",
             "elo": "/Business Solutions/invoice [unit tests]"
         }

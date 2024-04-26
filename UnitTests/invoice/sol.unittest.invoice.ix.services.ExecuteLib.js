@@ -6,7 +6,6 @@ importPackage(Packages.de.elo.ix.client);
 //@include lib_sol.common.Map.js
 //@include lib_sol.common.ix.DynKwlUtils.js
 //@include lib_sol.common.ix.ServiceBase.js
-//@include lib_sol.connector_dx.DXUtils.js
 //@include lib_sol.invoice.Converter.js
 //@include lib_sol.invoice.ix.Invoice.js
 //@include lib_sol.invoice.ix.LineApprovalMixin.js

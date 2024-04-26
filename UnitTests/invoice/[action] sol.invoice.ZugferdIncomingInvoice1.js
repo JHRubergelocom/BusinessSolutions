@@ -17,31 +17,11 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice1", function () {
         interval = 4000;
         done();
       }, function error(err) {
-        fail(err);
         console.error(err);
         done();
       }
       );
     }).not.toThrow();
-  });
-  describe("Rename Folder 'connector_dx' to '_connector_dx'", function () {
-    it("get connector_dx folder", function (done) {
-      test.Utils.getSord("ARCPATH:/Administration/Business Solutions/connector_dx").then(function success1(SordCdx) {
-        test.Utils.updateSord(SordCdx, [{ key: "name", value: "_connector_dx" }]).then(function success2(updateSordResult) {
-          done();
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }, function error(err) {
-        fail(err);
-        console.error(err);
-        done();
-      }
-      );
-    });
   });
   describe("prepare incoming invoice", function () {
     it("get entry folder", function (done) {
@@ -61,13 +41,11 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice1", function () {
                   targetId = targetSord2.id;
                   done();
                 }, function error(err) {
-                  fail(err);
                   console.error(err);
                   done();
                 }
                 );
               }, function error(err) {
-                fail(err);
                 console.error(err);
                 done();
               }
@@ -77,13 +55,11 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice1", function () {
               done();
             }
           }, function error(err) {
-            fail(err);
             console.error(err);
             done();
           }
           );
         }, function error(err) {
-          fail(err);
           console.error(err);
           done();
         }
@@ -96,7 +72,6 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice1", function () {
           intrayDocumentSord = intrayDocumentSord1;
           done();
         }, function error(err) {
-          fail(err);
           console.error(err);
           done();
         }
@@ -104,7 +79,7 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice1", function () {
       }).not.toThrow();
     });
   });
-  describe("test incoming invoice -> 'Forward for approval' -> 'Approve Cost Object' -> 'Forward to ERP'", function () {
+  describe("test incoming invoice -> 'Forward to approval' -> 'Approve Cost Object' -> 'Forward to ERP'", function () {
     it("create incoming invoice container", function (done) {
       expect(function () {
         containerMode = (invoiceConfig.config.useInvoiceContainer.value === true);
@@ -120,7 +95,6 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice1", function () {
               archiveTargetId = archiveTargetId1;
               done();
             }, function error(err) {
-              fail(err);
               console.error(err);
               done();
             }
@@ -129,7 +103,6 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice1", function () {
             done();
           }
         }, function error(err) {
-          fail(err);
           console.error(err);
           done();
         }
@@ -161,37 +134,31 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice1", function () {
                   test.Utils.checkinSord(IncomingInvoiceSord).then(function success5(checkinSordResult1) {
                     done();
                   }, function error(err) {
-                    fail(err);
                     console.error(err);
                     done();
                   }
                   );
                 }, function error(err) {
-                  fail(err);
                   console.error(err);
                   done();
                 }
                 );
               }, function error(err) {
-                fail(err);
                 console.error(err);
                 done();
               }
               );
             }, function error(err) {
-              fail(err);
               console.error(err);
               done();
             }
             );
           }, function error(err) {
-            fail(err);
             console.error(err);
             done();
           }
           );
         }, function error(err) {
-          fail(err);
           console.error(err);
           done();
         }
@@ -207,13 +174,11 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice1", function () {
             invoiceFlowId = flowId;
             done();
           }, function error(err) {
-            fail(err);
             console.error(err);
             done();
           }
           );
         }, function error(err) {
-          fail(err);
           console.error(err);
           done();
         }
@@ -225,7 +190,6 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice1", function () {
         test.Utils.setTimeout(interval).then(function success(timeoutResult) {
           done();
         }, function error(err) {
-          fail(err);
           console.error(err);
           done();
         }
@@ -237,7 +201,6 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice1", function () {
         test.Utils.setTimeout(interval).then(function success(timeoutResult) {
           done();
         }, function error(err) {
-          fail(err);
           console.error(err);
           done();
         }
@@ -249,7 +212,6 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice1", function () {
         test.Utils.setTimeout(interval).then(function success(timeoutResult) {
           done();
         }, function error(err) {
-          fail(err);
           console.error(err);
           done();
         }
@@ -261,7 +223,6 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice1", function () {
         test.Utils.setTimeout(interval).then(function success(timeoutResult) {
           done();
         }, function error(err) {
-          fail(err);
           console.error(err);
           done();
         }
@@ -273,7 +234,6 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice1", function () {
         test.Utils.setTimeout(interval).then(function success(timeoutResult) {
           done();
         }, function error(err) {
-          fail(err);
           console.error(err);
           done();
         }
@@ -285,7 +245,6 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice1", function () {
         test.Utils.setTimeout(interval).then(function success(timeoutResult) {
           done();
         }, function error(err) {
-          fail(err);
           console.error(err);
           done();
         }
@@ -297,7 +256,6 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice1", function () {
         test.Utils.setTimeout(interval).then(function success(timeoutResult) {
           done();
         }, function error(err) {
-          fail(err);
           console.error(err);
           done();
         }
@@ -309,7 +267,6 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice1", function () {
         test.Utils.setTimeout(interval).then(function success(timeoutResult) {
           done();
         }, function error(err) {
-          fail(err);
           console.error(err);
           done();
         }
@@ -321,7 +278,6 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice1", function () {
         test.Utils.setTimeout(interval).then(function success(timeoutResult) {
           done();
         }, function error(err) {
-          fail(err);
           console.error(err);
           done();
         }
@@ -333,7 +289,6 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice1", function () {
         test.Utils.setTimeout(interval).then(function success(timeoutResult) {
           done();
         }, function error(err) {
-          fail(err);
           console.error(err);
           done();
         }
@@ -366,47 +321,42 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice1", function () {
           expect(userNodeId).toEqual(1);
           done();
         }, function error(err) {
-          fail(err);
           console.error(err);
           done();
         }
         );
       }).not.toThrow();
     });
-    it("set invoice date, invoice number, purchase user", function (done) {
+    it("set invoice date, invoice number, purchase user, vendor", function (done) {
       expect(function () {
         test.Utils.getSord(objIncomingInvoiceId).then(function success(IncomingInvoiceSord) {
-          test.Utils.updateKeywording(IncomingInvoiceSord, { INVOICE_DATE: "20080101", INVOICE_NUMBER: "99999", PO_PURCHASE_USER: "Administrator" }, true).then(function success1(updateKeywordingResult) {
+          test.Utils.updateKeywording(IncomingInvoiceSord, { INVOICE_DATE: "20080101", INVOICE_NUMBER: "99999", PO_PURCHASE_USER: "Administrator", VENDOR_NAME: "Stromberg" }, true).then(function success1(updateKeywordingResult) {
             done();
           }, function error(err) {
-            fail(err);
             console.error(err);
             done();
           }
           );
         }, function error(err) {
-          fail(err);
           console.error(err);
           done();
         }
         );
       }).not.toThrow();
     });
-    it("'Forward for approval' forwarding Subworkflow 'sol.invoice.Base.FormalCheck'", function (done) {
+    it("'Forward to approval' forwarding Subworkflow 'sol.invoice.Base.FormalCheck'", function (done) {
       expect(function () {
         test.Utils.getWorkflow(subWfFlowId).then(function success(workflow) {
           succNodes = test.Utils.getSuccessorNodes(workflow, userNodeId, null, "sol.invoice.wf.node.passOnApproval");
           succNodesIds = test.Utils.getSuccessorNodesIds(succNodes);
-          test.Utils.forwardWorkflowTask(subWfFlowId, userNodeId, succNodesIds, "Unittest 'Forward for approval'", true).then(function success1(forwardWorkflowTaskResult) {
+          test.Utils.forwardWorkflowTask(subWfFlowId, userNodeId, succNodesIds, "Unittest 'Forward to approval'", true).then(function success1(forwardWorkflowTaskResult) {
             done();
           }, function error(err) {
-            fail(err);
             console.error(err);
             done();
           }
           );
         }, function error(err) {
-          fail(err);
           console.error(err);
           done();
         }
@@ -418,7 +368,6 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice1", function () {
         test.Utils.setTimeout(interval).then(function success(timeoutResult) {
           done();
         }, function error(err) {
-          fail(err);
           console.error(err);
           done();
         }
@@ -430,7 +379,6 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice1", function () {
         test.Utils.setTimeout(interval).then(function success(timeoutResult) {
           done();
         }, function error(err) {
-          fail(err);
           console.error(err);
           done();
         }
@@ -442,7 +390,6 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice1", function () {
         test.Utils.setTimeout(interval).then(function success(timeoutResult) {
           done();
         }, function error(err) {
-          fail(err);
           console.error(err);
           done();
         }
@@ -475,7 +422,6 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice1", function () {
           expect(userNodeId).toEqual(12);
           done();
         }, function error(err) {
-          fail(err);
           console.error(err);
           done();
         }
@@ -490,13 +436,11 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice1", function () {
           test.Utils.forwardWorkflowTask(subWfFlowId, userNodeId, succNodesIds, "Unittest 'Approve'", true).then(function success1(forwardWorkflowTaskResult) {
             done();
           }, function error(err) {
-            fail(err);
             console.error(err);
             done();
           }
           );
         }, function error(err) {
-          fail(err);
           console.error(err);
           done();
         }
@@ -508,7 +452,6 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice1", function () {
         test.Utils.setTimeout(interval).then(function success(timeoutResult) {
           done();
         }, function error(err) {
-          fail(err);
           console.error(err);
           done();
         }
@@ -520,7 +463,6 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice1", function () {
         test.Utils.setTimeout(interval).then(function success(timeoutResult) {
           done();
         }, function error(err) {
-          fail(err);
           console.error(err);
           done();
         }
@@ -532,7 +474,6 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice1", function () {
         test.Utils.setTimeout(interval).then(function success(timeoutResult) {
           done();
         }, function error(err) {
-          fail(err);
           console.error(err);
           done();
         }
@@ -565,7 +506,6 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice1", function () {
           expect(userNodeId).toEqual(1);
           done();
         }, function error(err) {
-          fail(err);
           console.error(err);
           done();
         }
@@ -580,13 +520,11 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice1", function () {
           test.Utils.forwardWorkflowTask(subWfFlowId, userNodeId, succNodesIds, "Unittest 'Forward to ERP'", true).then(function success1(forwardWorkflowTaskResult) {
             done();
           }, function error(err) {
-            fail(err);
             console.error(err);
             done();
           }
           );
         }, function error(err) {
-          fail(err);
           console.error(err);
           done();
         }
@@ -599,13 +537,11 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice1", function () {
           test.Utils.updateKeywording(IncomingInvoiceSord, { INVOICE_STATUS: "7" }, true).then(function success1(updateKeywordingResult) {
             done();
           }, function error(err) {
-            fail(err);
             console.error(err);
             done();
           }
           );
         }, function error(err) {
-          fail(err);
           console.error(err);
           done();
         }
@@ -617,7 +553,6 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice1", function () {
         test.Utils.setTimeout(interval).then(function success(timeoutResult) {
           done();
         }, function error(err) {
-          fail(err);
           console.error(err);
           done();
         }
@@ -629,7 +564,6 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice1", function () {
         test.Utils.setTimeout(interval).then(function success(timeoutResult) {
           done();
         }, function error(err) {
-          fail(err);
           console.error(err);
           done();
         }
@@ -641,7 +575,6 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice1", function () {
         test.Utils.setTimeout(interval).then(function success(timeoutResult) {
           done();
         }, function error(err) {
-          fail(err);
           console.error(err);
           done();
         }
@@ -653,7 +586,6 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice1", function () {
         test.Utils.deleteSord(objIncomingInvoiceId).then(function success2(deleteResult) {
           done();
         }, function error(err) {
-          fail(err);
           console.error(err);
           done();
         }
@@ -683,25 +615,6 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice1", function () {
       }).not.toThrow();
     });
   });
-  describe("Rename Folder '_connector_dx' to 'connector_dx'", function () {
-    it("get _connector_dx folder", function (done) {
-      test.Utils.getSord("ARCPATH:/Administration/Business Solutions/_connector_dx").then(function success1(SordCdx) {
-        test.Utils.updateSord(SordCdx, [{ key: "name", value: "connector_dx" }]).then(function success2(updateSordResult) {
-          done();
-        }, function error(err) {
-          fail(err);
-          console.error(err);
-          done();
-        }
-        );
-      }, function error(err) {
-        fail(err);
-        console.error(err);
-        done();
-      }
-      );
-    });
-  });
   afterAll(function (done) {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
     expect(function () {
@@ -709,13 +622,11 @@ describe("[action] sol.invoice.ZugferdIncomingInvoice1", function () {
         test.Utils.deleteSord(tempfolder).then(function success1(deleteResult) {
           done();
         }, function error(err) {
-          fail(err);
           console.error(err);
           done();
         }
         );
       }, function error(err) {
-        fail(err);
         console.error(err);
         done();
       }

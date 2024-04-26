@@ -593,6 +593,31 @@ RF_sol_demo_service_ExecuteSqlScripts
   "scriptFolderRepoPath": "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Business Solutions/demo/SQL scripts"
 }
 
+=====================================================================================================================================================================
+
+TODO 15.04.2024 Testen im zentraler vm
+
+ws22elomisc.elo.local
+
+
+IX: http://ws22elomisc.elo.local:9090/ix-Demo/ix
+ 
+AS: http://ws22elomisc.elo.local:9070/as-Demo 
+ 
+ 
+RDP: 
+Hostname: 10.49.110.199\
+Username: 10.49.110.199\Administrator
+PW: Elo123
+ 
+ELO:
+Administrator
+elo
+ 
+Tomcat:
+admin
+elo
+
 
 
 =====================================================================================================================================================================
@@ -2905,100 +2930,10 @@ invoice 			elo-sol prepare -stack ruberg-invoice -workspace jan -version 20.00
 
 Szenario für playwright test invoice überlegen
 
-    private List<ELOFilingPlan> createELOFilingPlans() {
-        // Import Filingplan
-        List<ELOFilingPlan> eloFilingPlans = new ArrayList<>();
 
-        List<String> arcPathFilingPlans = new ArrayList<>();
-        arcPathFilingPlans.add("ARCPATH:/1 - Zentrale Verwaltung");
-        arcPathFilingPlans.add("ARCPATH:/2 - Konzeptentwicklung, Publikationen, Veranstaltungen");
-        arcPathFilingPlans.add("ARCPATH:/3 - Öffentlichkeitsarbeit, Zusammenarbeit und Kooperation, Trägerförderung");
-
-        String arcPathImportedFilingPlans = "ARCPATH[(E10E1000-E100-E100-E100-E10E10E10E00)]:/Imported Filing Plans";
-        String filePathImportFile = "data/documents/FilePlanExcel.csv";
-        String arcPathStartFolder = "ARCPATH:/";
-
-        ELOFilingPlan eloFilingPlan = new ELOFilingPlan(arcPathFilingPlans,arcPathImportedFilingPlans,filePathImportFile,arcPathStartFolder);
-        eloFilingPlans.add(eloFilingPlan);
-        return eloFilingPlans;
-    }
-
-
-
-
-        // Execute RF
-        try {
-            String funcName = "RF_sol_common_service_ExecuteAsAction";
-            String jsonParam = "{ \"action\": \"sol.hr.PersonnelFileReminder\", \"config\": {} }";
-            ELORf eloRf = new ELORf(funcName, jsonParam);
-            System.out.println("eloRf " + eloRf);
-            String rfResult = RfUtils.executeRF(ixConn, eloRf, debug);
-            System.out.println("rfResult: " + rfResult);
-        } catch (Exception ex) {
-            if (debug) {
-                System.err.println("testExecuteRF message: " +  ex.getMessage());
-            }
-        }
-
-
-        try {
-            RfUtils.executeAsAction(ixConn, eloAsAction, debug);
-        } catch (Exception ex) {
-            if (debug) {
-                System.err.println("Exception message: " + ex.getMessage());
-            }
-            reportData.reportMessage("<span>" + "Exception message: " + ex.getMessage() + "</span>");
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-package jirarestapi;
-
-import java.util.List;
-
-public class ELOInvoice {
-    private final List<String> filePathInvoices;
-
-    public ELOInvoice(List<String> filePathInvoices) {
-        this.filePathInvoices = filePathInvoices;
-    }
-
-    public List<String> getFilePathInvoices() {
-        return filePathInvoices;
-    }
-
-    @Override
-    public String toString() {
-        return "ELOInvoice{" +
-                "filePathInvoices=" + filePathInvoices +
-                '}';
-    }
-}
-
-    private List<ELOInvoice> createELOInvoices() {
-        return new ArrayList<>();
-    }
-
-
-
-
-0.) Ordner Solutions\Invoice\Archive\2024 entfernen! (DeleteData.txt)
+0.) Ordner Solutions\Invoice\Archive\2024 
+	Ordner Solutions\Invoice\Invoice
+	entfernen! (DeleteData.txt)
 
 1.) Bodo Kraft legt eine Rechnung in den Posteingang ab "ZugferdInvoiceUnittest"
 
@@ -3192,8 +3127,6 @@ eloScriptButton703Start: function () {
       throw "no '" + mode + "' mode implemented";
     }
   }
-
-
 
 
 
@@ -3398,64 +3331,6 @@ eloScriptButton703Start: function () {
 
 
 
-TODO 09.04.2023
-
-
-VM mit c:/Temp/VMEL... aufbauen
-
-\\qnapqsdvug1.elo.local\Datenaustausch\QS_Public\QSPP-2024-04-09
-
-
-"/ix-" + playwrightConfig.getEloTile().getRepositoryTile() + "/plugin
-
-
-
-TODO Aktuelles LTS mit Playwright testen
-
-von \\ELO_ANWENDUNGEN\ELO_Anwendungen\ELO Business Solutions\stable
-
-aktuelle Solutions auf vm installieren!
-
-dann Playwright tests überalle Solutions laufen lassen!
-
-
-TODO 11.04.2024 Testen im zentraler vm
-
-http://ws22elomisc.elo.local:9090/ix-Demo/ix
-
-
-Status Playwrighttests:
-
-contract 	Okay
-knowledge	Okay
-hr			Okay
-learning	Okay
-productivity	Okay
-pubsec Okay
-recruiting Okay
-visitor Okay
-
-
-
-
-
-Bugfixing Baustein "SelectFolder("Solutions/aa/..")
-
-Rootfolder "Solutions"  in Selectfolder entfernen und zur Laufzeit aus RepositoryTile bestimmen (analog ELOIXConnect  "/ix-" + playwrightConfig.getEloTile().getRepositoryTile() + "/plugin")
-
-Hr, Visitor In JiraConnectionConfig Gruppe Everyone/Jeder durch 9999 ersetzen! testen! Ute Schenk in hr Gruppen hinzufügen
-
-Pubsec Sandra Renz in pubsec Gruppen aufnehmen
-
-
-
-
-http://vmeloruberg:9090/ix-Demo/ix
-
-
-
-
-Danach eine Weile warten bis Aufgaben gefüllt sind (Rechnungsworkflow gleich starten!)
 
 
 2.) Formal check / Manual entry Gruppe "sol.accounting"
@@ -3465,7 +3340,7 @@ Danach eine Weile warten bis Aufgaben gefüllt sind (Rechnungsworkflow gleich st
 	Task "Formelle Prüfung der Rechnung" Workflow annehmen
 	
 	
-	Formular Feld Firmanummer dynkwl IX_GRP_COMPANY_CODE 1000
+	Formular Feld Buchungskreis dynkwl IX_GRP_COMPANY_CODE 1000
 				  Kreditorennummer		dynkwl IX_GRP_VENDOR_NO 12345
 				  
 				  Rechnungsnummer text IX_GRP_INVOICE_NUMBER R001
@@ -3512,6 +3387,21 @@ Danach eine Weile warten bis Aufgaben gefüllt sind (Rechnungsworkflow gleich st
 	
 	"Weiterleiten an ERP" klicken!
 	
+
+=====================================================================================================================================================================
+	
+	
+TODO 26.04.2024
+
+JiraScripts/Gen1/pubsec/ReclassifyFile.txt  Testreport untersuchen!
+
+
+Visitor Fehlermeldung bei Firma voranmelden in test und report abfangen!
+
+Jira-Tests Namen anpassen!
+	
+	
+=====================================================================================================================================================================
 	
 
 Z:\ELO Business Solutions\temp\nightly
